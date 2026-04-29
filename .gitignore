@@ -1,0 +1,73 @@
+# --- Node / pnpm / Next.js ---
+node_modules/
+.pnp.*
+.yarn/
+.next/
+out/
+build/
+dist/
+.turbo/
+.pnpm-store/
+*.tsbuildinfo
+next-env.d.ts
+
+# --- Python (Stage A~ 백엔드용) ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+env/
+.uv/
+.python-version
+
+# --- 환경 변수 / 시크릿 ---
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.dev.vars
+
+# --- 로그 / 디버그 ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- 캐시 ---
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+
+# --- 테스트 / 커버리지 ---
+coverage/
+.nyc_output/
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+
+# --- IDE / OS ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Cloudflare ---
+.wrangler/
+
+# --- 로컬 임시 데이터 ---
+*.tmp
+.tmp/
+tmp/
+
+# --- 시뮬 분포 빌드 산출물 (F2 단계) ---
+# 빌드 타임에 생성되므로 빌드 자동화 후 ignore로 전환 검토
+# frontend/public/distributions/
