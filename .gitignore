@@ -60,6 +60,10 @@ htmlcov/
 Thumbs.db
 desktop.ini
 
+# --- AI 어시스턴트 로컬 메타 ---
+.claude/
+.cursor/
+
 # --- Cloudflare ---
 .wrangler/
 

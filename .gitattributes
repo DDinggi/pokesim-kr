@@ -1,0 +1,60 @@
+# 기본: 텍스트 자동 감지 + LF 통일 (Windows에서도 LF 저장, 체크아웃 시도 LF)
+* text=auto eol=lf
+
+# --- 명시적 텍스트 (LF 강제) ---
+*.ts        text eol=lf
+*.tsx       text eol=lf
+*.js        text eol=lf
+*.jsx       text eol=lf
+*.mjs       text eol=lf
+*.cjs       text eol=lf
+*.json      text eol=lf
+*.jsonc     text eol=lf
+*.md        text eol=lf
+*.mdx       text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+*.toml      text eol=lf
+*.css       text eol=lf
+*.scss      text eol=lf
+*.html      text eol=lf
+*.svg       text eol=lf
+*.py        text eol=lf
+*.sh        text eol=lf
+*.env       text eol=lf
+.gitignore       text eol=lf
+.gitattributes   text eol=lf
+.editorconfig    text eol=lf
+Dockerfile       text eol=lf
+
+# --- Windows 배치 (CRLF 필수) ---
+*.bat       text eol=crlf
+*.cmd       text eol=crlf
+*.ps1       text eol=crlf
+
+# --- 바이너리 (diff/머지 X) ---
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.webp      binary
+*.avif      binary
+*.ico       binary
+*.woff      binary
+*.woff2     binary
+*.ttf       binary
+*.eot       binary
+*.otf       binary
+*.pdf       binary
+*.zip       binary
+*.gz        binary
+*.tar       binary
+*.7z        binary
+*.mp3       binary
+*.mp4       binary
+*.webm      binary
+
+# --- GitHub linguist (R2 카드 이미지 등 통계 노이즈 방지) ---
+data/raw/**          linguist-vendored
+frontend/public/sets/**           linguist-generated
+frontend/public/distributions/**  linguist-generated
