@@ -1316,25 +1316,21 @@ main 직접 push 안 함 (실수 방지).
 ## 18. 현재 작업 단계
 
 ```
-현재: D1 인프라 셋업 진행 중 (로컬 영역 완료, 외부 영역 대기)
-완료:
+현재: D1 인프라 셋업 외부 작업 모두 완료. D2 진입 준비.
+완료 (계획/로컬):
   - SSOT 8개 문서 → AGENTS.md 통합
   - 노션 페이지 3개 (요약, 의사결정 타임라인, 일일 로그)
   - 코딩 컨벤션 결정 (D-120 ~ D-131)
   - D1 로컬: 폴더 구조(frontend/, data/, docs/adr/), .gitignore,
             .gitattributes, README.md(포트폴리오용), git init + 첫 커밋
-대기 (외부 작업):
-  - GitHub 레포 `pokesim-kr` (public) 생성 + 원격 push
-  - GitHub branch protection ON (D-134, main 직접 push 금지)
-  - Cloudflare 계정 + Workers (Static Assets), R2 셋업
 완료 (외부 작업):
   - Node 22 LTS / pnpm 설치 (공식 .msi, 한글 사용자명 회피)
-  - GitHub 레포 `DDinggi/pokesim-kr` 생성 + origin remote 연결 + 첫 원격 push
+  - GitHub 레포 `DDinggi/pokesim-kr` (public) 생성 + origin remote 연결 + 첫 원격 push
   - GitHub branch protection ON (D-134, main 직접 push 금지, PR-only)
   - Cloudflare 계정 결제수단 등록 (R2 활성화 전제)
-대기 (외부 작업):
-  - Cloudflare Workers (Static Assets) 신규 프로젝트 + GitHub 레포 연결
-  - Cloudflare R2 버킷 생성 (카드 이미지용)
+  - Cloudflare Workers 프로젝트 `pokesim-kr` 생성 + GitHub 레포 자동 빌드 연결
+    (현재는 wrangler.toml 부재로 빌드 실패 — D2/MVP에서 Next.js + wrangler.toml 추가 시 통과)
+  - Cloudflare R2 버킷 `pokesim-kr-cards` 생성 (Standard, Automatic/APAC)
 다음:
   - D2: 시작 세트 결정 + 1세트 카드 데이터 수집 (출처 메타 필수)
 사용자 누적: 0 (MVP 전)
@@ -1371,6 +1367,7 @@ main 직접 push 안 함 (실수 방지).
 - 2026-04-30 — Node 런타임을 22 LTS로 확정 (20 LTS EOL 회피). 16절 D1 체크리스트 + README 개발 절 동기화.
 - 2026-04-30 — 안전 규칙 / 변경 되돌리기 7개(D-132~D-138) 추가. 17절 서브섹션 신설, 15절 인덱스 카테고리 추가, 16절 D1 체크리스트에 branch protection 항목 포함, Node 22 설치 완료 반영.
 - 2026-04-30 — **D-002 변경: Cloudflare Pages → Workers (Static Assets).** 2026 Cloudflare가 신규 Pages 생성을 Workers로 일원화. 정적 자산 대역폭 무제한 무료(Pages와 동등), `wrangler.toml`로 D-136과 정합, F3 OG 이미지 등 향후 함수 작업 일관성 ↑. 6, 7, 8, 9, 11, 15(D-138), 16, 17, 18절 동기화. GitHub 레포 생성 + origin remote 연결 반영.
+- 2026-04-30 — D1 외부 작업 완료 박제: Cloudflare Workers `pokesim-kr` 프로젝트 GitHub 연결 + R2 버킷 `pokesim-kr-cards` 생성 (Standard, APAC). 18절 중복 "대기 (외부 작업)" 섹션 제거 (D-002 PR 시 누락된 정리). 다음 D2 진입.
 
 ### 통합 전 8개 문서 변경 이력 (보존)
 
