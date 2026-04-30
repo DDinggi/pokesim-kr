@@ -76,7 +76,7 @@
 
 ```bash
 # 사전 요구사항
-node --version    # >= 20
+node --version    # v22.x (Node 22 LTS)
 pnpm --version    # >= 9
 
 # 셋업
