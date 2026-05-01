@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "fetch": "tsx fetch-pokemoncard.ts"
+    "collect": "tsx fetch-pokemoncard.ts"
   },
   "dependencies": {
     "node-html-parser": "^6.1.13"

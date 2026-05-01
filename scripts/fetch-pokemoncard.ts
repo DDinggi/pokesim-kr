@@ -71,43 +71,45 @@ function stripPhpNotices(text: string): string {
 }
 
 // ── API ───────────────────────────────────────────────────────────────────────
+interface SearchPage {
+  count: number;
+  limit: number; // cursor for next request
+  results: SearchResult[];
+}
+
 async function searchPage(
   searchText: string,
-  page: number
-): Promise<SearchResult[]> {
-  const body = new URLSearchParams({
-    action: "search_text_cards",
-    search_text: searchText,
-    limit: String(page),
-  });
+  limitCursor: number
+): Promise<SearchPage> {
+  // 사이트 JS와 동일하게 multipart/form-data (FormData)로 전송
+  const formData = new FormData();
+  formData.append("action", "search_text_cards");
+  formData.append("search_text", searchText);
+  formData.append("search_params", "all"); // 검색 대상: all/cardname/cardtext
+  formData.append("limit", String(limitCursor));
 
   const res = await fetch(`${BASE_URL}/v2/ajax2_dev2`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
       "X-Requested-With": "XMLHttpRequest",
       Referer: `${BASE_URL}/cards`,
     },
-    body: body.toString(),
+    body: formData,
   });
 
   const text = await res.text();
   const json = stripPhpNotices(text);
 
-  let data: {
-    status: boolean;
-    count: number;
-    result: Record<string, SearchResult> | SearchResult[];
-  };
+  let data: { status: boolean; count: number; limit: number; result?: Record<string, SearchResult> };
   try {
     data = JSON.parse(json);
   } catch {
-    console.error("JSON parse error. Raw:", text.slice(0, 200));
-    return [];
+    console.error("JSON parse error. Raw:", text.slice(0, 300));
+    return { count: 0, limit: 0, results: [] };
   }
 
-  if (!data.status || !data.result) return [];
-  return Object.values(data.result) as SearchResult[];
+  const results = data.result ? (Object.values(data.result) as SearchResult[]) : [];
+  return { count: data.count ?? 0, limit: data.limit ?? 0, results };
 }
 
 async function fetchAllRefs(
@@ -115,20 +117,21 @@ async function fetchAllRefs(
   folderPrefix: string
 ): Promise<SearchResult[]> {
   const all: SearchResult[] = [];
-  let page = 1;
+  // 첫 호출은 limit=0 (사이트 JS의 "start fresh" 규약)
+  let cursor = 0;
 
   while (true) {
-    process.stdout.write(`  page ${page}…`);
-    const results = await searchPage(setName, page);
+    process.stdout.write(`  cursor=${cursor}…`);
+    const page = await searchPage(setName, cursor);
     const filtered = folderPrefix
-      ? results.filter((r) => r.feature_image.includes(folderPrefix))
-      : results;
+      ? page.results.filter((r) => r.feature_image.includes(folderPrefix))
+      : page.results;
 
     all.push(...filtered);
-    console.log(` +${filtered.length} (${all.length} total)`);
+    console.log(` count=${page.count} +${filtered.length} (${all.length} total)`);
 
-    if (results.length < PAGE_SIZE) break;
-    page++;
+    if (page.count === 0) break;
+    cursor = page.limit; // 서버가 내려준 next cursor
     await sleep(DELAY_MS);
   }
 
