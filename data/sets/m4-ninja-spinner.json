@@ -1112,5 +1112,5 @@
   "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
   "_source": "pokemoncard.co.kr",
   "_fetched_at": "2026-05-01",
-  "_notes": "스키마 검증용 sample. 카드 1장(뿔충이)만 detail 페이지 직접 검증. 나머지 카드 + rarity·type·박스 보장·팩 슬롯 가중치는 PR 2b 자동 수집 스크립트로 채움. 매핑 근거: feature_image=wmimages/MEGA/M4/M4_001.png + CardNum prefix=BS2026003 → 닌자스피너 = M4."
+  "_notes": "2026-05-02 자동 수집 완료(83장). pokemoncard.co.kr 현재 C/U/R/RR만 등록 — AR/SR/SAR/UR은 사이트에 미업로드 상태. 추후 사이트 갱신 후 pnpm collect -- --set m4-ninja-spinner 재실행 필요."
 }
