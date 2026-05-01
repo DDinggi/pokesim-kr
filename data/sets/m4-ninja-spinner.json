@@ -1,0 +1,41 @@
+{
+  "$schema": "../schemas/set.schema.json",
+  "code": "m4-ninja-spinner",
+  "name_ko": "MEGA 확장팩 「닌자스피너」",
+  "name_en": null,
+  "name_jp": null,
+  "series": "MEGA",
+  "type": "expansion",
+  "release_date": null,
+  "box_size": 30,
+  "pack_size": 5,
+  "box_price_krw": 165000,
+  "pack_price_krw": 5500,
+  "rarities": ["C", "U", "R", "RR", "SR", "SAR", "AR", "UR"],
+  "box_guarantees": {
+    "rules": [],
+    "_source": "TODO — 커뮤니티 합의(P2) 누적 후 작성. 단일 인증글 X (D-034·D-035 정합).",
+    "_sample_size": null,
+    "_estimated_at": "2026-04-30"
+  },
+  "pack_slots": [],
+  "cards": [
+    {
+      "card_num": "BS2026003001",
+      "number": 1,
+      "name_ko": "뿔충이",
+      "rarity": null,
+      "card_type": "포켓몬",
+      "subtype": null,
+      "hp": 50,
+      "type": null,
+      "image_url": "wmimages/MEGA/M4/M4_001.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026003001",
+      "_fetched_at": "2026-04-30"
+    }
+  ],
+  "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
+  "_source": "pokemoncard.co.kr",
+  "_fetched_at": "2026-04-30",
+  "_notes": "스키마 검증용 sample. 카드 1장(뿔충이)만 detail 페이지 직접 검증. 나머지 카드 + rarity·type·박스 보장·팩 슬롯 가중치는 PR 2b 자동 수집 스크립트로 채움. 매핑 근거: feature_image=wmimages/MEGA/M4/M4_001.png + CardNum prefix=BS2026003 → 닌자스피너 = M4."
+}
