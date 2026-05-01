@@ -1,0 +1,210 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/DDinggi/pokesim-kr/blob/main/data/schemas/set.schema.json",
+  "title": "PokéSim KR Set",
+  "description": "한국판 포켓몬 TCG 세트 1개의 메타·박스·확률·카드 데이터. 시뮬레이터의 정적 입력. 출처 메타(_source / _sample_size / _estimated_at)는 D-034·D-103 규약상 필수. D-139로 다중 세트 동시 시작이라 신상 추가 시 동일 스키마 재사용.",
+  "type": "object",
+  "required": [
+    "code",
+    "name_ko",
+    "series",
+    "type",
+    "box_size",
+    "pack_size",
+    "box_price_krw",
+    "pack_price_krw",
+    "rarities",
+    "box_guarantees",
+    "pack_slots",
+    "cards",
+    "image_cdn_base",
+    "_source",
+    "_fetched_at"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "code": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "내부 식별자. URL-safe 슬러그 (예: 'm4-ninja-spinner'). pokemoncard.co.kr 이미지 폴더(M4 등)와 매핑 가능."
+    },
+    "name_ko": {
+      "type": "string",
+      "description": "한국판 정식 명칭 (pokemoncard.co.kr 셀렉트 옵션 텍스트 그대로, 예: 'MEGA 확장팩 「닌자스피너」')."
+    },
+    "name_en": {
+      "type": ["string", "null"],
+      "description": "영문판 매칭 (있으면). PokemonTCG.io 시세 매칭 시 사용."
+    },
+    "name_jp": {
+      "type": ["string", "null"],
+      "description": "일본판 매칭 (있으면)."
+    },
+    "series": {
+      "type": "string",
+      "enum": ["MEGA", "SV", "SM", "XY", "기타"],
+      "description": "메이저 시리즈 라인."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["expansion", "hi-class", "강화-확장팩", "starter", "promo"],
+      "description": "팩 종류."
+    },
+    "release_date": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "한국판 발매일 YYYY-MM-DD (있으면)."
+    },
+    "box_size": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 30,
+      "description": "박스 내 팩 수 (D-101: 박스 단위 시뮬 메인. 보통 30)."
+    },
+    "pack_size": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 5,
+      "description": "팩 내 카드 수 (보통 5)."
+    },
+    "box_price_krw": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "박스 정가 KRW (한국 시장 가격)."
+    },
+    "pack_price_krw": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "단일 팩 정가 KRW."
+    },
+    "rarities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "세트에 등장하는 레어도 코드 (예: ['C','U','R','RR','SR','SAR','AR','UR'])."
+    },
+    "box_guarantees": {
+      "type": "object",
+      "required": ["rules", "_source", "_estimated_at"],
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["rarity", "min"],
+            "properties": {
+              "rarity": { "type": "string" },
+              "min": { "type": "integer", "minimum": 0, "description": "박스당 최소 보장 슬롯 수" },
+              "max": { "type": ["integer", "null"], "minimum": 0 }
+            }
+          }
+        },
+        "_source": {
+          "type": "string",
+          "description": "출처 (예: '커뮤니티 합의 (디시 포카게갤 / X 종합)'). D-034·D-103 필수."
+        },
+        "_sample_size": { "type": ["integer", "null"], "description": "표본 크기 (있으면)." },
+        "_estimated_at": { "type": "string", "format": "date" }
+      },
+      "description": "박스 보장 룰 + 출처 메타 (D-103). 단일 인증글 메타로 박지 말 것."
+    },
+    "pack_slots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["position", "weights", "_source", "_estimated_at"],
+        "properties": {
+          "position": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "팩 내 슬롯 번호 (1~pack_size). 동일 위치 슬롯은 같은 가중치."
+          },
+          "weights": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "description": "레어도 → 가중치 매핑 (각 ≥ 0, 합 ≈ 1 권장)."
+          },
+          "_source": { "type": "string" },
+          "_sample_size": { "type": ["integer", "null"] },
+          "_estimated_at": { "type": "string", "format": "date" }
+        }
+      },
+      "description": "팩 슬롯별 레어도 가중치 (D-034·D-035 정합, 임의 값 X)."
+    },
+    "cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["card_num", "number", "image_url", "_source"],
+        "properties": {
+          "card_num": {
+            "type": "string",
+            "description": "pokemoncard.co.kr CardNum (예: 'BS2026003001'). 카드 상세 페이지 URL 키."
+          },
+          "number": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "세트 내 번호 (1부터)."
+          },
+          "name_ko": {
+            "type": ["string", "null"],
+            "description": "카드 한국어 이름 (자동 수집 후 채움)."
+          },
+          "rarity": {
+            "type": ["string", "null"],
+            "description": "레어도 코드 (rarities 중 하나)."
+          },
+          "card_type": {
+            "type": ["string", "null"],
+            "enum": ["포켓몬", "트레이너", "에너지", null],
+            "description": "카드 분류."
+          },
+          "subtype": {
+            "type": ["string", "null"],
+            "description": "ex / V / VMAX / VSTAR / GX / MEGA 등."
+          },
+          "hp": {
+            "type": ["integer", "null"],
+            "minimum": 0
+          },
+          "type": {
+            "type": ["string", "null"],
+            "description": "포켓몬 타입 (불꽃/물/풀/...)."
+          },
+          "image_url": {
+            "type": "string",
+            "description": "이미지 경로 (image_cdn_base와 결합). 예: 'wmimages/MEGA/M4/M4_001.png'."
+          },
+          "_source": {
+            "type": "string",
+            "description": "출처 URL (보통 pokemoncard.co.kr/cards/detail/{card_num})."
+          },
+          "_fetched_at": { "type": "string", "format": "date" }
+        }
+      },
+      "description": "세트 카드 배열. 메타는 자동 수집 스크립트(scripts/fetch-pokemoncard.ts, PR 2b)로 채움."
+    },
+    "image_cdn_base": {
+      "type": "string",
+      "format": "uri",
+      "default": "https://cards.image.pokemonkorea.co.kr/data/",
+      "description": "이미지 CDN base URL. 카드 이미지 = base + image_url. R2 마이그레이션 후엔 자체 도메인으로 교체."
+    },
+    "_source": {
+      "type": "string",
+      "description": "세트 데이터 1차 출처 도메인 (예: 'pokemoncard.co.kr')."
+    },
+    "_fetched_at": {
+      "type": "string",
+      "format": "date",
+      "description": "데이터 수집(또는 마지막 갱신)일."
+    },
+    "_notes": {
+      "type": ["string", "null"],
+      "description": "내부 메모 (매핑 검증, 특이사항 등)."
+    }
+  }
+}

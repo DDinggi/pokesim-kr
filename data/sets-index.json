@@ -1,0 +1,10 @@
+{
+  "active_sets": [
+    "m4-ninja-spinner",
+    "m-nihil-zero",
+    "m-dream-ex"
+  ],
+  "planned_sets": [],
+  "_notes": "D-139 정합 — 한국판 현재 발매 중인 MEGA 라인업. active_sets는 데이터 작성 완료 후 이동. planned_sets는 PR 3에서 자동 수집 스크립트로 채움. 신상 발매 시 planned_sets에 추가 → 데이터 작성 → active_sets로 이동.",
+  "_updated_at": "2026-05-02"
+}
