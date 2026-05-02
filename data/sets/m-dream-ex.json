@@ -9,8 +9,8 @@
   "release_date": null,
   "box_size": 10,
   "pack_size": 10,
-  "box_price_krw": 0,
-  "pack_price_krw": 0,
+  "box_price_krw": 50000,
+  "pack_price_krw": 5000,
   "rarities": [
     "R",
     "RR",
