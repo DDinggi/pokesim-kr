@@ -184,6 +184,52 @@ function simulateHiClassBox(
   return placed.map((hit) => buildHiClassPack(ctx, hit, packSize));
 }
 
+// 자판기 1팩 모드 (D-128) — 박스 보장룰/갓팩 무시, 가중치만 적용.
+// 가중치는 박스 평균 분포 기반 추정.
+//   일반팩 박스(30팩) 평균 hit: R 18.75 / RR 6.25 / AR 3 / SR ~1.4 / SAR ~0.3 / MUR ~0.02
+//   하이클래스 박스(10팩) 평균 hit: RR ~5 / AR 3 / SR ~1.1 / SAR ~0.4 / MUR ~0.02
+const EXPANSION_PACK_HIT_WEIGHTS: Record<string, number> = {
+  R: 625,
+  RR: 208,
+  AR: 100,
+  SR: 47,
+  SAR: 10,
+  UR: 1,
+};
+const HI_CLASS_PACK_HIT_WEIGHTS: Record<string, number> = {
+  RR: 500,
+  AR: 300,
+  SR: 110,
+  SAR: 40,
+  UR: 2,
+};
+
+export function simulatePack(
+  allCards: Card[],
+  type: string,
+  packSize: number,
+  seedInput?: string,
+): { pack: PackResult; seed: string } {
+  const seed = seedInput ?? `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  const rng = seedrandom(seed);
+  const pick = makePick(rng);
+  const weightedPick = makeWeightedPick(rng);
+  const byRarity = groupByRarity(allCards);
+  const ctx: BuildContext = { byRarity, pick, weightedPick };
+
+  const hitWeights =
+    type === 'hi-class' ? HI_CLASS_PACK_HIT_WEIGHTS : EXPANSION_PACK_HIT_WEIGHTS;
+  const filtered = filterAvailableWeights(hitWeights, byRarity);
+  const hitRarity = ctx.weightedPick(filtered);
+
+  const pack =
+    type === 'hi-class'
+      ? buildHiClassPack(ctx, hitRarity, packSize)
+      : buildExpansionPack(ctx, hitRarity);
+
+  return { pack, seed };
+}
+
 export function simulateBox(
   allCards: Card[],
   boxSize: number,
