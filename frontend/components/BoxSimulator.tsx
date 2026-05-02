@@ -33,17 +33,34 @@ const AUTO_MS = 400;
 type Mode = 'box-auto' | 'box-manual' | 'box-instant' | 'pack';
 type Phase = 'idle' | 'reveal' | 'done';
 
+function resolveImageUrl(image_url: string): string {
+  return /^https?:\/\//.test(image_url) ? image_url : `${CDN_BASE}${image_url}`;
+}
+
 function CardTile({ card, size = 'md' }: { card: Card; size?: 'sm' | 'md' | 'lg' }) {
   const glow = card.rarity ? (CARD_GLOW[card.rarity] ?? '') : '';
+  const [errored, setErrored] = useState(false);
   return (
     <div className={`relative rounded-lg overflow-hidden ${glow}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={`${CDN_BASE}${card.image_url}`}
-        alt={card.name_ko ?? card.card_num}
-        className="w-full rounded-lg"
-        loading="lazy"
-      />
+      {errored || !card.image_url ? (
+        <div className="aspect-[5/7] bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center p-2 text-center">
+          <span className="text-[10px] text-gray-400 leading-tight">
+            {card.name_ko ?? card.card_num}
+          </span>
+          {card.rarity && (
+            <span className="text-[9px] text-gray-500 mt-1">{card.rarity}</span>
+          )}
+        </div>
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={resolveImageUrl(card.image_url)}
+          alt={card.name_ko ?? card.card_num}
+          className="w-full rounded-lg"
+          loading="lazy"
+          onError={() => setErrored(true)}
+        />
+      )}
       {size !== 'sm' && card.rarity && (
         <span
           className={`absolute bottom-1 right-1 text-[9px] font-bold px-1 rounded ${RARITY_BADGE[card.rarity] ?? 'bg-gray-600 text-white'}`}
