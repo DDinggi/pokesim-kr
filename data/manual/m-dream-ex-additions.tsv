@@ -1,0 +1,6 @@
+# 자동 생성 — 일본판 메타 + 이미지 URL
+# 출처: yuyu-tei (이름/rarity/번호) + PokeGuardian (고화질 이미지)
+# name_ko 칼럼은 일본어 이름 그대로. 필요 시 직접 편집.
+# 생성: 2026-05-02
+number	name_ko	rarity	card_type	subtype	hp	type	image_url	_source
+250	메가망나뇽 ex	UR	포켓몬				https://card.yuyu-tei.jp/poc/100_140/m02a/10486.jpg	yuyu-tei (https://yuyu-tei.jp/sell/poc/s/m02a)

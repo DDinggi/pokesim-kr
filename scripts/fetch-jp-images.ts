@@ -7,11 +7,10 @@
  *
  * 사용:
  *   pnpm fetch-jp-images -- --set m4-ninja-spinner --jp-code m04 --pokeguardian <slug>
+ *   pnpm fetch-jp-images -- --set m-nihil-zero --jp-code m03 --pokeguardian <slug> --only-rarities MUR
  *
- * 예시:
- *   --set m4-ninja-spinner
- *   --jp-code m04
- *   --pokeguardian 3018155_m4-ninja-spinner-all-sr-ar-sar-mur-cards
+ * 옵션:
+ *   --only-rarities <CSV>  특정 rarity만 추출 (기본: AR,SR,SAR,UR,MUR,HR)
  *
  * 출력: data/manual/<set>-additions.tsv
  */
@@ -27,15 +26,30 @@ function arg(name: string): string | null {
   return i >= 0 ? (process.argv[i + 1] ?? null) : null;
 }
 
+// pokemoncard.co.kr 데이터에서 'UR' rarity로 분류되는 메가시리즈의 MUR를
+// 일본 출처에서도 동일하게 'UR'로 정규화 (시뮬/UI 일관성 유지).
+const RARITY_NORMALIZE: Record<string, string> = {
+  MUR: "UR",
+  HR: "UR", // 단종 등급도 UR로 흡수 (사용 빈도 0)
+};
+
 const setCode = arg("set");
 const jpCode = arg("jp-code");
 const pokeguardianSlug = arg("pokeguardian");
+const onlyRaritiesArg = arg("only-rarities");
 if (!setCode || !jpCode || !pokeguardianSlug) {
   console.error(
-    "Usage: pnpm fetch-jp-images -- --set <code> --jp-code <m04> --pokeguardian <slug>",
+    "Usage: pnpm fetch-jp-images -- --set <code> --jp-code <m04> --pokeguardian <slug> [--only-rarities CSV]",
   );
   process.exit(1);
 }
+// 사용자 입력 정규화 (MUR을 UR으로 처리)
+const allowedRarities = new Set(
+  (onlyRaritiesArg ?? "AR,SR,SAR,UR,MUR,HR")
+    .split(",")
+    .map((s) => s.trim())
+    .map((r) => RARITY_NORMALIZE[r] ?? r),
+);
 
 const UA = "Mozilla/5.0 (compatible; pokesim-kr-bot/1.0)";
 
@@ -60,8 +74,9 @@ function parseYuyuTei(html: string): JpCard[] {
     /<img[^>]*src="(https:\/\/card\.yuyu-tei\.jp\/poc\/[^"]+\/(\d{5})\.jpg)"[^>]*alt="(\d{3})\/\d+ ([A-Z]+) ([^"]+)"/g;
   let m: RegExpExecArray | null;
   while ((m = imgRe.exec(html)) !== null) {
-    const [, src, , numStr, rarity, name] = m;
+    const [, src, , numStr, rawRarity, name] = m;
     const num = parseInt(numStr, 10);
+    const rarity = RARITY_NORMALIZE[rawRarity] ?? rawRarity;
     cards.push({
       number: num,
       rarity,
@@ -98,9 +113,10 @@ async function main() {
   const pgImageByNum = parsePokeGuardian(pgHtml);
   console.log(`PokeGuardian: ${pgImageByNum.size} high-res images parsed`);
 
-  const irregularRarities = new Set(["AR", "SR", "SAR", "UR", "MUR", "HR"]);
-  const irregular = jpCards.filter((c) => irregularRarities.has(c.rarity));
-  console.log(`Irregular cards (AR/SR/SAR/UR/MUR): ${irregular.length}`);
+  const irregular = jpCards.filter((c) => allowedRarities.has(c.rarity));
+  console.log(
+    `Filtered cards (${[...allowedRarities].join("/")}): ${irregular.length}`,
+  );
 
   // dedupe by number (high rarity duplicates 덮어쓰기)
   const byNumber = new Map<number, JpCard>();
