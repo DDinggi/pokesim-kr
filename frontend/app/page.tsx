@@ -1,12 +1,13 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { BoxSimulator } from '../components/BoxSimulator';
+import { App } from '../components/App';
 import type { SetMeta } from '../lib/types';
 
-export default function Home() {
-  const setMeta: SetMeta = JSON.parse(
-    readFileSync(join(process.cwd(), 'public', 'sets', 'm-nihil-zero.json'), 'utf8'),
-  );
+const SET_CODES = ['m4-ninja-spinner', 'm-nihil-zero', 'm-dream-ex'];
 
-  return <BoxSimulator setMeta={setMeta} />;
+export default function Home() {
+  const sets: SetMeta[] = SET_CODES.map((code) =>
+    JSON.parse(readFileSync(join(process.cwd(), 'public', 'sets', `${code}.json`), 'utf8')),
+  );
+  return <App sets={sets} />;
 }

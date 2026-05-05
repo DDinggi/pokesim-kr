@@ -1536,6 +1536,20 @@
       "image_url": "wmimages/MEGA/M3/M3_116.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026002116",
       "_fetched_at": "2026-05-01"
+    },
+    {
+      "card_num": "BS2026002117",
+      "number": 117,
+      "name_ko": "메가지가르데 ex",
+      "rarity": "UR",
+      "card_type": "포켓몬",
+      "subtype": null,
+      "hp": null,
+      "type": null,
+      "image_url": "https://card.yuyu-tei.jp/poc/100_140/m03/10117.jpg",
+      "_source": "yuyu-tei (https://yuyu-tei.jp/sell/poc/s/m03)",
+      "_fetched_at": "2026-05-02",
+      "_manual": true
     }
   ],
   "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",

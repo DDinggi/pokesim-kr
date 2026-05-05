@@ -3263,6 +3263,20 @@
       "image_url": "wmimages/MEGA/M2a/M2a_249.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025015249",
       "_fetched_at": "2026-05-01"
+    },
+    {
+      "card_num": "BS2025015250",
+      "number": 250,
+      "name_ko": "메가망나뇽 ex",
+      "rarity": "UR",
+      "card_type": "포켓몬",
+      "subtype": null,
+      "hp": null,
+      "type": null,
+      "image_url": "https://card.yuyu-tei.jp/poc/100_140/m02a/10486.jpg",
+      "_source": "yuyu-tei (https://yuyu-tei.jp/sell/poc/s/m02a)",
+      "_fetched_at": "2026-05-02",
+      "_manual": true
     }
   ],
   "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
