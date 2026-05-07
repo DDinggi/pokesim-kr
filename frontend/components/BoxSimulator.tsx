@@ -901,7 +901,7 @@ export function BoxSimulator({
   const startBox = useCallback(
     (m: 'box-auto' | 'box-manual' | 'box-instant') => {
       manualPacksRecorded.current = new Set();
-      const result = simulateBox(setMeta.cards, setMeta.box_size, setMeta.type, setMeta.pack_size);
+      const result = simulateBox(setMeta.cards, setMeta.box_size, setMeta.type, setMeta.pack_size, undefined, setMeta.code);
       setBoxResult(result);
       setMode(m);
       setPackIdx(0);
