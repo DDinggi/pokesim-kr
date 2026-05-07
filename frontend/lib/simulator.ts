@@ -97,7 +97,6 @@ function filterAvailableWeights(
   return Object.keys(filtered).length > 0 ? filtered : weights;
 }
 
-// Fisher-Yates (D-131)
 function shuffle<T>(arr: T[], rng: RNG): T[] {
   const copy = [...arr];
   for (let i = copy.length - 1; i > 0; i--) {
