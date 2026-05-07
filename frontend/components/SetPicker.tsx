@@ -20,6 +20,21 @@ const SET_THEMES: Record<string, { gradient: string; accent: string; subtitle: s
     accent: 'text-amber-200',
     subtitle: '하이클래스 — 메가카이리엔/메가리자몽',
   },
+  'm-inferno-x': {
+    gradient: 'from-red-700 via-rose-800 to-red-900',
+    accent: 'text-red-300',
+    subtitle: '메가리자몽 ex',
+  },
+  'm-mega-brave': {
+    gradient: 'from-blue-700 via-sky-800 to-blue-900',
+    accent: 'text-blue-300',
+    subtitle: '메가루카리오 ex',
+  },
+  'm-mega-symphonia': {
+    gradient: 'from-purple-700 via-fuchsia-800 to-purple-900',
+    accent: 'text-purple-300',
+    subtitle: '메가가디안 ex',
+  },
 };
 
 function SetCard({
