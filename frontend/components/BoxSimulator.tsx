@@ -45,11 +45,11 @@ const HIT_SET = new Set(['SR', 'SAR', 'MA', 'UR']); // 진짜 hit (SR 이상)
 function rarityLabel(r: string): string {
   return RARITY_DISPLAY[r] ?? r;
 }
-const REVEAL_STAGGER_MS = 80;
-const REVEAL_BASE_MS = 450;
-const HIT_HOLD_MS = 650;
-const NORMAL_HOLD_MS = 200;
-const BETWEEN_MS = 1800; // "새 박스 까는 중..." 트랜지션 표시 시간
+const REVEAL_STAGGER_MS = 140;
+const REVEAL_BASE_MS = 600;
+const HIT_HOLD_MS = 1200;
+const NORMAL_HOLD_MS = 600;
+const BETWEEN_MS = 1800;
 
 // 세션 누적 — 세트 변경/새로고침해도 유지 (사용자가 직접 리셋)
 const SESSION_STORAGE_KEY = 'pokesim-kr-session-v1';
