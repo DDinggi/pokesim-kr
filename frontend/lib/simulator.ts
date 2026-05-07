@@ -110,7 +110,8 @@ interface BuildContext {
 }
 
 // 일반 확장팩 1팩: C×3 + U×1 + hit×1 (5장)
-function buildExpansionPack(ctx: BuildContext, hitRarity: string): PackResult {
+// hitPool: 이미 결정된 hit 카드 풀 (caller가 포켓몬/트레이너 분리 책임)
+function buildExpansionPack(ctx: BuildContext, hitPool: Card[]): PackResult {
   const { byRarity, pick } = ctx;
   const cards: Card[] = [];
   const cPool = byRarity['C'] ?? [];
@@ -119,8 +120,8 @@ function buildExpansionPack(ctx: BuildContext, hitRarity: string): PackResult {
     if (cPool.length) cards.push(pick(cPool));
   }
   if (uPool.length) cards.push(pick(uPool));
-  const hitPool = byRarity[hitRarity] ?? byRarity['R'] ?? [];
-  if (hitPool.length) cards.push(pick(hitPool));
+  const effective = hitPool.length > 0 ? hitPool : (byRarity['R'] ?? []);
+  if (effective.length) cards.push(pick(effective));
   return { cards };
 }
 
@@ -138,19 +139,57 @@ function buildHiClassPack(ctx: BuildContext, hitRarity: string, packSize: number
   return { cards };
 }
 
-function simulateExpansionBox(allCards: Card[], boxSize: number, ctx: BuildContext, rng: RNG): PackResult[] {
-  // 박스 hit 슬롯 보장 배치
-  const slots: string[] = [];
-  // SR이상 힛 ×1 — 빈 풀(MUR 미수집) 자동 폴백
-  const hiWeights = filterAvailableWeights(EXPANSION_HIT_GUARANTEE_HI_WEIGHTS, ctx.byRarity);
-  slots.push(ctx.weightedPick(hiWeights));
-  slots.push('SR'); // SR 아이템 ×1
-  slots.push('AR', 'AR', 'AR'); // AR ×3
-  while (slots.length < boxSize) {
-    slots.push(ctx.weightedPick(EXPANSION_FILLER_WEIGHTS));
+function simulateExpansionBox(_allCards: Card[], boxSize: number, ctx: BuildContext, rng: RNG): PackResult[] {
+  const { byRarity } = ctx;
+
+  // 카드 타입별 SR+ 풀 분리
+  const isPokemon = (c: Card) => c.card_type === '포켓몬';
+  const isTrainer = (c: Card) => c.card_type === '트레이너' || c.card_type === '에너지';
+
+  const srAll = byRarity['SR'] ?? [];
+  const sarAll = byRarity['SAR'] ?? [];
+  const urAll = byRarity['UR'] ?? [];
+
+  const srPokemon = srAll.filter(isPokemon);
+  const srTrainer = srAll.filter(isTrainer);
+  const sarPokemon = sarAll.filter(isPokemon);
+  const sarTrainer = sarAll.filter(isTrainer);
+  const urPokemon = urAll.filter(isPokemon);
+
+  // ① 몬스터 SR이상 슬롯: SR포켓몬(68%) / SAR포켓몬(30%) / UR포켓몬(2%)
+  const monsterWeights: Record<string, number> = {};
+  if (srPokemon.length) monsterWeights['SR'] = 68;
+  if (sarPokemon.length) monsterWeights['SAR'] = 30;
+  if (urPokemon.length) monsterWeights['UR'] = 2;
+
+  let monsterPool: Card[];
+  if (Object.keys(monsterWeights).length > 0) {
+    const r = ctx.weightedPick(monsterWeights);
+    monsterPool = r === 'SAR' ? sarPokemon : r === 'UR' ? urPokemon : srPokemon;
+  } else {
+    // card_type 미분류 데이터 폴백 — 기존 동작 유지
+    const fw = filterAvailableWeights(EXPANSION_HIT_GUARANTEE_HI_WEIGHTS, byRarity);
+    const r = ctx.weightedPick(fw);
+    monsterPool = byRarity[r] ?? srAll;
   }
+
+  // ② 트레이너 SR이상 슬롯: SR트레이너 + SAR트레이너 통합 (카드 수 비례 가중치)
+  const trainerPool = [...srTrainer, ...sarTrainer];
+  const effectiveTrainerPool = trainerPool.length > 0 ? trainerPool : srAll;
+
+  // 슬롯 조립 (Card[] 배열로 관리)
+  const slots: Card[][] = [];
+  slots.push(monsterPool);                       // 몬스터 SR이상 ×1
+  slots.push(effectiveTrainerPool);              // 트레이너 SR이상 ×1
+  const arPool = byRarity['AR'] ?? [];
+  slots.push(arPool, arPool, arPool);            // AR ×3
+  while (slots.length < boxSize) {
+    const r = ctx.weightedPick(EXPANSION_FILLER_WEIGHTS);
+    slots.push(byRarity[r] ?? byRarity['R'] ?? []);
+  }
+
   const placed = shuffle(slots, rng);
-  return placed.map((hit) => buildExpansionPack(ctx, hit));
+  return placed.map((pool) => buildExpansionPack(ctx, pool));
 }
 
 function simulateHiClassBox(
@@ -226,7 +265,7 @@ export function simulatePack(
   const pack =
     type === 'hi-class'
       ? buildHiClassPack(ctx, hitRarity, packSize)
-      : buildExpansionPack(ctx, hitRarity);
+      : buildExpansionPack(ctx, byRarity[hitRarity] ?? byRarity['R'] ?? []);
 
   return { pack, seed };
 }
