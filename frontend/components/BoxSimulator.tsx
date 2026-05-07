@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
 import { simulateBox, simulatePack, PROBABILITY_META } from '../lib/simulator';
@@ -46,10 +46,10 @@ function rarityLabel(r: string): string {
   return RARITY_DISPLAY[r] ?? r;
 }
 // 카드 펼침 stagger + hit 연출 시간
-const REVEAL_STAGGER_MS = 140;
-const REVEAL_BASE_MS = 600; // 첫 카드부터 마지막 카드 펼침 끝까지 대략적인 베이스
-const HIT_HOLD_MS = 1200; // hit 카드 임팩트 후 트랜지션 진입까지 추가 시간
-const NORMAL_HOLD_MS = 600; // hit 아닐 때 트랜지션 진입까지 추가 시간
+const REVEAL_STAGGER_MS = 80;
+const REVEAL_BASE_MS = 450;
+const HIT_HOLD_MS = 650;
+const NORMAL_HOLD_MS = 200;
 const BETWEEN_MS = 1800; // 팩 사이 "카드 뽑는 중..." 트랜지션 길이 (자동 모드 전용)
 
 // 세션 누적 — 세트 변경/새로고침해도 유지 (사용자가 직접 리셋)
@@ -196,9 +196,8 @@ function SessionBar({ session, onReset }: { session: Session; onReset: () => voi
   return (
     <div className="w-full max-w-2xl mx-auto px-4 py-2.5 flex items-center justify-between text-[11px] text-gray-400 bg-gray-900/50 rounded-lg ring-1 ring-white/5">
       <span className="truncate">
-        세션 누적: 박스 <span className="text-white font-bold">{session.boxes}</span> · 자판기{' '}
-        <span className="text-white font-bold">{session.packs}</span> · 카드{' '}
-        <span className="text-white font-bold">{session.cards.length}</span>장
+        세션 누적: 박스 <span className="text-white font-bold">{session.boxes}</span> · 팩{' '}
+        <span className="text-white font-bold">{session.packs}</span>
       </span>
       <div className="flex items-center gap-3 shrink-0">
         <span className="tabular-nums">
@@ -728,7 +727,7 @@ function BoxDoneScreen({
       {(session.boxes > 0 || session.packs > 0) && (
         <details className="mb-8 pt-6 border-t border-white/5" open={session.boxes <= 1}>
           <summary className="cursor-pointer text-xs font-bold text-gray-400 uppercase tracking-widest hover:text-gray-200">
-            🗂 세션 누적 — 박스 {session.boxes} · 자판기 {session.packs} · ₩
+            🗂 세션 누적 — 박스 {session.boxes} · 팩 {session.packs} · ₩
             {session.cost.toLocaleString()} · 레어 {sessionRares.length}장
           </summary>
           <div className="mt-3">
@@ -806,7 +805,7 @@ function PackDoneScreen({
       {(session.boxes > 0 || session.packs > 0) && (
         <section className="w-full pt-4 border-t border-white/5">
           <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-            🗂 세션 누적 — 박스 {session.boxes} · 자판기 {session.packs} · ₩
+            🗂 세션 누적 — 박스 {session.boxes} · 팩 {session.packs} · ₩
             {session.cost.toLocaleString()} · 레어 {sessionRares.length}장
           </h3>
           {sessionRares.length > 0 && (
@@ -866,6 +865,7 @@ export function BoxSimulator({
   // "한 박스 더 깡!" 클릭 시 트랜지션 — 그 외엔 null
   const [pendingBoxRedo, setPendingBoxRedo] = useState<'box-auto' | 'box-manual' | 'box-instant' | null>(null);
   const [hydrated, setHydrated] = useState(false);
+  const manualPacksRecorded = useRef<Set<number>>(new Set());
 
   // 마운트 1회 — 세션을 localStorage에서 복구
   useEffect(() => {
@@ -900,6 +900,7 @@ export function BoxSimulator({
 
   const startBox = useCallback(
     (m: 'box-auto' | 'box-manual' | 'box-instant') => {
+      manualPacksRecorded.current = new Set();
       const result = simulateBox(setMeta.cards, setMeta.box_size, setMeta.type, setMeta.pack_size);
       setBoxResult(result);
       setMode(m);
@@ -942,6 +943,18 @@ export function BoxSimulator({
         cost: s.cost + setMeta.pack_price_krw,
         cards: [...s.cards, ...packResult.pack.cards],
       }));
+    } else if (mode === 'box-manual' && boxResult) {
+      // 카드는 advancePack에서 팩별로 이미 누적됨; skip(전체결과 바로보기) 시 미기록 팩 보완
+      const skipped = boxResult.packs.flatMap((p, i) =>
+        manualPacksRecorded.current.has(i) ? [] : p.cards,
+      );
+      boxResult.packs.forEach((_, i) => manualPacksRecorded.current.add(i));
+      setSession((s) => ({
+        ...s,
+        boxes: s.boxes + 1,
+        cost: s.cost + setMeta.box_price_krw,
+        ...(skipped.length > 0 && { cards: [...s.cards, ...skipped] }),
+      }));
     } else if (mode && mode !== 'pack' && boxResult) {
       const all = boxResult.packs.flatMap((p) => p.cards);
       setSession((s) => ({
@@ -955,15 +968,21 @@ export function BoxSimulator({
   }, [phase, boxResult?.seed, packResult?.seed]);
 
   // 다음 팩으로 즉시 이동. 마지막 팩이면 결과 화면으로.
+  // 수동 모드: 팩 완료 시마다 즉시 카드 세션 누적
   const advancePack = useCallback(() => {
     if (!boxResult) return;
+    if (mode === 'box-manual' && !manualPacksRecorded.current.has(packIdx)) {
+      manualPacksRecorded.current.add(packIdx);
+      const packCards = boxResult.packs[packIdx].cards;
+      setSession((s) => ({ ...s, cards: [...s.cards, ...packCards] }));
+    }
     if (packIdx + 1 >= boxResult.packs.length) {
       setPhase('done');
     } else {
       setPackIdx(packIdx + 1);
       setFlippedSet(new Set());
     }
-  }, [boxResult, packIdx]);
+  }, [boxResult, packIdx, mode]);
 
   const flipCard = useCallback((i: number) => {
     setFlippedSet((s) => {

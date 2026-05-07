@@ -219,6 +219,7 @@ export function simulatePack(
 
   const hitWeights =
     type === 'hi-class' ? HI_CLASS_PACK_HIT_WEIGHTS : EXPANSION_PACK_HIT_WEIGHTS;
+
   const filtered = filterAvailableWeights(hitWeights, byRarity);
   const hitRarity = ctx.weightedPick(filtered);
 
