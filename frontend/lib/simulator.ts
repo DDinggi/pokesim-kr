@@ -153,7 +153,6 @@ function simulateExpansionBox(_allCards: Card[], boxSize: number, ctx: BuildCont
   const srPokemon = srAll.filter(isPokemon);
   const srTrainer = srAll.filter(isTrainer);
   const sarPokemon = sarAll.filter(isPokemon);
-  const sarTrainer = sarAll.filter(isTrainer);
   const urPokemon = urAll.filter(isPokemon);
 
   // ① 몬스터 SR이상 슬롯: SR포켓몬(68%) / SAR포켓몬(30%) / UR포켓몬(2%)
@@ -173,9 +172,9 @@ function simulateExpansionBox(_allCards: Card[], boxSize: number, ctx: BuildCont
     monsterPool = byRarity[r] ?? srAll;
   }
 
-  // ② 트레이너 SR이상 슬롯: SR트레이너 + SAR트레이너 통합 (카드 수 비례 가중치)
-  const trainerPool = [...srTrainer, ...sarTrainer];
-  const effectiveTrainerPool = trainerPool.length > 0 ? trainerPool : srAll;
+  // ② 트레이너 SR 슬롯: 커뮤니티 데이터 기준 "SR 아이템 ×1" — 정확히 SR 등급만
+  // SAR 트레이너는 이 슬롯 대상 아님 (몬스터 슬롯과 구분)
+  const effectiveTrainerPool = srTrainer.length > 0 ? srTrainer : srAll;
 
   // 슬롯 조립 (Card[] 배열로 관리)
   const slots: Card[][] = [];
