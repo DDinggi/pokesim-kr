@@ -167,15 +167,17 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
           <p className="text-xs text-gray-400 text-center">
             지금까지{' '}
             <span className="text-white font-bold">{stats.totalSessions.toLocaleString()}명</span>
-            {' '}이{' '}
+            {'이 '}
+            <span className="text-white font-bold">{stats.totalPacks.toLocaleString()}팩</span>
+            {' · '}
             <span className="text-white font-bold">{stats.totalBoxes.toLocaleString()}박스</span>
             {' · '}
-            <span className="text-pink-400 font-bold">₩{stats.totalKrw.toLocaleString()}</span>
-            {' '}어치 시뮬레이션했습니다
+            <span className="text-pink-400 font-bold">{stats.totalKrw.toLocaleString()}원</span>
+            {' 어치 시뮬레이션했습니다'}
           </p>
         )}
         <p className="text-[10px] text-gray-600 text-center">
-          ⓘ 봉입률은 추정치 · 포켓몬코리아는 확정 봉입을 안내하지 않습니다
+          ⓘ 봉입률은 추정치 · 포켓몬코리아는 봉입률을 안내하지 않습니다
         </p>
 
         <div className="mt-2 pt-3 border-t border-gray-900 w-full max-w-lg flex flex-col items-center gap-1">
@@ -183,16 +185,13 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
             비영리 팬 시뮬레이터 · Non-commercial fan project
           </p>
           <p className="text-[10px] text-gray-700 text-center">
-            © 2022–{new Date().getFullYear()} mesulive · All rights reserved
-          </p>
-          <p className="text-[10px] text-gray-700 text-center">
-            mesulive is not associated with NEXON Korea or The Pokémon Company.
+            ©{new Date().getFullYear()} pokesim_kr
           </p>
           <a
             href="mailto:me@kurateh.com"
             className="text-[10px] text-gray-600 hover:text-gray-400 transition-colors mt-0.5"
           >
-            me@kurateh.com
+            whaudrl1234@gmail.com
           </a>
         </div>
       </footer>
