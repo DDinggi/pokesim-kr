@@ -381,7 +381,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                   <MonsterBall className="w-3 h-3 sm:w-3.5 sm:h-3.5 inline-block" />
                 </p>
               </div>
-              <PikachuMascot src="/pikachu2.png" />
+              <PikachuMascot src="/pikachu2.png" flip />
             </div>
 
             <div className="rounded-2xl bg-gradient-to-br from-blue-700 via-blue-800 to-blue-950 p-3 sm:p-5">
@@ -602,12 +602,13 @@ function QuantityModal({
   );
 }
 
-function PikachuMascot({ src }: { src: string }) {
+function PikachuMascot({ src, flip = false }: { src: string; flip?: boolean }) {
   const [errored, setErrored] = useState(false);
   if (errored) {
     return (
       <span
         className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 ring-2 ring-yellow-200 shadow-lg shrink-0 select-none text-2xl sm:text-3xl"
+        style={flip ? { transform: 'scaleX(-1)' } : undefined}
         aria-hidden
       >
         ⚡
@@ -615,7 +616,11 @@ function PikachuMascot({ src }: { src: string }) {
     );
   }
   return (
-    <span className="relative w-14 h-14 sm:w-20 sm:h-20 shrink-0 select-none" aria-hidden>
+    <span
+      className="relative w-14 h-14 sm:w-20 sm:h-20 shrink-0 select-none"
+      style={flip ? { transform: 'scaleX(-1)' } : undefined}
+      aria-hidden
+    >
       <Image
         src={src}
         alt=""

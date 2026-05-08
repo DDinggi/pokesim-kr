@@ -121,21 +121,38 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
       {/* 세션 히스토리 토글 */}
       {session && (
         <div className="border-t border-gray-800/80">
-          <button
-            onClick={() => setHistoryOpen((o) => !o)}
-            className="w-full px-6 py-3.5 flex items-center justify-between hover:bg-white/5 transition-colors"
-          >
-            <div className="flex items-center gap-3 text-sm">
-              <span className="font-bold text-gray-300">지금까지 깐 카드</span>
-              <span className="text-gray-500 tabular-nums">
-                {session.packs}팩 · {session.cost.toLocaleString()}원 · {session.cards.length}장
+          <div className="flex items-center">
+            <button
+              onClick={() => setHistoryOpen((o) => !o)}
+              className="flex-1 px-6 py-3.5 flex items-center justify-between hover:bg-white/5 transition-colors"
+            >
+              <div className="flex items-center gap-3 text-sm">
+                <span className="font-bold text-gray-300">지금까지 깐 카드</span>
+                <span className="text-gray-500 tabular-nums">
+                  {session.packs}팩 · {session.cost.toLocaleString()}원 · {session.cards.length}장
+                </span>
+                <HitBadges cards={session.cards} />
+              </div>
+              <span
+                className="text-gray-500 text-xs ml-3 transition-transform duration-200"
+                style={{ display: 'inline-block', transform: historyOpen ? 'rotate(180deg)' : 'none' }}
+              >
+                ▼
               </span>
-              <HitBadges cards={session.cards} />
-            </div>
-            <span className="text-gray-500 text-xs transition-transform duration-200" style={{ display: 'inline-block', transform: historyOpen ? 'rotate(180deg)' : 'none' }}>
-              ▼
-            </span>
-          </button>
+            </button>
+            <button
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  window.localStorage.removeItem(SESSION_KEY);
+                }
+                setSession(null);
+                setHistoryOpen(false);
+              }}
+              className="px-4 py-3.5 text-xs text-gray-600 hover:text-red-400 hover:bg-white/5 transition-colors border-l border-gray-800/80 whitespace-nowrap"
+            >
+              초기화
+            </button>
+          </div>
 
           {historyOpen && (
             <div className="px-4 sm:px-6 pb-6 max-w-6xl mx-auto w-full">
