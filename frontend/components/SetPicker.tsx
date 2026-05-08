@@ -1,10 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import type { SetMeta } from '../lib/types';
-import { fetchGlobalStats, type GlobalStats } from '../lib/statsTracker';
 
 const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
   'm4-ninja-spinner': {
@@ -145,23 +143,25 @@ function SetCard({
 export function SetPicker({
   sets,
   onSelect,
+  onBackToMain,
 }: {
   sets: SetMeta[];
   onSelect: (set: SetMeta) => void;
+  onBackToMain: () => void;
 }) {
-  const [stats, setStats] = useState<GlobalStats | null>(null);
-
-  useEffect(() => {
-    fetchGlobalStats().then((s) => { if (s) setStats(s); });
-  }, []);
-
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
-      <header className="px-6 py-5 border-b border-gray-800/80">
-        <Link href="/" className="text-2xl font-bold tracking-tight hover:text-gray-300 transition-colors">
-          PokéSim KR
-        </Link>
-        <p className="text-xs text-gray-500 mt-1">한국 포켓몬 TCG 박스깡 시뮬레이터</p>
+      <header className="px-6 py-5 border-b border-gray-800/80 flex items-center gap-4">
+        <button
+          onClick={onBackToMain}
+          className="text-xs text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/5"
+        >
+          ← 메인
+        </button>
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">박스깡</h1>
+          <p className="text-xs text-gray-500 mt-1">박스를 골라 통째로 까기</p>
+        </div>
       </header>
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-6xl mx-auto w-full">
@@ -170,29 +170,11 @@ export function SetPicker({
             const theme = SET_THEMES[s.code] ?? {
               gradient: 'from-gray-700 to-gray-900',
               accent: 'text-gray-300',
-              subtitle: '',
             };
             return <SetCard key={s.code} set={s} theme={theme} onSelect={() => onSelect(s)} />;
           })}
         </div>
       </main>
-
-      <footer className="px-6 py-5 border-t border-gray-900 flex flex-col items-center gap-2">
-        {stats && (
-          <p className="text-xs text-gray-400 text-center">
-            지금까지{' '}
-            <span className="text-white font-bold">{stats.totalSessions.toLocaleString()}명</span>
-            {' '}이{' '}
-            <span className="text-white font-bold">{stats.totalBoxes.toLocaleString()}박스</span>
-            {' · '}
-            <span className="text-pink-400 font-bold">₩{stats.totalKrw.toLocaleString()}</span>
-            {' '}어치 시뮬레이션했습니다
-          </p>
-        )}
-        <p className="text-[10px] text-gray-600 text-center">
-          ⓘ 봉입률은 추정치 · 포켓몬코리아는 확정 봉입을 안내하지 않습니다
-        </p>
-      </footer>
     </div>
   );
 }

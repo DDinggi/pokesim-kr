@@ -40,6 +40,7 @@ export async function trackSim(event: {
 
 export interface GlobalStats {
   totalSessions: number;
+  totalPacks: number;
   totalBoxes: number;
   totalKrw: number;
 }
@@ -48,10 +49,11 @@ export async function fetchGlobalStats(): Promise<GlobalStats | null> {
   if (!supabase) return null;
   const { data, error } = await supabase
     .from('sim_events')
-    .select('session_id, box_count, krw');
+    .select('session_id, box_count, pack_count, krw');
   if (error || !data) return null;
   return {
     totalSessions: new Set(data.map((r) => r.session_id)).size,
+    totalPacks: data.reduce((s, r) => s + (r.pack_count as number), 0),
     totalBoxes: data.reduce((s, r) => s + (r.box_count as number), 0),
     totalKrw: data.reduce((s, r) => s + (r.krw as number), 0),
   };
