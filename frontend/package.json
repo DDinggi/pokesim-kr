@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "build:cf": "next build && next-on-pages",
+    "build:cf": "opennextjs-cloudflare build",
+    "deploy:cf": "opennextjs-cloudflare deploy",
+    "preview:cf": "opennextjs-cloudflare preview",
     "start": "next start",
     "lint": "eslint"
   },
@@ -18,8 +20,8 @@
     "seedrandom": "^3.0.5"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.16",
     "@eslint/eslintrc": "^3",
+    "@opennextjs/cloudflare": "^1.19.8",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -29,6 +31,7 @@
     "eslint-config-next": "15.5.15",
     "eslint-plugin-react-hooks": "^7.1.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.90.0"
   }
 }

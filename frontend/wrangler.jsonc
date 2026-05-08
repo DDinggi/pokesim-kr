@@ -1,0 +1,19 @@
+/**
+ * Cloudflare Workers 배포 설정 (OpenNext for Cloudflare).
+ * `pnpm build:cf` → .open-next/{worker.js,assets}/ 생성.
+ * `pnpm deploy:cf` 또는 Cloudflare Workers Builds가 이걸 읽어서 배포.
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pokesim-kr",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-04-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".open-next/assets"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
