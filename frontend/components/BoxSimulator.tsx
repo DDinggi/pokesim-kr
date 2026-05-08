@@ -50,6 +50,26 @@ const BIG_HIT_SET = new Set(['SAR', 'MA', 'UR', 'BWR']);
 function rarityLabel(r: string): string {
   return RARITY_DISPLAY[r] ?? r;
 }
+
+const HIT_RARITY_ORDER = ['BWR', 'UR', 'MA', 'SAR', 'SR', 'AR'] as const;
+const RARITY_TEXT_COLOR: Record<string, string> = {
+  BWR: 'text-slate-100',
+  UR: 'text-yellow-300',
+  MA: 'text-fuchsia-300',
+  SAR: 'text-pink-300',
+  SR: 'text-orange-300',
+  AR: 'text-cyan-300',
+};
+function getHitCounts(cards: Card[]): Array<{ rarity: string; count: number }> {
+  const counts: Record<string, number> = {};
+  for (const c of cards) {
+    if (c.rarity) counts[c.rarity] = (counts[c.rarity] ?? 0) + 1;
+  }
+  return HIT_RARITY_ORDER
+    .filter((r) => (counts[r] ?? 0) > 0)
+    .map((r) => ({ rarity: r, count: counts[r] }));
+}
+
 const REVEAL_STAGGER_MS = 140;
 const REVEAL_BASE_MS = 600;
 const HIT_HOLD_MS = 1200;
@@ -222,26 +242,28 @@ function RareHistory({
 function SessionBar({ session, onReset }: { session: Session; onReset: () => void }) {
   const total = session.boxes + session.packs;
   if (total === 0) return null;
+  const hits = getHitCounts(session.cards);
   const handleReset = () => {
-    if (window.confirm('세션 누적 기록을 모두 초기화할까요?')) onReset();
+    if (window.confirm('지금까지 깐 카드 기록을 모두 초기화할까요?')) onReset();
   };
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 py-2.5 flex items-center justify-between text-[11px] text-gray-400 bg-gray-900/50 rounded-lg ring-1 ring-white/5">
-      <span className="truncate">
-        세션 누적: 박스 <span className="text-white font-bold">{session.boxes}</span> · 팩{' '}
-        <span className="text-white font-bold">{session.packs}</span>
+    <div className="w-full max-w-2xl mx-auto px-4 py-2.5 flex items-start justify-between gap-3 text-[11px] text-gray-400 bg-gray-900/50 rounded-lg ring-1 ring-white/5">
+      <span className="min-w-0">
+        지금까지 깐 카드: 박스 <span className="text-white font-bold">{session.boxes}</span>
+        {' · '}팩 <span className="text-white font-bold">{session.packs}</span>
+        {' · '}<span className="text-white font-bold tabular-nums">{session.cost.toLocaleString()}원</span>
+        {hits.map(({ rarity, count }) => (
+          <span key={rarity} className={RARITY_TEXT_COLOR[rarity]}>
+            {' · '}{rarityLabel(rarity)} <span className="font-bold">{count}</span>장
+          </span>
+        ))}
       </span>
-      <div className="flex items-center gap-3 shrink-0">
-        <span className="tabular-nums">
-          ₩<span className="text-white font-bold">{session.cost.toLocaleString()}</span>
-        </span>
-        <button
-          onClick={handleReset}
-          className="text-gray-500 hover:text-red-400 transition-colors text-[10px] underline-offset-2 hover:underline"
-        >
-          리셋
-        </button>
-      </div>
+      <button
+        onClick={handleReset}
+        className="text-gray-500 hover:text-red-400 transition-colors text-[10px] underline-offset-2 hover:underline shrink-0"
+      >
+        리셋
+      </button>
     </div>
   );
 }
@@ -801,15 +823,20 @@ function BoxDoneScreen({
 
       {(session.boxes > 0 || session.packs > 0) && (
         <details className="mb-8 pt-6 border-t border-white/5" open={session.boxes <= 1}>
-          <summary className="cursor-pointer list-none flex items-center justify-between text-xs font-bold text-gray-400 uppercase tracking-widest hover:text-gray-200">
+          <summary className="cursor-pointer list-none flex items-start justify-between gap-3 text-xs font-bold text-gray-400 tracking-wider hover:text-gray-200">
             <span>
-              🗂 세션 누적 — 박스 {session.boxes} · 팩 {session.packs} · ₩
-              {session.cost.toLocaleString()} · 레어 {sessionRares.length}장
+              🗂 지금까지 깐 카드 — 박스 {session.boxes} · 팩 {session.packs} ·{' '}
+              {session.cost.toLocaleString()}원
+              {getHitCounts(session.cards).map(({ rarity, count }) => (
+                <span key={rarity} className={RARITY_TEXT_COLOR[rarity]}>
+                  {' · '}{rarityLabel(rarity)} {count}장
+                </span>
+              ))}
             </span>
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                if (window.confirm('세션 누적 기록을 모두 초기화할까요?')) onResetSession();
+                if (window.confirm('지금까지 깐 카드 기록을 모두 초기화할까요?')) onResetSession();
               }}
               className="ml-4 shrink-0 normal-case font-normal text-gray-500 hover:text-red-400 transition-colors underline-offset-2 hover:underline tracking-normal"
             >
@@ -890,9 +917,14 @@ function PackDoneScreen({
 
       {(session.boxes > 0 || session.packs > 0) && (
         <section className="w-full pt-4 border-t border-white/5">
-          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-            🗂 세션 누적 — 박스 {session.boxes} · 팩 {session.packs} · ₩
-            {session.cost.toLocaleString()} · 레어 {sessionRares.length}장
+          <h3 className="text-xs font-bold text-gray-400 tracking-wider mb-3">
+            🗂 지금까지 깐 카드 — 박스 {session.boxes} · 팩 {session.packs} ·{' '}
+            {session.cost.toLocaleString()}원
+            {getHitCounts(session.cards).map(({ rarity, count }) => (
+              <span key={rarity} className={RARITY_TEXT_COLOR[rarity]}>
+                {' · '}{rarityLabel(rarity)} {count}장
+              </span>
+            ))}
           </h3>
           {sessionRares.length > 0 && (
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
