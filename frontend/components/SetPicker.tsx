@@ -30,6 +30,46 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
     gradient: 'from-purple-700 via-fuchsia-800 to-purple-900',
     accent: 'text-purple-300',
   },
+  'sv11b-black-bolt': {
+    gradient: 'from-gray-900 via-slate-950 to-zinc-950',
+    accent: 'text-slate-300',
+  },
+  'sv11a-white-flare': {
+    gradient: 'from-zinc-600 via-slate-600 to-gray-800',
+    accent: 'text-white',
+  },
+  'sv10-glory': {
+    gradient: 'from-gray-800 via-red-950 to-slate-900',
+    accent: 'text-red-400',
+  },
+  'sv9a-blazing-arena': {
+    gradient: 'from-orange-600 via-red-700 to-rose-900',
+    accent: 'text-orange-300',
+  },
+  'sv9-battle-partners': {
+    gradient: 'from-sky-600 via-blue-700 to-indigo-900',
+    accent: 'text-sky-300',
+  },
+  'sv8a-terastal-festa': {
+    gradient: 'from-pink-700 via-fuchsia-800 to-purple-900',
+    accent: 'text-pink-300',
+  },
+  'sv8-super-electric': {
+    gradient: 'from-yellow-600 via-amber-700 to-orange-900',
+    accent: 'text-yellow-300',
+  },
+  'sv6-mask': {
+    gradient: 'from-violet-700 via-purple-800 to-indigo-950',
+    accent: 'text-violet-300',
+  },
+  'sv2a-151': {
+    gradient: 'from-red-600 via-rose-700 to-red-900',
+    accent: 'text-rose-300',
+  },
+  'sv1a-triplet': {
+    gradient: 'from-emerald-600 via-green-700 to-teal-900',
+    accent: 'text-emerald-300',
+  },
 };
 
 function SetCard({

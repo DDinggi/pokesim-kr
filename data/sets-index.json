@@ -5,9 +5,19 @@
     "m-dream-ex",
     "m-inferno-x",
     "m-mega-brave",
-    "m-mega-symphonia"
+    "m-mega-symphonia",
+    "sv11b-black-bolt",
+    "sv11a-white-flare",
+    "sv10-glory",
+    "sv9a-blazing-arena",
+    "sv9-battle-partners",
+    "sv8a-terastal-festa",
+    "sv8-super-electric",
+    "sv6-mask",
+    "sv2a-151",
+    "sv1a-triplet"
   ],
   "planned_sets": [],
-  "_notes": "D-139 정합 — 한국판 현재 발매 중인 MEGA 라인업. active_sets는 데이터 작성 완료 후 이동. planned_sets는 PR 3에서 자동 수집 스크립트로 채움. 신상 발매 시 planned_sets에 추가 → 데이터 작성 → active_sets로 이동.",
-  "_updated_at": "2026-05-02"
+  "_notes": "MEGA 라인업 + SV 확장팩 라인업 추가 (sv1a~sv11B). active_sets는 데이터 작성 완료 후 이동. 신상 발매 시 planned_sets에 추가 → 데이터 작성 → active_sets로 이동.",
+  "_updated_at": "2026-05-08"
 }

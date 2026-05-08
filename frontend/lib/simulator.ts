@@ -14,25 +14,28 @@ export const PROBABILITY_META = {
   estimatedAt: '2026-05',
 };
 
-// 메가시리즈 일반 확장팩 (닌자스피너 / 니힐제로 / 메가브레이브 / 메가심포니아 / 인페르노X)
-// 박스 30팩 × 5장. hit 슬롯 30개 중 다음 보장 — 위치는 랜덤 (D-126).
+// 일반 확장팩 박스 hit 슬롯 보장 — 위치는 랜덤 (D-126).
 //   몬스터 SR이상 ×1 (SR포켓몬 / SAR포켓몬 / UR — 세트별 다름)
 //   트레이너 SR이상 ×1 (SR트레이너 95% / SAR트레이너 5% 고정)
 //   AR ×3
-// 나머지 25슬롯: R/RR 가중치
+// 나머지 슬롯(boxSize - 5): R/RR 가중치
 //
 // 세트별 몬스터 슬롯 가중치 (출처: pokemon-infomation.com / Samurai Sword Tokyo, 2026-05)
-//   닌자스피너: SAR 33% — samuraiswordtokyo.com (M4 Ninja Spinner pull rates)
-//   니힐제로:   SAR 17% — samuraiswordtokyo.com (Nihil Zero pull rates) ← 유독 낮음
-//   인페르노X:  SAR 30% — samuraiswordtokyo.com (Inferno X pull rates)
-//   메가브레이브: SAR 28% — pokemon-infomation.com (Mega Brave pull rates, ~1000박스)
+//   닌자스피너: SAR 33% — samuraiswordtokyo.com
+//   니힐제로:   SAR 16% — samuraiswordtokyo.com ← 유독 낮음
+//   인페르노X:  SAR 30% — samuraiswordtokyo.com
+//   메가브레이브: SAR 28% — pokemon-infomation.com (~1000박스)
 //   메가심포니아: SAR 29% — pokemon-infomation.com / samuraiswordtokyo.com
+//   SV 확장팩 (sv1a~sv10): 커뮤니티 추정 기본값 적용 (SR:68 / SAR:30 / UR:2)
+//   sv11A/B (화이트플레어·블랙볼트): BWR(블랙화이트레어) 추가 — UR보다 희귀, ~2% 추정
 const EXPANSION_MONSTER_WEIGHTS: Record<string, Record<string, number>> = {
-  'm4-ninja-spinner': { SR: 65, SAR: 33, UR: 2 },
-  'm-nihil-zero':     { SR: 82, SAR: 16, UR: 2 },
-  'm-inferno-x':      { SR: 68, SAR: 30, UR: 2 },
-  'm-mega-brave':     { SR: 70, SAR: 28, UR: 2 },
-  'm-mega-symphonia': { SR: 70, SAR: 29, UR: 1 },
+  'm4-ninja-spinner':  { SR: 65, SAR: 33, UR: 2 },
+  'm-nihil-zero':      { SR: 82, SAR: 16, UR: 2 },
+  'm-inferno-x':       { SR: 68, SAR: 30, UR: 2 },
+  'm-mega-brave':      { SR: 70, SAR: 28, UR: 2 },
+  'm-mega-symphonia':  { SR: 70, SAR: 29, UR: 1 },
+  'sv11a-white-flare': { SR: 67, SAR: 28, UR: 3, BWR: 2 },
+  'sv11b-black-bolt':  { SR: 67, SAR: 28, UR: 3, BWR: 2 },
 };
 const EXPANSION_MONSTER_WEIGHTS_DEFAULT: Record<string, number> = { SR: 68, SAR: 30, UR: 2 };
 
@@ -121,14 +124,14 @@ interface BuildContext {
   weightedPick: (w: Record<string, number>) => string;
 }
 
-// 일반 확장팩 1팩: C×3 + U×1 + hit×1 (5장)
+// 일반 확장팩 1팩: C×(packSize-2) + U×1 + hit×1
 // hitPool: 이미 결정된 hit 카드 풀 (caller가 포켓몬/트레이너 분리 책임)
-function buildExpansionPack(ctx: BuildContext, hitPool: Card[]): PackResult {
+function buildExpansionPack(ctx: BuildContext, hitPool: Card[], packSize = 5): PackResult {
   const { byRarity, pick } = ctx;
   const cards: Card[] = [];
   const cPool = byRarity['C'] ?? [];
   const uPool = byRarity['U'] ?? [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < packSize - 2; i++) {
     if (cPool.length) cards.push(pick(cPool));
   }
   if (uPool.length) cards.push(pick(uPool));
@@ -157,6 +160,7 @@ function simulateExpansionBox(
   ctx: BuildContext,
   rng: RNG,
   setCode?: string,
+  packSize = 5,
 ): PackResult[] {
   const { byRarity } = ctx;
 
@@ -166,24 +170,30 @@ function simulateExpansionBox(
   const srAll = byRarity['SR'] ?? [];
   const sarAll = byRarity['SAR'] ?? [];
   const urAll = byRarity['UR'] ?? [];
+  const bwrAll = byRarity['BWR'] ?? [];
 
   const srPokemon = srAll.filter(isPokemon);
   const srTrainer = srAll.filter(isTrainer);
   const sarPokemon = sarAll.filter(isPokemon);
   const sarTrainer = sarAll.filter(isTrainer);
   const urPokemon = urAll.filter(isPokemon);
+  const bwrPokemon = bwrAll.filter(isPokemon);
 
-  // ① 몬스터 SR이상 슬롯 — 세트별 SAR 확률 적용
+  // ① 몬스터 SR이상 슬롯 — 세트별 SAR/BWR 확률 적용
   const rawMonsterW = (setCode ? EXPANSION_MONSTER_WEIGHTS[setCode] : null) ?? EXPANSION_MONSTER_WEIGHTS_DEFAULT;
   const monsterWeights: Record<string, number> = {};
   if (srPokemon.length && rawMonsterW['SR']) monsterWeights['SR'] = rawMonsterW['SR'];
   if (sarPokemon.length && rawMonsterW['SAR']) monsterWeights['SAR'] = rawMonsterW['SAR'];
   if (urPokemon.length && rawMonsterW['UR']) monsterWeights['UR'] = rawMonsterW['UR'];
+  if (bwrPokemon.length && rawMonsterW['BWR']) monsterWeights['BWR'] = rawMonsterW['BWR'];
 
   let monsterPool: Card[];
   if (Object.keys(monsterWeights).length > 0) {
     const r = ctx.weightedPick(monsterWeights);
-    monsterPool = r === 'SAR' ? sarPokemon : r === 'UR' ? urPokemon : srPokemon;
+    if (r === 'BWR') monsterPool = bwrPokemon;
+    else if (r === 'SAR') monsterPool = sarPokemon;
+    else if (r === 'UR') monsterPool = urPokemon;
+    else monsterPool = srPokemon;
   } else {
     // card_type 미분류 폴백: 전체 SR 풀에서 rarity 기반 추첨
     const fw = filterAvailableWeights(rawMonsterW, byRarity);
@@ -215,7 +225,7 @@ function simulateExpansionBox(
   }
 
   const placed = shuffle(slots, rng);
-  return placed.map((pool) => buildExpansionPack(ctx, pool));
+  return placed.map((pool) => buildExpansionPack(ctx, pool, packSize));
 }
 
 function simulateHiClassBox(
@@ -291,7 +301,7 @@ export function simulatePack(
   const pack =
     type === 'hi-class'
       ? buildHiClassPack(ctx, hitRarity, packSize)
-      : buildExpansionPack(ctx, byRarity[hitRarity] ?? byRarity['R'] ?? []);
+      : buildExpansionPack(ctx, byRarity[hitRarity] ?? byRarity['R'] ?? [], packSize);
 
   return { pack, seed };
 }
@@ -314,7 +324,7 @@ export function simulateBox(
   const packs =
     type === 'hi-class'
       ? simulateHiClassBox(boxSize, packSize, ctx, rng)
-      : simulateExpansionBox(allCards, boxSize, ctx, rng, setCode);
+      : simulateExpansionBox(allCards, boxSize, ctx, rng, setCode, packSize);
 
   const summary: Record<string, number> = {};
   for (const pack of packs) {
