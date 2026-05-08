@@ -294,7 +294,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
 
         <main className="flex-1 px-4 sm:px-6 py-8 max-w-6xl mx-auto w-full">
           <section className="mb-6 text-sm text-gray-300 flex flex-wrap items-center gap-x-3 gap-y-1">
-            <span className="text-gray-500">이번 결제</span>
+            <span className="text-gray-500">이번 개봉</span>
             <span>총 {purchased.length}팩</span>
             <span className="text-gray-700">·</span>
             <span>{totalCostFinal.toLocaleString()}원</span>
@@ -316,7 +316,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
               onClick={handleRestart}
               className="px-8 py-3 bg-gradient-to-br from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 active:scale-95 rounded-xl font-bold transition shadow-lg shadow-amber-900/40"
             >
-              한 번 더 자판기 가기
+              다시 개봉하기
             </button>
             <button
               onClick={onBackToMain}
@@ -352,7 +352,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
         </button>
         <div>
           <h1 className="text-2xl font-bold tracking-tight">자판기깡</h1>
-          <p className="text-xs text-gray-500 mt-1">원하는 팩을 골라 사기 · 세트당 최대 {MAX_PER_SET}팩</p>
+          <p className="text-xs text-gray-500 mt-1">시뮬레이션 · 원하는 팩을 골라 깡하기 · 세트당 최대 {MAX_PER_SET}팩</p>
         </div>
       </header>
 
@@ -362,7 +362,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
           <div className="rounded-3xl bg-gradient-to-b from-gray-950 to-black p-3 sm:p-5 shadow-inner">
             {/* 포켓몬 로고 헤더 + 피카츄 */}
             <div className="flex items-center justify-between gap-2 mb-3 sm:mb-4 px-2">
-              <PikachuMascot />
+              <PikachuMascot src="/pikachu1.png" />
               <div className="flex flex-col items-center min-w-0">
                 <h2
                   className="text-2xl sm:text-4xl font-black tracking-wider leading-none"
@@ -376,12 +376,12 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                   POKÉMON
                 </h2>
                 <p className="text-[10px] sm:text-xs font-bold text-yellow-300 mt-1 flex items-center gap-1.5 tracking-wide">
-                  <span className="text-red-500">●</span>
+                  <MonsterBall className="w-3 h-3 sm:w-3.5 sm:h-3.5 inline-block" />
                   포켓몬 카드
-                  <span className="text-red-500">●</span>
+                  <MonsterBall className="w-3 h-3 sm:w-3.5 sm:h-3.5 inline-block" />
                 </p>
               </div>
-              <PikachuMascot flipped />
+              <PikachuMascot src="/pikachu2.png" />
             </div>
 
             <div className="rounded-2xl bg-gradient-to-br from-blue-700 via-blue-800 to-blue-950 p-3 sm:p-5">
@@ -418,7 +418,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
               })}
             </div>
             <p className="text-center text-xs text-blue-200/80 mt-4 tracking-wide">
-              ▼ 구매하시는 팩을 선택하세요 ▼
+              ▼ 시뮬레이션할 팩을 골라보세요 (실제 결제 없음) ▼
             </p>
             </div>
             {/* 하단 안내 (실제 자판기의 관리자 정보 영역 모방) */}
@@ -467,7 +467,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
               onClick={handleCheckout}
               className="mt-4 w-full py-3.5 bg-gradient-to-br from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 active:scale-[0.99] rounded-xl font-black text-lg transition shadow-lg shadow-green-900/40"
             >
-              결제하고 까기 ({totalCost.toLocaleString()}원)
+              개봉 시작 ({totalCost.toLocaleString()}원 어치)
             </button>
           </section>
         )}
@@ -587,7 +587,7 @@ function QuantityModal({
             disabled={qty <= 0}
             className="py-3 rounded-xl bg-green-500 hover:bg-green-400 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98] font-black text-white shadow-md transition"
           >
-            ✓ 바로 구입
+            ✓ 바로 개봉
           </button>
         </div>
 
@@ -602,14 +602,12 @@ function QuantityModal({
   );
 }
 
-function PikachuMascot({ flipped = false }: { flipped?: boolean }) {
+function PikachuMascot({ src }: { src: string }) {
   const [errored, setErrored] = useState(false);
   if (errored) {
-    // /pikachu.png 없으면 폴백: 노란 둥근 배경 + 번개 이모지
     return (
       <span
         className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 ring-2 ring-yellow-200 shadow-lg shrink-0 select-none text-2xl sm:text-3xl"
-        style={flipped ? { transform: 'scaleX(-1)' } : undefined}
         aria-hidden
       >
         ⚡
@@ -617,13 +615,9 @@ function PikachuMascot({ flipped = false }: { flipped?: boolean }) {
     );
   }
   return (
-    <span
-      className="relative w-14 h-14 sm:w-20 sm:h-20 shrink-0 select-none"
-      style={flipped ? { transform: 'scaleX(-1)' } : undefined}
-      aria-hidden
-    >
+    <span className="relative w-14 h-14 sm:w-20 sm:h-20 shrink-0 select-none" aria-hidden>
       <Image
-        src="/pikachu.png"
+        src={src}
         alt=""
         fill
         sizes="80px"
@@ -631,6 +625,26 @@ function PikachuMascot({ flipped = false }: { flipped?: boolean }) {
         onError={() => setErrored(true)}
       />
     </span>
+  );
+}
+
+function MonsterBall({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden>
+      <circle cx="12" cy="12" r="11" fill="#CC0000" stroke="#222" strokeWidth="1.5" />
+      <path d="M1 12 Q1 12 23 12" stroke="#222" strokeWidth="1.5" />
+      <rect x="1" y="11" width="22" height="2" fill="#222" />
+      <circle cx="12" cy="12" r="11" fill="none" clipPath="url(#bot)" />
+      <clipPath id="bot">
+        <rect x="0" y="12" width="24" height="12" />
+      </clipPath>
+      <circle cx="12" cy="12" r="11" fill="white" clipPath="url(#bot2)" />
+      <clipPath id="bot2">
+        <rect x="0" y="13.5" width="24" height="12" />
+      </clipPath>
+      <circle cx="12" cy="12" r="3.5" fill="white" stroke="#222" strokeWidth="1.5" />
+      <circle cx="12" cy="12" r="1.8" fill="#aaa" />
+    </svg>
   );
 }
 
