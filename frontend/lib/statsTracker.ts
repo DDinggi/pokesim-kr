@@ -47,15 +47,16 @@ export interface GlobalStats {
 
 export async function fetchGlobalStats(): Promise<GlobalStats | null> {
   if (!supabase) return null;
-  const { data, error } = await supabase
-    .from('sim_events')
-    .select('session_id, box_count, pack_count, krw');
+  // get_global_stats RPC: 서버에서 COUNT/SUM 집계. row 수와 무관하게 응답 ~100B.
+  // RLS로 sim_events 직접 SELECT는 차단됨.
+  const { data, error } = await supabase.rpc('get_global_stats');
   if (error || !data) return null;
+  const r = data as { totalSessions: number; totalPacks: number; totalBoxes: number; totalKrw: number };
   return {
-    totalSessions: new Set(data.map((r) => r.session_id)).size,
-    totalPacks: data.reduce((s, r) => s + (r.pack_count as number), 0),
-    totalBoxes: data.reduce((s, r) => s + (r.box_count as number), 0),
-    totalKrw: data.reduce((s, r) => s + (r.krw as number), 0),
+    totalSessions: Number(r.totalSessions) || 0,
+    totalPacks: Number(r.totalPacks) || 0,
+    totalBoxes: Number(r.totalBoxes) || 0,
+    totalKrw: Number(r.totalKrw) || 0,
   };
 }
 

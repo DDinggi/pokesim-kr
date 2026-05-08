@@ -123,21 +123,17 @@ function resolveImageUrl(image_url: string): string {
   return /^https?:\/\//.test(image_url) ? image_url : `${CDN_BASE}${image_url}`;
 }
 
-// raw CDN URL → /_next/image 최적화 URL로 변환 (브라우저 캐시가 Next.js 렌더 요청과 일치)
-function toNextImageUrl(src: string, width = 256, quality = 75): string {
-  return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality}`;
-}
-
 function preloadImages(urls: string[]) {
   if (typeof window === 'undefined') return;
-  const optimized = urls.map((url) => toNextImageUrl(url));
+  // static export 모드: /_next/image 엔드포인트가 없으므로 원본 CDN URL 직접 preload.
+  // Image 컴포넌트도 unoptimized=true라 같은 URL을 요청 → 브라우저 캐시 일치.
   let i = 0;
   function next() {
-    const chunk = optimized.slice(i, i + 8);
+    const chunk = urls.slice(i, i + 8);
     if (!chunk.length) return;
     chunk.forEach((src) => { (new window.Image()).src = src; });
     i += 8;
-    if (i < optimized.length) setTimeout(next, 80);
+    if (i < urls.length) setTimeout(next, 80);
   }
   next();
 }

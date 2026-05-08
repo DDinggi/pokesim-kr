@@ -25,6 +25,7 @@
     "@types/seedrandom": "^3.0.8",
     "eslint": "^9",
     "eslint-config-next": "15.5.15",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
