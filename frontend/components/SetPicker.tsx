@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { SetMeta } from '../lib/types';
+import { fetchGlobalStats, type GlobalStats } from '../lib/statsTracker';
 
 const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
   'm4-ninja-spinner': {
@@ -148,6 +149,12 @@ export function SetPicker({
   sets: SetMeta[];
   onSelect: (set: SetMeta) => void;
 }) {
+  const [stats, setStats] = useState<GlobalStats | null>(null);
+
+  useEffect(() => {
+    fetchGlobalStats().then((s) => { if (s) setStats(s); });
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
       <header className="px-6 py-5 border-b border-gray-800/80">
@@ -170,8 +177,21 @@ export function SetPicker({
         </div>
       </main>
 
-      <footer className="px-6 py-4 text-[10px] text-gray-600 text-center border-t border-gray-900">
-        ⓘ 봉입률은 추정치 · 포켓몬코리아는 확정 봉입을 안내하지 않습니다
+      <footer className="px-6 py-5 border-t border-gray-900 flex flex-col items-center gap-2">
+        {stats && (
+          <p className="text-xs text-gray-400 text-center">
+            지금까지{' '}
+            <span className="text-white font-bold">{stats.totalSessions.toLocaleString()}명</span>
+            {' '}이{' '}
+            <span className="text-white font-bold">{stats.totalBoxes.toLocaleString()}박스</span>
+            {' · '}
+            <span className="text-pink-400 font-bold">₩{stats.totalKrw.toLocaleString()}</span>
+            {' '}어치 시뮬레이션했습니다
+          </p>
+        )}
+        <p className="text-[10px] text-gray-600 text-center">
+          ⓘ 봉입률은 추정치 · 포켓몬코리아는 확정 봉입을 안내하지 않습니다
+        </p>
       </footer>
     </div>
   );

@@ -5,10 +5,12 @@ import Image from 'next/image';
 import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
 import { simulateBox, simulatePack, PROBABILITY_META } from '../lib/simulator';
 import { CardModal } from './CardModal';
+import { ShareCard } from './ShareCard';
+import { trackSim, calcLuckPercentile } from '../lib/statsTracker';
 
 const CDN_BASE = 'https://cards.image.pokemonkorea.co.kr/data/';
 
-const RARITY_ORDER = ['UR', 'MA', 'SAR', 'SR', 'AR', 'RR', 'R', 'U', 'C'];
+const RARITY_ORDER = ['BWR', 'UR', 'MA', 'SAR', 'SR', 'AR', 'RR', 'R', 'U', 'C'];
 
 // 표시용 라벨 — 데이터 태그와 다를 수 있음 (UR ↔ MUR 등)
 const RARITY_DISPLAY: Record<string, string> = {
@@ -25,6 +27,7 @@ const RARITY_BADGE: Record<string, string> = {
   SAR: 'bg-pink-400 text-gray-900',
   MA: 'bg-fuchsia-400 text-gray-900',
   UR: 'bg-yellow-300 text-gray-900',
+  BWR: 'bg-gradient-to-r from-gray-100 to-white text-gray-900',
 };
 
 const CARD_GLOW: Record<string, string> = {
@@ -34,13 +37,16 @@ const CARD_GLOW: Record<string, string> = {
   SAR: 'ring-[3px] ring-pink-400 shadow-lg shadow-pink-500/50',
   MA: 'ring-[3px] ring-fuchsia-400 shadow-lg shadow-fuchsia-500/50',
   UR: 'ring-[3px] ring-yellow-300 shadow-xl shadow-yellow-400/60',
+  BWR: 'ring-[3px] ring-white shadow-xl shadow-white/40',
 };
 
 // 박스 결과에서 레어로 강조할 등급
-const RARE_SET = new Set(['RR', 'AR', 'SR', 'SAR', 'MA', 'UR']);
+const RARE_SET = new Set(['RR', 'AR', 'SR', 'SAR', 'MA', 'UR', 'BWR']);
 // 토글 필터 표시 순서 (상위 → 하위)
-const FILTER_ORDER = ['UR', 'MA', 'SAR', 'SR', 'AR', 'RR'];
-const HIT_SET = new Set(['SR', 'SAR', 'MA', 'UR']); // 진짜 hit (SR 이상)
+const FILTER_ORDER = ['BWR', 'UR', 'MA', 'SAR', 'SR', 'AR', 'RR'];
+const HIT_SET = new Set(['SR', 'SAR', 'MA', 'UR', 'BWR']); // 진짜 hit (SR 이상)
+// 대형 히트 오버레이를 트리거하는 등급
+const BIG_HIT_SET = new Set(['SAR', 'MA', 'UR', 'BWR']);
 
 function rarityLabel(r: string): string {
   return RARITY_DISPLAY[r] ?? r;
@@ -395,6 +401,33 @@ function IdleScreen({
   );
 }
 
+const BIG_HIT_STYLE: Record<string, { bg: string; textColor: string; label: string }> = {
+  SAR: { bg: 'bg-gradient-to-br from-pink-900/90 via-fuchsia-900/90 to-purple-900/90', textColor: 'text-pink-300', label: '풀 레인보우 등장!' },
+  MA:  { bg: 'bg-gradient-to-br from-fuchsia-900/90 via-purple-900/90 to-indigo-900/90', textColor: 'text-fuchsia-300', label: '마스터볼 레어 등장!' },
+  UR:  { bg: 'bg-gradient-to-br from-yellow-900/90 via-amber-900/90 to-orange-900/90',   textColor: 'text-yellow-300', label: '울트라 레어 등장!' },
+  BWR: { bg: 'bg-gradient-to-br from-gray-900/95 via-slate-800/95 to-gray-900/95',        textColor: 'text-white',      label: '블랙화이트 레어 등장!' },
+};
+
+function BigHitOverlay({ rarity, cardName }: { rarity: string; cardName: string | null }) {
+  const style = BIG_HIT_STYLE[rarity] ?? BIG_HIT_STYLE['SAR'];
+  const isBwr = rarity === 'BWR';
+  return (
+    <div className={`big-hit-overlay fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 ${style.bg}`}>
+      <div className={`big-hit-text text-center px-6`}>
+        <p className={`text-4xl sm:text-5xl font-black tracking-tight ${style.textColor} ${isBwr ? 'big-hit-bwr bg-clip-text text-transparent' : 'big-hit-rainbow'}`}>
+          {rarityLabel(rarity)}
+        </p>
+        <p className="text-lg sm:text-xl font-bold text-white/90 mt-3">
+          {style.label}
+        </p>
+        {cardName && (
+          <p className="text-sm text-white/60 mt-2">{cardName}</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function AutoBoxReveal({
   result,
   packIdx,
@@ -415,78 +448,99 @@ function AutoBoxReveal({
   const hitIdx = pack.cards.length - 1;
   const hitCard = pack.cards[hitIdx];
   const isRareHit = hitCard?.rarity ? HIT_SET.has(hitCard.rarity) : false;
+  const isBigHit = hitCard?.rarity ? BIG_HIT_SET.has(hitCard.rarity) : false;
+
+  const [bigHitInfo, setBigHitInfo] = useState<{ rarity: string; name: string | null } | null>(null);
+
+  useEffect(() => {
+    setBigHitInfo(null);
+    if (!isBigHit || !hitCard?.rarity) return;
+    // 카드 플립 애니메이션이 끝난 뒤 오버레이 표시
+    const revealDelay = hitIdx * REVEAL_STAGGER_MS + 200 + REVEAL_BASE_MS;
+    const showTimer = setTimeout(() => {
+      setBigHitInfo({ rarity: hitCard.rarity!, name: hitCard.name_ko });
+      const hideTimer = setTimeout(() => setBigHitInfo(null), 2100);
+      return () => clearTimeout(hideTimer);
+    }, revealDelay);
+    return () => clearTimeout(showTimer);
+  // packIdx 바뀔 때마다 리셋
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [packIdx]);
 
   return (
-    <div className="flex flex-col items-center gap-5 px-4 py-6 min-h-[calc(100vh-72px)] select-none">
-      <div className="text-center" onClick={onAdvance}>
-        <p className="text-2xl font-bold tabular-nums">
-          {packIdx + 1} / {total} 팩
-        </p>
-        <div className="mt-2 w-64 h-2 bg-gray-800 rounded-full overflow-hidden mx-auto">
-          <div className="h-full bg-red-500 rounded-full" style={{ width: `${progress}%` }} />
+    <>
+      {bigHitInfo && <BigHitOverlay rarity={bigHitInfo.rarity} cardName={bigHitInfo.name} />}
+      <div className="flex flex-col items-center gap-5 px-4 py-6 min-h-[calc(100vh-72px)] select-none">
+        <div className="text-center" onClick={onAdvance}>
+          <p className="text-2xl font-bold tabular-nums">
+            {packIdx + 1} / {total} 팩
+          </p>
+          <div className="mt-2 w-64 h-2 bg-gray-800 rounded-full overflow-hidden mx-auto">
+            <div className="h-full bg-red-500 rounded-full" style={{ width: `${progress}%` }} />
+          </div>
         </div>
-      </div>
 
-      {isRareHit ? (
-        <p
-          key={`hit-${packIdx}`}
-          className="text-base font-bold text-amber-300 animate-pulse h-6"
-        >
-          ✨ {rarityLabel(hitCard.rarity!)} 당첨!
-        </p>
-      ) : (
-        <p className="h-6" />
-      )}
-
-      <div
-        key={`pack-${packIdx}`}
-        className="relative grid grid-cols-5 gap-3 sm:gap-4 w-full max-w-4xl mx-auto cursor-pointer"
-        onClick={onAdvance}
-      >
-        {pack.cards.map((card, i) => {
-          const isHit = i === hitIdx && isRareHit;
-          const delay = i * REVEAL_STAGGER_MS + (i === hitIdx ? 200 : 0);
-          return (
-            <div key={i} onClick={(e) => e.stopPropagation()} className="relative">
-              {isHit && (
-                <div
-                  className="absolute inset-0 burst-rays rounded-lg pointer-events-none z-0"
-                  style={{ animationDelay: `${delay + 400}ms` }}
-                />
-              )}
-              <div
-                className={`relative z-10 rounded-lg ${isHit ? 'card-reveal-hit' : 'card-reveal'}`}
-                style={{ animationDelay: `${delay}ms` }}
-              >
-                <CardTile card={card} size="lg" onClick={() => onCardClick(card)} priority />
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      <RareHistory result={result} upToPackIdx={packIdx} onCardClick={onCardClick} />
-
-      <div className="flex flex-col items-center gap-2 mt-auto pt-2">
-        <p className="text-xs text-gray-500">화면 클릭 · 스페이스바로 다음 팩</p>
-        <div className="flex gap-2">
-          <button
-            onClick={onSkip}
-            className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
+        {isRareHit ? (
+          <p
+            key={`hit-${packIdx}`}
+            className="text-base font-bold text-amber-300 animate-pulse h-6"
           >
-            전체 결과 바로 보기 →
-          </button>
-        </div>
-        {isLast && (
-          <button
-            onClick={onAdvance}
-            className="px-8 py-3 bg-gray-700 hover:bg-gray-600 rounded-xl font-bold"
-          >
-            결과 보기 →
-          </button>
+            ✨ {rarityLabel(hitCard.rarity!)} 당첨!
+          </p>
+        ) : (
+          <p className="h-6" />
         )}
+
+        <div
+          key={`pack-${packIdx}`}
+          className="relative grid grid-cols-5 gap-3 sm:gap-4 w-full max-w-4xl mx-auto cursor-pointer"
+          onClick={onAdvance}
+        >
+          {pack.cards.map((card, i) => {
+            const isHit = i === hitIdx && isRareHit;
+            const delay = i * REVEAL_STAGGER_MS + (i === hitIdx ? 200 : 0);
+            return (
+              <div key={i} onClick={(e) => e.stopPropagation()} className="relative">
+                {isHit && (
+                  <div
+                    className="absolute inset-0 burst-rays rounded-lg pointer-events-none z-0"
+                    style={{ animationDelay: `${delay + 400}ms` }}
+                  />
+                )}
+                <div
+                  className={`relative z-10 rounded-lg ${isHit ? 'card-reveal-hit' : 'card-reveal'}`}
+                  style={{ animationDelay: `${delay}ms` }}
+                >
+                  <CardTile card={card} size="lg" onClick={() => onCardClick(card)} priority />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <RareHistory result={result} upToPackIdx={packIdx} onCardClick={onCardClick} />
+
+        <div className="flex flex-col items-center gap-2 mt-auto pt-2">
+          <p className="text-xs text-gray-500">화면 클릭 · 스페이스바로 다음 팩</p>
+          <div className="flex gap-2">
+            <button
+              onClick={onSkip}
+              className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              전체 결과 바로 보기 →
+            </button>
+          </div>
+          {isLast && (
+            <button
+              onClick={onAdvance}
+              className="px-8 py-3 bg-gray-700 hover:bg-gray-600 rounded-xl font-bold"
+            >
+              결과 보기 →
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -695,6 +749,15 @@ function BoxDoneScreen({
   const rares = allCards.filter((c) => c.rarity && RARE_SET.has(c.rarity));
   const sessionRares = sortByRarity(session.cards.filter((c) => c.rarity && RARE_SET.has(c.rarity)));
 
+  const bigHitCount = session.cards.filter((c) => c.rarity && BIG_HIT_SET.has(c.rarity)).length;
+  const luck = calcLuckPercentile(bigHitCount, session.boxes, session.packs);
+  const luckLabel = luck
+    ? luck.isLucky
+      ? `상위 ${luck.percentile}%`
+      : `하위 ${luck.percentile}%`
+    : null;
+  const [showShare, setShowShare] = useState(false);
+
   return (
     <div className="px-4 py-6 max-w-6xl mx-auto">
       <div className="mb-6">
@@ -723,8 +786,19 @@ function BoxDoneScreen({
         </details>
       </section>
 
+      {/* 운 지수 배지 */}
+      {luckLabel && (
+        <div className="mb-4 flex items-center justify-center gap-2 text-sm">
+          <span className="text-gray-400">세션 SAR+UR 운 지수</span>
+          <span className={`font-black px-3 py-1 rounded-lg ${luck!.isLucky ? 'bg-pink-500/20 text-pink-300' : 'bg-slate-700/50 text-slate-400'}`}>
+            {luckLabel}
+          </span>
+          <span className="text-gray-600 text-xs">({bigHitCount}장 / 기대 {(session.boxes * 0.37 + session.packs * 0.011).toFixed(1)}장)</span>
+        </div>
+      )}
+
       {/* 액션 버튼 */}
-      <div className="mb-6 flex flex-wrap justify-center gap-3">
+      <div className="mb-4 flex flex-wrap justify-center gap-3">
         <button
           onClick={onRedo}
           className="px-10 py-3 bg-gradient-to-br from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 active:scale-95 rounded-xl font-bold transition shadow-lg shadow-red-900/40"
@@ -743,7 +817,27 @@ function BoxDoneScreen({
         >
           ← 다른 박스 선택
         </button>
+        <button
+          onClick={() => setShowShare((v) => !v)}
+          className="px-6 py-3 bg-indigo-700 hover:bg-indigo-600 active:scale-95 rounded-xl font-bold transition"
+        >
+          {showShare ? '공유 카드 닫기' : '결과 공유 ↗'}
+        </button>
       </div>
+
+      {/* 공유 카드 */}
+      {showShare && (
+        <div className="mb-6 flex justify-center">
+          <ShareCard
+            meta={meta}
+            boxes={session.boxes}
+            singlePacks={session.packs}
+            totalKrw={session.cost}
+            sessionCards={session.cards}
+            luck={luck}
+          />
+        </div>
+      )}
 
       {(session.boxes > 0 || session.packs > 0) && (
         <details className="mb-8 pt-6 border-t border-white/5" open={session.boxes <= 1}>
@@ -971,7 +1065,7 @@ export function BoxSimulator({
     setPhase('done');
   }, [setMeta]);
 
-  // phase 가 done 으로 진입할 때 1회 세션 누적
+  // phase 가 done 으로 진입할 때 1회 세션 누적 + Supabase 트래킹
   useEffect(() => {
     if (phase !== 'done') return;
     if (mode === 'pack' && packResult) {
@@ -981,6 +1075,7 @@ export function BoxSimulator({
         cost: s.cost + setMeta.pack_price_krw,
         cards: [...s.cards, ...packResult.pack.cards],
       }));
+      trackSim({ setCode: setMeta.code, mode: 'pack', boxCount: 0, packCount: 1, krw: setMeta.pack_price_krw });
     } else if (mode === 'box-manual' && boxResult) {
       // 카드는 advancePack에서 팩별로 이미 누적됨; skip(전체결과 바로보기) 시 미기록 팩 보완
       const skipped = boxResult.packs.flatMap((p, i) =>
@@ -993,6 +1088,7 @@ export function BoxSimulator({
         cost: s.cost + setMeta.box_price_krw,
         ...(skipped.length > 0 && { cards: [...s.cards, ...skipped] }),
       }));
+      trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw });
     } else if (mode && mode !== 'pack' && boxResult) {
       const all = boxResult.packs.flatMap((p) => p.cards);
       setSession((s) => ({
@@ -1001,6 +1097,7 @@ export function BoxSimulator({
         cost: s.cost + setMeta.box_price_krw,
         cards: [...s.cards, ...all],
       }));
+      trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, boxResult?.seed, packResult?.seed]);
