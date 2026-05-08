@@ -5,8 +5,7 @@ import Image from 'next/image';
 import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
 import { simulateBox, simulatePack, PROBABILITY_META } from '../lib/simulator';
 import { CardModal } from './CardModal';
-import { ShareCard } from './ShareCard';
-import { trackSim, calcLuckPercentile } from '../lib/statsTracker';
+import { trackSim } from '../lib/statsTracker';
 
 const CDN_BASE = 'https://cards.image.pokemonkorea.co.kr/data/';
 
@@ -749,14 +748,6 @@ function BoxDoneScreen({
   const rares = allCards.filter((c) => c.rarity && RARE_SET.has(c.rarity));
   const sessionRares = sortByRarity(session.cards.filter((c) => c.rarity && RARE_SET.has(c.rarity)));
 
-  const bigHitCount = session.cards.filter((c) => c.rarity && BIG_HIT_SET.has(c.rarity)).length;
-  const luck = calcLuckPercentile(bigHitCount, session.boxes, session.packs);
-  const luckLabel = luck
-    ? luck.isLucky
-      ? `상위 ${luck.percentile}%`
-      : `하위 ${luck.percentile}%`
-    : null;
-  const [showShare, setShowShare] = useState(false);
 
   return (
     <div className="px-4 py-6 max-w-6xl mx-auto">
@@ -776,8 +767,8 @@ function BoxDoneScreen({
           ✨ 이번 박스 레어 ({rares.length}장) — 등급 토글로 필터
         </h3>
         <RarityFilteredGrid cards={allCards} onCardClick={onCardClick} />
-        <details className="mt-4 text-xs text-gray-500">
-          <summary className="cursor-pointer hover:text-gray-300">
+        <details className="mt-3">
+          <summary className="cursor-pointer text-[10px] text-gray-700 hover:text-gray-500 select-none w-fit">
             전체 {allCards.length}장 보기 (커먼/언커먼 포함)
           </summary>
           <div className="mt-3">
@@ -786,19 +777,8 @@ function BoxDoneScreen({
         </details>
       </section>
 
-      {/* 운 지수 배지 */}
-      {luckLabel && (
-        <div className="mb-4 flex items-center justify-center gap-2 text-sm">
-          <span className="text-gray-400">세션 SAR+UR 운 지수</span>
-          <span className={`font-black px-3 py-1 rounded-lg ${luck!.isLucky ? 'bg-pink-500/20 text-pink-300' : 'bg-slate-700/50 text-slate-400'}`}>
-            {luckLabel}
-          </span>
-          <span className="text-gray-600 text-xs">({bigHitCount}장 / 기대 {(session.boxes * 0.37 + session.packs * 0.011).toFixed(1)}장)</span>
-        </div>
-      )}
-
       {/* 액션 버튼 */}
-      <div className="mb-4 flex flex-wrap justify-center gap-3">
+      <div className="mb-5 flex flex-wrap justify-center gap-3">
         <button
           onClick={onRedo}
           className="px-10 py-3 bg-gradient-to-br from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 active:scale-95 rounded-xl font-bold transition shadow-lg shadow-red-900/40"
@@ -817,27 +797,7 @@ function BoxDoneScreen({
         >
           ← 다른 박스 선택
         </button>
-        <button
-          onClick={() => setShowShare((v) => !v)}
-          className="px-6 py-3 bg-indigo-700 hover:bg-indigo-600 active:scale-95 rounded-xl font-bold transition"
-        >
-          {showShare ? '공유 카드 닫기' : '결과 공유 ↗'}
-        </button>
       </div>
-
-      {/* 공유 카드 */}
-      {showShare && (
-        <div className="mb-6 flex justify-center">
-          <ShareCard
-            meta={meta}
-            boxes={session.boxes}
-            singlePacks={session.packs}
-            totalKrw={session.cost}
-            sessionCards={session.cards}
-            luck={luck}
-          />
-        </div>
-      )}
 
       {(session.boxes > 0 || session.packs > 0) && (
         <details className="mb-8 pt-6 border-t border-white/5" open={session.boxes <= 1}>
@@ -1134,6 +1094,31 @@ export function BoxSimulator({
   }, []);
 
   const goToIdle = useCallback(() => {
+    // reveal 도중 이탈 시 — 이미 시뮬레이션된 결과를 세션에 커밋
+    if (phase === 'reveal') {
+      if (mode === 'pack' && packResult) {
+        setSession((s) => ({
+          ...s,
+          packs: s.packs + 1,
+          cost: s.cost + setMeta.pack_price_krw,
+          cards: [...s.cards, ...packResult.pack.cards],
+        }));
+        trackSim({ setCode: setMeta.code, mode: 'pack', boxCount: 0, packCount: 1, krw: setMeta.pack_price_krw });
+      } else if (boxResult) {
+        const all = boxResult.packs.flatMap((p) => p.cards);
+        // box-manual은 advancePack에서 팩별로 일부 이미 누적됐을 수 있으므로 미기록분만 추가
+        const unrecorded = mode === 'box-manual'
+          ? boxResult.packs.flatMap((p, i) => manualPacksRecorded.current.has(i) ? [] : p.cards)
+          : all;
+        setSession((s) => ({
+          ...s,
+          boxes: s.boxes + 1,
+          cost: s.cost + setMeta.box_price_krw,
+          cards: [...s.cards, ...unrecorded],
+        }));
+        trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw });
+      }
+    }
     setPhase('idle');
     setMode(null);
     setBoxResult(null);
@@ -1141,7 +1126,7 @@ export function BoxSimulator({
     setPackIdx(0);
     setFlippedSet(new Set());
     setPendingBoxRedo(null);
-  }, []);
+  }, [phase, mode, packResult, boxResult, setMeta]);
 
   // 자동 모드 — stagger reveal 끝난 뒤 hold 후 다음 팩(또는 결과)
   useEffect(() => {
