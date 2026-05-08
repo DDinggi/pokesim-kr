@@ -162,7 +162,7 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
         </div>
       )}
 
-      <footer className="px-6 py-4 border-t border-gray-900 flex flex-col items-center gap-2">
+      <footer className="px-6 py-5 border-t border-gray-900 flex flex-col items-center gap-2">
         {stats && (
           <p className="text-xs text-gray-400 text-center">
             지금까지{' '}
@@ -177,6 +177,24 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
         <p className="text-[10px] text-gray-600 text-center">
           ⓘ 봉입률은 추정치 · 포켓몬코리아는 확정 봉입을 안내하지 않습니다
         </p>
+
+        <div className="mt-2 pt-3 border-t border-gray-900 w-full max-w-lg flex flex-col items-center gap-1">
+          <p className="text-[10px] text-gray-700 text-center">
+            비영리 팬 시뮬레이터 · Non-commercial fan project
+          </p>
+          <p className="text-[10px] text-gray-700 text-center">
+            © 2022–{new Date().getFullYear()} mesulive · All rights reserved
+          </p>
+          <p className="text-[10px] text-gray-700 text-center">
+            mesulive is not associated with NEXON Korea or The Pokémon Company.
+          </p>
+          <a
+            href="mailto:me@kurateh.com"
+            className="text-[10px] text-gray-600 hover:text-gray-400 transition-colors mt-0.5"
+          >
+            me@kurateh.com
+          </a>
+        </div>
       </footer>
     </div>
   );
