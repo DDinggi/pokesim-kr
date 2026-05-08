@@ -334,13 +334,11 @@ function IdleScreen({
   meta,
   session,
   onStartBox,
-  onStartPack,
   onResetSession,
 }: {
   meta: SetMeta;
   session: Session;
   onStartBox: (mode: 'box-auto' | 'box-manual' | 'box-instant') => void;
-  onStartPack: () => void;
   onResetSession: () => void;
 }) {
   const [imgErr, setImgErr] = useState(false);
@@ -348,13 +346,13 @@ function IdleScreen({
     <div className="flex flex-col items-center min-h-[calc(100vh-72px)] px-4 py-8 gap-6">
       <div className="text-center max-w-xl flex flex-col items-center">
         {!imgErr && (
-          <div className="relative w-32 h-40 sm:w-36 sm:h-44 mb-4">
+          <div className="relative w-52 h-64 sm:w-64 sm:h-80 mb-4">
             <Image
               src={`/boxes/${meta.code}.png`}
               alt={meta.name_ko}
               fill
-              sizes="160px"
-              className="object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)]"
+              sizes="280px"
+              className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
               onError={() => setImgErr(true)}
               priority
             />
@@ -373,44 +371,22 @@ function IdleScreen({
         <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3 px-1">
           박스깡 · ₩{meta.box_price_krw.toLocaleString()}
         </h3>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <button
             onClick={() => onStartBox('box-auto')}
-            className="py-7 rounded-2xl bg-gradient-to-br from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 active:scale-95 transition font-bold text-base shadow-xl shadow-red-900/40 flex flex-col gap-1"
+            className="py-8 rounded-2xl bg-gradient-to-br from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 active:scale-95 transition font-bold text-lg shadow-xl shadow-red-900/40 flex flex-col gap-1"
           >
             자동
-            <span className="text-[11px] font-normal text-red-100/90">한 팩씩 자동</span>
-          </button>
-          <button
-            onClick={() => onStartBox('box-manual')}
-            className="py-7 rounded-2xl bg-gradient-to-br from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 active:scale-95 transition font-bold text-base shadow-xl shadow-rose-900/40 flex flex-col gap-1"
-          >
-            수동
-            <span className="text-[11px] font-normal text-rose-100/90">한 장씩 클릭</span>
+            <span className="text-[11px] font-normal text-red-100/90">한 팩씩 자동 개봉</span>
           </button>
           <button
             onClick={() => onStartBox('box-instant')}
-            className="py-7 rounded-2xl bg-gradient-to-br from-orange-600 to-orange-700 hover:from-orange-500 hover:to-orange-600 active:scale-95 transition font-bold text-base shadow-xl shadow-orange-900/40 flex flex-col gap-1"
+            className="py-8 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-700 hover:from-orange-400 hover:to-orange-600 active:scale-95 transition font-bold text-lg shadow-xl shadow-orange-900/40 flex flex-col gap-1"
           >
             즉시
-            <span className="text-[11px] font-normal text-orange-100/90">결과 바로</span>
+            <span className="text-[11px] font-normal text-orange-100/90">결과 바로 보기</span>
           </button>
         </div>
-      </section>
-
-      <section className="w-full max-w-2xl">
-        <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3 px-1">
-          자판기 1팩 · ₩{meta.pack_price_krw.toLocaleString()}
-        </h3>
-        <button
-          onClick={onStartPack}
-          className="w-full py-6 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 active:scale-95 transition font-bold text-base shadow-xl shadow-blue-900/40 flex flex-col gap-1"
-        >
-          1팩 뽑기
-          <span className="text-[11px] font-normal text-blue-100/90">
-            박스 보장 없이 순수 확률
-          </span>
-        </button>
       </section>
 
       <p className="text-[11px] text-gray-600 text-center max-w-md leading-relaxed mt-2">
@@ -1239,7 +1215,6 @@ export function BoxSimulator({
                 meta={setMeta}
                 session={session}
                 onStartBox={startBox}
-                onStartPack={startPack}
                 onResetSession={resetSession}
               />
             )}
