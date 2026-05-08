@@ -137,6 +137,156 @@ body {
   animation: loading-bounce 0.6s ease-in-out infinite;
 }
 
+/* === 홀로그래픽 카드 효과 — simeydotme/pokemon-cards-css 참고 ===
+   JS(window mousemove)가 inline transform으로 카드를 기울이고
+   --mx/--my CSS 변수로 shimmer 위치를 갱신. perspective()는 transform 함수에 포함되어 self-contained.
+   주의: prefers-reduced-motion이 .holo-card transform을 !important로 막지 않도록 globals 끝부분 확인 */
+.holo-wrapper {
+  width: 100%;
+}
+
+.holo-card {
+  --mx: 0.5;
+  --my: 0.5;
+  --active: 0;
+  will-change: transform;
+  cursor: crosshair;
+  isolation: isolate;
+  /* transform/transition은 JS가 inline style로 직접 제어 */
+}
+
+/* 공통 오버레이 — opacity는 --active CSS 변수가 제어 */
+.holo-layer,
+.holo-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--active, 0);
+  transition: opacity 0.25s ease-out;
+}
+.holo-layer { z-index: 3; }
+.holo-glare { z-index: 4; }
+
+/* 글레어: 마우스 따라다니는 밝은 반사점 */
+/* screen blend — 어두운 카드에서도 반드시 보임 */
+.holo-glare {
+  background: radial-gradient(
+    farthest-corner circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.15) 30%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  mix-blend-mode: screen;
+}
+
+/* RR: 황금 대각선 shimmer */
+.holo-rr .holo-layer {
+  background:
+    radial-gradient(
+      farthest-corner ellipse at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+      rgba(255, 210, 80, 0.6) 0%,
+      transparent 65%
+    ),
+    repeating-linear-gradient(55deg, transparent 0%, rgba(255, 200, 50, 0.35) 3%, transparent 6%);
+  mix-blend-mode: screen;
+}
+
+/* AR: 청록 shimmer */
+.holo-ar .holo-layer {
+  background:
+    radial-gradient(
+      farthest-corner ellipse at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+      rgba(80, 240, 220, 0.65) 0%,
+      transparent 65%
+    ),
+    repeating-linear-gradient(45deg, transparent 0%, rgba(80, 240, 220, 0.35) 3%, transparent 6%);
+  mix-blend-mode: screen;
+}
+
+/* SR: 오렌지 shimmer */
+.holo-sr .holo-layer {
+  background:
+    radial-gradient(
+      farthest-corner ellipse at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+      rgba(255, 160, 50, 0.7) 0%,
+      transparent 65%
+    ),
+    repeating-linear-gradient(50deg, transparent 0%, rgba(255, 160, 50, 0.4) 3%, transparent 6%);
+  mix-blend-mode: screen;
+}
+
+/* SAR: 풀 레인보우 — my에 따라 색상 시프트 */
+.holo-sar .holo-layer {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 60, 60, 0.5) 0px,
+      rgba(255, 220, 60, 0.5) 17px,
+      rgba(60, 255, 60, 0.5) 34px,
+      rgba(60, 220, 255, 0.5) 51px,
+      rgba(120, 60, 255, 0.5) 68px,
+      rgba(255, 60, 210, 0.5) 85px,
+      rgba(255, 60, 60, 0.5) 102px
+    ),
+    radial-gradient(
+      farthest-corner ellipse at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+      rgba(255, 255, 255, 0.45) 0%,
+      transparent 55%
+    );
+  background-size: 100% 102px, 100% 100%;
+  background-position: 0 calc(var(--my, 0.5) * 60px), 0 0;
+  mix-blend-mode: screen;
+  filter: saturate(1.4);
+}
+
+/* MA: 퍼플/핑크 레인보우 */
+.holo-ma .holo-layer {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(230, 60, 255, 0.55) 0px,
+      rgba(160, 60, 255, 0.55) 17px,
+      rgba(60, 110, 255, 0.55) 34px,
+      rgba(60, 210, 255, 0.55) 51px,
+      rgba(160, 60, 255, 0.55) 68px,
+      rgba(230, 60, 255, 0.55) 85px
+    ),
+    radial-gradient(
+      farthest-corner ellipse at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+      rgba(255, 255, 255, 0.5) 0%,
+      transparent 55%
+    );
+  background-size: 100% 85px, 100% 100%;
+  background-position: 0 calc(var(--my, 0.5) * 50px), 0 0;
+  mix-blend-mode: screen;
+  filter: saturate(1.6);
+}
+
+/* UR (MUR): 최대 레인보우 */
+.holo-ur .holo-layer {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 60, 60, 0.6) 0px,
+      rgba(255, 190, 60, 0.6) 15px,
+      rgba(60, 255, 60, 0.6) 30px,
+      rgba(60, 190, 255, 0.6) 45px,
+      rgba(120, 60, 255, 0.6) 60px,
+      rgba(255, 60, 210, 0.6) 75px,
+      rgba(255, 60, 60, 0.6) 90px
+    ),
+    radial-gradient(
+      farthest-corner ellipse at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+      rgba(255, 255, 255, 0.6) 0%,
+      transparent 55%
+    );
+  background-size: 100% 90px, 100% 100%;
+  background-position: 0 calc(var(--my, 0.5) * 80px), 0 0;
+  mix-blend-mode: screen;
+  filter: saturate(1.8);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card-reveal,
   .card-reveal-hit {
@@ -148,4 +298,5 @@ body {
   .loading-bounce {
     animation: none;
   }
+  /* 홀로 카드 효과는 사용자 직접 인터랙션이라 reduced-motion에서도 유지 */
 }

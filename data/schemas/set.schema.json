@@ -47,7 +47,7 @@
     },
     "type": {
       "type": "string",
-      "enum": ["expansion", "hi-class", "강화-확장팩", "starter", "promo"],
+      "enum": ["expansion", "hi-class", "starter", "promo"],
       "description": "팩 종류."
     },
     "release_date": {

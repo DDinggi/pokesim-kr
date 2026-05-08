@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
 import { simulateBox, simulatePack, PROBABILITY_META } from '../lib/simulator';
@@ -45,12 +45,11 @@ const HIT_SET = new Set(['SR', 'SAR', 'MA', 'UR']); // 진짜 hit (SR 이상)
 function rarityLabel(r: string): string {
   return RARITY_DISPLAY[r] ?? r;
 }
-// 카드 펼침 stagger + hit 연출 시간
 const REVEAL_STAGGER_MS = 140;
-const REVEAL_BASE_MS = 600; // 첫 카드부터 마지막 카드 펼침 끝까지 대략적인 베이스
-const HIT_HOLD_MS = 1200; // hit 카드 임팩트 후 트랜지션 진입까지 추가 시간
-const NORMAL_HOLD_MS = 600; // hit 아닐 때 트랜지션 진입까지 추가 시간
-const BETWEEN_MS = 1800; // 팩 사이 "카드 뽑는 중..." 트랜지션 길이 (자동 모드 전용)
+const REVEAL_BASE_MS = 600;
+const HIT_HOLD_MS = 1200;
+const NORMAL_HOLD_MS = 600;
+const BETWEEN_MS = 1800;
 
 // 세션 누적 — 세트 변경/새로고침해도 유지 (사용자가 직접 리셋)
 const SESSION_STORAGE_KEY = 'pokesim-kr-session-v1';
@@ -99,19 +98,40 @@ function resolveImageUrl(image_url: string): string {
   return /^https?:\/\//.test(image_url) ? image_url : `${CDN_BASE}${image_url}`;
 }
 
+// raw CDN URL → /_next/image 최적화 URL로 변환 (브라우저 캐시가 Next.js 렌더 요청과 일치)
+function toNextImageUrl(src: string, width = 256, quality = 75): string {
+  return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality}`;
+}
+
+function preloadImages(urls: string[]) {
+  if (typeof window === 'undefined') return;
+  const optimized = urls.map((url) => toNextImageUrl(url));
+  let i = 0;
+  function next() {
+    const chunk = optimized.slice(i, i + 8);
+    if (!chunk.length) return;
+    chunk.forEach((src) => { (new window.Image()).src = src; });
+    i += 8;
+    if (i < optimized.length) setTimeout(next, 80);
+  }
+  next();
+}
+
 function CardTile({
   card,
   size = 'md',
   onClick,
+  priority = false,
 }: {
   card: Card;
   size?: 'sm' | 'md' | 'lg';
   onClick?: () => void;
+  priority?: boolean;
 }) {
   const glow = card.rarity ? (CARD_GLOW[card.rarity] ?? '') : '';
   const [errored, setErrored] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const Wrapper = onClick ? 'button' : 'div';
-  // size별 next/image sizes 힌트 — 작을수록 작은 변형 다운로드
   const sizesAttr =
     size === 'sm'
       ? '(max-width: 640px) 12vw, (max-width: 1024px) 8vw, 100px'
@@ -119,7 +139,7 @@ function CardTile({
   return (
     <Wrapper
       onClick={onClick}
-      className={`relative aspect-[5/7] rounded-lg overflow-hidden block w-full ${glow} ${onClick ? 'cursor-pointer hover:scale-105 active:scale-95 transition-transform' : ''}`}
+      className={`relative aspect-[5/7] rounded-lg overflow-hidden block w-full bg-gray-800 ${glow} ${onClick ? 'cursor-pointer hover:scale-105 active:scale-95 transition-transform' : ''}`}
     >
       {errored || !card.image_url ? (
         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center p-2 text-center">
@@ -129,14 +149,21 @@ function CardTile({
           {card.rarity && <span className="text-[9px] text-gray-500 mt-1">{card.rarity}</span>}
         </div>
       ) : (
-        <Image
-          src={resolveImageUrl(card.image_url)}
-          alt={card.name_ko ?? card.card_num}
-          fill
-          sizes={sizesAttr}
-          className="object-cover"
-          onError={() => setErrored(true)}
-        />
+        <>
+          {!loaded && (
+            <div className="absolute inset-0 bg-gray-800 animate-pulse" />
+          )}
+          <Image
+            src={resolveImageUrl(card.image_url)}
+            alt={card.name_ko ?? card.card_num}
+            fill
+            sizes={sizesAttr}
+            className="object-cover"
+            priority={priority}
+            onLoad={() => setLoaded(true)}
+            onError={() => setErrored(true)}
+          />
+        </>
       )}
       {size !== 'sm' && card.rarity && (
         <span
@@ -196,9 +223,8 @@ function SessionBar({ session, onReset }: { session: Session; onReset: () => voi
   return (
     <div className="w-full max-w-2xl mx-auto px-4 py-2.5 flex items-center justify-between text-[11px] text-gray-400 bg-gray-900/50 rounded-lg ring-1 ring-white/5">
       <span className="truncate">
-        세션 누적: 박스 <span className="text-white font-bold">{session.boxes}</span> · 자판기{' '}
-        <span className="text-white font-bold">{session.packs}</span> · 카드{' '}
-        <span className="text-white font-bold">{session.cards.length}</span>장
+        세션 누적: 박스 <span className="text-white font-bold">{session.boxes}</span> · 팩{' '}
+        <span className="text-white font-bold">{session.packs}</span>
       </span>
       <div className="flex items-center gap-3 shrink-0">
         <span className="tabular-nums">
@@ -355,7 +381,7 @@ function IdleScreen({
         >
           1팩 뽑기
           <span className="text-[11px] font-normal text-blue-100/90">
-            박스 보장 없이 순수 확률 (D-128)
+            박스 보장 없이 순수 확률
           </span>
         </button>
       </section>
@@ -432,7 +458,7 @@ function AutoBoxReveal({
                 className={`relative z-10 rounded-lg ${isHit ? 'card-reveal-hit' : 'card-reveal'}`}
                 style={{ animationDelay: `${delay}ms` }}
               >
-                <CardTile card={card} size="lg" onClick={() => onCardClick(card)} />
+                <CardTile card={card} size="lg" onClick={() => onCardClick(card)} priority />
               </div>
             </div>
           );
@@ -503,7 +529,7 @@ function ManualBoxReveal({
       <div className="grid grid-cols-5 gap-3 sm:gap-4 w-full max-w-4xl mx-auto">
         {pack.cards.map((card, i) =>
           flippedSet.has(i) ? (
-            <CardTile key={i} card={card} size="lg" onClick={() => onCardClick(card)} />
+            <CardTile key={i} card={card} size="lg" onClick={() => onCardClick(card)} priority />
           ) : (
             <div
               key={i}
@@ -574,11 +600,7 @@ function CollectionGrid({
   cards: Card[];
   onCardClick: (c: Card) => void;
 }) {
-  const sorted = [...cards].sort((a, b) => {
-    const ai = RARITY_ORDER.indexOf(a.rarity ?? '');
-    const bi = RARITY_ORDER.indexOf(b.rarity ?? '');
-    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-  });
+  const sorted = sortByRarity(cards);
   return (
     <div className="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-11 gap-1.5">
       {sorted.map((card, i) => (
@@ -611,11 +633,7 @@ function RarityFilteredGrid({
     });
 
   const filtered = cards.filter((c) => c.rarity && selected.has(c.rarity));
-  const sorted = [...filtered].sort((a, b) => {
-    const ai = RARITY_ORDER.indexOf(a.rarity ?? '');
-    const bi = RARITY_ORDER.indexOf(b.rarity ?? '');
-    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-  });
+  const sorted = sortByRarity(filtered);
 
   if (available.length === 0) {
     return <p className="text-xs text-gray-600">레어 카드 없음</p>;
@@ -644,7 +662,7 @@ function RarityFilteredGrid({
       {sorted.length > 0 ? (
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
           {sorted.map((card, i) => (
-            <CardTile key={i} card={card} size="lg" onClick={() => onCardClick(card)} />
+            <CardTile key={i} card={card} size="lg" onClick={() => onCardClick(card)} priority />
           ))}
         </div>
       ) : (
@@ -662,6 +680,7 @@ function BoxDoneScreen({
   onChangeMode,
   onChangeSet,
   onCardClick,
+  onResetSession,
 }: {
   result: BoxResult;
   meta: SetMeta;
@@ -670,6 +689,7 @@ function BoxDoneScreen({
   onChangeMode: () => void;
   onChangeSet: () => void;
   onCardClick: (c: Card) => void;
+  onResetSession: () => void;
 }) {
   const allCards = result.packs.flatMap((p) => p.cards);
   const rares = allCards.filter((c) => c.rarity && RARE_SET.has(c.rarity));
@@ -703,7 +723,7 @@ function BoxDoneScreen({
         </details>
       </section>
 
-      {/* 액션 버튼 — 세션 누적보다 먼저 노출 (D-104: 한 박스 더 깡 항상 보이게) */}
+      {/* 액션 버튼 */}
       <div className="mb-6 flex flex-wrap justify-center gap-3">
         <button
           onClick={onRedo}
@@ -727,15 +747,26 @@ function BoxDoneScreen({
 
       {(session.boxes > 0 || session.packs > 0) && (
         <details className="mb-8 pt-6 border-t border-white/5" open={session.boxes <= 1}>
-          <summary className="cursor-pointer text-xs font-bold text-gray-400 uppercase tracking-widest hover:text-gray-200">
-            🗂 세션 누적 — 박스 {session.boxes} · 자판기 {session.packs} · ₩
-            {session.cost.toLocaleString()} · 레어 {sessionRares.length}장
+          <summary className="cursor-pointer list-none flex items-center justify-between text-xs font-bold text-gray-400 uppercase tracking-widest hover:text-gray-200">
+            <span>
+              🗂 세션 누적 — 박스 {session.boxes} · 팩 {session.packs} · ₩
+              {session.cost.toLocaleString()} · 레어 {sessionRares.length}장
+            </span>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (window.confirm('세션 누적 기록을 모두 초기화할까요?')) onResetSession();
+              }}
+              className="ml-4 shrink-0 normal-case font-normal text-gray-500 hover:text-red-400 transition-colors underline-offset-2 hover:underline tracking-normal"
+            >
+              초기화
+            </button>
           </summary>
           <div className="mt-3">
             {sessionRares.length > 0 && (
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 mb-4">
                 {sessionRares.map((c, i) => (
-                  <CardTile key={i} card={c} size="lg" onClick={() => onCardClick(c)} />
+                  <CardTile key={i} card={c} size="lg" onClick={() => onCardClick(c)} priority />
                 ))}
               </div>
             )}
@@ -806,13 +837,13 @@ function PackDoneScreen({
       {(session.boxes > 0 || session.packs > 0) && (
         <section className="w-full pt-4 border-t border-white/5">
           <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-            🗂 세션 누적 — 박스 {session.boxes} · 자판기 {session.packs} · ₩
+            🗂 세션 누적 — 박스 {session.boxes} · 팩 {session.packs} · ₩
             {session.cost.toLocaleString()} · 레어 {sessionRares.length}장
           </h3>
           {sessionRares.length > 0 && (
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
               {sessionRares.map((c, i) => (
-                <CardTile key={i} card={c} size="lg" onClick={() => onCardClick(c)} />
+                <CardTile key={i} card={c} size="lg" onClick={() => onCardClick(c)} priority />
               ))}
             </div>
           )}
@@ -841,7 +872,7 @@ function PackDoneScreen({
       </div>
 
       <p className="text-[11px] text-gray-600 text-center">
-        ⓘ 자판기 모드는 박스 보장룰 무시 (D-128)
+        ⓘ 자판기 모드는 박스 보장룰이 없습니다
       </p>
       <p className="text-[10px] text-gray-700 text-center font-mono break-all">seed: {seed}</p>
     </div>
@@ -866,6 +897,7 @@ export function BoxSimulator({
   // "한 박스 더 깡!" 클릭 시 트랜지션 — 그 외엔 null
   const [pendingBoxRedo, setPendingBoxRedo] = useState<'box-auto' | 'box-manual' | 'box-instant' | null>(null);
   const [hydrated, setHydrated] = useState(false);
+  const manualPacksRecorded = useRef<Set<number>>(new Set());
 
   // 마운트 1회 — 세션을 localStorage에서 복구
   useEffect(() => {
@@ -900,13 +932,20 @@ export function BoxSimulator({
 
   const startBox = useCallback(
     (m: 'box-auto' | 'box-manual' | 'box-instant') => {
-      const result = simulateBox(setMeta.cards, setMeta.box_size, setMeta.type, setMeta.pack_size);
+      manualPacksRecorded.current = new Set();
+      const result = simulateBox(setMeta.cards, setMeta.box_size, setMeta.type, setMeta.pack_size, undefined, setMeta.code);
       setBoxResult(result);
       setMode(m);
       setPackIdx(0);
       setFlippedSet(new Set());
       setPendingBoxRedo(null);
       setPhase(m === 'box-instant' ? 'done' : 'reveal');
+      // 박스 전체 카드 이미지 미리 로딩 — 팩 펼칠 때 이미 캐시됨
+      const urls = result.packs
+        .flatMap((p) => p.cards)
+        .filter((c) => c.image_url)
+        .map((c) => resolveImageUrl(c.image_url!));
+      preloadImages(urls);
     },
     [setMeta],
   );
@@ -942,6 +981,18 @@ export function BoxSimulator({
         cost: s.cost + setMeta.pack_price_krw,
         cards: [...s.cards, ...packResult.pack.cards],
       }));
+    } else if (mode === 'box-manual' && boxResult) {
+      // 카드는 advancePack에서 팩별로 이미 누적됨; skip(전체결과 바로보기) 시 미기록 팩 보완
+      const skipped = boxResult.packs.flatMap((p, i) =>
+        manualPacksRecorded.current.has(i) ? [] : p.cards,
+      );
+      boxResult.packs.forEach((_, i) => manualPacksRecorded.current.add(i));
+      setSession((s) => ({
+        ...s,
+        boxes: s.boxes + 1,
+        cost: s.cost + setMeta.box_price_krw,
+        ...(skipped.length > 0 && { cards: [...s.cards, ...skipped] }),
+      }));
     } else if (mode && mode !== 'pack' && boxResult) {
       const all = boxResult.packs.flatMap((p) => p.cards);
       setSession((s) => ({
@@ -955,15 +1006,21 @@ export function BoxSimulator({
   }, [phase, boxResult?.seed, packResult?.seed]);
 
   // 다음 팩으로 즉시 이동. 마지막 팩이면 결과 화면으로.
+  // 수동 모드: 팩 완료 시마다 즉시 카드 세션 누적
   const advancePack = useCallback(() => {
     if (!boxResult) return;
+    if (mode === 'box-manual' && !manualPacksRecorded.current.has(packIdx)) {
+      manualPacksRecorded.current.add(packIdx);
+      const packCards = boxResult.packs[packIdx].cards;
+      setSession((s) => ({ ...s, cards: [...s.cards, ...packCards] }));
+    }
     if (packIdx + 1 >= boxResult.packs.length) {
       setPhase('done');
     } else {
       setPackIdx(packIdx + 1);
       setFlippedSet(new Set());
     }
-  }, [boxResult, packIdx]);
+  }, [boxResult, packIdx, mode]);
 
   const flipCard = useCallback((i: number) => {
     setFlippedSet((s) => {
@@ -1033,19 +1090,15 @@ export function BoxSimulator({
 
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
-      <header className="px-6 py-4 border-b border-gray-800/80 flex items-center justify-between shrink-0">
-        <div className="flex items-center gap-4">
+      <header className="px-6 py-5 border-b border-gray-800/80 flex items-center justify-between shrink-0">
+        <div>
           <button
             onClick={onChangeSet}
-            className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
+            className="text-2xl font-bold tracking-tight hover:text-gray-300 transition-colors"
           >
-            ← 박스 선택
+            PokéSim KR
           </button>
-          <div className="hidden sm:block w-px h-6 bg-gray-800" />
-          <div>
-            <h1 className="text-base font-bold">PokéSim KR</h1>
-            <p className="text-xs text-gray-400">{setMeta.name_ko}</p>
-          </div>
+          <p className="text-xs text-gray-400 mt-1">{setMeta.name_ko}</p>
         </div>
         {phase !== 'idle' && (
           <button
@@ -1108,6 +1161,7 @@ export function BoxSimulator({
                 onChangeMode={goToIdle}
                 onChangeSet={onChangeSet}
                 onCardClick={setModalCard}
+                onResetSession={resetSession}
               />
             )}
 

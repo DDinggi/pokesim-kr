@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import type { Card } from '../lib/types';
 
@@ -10,53 +10,103 @@ function resolveImageUrl(image_url: string): string {
   return /^https?:\/\//.test(image_url) ? image_url : `${CDN_BASE}${image_url}`;
 }
 
-const RARITY_DISPLAY: Record<string, string> = {
-  UR: 'MUR',
-};
+const RARITY_DISPLAY: Record<string, string> = { UR: 'MUR' };
 
 const RARITY_LABEL: Record<string, string> = {
-  C: '커먼',
-  U: '언커먼',
-  R: '레어',
-  RR: '더블 레어',
-  AR: '아트 레어',
-  SR: '슈퍼 레어',
-  SAR: '스페셜 아트 레어',
-  MA: '마스터 아트',
-  UR: '메가 울트라 레어',
+  C: '커먼', U: '언커먼', R: '레어', RR: '더블 레어',
+  AR: '아트 레어', SR: '슈퍼 레어', SAR: '스페셜 아트 레어',
+  MA: '마스터 아트', UR: '메가 울트라 레어',
 };
 
 const RARITY_TIER: Record<string, string> = {
-  C: 'text-gray-400',
-  U: 'text-blue-400',
-  R: 'text-purple-400',
-  RR: 'text-amber-300',
-  AR: 'text-cyan-300',
-  SR: 'text-orange-300',
-  SAR: 'text-pink-300',
-  MA: 'text-fuchsia-300',
-  UR: 'text-yellow-300',
+  C: 'text-gray-400', U: 'text-blue-400', R: 'text-purple-400',
+  RR: 'text-amber-300', AR: 'text-cyan-300', SR: 'text-orange-300',
+  SAR: 'text-pink-300', MA: 'text-fuchsia-300', UR: 'text-yellow-300',
 };
 
-// 정식 한국 포켓몬 타입명 — pokemoncard.co.kr 약어 → 풀네임
 const TYPE_LABEL: Record<string, string> = {
-  풀: '풀',
-  불꽃: '불꽃',
-  물: '물',
-  번개: '번개',
-  초: '초능력',
-  격투: '격투',
-  악: '악',
-  강철: '강철',
-  드래곤: '드래곤',
-  무색: '노말',
+  풀: '풀', 불꽃: '불꽃', 물: '물', 번개: '번개',
+  초: '에스퍼', 격투: '격투', 악: '악', 강철: '강철',
+  드래곤: '드래곤', 무색: '노말',
 };
+
+const HOLO_RARITIES = new Set(['RR', 'AR', 'SR', 'SAR', 'MA', 'UR']);
+
+function HoloCardImage({ card }: { card: Card }) {
+  const rotatorRef = useRef<HTMLDivElement>(null);
+
+  const isHolo = card.rarity ? HOLO_RARITIES.has(card.rarity) : false;
+  const rarityClass = isHolo ? `holo-${card.rarity!.toLowerCase()}` : '';
+
+  // 홀로카드 3D 틸트 + shimmer
+  // window mousemove + getBoundingClientRect로 영역 안에 있는지 직접 판정 (mouseleave 이벤트 우회)
+  useEffect(() => {
+    if (!isHolo) return;
+    const el = rotatorRef.current;
+    if (!el) return;
+    let inside = false;
+
+    function onMove(e: MouseEvent) {
+      const rect = el!.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+
+      if (px >= 0 && px <= 1 && py >= 0 && py <= 1) {
+        inside = true;
+        el!.style.setProperty('--mx', String(px));
+        el!.style.setProperty('--my', String(py));
+        el!.style.setProperty('--active', '1');
+        el!.style.transform = `perspective(800px) rotateY(${(px - 0.5) * 25}deg) rotateX(${-(py - 0.5) * 25}deg) scale(1.05)`;
+        el!.style.transition = 'transform 80ms linear';
+      } else if (inside) {
+        inside = false;
+        el!.style.setProperty('--active', '0');
+        el!.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg) scale(1)';
+        el!.style.transition = 'transform 600ms ease-out';
+      }
+    }
+
+    window.addEventListener('mousemove', onMove);
+    return () => window.removeEventListener('mousemove', onMove);
+  }, [isHolo]);
+
+  if (!card.image_url) {
+    return (
+      <div className="aspect-[5/7] rounded-xl bg-gray-800 flex items-center justify-center">
+        <span className="text-gray-500">이미지 없음</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="holo-wrapper">
+      <div
+        ref={rotatorRef}
+        className={`holo-card relative aspect-[5/7] rounded-xl overflow-hidden shadow-2xl ${rarityClass}`}
+      >
+        <Image
+          src={resolveImageUrl(card.image_url)}
+          alt={card.name_ko ?? card.card_num}
+          fill
+          sizes="(max-width: 640px) 90vw, 400px"
+          className="object-cover select-none pointer-events-none"
+          priority
+          draggable={false}
+        />
+        {isHolo && (
+          <>
+            <div className="holo-layer" />
+            <div className="holo-glare" />
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export function CardModal({ card, onClose }: { card: Card; onClose: () => void }) {
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.code === 'Escape') onClose();
-    };
+    const handler = (e: KeyboardEvent) => { if (e.code === 'Escape') onClose(); };
     window.addEventListener('keydown', handler);
     document.body.style.overflow = 'hidden';
     return () => {
@@ -76,24 +126,7 @@ export function CardModal({ card, onClose }: { card: Card; onClose: () => void }
         className="bg-gradient-to-b from-gray-900 to-gray-950 rounded-2xl p-6 max-w-md w-full ring-1 ring-white/10 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative">
-          {card.image_url ? (
-            <div className="relative aspect-[5/7] rounded-xl overflow-hidden shadow-lg">
-              <Image
-                src={resolveImageUrl(card.image_url)}
-                alt={card.name_ko ?? card.card_num}
-                fill
-                sizes="(max-width: 640px) 90vw, 400px"
-                className="object-cover"
-                priority
-              />
-            </div>
-          ) : (
-            <div className="aspect-[5/7] rounded-xl bg-gray-800 flex items-center justify-center">
-              <span className="text-gray-500">이미지 없음</span>
-            </div>
-          )}
-        </div>
+        <HoloCardImage card={card} />
 
         <div className="mt-5 space-y-2">
           <h2 className="text-xl font-bold leading-snug">{card.name_ko ?? card.card_num}</h2>
@@ -116,9 +149,7 @@ export function CardModal({ card, onClose }: { card: Card; onClose: () => void }
               </p>
             )}
             {card.hp != null && (
-              <p>
-                <span className="text-gray-500">HP:</span> {card.hp}
-              </p>
+              <p><span className="text-gray-500">HP:</span> {card.hp}</p>
             )}
             <p className="font-mono text-[11px] text-gray-600 pt-1">{card.card_num}</p>
           </div>
