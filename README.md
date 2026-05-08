@@ -1,115 +1,103 @@
 # PokéSim KR
 
-한국 포켓몬 TCG **박스깡(30팩)** 시뮬레이터 + 럭 점수 / 카드 리뷰 공유 웹 서비스.
+한국 포켓몬 TCG **박스깡 / 자판기깡 시뮬레이터**.
 
-> **상태:** 개발 중 — D1 인프라 셋업 단계 (2026-04-29 시작)
->
-> **단일 진실 원천:** 모든 결정과 구현은 [`AGENTS.md`](./AGENTS.md)를 따릅니다.
+> 자세한 설계·결정 기록은 [`AGENTS.md`](./AGENTS.md) 참고.
 
 ---
 
-## 한 줄 정의
+## 기능
 
-영문판 시뮬레이터([pokemonsim.com](https://pokemonsim.com))가 다루지 않는 **한국판 카드 + 박스 단위 + 한국 사용자 패턴**에 집중한 단일 페이지 웹앱.
+### 박스깡
+- 30팩 박스를 통째로 깡. SR · SAR 보장 슬롯 포함.
+- **자동** (한 팩씩 펼쳐지는 연출) / **즉시** (전체 결과 한 번에) 두 가지 모드.
+- 세트별 봉입률 · 보장 슬롯 룰 적용 (MEGA / SV 시리즈).
 
-## 차별화 포인트 (사용자 임팩트 순)
+### 자판기깡
+- 자판기 UI에서 1~10팩만 골라서 깡.
+- 박스보다 가벼운 시뮬, 모바일 친화적.
 
-1. **한국어 + 한국판 카드** — 영문판 X
-2. **박스 단위 시뮬** — 한국 사용자 실제 사용 패턴 (30팩 박스깡)
-3. **홀로그래픽 효과** — 시각적 임팩트, 라이브러리 없이 직접 구현
-4. **공유 링크 + 럭 점수** — SNS 바이럴
-5. **카드별 사용자 리뷰** — 일러 / 소장가치 2축 별점 + 태그
-6. **데이터 투명성** — 모든 확률에 출처 · 표본 크기 · 공식 비공개 안내
+### 공통
+- 카드 클릭 → 모달 + 등급별 **홀로그래픽 효과** (라이브러리 없이 CSS + mousemove로 직접 구현).
+- 세션 누적 (localStorage) — 새로고침해도 결과 유지, 메인 화면에서 통계 + 카드 목록 확인.
+- 글로벌 통계 — 누적 시뮬 횟수 · 박스 · 팩 · 사용 금액.
+- **모든 봉입률에 출처 · 표본 · "공식 비공개" 안내** 명시.
 
-## 엔지니어링 차별화
+### 지원 세트 (16종)
+- **MEGA**: 닌자 스피너, 고룡의 무, 환상의 ex, 인페르노 X, 메가 브레이브, 메가 심포니아
+- **SV**: 블랙 볼트, 화이트 플레어, 영광의 빛, 분투의 연무장, 배틀 파트너즈, 테라스탈 페스타, 슈퍼 일렉트릭, 변환의 가면, 151, 트리플렛 비트
 
-- **점진적 백엔드 도입** — MVP는 백엔드 없는 정적 사이트. 사용자 트리거 기반으로 단계적 확장.
-- **DAU 1만 명 기준 월 $20 이하** 운영 비용 목표.
-- **모든 의사결정에 ID** — `D-NNN` 형식, 단일 SSOT 문서(`AGENTS.md`)로 관리.
+---
 
 ## 기술 스택
 
 | 영역 | 선택 |
 |------|------|
-| 프론트엔드 | Next.js 15 (App Router) + TypeScript |
-| 호스팅 (FE) | Cloudflare Pages |
-| 정적 자산 / 이미지 | Cloudflare R2 + CDN |
-| 백엔드 (Stage A~) | FastAPI (Python 3.12) on Fly.io |
-| DB (Stage B~) | Neon (PostgreSQL) + SQLAlchemy 2.0 async |
-| 캐시 | Upstash Redis |
-| 인증 (Stage B~) | 구글 OAuth 2.0 (PKCE + state) |
-| 스케줄러 | GitHub Actions Cron |
-| 모니터링 | Sentry + UptimeRobot |
-| 분석 | Cloudflare Web Analytics |
+| 프론트엔드 | Next.js 15 (App Router) + TypeScript + Tailwind 4 |
+| 배포 | Cloudflare Workers (OpenNext for Cloudflare) |
+| DB | Supabase (sim_events 추적 + 글로벌 통계 RPC) |
+| 데이터 수집 | tsx 스크립트 (pokemoncard.co.kr / yuyu-tei / PokeGuardian) |
 
-## 단계별 도입
+---
 
-| 단계 | 인프라 추가 | 트리거 | 예상 비용 |
-|------|-----------|--------|---------|
-| **MVP** | Cloudflare Pages, R2 (정적) | — | $0~1 |
-| Stage A | + Fly.io, Upstash Redis | 사용자 100명 누적 | $0~5 |
-| Stage B | + Neon Postgres | 사용자 1,000명 또는 리뷰 요구 | $5~15 |
-| Stage C | + 외부 API, cron | F4 안정화 후 | $5~20 |
-| Stage D | + Sentry, UptimeRobot, CF Analytics | F 단계 안정 | $5~20 |
+## 로컬 개발
 
-각 단계 진입 시 블로그 포스트 작성, 트리거 도달 못 하면 다음 Stage 진입 금지.
+```bash
+# Node 22 LTS + pnpm 필요
+cd frontend
+pnpm install
+cp .env.example .env.local   # Supabase 키 입력
+pnpm dev                     # http://localhost:3000
+```
 
-## 데이터 정책
+### 데이터 갱신
 
-> "정확한 확률을 제공한다"가 아니라 **"가장 투명한 추정치를 제공한다"**
+```bash
+cd scripts
+pnpm collect -- --set <code>          # pokemoncard.co.kr 자동 수집
+pnpm fetch-jp-images -- --set <code>  # 일본판 이미지 보강
+pnpm sync                             # data/sets → frontend/public/sets
+```
 
-포켓몬 한국판 공식 봉입률은 비공개입니다. 우리가 표시하는 모든 확률은 추정치이며, **출처 + 표본 크기 + 공식 비공개 안내**를 항상 함께 노출합니다. 임의로 "그럴듯한" 숫자를 만들지 않습니다.
+---
 
 ## 폴더 구조
 
 ```
 .
-├── AGENTS.md          # 단일 진실 원천 (SSOT)
-├── README.md          # 이 파일
-├── frontend/          # Next.js 앱 (MVP부터)
-├── data/              # 카드 메타 / 확률 원천 데이터
+├── AGENTS.md             # 설계 결정 SSOT
+├── frontend/             # Next.js 앱
+├── data/sets/            # 카드 원천 JSON
+├── scripts/              # 데이터 수집 / sync
+├── supabase/migrations/  # DB 스키마 (RPC + RLS)
 └── docs/
-    └── adr/           # Architecture Decision Records (10주차 일괄 작성)
 ```
 
-## 개발
+---
 
-```bash
-# 사전 요구사항
-node --version    # v22.x (Node 22 LTS)
-pnpm --version    # >= 9
+## 향후 고민
 
-# 셋업
-cd frontend
-pnpm install
-pnpm dev
-```
+- **실제 포켓몬 자판기 현황 연동** — 한국 내 실물 포켓몬 카드 자판기 위치 / 재고를 지도/리스트로 보여줄지. 자판기깡 모드와 자연스럽게 이어지는 기능. 데이터 수집 / 갱신 비용이 핵심 관건.
+- **카드 간단 그레이딩** — 사용자가 자기 카드를 등록하면 상태(컨디션) 자가진단 + 추정 시세를 보여주는 기능. PSA / BGS 같은 정식 그레이딩이 아니라 가벼운 가이드 수준. 시세 데이터 출처 신뢰도가 관건.
 
-> ⚠️ MVP 진입 전(D2 카드 데이터 수집 단계)이라 `frontend/`는 아직 비어 있습니다.
+도입 여부는 MVP 사용자 반응 + 데이터 수집 가능성 확인 후 결정.
 
-## 로드맵 요약
+---
 
-자세한 의존성 그래프는 [`AGENTS.md` § 16](./AGENTS.md#16-로드맵-의존성-그래프) 참고.
+## 데이터 정책
 
-```
-[D] 인프라 셋업 → 카드 데이터 → ★ MVP 정적 사이트 첫 배포
-                                      ↓ 사용자 100명
-              [F1] 통계 — [F2] 럭 점수 — [F3] 공유 (Stage A: Redis만)
-                                      ↓ 사용자 1,000명
-              [F4] OAuth — [F5] 리뷰 — [F6] 랭킹 (Stage B: Postgres)
-                                      ↓
-                            [F7] 시세 (Stage C)
-                            [F8] 홀로 효과 (독립적)
-                                      ↓
-                       Stage D: 운영 + 폴리싱
-```
+> "정확한 확률" 대신 **"가장 투명한 추정치"**.
+
+포켓몬 한국판 공식 봉입률은 비공개입니다. 표시되는 모든 확률은 커뮤니티 추정 기반이며, 항상 **출처 · 표본 크기 · 공식 비공개** 안내를 함께 노출합니다.
+
+---
 
 ## 라이선스
 
-미정 (10주차 폴리싱 단계에서 결정).
+비영리 팬 프로젝트 (Non-commercial fan project). Pokémon, 포켓몬 카드 게임, 모든 카드 일러스트의 권리는 The Pokémon Company / Nintendo / Game Freak / Creatures Inc.에 있습니다.
 
-## 참고
+---
 
-- 영문판 시뮬: [pokemonsim.com](https://pokemonsim.com) — 정적 사이트 구조 참고
-- 홀로 효과 참고: [simeydotme/pokemon-cards-css](https://github.com/simeydotme/pokemon-cards-css)
-- 한국 카드 정보: [카드몬스터](https://www.cardmon.com)
+## 연락
+
+whaudrl1234@gmail.com
