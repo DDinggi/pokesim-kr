@@ -1,0 +1,82 @@
+{
+  "$schema": "https://github.com/DDinggi/pokesim-kr/blob/main/data/schemas/set.schema.json",
+  "code": "m5-black-bolt",
+  "name_ko": "MEGA 확장팩 「블랙볼트」",
+  "name_en": "Black Bolt",
+  "name_jp": null,
+  "series": "MEGA",
+  "type": "expansion",
+  "release_date": null,
+  "box_size": 30,
+  "pack_size": 5,
+  "box_price_krw": 30000,
+  "pack_price_krw": 1000,
+  "rarities": [
+    "C",
+    "U",
+    "R",
+    "RR",
+    "SR",
+    "SAR",
+    "UR",
+    "AR"
+  ],
+  "box_guarantees": {
+    "rules": [
+      {
+        "rarity": "AR",
+        "min": 3
+      },
+      {
+        "rarity": "SR",
+        "min": 1
+      }
+    ],
+    "_source": "저지맨 (포켓몬카드 MVC) + pokemon-infomation.com / altema.jp",
+    "_sample_size": null,
+    "_estimated_at": "2026-05-02"
+  },
+  "pack_slots": [
+    {
+      "position": 1,
+      "weights": { "C": 1.0 },
+      "_source": "저지맨 (포켓몬카드 MVC) + pokemon-infomation.com",
+      "_estimated_at": "2026-05-02"
+    },
+    {
+      "position": 2,
+      "weights": { "C": 1.0 },
+      "_source": "저지맨 (포켓몬카드 MVC) + pokemon-infomation.com",
+      "_estimated_at": "2026-05-02"
+    },
+    {
+      "position": 3,
+      "weights": { "C": 1.0 },
+      "_source": "저지맨 (포켓몬카드 MVC) + pokemon-infomation.com",
+      "_estimated_at": "2026-05-02"
+    },
+    {
+      "position": 4,
+      "weights": { "U": 1.0 },
+      "_source": "저지맨 (포켓몬카드 MVC) + pokemon-infomation.com",
+      "_estimated_at": "2026-05-02"
+    },
+    {
+      "position": 5,
+      "weights": {
+        "R": 0.631,
+        "RR": 0.210,
+        "AR": 0.101,
+        "SR": 0.047,
+        "SAR": 0.010,
+        "UR": 0.001
+      },
+      "_source": "저지맨 (포켓몬카드 MVC) + pokemon-infomation.com",
+      "_estimated_at": "2026-05-02"
+    }
+  ],
+  "cards": [],
+  "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
+  "_source": "https://pokemoncard.co.kr",
+  "_fetched_at": "2026-04-30"
+}
