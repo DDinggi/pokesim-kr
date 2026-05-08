@@ -377,7 +377,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                 </h2>
                 <p className="text-[10px] sm:text-xs font-bold text-yellow-300 mt-1 flex items-center gap-1.5 tracking-wide">
                   <MonsterBall className="w-3 h-3 sm:w-3.5 sm:h-3.5 inline-block" />
-                  포켓몬 카드
+                  포켓몬 카드 시뮬레이터
                   <MonsterBall className="w-3 h-3 sm:w-3.5 sm:h-3.5 inline-block" />
                 </p>
               </div>
@@ -399,17 +399,17 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                         {inCart}
                       </div>
                     )}
-                    <div className="relative aspect-[4/6] w-full bg-white/40 overflow-hidden">
+                    <div className="relative aspect-[3/4] w-full bg-white/30 overflow-hidden">
                       <Image
                         src={`/boxes/${set.code}.png`}
                         alt={set.name_ko}
                         fill
                         sizes="(max-width: 640px) 30vw, (max-width: 1024px) 22vw, 17vw"
-                        className="object-contain p-2 group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_6px_18px_rgba(0,0,0,0.3)]"
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
-                    <div className="px-2 pb-2 pt-1">
-                      <div className="rounded-full bg-gray-900 text-white text-center py-1 font-black text-sm tabular-nums">
+                    <div className="px-1.5 pb-2 pt-1">
+                      <div className="rounded-full bg-gray-900 text-white text-center py-1 font-black text-xs tabular-nums">
                         ₩{set.pack_price_krw.toLocaleString()}
                       </div>
                     </div>
@@ -626,7 +626,8 @@ function PikachuMascot({ src, flip = false }: { src: string; flip?: boolean }) {
         alt=""
         fill
         sizes="80px"
-        className="object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
+        className="object-contain"
+        style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.9)) drop-shadow(0 0 8px rgba(255,255,255,0.5)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}
         onError={() => setErrored(true)}
       />
     </span>
