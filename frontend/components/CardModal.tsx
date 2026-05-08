@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import type { Card } from '../lib/types';
 
@@ -34,8 +34,10 @@ const HOLO_RARITIES = new Set(['RR', 'AR', 'SR', 'SAR', 'MA', 'UR']);
 
 function HoloCardImage({ card }: { card: Card }) {
   const rotatorRef = useRef<HTMLDivElement>(null);
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
-  const isHolo = card.rarity ? HOLO_RARITIES.has(card.rarity) : false;
+  const isHolo = card.rarity ? HOLO_RARITIES.has(card.rarity) && imgLoaded && !imgError : false;
   const rarityClass = isHolo ? `holo-${card.rarity!.toLowerCase()}` : '';
 
   // 홀로카드 3D 틸트 + shimmer
@@ -92,7 +94,15 @@ function HoloCardImage({ card }: { card: Card }) {
           className="object-cover select-none pointer-events-none"
           priority
           draggable={false}
+          onLoad={() => setImgLoaded(true)}
+          onError={() => setImgError(true)}
         />
+        {imgError && (
+          <div className="absolute inset-0 bg-gray-800 flex flex-col items-center justify-center gap-2">
+            <span className="text-3xl">🃏</span>
+            <span className="text-xs text-gray-400">{card.name_ko ?? card.card_num}</span>
+          </div>
+        )}
         {isHolo && (
           <>
             <div className="holo-layer" />
