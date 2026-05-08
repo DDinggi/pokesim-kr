@@ -287,6 +287,44 @@ body {
   filter: saturate(1.8);
 }
 
+/* === 대형 히트 오버레이 (SAR / UR / BWR) === */
+@keyframes big-hit-flash {
+  0%   { opacity: 0; transform: scale(0.92); }
+  15%  { opacity: 1; transform: scale(1); }
+  70%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes big-hit-text-pop {
+  0%   { transform: scale(0.6) translateY(12px); opacity: 0; }
+  40%  { transform: scale(1.15) translateY(-4px); opacity: 1; }
+  70%  { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
+}
+@keyframes rainbow-shift {
+  0%   { filter: hue-rotate(0deg) saturate(1.8); }
+  100% { filter: hue-rotate(360deg) saturate(1.8); }
+}
+.big-hit-overlay {
+  animation: big-hit-flash 2s ease-out forwards;
+  pointer-events: none;
+}
+.big-hit-text {
+  animation: big-hit-text-pop 2s ease-out forwards;
+}
+.big-hit-rainbow {
+  animation: rainbow-shift 1.2s linear infinite;
+}
+/* BWR: 흑백 shimmer (레인보우 대신) */
+@keyframes bwr-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.big-hit-bwr {
+  background: linear-gradient(100deg, #1e293b 20%, #f1f5f9 50%, #1e293b 80%);
+  background-size: 300% 100%;
+  animation: bwr-shimmer 1.5s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card-reveal,
   .card-reveal-hit {
@@ -295,7 +333,11 @@ body {
   .pack-shimmer,
   .burst-rays,
   .pokeball-spin,
-  .loading-bounce {
+  .loading-bounce,
+  .big-hit-overlay,
+  .big-hit-text,
+  .big-hit-rainbow,
+  .big-hit-bwr {
     animation: none;
   }
   /* 홀로 카드 효과는 사용자 직접 인터랙션이라 reduced-motion에서도 유지 */
