@@ -369,20 +369,13 @@ function IdleScreen({
         <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3 px-1">
           박스깡 · ₩{meta.box_price_krw.toLocaleString()}
         </h3>
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            onClick={() => onStartBox('box-auto')}
-            className="py-8 rounded-2xl bg-gradient-to-br from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 active:scale-95 transition font-bold text-lg shadow-xl shadow-red-900/40 flex flex-col gap-1"
-          >
-            자동
-            <span className="text-[11px] font-normal text-red-100/90">한 팩씩 자동 개봉</span>
-          </button>
+        <div className="grid grid-cols-1 gap-3">
           <button
             onClick={() => onStartBox('box-instant')}
             className="py-8 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-700 hover:from-orange-400 hover:to-orange-600 active:scale-95 transition font-bold text-lg shadow-xl shadow-orange-900/40 flex flex-col gap-1"
           >
-            즉시
-            <span className="text-[11px] font-normal text-orange-100/90">결과 바로 보기</span>
+            즉시 개봉
+            <span className="text-[11px] font-normal text-orange-100/90">30팩 전체 결과 한 번에 보기</span>
           </button>
         </div>
       </section>
