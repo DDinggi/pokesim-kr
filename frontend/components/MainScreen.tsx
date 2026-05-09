@@ -188,12 +188,28 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
           <p className="text-[10px] text-gray-700 text-center">
             ©{new Date().getFullYear()} pokesim_kr
           </p>
-          <a
-            href="mailto:me@kurateh.com"
-            className="text-[10px] text-gray-600 hover:text-gray-400 transition-colors mt-0.5"
-          >
-            whaudrl1234@gmail.com
-          </a>
+          <div className="flex items-center gap-4 mt-1">
+            <a
+              href="https://open.kakao.com/o/sqFZE7ti"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-[10px] text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+              </svg>
+              오픈채팅 문의
+            </a>
+            <a
+              href="mailto:whaudrl1234@gmail.com"
+              className="flex items-center gap-1 text-[10px] text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+              </svg>
+              pokesimkr@gmail.com
+            </a>
+          </div>
         </div>
       </footer>
     </div>
