@@ -423,7 +423,17 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
             </div>
             {/* 하단 안내 (실제 자판기의 관리자 정보 영역 모방) */}
             <div className="mt-3 px-2 flex items-center justify-between text-[10px] text-gray-500">
-              <span>📞 관리자 호출하기</span>
+              <a
+                href="https://open.kakao.com/o/sqFZE7ti"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative hover:text-gray-300 transition-colors cursor-pointer"
+              >
+                📞 관리자 호출하기
+                <span className="absolute bottom-full mb-1 left-0 hidden group-hover:block w-max bg-gray-800 text-gray-200 text-[10px] px-2 py-1.5 rounded ring-1 ring-white/10 shadow-xl z-50">
+                  버그 제보, 문의, 피드백 모두 감사히 받겠습니다! 🙇‍♂️
+                </span>
+              </a>
               <span className="font-mono">v.1.0</span>
             </div>
           </div>
