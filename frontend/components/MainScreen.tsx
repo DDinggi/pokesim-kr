@@ -61,7 +61,10 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
       <header className="px-6 py-5 border-b border-gray-800/80">
         <h1 className="text-2xl font-bold tracking-tight">PokéSim KR</h1>
-        <p className="text-xs text-gray-500 mt-1">한국 포켓몬 TCG 박스깡 시뮬레이터</p>
+        <p className="text-xs text-gray-500 mt-1">팬메이드 포켓몬 카드 시뮬레이터</p>
+        <p className="text-sm text-gray-400 mt-3 max-w-2xl leading-relaxed">
+          팩을 구하기 어려운 요즘, 카드팩 개봉의 재미를 가볍게 체험할 수 있도록 만든 비공식 팬 프로젝트입니다.
+        </p>
       </header>
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-5xl mx-auto w-full">
@@ -76,7 +79,7 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
             onClick={() => onSelectMode('box')}
             imageNode={
               <Image 
-                src="/boxes/m4-ninja-spinner.png" 
+                src="/box.png" 
                 alt="Box" 
                 fill 
                 sizes="180px"
@@ -94,7 +97,7 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
             onClick={() => onSelectMode('vending')}
             imageNode={
               <Image 
-                src="/pikachu1.png" 
+                src="/pikachu.png" 
                 alt="Vending Pikachu" 
                 fill 
                 sizes="180px"
