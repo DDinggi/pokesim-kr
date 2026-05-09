@@ -6,67 +6,20 @@ import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
 import { simulateBox, simulatePack, PROBABILITY_META } from '../lib/simulator';
 import { CardModal } from './CardModal';
 import { trackSim } from '../lib/statsTracker';
-
-const CDN_BASE = 'https://cards.image.pokemonkorea.co.kr/data/';
-
-const RARITY_ORDER = ['BWR', 'UR', 'MA', 'SAR', 'SR', 'AR', 'RR', 'R', 'U', 'C'];
-
-// 표시용 라벨 — 데이터 태그와 다를 수 있음 (UR ↔ MUR 등)
-const RARITY_DISPLAY: Record<string, string> = {
-  UR: 'MUR',
-};
-
-const RARITY_BADGE: Record<string, string> = {
-  C: 'bg-gray-500 text-white',
-  U: 'bg-blue-500 text-white',
-  R: 'bg-purple-500 text-white',
-  RR: 'bg-amber-400 text-gray-900',
-  AR: 'bg-cyan-400 text-gray-900',
-  SR: 'bg-orange-400 text-gray-900',
-  SAR: 'bg-pink-400 text-gray-900',
-  MA: 'bg-fuchsia-400 text-gray-900',
-  UR: 'bg-yellow-300 text-gray-900',
-  BWR: 'bg-gradient-to-r from-gray-100 to-white text-gray-900',
-};
-
-const CARD_GLOW: Record<string, string> = {
-  RR: 'ring-2 ring-amber-400/60',
-  AR: 'ring-2 ring-cyan-400/70',
-  SR: 'ring-2 ring-orange-400/80 shadow-md shadow-orange-500/30',
-  SAR: 'ring-[3px] ring-pink-400 shadow-lg shadow-pink-500/50',
-  MA: 'ring-[3px] ring-fuchsia-400 shadow-lg shadow-fuchsia-500/50',
-  UR: 'ring-[3px] ring-yellow-300 shadow-xl shadow-yellow-400/60',
-  BWR: 'ring-[3px] ring-white shadow-xl shadow-white/40',
-};
-
-// 박스 결과에서 레어로 강조할 등급
-const RARE_SET = new Set(['RR', 'AR', 'SR', 'SAR', 'MA', 'UR', 'BWR']);
-// 토글 필터 표시 순서 (상위 → 하위)
-const FILTER_ORDER = ['BWR', 'UR', 'MA', 'SAR', 'SR', 'AR', 'RR'];
-const HIT_SET = new Set(['SR', 'SAR', 'MA', 'UR', 'BWR']); // 진짜 hit (SR 이상)
-
-function rarityLabel(r: string): string {
-  return RARITY_DISPLAY[r] ?? r;
-}
-
-const HIT_RARITY_ORDER = ['BWR', 'UR', 'MA', 'SAR', 'SR', 'AR'] as const;
-const RARITY_TEXT_COLOR: Record<string, string> = {
-  BWR: 'text-slate-100',
-  UR: 'text-yellow-300',
-  MA: 'text-fuchsia-300',
-  SAR: 'text-pink-300',
-  SR: 'text-orange-300',
-  AR: 'text-cyan-300',
-};
-function getHitCounts(cards: Card[]): Array<{ rarity: string; count: number }> {
-  const counts: Record<string, number> = {};
-  for (const c of cards) {
-    if (c.rarity) counts[c.rarity] = (counts[c.rarity] ?? 0) + 1;
-  }
-  return HIT_RARITY_ORDER
-    .filter((r) => (counts[r] ?? 0) > 0)
-    .map((r) => ({ rarity: r, count: counts[r] }));
-}
+import { preloadCardImages, resolveCardImageUrl } from '../lib/images';
+import {
+  CARD_GLOW,
+  FILTER_RARITY_ORDER,
+  HIT_RARITIES,
+  RARE_RARITIES,
+  RARITY_BADGE,
+  RARITY_ORDER,
+  RARITY_TEXT_COLOR,
+  getHitCounts,
+  getRarityCounts,
+  rarityLabel,
+  sortByRarity,
+} from '../lib/rarity';
 
 const REVEAL_STAGGER_MS = 140;
 const REVEAL_BASE_MS = 600;
@@ -97,14 +50,6 @@ function loadStoredSession(): Session {
   return EMPTY_SESSION;
 }
 
-function sortByRarity(cards: Card[]): Card[] {
-  return [...cards].sort((a, b) => {
-    const ai = RARITY_ORDER.indexOf(a.rarity ?? '');
-    const bi = RARITY_ORDER.indexOf(b.rarity ?? '');
-    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-  });
-}
-
 type Mode = 'box-auto' | 'box-manual' | 'box-instant' | 'pack';
 type Phase = 'idle' | 'reveal' | 'done';
 
@@ -116,29 +61,6 @@ interface Session {
 }
 
 const EMPTY_SESSION: Session = { boxes: 0, packs: 0, cost: 0, cards: [] };
-
-function resolveImageUrl(image_url: string): string {
-  return /^https?:\/\//.test(image_url) ? image_url : `${CDN_BASE}${image_url}`;
-}
-
-// raw CDN URL → /_next/image 최적화 URL로 변환 (브라우저 캐시가 Next.js 렌더 요청과 일치)
-function toNextImageUrl(src: string, width = 256, quality = 75): string {
-  return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality}`;
-}
-
-function preloadImages(urls: string[]) {
-  if (typeof window === 'undefined') return;
-  const optimized = urls.map((url) => toNextImageUrl(url));
-  let i = 0;
-  function next() {
-    const chunk = optimized.slice(i, i + 8);
-    if (!chunk.length) return;
-    chunk.forEach((src) => { (new window.Image()).src = src; });
-    i += 8;
-    if (i < optimized.length) setTimeout(next, 80);
-  }
-  next();
-}
 
 function CardTile({
   card,
@@ -154,6 +76,7 @@ function CardTile({
   const glow = card.rarity ? (CARD_GLOW[card.rarity] ?? '') : '';
   const [errored, setErrored] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [useOriginal, setUseOriginal] = useState(false);
   const Wrapper = onClick ? 'button' : 'div';
   const sizesAttr =
     size === 'sm'
@@ -177,14 +100,23 @@ function CardTile({
             <div className="absolute inset-0 bg-gray-800 animate-pulse" />
           )}
           <Image
-            src={resolveImageUrl(card.image_url)}
+            src={resolveCardImageUrl(card.image_url, useOriginal ? {} : { size: 256 })}
             alt={card.name_ko ?? card.card_num}
             fill
             sizes={sizesAttr}
             className="object-cover"
             priority={priority}
+            loading={priority ? 'eager' : 'lazy'}
+            unoptimized
             onLoad={() => setLoaded(true)}
-            onError={() => setErrored(true)}
+            onError={() => {
+              if (!useOriginal) {
+                setUseOriginal(true);
+                setLoaded(false);
+              } else {
+                setErrored(true);
+              }
+            }}
           />
         </>
       )}
@@ -192,7 +124,7 @@ function CardTile({
         <span
           className={`absolute bottom-1 right-1 text-[10px] font-bold px-1.5 py-0.5 rounded ${RARITY_BADGE[card.rarity] ?? 'bg-gray-600 text-white'} z-10`}
         >
-          {rarityLabel(card.rarity)}
+          {rarityLabel(card.rarity, card)}
         </span>
       )}
     </Wrapper>
@@ -217,7 +149,7 @@ function RareHistory({
   onCardClick: (c: Card) => void;
 }) {
   const seen = result.packs.slice(0, upToPackIdx).flatMap((p) => p.cards);
-  const rares = seen.filter((c) => c.rarity && RARE_SET.has(c.rarity));
+  const rares = seen.filter((c) => c.rarity && RARE_RARITIES.has(c.rarity));
   if (rares.length === 0 && upToPackIdx === 0) return null;
   return (
     <div className="w-full max-w-4xl mx-auto px-2 mt-4">
@@ -250,9 +182,9 @@ function SessionBar({ session, onReset }: { session: Session; onReset: () => voi
         지금까지 깐 카드: 박스 <span className="text-white font-bold">{session.boxes}</span>
         {' · '}팩 <span className="text-white font-bold">{session.packs}</span>
         {' · '}<span className="text-white font-bold tabular-nums">{session.cost.toLocaleString()}원</span>
-        {hits.map(({ rarity, count }) => (
+        {hits.map(({ rarity, count, sample }) => (
           <span key={rarity} className={RARITY_TEXT_COLOR[rarity]}>
-            {' · '}{rarityLabel(rarity)} <span className="font-bold">{count}</span>장
+            {' · '}{rarityLabel(rarity, sample)} <span className="font-bold">{count}</span>장
           </span>
         ))}
       </span>
@@ -292,10 +224,8 @@ function TransitionScreen({
   skipLabel?: string;
 }) {
   const gifSrc = gifIndex % 2 === 0 ? '/loading.gif' : '/loading2.gif';
-  const [imgErr, setImgErr] = useState(false);
-  useEffect(() => {
-    setImgErr(false);
-  }, [gifSrc]);
+  const [failedGifSrc, setFailedGifSrc] = useState<string | null>(null);
+  const imgErr = failedGifSrc === gifSrc;
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-72px)] gap-6 select-none px-4">
       <div className="relative w-32 h-32 sm:w-40 sm:h-40">
@@ -307,7 +237,7 @@ function TransitionScreen({
             fill
             sizes="160px"
             className="object-contain"
-            onError={() => setImgErr(true)}
+            onError={() => setFailedGifSrc(gifSrc)}
             unoptimized
           />
         ) : (
@@ -408,7 +338,7 @@ function AutoBoxReveal({
   const isLast = packIdx + 1 >= total;
   const hitIdx = pack.cards.length - 1;
   const hitCard = pack.cards[hitIdx];
-  const isRareHit = hitCard?.rarity ? HIT_SET.has(hitCard.rarity) : false;
+  const isRareHit = hitCard?.rarity ? HIT_RARITIES.has(hitCard.rarity) : false;
 
   return (
       <div className="flex flex-col items-center gap-5 px-4 py-6 min-h-[calc(100vh-72px)] select-none">
@@ -426,7 +356,7 @@ function AutoBoxReveal({
             key={`hit-${packIdx}`}
             className="text-base font-bold text-amber-300 animate-pulse h-6"
           >
-            ✨ {rarityLabel(hitCard.rarity!)} 당첨!
+            ✨ {rarityLabel(hitCard.rarity!, hitCard)} 당첨!
           </p>
         ) : (
           <p className="h-6" />
@@ -523,7 +453,7 @@ function ManualBoxReveal({
       <div className="grid grid-cols-5 gap-3 sm:gap-4 w-full max-w-4xl mx-auto">
         {pack.cards.map((card, i) =>
           flippedSet.has(i) ? (
-            <CardTile key={i} card={card} size="lg" onClick={() => onCardClick(card)} priority />
+            <CardTile key={i} card={card} size="lg" onClick={() => onCardClick(card)} />
           ) : (
             <div
               key={i}
@@ -568,7 +498,7 @@ function ManualBoxReveal({
   );
 }
 
-function SummaryGrid({ summary }: { summary: Record<string, number> }) {
+function SummaryGrid({ summary, meta }: { summary: Record<string, number>; meta: SetMeta }) {
   return (
     <div className="flex flex-wrap gap-2">
       {RARITY_ORDER.map((r) => {
@@ -579,7 +509,7 @@ function SummaryGrid({ summary }: { summary: Record<string, number> }) {
             key={r}
             className={`px-3 py-1.5 rounded-lg text-sm font-bold ${RARITY_BADGE[r] ?? 'bg-gray-600 text-white'}`}
           >
-            {rarityLabel(r)} ×{count}
+            {rarityLabel(r, meta)} ×{count}
           </div>
         );
       })}
@@ -611,11 +541,8 @@ function RarityFilteredGrid({
   cards: Card[];
   onCardClick: (c: Card) => void;
 }) {
-  const counts = cards.reduce<Record<string, number>>((acc, c) => {
-    if (c.rarity) acc[c.rarity] = (acc[c.rarity] ?? 0) + 1;
-    return acc;
-  }, {});
-  const available = FILTER_ORDER.filter((r) => (counts[r] ?? 0) > 0);
+  const counts = getRarityCounts(cards);
+  const available = FILTER_RARITY_ORDER.filter((r) => (counts[r] ?? 0) > 0);
   const [selected, setSelected] = useState<Set<string>>(() => new Set(available));
 
   const toggle = (r: string) =>
@@ -648,7 +575,7 @@ function RarityFilteredGrid({
                   : 'bg-gray-800 text-gray-500 ring-1 ring-gray-700'
               }`}
             >
-              {rarityLabel(r)} ×{counts[r]}
+              {rarityLabel(r, cards.find((card) => card.rarity === r))} ×{counts[r]}
             </button>
           );
         })}
@@ -656,7 +583,7 @@ function RarityFilteredGrid({
       {sorted.length > 0 ? (
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
           {sorted.map((card, i) => (
-            <CardTile key={i} card={card} size="lg" onClick={() => onCardClick(card)} priority />
+            <CardTile key={i} card={card} size="lg" onClick={() => onCardClick(card)} />
           ))}
         </div>
       ) : (
@@ -686,8 +613,8 @@ function BoxDoneScreen({
   onResetSession: () => void;
 }) {
   const allCards = result.packs.flatMap((p) => p.cards);
-  const rares = allCards.filter((c) => c.rarity && RARE_SET.has(c.rarity));
-  const sessionRares = sortByRarity(session.cards.filter((c) => c.rarity && RARE_SET.has(c.rarity)));
+  const rares = allCards.filter((c) => c.rarity && RARE_RARITIES.has(c.rarity));
+  const sessionRares = sortByRarity(session.cards.filter((c) => c.rarity && RARE_RARITIES.has(c.rarity)));
 
 
   return (
@@ -700,7 +627,7 @@ function BoxDoneScreen({
       </div>
 
       <div className="mb-6">
-        <SummaryGrid summary={result.summary} />
+        <SummaryGrid summary={result.summary} meta={meta} />
       </div>
 
       <section className="mb-8">
@@ -746,9 +673,9 @@ function BoxDoneScreen({
             <span>
               🗂 지금까지 깐 카드 — 박스 {session.boxes} · 팩 {session.packs} ·{' '}
               {session.cost.toLocaleString()}원
-              {getHitCounts(session.cards).map(({ rarity, count }) => (
+              {getHitCounts(session.cards).map(({ rarity, count, sample }) => (
                 <span key={rarity} className={RARITY_TEXT_COLOR[rarity]}>
-                  {' · '}{rarityLabel(rarity)} {count}장
+                  {' · '}{rarityLabel(rarity, sample)} {count}장
                 </span>
               ))}
             </span>
@@ -766,7 +693,7 @@ function BoxDoneScreen({
             {sessionRares.length > 0 && (
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 mb-4">
                 {sessionRares.map((c, i) => (
-                  <CardTile key={i} card={c} size="lg" onClick={() => onCardClick(c)} priority />
+                  <CardTile key={i} card={c} size="lg" onClick={() => onCardClick(c)} />
                 ))}
               </div>
             )}
@@ -810,8 +737,8 @@ function PackDoneScreen({
   onCardClick: (c: Card) => void;
 }) {
   const hitCard = pack.cards[pack.cards.length - 1];
-  const isRareHit = hitCard?.rarity ? HIT_SET.has(hitCard.rarity) : false;
-  const sessionRares = sortByRarity(session.cards.filter((c) => c.rarity && RARE_SET.has(c.rarity)));
+  const isRareHit = hitCard?.rarity ? HIT_RARITIES.has(hitCard.rarity) : false;
+  const sessionRares = sortByRarity(session.cards.filter((c) => c.rarity && RARE_RARITIES.has(c.rarity)));
 
   return (
     <div className="px-4 py-6 max-w-4xl mx-auto flex flex-col items-center gap-6">
@@ -824,7 +751,7 @@ function PackDoneScreen({
 
       {isRareHit && (
         <p className="text-base font-bold text-amber-300 animate-pulse">
-          ✨ {rarityLabel(hitCard.rarity!)} 당첨!
+          ✨ {rarityLabel(hitCard.rarity!, hitCard)} 당첨!
         </p>
       )}
 
@@ -839,16 +766,16 @@ function PackDoneScreen({
           <h3 className="text-xs font-bold text-gray-400 tracking-wider mb-3">
             🗂 지금까지 깐 카드 — 박스 {session.boxes} · 팩 {session.packs} ·{' '}
             {session.cost.toLocaleString()}원
-            {getHitCounts(session.cards).map(({ rarity, count }) => (
+            {getHitCounts(session.cards).map(({ rarity, count, sample }) => (
               <span key={rarity} className={RARITY_TEXT_COLOR[rarity]}>
-                {' · '}{rarityLabel(rarity)} {count}장
+                {' · '}{rarityLabel(rarity, sample)} {count}장
               </span>
             ))}
           </h3>
           {sessionRares.length > 0 && (
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
               {sessionRares.map((c, i) => (
-                <CardTile key={i} card={c} size="lg" onClick={() => onCardClick(c)} priority />
+                <CardTile key={i} card={c} size="lg" onClick={() => onCardClick(c)} />
               ))}
             </div>
           )}
@@ -906,8 +833,11 @@ export function BoxSimulator({
 
   // 마운트 1회 — 세션을 localStorage에서 복구
   useEffect(() => {
-    setSession(loadStoredSession());
-    setHydrated(true);
+    const timer = window.setTimeout(() => {
+      setSession(loadStoredSession());
+      setHydrated(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   // 세션 변경 → localStorage 저장 (hydrate 끝나기 전엔 덮어쓰지 않음)
@@ -922,13 +852,16 @@ export function BoxSimulator({
 
   // 세트 변경 시 시뮬 상태만 리셋 (세션은 유지 — 사용자가 직접 리셋)
   useEffect(() => {
-    setPhase('idle');
-    setMode(null);
-    setBoxResult(null);
-    setPackResult(null);
-    setPackIdx(0);
-    setFlippedSet(new Set());
-    setPendingBoxRedo(null);
+    const timer = window.setTimeout(() => {
+      setPhase('idle');
+      setMode(null);
+      setBoxResult(null);
+      setPackResult(null);
+      setPackIdx(0);
+      setFlippedSet(new Set());
+      setPendingBoxRedo(null);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, [setMeta.code]);
 
   const resetSession = useCallback(() => {
@@ -949,8 +882,8 @@ export function BoxSimulator({
       const urls = result.packs
         .flatMap((p) => p.cards)
         .filter((c) => c.image_url)
-        .map((c) => resolveImageUrl(c.image_url!));
-      preloadImages(urls);
+        .map((c) => c.image_url!);
+      preloadCardImages(urls, { limit: 18 });
     },
     [setMeta],
   );
@@ -979,37 +912,44 @@ export function BoxSimulator({
   // phase 가 done 으로 진입할 때 1회 세션 누적 + Supabase 트래킹
   useEffect(() => {
     if (phase !== 'done') return;
-    if (mode === 'pack' && packResult) {
-      setSession((s) => ({
-        ...s,
-        packs: s.packs + 1,
-        cost: s.cost + setMeta.pack_price_krw,
-        cards: [...s.cards, ...packResult.pack.cards],
-      }));
-      trackSim({ setCode: setMeta.code, mode: 'pack', boxCount: 0, packCount: 1, krw: setMeta.pack_price_krw });
-    } else if (mode === 'box-manual' && boxResult) {
-      // 카드는 advancePack에서 팩별로 이미 누적됨; skip(전체결과 바로보기) 시 미기록 팩 보완
-      const skipped = boxResult.packs.flatMap((p, i) =>
-        manualPacksRecorded.current.has(i) ? [] : p.cards,
-      );
-      boxResult.packs.forEach((_, i) => manualPacksRecorded.current.add(i));
-      setSession((s) => ({
-        ...s,
-        boxes: s.boxes + 1,
-        cost: s.cost + setMeta.box_price_krw,
-        ...(skipped.length > 0 && { cards: [...s.cards, ...skipped] }),
-      }));
-      trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw });
-    } else if (mode && mode !== 'pack' && boxResult) {
-      const all = boxResult.packs.flatMap((p) => p.cards);
-      setSession((s) => ({
-        ...s,
-        boxes: s.boxes + 1,
-        cost: s.cost + setMeta.box_price_krw,
-        cards: [...s.cards, ...all],
-      }));
-      trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw });
-    }
+    let cancelled = false;
+    queueMicrotask(() => {
+      if (cancelled) return;
+      if (mode === 'pack' && packResult) {
+        setSession((s) => ({
+          ...s,
+          packs: s.packs + 1,
+          cost: s.cost + setMeta.pack_price_krw,
+          cards: [...s.cards, ...packResult.pack.cards],
+        }));
+        trackSim({ setCode: setMeta.code, mode: 'pack', boxCount: 0, packCount: 1, krw: setMeta.pack_price_krw });
+      } else if (mode === 'box-manual' && boxResult) {
+        // 카드는 advancePack에서 팩별로 이미 누적됨; skip(전체결과 바로보기) 시 미기록 팩 보완
+        const skipped = boxResult.packs.flatMap((p, i) =>
+          manualPacksRecorded.current.has(i) ? [] : p.cards,
+        );
+        boxResult.packs.forEach((_, i) => manualPacksRecorded.current.add(i));
+        setSession((s) => ({
+          ...s,
+          boxes: s.boxes + 1,
+          cost: s.cost + setMeta.box_price_krw,
+          ...(skipped.length > 0 && { cards: [...s.cards, ...skipped] }),
+        }));
+        trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw });
+      } else if (mode && mode !== 'pack' && boxResult) {
+        const all = boxResult.packs.flatMap((p) => p.cards);
+        setSession((s) => ({
+          ...s,
+          boxes: s.boxes + 1,
+          cost: s.cost + setMeta.box_price_krw,
+          cards: [...s.cards, ...all],
+        }));
+        trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw });
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, boxResult?.seed, packResult?.seed]);
 
@@ -1087,7 +1027,7 @@ export function BoxSimulator({
     if (!pack) return;
     const hitIdx = pack.cards.length - 1;
     const hitCard = pack.cards[hitIdx];
-    const isRareHit = hitCard?.rarity ? HIT_SET.has(hitCard.rarity) : false;
+    const isRareHit = hitCard?.rarity ? HIT_RARITIES.has(hitCard.rarity) : false;
     const revealEnd = hitIdx * REVEAL_STAGGER_MS + (isRareHit ? 200 : 0) + REVEAL_BASE_MS;
     const hold = isRareHit ? HIT_HOLD_MS : NORMAL_HOLD_MS;
     const t = setTimeout(() => {
