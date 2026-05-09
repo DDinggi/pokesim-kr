@@ -144,7 +144,8 @@ function buildExpansionPack(ctx: BuildContext, hitPool: Card[], packSize = 5): P
 function buildHiClassPack(ctx: BuildContext, hitRarity: string, packSize: number): PackResult {
   const { byRarity, pick } = ctx;
   const cards: Card[] = [];
-  const basePool = byRarity['__null__'] ?? byRarity['R'] ?? [];
+  // 메가드림 ex(하이클래스) 전용: 정제된 C, U, R 카드를 모두 베이스로 사용 (타 확장팩 영향 X)
+  const basePool = [...(byRarity['__null__'] || []), ...(byRarity['C'] || []), ...(byRarity['U'] || []), ...(byRarity['R'] || [])];
   const baseCount = Math.max(0, packSize - 1);
   for (let i = 0; i < baseCount; i++) {
     if (basePool.length) cards.push(pick(basePool));
@@ -270,6 +271,7 @@ const EXPANSION_PACK_HIT_WEIGHTS: Record<string, number> = {
   SR: 47,
   SAR: 10,
   UR: 1,
+  BWR: 1,
 };
 const HI_CLASS_PACK_HIT_WEIGHTS: Record<string, number> = {
   RR: 500,

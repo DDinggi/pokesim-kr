@@ -44,8 +44,6 @@ const RARE_SET = new Set(['RR', 'AR', 'SR', 'SAR', 'MA', 'UR', 'BWR']);
 // 토글 필터 표시 순서 (상위 → 하위)
 const FILTER_ORDER = ['BWR', 'UR', 'MA', 'SAR', 'SR', 'AR', 'RR'];
 const HIT_SET = new Set(['SR', 'SAR', 'MA', 'UR', 'BWR']); // 진짜 hit (SR 이상)
-// 대형 히트 오버레이를 트리거하는 등급
-const BIG_HIT_SET = new Set(['SAR', 'MA', 'UR', 'BWR']);
 
 function rarityLabel(r: string): string {
   return RARITY_DISPLAY[r] ?? r;
@@ -398,33 +396,6 @@ function IdleScreen({
   );
 }
 
-const BIG_HIT_STYLE: Record<string, { bg: string; textColor: string; label: string }> = {
-  SAR: { bg: 'bg-gradient-to-br from-pink-900/90 via-fuchsia-900/90 to-purple-900/90', textColor: 'text-pink-300', label: '풀 레인보우 등장!' },
-  MA:  { bg: 'bg-gradient-to-br from-fuchsia-900/90 via-purple-900/90 to-indigo-900/90', textColor: 'text-fuchsia-300', label: '마스터볼 레어 등장!' },
-  UR:  { bg: 'bg-gradient-to-br from-yellow-900/90 via-amber-900/90 to-orange-900/90',   textColor: 'text-yellow-300', label: '울트라 레어 등장!' },
-  BWR: { bg: 'bg-gradient-to-br from-gray-900/95 via-slate-800/95 to-gray-900/95',        textColor: 'text-white',      label: '블랙화이트 레어 등장!' },
-};
-
-function BigHitOverlay({ rarity, cardName }: { rarity: string; cardName: string | null }) {
-  const style = BIG_HIT_STYLE[rarity] ?? BIG_HIT_STYLE['SAR'];
-  const isBwr = rarity === 'BWR';
-  return (
-    <div className={`big-hit-overlay fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 ${style.bg}`}>
-      <div className={`big-hit-text text-center px-6`}>
-        <p className={`text-4xl sm:text-5xl font-black tracking-tight ${style.textColor} ${isBwr ? 'big-hit-bwr bg-clip-text text-transparent' : 'big-hit-rainbow'}`}>
-          {rarityLabel(rarity)}
-        </p>
-        <p className="text-lg sm:text-xl font-bold text-white/90 mt-3">
-          {style.label}
-        </p>
-        {cardName && (
-          <p className="text-sm text-white/60 mt-2">{cardName}</p>
-        )}
-      </div>
-    </div>
-  );
-}
-
 function AutoBoxReveal({
   result,
   packIdx,
@@ -445,28 +416,8 @@ function AutoBoxReveal({
   const hitIdx = pack.cards.length - 1;
   const hitCard = pack.cards[hitIdx];
   const isRareHit = hitCard?.rarity ? HIT_SET.has(hitCard.rarity) : false;
-  const isBigHit = hitCard?.rarity ? BIG_HIT_SET.has(hitCard.rarity) : false;
-
-  const [bigHitInfo, setBigHitInfo] = useState<{ rarity: string; name: string | null } | null>(null);
-
-  useEffect(() => {
-    setBigHitInfo(null);
-    if (!isBigHit || !hitCard?.rarity) return;
-    // 카드 플립 애니메이션이 끝난 뒤 오버레이 표시
-    const revealDelay = hitIdx * REVEAL_STAGGER_MS + 200 + REVEAL_BASE_MS;
-    const showTimer = setTimeout(() => {
-      setBigHitInfo({ rarity: hitCard.rarity!, name: hitCard.name_ko });
-      const hideTimer = setTimeout(() => setBigHitInfo(null), 2100);
-      return () => clearTimeout(hideTimer);
-    }, revealDelay);
-    return () => clearTimeout(showTimer);
-  // packIdx 바뀔 때마다 리셋
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [packIdx]);
 
   return (
-    <>
-      {bigHitInfo && <BigHitOverlay rarity={bigHitInfo.rarity} cardName={bigHitInfo.name} />}
       <div className="flex flex-col items-center gap-5 px-4 py-6 min-h-[calc(100vh-72px)] select-none">
         <div className="text-center" onClick={onAdvance}>
           <p className="text-2xl font-bold tabular-nums">
@@ -537,7 +488,6 @@ function AutoBoxReveal({
           )}
         </div>
       </div>
-    </>
   );
 }
 
