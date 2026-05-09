@@ -183,18 +183,18 @@ function simulateExpansionBox(
   // ① 몬스터 SR이상 슬롯 — 세트별 SAR/BWR 확률 적용
   const rawMonsterW = (setCode ? EXPANSION_MONSTER_WEIGHTS[setCode] : null) ?? EXPANSION_MONSTER_WEIGHTS_DEFAULT;
   const monsterWeights: Record<string, number> = {};
-  if (srPokemon.length && rawMonsterW['SR']) monsterWeights['SR'] = rawMonsterW['SR'];
-  if (sarPokemon.length && rawMonsterW['SAR']) monsterWeights['SAR'] = rawMonsterW['SAR'];
-  if (urPokemon.length && rawMonsterW['UR']) monsterWeights['UR'] = rawMonsterW['UR'];
-  if (bwrPokemon.length && rawMonsterW['BWR']) monsterWeights['BWR'] = rawMonsterW['BWR'];
+  if ((srPokemon.length || srAll.length) && rawMonsterW['SR']) monsterWeights['SR'] = rawMonsterW['SR'];
+  if ((sarPokemon.length || sarAll.length) && rawMonsterW['SAR']) monsterWeights['SAR'] = rawMonsterW['SAR'];
+  if ((urPokemon.length || urAll.length) && rawMonsterW['UR']) monsterWeights['UR'] = rawMonsterW['UR'];
+  if ((bwrPokemon.length || bwrAll.length) && rawMonsterW['BWR']) monsterWeights['BWR'] = rawMonsterW['BWR'];
 
   let monsterPool: Card[];
   if (Object.keys(monsterWeights).length > 0) {
     const r = ctx.weightedPick(monsterWeights);
-    if (r === 'BWR') monsterPool = bwrPokemon;
-    else if (r === 'SAR') monsterPool = sarPokemon;
-    else if (r === 'UR') monsterPool = urPokemon;
-    else monsterPool = srPokemon;
+    if (r === 'BWR') monsterPool = bwrPokemon.length ? bwrPokemon : bwrAll;
+    else if (r === 'SAR') monsterPool = sarPokemon.length ? sarPokemon : sarAll;
+    else if (r === 'UR') monsterPool = urPokemon.length ? urPokemon : urAll;
+    else monsterPool = srPokemon.length ? srPokemon : srAll;
   } else {
     // card_type 미분류 폴백: 전체 SR 풀에서 rarity 기반 추첨
     const fw = filterAvailableWeights(rawMonsterW, byRarity);
@@ -204,12 +204,13 @@ function simulateExpansionBox(
 
   // ② 트레이너 SR이상 슬롯 — SR 95% / SAR 5% 고정 (SAR×2 확률 ~0.8~1.7%)
   const trainerWeights: Record<string, number> = {};
-  if (srTrainer.length) trainerWeights['SR'] = TRAINER_SLOT_WEIGHTS['SR'];
-  if (sarTrainer.length) trainerWeights['SAR'] = TRAINER_SLOT_WEIGHTS['SAR'];
+  if (srTrainer.length || srAll.length) trainerWeights['SR'] = TRAINER_SLOT_WEIGHTS['SR'];
+  if (sarTrainer.length || sarAll.length) trainerWeights['SAR'] = TRAINER_SLOT_WEIGHTS['SAR'];
   let trainerPool: Card[];
   if (Object.keys(trainerWeights).length > 0) {
     const r = ctx.weightedPick(trainerWeights);
-    trainerPool = r === 'SAR' ? sarTrainer : srTrainer;
+    if (r === 'SAR') trainerPool = sarTrainer.length ? sarTrainer : sarAll;
+    else trainerPool = srTrainer.length ? srTrainer : srAll;
   } else {
     trainerPool = srAll;
   }

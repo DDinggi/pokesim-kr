@@ -105,6 +105,15 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
             tag="BOX"
             tagSub="× 30팩"
             onClick={() => onSelectMode('box')}
+            imageNode={
+              <Image 
+                src="/boxes/m4-ninja-spinner.png" 
+                alt="Box" 
+                fill 
+                sizes="180px"
+                className="object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]" 
+              />
+            }
           />
           <ModeCard
             title="자판기깡"
@@ -114,6 +123,15 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
             tag="PACK"
             tagSub="× 1~10팩"
             onClick={() => onSelectMode('vending')}
+            imageNode={
+              <Image 
+                src="/pikachu1.png" 
+                alt="Vending Pikachu" 
+                fill 
+                sizes="180px"
+                className="object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]" 
+              />
+            }
           />
         </div>
       </main>
@@ -188,12 +206,28 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
           <p className="text-[10px] text-gray-700 text-center">
             ©{new Date().getFullYear()} pokesim_kr
           </p>
-          <a
-            href="mailto:me@kurateh.com"
-            className="text-[10px] text-gray-600 hover:text-gray-400 transition-colors mt-0.5"
-          >
-            whaudrl1234@gmail.com
-          </a>
+          <div className="flex items-center gap-4 mt-1">
+            <a
+              href="https://open.kakao.com/o/sqFZE7ti"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-[10px] text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+              </svg>
+              오픈채팅 문의
+            </a>
+            <a
+              href="mailto:whaudrl1234@gmail.com"
+              className="flex items-center gap-1 text-[10px] text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+              </svg>
+              pokesimkr@gmail.com
+            </a>
+          </div>
         </div>
       </footer>
     </div>
@@ -270,6 +304,7 @@ function ModeCard({
   tag,
   tagSub,
   onClick,
+  imageNode,
 }: {
   title: string;
   subtitle: string;
@@ -278,6 +313,7 @@ function ModeCard({
   tag: string;
   tagSub: string;
   onClick: () => void;
+  imageNode?: React.ReactNode;
 }) {
   return (
     <button
@@ -286,26 +322,35 @@ function ModeCard({
     >
       {/* 배경 장식 — 큰 태그 텍스트 */}
       <span
-        className="absolute right-4 bottom-3 text-[64px] sm:text-[80px] font-black leading-none select-none pointer-events-none opacity-10 tracking-tighter"
+        className="absolute right-4 bottom-3 text-[64px] sm:text-[80px] font-black leading-none select-none pointer-events-none opacity-10 tracking-tighter z-0"
         aria-hidden
       >
         {tag}
       </span>
 
-      <div className="flex items-start justify-between mb-auto">
-        <div>
-          <p className="text-[10px] uppercase tracking-widest text-white/60 font-semibold mb-1">{subtitle}</p>
-          <h2 className="text-3xl sm:text-4xl font-black tracking-tight leading-none">{title}</h2>
+      {/* 우측 하단 썸네일 이미지 */}
+      {imageNode && (
+        <div className="absolute -right-2 -bottom-2 w-32 h-32 sm:w-44 sm:h-44 opacity-70 group-hover:opacity-100 group-hover:scale-110 group-hover:-translate-y-1 group-hover:-translate-x-1 transition-all duration-500 pointer-events-none z-0">
+          {imageNode}
         </div>
-        <span className="text-xs font-bold bg-black/30 backdrop-blur px-2.5 py-1 rounded-full text-white/80 whitespace-nowrap">
+      )}
+
+      <div className="flex items-start justify-between mb-auto relative z-10">
+        <div>
+          <p className="text-[10px] uppercase tracking-widest text-white/60 font-semibold mb-1 drop-shadow-md">{subtitle}</p>
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tight leading-none drop-shadow-md">{title}</h2>
+        </div>
+        <span className="text-xs font-bold bg-black/30 backdrop-blur px-2.5 py-1 rounded-full text-white/80 whitespace-nowrap shadow-sm">
           {tagSub}
         </span>
       </div>
 
-      <p className="text-sm text-white/70 leading-relaxed mt-4">{description}</p>
+      <p className="text-sm text-white/90 font-medium leading-relaxed mt-4 relative z-10 drop-shadow-md max-w-[70%]">
+        {description}
+      </p>
 
-      <div className="mt-5 flex items-center justify-end">
-        <span className="text-xs font-bold text-white/70 group-hover:text-white transition-colors">
+      <div className="mt-5 flex items-center justify-end relative z-10">
+        <span className="text-xs font-bold text-white/80 group-hover:text-white transition-colors bg-black/20 px-3 py-1.5 rounded-full backdrop-blur">
           시작 →
         </span>
       </div>
