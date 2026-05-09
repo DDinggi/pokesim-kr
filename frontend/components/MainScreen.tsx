@@ -182,7 +182,8 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
 
         <div className="mt-2 pt-3 border-t border-gray-900 w-full max-w-lg flex flex-col items-center gap-1">
           <p className="text-[10px] text-gray-700 text-center">
-            비영리 팬 시뮬레이터 · Non-commercial fan project
+            본 사이트는 팬이 만든 비영리 사이트이며, 포켓몬 컴퍼니, 닌텐도, Game Freak 등 저작권자와 관련이 없습니다.<br />
+            사용된 모든 이미지와 자산의 저작권은 원저작권자에게 있습니다.
           </p>
           <p className="text-[10px] text-gray-700 text-center">
             ©{new Date().getFullYear()} pokesim_kr
