@@ -125,6 +125,9 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
   const [packIdx, setPackIdx] = useState(0);
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
 
+  // 배틀파트너즈(sv9-battle-partners) UI에서 강제 숨김 처리
+  const displaySets = useMemo(() => sets.filter((s) => s.code !== 'sv9-battle-partners'), [sets]);
+
   const totalPacks = useMemo(
     () => Object.values(cart).reduce((s, n) => s + n, 0),
     [cart],
@@ -132,10 +135,10 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
   const totalCost = useMemo(
     () =>
       Object.entries(cart).reduce((s, [code, n]) => {
-        const set = sets.find((x) => x.code === code);
+        const set = displaySets.find((x) => x.code === code);
         return s + (set?.pack_price_krw ?? 0) * n;
       }, 0),
-    [cart, sets],
+    [cart, displaySets],
   );
 
   function openModal(set: SetMeta) {
@@ -182,7 +185,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
   function runCheckout(cartToBuy: Record<string, number>) {
     const packs: PurchasedPack[] = [];
     for (const [code, n] of Object.entries(cartToBuy)) {
-      const set = sets.find((x) => x.code === code);
+      const set = displaySets.find((x) => x.code === code);
       if (!set || n <= 0) continue;
       for (let i = 0; i < n; i++) {
         const { pack, seed } = simulatePack(set.cards, set.type, set.pack_size);
@@ -200,7 +203,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
 
     const allCards = packs.flatMap((p) => p.pack.cards);
     const checkoutCost = Object.entries(cartToBuy).reduce((s, [code, n]) => {
-      const set = sets.find((x) => x.code === code);
+      const set = displaySets.find((x) => x.code === code);
       return s + (set?.pack_price_krw ?? 0) * n;
     }, 0);
 
@@ -335,7 +338,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
   // ─────────────────────────── BROWSE (vending grid) ───────────────────────────
   const cartItems = Object.entries(cart)
     .map(([code, qty]) => {
-      const set = sets.find((x) => x.code === code);
+      const set = displaySets.find((x) => x.code === code);
       if (!set) return null;
       return { set, qty };
     })
@@ -386,7 +389,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
 
             <div className="rounded-2xl bg-gradient-to-br from-blue-700 via-blue-800 to-blue-950 p-3 sm:p-5">
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-              {sets.map((set) => {
+              {displaySets.map((set) => {
                 const inCart = cart[set.code] ?? 0;
                 return (
                   <button
