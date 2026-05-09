@@ -105,6 +105,15 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
             tag="BOX"
             tagSub="× 30팩"
             onClick={() => onSelectMode('box')}
+            imageNode={
+              <Image 
+                src="/boxes/m4-ninja-spinner.png" 
+                alt="Box" 
+                fill 
+                sizes="180px"
+                className="object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]" 
+              />
+            }
           />
           <ModeCard
             title="자판기깡"
@@ -114,6 +123,15 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
             tag="PACK"
             tagSub="× 1~10팩"
             onClick={() => onSelectMode('vending')}
+            imageNode={
+              <Image 
+                src="/pikachu1.png" 
+                alt="Vending Pikachu" 
+                fill 
+                sizes="180px"
+                className="object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]" 
+              />
+            }
           />
         </div>
       </main>
@@ -286,6 +304,7 @@ function ModeCard({
   tag,
   tagSub,
   onClick,
+  imageNode,
 }: {
   title: string;
   subtitle: string;
@@ -294,6 +313,7 @@ function ModeCard({
   tag: string;
   tagSub: string;
   onClick: () => void;
+  imageNode?: React.ReactNode;
 }) {
   return (
     <button
@@ -302,26 +322,35 @@ function ModeCard({
     >
       {/* 배경 장식 — 큰 태그 텍스트 */}
       <span
-        className="absolute right-4 bottom-3 text-[64px] sm:text-[80px] font-black leading-none select-none pointer-events-none opacity-10 tracking-tighter"
+        className="absolute right-4 bottom-3 text-[64px] sm:text-[80px] font-black leading-none select-none pointer-events-none opacity-10 tracking-tighter z-0"
         aria-hidden
       >
         {tag}
       </span>
 
-      <div className="flex items-start justify-between mb-auto">
-        <div>
-          <p className="text-[10px] uppercase tracking-widest text-white/60 font-semibold mb-1">{subtitle}</p>
-          <h2 className="text-3xl sm:text-4xl font-black tracking-tight leading-none">{title}</h2>
+      {/* 우측 하단 썸네일 이미지 */}
+      {imageNode && (
+        <div className="absolute -right-2 -bottom-2 w-32 h-32 sm:w-44 sm:h-44 opacity-70 group-hover:opacity-100 group-hover:scale-110 group-hover:-translate-y-1 group-hover:-translate-x-1 transition-all duration-500 pointer-events-none z-0">
+          {imageNode}
         </div>
-        <span className="text-xs font-bold bg-black/30 backdrop-blur px-2.5 py-1 rounded-full text-white/80 whitespace-nowrap">
+      )}
+
+      <div className="flex items-start justify-between mb-auto relative z-10">
+        <div>
+          <p className="text-[10px] uppercase tracking-widest text-white/60 font-semibold mb-1 drop-shadow-md">{subtitle}</p>
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tight leading-none drop-shadow-md">{title}</h2>
+        </div>
+        <span className="text-xs font-bold bg-black/30 backdrop-blur px-2.5 py-1 rounded-full text-white/80 whitespace-nowrap shadow-sm">
           {tagSub}
         </span>
       </div>
 
-      <p className="text-sm text-white/70 leading-relaxed mt-4">{description}</p>
+      <p className="text-sm text-white/90 font-medium leading-relaxed mt-4 relative z-10 drop-shadow-md max-w-[70%]">
+        {description}
+      </p>
 
-      <div className="mt-5 flex items-center justify-end">
-        <span className="text-xs font-bold text-white/70 group-hover:text-white transition-colors">
+      <div className="mt-5 flex items-center justify-end relative z-10">
+        <span className="text-xs font-bold text-white/80 group-hover:text-white transition-colors bg-black/20 px-3 py-1.5 rounded-full backdrop-blur">
           시작 →
         </span>
       </div>
