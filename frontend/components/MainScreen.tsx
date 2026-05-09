@@ -4,62 +4,23 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import type { Card } from '../lib/types';
 import { fetchGlobalStats, type GlobalStats } from '../lib/statsTracker';
+import { resolveCardImageUrl } from '../lib/images';
+import {
+  CARD_GLOW,
+  HIT_RARITY_ORDER,
+  RARITY_BADGE,
+  RARITY_TEXT_COLOR,
+  getRarityCounts,
+  rarityLabel,
+  sortByRarity,
+} from '../lib/rarity';
 
 type Mode = 'box' | 'vending';
 
 const SESSION_KEY = 'pokesim-kr-session-v1';
 
-const RARITY_TEXT_COLOR: Record<string, string> = {
-  BWR: 'text-slate-100',
-  UR: 'text-yellow-300',
-  MA: 'text-fuchsia-300',
-  SAR: 'text-pink-300',
-  SR: 'text-orange-300',
-  AR: 'text-cyan-300',
-};
-const RARITY_BADGE: Record<string, string> = {
-  C: 'bg-gray-500 text-white',
-  U: 'bg-blue-500 text-white',
-  R: 'bg-purple-500 text-white',
-  RR: 'bg-amber-400 text-gray-900',
-  AR: 'bg-cyan-400 text-gray-900',
-  SR: 'bg-orange-400 text-gray-900',
-  SAR: 'bg-pink-400 text-gray-900',
-  MA: 'bg-fuchsia-400 text-gray-900',
-  UR: 'bg-yellow-300 text-gray-900',
-  BWR: 'bg-gradient-to-r from-gray-100 to-white text-gray-900',
-};
-const CARD_GLOW: Record<string, string> = {
-  RR: 'ring-2 ring-amber-400/60',
-  AR: 'ring-2 ring-cyan-400/70',
-  SR: 'ring-2 ring-orange-400/80 shadow-md shadow-orange-500/30',
-  SAR: 'ring-[3px] ring-pink-400 shadow-lg shadow-pink-500/50',
-  MA: 'ring-[3px] ring-fuchsia-400 shadow-lg shadow-fuchsia-500/50',
-  UR: 'ring-[3px] ring-yellow-300 shadow-xl shadow-yellow-400/60',
-  BWR: 'ring-[3px] ring-white shadow-xl shadow-white/40',
-};
-const RARITY_DISPLAY: Record<string, string> = { UR: 'MUR' };
-const RARITY_ORDER = ['BWR', 'UR', 'MA', 'SAR', 'SR', 'AR', 'RR', 'R', 'U', 'C'];
-const HIT_RARITY_ORDER = ['BWR', 'UR', 'MA', 'SAR', 'SR', 'AR'] as const;
-const CDN_BASE = 'https://cards.image.pokemonkorea.co.kr/data/';
-
-function rarityLabel(r: string) {
-  return RARITY_DISPLAY[r] ?? r;
-}
-
-function resolveImageUrl(image_url: string): string {
-  return /^https?:\/\//.test(image_url) ? image_url : `${CDN_BASE}${image_url}`;
-}
-
-function sortByRarity(cards: Card[]): Card[] {
-  return [...cards].sort((a, b) => {
-    const ai = RARITY_ORDER.indexOf(a.rarity ?? '');
-    const bi = RARITY_ORDER.indexOf(b.rarity ?? '');
-    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-  });
-}
-
 interface SessionData {
+  boxes: number;
   packs: number;
   cost: number;
   cards: Card[];
@@ -72,7 +33,12 @@ function loadSession(): SessionData | null {
     if (!stored) return null;
     const p = JSON.parse(stored);
     if (p && Array.isArray(p.cards) && p.cards.length > 0) {
-      return { packs: Number(p.packs) || 0, cost: Number(p.cost) || 0, cards: p.cards as Card[] };
+      return {
+        boxes: Number(p.boxes) || 0,
+        packs: Number(p.packs) || 0,
+        cost: Number(p.cost) || 0,
+        cards: p.cards as Card[],
+      };
     }
   } catch { /* */ }
   return null;
@@ -85,7 +51,10 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
 
   useEffect(() => {
     fetchGlobalStats().then((s) => { if (s) setStats(s); });
-    setSession(loadSession());
+    const timer = window.setTimeout(() => {
+      setSession(loadSession());
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   return (
@@ -147,7 +116,7 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
               <div className="flex items-center gap-3 text-sm">
                 <span className="font-bold text-gray-300">지금까지 깐 카드</span>
                 <span className="text-gray-500 tabular-nums">
-                  {session.packs}팩 · {session.cost.toLocaleString()}원 · {session.cards.length}장
+                  {session.boxes}박스 · {session.packs}팩 · {session.cost.toLocaleString()}원
                 </span>
                 <HitBadges cards={session.cards} />
               </div>
@@ -235,19 +204,19 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
 }
 
 function HitBadges({ cards }: { cards: Card[] }) {
-  const counts: Record<string, number> = {};
-  for (const c of cards) {
-    if (c.rarity) counts[c.rarity] = (counts[c.rarity] ?? 0) + 1;
-  }
+  const counts = getRarityCounts(cards);
   const hits = HIT_RARITY_ORDER.filter((r) => (counts[r] ?? 0) > 0);
   if (hits.length === 0) return null;
   return (
     <span className="flex items-center gap-1.5">
-      {hits.map((r) => (
-        <span key={r} className={`text-[11px] font-bold ${RARITY_TEXT_COLOR[r]}`}>
-          {rarityLabel(r)} {counts[r]}
-        </span>
-      ))}
+      {hits.map((r) => {
+        const sample = cards.find((card) => card.rarity === r);
+        return (
+          <span key={r} className={`text-[11px] font-bold ${RARITY_TEXT_COLOR[r]}`}>
+            {rarityLabel(r, sample)} {counts[r]}
+          </span>
+        );
+      })}
     </span>
   );
 }
@@ -267,6 +236,7 @@ function CardTile({ card }: { card: Card }) {
   const glow = card.rarity ? CARD_GLOW[card.rarity] ?? '' : '';
   const [errored, setErrored] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [useOriginal, setUseOriginal] = useState(false);
   return (
     <div className={`relative aspect-[5/7] rounded-lg overflow-hidden bg-gray-800 ${glow}`}>
       {errored || !card.image_url ? (
@@ -277,19 +247,27 @@ function CardTile({ card }: { card: Card }) {
         <>
           {!loaded && <div className="absolute inset-0 bg-gray-800 animate-pulse" />}
           <Image
-            src={resolveImageUrl(card.image_url)}
+            src={resolveCardImageUrl(card.image_url, useOriginal ? {} : { size: 256 })}
             alt={card.name_ko ?? card.card_num}
             fill
             sizes="10vw"
             className="object-cover"
+            unoptimized
             onLoad={() => setLoaded(true)}
-            onError={() => setErrored(true)}
+            onError={() => {
+              if (!useOriginal) {
+                setUseOriginal(true);
+                setLoaded(false);
+              } else {
+                setErrored(true);
+              }
+            }}
           />
         </>
       )}
       {card.rarity && (
         <span className={`absolute bottom-0.5 right-0.5 text-[9px] font-bold px-1 py-px rounded ${RARITY_BADGE[card.rarity] ?? 'bg-gray-600 text-white'} z-10`}>
-          {rarityLabel(card.rarity)}
+          {rarityLabel(card.rarity, card)}
         </span>
       )}
     </div>

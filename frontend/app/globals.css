@@ -254,6 +254,18 @@ body {
   filter: saturate(1.6);
 }
 
+.holo-ma .holo-glare {
+  background:
+    radial-gradient(
+      farthest-corner circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+      rgba(255, 255, 255, 0.62) 0%,
+      rgba(236, 72, 153, 0.3) 28%,
+      rgba(34, 211, 238, 0.16) 45%,
+      rgba(255, 255, 255, 0) 68%
+    );
+  mix-blend-mode: screen;
+}
+
 /* UR (MUR): 최대 레인보우 */
 .holo-ur .holo-layer {
   background-image:

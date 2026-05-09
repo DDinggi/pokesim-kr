@@ -7,10 +7,17 @@
     "collect": "tsx fetch-pokemoncard.ts",
     "manual-add": "tsx manual-add.ts",
     "fetch-jp-images": "tsx fetch-jp-images.ts",
+    "migrate-to-r2": "tsx migrate-to-r2.ts",
+    "optimize:images": "tsx optimize-card-images.ts",
+    "benchmark:images": "tsx benchmark-image-delivery.ts",
+    "validate:data": "tsx validate-card-data.ts",
     "sync": "tsx sync-sets.ts"
   },
   "dependencies": {
-    "node-html-parser": "^6.1.13"
+    "@aws-sdk/client-s3": "^3.1045.0",
+    "dotenv": "^17.4.2",
+    "node-html-parser": "^6.1.13",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "tsx": "^4.19.2",

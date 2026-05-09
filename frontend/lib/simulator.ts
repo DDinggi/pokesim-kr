@@ -54,15 +54,20 @@ const EXPANSION_FILLER_WEIGHTS: Record<string, number> = {
 //   - 트레이너 SR 풀: Item SR 6종 + Support SR 3종 (메가드림 ex에 포켓몬 SR 없음)
 //   - 10번째 변형 슬롯: 50% RR(기본) / 40% SAR (박스당 SAR ~40%) / 10% 추가 SR (~10%)
 //   - 갓팩 (~0.75%, 약 133박스당 1장 — 출처마다 30~250박스 편차):
-//     박스 hit 10장 전부 교체 → AR×1 + MA(RR풀)×5 + SAR×4
+//     박스 hit 10장 전부 교체 → AR×1 + MA×5 + SAR×4
 const HI_CLASS_VARIABLE_WEIGHTS: Record<string, number> = {
   RR: 50,
   SAR: 40,
   SR: 10,
 };
 // MA 슬롯에서 MUR 등장 가능 — 출처: 저지맨 "MA 힛카드 1장(여기서 MUR 등장)"
-// 일본 데이터 박스당 MUR ~1-2%, 우리 데이터엔 'UR' rarity로 분류
-const HI_CLASS_MA_SLOT_WEIGHTS: Record<string, number> = {
+// 일본 데이터 박스당 MUR ~1-2%, 우리 데이터엔 'UR' rarity로 분류.
+// MA 풀이 없는 기존 하이클래스 세트는 같은 확정 슬롯을 RR로 접는다.
+const HI_CLASS_MA_SLOT_WEIGHTS_WITH_MA: Record<string, number> = {
+  MA: 98,
+  UR: 2,
+};
+const HI_CLASS_MA_SLOT_WEIGHTS_FALLBACK: Record<string, number> = {
   RR: 98,
   UR: 2,
 };
@@ -240,14 +245,14 @@ function simulateHiClassBox(
   const isGodPack = rng() < HI_CLASS_GOD_PACK_RATE;
 
   if (isGodPack) {
-    // 갓팩 박스: AR×1 + MA(RR 풀)×5 + SAR×4 — 박스 전체 hit 교체
+    // 갓팩 박스: AR×1 + MA×5 + SAR×4 — 박스 전체 hit 교체
     slots.push('AR');
-    for (let i = 0; i < 5; i++) slots.push('RR');
+    for (let i = 0; i < 5; i++) slots.push('MA');
     for (let i = 0; i < 4; i++) slots.push('SAR');
   } else {
-    // 정상 박스: 4 RR(일반) + 1 MA(RR or MUR ~2%) + 3 AR + 1 SR + 1 variable
+    // 정상 박스: 4 RR(일반) + 1 MA(or MUR ~2%) + 3 AR + 1 SR + 1 variable
     for (let i = 0; i < 4; i++) slots.push('RR');
-    slots.push(ctx.weightedPick(filterAvailableWeights(HI_CLASS_MA_SLOT_WEIGHTS, ctx.byRarity)));
+    slots.push(ctx.weightedPick(filterAvailableWeights(hiClassMaSlotWeights(ctx.byRarity), ctx.byRarity)));
     slots.push('AR', 'AR', 'AR');
     slots.push('SR');
     slots.push(ctx.weightedPick(filterAvailableWeights(HI_CLASS_VARIABLE_WEIGHTS, ctx.byRarity)));
@@ -264,7 +269,7 @@ function simulateHiClassBox(
 // 자판기 1팩 모드 (D-128) — 박스 보장룰/갓팩 무시, 가중치만 적용.
 // 가중치는 박스 평균 분포 기반 추정.
 //   일반팩 박스(30팩) 평균 hit: R 18.75 / RR 6.25 / AR 3 / SR ~1.4 / SAR ~0.3 / MUR ~0.02
-//   하이클래스 박스(10팩) 평균 hit: RR ~5 / AR 3 / SR ~1.1 / SAR ~0.4 / MUR ~0.02
+//   하이클래스 박스(10팩) 평균 hit: RR ~4.5 / MA ~1 / AR 3 / SR ~1.1 / SAR ~0.4 / MUR ~0.02
 const EXPANSION_PACK_HIT_WEIGHTS: Record<string, number> = {
   R: 625,
   RR: 208,
@@ -275,12 +280,32 @@ const EXPANSION_PACK_HIT_WEIGHTS: Record<string, number> = {
   BWR: 1,
 };
 const HI_CLASS_PACK_HIT_WEIGHTS: Record<string, number> = {
-  RR: 500,
+  RR: 450,
+  MA: 100,
   AR: 300,
   SR: 110,
   SAR: 40,
   UR: 2,
 };
+
+function hasRarity(byRarity: Record<string, Card[]>, rarity: string): boolean {
+  return (byRarity[rarity]?.length ?? 0) > 0;
+}
+
+function hiClassMaSlotWeights(byRarity: Record<string, Card[]>): Record<string, number> {
+  return hasRarity(byRarity, 'MA')
+    ? HI_CLASS_MA_SLOT_WEIGHTS_WITH_MA
+    : HI_CLASS_MA_SLOT_WEIGHTS_FALLBACK;
+}
+
+function hiClassPackHitWeights(byRarity: Record<string, Card[]>): Record<string, number> {
+  if (hasRarity(byRarity, 'MA')) {
+    return HI_CLASS_PACK_HIT_WEIGHTS;
+  }
+
+  const { MA, RR, ...rest } = HI_CLASS_PACK_HIT_WEIGHTS;
+  return { RR: RR + MA, ...rest };
+}
 
 export function simulatePack(
   allCards: Card[],
@@ -296,7 +321,7 @@ export function simulatePack(
   const ctx: BuildContext = { byRarity, pick, weightedPick };
 
   const hitWeights =
-    type === 'hi-class' ? HI_CLASS_PACK_HIT_WEIGHTS : EXPANSION_PACK_HIT_WEIGHTS;
+    type === 'hi-class' ? hiClassPackHitWeights(byRarity) : EXPANSION_PACK_HIT_WEIGHTS;
 
   const filtered = filterAvailableWeights(hitWeights, byRarity);
   const hitRarity = ctx.weightedPick(filtered);

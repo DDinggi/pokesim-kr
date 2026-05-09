@@ -1523,6 +1523,19 @@
       "image_url": "wmimages/MEGA/M2/M2_115.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025014115",
       "_fetched_at": "2026-05-05"
+    },
+    {
+      "card_num": "BS2025014116",
+      "number": 116,
+      "name_ko": "메가리자몽X ex",
+      "rarity": "UR",
+      "card_type": "포켓몬",
+      "subtype": null,
+      "hp": 360,
+      "type": "불꽃",
+      "image_url": "external/m-inferno-x/BS2025014116.jpg",
+      "_source": "https://www.pokemon-card.com/card-search/details.php/card/48522/regu/all",
+      "_fetched_at": "2026-05-10"
     }
   ],
   "_fetched_at": "2026-05-05"

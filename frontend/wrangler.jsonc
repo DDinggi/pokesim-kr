@@ -1,7 +1,7 @@
 /**
- * Cloudflare Workers 배포 설정 (OpenNext for Cloudflare).
- * `pnpm build:cf` → .open-next/{worker.js,assets}/ 생성.
- * `pnpm deploy:cf` 또는 Cloudflare Workers Builds가 이걸 읽어서 배포.
+ * Cloudflare Workers deployment config for OpenNext.
+ * `pnpm build:cf` creates .open-next/{worker.js,assets}/.
+ * `pnpm deploy:cf` deploys the generated Worker and static assets.
  */
 {
   "$schema": "node_modules/wrangler/config-schema.json",
@@ -15,5 +15,25 @@
   },
   "observability": {
     "enabled": true
+  },
+  "env": {
+    "staging": {
+      "workers_dev": true,
+      "observability": {
+        "enabled": true
+      }
+      /*
+       * To attach staging.pokesim.kr, prepare the Cloudflare zone and then
+       * add the route below with a comma after the observability block above.
+       * Existing DNS CNAME records can conflict with Custom Domain creation.
+       *
+       * "routes": [
+       *   {
+       *     "pattern": "staging.pokesim.kr",
+       *     "custom_domain": true
+       *   }
+       * ]
+       */
+    }
   }
 }
