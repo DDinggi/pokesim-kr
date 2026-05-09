@@ -314,7 +314,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
           <div className="rounded-3xl bg-gradient-to-b from-gray-950 to-black p-3 sm:p-5 shadow-inner">
             {/* 포켓몬 로고 헤더 + 피카츄 */}
             <div className="flex items-center justify-between gap-2 mb-3 sm:mb-4 px-2">
-              <PikachuMascot src="/pikachu1.png" />
+              <PikachuMascot src="/pikachu.png" />
               <div className="flex flex-col items-center min-w-0">
                 <h2
                   className="text-2xl sm:text-4xl font-black tracking-wider leading-none"
@@ -333,7 +333,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                   <MonsterBall className="w-3 h-3 sm:w-3.5 sm:h-3.5 inline-block" />
                 </p>
               </div>
-              <PikachuMascot src="/pikachu2.png" flip />
+              <PikachuMascot src="/pikachu.png" flip />
             </div>
 
             <div className="rounded-2xl bg-gradient-to-br from-blue-700 via-blue-800 to-blue-950 p-3 sm:p-5">
