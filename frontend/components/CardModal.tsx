@@ -3,7 +3,11 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import type { Card } from '../lib/types';
-import { resolveCardImageUrl } from '../lib/images';
+import {
+  CARD_IMAGES_ENABLED,
+  CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
+  resolveCardImageUrl,
+} from '../lib/images';
 import { HOLO_RARITIES, RARITY_TIER, rarityFullLabel, rarityLabel } from '../lib/rarity';
 
 const TYPE_LABEL: Record<string, string> = {
@@ -53,10 +57,10 @@ function HoloCardImage({ card }: { card: Card }) {
     return () => window.removeEventListener('mousemove', onMove);
   }, [isHolo]);
 
-  if (!card.image_url) {
+  if (!CARD_IMAGES_ENABLED || !card.image_url) {
     return (
       <div className="aspect-[5/7] rounded-xl bg-gray-800 flex items-center justify-center">
-        <span className="text-gray-500">이미지 없음</span>
+        <span className="text-gray-500">{CARD_IMAGES_ENABLED ? '이미지 없음' : '이미지 숨김'}</span>
       </div>
     );
   }
@@ -65,7 +69,9 @@ function HoloCardImage({ card }: { card: Card }) {
     <div className="holo-wrapper">
       <div
         ref={rotatorRef}
-        className={`holo-card relative aspect-[5/7] rounded-xl overflow-hidden shadow-2xl ${rarityClass}`}
+        className={`card-image-frame holo-card relative aspect-[5/7] rounded-xl overflow-hidden shadow-2xl ${rarityClass}`}
+        data-watermark="pokesim.kr"
+        onContextMenu={(e) => e.preventDefault()}
       >
         <Image
           src={resolveCardImageUrl(card.image_url, useOriginal ? {} : { size: 512 })}
@@ -76,9 +82,10 @@ function HoloCardImage({ card }: { card: Card }) {
           priority
           unoptimized
           draggable={false}
+          onContextMenu={(e) => e.preventDefault()}
           onLoad={() => setImgLoaded(true)}
           onError={() => {
-            if (!useOriginal) {
+            if (!useOriginal && CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED) {
               setUseOriginal(true);
               setImgLoaded(false);
             } else {

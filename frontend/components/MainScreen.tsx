@@ -4,7 +4,11 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import type { Card } from '../lib/types';
 import { fetchGlobalStats, type GlobalStats } from '../lib/statsTracker';
-import { resolveCardImageUrl } from '../lib/images';
+import {
+  CARD_IMAGES_ENABLED,
+  CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
+  resolveCardImageUrl,
+} from '../lib/images';
 import {
   CARD_GLOW,
   HIT_RARITY_ORDER,
@@ -61,7 +65,7 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
       <header className="px-6 py-5 border-b border-gray-800/80">
         <h1 className="text-2xl font-bold tracking-tight">PokéSim KR</h1>
-        <p className="text-xs text-gray-500 mt-1">팬메이드 포켓몬 카드 시뮬레이터</p>
+        <p className="text-xs text-gray-500 mt-1">팬메이드 카드팩 시뮬레이터</p>
         <p className="text-sm text-gray-400 mt-3 max-w-2xl leading-relaxed">
           팩을 구하기 어려운 요즘, 카드팩 개봉의 재미를 가볍게 체험할 수 있도록 만든 비공식 팬 프로젝트입니다.
         </p>
@@ -167,13 +171,14 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
           </p>
         )}
         <p className="text-[10px] text-gray-600 text-center">
-          ⓘ 봉입률은 추정치 · 포켓몬코리아는 봉입률을 안내하지 않습니다
+          ⓘ 봉입률은 추정치 · 공식 봉입률은 공개되어 있지 않습니다
         </p>
 
         <div className="mt-2 pt-3 border-t border-gray-900 w-full max-w-lg flex flex-col items-center gap-1">
           <p className="text-[10px] text-gray-700 text-center">
-            본 사이트는 팬이 만든 비영리 사이트이며, 포켓몬 컴퍼니, 닌텐도, Game Freak 등 저작권자와 관련이 없습니다.<br />
-            사용된 모든 이미지와 자산의 저작권은 원저작권자에게 있습니다.
+            본 사이트는 팬이 만든 비영리 시뮬레이션 프로젝트이며, 공식 권리자와 제휴·후원·승인 관계가 없습니다.<br />
+            카드 이미지와 관련 명칭은 개봉 경험 및 카드 식별을 위해 제한적으로 사용되며, 모든 권리는 각 권리자에게 있습니다.<br />
+            권리자의 삭제 또는 수정 요청이 있으면 확인 후 즉시 반영하겠습니다.
           </p>
           <p className="text-[10px] text-gray-700 text-center">
             ©{new Date().getFullYear()} pokesim_kr
@@ -240,9 +245,14 @@ function CardTile({ card }: { card: Card }) {
   const [errored, setErrored] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [useOriginal, setUseOriginal] = useState(false);
+  const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
   return (
-    <div className={`relative aspect-[5/7] rounded-lg overflow-hidden bg-gray-800 ${glow}`}>
-      {errored || !card.image_url ? (
+    <div
+      className={`card-image-frame relative aspect-[5/7] rounded-lg overflow-hidden bg-gray-800 select-none ${glow}`}
+      data-watermark={showImage ? 'pokesim.kr' : undefined}
+      onContextMenu={(e) => e.preventDefault()}
+    >
+      {!showImage ? (
         <div className="absolute inset-0 flex flex-col items-center justify-center p-1 text-center">
           <span className="text-[9px] text-gray-400 leading-tight">{card.name_ko ?? card.card_num}</span>
         </div>
@@ -256,9 +266,11 @@ function CardTile({ card }: { card: Card }) {
             sizes="10vw"
             className="object-cover"
             unoptimized
+            draggable={false}
+            onContextMenu={(e) => e.preventDefault()}
             onLoad={() => setLoaded(true)}
             onError={() => {
-              if (!useOriginal) {
+              if (!useOriginal && CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED) {
                 setUseOriginal(true);
                 setLoaded(false);
               } else {
