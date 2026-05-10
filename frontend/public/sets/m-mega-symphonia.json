@@ -23,23 +23,23 @@
   ],
   "box_guarantees": {
     "rules": [
-        {
-            "rarity": "AR",
-            "min": 3
-        },
-        {
-            "rarity": "Trainer SR",
-            "min": 1
-        },
-        {
-            "rarity": "SR/SAR/MUR",
-            "min": 1
-        }
+      {
+        "rarity": "AR",
+        "min": 3
+      },
+      {
+        "rarity": "Trainer SR/SAR",
+        "min": 1
+      },
+      {
+        "rarity": "Pokemon SR/SAR/MUR",
+        "min": 1
+      }
     ],
-    "_source": "pokemon-infomation.com/pull-rates-megasymphonia/ ~1,000BOX - AR 3, trainer/item SR 1, SR/SAR/MUR slot; SAR 28%, MUR 2%, extra SR box ~10%. Korean official pull rates are private.",
+    "_source": "pokemon-infomation.com/pull-rates-megasymphonia/ ~1,000BOX - AR 3, trainer SR/SAR 1, Pokemon SR/SAR/MUR slot; SAR 28%, MUR 2%, extra Pokemon SR box ~10%. Korean official pull rates are private.",
     "_sample_size": 1000,
     "_estimated_at": "2026-05-10"
-},
+  },
   "pack_slots": [],
   "cards": [
     {

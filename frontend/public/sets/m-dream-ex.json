@@ -22,27 +22,27 @@
   ],
   "box_guarantees": {
     "rules": [
-        {
-            "rarity": "RR",
-            "min": 9
-        },
-        {
-            "rarity": "AR",
-            "min": 3
-        },
-        {
-            "rarity": "Trainer SR",
-            "min": 1
-        },
-        {
-            "rarity": "MA",
-            "min": 1
-        }
+      {
+        "rarity": "RR",
+        "min": 9
+      },
+      {
+        "rarity": "AR",
+        "min": 3
+      },
+      {
+        "rarity": "Trainer SR/SAR",
+        "min": 1
+      },
+      {
+        "rarity": "MA",
+        "min": 1
+      }
     ],
-    "_source": "pokemon-infomation.com/pull-rates-megadreamex/ 2,000BOX - MA 1, trainer/item SR 1, AR 3, optional SR 10% / SAR 40% / MUR 2%. Korean official pull rates are private.",
+    "_source": "pokemon-infomation.com/pull-rates-megadreamex/ 2,000BOX - MA 1, trainer SR/SAR 1, AR 3, optional Pokemon SR 10% / Pokemon SAR 40% / MUR 2%. Korean official pull rates are private.",
     "_sample_size": 2000,
     "_estimated_at": "2026-05-10"
-},
+  },
   "pack_slots": [],
   "cards": [
     {

@@ -17,7 +17,7 @@ export const PROBABILITY_META = {
 // 일반 확장팩 박스 hit 슬롯 보장 — 위치는 랜덤 (D-126).
 //   SV 일반: SR/SAR/UR ×1 + AR ×3
 //   SV11 블랙/화이트: SR/SAR/BWR ×1 + AR ×4
-//   MEGA 확장팩: 트레이너 SR ×1 + SR/SAR/MUR ×1 + AR ×3
+//   MEGA 확장팩: 트레이너 SR/SAR ×1 + 포켓몬 SR/SAR/MUR ×1 + AR ×3
 // 나머지 슬롯: R/RR 가중치
 //
 // MEGA 세트별 SR/SAR/MUR 슬롯 가중치 (출처: pokemon-infomation.com / Samurai Sword Tokyo, 2026-05)
@@ -43,6 +43,7 @@ const EXTRA_SR_RATE_BY_SET: Record<string, number> = {
 };
 const MEGA_EXTRA_SR_RATE = 0.1;
 const SV11_EXTRA_SR_RATE = 0.1;
+const MEGA_TRAINER_SLOT_WEIGHTS: Record<string, number> = { SR: 95, SAR: 5 };
 
 const MEGA_EXPANSION_FILLER_WEIGHTS: Record<string, number> = { R: 82, RR: 18 };
 const STANDARD_30_PACK_FILLER_WEIGHTS: Record<string, number> = { R: 85, RR: 15 };
@@ -224,21 +225,30 @@ function simulateExpansionBox(
   const slots: Card[][] = [];
   const arPool = byRarity['AR'] ?? [];
   const highPools: Record<string, Card[]> = {
-    SR: isMegaExpansion ? (srPokemon.length ? [...srPokemon, ...srTrainer] : srAll) : srAll,
-    SAR: isMegaExpansion ? (sarPokemon.length ? [...sarPokemon, ...sarTrainer] : sarAll) : sarAll,
+    SR: isMegaExpansion ? srPokemon : srAll,
+    SAR: isMegaExpansion ? sarPokemon : sarAll,
     UR: isMegaExpansion && urPokemon.length ? urPokemon : urAll,
     BWR: bwrPokemon.length ? bwrPokemon : bwrAll,
   };
 
   if (isMegaExpansion) {
-    // MEGA expansion: item/tool/stadium SR slot + separate Pokemon/supporter SR-or-better slot.
-    const trainerSrPool = srTrainer.length ? srTrainer : srAll;
-    if (trainerSrPool.length) slots.push(trainerSrPool);
+    // MEGA expansion: exactly one trainer high slot + separate Pokemon SR-or-better slot.
+    const trainerPools: Record<string, Card[]> = {
+      SR: srTrainer,
+      SAR: sarTrainer,
+    };
+    const trainerFallback = srTrainer.length ? srTrainer : (sarTrainer.length ? sarTrainer : srAll);
+    if (trainerFallback.length) {
+      slots.push(pickWeightedPool(ctx, MEGA_TRAINER_SLOT_WEIGHTS, trainerPools, trainerFallback));
+    }
 
     const highWeights = (setCode ? EXPANSION_MONSTER_WEIGHTS[setCode] : null) ?? EXPANSION_MONSTER_WEIGHTS_DEFAULT;
-    slots.push(pickWeightedPool(ctx, highWeights, highPools, srAll.length ? srAll : (byRarity['RR'] ?? [])));
+    const pokemonHighFallback = srPokemon.length
+      ? srPokemon
+      : (sarPokemon.length ? sarPokemon : (urPokemon.length ? urPokemon : (byRarity['RR'] ?? [])));
+    slots.push(pickWeightedPool(ctx, highWeights, highPools, pokemonHighFallback));
     slots.push(arPool, arPool, arPool);
-    if (rng() < MEGA_EXTRA_SR_RATE && highPools.SR.length) slots.push(highPools.SR);
+    if (rng() < MEGA_EXTRA_SR_RATE && srPokemon.length) slots.push(srPokemon);
   } else {
     const highWeights = isSv11Special ? SV11_HIGH_WEIGHTS : STANDARD_SV_HIGH_WEIGHTS;
     slots.push(pickWeightedPool(ctx, highWeights, highPools, srAll.length ? srAll : (byRarity['RR'] ?? [])));
@@ -272,9 +282,16 @@ function simulateHiClassBox(
   const { byRarity } = ctx;
   const isPokemon = (c: Card) => c.card_type === '포켓몬';
   const isTrainer = (c: Card) => c.card_type === '트레이너' || c.card_type === '에너지';
+  const srAll = byRarity['SR'] ?? [];
+  const sarAll = byRarity['SAR'] ?? [];
+  const urAll = byRarity['UR'] ?? [];
+  const srPokemon = srAll.filter(isPokemon);
+  const srTrainer = srAll.filter(isTrainer);
+  const sarPokemon = sarAll.filter(isPokemon);
+  const sarTrainer = sarAll.filter(isTrainer);
+  const urPokemon = urAll.filter(isPokemon);
 
   if (setCode === 'sv8a-terastal-festa') {
-    const sarAll = byRarity['SAR'] ?? [];
     const pokemonSar = sarAll.filter(isPokemon);
     const trainerSar = sarAll.filter(isTrainer);
     const hits: HiClassHitSlot[] = [];
@@ -298,9 +315,10 @@ function simulateHiClassBox(
 
   if (isGodPack && hasRarity(byRarity, 'MA')) {
     // 갓팩 박스: AR×1 + MA×5 + SAR×4
+    const godPackSarPool = sarPokemon.length ? sarPokemon : sarAll;
     hits.push({ rarity: 'AR' });
     for (let i = 0; i < 5; i++) hits.push({ rarity: 'MA' });
-    for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR' });
+    for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR', pool: godPackSarPool });
     return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
   }
 
@@ -308,12 +326,26 @@ function simulateHiClassBox(
   if (hasRarity(byRarity, 'AR')) {
     hits.push({ rarity: 'AR' }, { rarity: 'AR' }, { rarity: 'AR' });
   }
-  if (hasRarity(byRarity, 'SR')) hits.push({ rarity: 'SR' });
+  const trainerPools: Record<string, Card[]> = {
+    SR: srTrainer,
+    SAR: sarTrainer,
+  };
+  const trainerFallback = srTrainer.length ? srTrainer : (sarTrainer.length ? sarTrainer : srAll);
+  if (trainerFallback.length) {
+    const trainerRarity = ctx.weightedPick(filterAvailableWeights(MEGA_TRAINER_SLOT_WEIGHTS, trainerPools));
+    const trainerPool = trainerPools[trainerRarity]?.length ? trainerPools[trainerRarity] : trainerFallback;
+    hits.push({ rarity: trainerRarity, pool: trainerPool });
+  }
   if (hasRarity(byRarity, 'MA')) hits.push({ rarity: 'MA' });
 
   const extraRarity = ctx.weightedPick(MEGA_DREAM_EXTRA_SLOT_WEIGHTS);
   if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
-    hits.push({ rarity: extraRarity });
+    const pokemonPool =
+      extraRarity === 'SR' ? srPokemon
+      : extraRarity === 'SAR' ? sarPokemon
+      : extraRarity === 'UR' ? (urPokemon.length ? urPokemon : urAll)
+      : (byRarity[extraRarity] ?? []);
+    if (pokemonPool.length) hits.push({ rarity: extraRarity, pool: pokemonPool });
   }
 
   return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
