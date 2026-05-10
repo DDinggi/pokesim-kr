@@ -4,9 +4,13 @@ import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, PackResult } from '../lib/types';
 import { simulatePack } from '../lib/simulator';
-import { trackSim } from '../lib/statsTracker';
+import { trackSim, trackUserEvent } from '../lib/statsTracker';
 import { CardModal } from './CardModal';
-import { resolveCardImageUrl } from '../lib/images';
+import {
+  CARD_IMAGES_ENABLED,
+  CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
+  resolveCardImageUrl,
+} from '../lib/images';
 import {
   CARD_GLOW,
   RARITY_BADGE,
@@ -91,6 +95,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
   );
 
   function openModal(set: SetMeta) {
+    trackUserEvent({ eventName: 'select_set', setCode: set.code, mode: 'vending' });
     setModalSet(set);
     // 기본 수량: 이미 담긴 게 있으면 그 값, 없으면 1
     setModalQty(cart[set.code] ?? 1);
@@ -176,10 +181,29 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
     }
   }
   function handleRestart() {
+    const setCodes = Array.from(new Set(purchased.map((p) => p.setCode)));
+    trackUserEvent({
+      eventName: 'open_again',
+      setCode: setCodes.length === 1 ? setCodes[0] : undefined,
+      mode: 'vending',
+      metadata: {
+        pack_count: purchased.length,
+        set_count: setCodes.length,
+      },
+    });
     setCart({});
     setPurchased([]);
     setPackIdx(0);
     setPhase('browse');
+  }
+  function openCard(card: Card, setCode?: string) {
+    trackUserEvent({
+      eventName: 'open_card_modal',
+      setCode,
+      mode: 'vending',
+      rarity: card.rarity ?? null,
+    });
+    setOpenedCard(card);
   }
 
   // ─────────────────────────── REVEAL ───────────────────────────
@@ -209,7 +233,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
 
           <div className="grid grid-cols-5 gap-3 sm:gap-4 w-full">
             {current.pack.cards.map((card, i) => (
-              <CardTile key={i} card={card} onClick={() => setOpenedCard(card)} />
+              <CardTile key={i} card={card} onClick={() => openCard(card, current.setCode)} />
             ))}
           </div>
 
@@ -259,7 +283,11 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
 
           <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3">
             {sorted.map((c, i) => (
-              <CardTile key={i} card={c} onClick={() => setOpenedCard(c)} />
+              <CardTile
+                key={i}
+                card={c}
+                onClick={() => openCard(c, purchased.find((p) => p.pack.cards.includes(c))?.setCode)}
+              />
             ))}
           </div>
 
@@ -312,7 +340,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
         {/* 자판기 본체 — 노란 프레임 → 검정 패널 → 파란 LCD */}
         <div className="rounded-[28px] bg-gradient-to-br from-yellow-400 to-yellow-500 p-3 sm:p-4 shadow-2xl ring-1 ring-yellow-300/50">
           <div className="rounded-3xl bg-gradient-to-b from-gray-950 to-black p-3 sm:p-5 shadow-inner">
-            {/* 포켓몬 로고 헤더 + 피카츄 */}
+            {/* 브랜드 헤더 */}
             <div className="flex items-center justify-between gap-2 mb-3 sm:mb-4 px-2">
               <PikachuMascot src="/pikachu.png" />
               <div className="flex flex-col items-center min-w-0">
@@ -329,7 +357,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                 </h2>
                 <p className="text-[10px] sm:text-xs font-bold text-yellow-300 mt-1 flex items-center gap-1.5 tracking-wide">
                   <MonsterBall className="w-3 h-3 sm:w-3.5 sm:h-3.5 inline-block" />
-                  포켓몬 카드 시뮬레이터
+                  카드팩 시뮬레이터
                   <MonsterBall className="w-3 h-3 sm:w-3.5 sm:h-3.5 inline-block" />
                 </p>
               </div>
@@ -628,12 +656,15 @@ function CardTile({
   const [loaded, setLoaded] = useState(false);
   const [useOriginal, setUseOriginal] = useState(false);
   const Wrapper = onClick ? 'button' : 'div';
+  const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
   return (
     <Wrapper
       onClick={onClick}
-      className={`relative aspect-[5/7] rounded-lg overflow-hidden block w-full bg-gray-800 ${glow} ${onClick ? 'cursor-pointer hover:scale-105 active:scale-95 transition-transform' : ''}`}
+      onContextMenu={(e) => e.preventDefault()}
+      className={`card-image-frame relative aspect-[5/7] rounded-lg overflow-hidden block w-full bg-gray-800 select-none ${glow} ${onClick ? 'cursor-pointer hover:scale-105 active:scale-95 transition-transform' : ''}`}
+      data-watermark={showImage ? 'pokesim.kr' : undefined}
     >
-      {errored || !card.image_url ? (
+      {!showImage ? (
         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center p-2 text-center">
           <span className="text-[10px] text-gray-400 leading-tight">{card.name_ko ?? card.card_num}</span>
           {card.rarity && <span className="text-[9px] text-gray-500 mt-1">{card.rarity}</span>}
@@ -648,9 +679,11 @@ function CardTile({
             sizes="(max-width: 640px) 30vw, (max-width: 1024px) 18vw, 150px"
             className="object-cover"
             unoptimized
+            draggable={false}
+            onContextMenu={(e) => e.preventDefault()}
             onLoad={() => setLoaded(true)}
             onError={() => {
-              if (!useOriginal) {
+              if (!useOriginal && CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED) {
                 setUseOriginal(true);
                 setLoaded(false);
               } else {

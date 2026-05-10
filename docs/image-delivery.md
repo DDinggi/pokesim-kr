@@ -41,8 +41,18 @@ R2_ACCOUNT_ID=
 R2_ACCESS_KEY_ID=
 R2_SECRET_ACCESS_KEY=
 R2_BUCKET=pokesim-kr-cards
+NEXT_PUBLIC_CARD_IMAGES_ENABLED=1
 NEXT_PUBLIC_CARD_IMAGE_CDN_BASE=https://img.pokesim.kr/
+NEXT_PUBLIC_CARD_IMAGE_ORIGINAL_FALLBACK=0
 ```
+
+Emergency kill switch:
+
+- `NEXT_PUBLIC_CARD_IMAGES_ENABLED=1` keeps card images enabled.
+- `NEXT_PUBLIC_CARD_IMAGES_ENABLED=0` hides all card images and stops preloading
+  them. Use this for a fast rollback if image usage needs to be paused.
+- `NEXT_PUBLIC_CARD_IMAGE_ORIGINAL_FALLBACK=0` keeps the app on WebP variants
+  only. Set it to `1` only during a temporary migration window.
 
 Behavior:
 
@@ -88,6 +98,7 @@ Only enable variants after `--verify-only` passes for the target sets:
 
 ```bash
 NEXT_PUBLIC_CARD_IMAGE_VARIANTS=1
+NEXT_PUBLIC_CARD_IMAGE_ORIGINAL_FALLBACK=0
 ```
 
 Benchmark the variant path explicitly:
@@ -121,7 +132,31 @@ Action: block or managed challenge.
 Keep empty referers allowed. Some browsers, privacy extensions, and messaging
 apps omit the referer header, and blocking those would hurt legitimate users.
 
+## Share / OG Safety
+
+Do not include card images in share images, Open Graph images, or generated
+social previews. Use text-only summaries or generic non-card artwork instead.
+Card images should stay inside the interactive app surface, where the CDN can
+serve only the optimized WebP variants and the emergency kill switch can hide
+them.
+
+Optional original-file block after all WebP variants are verified:
+
+```txt
+hostname eq "img.pokesim.kr"
+and not starts_with(http.request.uri.path, "/cards/256/")
+and not starts_with(http.request.uri.path, "/cards/512/")
+```
+
+Action: block. This makes the public CDN serve optimized WebP variants only;
+the app will show metadata-only placeholders for any missing variant instead of
+falling back to the original file.
+
 ## Next Step
 
 Run `optimize:images` for every active set, verify the public CDN URLs, then
 deploy with `NEXT_PUBLIC_CARD_IMAGE_VARIANTS=1`.
+
+Keep `NEXT_PUBLIC_CARD_IMAGES_ENABLED=1` only while card image serving is
+intended. Set it to `0` and redeploy to switch the app to metadata-only card
+tiles.

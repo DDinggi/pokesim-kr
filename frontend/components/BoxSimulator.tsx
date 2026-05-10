@@ -5,8 +5,13 @@ import Image from 'next/image';
 import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
 import { simulateBox, simulatePack, PROBABILITY_META } from '../lib/simulator';
 import { CardModal } from './CardModal';
-import { trackSim } from '../lib/statsTracker';
-import { preloadCardImages, resolveCardImageUrl } from '../lib/images';
+import { trackSim, trackUserEvent } from '../lib/statsTracker';
+import {
+  CARD_IMAGES_ENABLED,
+  CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
+  preloadCardImages,
+  resolveCardImageUrl,
+} from '../lib/images';
 import {
   CARD_GLOW,
   FILTER_RARITY_ORDER,
@@ -78,6 +83,7 @@ function CardTile({
   const [loaded, setLoaded] = useState(false);
   const [useOriginal, setUseOriginal] = useState(false);
   const Wrapper = onClick ? 'button' : 'div';
+  const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
   const sizesAttr =
     size === 'sm'
       ? '(max-width: 640px) 12vw, (max-width: 1024px) 8vw, 100px'
@@ -85,9 +91,11 @@ function CardTile({
   return (
     <Wrapper
       onClick={onClick}
-      className={`relative aspect-[5/7] rounded-lg overflow-hidden block w-full bg-gray-800 ${glow} ${onClick ? 'cursor-pointer hover:scale-105 active:scale-95 transition-transform' : ''}`}
+      onContextMenu={(e) => e.preventDefault()}
+      className={`card-image-frame relative aspect-[5/7] rounded-lg overflow-hidden block w-full bg-gray-800 select-none ${glow} ${onClick ? 'cursor-pointer hover:scale-105 active:scale-95 transition-transform' : ''}`}
+      data-watermark={showImage ? 'pokesim.kr' : undefined}
     >
-      {errored || !card.image_url ? (
+      {!showImage ? (
         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center p-2 text-center">
           <span className="text-[10px] text-gray-400 leading-tight">
             {card.name_ko ?? card.card_num}
@@ -108,9 +116,11 @@ function CardTile({
             priority={priority}
             loading={priority ? 'eager' : 'lazy'}
             unoptimized
+            draggable={false}
+            onContextMenu={(e) => e.preventDefault()}
             onLoad={() => setLoaded(true)}
             onError={() => {
-              if (!useOriginal) {
+              if (!useOriginal && CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED) {
                 setUseOriginal(true);
                 setLoaded(false);
               } else {
@@ -868,6 +878,19 @@ export function BoxSimulator({
     setSession(EMPTY_SESSION);
   }, []);
 
+  const openCardModal = useCallback(
+    (card: Card) => {
+      trackUserEvent({
+        eventName: 'open_card_modal',
+        setCode: setMeta.code,
+        mode: mode === 'pack' ? 'pack' : 'box',
+        rarity: card.rarity ?? null,
+      });
+      setModalCard(card);
+    },
+    [mode, setMeta.code],
+  );
+
   const startBox = useCallback(
     (m: 'box-auto' | 'box-manual' | 'box-instant') => {
       manualPacksRecorded.current = new Set();
@@ -879,19 +902,22 @@ export function BoxSimulator({
       setPendingBoxRedo(null);
       setPhase(m === 'box-instant' ? 'done' : 'reveal');
       // 박스 전체 카드 이미지 미리 로딩 — 팩 펼칠 때 이미 캐시됨
-      const urls = result.packs
-        .flatMap((p) => p.cards)
-        .filter((c) => c.image_url)
-        .map((c) => c.image_url!);
-      preloadCardImages(urls, { limit: 18 });
+      if (CARD_IMAGES_ENABLED) {
+        const urls = result.packs
+          .flatMap((p) => p.cards)
+          .filter((c) => c.image_url)
+          .map((c) => c.image_url!);
+        preloadCardImages(urls, { limit: 18 });
+      }
     },
     [setMeta],
   );
 
   // "한 박스 더 깡!" — 트랜지션 띄우고 BETWEEN_MS 후 새 박스 시작
   const triggerBoxRedo = useCallback((m: 'box-auto' | 'box-manual' | 'box-instant') => {
+    trackUserEvent({ eventName: 'open_again', setCode: setMeta.code, mode: 'box' });
     setPendingBoxRedo(m);
-  }, []);
+  }, [setMeta.code]);
 
   useEffect(() => {
     if (!pendingBoxRedo) return;
@@ -1108,7 +1134,7 @@ export function BoxSimulator({
                 packIdx={packIdx}
                 onAdvance={advancePack}
                 onSkip={skipToDone}
-                onCardClick={setModalCard}
+                onCardClick={openCardModal}
               />
             )}
 
@@ -1120,7 +1146,7 @@ export function BoxSimulator({
                 onFlip={flipCard}
                 onAdvance={advancePack}
                 onSkip={skipToDone}
-                onCardClick={setModalCard}
+                onCardClick={openCardModal}
               />
             )}
 
@@ -1132,7 +1158,7 @@ export function BoxSimulator({
                 onRedo={() => triggerBoxRedo(mode)}
                 onChangeMode={goToIdle}
                 onChangeSet={onChangeSet}
-                onCardClick={setModalCard}
+                onCardClick={openCardModal}
                 onResetSession={resetSession}
               />
             )}
@@ -1143,10 +1169,13 @@ export function BoxSimulator({
                 seed={packResult.seed}
                 meta={setMeta}
                 session={session}
-                onRedo={startPack}
+                onRedo={() => {
+                  trackUserEvent({ eventName: 'open_again', setCode: setMeta.code, mode: 'pack' });
+                  startPack();
+                }}
                 onChangeMode={goToIdle}
                 onChangeSet={onChangeSet}
-                onCardClick={setModalCard}
+                onCardClick={openCardModal}
               />
             )}
           </>

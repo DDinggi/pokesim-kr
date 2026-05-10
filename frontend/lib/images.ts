@@ -2,8 +2,13 @@ const DEFAULT_CARD_IMAGE_CDN_BASE = 'https://img.pokesim.kr/';
 
 export const CARD_IMAGE_CDN_BASE =
   process.env.NEXT_PUBLIC_CARD_IMAGE_CDN_BASE ?? DEFAULT_CARD_IMAGE_CDN_BASE;
+export const CARD_IMAGES_ENABLED = !['0', 'false', 'off'].includes(
+  (process.env.NEXT_PUBLIC_CARD_IMAGES_ENABLED ?? '1').toLowerCase(),
+);
 export const CARD_IMAGE_VARIANTS_ENABLED =
   process.env.NEXT_PUBLIC_CARD_IMAGE_VARIANTS === '1';
+export const CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED =
+  process.env.NEXT_PUBLIC_CARD_IMAGE_ORIGINAL_FALLBACK === '1';
 
 export type CardImageVariantSize = 256 | 512;
 
@@ -28,6 +33,7 @@ export function resolveCardImageUrl(
   imageUrl: string,
   options: { size?: CardImageVariantSize } = {},
 ): string {
+  if (!CARD_IMAGES_ENABLED) return '';
   if (/^https?:\/\//.test(imageUrl)) return imageUrl;
   const key =
     CARD_IMAGE_VARIANTS_ENABLED && options.size
@@ -45,7 +51,7 @@ export function preloadCardImages(
     size?: CardImageVariantSize;
   } = {},
 ) {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined' || !CARD_IMAGES_ENABLED) return;
 
   const limit = options.limit ?? 16;
   const chunkSize = options.chunkSize ?? 4;

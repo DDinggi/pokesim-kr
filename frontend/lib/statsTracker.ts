@@ -2,6 +2,13 @@ import { supabase } from './supabase';
 
 const SESSION_ID_KEY = 'pokesim-session-id';
 
+export type UserEventName =
+  | 'page_view'
+  | 'select_mode'
+  | 'select_set'
+  | 'open_again'
+  | 'open_card_modal';
+
 // 하루 단위로 갱신되는 익명 세션 ID — DAU 집계용
 export function getSessionId(): string {
   if (typeof window === 'undefined') return '';
@@ -28,7 +35,7 @@ export async function trackSim(event: {
   krw: number;
 }) {
   if (!supabase) return;
-  await supabase.from('sim_events').insert({
+  const { error } = await supabase.from('sim_events').insert({
     session_id: getSessionId(),
     set_code: event.setCode,
     mode: event.mode,
@@ -36,6 +43,34 @@ export async function trackSim(event: {
     pack_count: event.packCount,
     krw: event.krw,
   });
+  if (error && process.env.NODE_ENV !== 'production') {
+    console.warn('[analytics] sim_events insert failed', error);
+  }
+}
+
+export function trackUserEvent(event: {
+  eventName: UserEventName;
+  setCode?: string;
+  mode?: 'box' | 'vending' | 'pack';
+  rarity?: string | null;
+  metadata?: Record<string, string | number | boolean | null>;
+}) {
+  if (!supabase) return;
+  void supabase
+    .from('user_events')
+    .insert({
+      session_id: getSessionId(),
+      event_name: event.eventName,
+      set_code: event.setCode ?? null,
+      mode: event.mode ?? null,
+      rarity: event.rarity ?? null,
+      metadata: event.metadata ?? {},
+    })
+    .then(({ error }) => {
+      if (error && process.env.NODE_ENV !== 'production') {
+        console.warn('[analytics] user_events insert failed', error);
+      }
+    });
 }
 
 export interface GlobalStats {

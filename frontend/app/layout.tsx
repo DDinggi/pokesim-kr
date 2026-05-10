@@ -13,16 +13,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'PokéSim KR | 포켓몬 카드깡 시뮬레이터',
-  description: '한국 포켓몬 카드 박스깡을 가상으로 즐겨보세요. 최신 확장팩을 선택하고 무료로 카드깡 시뮬레이션을 할 수 있습니다.',
-  keywords: [
-    '포켓몬', '포켓몬스터', '포켓몬카드', '포카', 
-    '카드깡', '박스깡', '팩깡', '시뮬레이터', 
-    'TCG', '포케심', 'PokéSim'
-  ],
+  title: 'PokéSim KR | 카드팩 시뮬레이터',
+  description: '카드팩 개봉 경험을 가볍게 체험하는 비공식 팬메이드 시뮬레이터입니다.',
+  robots: {
+    index: false,
+    follow: false,
+    noimageindex: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
   openGraph: {
-    title: 'PokéSim KR | 포켓몬 카드깡 시뮬레이터',
-    description: '한국 포켓몬 카드 박스깡을 가상으로 즐겨보세요!',
+    title: 'PokéSim KR | 카드팩 시뮬레이터',
+    description: '카드팩 개봉 경험을 가볍게 체험하는 비공식 팬메이드 시뮬레이터입니다.',
     url: 'https://pokesim.kr',
     siteName: 'PokéSim KR',
     locale: 'ko_KR',
