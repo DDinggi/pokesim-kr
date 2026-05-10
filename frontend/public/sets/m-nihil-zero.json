@@ -22,11 +22,24 @@
     "UR"
   ],
   "box_guarantees": {
-    "rules": [],
-    "_source": "TODO — 커뮤니티 합의(P2) 누적 후 작성.",
-    "_sample_size": null,
-    "_estimated_at": "2026-05-02"
-  },
+    "rules": [
+        {
+            "rarity": "AR",
+            "min": 3
+        },
+        {
+            "rarity": "Trainer SR",
+            "min": 1
+        },
+        {
+            "rarity": "SR/SAR/MUR",
+            "min": 1
+        }
+    ],
+    "_source": "pokemon-infomation.com/pull-rates-munikisuzero/ ~1,000BOX - AR 3, trainer/item SR 1, SR/SAR/MUR slot; SAR 28%, MUR 2%, extra SR box ~10%. Korean official pull rates are private.",
+    "_sample_size": 1000,
+    "_estimated_at": "2026-05-10"
+},
   "pack_slots": [],
   "cards": [
     {

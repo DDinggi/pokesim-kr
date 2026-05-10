@@ -23,19 +23,19 @@
   ],
   "box_guarantees": {
     "rules": [
-      {
-        "rarity": "AR",
-        "min": 2
-      },
-      {
-        "rarity": "SR",
-        "min": 1
-      }
+        {
+            "rarity": "AR",
+            "min": 3
+        },
+        {
+            "rarity": "SR/SAR/UR",
+            "min": 1
+        }
     ],
-    "_source": "SV 강화 확장팩 추정치 — 커뮤니티 대량 개봉 데이터로 보정 필요",
-    "_sample_size": null,
-    "_estimated_at": "2026-05-08"
-  },
+    "_source": "pokemon-infomation.com/pull-rates-pokemoncard151/ 960BOX - AR 3, SR/SAR/UR slot, SAR 20%, UR 10%, Master Ball mirror not fully modeled. Korean official pull rates are private.",
+    "_sample_size": 960,
+    "_estimated_at": "2026-05-10"
+},
   "pack_slots": [],
   "cards": [
     {

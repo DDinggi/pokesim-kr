@@ -21,11 +21,28 @@
     "UR"
   ],
   "box_guarantees": {
-    "rules": [],
-    "_source": "TODO — 커뮤니티 합의(P2) 누적 후 작성.",
-    "_sample_size": null,
-    "_estimated_at": "2026-05-02"
-  },
+    "rules": [
+        {
+            "rarity": "RR",
+            "min": 9
+        },
+        {
+            "rarity": "AR",
+            "min": 3
+        },
+        {
+            "rarity": "Trainer SR",
+            "min": 1
+        },
+        {
+            "rarity": "MA",
+            "min": 1
+        }
+    ],
+    "_source": "pokemon-infomation.com/pull-rates-megadreamex/ 2,000BOX - MA 1, trainer/item SR 1, AR 3, optional SR 10% / SAR 40% / MUR 2%. Korean official pull rates are private.",
+    "_sample_size": 2000,
+    "_estimated_at": "2026-05-10"
+},
   "pack_slots": [],
   "cards": [
     {

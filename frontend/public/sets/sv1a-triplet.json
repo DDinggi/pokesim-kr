@@ -23,19 +23,19 @@
   ],
   "box_guarantees": {
     "rules": [
-      {
-        "rarity": "AR",
-        "min": 3
-      },
-      {
-        "rarity": "SR",
-        "min": 1
-      }
+        {
+            "rarity": "AR",
+            "min": 3
+        },
+        {
+            "rarity": "SR/SAR/UR",
+            "min": 1
+        }
     ],
-    "_source": "pokemoncard.co.kr/card/536 확인 (30팩×5장×30,000원) + SV 표준 추정치",
-    "_sample_size": null,
-    "_estimated_at": "2026-05-08"
-  },
+    "_source": "pokemon-infomation.com/pull-rates-tripletbeat/ 1,000BOX + pokemoncard.co.kr/card/536 product check - AR 3, SAR 20%, UR 10%, extra SR box ~5%. Korean official pull rates are private.",
+    "_sample_size": 1000,
+    "_estimated_at": "2026-05-10"
+},
   "pack_slots": [],
   "cards": [
     {
