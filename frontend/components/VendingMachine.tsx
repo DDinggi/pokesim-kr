@@ -142,7 +142,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
       const set = displaySets.find((x) => x.code === code);
       if (!set || n <= 0) continue;
       for (let i = 0; i < n; i++) {
-        const { pack, seed } = simulatePack(set.cards, set.type, set.pack_size);
+        const { pack, seed } = simulatePack(set.cards, set.type, set.pack_size, undefined, set.code);
         packs.push({ setCode: code, setMeta: set, pack, seed });
       }
       trackSim({

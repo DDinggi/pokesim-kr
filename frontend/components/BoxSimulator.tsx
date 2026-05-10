@@ -929,7 +929,7 @@ export function BoxSimulator({
   }, [pendingBoxRedo, startBox]);
 
   const startPack = useCallback(() => {
-    const result = simulatePack(setMeta.cards, setMeta.type, setMeta.pack_size);
+    const result = simulatePack(setMeta.cards, setMeta.type, setMeta.pack_size, undefined, setMeta.code);
     setPackResult(result);
     setMode('pack');
     setPhase('done');
