@@ -23,19 +23,19 @@
   ],
   "box_guarantees": {
     "rules": [
-      {
-        "rarity": "AR",
-        "min": 3
-      },
-      {
-        "rarity": "SR",
-        "min": 1
-      }
+        {
+            "rarity": "RR",
+            "min": 9
+        },
+        {
+            "rarity": "Pokemon SAR",
+            "min": 1
+        }
     ],
-    "_source": "pokemoncard.co.kr/card/708 — 하이클래스팩 확인. 세부 보장률 추정치",
-    "_sample_size": null,
-    "_estimated_at": "2026-05-08"
-  },
+    "_source": "pokemoncard.co.kr/card/708 product check + pokemon-infomation.com/pull-rates-terafesex/ 2,000BOX - Pokemon SAR 1 guaranteed, RR about 9, optional supporter SR/SAR/UR slot about 40%. Korean official pull rates are private.",
+    "_sample_size": 2000,
+    "_estimated_at": "2026-05-10"
+},
   "pack_slots": [],
   "cards": [
     {

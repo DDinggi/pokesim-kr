@@ -24,19 +24,19 @@
   ],
   "box_guarantees": {
     "rules": [
-      {
-        "rarity": "AR",
-        "min": 3
-      },
-      {
-        "rarity": "SR",
-        "min": 1
-      }
+        {
+            "rarity": "AR",
+            "min": 4
+        },
+        {
+            "rarity": "SR/SAR/BWR",
+            "min": 1
+        }
     ],
-    "_source": "SV 확장팩 표준 추정치 — pokemoncard.co.kr/card/797에 AR 보장 명시 없음(AR×1은 자판기 5팩 제품). 커뮤니티 대량 개봉 데이터로 보정 필요",
+    "_source": "premium.gamepedia.jp/pokeca/archives/13368 + pockecolle.com/articles/blackvolt + samuraiswordtokyo.com - AR about 4/box, SAR about 1/4 boxes, BWR about 1/20-24+ boxes, SR about 1 per 1.2 boxes. Korean official pull rates are private.",
     "_sample_size": null,
-    "_estimated_at": "2026-05-08"
-  },
+    "_estimated_at": "2026-05-10"
+},
   "pack_slots": [],
   "cards": [
     {
