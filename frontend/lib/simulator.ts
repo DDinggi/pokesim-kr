@@ -194,6 +194,23 @@ function pickWeightedPool(
   return pools[rarity] ?? fallback;
 }
 
+function pickWeightedHitPool(
+  ctx: BuildContext,
+  entries: { weight: number; pool: Card[] }[],
+  fallback: Card[],
+): Card[] {
+  const weights: Record<string, number> = {};
+  const pools: Record<string, Card[]> = {};
+  entries.forEach((entry, i) => {
+    if (entry.weight <= 0 || entry.pool.length === 0) return;
+    const key = String(i);
+    weights[key] = entry.weight;
+    pools[key] = entry.pool;
+  });
+  if (Object.keys(weights).length === 0) return fallback;
+  return pools[ctx.weightedPick(weights)] ?? fallback;
+}
+
 function simulateExpansionBox(
   _allCards: Card[],
   boxSize: number,
@@ -351,39 +368,105 @@ function simulateHiClassBox(
   return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
 }
 
-// 자판기 1팩 모드 (D-128) — 박스 보장룰/갓팩 무시, 가중치만 적용.
-// 가중치는 박스 평균 분포 기반 추정.
-//   일반팩 박스(30팩) 평균 hit: R 18.75 / RR 6.25 / AR 3 / SR ~1.4 / SAR ~0.3 / MUR ~0.02
-//   하이클래스 박스(10팩) 평균 hit: RR ~4.5 / MA ~1 / AR 3 / SR ~1.1 / SAR ~0.4 / MUR ~0.02
-const EXPANSION_PACK_HIT_WEIGHTS: Record<string, number> = {
-  R: 625,
-  RR: 208,
-  AR: 100,
-  SR: 47,
-  SAR: 10,
-  UR: 1,
-  BWR: 1,
-};
-const HI_CLASS_PACK_HIT_WEIGHTS: Record<string, number> = {
-  RR: 450,
-  MA: 100,
-  AR: 300,
-  SR: 110,
-  SAR: 40,
-  UR: 2,
-};
-
 function hasRarity(byRarity: Record<string, Card[]>, rarity: string): boolean {
   return (byRarity[rarity]?.length ?? 0) > 0;
 }
 
-function hiClassPackHitWeights(byRarity: Record<string, Card[]>): Record<string, number> {
-  if (hasRarity(byRarity, 'MA')) {
-    return HI_CLASS_PACK_HIT_WEIGHTS;
+function addFillerPackEntries(
+  entries: { weight: number; pool: Card[] }[],
+  byRarity: Record<string, Card[]>,
+  fillerSlots: number,
+  fillerWeights: Record<string, number>,
+) {
+  const total = Object.values(fillerWeights).reduce((a, b) => a + b, 0);
+  for (const [rarity, weight] of Object.entries(fillerWeights)) {
+    entries.push({ weight: (fillerSlots * weight * 100) / total, pool: byRarity[rarity] ?? [] });
+  }
+}
+
+function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[] {
+  const { byRarity } = ctx;
+  const isPokemon = (c: Card) => c.card_type === '포켓몬';
+  const isTrainer = (c: Card) => c.card_type === '트레이너' || c.card_type === '에너지';
+  const isMegaExpansion = Boolean(setCode?.startsWith('m'));
+  const isSv11Special = setCode === 'sv11a-white-flare' || setCode === 'sv11b-black-bolt';
+
+  const srAll = byRarity['SR'] ?? [];
+  const sarAll = byRarity['SAR'] ?? [];
+  const urAll = byRarity['UR'] ?? [];
+  const bwrAll = byRarity['BWR'] ?? [];
+  const srPokemon = srAll.filter(isPokemon);
+  const srTrainer = srAll.filter(isTrainer);
+  const sarPokemon = sarAll.filter(isPokemon);
+  const sarTrainer = sarAll.filter(isTrainer);
+  const urPokemon = urAll.filter(isPokemon);
+  const bwrPokemon = bwrAll.filter(isPokemon);
+  const arPool = byRarity['AR'] ?? [];
+  const entries: { weight: number; pool: Card[] }[] = [];
+
+  if (isMegaExpansion) {
+    const highWeights = (setCode ? EXPANSION_MONSTER_WEIGHTS[setCode] : null) ?? EXPANSION_MONSTER_WEIGHTS_DEFAULT;
+    addFillerPackEntries(entries, byRarity, 30 - 1 - 1 - 3 - MEGA_EXTRA_SR_RATE, MEGA_EXPANSION_FILLER_WEIGHTS);
+    entries.push({ weight: 300, pool: arPool });
+    entries.push({ weight: MEGA_TRAINER_SLOT_WEIGHTS.SR, pool: srTrainer });
+    entries.push({ weight: MEGA_TRAINER_SLOT_WEIGHTS.SAR, pool: sarTrainer });
+    entries.push({ weight: highWeights.SR ?? 0, pool: srPokemon });
+    entries.push({ weight: highWeights.SAR ?? 0, pool: sarPokemon });
+    entries.push({ weight: highWeights.UR ?? 0, pool: urPokemon.length ? urPokemon : urAll });
+    entries.push({ weight: MEGA_EXTRA_SR_RATE * 100, pool: srPokemon });
+    return pickWeightedHitPool(ctx, entries, byRarity['R'] ?? []);
   }
 
-  const { MA, RR, ...rest } = HI_CLASS_PACK_HIT_WEIGHTS;
-  return { RR: RR + MA, ...rest };
+  const boxSize = isSv11Special || setCode === 'sv2a-151' ? 20 : 30;
+  const arCount = isSv11Special ? 4 : 3;
+  const extraSrRate = isSv11Special
+    ? SV11_EXTRA_SR_RATE
+    : (setCode ? (EXTRA_SR_RATE_BY_SET[setCode] ?? STANDARD_EXTRA_SR_RATE) : STANDARD_EXTRA_SR_RATE);
+  const highWeights = isSv11Special ? SV11_HIGH_WEIGHTS : STANDARD_SV_HIGH_WEIGHTS;
+  const fillerWeights = boxSize === 20 ? STANDARD_20_PACK_FILLER_WEIGHTS : STANDARD_30_PACK_FILLER_WEIGHTS;
+
+  addFillerPackEntries(entries, byRarity, boxSize - 1 - arCount - extraSrRate, fillerWeights);
+  entries.push({ weight: arCount * 100, pool: arPool });
+  entries.push({ weight: (highWeights.SR ?? 0) + extraSrRate * 100, pool: srAll });
+  entries.push({ weight: highWeights.SAR ?? 0, pool: sarAll });
+  entries.push({ weight: highWeights.UR ?? 0, pool: urAll });
+  entries.push({ weight: highWeights.BWR ?? 0, pool: bwrPokemon.length ? bwrPokemon : bwrAll });
+  return pickWeightedHitPool(ctx, entries, byRarity['R'] ?? []);
+}
+
+function hiClassPackHitPool(ctx: BuildContext, setCode?: string): Card[] {
+  const { byRarity } = ctx;
+  const isPokemon = (c: Card) => c.card_type === '포켓몬';
+  const isTrainer = (c: Card) => c.card_type === '트레이너' || c.card_type === '에너지';
+  const srAll = byRarity['SR'] ?? [];
+  const sarAll = byRarity['SAR'] ?? [];
+  const urAll = byRarity['UR'] ?? [];
+  const srPokemon = srAll.filter(isPokemon);
+  const srTrainer = srAll.filter(isTrainer);
+  const sarPokemon = sarAll.filter(isPokemon);
+  const sarTrainer = sarAll.filter(isTrainer);
+  const urPokemon = urAll.filter(isPokemon);
+  const entries: { weight: number; pool: Card[] }[] = [];
+
+  if (setCode === 'sv8a-terastal-festa') {
+    const extraTotal = Object.values(TERASTAL_EXTRA_SLOT_WEIGHTS).reduce((a, b) => a + b, 0);
+    entries.push({ weight: 900, pool: byRarity['RR'] ?? [] });
+    entries.push({ weight: 100, pool: sarPokemon.length ? sarPokemon : sarAll });
+    entries.push({ weight: (TERASTAL_EXTRA_SLOT_RATE * TERASTAL_EXTRA_SLOT_WEIGHTS.SR * 100) / extraTotal, pool: srAll });
+    entries.push({ weight: (TERASTAL_EXTRA_SLOT_RATE * TERASTAL_EXTRA_SLOT_WEIGHTS.SAR * 100) / extraTotal, pool: sarTrainer });
+    entries.push({ weight: (TERASTAL_EXTRA_SLOT_RATE * TERASTAL_EXTRA_SLOT_WEIGHTS.UR * 100) / extraTotal, pool: urAll });
+    return pickWeightedHitPool(ctx, entries, byRarity['RR'] ?? []);
+  }
+
+  entries.push({ weight: 900, pool: byRarity['RR'] ?? [] });
+  entries.push({ weight: 300, pool: byRarity['AR'] ?? [] });
+  entries.push({ weight: 100, pool: byRarity['MA'] ?? [] });
+  entries.push({ weight: MEGA_TRAINER_SLOT_WEIGHTS.SR, pool: srTrainer });
+  entries.push({ weight: MEGA_TRAINER_SLOT_WEIGHTS.SAR, pool: sarTrainer });
+  entries.push({ weight: MEGA_DREAM_EXTRA_SLOT_WEIGHTS.SR, pool: srPokemon });
+  entries.push({ weight: MEGA_DREAM_EXTRA_SLOT_WEIGHTS.SAR, pool: sarPokemon });
+  entries.push({ weight: MEGA_DREAM_EXTRA_SLOT_WEIGHTS.UR, pool: urPokemon.length ? urPokemon : urAll });
+  return pickWeightedHitPool(ctx, entries, byRarity['RR'] ?? []);
 }
 
 export function simulatePack(
@@ -391,6 +474,7 @@ export function simulatePack(
   type: string,
   packSize: number,
   seedInput?: string,
+  setCode?: string,
 ): { pack: PackResult; seed: string } {
   const seed = seedInput ?? `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
   const rng = seedrandom(seed);
@@ -399,16 +483,10 @@ export function simulatePack(
   const byRarity = groupByRarity(allCards);
   const ctx: BuildContext = { byRarity, pick, weightedPick };
 
-  const hitWeights =
-    type === 'hi-class' ? hiClassPackHitWeights(byRarity) : EXPANSION_PACK_HIT_WEIGHTS;
-
-  const filtered = filterAvailableWeights(hitWeights, byRarity);
-  const hitRarity = ctx.weightedPick(filtered);
-
   const pack =
     type === 'hi-class'
-      ? buildHiClassPack(ctx, [{ rarity: hitRarity }], packSize)
-      : buildExpansionPack(ctx, byRarity[hitRarity] ?? byRarity['R'] ?? [], packSize);
+      ? buildHiClassPack(ctx, [{ rarity: 'hit', pool: hiClassPackHitPool(ctx, setCode) }], packSize)
+      : buildExpansionPack(ctx, expansionPackHitPool(ctx, setCode), packSize);
 
   return { pack, seed };
 }
