@@ -77,7 +77,7 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
             <div>
               <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW SIM</p>
               <p className="text-sm sm:text-base font-bold text-white">
-                {NEW_SIM_SET_NAMES.join(' · ')} 시뮬레이터 추가
+                {NEW_SIM_SET_NAMES.join(' · ')} 시뮬레이터 추가 · 봉입률 일부 수정
               </p>
             </div>
             <div className="flex flex-wrap gap-1.5">

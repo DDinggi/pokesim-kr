@@ -5,6 +5,10 @@ import Image from 'next/image';
 import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
 import { simulateBox, simulatePack, PROBABILITY_META } from '../lib/simulator';
 import { getBoxImageSrc } from '../lib/boxImages';
+import {
+  createLuckOpening,
+  summarizeLuckEvent,
+} from '../lib/luck';
 import { CardModal } from './CardModal';
 import { trackSim, trackUserEvent } from '../lib/statsTracker';
 import {
@@ -510,7 +514,10 @@ function ManualBoxReveal({
 }
 
 function SummaryGrid({ summary, meta }: { summary: Record<string, number>; meta: SetMeta }) {
-  const rarities = sortRarityKeys(Object.keys(summary).filter((r) => (summary[r] ?? 0) > 0), meta);
+  const rarities = sortRarityKeys(
+    Object.keys(summary).filter((r) => r !== '?' && r !== '__null__' && (summary[r] ?? 0) > 0),
+    meta,
+  );
 
   return (
     <div className="flex flex-wrap gap-2">
@@ -947,18 +954,21 @@ export function BoxSimulator({
     queueMicrotask(() => {
       if (cancelled) return;
       if (mode === 'pack' && packResult) {
+        const opening = createLuckOpening(setMeta, { packs: 1 });
         setSession((s) => ({
           ...s,
           packs: s.packs + 1,
           cost: s.cost + setMeta.pack_price_krw,
           cards: [...s.cards, ...packResult.pack.cards],
         }));
-        trackSim({ setCode: setMeta.code, mode: 'pack', boxCount: 0, packCount: 1, krw: setMeta.pack_price_krw });
+        trackSim({ setCode: setMeta.code, mode: 'pack', boxCount: 0, packCount: 1, krw: setMeta.pack_price_krw, luck: summarizeLuckEvent(packResult.pack.cards, opening) });
       } else if (mode === 'box-manual' && boxResult) {
         // 카드는 advancePack에서 팩별로 이미 누적됨; skip(전체결과 바로보기) 시 미기록 팩 보완
+        const all = boxResult.packs.flatMap((p) => p.cards);
         const skipped = boxResult.packs.flatMap((p, i) =>
           manualPacksRecorded.current.has(i) ? [] : p.cards,
         );
+        const opening = createLuckOpening(setMeta, { boxes: 1 });
         boxResult.packs.forEach((_, i) => manualPacksRecorded.current.add(i));
         setSession((s) => ({
           ...s,
@@ -966,16 +976,17 @@ export function BoxSimulator({
           cost: s.cost + setMeta.box_price_krw,
           ...(skipped.length > 0 && { cards: [...s.cards, ...skipped] }),
         }));
-        trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw });
+        trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw, luck: summarizeLuckEvent(all, opening) });
       } else if (mode && mode !== 'pack' && boxResult) {
         const all = boxResult.packs.flatMap((p) => p.cards);
+        const opening = createLuckOpening(setMeta, { boxes: 1 });
         setSession((s) => ({
           ...s,
           boxes: s.boxes + 1,
           cost: s.cost + setMeta.box_price_krw,
           cards: [...s.cards, ...all],
         }));
-        trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw });
+        trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw, luck: summarizeLuckEvent(all, opening) });
       }
     });
     return () => {
@@ -1019,26 +1030,28 @@ export function BoxSimulator({
     // reveal 도중 이탈 시 — 이미 시뮬레이션된 결과를 세션에 커밋
     if (phase === 'reveal') {
       if (mode === 'pack' && packResult) {
+        const opening = createLuckOpening(setMeta, { packs: 1 });
         setSession((s) => ({
           ...s,
           packs: s.packs + 1,
           cost: s.cost + setMeta.pack_price_krw,
           cards: [...s.cards, ...packResult.pack.cards],
         }));
-        trackSim({ setCode: setMeta.code, mode: 'pack', boxCount: 0, packCount: 1, krw: setMeta.pack_price_krw });
+        trackSim({ setCode: setMeta.code, mode: 'pack', boxCount: 0, packCount: 1, krw: setMeta.pack_price_krw, luck: summarizeLuckEvent(packResult.pack.cards, opening) });
       } else if (boxResult) {
         const all = boxResult.packs.flatMap((p) => p.cards);
         // box-manual은 advancePack에서 팩별로 일부 이미 누적됐을 수 있으므로 미기록분만 추가
         const unrecorded = mode === 'box-manual'
           ? boxResult.packs.flatMap((p, i) => manualPacksRecorded.current.has(i) ? [] : p.cards)
           : all;
+        const opening = createLuckOpening(setMeta, { boxes: 1 });
         setSession((s) => ({
           ...s,
           boxes: s.boxes + 1,
           cost: s.cost + setMeta.box_price_krw,
           cards: [...s.cards, ...unrecorded],
         }));
-        trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw });
+        trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw, luck: summarizeLuckEvent(all, opening) });
       }
     }
     setPhase('idle');

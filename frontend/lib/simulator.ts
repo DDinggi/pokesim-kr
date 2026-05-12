@@ -2,7 +2,7 @@ import seedrandom from 'seedrandom';
 import type { Card, PackResult, BoxResult } from './types';
 import { expansionPackHitPool, simulateExpansionBox } from './simulation/expansion';
 import { buildExpansionPack } from './simulation/pack-builders';
-import { buildSingleHiClassPack, hiClassPackHitPool, simulateHiClassBox } from './simulation/hi-class';
+import { simulateHiClassBox, simulateSingleHiClassPack } from './simulation/hi-class';
 import { PROBABILITY_META } from './simulation/model';
 import { groupByRarity } from './simulation/pools';
 import { makePick, makeWeightedPick } from './simulation/random';
@@ -34,10 +34,10 @@ export function simulatePack(
   seedInput?: string,
   setCode?: string,
 ): { pack: PackResult; seed: string } {
-  const { seed, ctx } = createSimulationContext(allCards, seedInput);
+  const { seed, ctx, rng } = createSimulationContext(allCards, seedInput);
   const pack =
     type === 'hi-class'
-      ? buildSingleHiClassPack(ctx, hiClassPackHitPool(ctx, setCode), packSize)
+      ? simulateSingleHiClassPack(ctx, rng, setCode, packSize)
       : buildExpansionPack(ctx, expansionPackHitPool(ctx, setCode), packSize);
 
   return { pack, seed };
@@ -60,8 +60,8 @@ export function simulateBox(
 
   for (const pack of packs) {
     for (const card of pack.cards) {
-      const rarity = card.rarity ?? '?';
-      summary[rarity] = (summary[rarity] ?? 0) + 1;
+      if (!card.rarity) continue;
+      summary[card.rarity] = (summary[card.rarity] ?? 0) + 1;
     }
   }
 

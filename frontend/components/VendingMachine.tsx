@@ -5,6 +5,10 @@ import Image from 'next/image';
 import type { Card, SetMeta, PackResult } from '../lib/types';
 import { simulatePack } from '../lib/simulator';
 import { getBoxImageSrc } from '../lib/boxImages';
+import {
+  createLuckOpening,
+  summarizeLuckEvent,
+} from '../lib/luck';
 import { NEW_SIM_SET_NAMES, isNewSimSet } from '../lib/newSets';
 import { trackSim, trackUserEvent } from '../lib/statsTracker';
 import { CardModal } from './CardModal';
@@ -142,16 +146,20 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
     for (const [code, n] of Object.entries(cartToBuy)) {
       const set = displaySets.find((x) => x.code === code);
       if (!set || n <= 0) continue;
+      const setCards: Card[] = [];
       for (let i = 0; i < n; i++) {
         const { pack, seed } = simulatePack(set.cards, set.type, set.pack_size, undefined, set.code);
+        setCards.push(...pack.cards);
         packs.push({ setCode: code, setMeta: set, pack, seed });
       }
+      const opening = createLuckOpening(set, { packs: n });
       trackSim({
         setCode: code,
         mode: 'pack',
         boxCount: 0,
         packCount: n,
         krw: (set.pack_price_krw ?? 0) * n,
+        luck: summarizeLuckEvent(setCards, opening),
       });
     }
     if (packs.length === 0) return;
@@ -163,6 +171,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
     }, 0);
 
     const cur = loadSession();
+
     saveSession({
       boxes: cur.boxes,
       packs: cur.packs + packs.length,

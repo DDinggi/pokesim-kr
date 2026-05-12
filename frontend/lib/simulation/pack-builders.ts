@@ -25,6 +25,7 @@ export function buildHiClassPack(
   ctx: BuildContext,
   hitSlots: HiClassHitSlot[],
   packSize: number,
+  options: { defaultHitRarity?: string | null } = {},
 ): PackResult {
   const { byRarity, pick } = ctx;
   const cards: Card[] = [];
@@ -34,7 +35,12 @@ export function buildHiClassPack(
     ...(byRarity.U ?? []),
     ...(byRarity.R ?? []),
   ];
-  const effectiveHitSlots = hitSlots.length > 0 ? hitSlots : [{ rarity: 'RR' }];
+  const defaultHitRarity = options.defaultHitRarity === undefined ? 'RR' : options.defaultHitRarity;
+  const effectiveHitSlots = hitSlots.length > 0
+    ? hitSlots
+    : defaultHitRarity
+      ? [{ rarity: defaultHitRarity }]
+      : [];
   const baseCount = Math.max(0, packSize - effectiveHitSlots.length);
 
   for (let i = 0; i < baseCount; i++) {

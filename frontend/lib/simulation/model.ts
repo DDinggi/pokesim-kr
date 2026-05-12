@@ -21,64 +21,88 @@ export const EXPANSION_MONSTER_WEIGHTS_DEFAULT: Record<string, number> = {
   UR: 2,
 };
 
-export const STANDARD_SV_HIGH_WEIGHTS: Record<string, number> = {
-  SR: 70,
-  SAR: 20,
-  UR: 10,
+export const ACE_SPEC_SET_CODES = new Set([
+  'sv6-mask',
+  'sv7-stellar-miracle',
+  'sv7a-paradise-dragona',
+  'sv8-super-electric',
+]);
+
+const SV_SR_55_25: StandardSvSetRate = {
+  mandatoryHighWeights: { SR_POKEMON: 48.125, SR_TRAINER: 21.875, SAR: 20, UR: 10 },
+  extraHighRate: 0.1,
+  extraHighWeights: { SR_POKEMON: 68.75, SR_TRAINER: 31.25 },
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  fillerWeights: { R: 84.17, RR: 15.83 },
 };
 
-export const SV11_HIGH_WEIGHTS: Record<string, number> = {
-  SR: 70,
+const SV_SR_50_30: StandardSvSetRate = {
+  mandatoryHighWeights: { SR_POKEMON: 43.75, SR_TRAINER: 26.25, SAR: 20, UR: 10 },
+  extraHighRate: 0.1,
+  extraHighWeights: { SR_POKEMON: 62.5, SR_TRAINER: 37.5 },
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  fillerWeights: { R: 83.53, RR: 16.47 },
+};
+
+const SV_TRIPLET_BEAT: StandardSvSetRate = {
+  mandatoryHighWeights: { SR_POKEMON: 42, SR_TRAINER: 28, SAR: 20, UR: 10 },
+  extraHighRate: 0.05,
+  extraHighWeights: { SR_POKEMON: 60, SR_TRAINER: 40 },
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  fillerWeights: { R: 84.68, RR: 15.32 },
+};
+
+const SV_151: StandardSvSetRate = {
+  mandatoryHighWeights: { SR_POKEMON: 52.5, SR_TRAINER: 17.5, SAR: 20, UR: 10 },
+  extraHighRate: 0.1,
+  extraHighWeights: { SR_POKEMON: 75, SR_TRAINER: 25 },
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  fillerWeights: { R: 78.73, RR: 21.27 },
+};
+
+export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
+  'sv1a-triplet': SV_TRIPLET_BEAT,
+  'sv2a-151': SV_151,
+  'sv6-mask': SV_SR_55_25,
+  'sv7-stellar-miracle': SV_SR_50_30,
+  'sv7a-paradise-dragona': SV_SR_50_30,
+  'sv8-super-electric': SV_SR_55_25,
+  'sv9-battle-partners': {
+    ...SV_SR_55_25,
+    extraHighWeights: { SR_POKEMON: 68.75, SR_TRAINER: 31.25 },
+  },
+  'sv9a-blazing-arena': SV_SR_55_25,
+  'sv10-glory': SV_SR_50_30,
+};
+
+export const SV11_RR_COUNT = 4;
+export const SV11_AR_COUNT = 4;
+export const SV11_EXTRA_SR_RATE = 0.2;
+export const SV11_OPTIONAL_TOP_WEIGHTS: Record<string, number> = {
+  NONE: 70,
   SAR: 25,
   BWR: 5,
 };
 
-export const ACE_SPEC_SET_CODES = new Set([
-  'sv7-stellar-miracle',
-  'sv7a-paradise-dragona',
-]);
-
-export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
-  'sv9-battle-partners': {
-    mandatoryHighWeights: { SR_POKEMON: 48.125, SR_TRAINER: 21.875, SAR: 20, UR: 10 },
-    extraHighRate: 0.1,
-    extraHighWeights: { SR_POKEMON: 68.75, SR_TRAINER: 31.25 },
-    rrBaseCount: 4,
-    rrExtraRate: 0.1,
-    fillerWeights: { R: 84.17, RR: 15.83 },
-  },
-  'sv7-stellar-miracle': {
-    mandatoryHighWeights: { SR_POKEMON: 43.75, SR_TRAINER: 26.25, SAR: 20, UR: 10 },
-    extraHighRate: 0.1,
-    extraHighWeights: { SR_POKEMON: 62.5, SR_TRAINER: 37.5 },
-    rrBaseCount: 4,
-    rrExtraRate: 0.1,
-    fillerWeights: { R: 83.53, RR: 16.47 },
-  },
-  'sv7a-paradise-dragona': {
-    mandatoryHighWeights: { SR_POKEMON: 43.75, SR_TRAINER: 26.25, SAR: 20, UR: 10 },
-    extraHighRate: 0.1,
-    extraHighWeights: { SR_POKEMON: 62.5, SR_TRAINER: 37.5 },
-    rrBaseCount: 4,
-    rrExtraRate: 0.1,
-    fillerWeights: { R: 83.53, RR: 16.47 },
-  },
-};
-
-export const STANDARD_EXTRA_SR_RATE = 0.1;
-export const EXTRA_SR_RATE_BY_SET: Record<string, number> = {
-  'sv1a-triplet': 0.05,
-};
 export const MEGA_EXTRA_SR_RATE = 0.1;
-export const SV11_EXTRA_SR_RATE = 0.1;
-export const MEGA_TRAINER_SLOT_WEIGHTS: Record<string, number> = { SR: 95, SAR: 5 };
+export const MEGA_RR_BASE_COUNT = 4;
+export const MEGA_RR_EXTRA_RATE = 0.1;
 
-export const MEGA_EXPANSION_FILLER_WEIGHTS: Record<string, number> = { R: 82, RR: 18 };
-export const STANDARD_30_PACK_FILLER_WEIGHTS: Record<string, number> = { R: 85, RR: 15 };
-export const STANDARD_20_PACK_FILLER_WEIGHTS: Record<string, number> = { R: 73, RR: 27 };
+export const MEGA_MAIN_SR_NUMBER_RANGES: Record<string, Array<[number, number]>> = {
+  'm4-ninja-spinner': [[96, 103], [108, 111]],
+  'm-nihil-zero': [[93, 100], [105, 108]],
+  'm-inferno-x': [[93, 100], [105, 107]],
+  'm-mega-brave': [[76, 80], [85, 86]],
+  'm-mega-symphonia': [[76, 80], [84, 85]],
+  'm-dream-ex': [[219, 221]],
+};
 
-export const TERASTAL_EXTRA_SLOT_RATE = 0.4;
 export const TERASTAL_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
+  NONE: 64,
   SR: 20,
   SAR: 10,
   UR: 6,
@@ -107,10 +131,4 @@ export function hasAceSpecSlot(setCode?: string): boolean {
 
 export function getStandardSvSetRate(setCode?: string): StandardSvSetRate | undefined {
   return setCode ? STANDARD_SV_SET_RATES[setCode] : undefined;
-}
-
-export function getExtraSrRate(setCode: string | undefined, isSv11Special: boolean): number {
-  if (isSv11Special) return SV11_EXTRA_SR_RATE;
-  if (!setCode) return STANDARD_EXTRA_SR_RATE;
-  return getStandardSvSetRate(setCode)?.extraHighRate ?? EXTRA_SR_RATE_BY_SET[setCode] ?? STANDARD_EXTRA_SR_RATE;
 }
