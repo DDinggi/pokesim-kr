@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import type { SetMeta } from '../lib/types';
 import { getBoxImageSrc } from '../lib/boxImages';
+import { NEW_SIM_SET_NAMES, isNewSimSet } from '../lib/newSets';
 
 const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
   'm4-ninja-spinner': {
@@ -91,6 +92,7 @@ function SetCard({
 }) {
   const [imgError, setImgError] = useState(false);
   const showImage = !imgError;
+  const isNew = isNewSimSet(set.code);
 
   return (
     <button
@@ -122,6 +124,13 @@ function SetCard({
             {set.type === 'hi-class' ? '하이클래스팩' : '확장팩'}
           </span>
         </div>
+        {isNew && (
+          <div className="absolute top-10 left-3">
+            <span className="text-[10px] font-black tracking-wider px-2 py-1 rounded bg-yellow-300 text-gray-950 shadow">
+              NEW
+            </span>
+          </div>
+        )}
         <div className="absolute top-3 right-3">
           <span className={`text-[10px] font-bold px-2 py-1 rounded bg-black/40 backdrop-blur ${theme.accent}`}>
             {set.box_size}팩 × {set.pack_size}장
@@ -174,6 +183,13 @@ export function SetPicker({
       </header>
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-6xl mx-auto w-full">
+        <div className="mb-5 rounded-lg bg-gray-900/80 ring-1 ring-white/10 px-4 py-3">
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW</p>
+          <p className="text-sm font-bold text-white mt-0.5">
+            {NEW_SIM_SET_NAMES.join(' · ')} 박스깡 시뮬 추가
+          </p>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {sets.map((s) => {
             const theme = SET_THEMES[s.code] ?? {

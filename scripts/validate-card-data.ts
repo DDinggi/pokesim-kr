@@ -16,6 +16,7 @@ const KNOWN_RARITIES = new Set([
   "U",
   "R",
   "RR",
+  "ACE",
   "AR",
   "SR",
   "SAR",
@@ -23,7 +24,7 @@ const KNOWN_RARITIES = new Set([
   "UR",
   "BWR",
 ]);
-const HIGH_RARITIES = new Set(["AR", "SR", "SAR", "MA", "UR", "BWR"]);
+const HIGH_RARITIES = new Set(["ACE", "AR", "SR", "SAR", "MA", "UR", "BWR"]);
 
 interface CardEntry {
   card_num?: string;
