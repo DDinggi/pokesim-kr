@@ -19,11 +19,11 @@ import {
   HIT_RARITIES,
   RARE_RARITIES,
   RARITY_BADGE,
-  RARITY_ORDER,
   RARITY_TEXT_COLOR,
   getHitCounts,
   getRarityCounts,
   rarityLabel,
+  sortRarityKeys,
   sortByRarity,
 } from '../lib/rarity';
 
@@ -510,11 +510,12 @@ function ManualBoxReveal({
 }
 
 function SummaryGrid({ summary, meta }: { summary: Record<string, number>; meta: SetMeta }) {
+  const rarities = sortRarityKeys(Object.keys(summary).filter((r) => (summary[r] ?? 0) > 0), meta);
+
   return (
     <div className="flex flex-wrap gap-2">
-      {RARITY_ORDER.map((r) => {
+      {rarities.map((r) => {
         const count = summary[r];
-        if (!count) return null;
         return (
           <div
             key={r}
@@ -553,7 +554,10 @@ function RarityFilteredGrid({
   onCardClick: (c: Card) => void;
 }) {
   const counts = getRarityCounts(cards);
-  const available = FILTER_RARITY_ORDER.filter((r) => (counts[r] ?? 0) > 0);
+  const available = sortRarityKeys(
+    FILTER_RARITY_ORDER.filter((r) => (counts[r] ?? 0) > 0),
+    cards.find((card) => card.rarity),
+  );
   const [selected, setSelected] = useState<Set<string>>(() => new Set(available));
 
   const toggle = (r: string) =>
