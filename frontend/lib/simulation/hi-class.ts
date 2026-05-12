@@ -1,20 +1,20 @@
 import type { Card, PackResult } from '../types';
 import type { RNG } from './random';
+import { shuffle } from './random';
 import {
   HI_CLASS_GOD_PACK_RATE,
   MEGA_DREAM_EXTRA_SLOT_WEIGHTS,
-  MEGA_TRAINER_SLOT_WEIGHTS,
-  TERASTAL_EXTRA_SLOT_RATE,
+  MEGA_MAIN_SR_NUMBER_RANGES,
   TERASTAL_EXTRA_SLOT_WEIGHTS,
 } from './model';
 import { buildHiClassPack, buildHiClassPacksFromHits } from './pack-builders';
 import {
-  filterAvailableWeights,
   getRarityPools,
   hasRarity,
-  pickWeightedHitPool,
 } from './pools';
 import type { BuildContext, HiClassHitSlot } from './types';
+
+const HI_CLASS_BOX_SIZE = 10;
 
 export function simulateHiClassBox(
   boxSize: number,
@@ -34,8 +34,8 @@ export function simulateHiClassBox(
     for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
     hits.push({ rarity: 'SAR', pool: pokemonSar.length ? pokemonSar : pools.sarAll });
 
-    if (rng() < TERASTAL_EXTRA_SLOT_RATE) {
-      const extraRarity = ctx.weightedPick(filterAvailableWeights(TERASTAL_EXTRA_SLOT_WEIGHTS, byRarity));
+    const extraRarity = ctx.weightedPick(TERASTAL_EXTRA_SLOT_WEIGHTS);
+    if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
       hits.push({
         rarity: extraRarity,
         pool: extraRarity === 'SAR' && trainerSar.length ? trainerSar : undefined,
@@ -46,75 +46,144 @@ export function simulateHiClassBox(
   }
 
   const hits: HiClassHitSlot[] = [];
-  const isGodPack = rng() < HI_CLASS_GOD_PACK_RATE;
-
-  if (isGodPack && hasRarity(byRarity, 'MA')) {
-    const godPackSarPool = pools.sarPokemon.length ? pools.sarPokemon : pools.sarAll;
-    hits.push({ rarity: 'AR' });
-    for (let i = 0; i < 5; i++) hits.push({ rarity: 'MA' });
-    for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR', pool: godPackSarPool });
-    return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
-  }
+  const godPackHits = rng() < HI_CLASS_GOD_PACK_RATE && hasRarity(byRarity, 'MA')
+    ? buildMegaDreamGodPackHits(pools)
+    : null;
 
   for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
   if (hasRarity(byRarity, 'AR')) hits.push({ rarity: 'AR' }, { rarity: 'AR' }, { rarity: 'AR' });
 
-  const trainerPools: Record<string, Card[]> = {
-    SR: pools.srTrainer,
-    SAR: pools.sarTrainer,
-  };
-  const trainerFallback = pools.srTrainer.length
-    ? pools.srTrainer
-    : (pools.sarTrainer.length ? pools.sarTrainer : pools.srAll);
-
-  if (trainerFallback.length) {
-    const trainerRarity = ctx.weightedPick(filterAvailableWeights(MEGA_TRAINER_SLOT_WEIGHTS, trainerPools));
-    const trainerPool = trainerPools[trainerRarity]?.length ? trainerPools[trainerRarity] : trainerFallback;
-    hits.push({ rarity: trainerRarity, pool: trainerPool });
-  }
+  const fixedSrPool = getMegaFixedSrPool(setCode, pools.srAll);
+  if (fixedSrPool.length) hits.push({ rarity: 'SR', pool: fixedSrPool });
 
   if (hasRarity(byRarity, 'MA')) hits.push({ rarity: 'MA' });
 
   const extraRarity = ctx.weightedPick(MEGA_DREAM_EXTRA_SLOT_WEIGHTS);
   if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
+    const mainSrPool = getMegaMainSrPool(setCode, pools.srAll);
     const pokemonPool =
-      extraRarity === 'SR' ? pools.srPokemon
-      : extraRarity === 'SAR' ? pools.sarPokemon
+      extraRarity === 'SR' ? mainSrPool
+      : extraRarity === 'SAR' ? pools.sarAll
       : extraRarity === 'UR' ? (pools.urPokemon.length ? pools.urPokemon : pools.urAll)
       : (byRarity[extraRarity] ?? []);
     if (pokemonPool.length) hits.push({ rarity: extraRarity, pool: pokemonPool });
   }
 
-  return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
+  return buildHiClassPacksFromHitsWithGodPack(ctx, rng, boxSize, packSize, hits, godPackHits);
 }
 
-export function hiClassPackHitPool(ctx: BuildContext, setCode?: string): Card[] {
+export function simulateSingleHiClassPack(
+  ctx: BuildContext,
+  rng: RNG,
+  setCode: string | undefined,
+  packSize: number,
+): PackResult {
   const { byRarity } = ctx;
   const pools = getRarityPools(byRarity);
-  const entries: { weight: number; pool: Card[] }[] = [];
 
   if (setCode === 'sv8a-terastal-festa') {
-    const extraTotal = Object.values(TERASTAL_EXTRA_SLOT_WEIGHTS).reduce((a, b) => a + b, 0);
-    entries.push({ weight: 900, pool: byRarity.RR ?? [] });
-    entries.push({ weight: 100, pool: pools.sarPokemon.length ? pools.sarPokemon : pools.sarAll });
-    entries.push({ weight: (TERASTAL_EXTRA_SLOT_RATE * TERASTAL_EXTRA_SLOT_WEIGHTS.SR * 100) / extraTotal, pool: pools.srAll });
-    entries.push({ weight: (TERASTAL_EXTRA_SLOT_RATE * TERASTAL_EXTRA_SLOT_WEIGHTS.SAR * 100) / extraTotal, pool: pools.sarTrainer });
-    entries.push({ weight: (TERASTAL_EXTRA_SLOT_RATE * TERASTAL_EXTRA_SLOT_WEIGHTS.UR * 100) / extraTotal, pool: pools.urAll });
-    return pickWeightedHitPool(ctx, entries, byRarity.RR ?? []);
+    const pokemonSar = pools.sarAll.filter((card) => card.card_type === '포켓몬');
+    const trainerSar = pools.sarAll.filter((card) => card.card_type === '트레이너' || card.card_type === '에너지');
+    const hits: HiClassHitSlot[] = [];
+
+    if (rng() < 9 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
+    if (rng() < 1 / HI_CLASS_BOX_SIZE && pools.sarAll.length) {
+      hits.push({ rarity: 'SAR', pool: pokemonSar.length ? pokemonSar : pools.sarAll });
+    }
+
+    const extraRarity = pickBoxSlotForSinglePack(ctx, TERASTAL_EXTRA_SLOT_WEIGHTS);
+    if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
+      hits.push({
+        rarity: extraRarity,
+        pool: extraRarity === 'SAR' && trainerSar.length ? trainerSar : undefined,
+      });
+    }
+
+    return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
   }
 
-  entries.push({ weight: 900, pool: byRarity.RR ?? [] });
-  entries.push({ weight: 300, pool: byRarity.AR ?? [] });
-  entries.push({ weight: 100, pool: byRarity.MA ?? [] });
-  entries.push({ weight: MEGA_TRAINER_SLOT_WEIGHTS.SR, pool: pools.srTrainer });
-  entries.push({ weight: MEGA_TRAINER_SLOT_WEIGHTS.SAR, pool: pools.sarTrainer });
-  entries.push({ weight: MEGA_DREAM_EXTRA_SLOT_WEIGHTS.SR, pool: pools.srPokemon });
-  entries.push({ weight: MEGA_DREAM_EXTRA_SLOT_WEIGHTS.SAR, pool: pools.sarPokemon });
-  entries.push({ weight: MEGA_DREAM_EXTRA_SLOT_WEIGHTS.UR, pool: pools.urPokemon.length ? pools.urPokemon : pools.urAll });
+  if (rng() < HI_CLASS_GOD_PACK_RATE / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'MA')) {
+    return buildHiClassPack(ctx, buildMegaDreamGodPackHits(pools), packSize, { defaultHitRarity: null });
+  }
 
-  return pickWeightedHitPool(ctx, entries, byRarity.RR ?? []);
+  const fixedSrPool = getMegaFixedSrPool(setCode, pools.srAll);
+  const mainSrPool = getMegaMainSrPool(setCode, pools.srAll);
+  const hits: HiClassHitSlot[] = [];
+
+  if (rng() < 9 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
+  if (rng() < 3 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'AR')) hits.push({ rarity: 'AR' });
+  if (rng() < 1 / HI_CLASS_BOX_SIZE && fixedSrPool.length) hits.push({ rarity: 'SR', pool: fixedSrPool });
+  if (rng() < 1 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'MA')) hits.push({ rarity: 'MA' });
+
+  const extraRarity = pickBoxSlotForSinglePack(ctx, MEGA_DREAM_EXTRA_SLOT_WEIGHTS);
+  if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
+    const pool =
+      extraRarity === 'SR' ? mainSrPool
+      : extraRarity === 'SAR' ? pools.sarAll
+      : extraRarity === 'UR' ? (pools.urPokemon.length ? pools.urPokemon : pools.urAll)
+      : (byRarity[extraRarity] ?? []);
+    if (pool.length) hits.push({ rarity: extraRarity, pool });
+  }
+
+  return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
 }
 
-export function buildSingleHiClassPack(ctx: BuildContext, hitPool: Card[], packSize: number): PackResult {
-  return buildHiClassPack(ctx, [{ rarity: 'hit', pool: hitPool }], packSize);
+function pickBoxSlotForSinglePack(ctx: BuildContext, boxWeights: Record<string, number>): string {
+  const total = Object.values(boxWeights).reduce((sum, weight) => sum + weight, 0);
+  const noneWeight = total * (HI_CLASS_BOX_SIZE - 1) + (boxWeights.NONE ?? 0);
+  const packWeights: Record<string, number> = { NONE: noneWeight };
+
+  for (const [rarity, weight] of Object.entries(boxWeights)) {
+    if (rarity !== 'NONE') packWeights[rarity] = weight;
+  }
+
+  return ctx.weightedPick(packWeights);
+}
+
+function buildMegaDreamGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
+  const godPackSarPool = pools.sarPokemon.length ? pools.sarPokemon : pools.sarAll;
+  const hits: HiClassHitSlot[] = [{ rarity: 'AR' }];
+  for (let i = 0; i < 5; i++) hits.push({ rarity: 'MA' });
+  for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR', pool: godPackSarPool });
+  return hits;
+}
+
+function buildHiClassPacksFromHitsWithGodPack(
+  ctx: BuildContext,
+  rng: RNG,
+  boxSize: number,
+  packSize: number,
+  hits: HiClassHitSlot[],
+  godPackHits: HiClassHitSlot[] | null,
+): PackResult[] {
+  if (!godPackHits) return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
+
+  const packHits: HiClassHitSlot[][] = Array.from({ length: boxSize }, () => []);
+  const godPackIndex = Math.floor(rng() * boxSize);
+  const availablePackIndexes = Array.from({ length: boxSize }, (_, index) => index)
+    .filter((index) => index !== godPackIndex);
+
+  packHits[godPackIndex] = godPackHits;
+  shuffle(hits, rng).forEach((hit, index) => {
+    const packIndex = availablePackIndexes[index] ?? availablePackIndexes[Math.floor(rng() * availablePackIndexes.length)];
+    packHits[packIndex].push(hit);
+  });
+
+  return shuffle(packHits, rng).map((slots) => buildHiClassPack(ctx, slots, packSize));
+}
+
+function getMegaMainSrPool(setCode: string | undefined, srAll: Card[]): Card[] {
+  const ranges = setCode ? MEGA_MAIN_SR_NUMBER_RANGES[setCode] : undefined;
+  if (!ranges) return srAll;
+  return srAll.filter((card) => isInRanges(card.number, ranges));
+}
+
+function getMegaFixedSrPool(setCode: string | undefined, srAll: Card[]): Card[] {
+  const ranges = setCode ? MEGA_MAIN_SR_NUMBER_RANGES[setCode] : undefined;
+  if (!ranges) return [];
+  return srAll.filter((card) => !isInRanges(card.number, ranges));
+}
+
+function isInRanges(number: number, ranges: Array<[number, number]>): boolean {
+  return ranges.some(([start, end]) => number >= start && number <= end);
 }
