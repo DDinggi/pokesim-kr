@@ -67,7 +67,7 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
         <h1 className="text-2xl font-bold tracking-tight">PokéSim KR</h1>
         <p className="text-xs text-gray-500 mt-1">팬메이드 카드팩 시뮬레이터</p>
         <p className="text-sm text-gray-400 mt-3 max-w-2xl leading-relaxed">
-          팩을 구하기 어려운 요즘, 카드팩 개봉의 재미를 가볍게 체험할 수 있도록 만든 비공식 팬 프로젝트입니다.
+          카드팩 개봉의 재미를 가볍게 체험할 수 있도록 만든 비공식 팬 프로젝트입니다.
         </p>
       </header>
 
