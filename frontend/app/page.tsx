@@ -11,6 +11,8 @@ import sv9aBlazingArena from '../public/sets/sv9a-blazing-arena.json';
 import sv9BattlePartners from '../public/sets/sv9-battle-partners.json';
 import sv8aTerastalFesta from '../public/sets/sv8a-terastal-festa.json';
 import sv8SuperElectric from '../public/sets/sv8-super-electric.json';
+import sv7aParadiseDragona from '../public/sets/sv7a-paradise-dragona.json';
+import sv7StellarMiracle from '../public/sets/sv7-stellar-miracle.json';
 import sv6Mask from '../public/sets/sv6-mask.json';
 import sv2a151 from '../public/sets/sv2a-151.json';
 import sv1aTriplet from '../public/sets/sv1a-triplet.json';
@@ -26,7 +28,8 @@ const sets: SetMeta[] = [
   m4NinjaSpinner, mNihilZero, mDreamEx, mInfernoX, mMegaBrave, mMegaSymphonia,
   // SV 시리즈
   sv11bBlackBolt, sv11aWhiteFlare, sv10Glory, sv9aBlazingArena,
-  sv9BattlePartners, sv8aTerastalFesta, sv8SuperElectric, sv6Mask,
+  sv9BattlePartners, sv8aTerastalFesta, sv8SuperElectric,
+  sv7aParadiseDragona, sv7StellarMiracle, sv6Mask,
   sv2a151, sv1aTriplet,
 ] as SetMeta[];
 

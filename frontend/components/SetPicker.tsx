@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import type { SetMeta } from '../lib/types';
+import { getBoxImageSrc } from '../lib/boxImages';
 
 const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
   'm4-ninja-spinner': {
@@ -57,6 +58,14 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
     gradient: 'from-yellow-600 via-amber-700 to-orange-900',
     accent: 'text-yellow-300',
   },
+  'sv7a-paradise-dragona': {
+    gradient: 'from-sky-700 via-indigo-800 to-violet-950',
+    accent: 'text-sky-300',
+  },
+  'sv7-stellar-miracle': {
+    gradient: 'from-teal-700 via-cyan-800 to-slate-950',
+    accent: 'text-teal-300',
+  },
   'sv6-mask': {
     gradient: 'from-violet-700 via-purple-800 to-indigo-950',
     accent: 'text-violet-300',
@@ -92,7 +101,7 @@ function SetCard({
       <div className="relative aspect-[4/5] w-full bg-black/30 overflow-hidden">
         {showImage ? (
           <Image
-            src={`/boxes/${set.code}.png`}
+            src={getBoxImageSrc(set.code)}
             alt={set.name_ko}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
