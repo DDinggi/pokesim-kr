@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
 import { simulateBox, simulatePack, PROBABILITY_META } from '../lib/simulator';
+import { getBoxImageSrc } from '../lib/boxImages';
 import { CardModal } from './CardModal';
 import { trackSim, trackUserEvent } from '../lib/statsTracker';
 import {
@@ -286,7 +287,7 @@ function IdleScreen({
         {!imgErr && (
           <div className="relative w-52 h-64 sm:w-64 sm:h-80 mb-4">
             <Image
-              src={`/boxes/${meta.code}.png`}
+              src={getBoxImageSrc(meta.code)}
               alt={meta.name_ko}
               fill
               sizes="280px"

@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, PackResult } from '../lib/types';
 import { simulatePack } from '../lib/simulator';
+import { getBoxImageSrc } from '../lib/boxImages';
 import { trackSim, trackUserEvent } from '../lib/statsTracker';
 import { CardModal } from './CardModal';
 import {
@@ -78,8 +79,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
   const [packIdx, setPackIdx] = useState(0);
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
 
-  // 배틀파트너즈(sv9-battle-partners) UI에서 강제 숨김 처리
-  const displaySets = useMemo(() => sets.filter((s) => s.code !== 'sv9-battle-partners'), [sets]);
+  const displaySets = useMemo(() => sets, [sets]);
 
   const totalPacks = useMemo(
     () => Object.values(cart).reduce((s, n) => s + n, 0),
@@ -381,7 +381,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                     )}
                     <div className="relative aspect-[3/4] w-full bg-white/30 overflow-hidden">
                       <Image
-                        src={`/boxes/${set.code}.png`}
+                        src={getBoxImageSrc(set.code)}
                         alt={set.name_ko}
                         fill
                         sizes="(max-width: 640px) 30vw, (max-width: 1024px) 22vw, 17vw"
@@ -431,7 +431,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                 <li key={set.code} className="flex items-center gap-3 text-sm">
                   <div className="relative w-10 h-12 shrink-0 rounded bg-gray-800 overflow-hidden">
                     <Image
-                      src={`/boxes/${set.code}.png`}
+                      src={getBoxImageSrc(set.code)}
                       alt={set.name_ko}
                       fill
                       sizes="40px"
@@ -515,7 +515,7 @@ function QuantityModal({
         <div className="p-5 sm:p-6 flex items-center gap-4 bg-white/40">
           <div className="relative w-20 h-24 shrink-0 rounded-lg bg-white/60 overflow-hidden ring-1 ring-blue-200">
             <Image
-              src={`/boxes/${set.code}.png`}
+              src={getBoxImageSrc(set.code)}
               alt={set.name_ko}
               fill
               sizes="80px"

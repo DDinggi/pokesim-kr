@@ -21,9 +21,6 @@ export function App({ sets }: { sets: SetMeta[] }) {
     });
   }, []);
 
-  // 배틀파트너즈 강제 숨김 처리 (박스깡, 자판기깡 공통 적용)
-  const displaySets = sets.filter((s) => s.code !== 'sv9-battle-partners');
-
   const goMain = () => {
     setMode('main');
     setSelectedSet(null);
@@ -41,14 +38,14 @@ export function App({ sets }: { sets: SetMeta[] }) {
   }
 
   if (mode === 'vending') {
-    return <VendingMachine sets={displaySets} onBackToMain={goMain} />;
+    return <VendingMachine sets={sets} onBackToMain={goMain} />;
   }
 
   // box mode
   if (!selectedSet) {
     return (
       <SetPicker
-        sets={displaySets}
+        sets={sets}
         onSelect={(set) => {
           trackUserEvent({ eventName: 'select_set', mode: 'box', setCode: set.code });
           setSelectedSet(set);
@@ -57,5 +54,5 @@ export function App({ sets }: { sets: SetMeta[] }) {
       />
     );
   }
-  return <BoxSimulator setMeta={selectedSet} onChangeSet={() => setSelectedSet(null)} />;
+  return <BoxSimulator key={selectedSet.code} setMeta={selectedSet} onChangeSet={() => setSelectedSet(null)} />;
 }

@@ -16,6 +16,7 @@ import sharp from "sharp";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(__dirname, "..");
 const SETS_DIR = join(REPO_ROOT, "data", "sets");
+const POKEMON_KOREA_IMAGE_BASE = "https://cards.image.pokemonkorea.co.kr/data/";
 const DEFAULT_CDN_BASE = "https://img.pokesim.kr/";
 const DEFAULT_BUCKET = "pokesim-kr-cards";
 const CACHE_CONTROL = "public, max-age=31536000, immutable";
@@ -228,6 +229,10 @@ function originalKeyFor(setCode: string, card: CardEntry): string | null {
 function sourceUrlFor(card: CardEntry, originalKey: string): string {
   if (card.image_url && /^https?:\/\//.test(card.image_url)) {
     return card.image_url;
+  }
+
+  if (card.image_url?.startsWith("wmimages/")) {
+    return `${POKEMON_KOREA_IMAGE_BASE}${card.image_url}`;
   }
 
   return publicUrlFor(originalKey);

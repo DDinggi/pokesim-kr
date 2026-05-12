@@ -10,15 +10,16 @@
     "sv11a-white-flare",
     "sv10-glory",
     "sv9a-blazing-arena",
+    "sv9-battle-partners",
     "sv8a-terastal-festa",
     "sv8-super-electric",
+    "sv7a-paradise-dragona",
+    "sv7-stellar-miracle",
     "sv6-mask",
     "sv2a-151",
     "sv1a-triplet"
   ],
-  "planned_sets": [
-    "sv9-battle-partners"
-  ],
+  "planned_sets": [],
   "_notes": "MEGA 라인업 + SV 확장팩 라인업 추가 (sv1a~sv11B). active_sets는 데이터 작성 완료 후 이동. 신상 발매 시 planned_sets에 추가 → 데이터 작성 → active_sets로 이동.",
-  "_updated_at": "2026-05-08"
+  "_updated_at": "2026-05-12"
 }

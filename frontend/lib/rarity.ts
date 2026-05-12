@@ -1,14 +1,15 @@
 import type { Card, SetMeta } from './types';
 
-export const RARITY_ORDER = ['BWR', 'UR', 'SAR', 'MA', 'SR', 'AR', 'RR', 'R', 'U', 'C'];
-export const FILTER_RARITY_ORDER = ['BWR', 'UR', 'SAR', 'MA', 'SR', 'AR', 'RR'];
-export const HIT_RARITY_ORDER = ['BWR', 'UR', 'SAR', 'MA', 'SR', 'AR'] as const;
+export const RARITY_ORDER = ['BWR', 'UR', 'SAR', 'MA', 'SR', 'ACE', 'AR', 'RR', 'R', 'U', 'C'];
+export const FILTER_RARITY_ORDER = ['BWR', 'UR', 'SAR', 'MA', 'SR', 'ACE', 'AR', 'RR'];
+export const HIT_RARITY_ORDER = ['BWR', 'UR', 'SAR', 'MA', 'SR', 'ACE', 'AR'] as const;
 
 export const RARITY_BADGE: Record<string, string> = {
   C: 'bg-gray-500 text-white',
   U: 'bg-blue-500 text-white',
   R: 'bg-purple-500 text-white',
   RR: 'bg-amber-400 text-gray-900',
+  ACE: 'bg-lime-300 text-gray-900',
   AR: 'bg-cyan-400 text-gray-900',
   SR: 'bg-orange-400 text-gray-900',
   SAR: 'bg-pink-400 text-gray-900',
@@ -19,6 +20,7 @@ export const RARITY_BADGE: Record<string, string> = {
 
 export const CARD_GLOW: Record<string, string> = {
   RR: 'ring-2 ring-amber-400/60',
+  ACE: 'ring-2 ring-lime-300/80 shadow-md shadow-lime-400/30',
   AR: 'ring-2 ring-cyan-400/70',
   SR: 'ring-2 ring-orange-400/80 shadow-md shadow-orange-500/30',
   SAR: 'ring-[3px] ring-pink-400 shadow-lg shadow-pink-500/50',
@@ -33,6 +35,7 @@ export const RARITY_TEXT_COLOR: Record<string, string> = {
   MA: 'text-fuchsia-300',
   SAR: 'text-pink-300',
   SR: 'text-orange-300',
+  ACE: 'text-lime-300',
   AR: 'text-cyan-300',
 };
 
@@ -41,6 +44,7 @@ export const RARITY_TIER: Record<string, string> = {
   U: 'text-blue-400',
   R: 'text-purple-400',
   RR: 'text-amber-300',
+  ACE: 'text-lime-300',
   AR: 'text-cyan-300',
   SR: 'text-orange-300',
   SAR: 'text-pink-300',
@@ -54,6 +58,7 @@ export const RARITY_FULL_LABEL: Record<string, string> = {
   U: '언커먼',
   R: '레어',
   RR: '더블 레어',
+  ACE: 'ACE SPEC',
   AR: '아트 레어',
   SR: '슈퍼 레어',
   SAR: '스페셜 아트 레어',
@@ -62,9 +67,9 @@ export const RARITY_FULL_LABEL: Record<string, string> = {
   BWR: '블랙 화이트 레어',
 };
 
-export const RARE_RARITIES = new Set(['RR', 'AR', 'SR', 'SAR', 'MA', 'UR', 'BWR']);
-export const HIT_RARITIES = new Set(['SR', 'SAR', 'MA', 'UR', 'BWR']);
-export const HOLO_RARITIES = new Set(['RR', 'AR', 'SR', 'SAR', 'MA', 'UR', 'BWR']);
+export const RARE_RARITIES = new Set(['RR', 'ACE', 'AR', 'SR', 'SAR', 'MA', 'UR', 'BWR']);
+export const HIT_RARITIES = new Set(['SR', 'SAR', 'MA', 'UR', 'BWR', 'ACE']);
+export const HOLO_RARITIES = new Set(['RR', 'ACE', 'AR', 'SR', 'SAR', 'MA', 'UR', 'BWR']);
 
 type RarityContext =
   | Pick<Card, 'card_num' | 'image_url'>

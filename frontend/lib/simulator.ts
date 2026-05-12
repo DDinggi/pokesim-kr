@@ -16,6 +16,7 @@ export const PROBABILITY_META = {
 
 // 일반 확장팩 박스 hit 슬롯 보장 — 위치는 랜덤 (D-126).
 //   SV 일반: SR/SAR/UR ×1 + AR ×3
+//   ACE SPEC 수록 세트: ACE ×1 추가
 //   SV11 블랙/화이트: SR/SAR/BWR ×1 + AR ×4
 //   MEGA 확장팩: 트레이너 SR/SAR ×1 + 포켓몬 SR/SAR/MUR ×1 + AR ×3
 // 나머지 슬롯: R/RR 가중치
@@ -36,6 +37,35 @@ const EXPANSION_MONSTER_WEIGHTS: Record<string, Record<string, number>> = {
 const EXPANSION_MONSTER_WEIGHTS_DEFAULT: Record<string, number> = { SR: 68, SAR: 30, UR: 2 };
 const STANDARD_SV_HIGH_WEIGHTS: Record<string, number> = { SR: 70, SAR: 20, UR: 10 };
 const SV11_HIGH_WEIGHTS: Record<string, number> = { SR: 70, SAR: 25, BWR: 5 };
+const ACE_SPEC_SET_CODES = new Set(['sv7-stellar-miracle', 'sv7a-paradise-dragona']);
+type StandardHighKey = 'SR_POKEMON' | 'SR_TRAINER' | 'SAR' | 'UR';
+interface StandardSvSetRate {
+  mandatoryHighWeights: Record<StandardHighKey, number>;
+  extraHighRate: number;
+  extraHighWeights: Record<'SR_POKEMON' | 'SR_TRAINER', number>;
+  fillerWeights: Record<string, number>;
+}
+const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
+  // Marginal BOX rates from pokemon-infomation.com; extra SR box is modeled separately.
+  'sv9-battle-partners': {
+    mandatoryHighWeights: { SR_POKEMON: 48.125, SR_TRAINER: 21.875, SAR: 20, UR: 10 },
+    extraHighRate: 0.1,
+    extraHighWeights: { SR_POKEMON: 68.75, SR_TRAINER: 31.25 },
+    fillerWeights: { R: 84.17, RR: 15.83 },
+  },
+  'sv7-stellar-miracle': {
+    mandatoryHighWeights: { SR_POKEMON: 43.75, SR_TRAINER: 26.25, SAR: 20, UR: 10 },
+    extraHighRate: 0.1,
+    extraHighWeights: { SR_POKEMON: 62.5, SR_TRAINER: 37.5 },
+    fillerWeights: { R: 83.53, RR: 16.47 },
+  },
+  'sv7a-paradise-dragona': {
+    mandatoryHighWeights: { SR_POKEMON: 43.75, SR_TRAINER: 26.25, SAR: 20, UR: 10 },
+    extraHighRate: 0.1,
+    extraHighWeights: { SR_POKEMON: 62.5, SR_TRAINER: 37.5 },
+    fillerWeights: { R: 83.53, RR: 16.47 },
+  },
+};
 
 const STANDARD_EXTRA_SR_RATE = 0.1;
 const EXTRA_SR_RATE_BY_SET: Record<string, number> = {
@@ -225,6 +255,8 @@ function simulateExpansionBox(
   const isTrainer = (c: Card) => c.card_type === '트레이너' || c.card_type === '에너지';
   const isMegaExpansion = Boolean(setCode?.startsWith('m'));
   const isSv11Special = setCode === 'sv11a-white-flare' || setCode === 'sv11b-black-bolt';
+  const hasAceSpecSlot = Boolean(setCode && ACE_SPEC_SET_CODES.has(setCode));
+  const standardSetRate = setCode ? STANDARD_SV_SET_RATES[setCode] : undefined;
 
   const srAll = byRarity['SR'] ?? [];
   const sarAll = byRarity['SAR'] ?? [];
@@ -247,6 +279,12 @@ function simulateExpansionBox(
     UR: isMegaExpansion && urPokemon.length ? urPokemon : urAll,
     BWR: bwrPokemon.length ? bwrPokemon : bwrAll,
   };
+  const standardHighPools: Record<StandardHighKey, Card[]> = {
+    SR_POKEMON: srPokemon.length ? srPokemon : srAll,
+    SR_TRAINER: srTrainer.length ? srTrainer : srAll,
+    SAR: sarAll,
+    UR: urAll,
+  };
 
   if (isMegaExpansion) {
     // MEGA expansion: exactly one trainer high slot + separate Pokemon SR-or-better slot.
@@ -267,19 +305,33 @@ function simulateExpansionBox(
     slots.push(arPool, arPool, arPool);
     if (rng() < MEGA_EXTRA_SR_RATE && srPokemon.length) slots.push(srPokemon);
   } else {
-    const highWeights = isSv11Special ? SV11_HIGH_WEIGHTS : STANDARD_SV_HIGH_WEIGHTS;
-    slots.push(pickWeightedPool(ctx, highWeights, highPools, srAll.length ? srAll : (byRarity['RR'] ?? [])));
+    if (standardSetRate) {
+      slots.push(pickWeightedPool(
+        ctx,
+        standardSetRate.mandatoryHighWeights,
+        standardHighPools,
+        srAll.length ? srAll : (byRarity['RR'] ?? []),
+      ));
+    } else {
+      const highWeights = isSv11Special ? SV11_HIGH_WEIGHTS : STANDARD_SV_HIGH_WEIGHTS;
+      slots.push(pickWeightedPool(ctx, highWeights, highPools, srAll.length ? srAll : (byRarity['RR'] ?? [])));
+    }
+    if (hasAceSpecSlot && byRarity['ACE']?.length) slots.push(byRarity['ACE']);
     const arCount = isSv11Special ? 4 : 3;
     for (let i = 0; i < arCount; i++) slots.push(arPool);
     const extraSrRate = isSv11Special
       ? SV11_EXTRA_SR_RATE
-      : (setCode ? (EXTRA_SR_RATE_BY_SET[setCode] ?? STANDARD_EXTRA_SR_RATE) : STANDARD_EXTRA_SR_RATE);
-    if (rng() < extraSrRate && srAll.length) slots.push(srAll);
+      : (standardSetRate?.extraHighRate ?? (setCode ? (EXTRA_SR_RATE_BY_SET[setCode] ?? STANDARD_EXTRA_SR_RATE) : STANDARD_EXTRA_SR_RATE));
+    if (rng() < extraSrRate && srAll.length) {
+      slots.push(standardSetRate
+        ? pickWeightedPool(ctx, standardSetRate.extraHighWeights, standardHighPools, srAll)
+        : srAll);
+    }
   }
 
   const fillerWeights = isMegaExpansion
     ? MEGA_EXPANSION_FILLER_WEIGHTS
-    : (boxSize === 20 ? STANDARD_20_PACK_FILLER_WEIGHTS : STANDARD_30_PACK_FILLER_WEIGHTS);
+    : (standardSetRate?.fillerWeights ?? (boxSize === 20 ? STANDARD_20_PACK_FILLER_WEIGHTS : STANDARD_30_PACK_FILLER_WEIGHTS));
   while (slots.length < boxSize) {
     const r = ctx.weightedPick(fillerWeights);
     slots.push(byRarity[r] ?? byRarity['R'] ?? []);
@@ -390,6 +442,8 @@ function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[] {
   const isTrainer = (c: Card) => c.card_type === '트레이너' || c.card_type === '에너지';
   const isMegaExpansion = Boolean(setCode?.startsWith('m'));
   const isSv11Special = setCode === 'sv11a-white-flare' || setCode === 'sv11b-black-bolt';
+  const hasAceSpecSlot = Boolean(setCode && ACE_SPEC_SET_CODES.has(setCode));
+  const standardSetRate = setCode ? STANDARD_SV_SET_RATES[setCode] : undefined;
 
   const srAll = byRarity['SR'] ?? [];
   const sarAll = byRarity['SAR'] ?? [];
@@ -419,18 +473,33 @@ function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[] {
 
   const boxSize = isSv11Special || setCode === 'sv2a-151' ? 20 : 30;
   const arCount = isSv11Special ? 4 : 3;
+  const aceCount = hasAceSpecSlot ? 1 : 0;
   const extraSrRate = isSv11Special
     ? SV11_EXTRA_SR_RATE
-    : (setCode ? (EXTRA_SR_RATE_BY_SET[setCode] ?? STANDARD_EXTRA_SR_RATE) : STANDARD_EXTRA_SR_RATE);
+    : (standardSetRate?.extraHighRate ?? (setCode ? (EXTRA_SR_RATE_BY_SET[setCode] ?? STANDARD_EXTRA_SR_RATE) : STANDARD_EXTRA_SR_RATE));
   const highWeights = isSv11Special ? SV11_HIGH_WEIGHTS : STANDARD_SV_HIGH_WEIGHTS;
-  const fillerWeights = boxSize === 20 ? STANDARD_20_PACK_FILLER_WEIGHTS : STANDARD_30_PACK_FILLER_WEIGHTS;
+  const fillerWeights = standardSetRate?.fillerWeights ?? (boxSize === 20 ? STANDARD_20_PACK_FILLER_WEIGHTS : STANDARD_30_PACK_FILLER_WEIGHTS);
 
-  addFillerPackEntries(entries, byRarity, boxSize - 1 - arCount - extraSrRate, fillerWeights);
+  addFillerPackEntries(entries, byRarity, boxSize - 1 - aceCount - arCount - extraSrRate, fillerWeights);
+  if (aceCount > 0) entries.push({ weight: aceCount * 100, pool: byRarity['ACE'] ?? [] });
   entries.push({ weight: arCount * 100, pool: arPool });
-  entries.push({ weight: (highWeights.SR ?? 0) + extraSrRate * 100, pool: srAll });
-  entries.push({ weight: highWeights.SAR ?? 0, pool: sarAll });
-  entries.push({ weight: highWeights.UR ?? 0, pool: urAll });
-  entries.push({ weight: highWeights.BWR ?? 0, pool: bwrPokemon.length ? bwrPokemon : bwrAll });
+  if (standardSetRate) {
+    entries.push({
+      weight: standardSetRate.mandatoryHighWeights.SR_POKEMON + extraSrRate * (standardSetRate.extraHighWeights.SR_POKEMON / 100),
+      pool: srPokemon.length ? srPokemon : srAll,
+    });
+    entries.push({
+      weight: standardSetRate.mandatoryHighWeights.SR_TRAINER + extraSrRate * (standardSetRate.extraHighWeights.SR_TRAINER / 100),
+      pool: srTrainer.length ? srTrainer : srAll,
+    });
+    entries.push({ weight: standardSetRate.mandatoryHighWeights.SAR, pool: sarAll });
+    entries.push({ weight: standardSetRate.mandatoryHighWeights.UR, pool: urAll });
+  } else {
+    entries.push({ weight: (highWeights.SR ?? 0) + extraSrRate * 100, pool: srAll });
+    entries.push({ weight: highWeights.SAR ?? 0, pool: sarAll });
+    entries.push({ weight: highWeights.UR ?? 0, pool: urAll });
+    entries.push({ weight: highWeights.BWR ?? 0, pool: bwrPokemon.length ? bwrPokemon : bwrAll });
+  }
   return pickWeightedHitPool(ctx, entries, byRarity['R'] ?? []);
 }
 
