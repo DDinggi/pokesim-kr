@@ -5,6 +5,7 @@ import Image from 'next/image';
 import type { Card, SetMeta, PackResult } from '../lib/types';
 import { simulatePack } from '../lib/simulator';
 import { getBoxImageSrc } from '../lib/boxImages';
+import { NEW_SIM_SET_NAMES, isNewSimSet } from '../lib/newSets';
 import { trackSim, trackUserEvent } from '../lib/statsTracker';
 import { CardModal } from './CardModal';
 import {
@@ -337,6 +338,13 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
       </header>
 
       <main className="flex-1 px-4 sm:px-6 py-8 max-w-6xl mx-auto w-full">
+        <div className="mb-4 rounded-lg bg-gray-900/80 ring-1 ring-yellow-300/30 px-4 py-3">
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW</p>
+          <p className="text-sm font-bold text-white mt-0.5">
+            {NEW_SIM_SET_NAMES.join(' · ')} 자판기깡 시뮬 추가
+          </p>
+        </div>
+
         {/* 자판기 본체 — 노란 프레임 → 검정 패널 → 파란 LCD */}
         <div className="rounded-[28px] bg-gradient-to-br from-yellow-400 to-yellow-500 p-3 sm:p-4 shadow-2xl ring-1 ring-yellow-300/50">
           <div className="rounded-3xl bg-gradient-to-b from-gray-950 to-black p-3 sm:p-5 shadow-inner">
@@ -368,6 +376,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
               {displaySets.map((set) => {
                 const inCart = cart[set.code] ?? 0;
+                const isNew = isNewSimSet(set.code);
                 return (
                   <button
                     key={set.code}
@@ -377,6 +386,11 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                     {inCart > 0 && (
                       <div className="absolute top-2 left-2 z-10 w-7 h-7 rounded-full bg-red-500 text-white text-xs font-black flex items-center justify-center shadow-lg ring-2 ring-white">
                         {inCart}
+                      </div>
+                    )}
+                    {isNew && (
+                      <div className="absolute top-2 right-2 z-10 rounded bg-yellow-300 px-1.5 py-0.5 text-[9px] font-black text-gray-950 shadow">
+                        NEW
                       </div>
                     )}
                     <div className="relative aspect-[3/4] w-full bg-white/30 overflow-hidden">

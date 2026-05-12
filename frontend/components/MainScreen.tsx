@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import type { Card } from '../lib/types';
+import { NEW_SIM_SET_NAMES } from '../lib/newSets';
 import { fetchGlobalStats, type GlobalStats } from '../lib/statsTracker';
 import {
   CARD_IMAGES_ENABLED,
@@ -11,10 +12,9 @@ import {
 } from '../lib/images';
 import {
   CARD_GLOW,
-  HIT_RARITY_ORDER,
   RARITY_BADGE,
   RARITY_TEXT_COLOR,
-  getRarityCounts,
+  getHitCounts,
   rarityLabel,
   sortByRarity,
 } from '../lib/rarity';
@@ -72,6 +72,21 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
       </header>
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-5xl mx-auto w-full">
+        <div className="mb-5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 ring-1 ring-white/10 px-4 py-3">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div>
+              <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW SIM</p>
+              <p className="text-sm sm:text-base font-bold text-white">
+                {NEW_SIM_SET_NAMES.join(' · ')} 시뮬레이터 추가
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              <span className="text-[11px] font-bold px-2 py-1 rounded bg-white/10 text-sky-200">박스깡</span>
+              <span className="text-[11px] font-bold px-2 py-1 rounded bg-white/10 text-pink-200">자판기깡</span>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
           <ModeCard
             title="박스깡"
@@ -212,16 +227,14 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
 }
 
 function HitBadges({ cards }: { cards: Card[] }) {
-  const counts = getRarityCounts(cards);
-  const hits = HIT_RARITY_ORDER.filter((r) => (counts[r] ?? 0) > 0);
+  const hits = getHitCounts(cards);
   if (hits.length === 0) return null;
   return (
     <span className="flex items-center gap-1.5">
-      {hits.map((r) => {
-        const sample = cards.find((card) => card.rarity === r);
+      {hits.map(({ rarity, count, sample }) => {
         return (
-          <span key={r} className={`text-[11px] font-bold ${RARITY_TEXT_COLOR[r]}`}>
-            {rarityLabel(r, sample)} {counts[r]}
+          <span key={rarity} className={`text-[11px] font-bold ${RARITY_TEXT_COLOR[rarity]}`}>
+            {rarityLabel(rarity, sample)} {count}
           </span>
         );
       })}

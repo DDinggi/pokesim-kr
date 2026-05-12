@@ -43,8 +43,8 @@
         "max": 2
       }
     ],
-    "_source": "pokemon-infomation.com/pull-rates-rakuendoragona/ 약 1,000BOX 실측. ACE 1, RR 4~5, AR 3, SR(포켓몬) 50%, SR(서포트) 30%, SAR 20%, UR 10%, 2枚箱 10%. 한국판 공식 봉입률은 비공개이며 일본판 실측을 한국판 확장팩 모델에 준용.",
-    "_sample_size": 1000,
+    "_source": "pokemon-infomation.com/pull-rates-rakuendoragona/ 약 480BOX 실측. ACE 1, RR 4~5, AR 3, SR(포켓몬) 50%, SR(서포트) 30%, SAR 20%, UR 10%, 2枚箱 10%. 한국판 공식 봉입률은 비공개이며 일본판 실측을 한국판 확장팩 모델에 준용.",
+    "_sample_size": 480,
     "_estimated_at": "2026-05-12"
   },
   "pack_slots": [],

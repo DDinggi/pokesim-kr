@@ -66,7 +66,7 @@ Behavior:
 ## WebP Variants
 
 The CDN migration removes hotlinking, but it does not shrink the original image
-bytes. Generate WebP variants after originals are present in R2:
+bytes. Generate WebP variants after a set has valid `image_url` keys:
 
 ```bash
 cd scripts
@@ -74,6 +74,11 @@ pnpm optimize:images -- --set m4-ninja-spinner --dry-run
 pnpm optimize:images -- --set m4-ninja-spinner
 pnpm optimize:images -- --set m4-ninja-spinner --verify-only
 ```
+
+For official `wmimages/...` keys, the optimizer downloads the source from
+`https://cards.image.pokemonkorea.co.kr/data/` and uploads only the optimized
+variant to R2. For `external/...` keys, make sure the source image is available
+before running the optimizer.
 
 For all sets, omit `--set` after the single-set smoke test passes:
 

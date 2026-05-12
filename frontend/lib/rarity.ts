@@ -1,8 +1,9 @@
 import type { Card, SetMeta } from './types';
 
-export const RARITY_ORDER = ['BWR', 'UR', 'SAR', 'MA', 'SR', 'ACE', 'AR', 'RR', 'R', 'U', 'C'];
-export const FILTER_RARITY_ORDER = ['BWR', 'UR', 'SAR', 'MA', 'SR', 'ACE', 'AR', 'RR'];
-export const HIT_RARITY_ORDER = ['BWR', 'UR', 'SAR', 'MA', 'SR', 'ACE', 'AR'] as const;
+export const DISPLAY_RARITY_ORDER = ['MUR', 'BWR', 'SAR', 'UR', 'MA', 'SR', 'ACE', 'AR', 'RR', 'R', 'U', 'C'];
+export const RARITY_ORDER = ['BWR', 'SAR', 'UR', 'MA', 'SR', 'ACE', 'AR', 'RR', 'R', 'U', 'C'];
+export const FILTER_RARITY_ORDER = ['BWR', 'SAR', 'UR', 'MA', 'SR', 'ACE', 'AR', 'RR'];
+export const HIT_RARITY_ORDER = ['BWR', 'SAR', 'UR', 'MA', 'SR', 'ACE', 'AR'] as const;
 
 export const RARITY_BADGE: Record<string, string> = {
   C: 'bg-gray-500 text-white',
@@ -14,6 +15,7 @@ export const RARITY_BADGE: Record<string, string> = {
   SR: 'bg-orange-400 text-gray-900',
   SAR: 'bg-pink-400 text-gray-900',
   MA: 'bg-fuchsia-400 text-gray-900',
+  MUR: 'bg-yellow-300 text-gray-900',
   UR: 'bg-yellow-300 text-gray-900',
   BWR: 'bg-gradient-to-r from-gray-100 to-white text-gray-900',
 };
@@ -30,10 +32,11 @@ export const CARD_GLOW: Record<string, string> = {
 };
 
 export const RARITY_TEXT_COLOR: Record<string, string> = {
+  MUR: 'text-yellow-300',
   BWR: 'text-slate-100',
+  SAR: 'text-pink-300',
   UR: 'text-yellow-300',
   MA: 'text-fuchsia-300',
-  SAR: 'text-pink-300',
   SR: 'text-orange-300',
   ACE: 'text-lime-300',
   AR: 'text-cyan-300',
@@ -49,6 +52,7 @@ export const RARITY_TIER: Record<string, string> = {
   SR: 'text-orange-300',
   SAR: 'text-pink-300',
   MA: 'text-fuchsia-300',
+  MUR: 'text-yellow-300',
   UR: 'text-yellow-300',
   BWR: 'text-slate-100',
 };
@@ -57,13 +61,14 @@ export const RARITY_FULL_LABEL: Record<string, string> = {
   C: '커먼',
   U: '언커먼',
   R: '레어',
-  RR: '더블 레어',
+  RR: '더블레어',
   ACE: 'ACE SPEC',
-  AR: '아트 레어',
-  SR: '슈퍼 레어',
-  SAR: '스페셜 아트 레어',
+  AR: '아트레어',
+  SR: '슈퍼레어',
+  SAR: '스페셜아트레어',
   MA: '마스터 아트',
-  UR: '울트라 레어',
+  MUR: '메가 울트라레어',
+  UR: '울트라레어',
   BWR: '블랙 화이트 레어',
 };
 
@@ -72,7 +77,7 @@ export const HIT_RARITIES = new Set(['SR', 'SAR', 'MA', 'UR', 'BWR', 'ACE']);
 export const HOLO_RARITIES = new Set(['RR', 'ACE', 'AR', 'SR', 'SAR', 'MA', 'UR', 'BWR']);
 
 type RarityContext =
-  | Pick<Card, 'card_num' | 'image_url'>
+  | Partial<Pick<Card, 'card_num' | 'image_url'>>
   | Pick<SetMeta, 'code'>
   | string
   | null
@@ -89,11 +94,11 @@ export function isMegaContext(context?: RarityContext): boolean {
     return isMegaContext(context.code);
   }
 
-  return (
-    context.image_url.startsWith('wmimages/MEGA/') ||
-    context.image_url.startsWith('external/m-') ||
-    /^BS20250(10|14|15)/.test(context.card_num) ||
-    /^BS202600[23]/.test(context.card_num)
+  return Boolean(
+    context.image_url?.startsWith('wmimages/MEGA/') ||
+      context.image_url?.startsWith('external/m-') ||
+      (context.card_num && /^BS20250(10|14|15)/.test(context.card_num)) ||
+      (context.card_num && /^BS202600[23]/.test(context.card_num)),
   );
 }
 
@@ -106,19 +111,26 @@ export function rarityLabel(rarity: string, context?: RarityContext): string {
 }
 
 export function rarityFullLabel(rarity: string, context?: RarityContext): string {
-  if (rarity === 'UR' && isMegaContext(context)) {
-    return '메가 울트라 레어';
-  }
-
-  return RARITY_FULL_LABEL[rarity] ?? rarity;
+  return RARITY_FULL_LABEL[rarityLabel(rarity, context)] ?? rarity;
 }
 
-export function sortByRarity<T extends { rarity: string | null }>(cards: T[]): T[] {
-  return [...cards].sort((a, b) => {
-    const ai = RARITY_ORDER.indexOf(a.rarity ?? '');
-    const bi = RARITY_ORDER.indexOf(b.rarity ?? '');
-    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-  });
+export function raritySortRank(rarity: string | null, context?: RarityContext): number {
+  if (!rarity) return 99;
+
+  const displayRarity = rarityLabel(rarity, context);
+  const displayIndex = DISPLAY_RARITY_ORDER.indexOf(displayRarity);
+  if (displayIndex !== -1) return displayIndex;
+
+  const rawIndex = DISPLAY_RARITY_ORDER.indexOf(rarity);
+  return rawIndex === -1 ? 99 : rawIndex;
+}
+
+export function sortRarityKeys(rarities: string[], context?: RarityContext): string[] {
+  return [...rarities].sort((a, b) => raritySortRank(a, context) - raritySortRank(b, context));
+}
+
+export function sortByRarity<T extends { rarity: string | null; card_num?: string; image_url?: string }>(cards: T[]): T[] {
+  return [...cards].sort((a, b) => raritySortRank(a.rarity, a) - raritySortRank(b.rarity, b));
 }
 
 export function getRarityCounts(cards: Array<{ rarity: string | null }>): Record<string, number> {
@@ -134,13 +146,21 @@ export function getRarityCounts(cards: Array<{ rarity: string | null }>): Record
 }
 
 export function getHitCounts(cards: Card[]): Array<{ rarity: string; count: number; sample?: Card }> {
-  const counts = getRarityCounts(cards);
+  const counts = new Map<string, { rarity: string; count: number; sample?: Card }>();
 
-  return HIT_RARITY_ORDER
-    .filter((rarity) => (counts[rarity] ?? 0) > 0)
-    .map((rarity) => ({
-      rarity,
-      count: counts[rarity],
-      sample: cards.find((card) => card.rarity === rarity),
-    }));
+  for (const card of cards) {
+    if (!card.rarity || !HIT_RARITIES.has(card.rarity)) continue;
+
+    const displayRarity = rarityLabel(card.rarity, card);
+    const current = counts.get(displayRarity);
+    if (current) {
+      current.count += 1;
+    } else {
+      counts.set(displayRarity, { rarity: displayRarity, count: 1, sample: card });
+    }
+  }
+
+  return Array.from(counts.values()).sort(
+    (a, b) => raritySortRank(a.rarity, a.sample) - raritySortRank(b.rarity, b.sample),
+  );
 }
