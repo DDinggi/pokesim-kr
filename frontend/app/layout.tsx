@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+const siteUrl = "https://pokesim.kr";
+const siteName = "PokéSim KR";
+const title = "카드깡 시뮬레이터";
+const description =
+  "수집형 카드팩의 박스깡과 1팩 개봉을 가볍게 체험하는 비공식 팬메이드 시뮬레이터입니다.";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -13,20 +19,51 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'PokéSim KR | 포켓몬 카드깡 시뮬레이터',
-  description: '한국 포켓몬 카드 박스깡을 가상으로 즐겨보세요. 최신 확장팩을 선택하고 무료로 카드깡 시뮬레이션을 할 수 있습니다.',
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
   keywords: [
-    '포켓몬', '포켓몬스터', '포켓몬카드', '포카', 
-    '카드깡', '박스깡', '팩깡', '시뮬레이터', 
-    'TCG', '포케심', 'PokéSim'
+    "PokéSim KR",
+    "카드깡 시뮬레이터",
+    "카드깡 시뮬",
+    "카드팩 시뮬레이터",
+    "박스깡 시뮬레이터",
+    "박스깡 시뮬",
+    "팩 개봉 시뮬레이터",
+    "비공식 팬 시뮬레이터",
+    "포켓몬 카드깡 시뮬레이터",
+    "포켓몬 카드깡 시뮬",
+    "포켓몬 카드 시뮬",
+    "포켓몬 카드깡 시뮬레이터",
   ],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    noimageindex: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: true,
+      "max-snippet": 160,
+      "max-image-preview": "none",
+      "max-video-preview": 0,
+    },
+  },
   openGraph: {
-    title: 'PokéSim KR | 포켓몬 카드깡 시뮬레이터',
-    description: '한국 포켓몬 카드 박스깡을 가상으로 즐겨보세요!',
-    url: 'https://pokesim.kr',
-    siteName: 'PokéSim KR',
-    locale: 'ko_KR',
-    type: 'website',
+    title,
+    description,
+    url: siteUrl,
+    siteName,
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title,
+    description,
   },
 };
 

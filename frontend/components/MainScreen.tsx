@@ -3,63 +3,28 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import type { Card } from '../lib/types';
+import { NEW_SIM_SET_NAMES } from '../lib/newSets';
 import { fetchGlobalStats, type GlobalStats } from '../lib/statsTracker';
+import {
+  CARD_IMAGES_ENABLED,
+  CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
+  resolveCardImageUrl,
+} from '../lib/images';
+import {
+  CARD_GLOW,
+  RARITY_BADGE,
+  RARITY_TEXT_COLOR,
+  getHitCounts,
+  rarityLabel,
+  sortByRarity,
+} from '../lib/rarity';
 
 type Mode = 'box' | 'vending';
 
 const SESSION_KEY = 'pokesim-kr-session-v1';
 
-const RARITY_TEXT_COLOR: Record<string, string> = {
-  BWR: 'text-slate-100',
-  UR: 'text-yellow-300',
-  MA: 'text-fuchsia-300',
-  SAR: 'text-pink-300',
-  SR: 'text-orange-300',
-  AR: 'text-cyan-300',
-};
-const RARITY_BADGE: Record<string, string> = {
-  C: 'bg-gray-500 text-white',
-  U: 'bg-blue-500 text-white',
-  R: 'bg-purple-500 text-white',
-  RR: 'bg-amber-400 text-gray-900',
-  AR: 'bg-cyan-400 text-gray-900',
-  SR: 'bg-orange-400 text-gray-900',
-  SAR: 'bg-pink-400 text-gray-900',
-  MA: 'bg-fuchsia-400 text-gray-900',
-  UR: 'bg-yellow-300 text-gray-900',
-  BWR: 'bg-gradient-to-r from-gray-100 to-white text-gray-900',
-};
-const CARD_GLOW: Record<string, string> = {
-  RR: 'ring-2 ring-amber-400/60',
-  AR: 'ring-2 ring-cyan-400/70',
-  SR: 'ring-2 ring-orange-400/80 shadow-md shadow-orange-500/30',
-  SAR: 'ring-[3px] ring-pink-400 shadow-lg shadow-pink-500/50',
-  MA: 'ring-[3px] ring-fuchsia-400 shadow-lg shadow-fuchsia-500/50',
-  UR: 'ring-[3px] ring-yellow-300 shadow-xl shadow-yellow-400/60',
-  BWR: 'ring-[3px] ring-white shadow-xl shadow-white/40',
-};
-const RARITY_DISPLAY: Record<string, string> = { UR: 'MUR' };
-const RARITY_ORDER = ['BWR', 'UR', 'MA', 'SAR', 'SR', 'AR', 'RR', 'R', 'U', 'C'];
-const HIT_RARITY_ORDER = ['BWR', 'UR', 'MA', 'SAR', 'SR', 'AR'] as const;
-const CDN_BASE = 'https://cards.image.pokemonkorea.co.kr/data/';
-
-function rarityLabel(r: string) {
-  return RARITY_DISPLAY[r] ?? r;
-}
-
-function resolveImageUrl(image_url: string): string {
-  return /^https?:\/\//.test(image_url) ? image_url : `${CDN_BASE}${image_url}`;
-}
-
-function sortByRarity(cards: Card[]): Card[] {
-  return [...cards].sort((a, b) => {
-    const ai = RARITY_ORDER.indexOf(a.rarity ?? '');
-    const bi = RARITY_ORDER.indexOf(b.rarity ?? '');
-    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-  });
-}
-
 interface SessionData {
+  boxes: number;
   packs: number;
   cost: number;
   cards: Card[];
@@ -72,7 +37,12 @@ function loadSession(): SessionData | null {
     if (!stored) return null;
     const p = JSON.parse(stored);
     if (p && Array.isArray(p.cards) && p.cards.length > 0) {
-      return { packs: Number(p.packs) || 0, cost: Number(p.cost) || 0, cards: p.cards as Card[] };
+      return {
+        boxes: Number(p.boxes) || 0,
+        packs: Number(p.packs) || 0,
+        cost: Number(p.cost) || 0,
+        cards: p.cards as Card[],
+      };
     }
   } catch { /* */ }
   return null;
@@ -85,17 +55,38 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
 
   useEffect(() => {
     fetchGlobalStats().then((s) => { if (s) setStats(s); });
-    setSession(loadSession());
+    const timer = window.setTimeout(() => {
+      setSession(loadSession());
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
       <header className="px-6 py-5 border-b border-gray-800/80">
         <h1 className="text-2xl font-bold tracking-tight">PokéSim KR</h1>
-        <p className="text-xs text-gray-500 mt-1">한국 포켓몬 TCG 박스깡 시뮬레이터</p>
+        <p className="text-xs text-gray-500 mt-1">팬메이드 카드팩 시뮬레이터</p>
+        <p className="text-sm text-gray-400 mt-3 max-w-2xl leading-relaxed">
+          카드팩 개봉의 재미를 가볍게 체험할 수 있도록 만든 비공식 팬 프로젝트입니다.
+        </p>
       </header>
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-5xl mx-auto w-full">
+        <div className="mb-5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 ring-1 ring-white/10 px-4 py-3">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div>
+              <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW SIM</p>
+              <p className="text-sm sm:text-base font-bold text-white">
+                {NEW_SIM_SET_NAMES.join(' · ')} 시뮬레이터 추가 · 봉입률 일부 수정
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              <span className="text-[11px] font-bold px-2 py-1 rounded bg-white/10 text-sky-200">박스깡</span>
+              <span className="text-[11px] font-bold px-2 py-1 rounded bg-white/10 text-pink-200">자판기깡</span>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
           <ModeCard
             title="박스깡"
@@ -107,7 +98,7 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
             onClick={() => onSelectMode('box')}
             imageNode={
               <Image 
-                src="/boxes/m4-ninja-spinner.png" 
+                src="/box.png" 
                 alt="Box" 
                 fill 
                 sizes="180px"
@@ -125,7 +116,7 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
             onClick={() => onSelectMode('vending')}
             imageNode={
               <Image 
-                src="/pikachu1.png" 
+                src="/pikachu.png" 
                 alt="Vending Pikachu" 
                 fill 
                 sizes="180px"
@@ -147,7 +138,7 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
               <div className="flex items-center gap-3 text-sm">
                 <span className="font-bold text-gray-300">지금까지 깐 카드</span>
                 <span className="text-gray-500 tabular-nums">
-                  {session.packs}팩 · {session.cost.toLocaleString()}원 · {session.cards.length}장
+                  {session.boxes}박스 · {session.packs}팩 · {session.cost.toLocaleString()}원
                 </span>
                 <HitBadges cards={session.cards} />
               </div>
@@ -195,13 +186,14 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
           </p>
         )}
         <p className="text-[10px] text-gray-600 text-center">
-          ⓘ 봉입률은 추정치 · 포켓몬코리아는 봉입률을 안내하지 않습니다
+          ⓘ 봉입률은 추정치 · 공식 봉입률은 공개되어 있지 않습니다
         </p>
 
         <div className="mt-2 pt-3 border-t border-gray-900 w-full max-w-lg flex flex-col items-center gap-1">
           <p className="text-[10px] text-gray-700 text-center">
-            본 사이트는 팬이 만든 비영리 사이트이며, 포켓몬 컴퍼니, 닌텐도, Game Freak 등 저작권자와 관련이 없습니다.<br />
-            사용된 모든 이미지와 자산의 저작권은 원저작권자에게 있습니다.
+            본 사이트는 팬이 만든 비영리 시뮬레이션 프로젝트이며, 공식 권리자와 제휴·후원·승인 관계가 없습니다.<br />
+            카드 이미지와 관련 명칭은 개봉 경험 및 카드 식별을 위해 제한적으로 사용되며, 모든 권리는 각 권리자에게 있습니다.<br />
+            권리자의 삭제 또는 수정 요청이 있으면 확인 후 즉시 반영하겠습니다.
           </p>
           <p className="text-[10px] text-gray-700 text-center">
             ©{new Date().getFullYear()} pokesim_kr
@@ -235,19 +227,17 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
 }
 
 function HitBadges({ cards }: { cards: Card[] }) {
-  const counts: Record<string, number> = {};
-  for (const c of cards) {
-    if (c.rarity) counts[c.rarity] = (counts[c.rarity] ?? 0) + 1;
-  }
-  const hits = HIT_RARITY_ORDER.filter((r) => (counts[r] ?? 0) > 0);
+  const hits = getHitCounts(cards);
   if (hits.length === 0) return null;
   return (
     <span className="flex items-center gap-1.5">
-      {hits.map((r) => (
-        <span key={r} className={`text-[11px] font-bold ${RARITY_TEXT_COLOR[r]}`}>
-          {rarityLabel(r)} {counts[r]}
-        </span>
-      ))}
+      {hits.map(({ rarity, count, sample }) => {
+        return (
+          <span key={rarity} className={`text-[11px] font-bold ${RARITY_TEXT_COLOR[rarity]}`}>
+            {rarityLabel(rarity, sample)} {count}
+          </span>
+        );
+      })}
     </span>
   );
 }
@@ -267,9 +257,15 @@ function CardTile({ card }: { card: Card }) {
   const glow = card.rarity ? CARD_GLOW[card.rarity] ?? '' : '';
   const [errored, setErrored] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [useOriginal, setUseOriginal] = useState(false);
+  const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
   return (
-    <div className={`relative aspect-[5/7] rounded-lg overflow-hidden bg-gray-800 ${glow}`}>
-      {errored || !card.image_url ? (
+    <div
+      className={`card-image-frame relative aspect-[5/7] rounded-lg overflow-hidden bg-gray-800 select-none ${glow}`}
+      data-watermark={showImage ? 'pokesim.kr' : undefined}
+      onContextMenu={(e) => e.preventDefault()}
+    >
+      {!showImage ? (
         <div className="absolute inset-0 flex flex-col items-center justify-center p-1 text-center">
           <span className="text-[9px] text-gray-400 leading-tight">{card.name_ko ?? card.card_num}</span>
         </div>
@@ -277,19 +273,29 @@ function CardTile({ card }: { card: Card }) {
         <>
           {!loaded && <div className="absolute inset-0 bg-gray-800 animate-pulse" />}
           <Image
-            src={resolveImageUrl(card.image_url)}
+            src={resolveCardImageUrl(card.image_url, useOriginal ? {} : { size: 256 })}
             alt={card.name_ko ?? card.card_num}
             fill
             sizes="10vw"
             className="object-cover"
+            unoptimized
+            draggable={false}
+            onContextMenu={(e) => e.preventDefault()}
             onLoad={() => setLoaded(true)}
-            onError={() => setErrored(true)}
+            onError={() => {
+              if (!useOriginal && CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED) {
+                setUseOriginal(true);
+                setLoaded(false);
+              } else {
+                setErrored(true);
+              }
+            }}
           />
         </>
       )}
       {card.rarity && (
         <span className={`absolute bottom-0.5 right-0.5 text-[9px] font-bold px-1 py-px rounded ${RARITY_BADGE[card.rarity] ?? 'bg-gray-600 text-white'} z-10`}>
-          {rarityLabel(card.rarity)}
+          {rarityLabel(card.rarity, card)}
         </span>
       )}
     </div>

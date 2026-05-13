@@ -19,24 +19,28 @@
     "AR",
     "SR",
     "SAR",
-    "UR",
     "BWR"
   ],
   "box_guarantees": {
     "rules": [
-      {
-        "rarity": "AR",
-        "min": 3
-      },
-      {
-        "rarity": "SR",
-        "min": 1
-      }
+        {
+            "rarity": "AR",
+            "min": 4
+        },
+        {
+            "rarity": "SR",
+            "min": 1
+        },
+        {
+            "rarity": "SAR/BWR",
+            "min": 0,
+            "max": 1
+        }
     ],
-    "_source": "블랙볼트(sv11B) 동일 구조 추정. SV 표준 추정치 — 커뮤니티 대량 개봉 데이터로 보정 필요",
+    "_source": "premium.gamepedia.jp/pokeca/archives/13368 + pockecolle.com/articles/whiteflare - AR about 4/box, SAR about 1/4 boxes, BWR about 1/20 boxes, SR about 1 per 1.2 boxes. Korean official pull rates are private.",
     "_sample_size": null,
-    "_estimated_at": "2026-05-08"
-  },
+    "_estimated_at": "2026-05-10"
+},
   "pack_slots": [],
   "cards": [
     {
@@ -2305,5 +2309,5 @@
   "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
   "_source": "https://pokemoncard.co.kr",
   "_fetched_at": "2026-05-08",
-  "_notes": "sv11A. 블랙볼트(sv11B)의 쌍둥이 세트. 1상자 20팩×7장=140장. BWR(블랙화이트레어) 포함. 하나지방 포켓몬 수록."
+  "_notes": "sv11A. 블랙볼트(sv11B)의 쌍둥이 세트. 1상자 20팩×7장=140장. AR 4장, RR 약 4장, 마스터볼 미러 1장 추정. BWR(블랙화이트레어) 포함. 한국판 공식 봉입률은 비공개."
 }

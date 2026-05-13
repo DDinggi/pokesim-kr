@@ -3,26 +3,12 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import type { Card } from '../lib/types';
-
-const CDN_BASE = 'https://cards.image.pokemonkorea.co.kr/data/';
-
-function resolveImageUrl(image_url: string): string {
-  return /^https?:\/\//.test(image_url) ? image_url : `${CDN_BASE}${image_url}`;
-}
-
-const RARITY_DISPLAY: Record<string, string> = { UR: 'MUR' };
-
-const RARITY_LABEL: Record<string, string> = {
-  C: '커먼', U: '언커먼', R: '레어', RR: '더블 레어',
-  AR: '아트 레어', SR: '슈퍼 레어', SAR: '스페셜 아트 레어',
-  MA: '마스터 아트', UR: '메가 울트라 레어',
-};
-
-const RARITY_TIER: Record<string, string> = {
-  C: 'text-gray-400', U: 'text-blue-400', R: 'text-purple-400',
-  RR: 'text-amber-300', AR: 'text-cyan-300', SR: 'text-orange-300',
-  SAR: 'text-pink-300', MA: 'text-fuchsia-300', UR: 'text-yellow-300',
-};
+import {
+  CARD_IMAGES_ENABLED,
+  CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
+  resolveCardImageUrl,
+} from '../lib/images';
+import { HOLO_RARITIES, RARITY_TIER, rarityFullLabel, rarityLabel } from '../lib/rarity';
 
 const TYPE_LABEL: Record<string, string> = {
   풀: '풀', 불꽃: '불꽃', 물: '물', 번개: '번개',
@@ -30,12 +16,11 @@ const TYPE_LABEL: Record<string, string> = {
   드래곤: '드래곤', 무색: '노말',
 };
 
-const HOLO_RARITIES = new Set(['RR', 'AR', 'SR', 'SAR', 'MA', 'UR']);
-
 function HoloCardImage({ card }: { card: Card }) {
   const rotatorRef = useRef<HTMLDivElement>(null);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const [useOriginal, setUseOriginal] = useState(false);
 
   const isHolo = card.rarity ? HOLO_RARITIES.has(card.rarity) && imgLoaded && !imgError : false;
   const rarityClass = isHolo ? `holo-${card.rarity!.toLowerCase()}` : '';
@@ -72,10 +57,10 @@ function HoloCardImage({ card }: { card: Card }) {
     return () => window.removeEventListener('mousemove', onMove);
   }, [isHolo]);
 
-  if (!card.image_url) {
+  if (!CARD_IMAGES_ENABLED || !card.image_url) {
     return (
       <div className="aspect-[5/7] rounded-xl bg-gray-800 flex items-center justify-center">
-        <span className="text-gray-500">이미지 없음</span>
+        <span className="text-gray-500">{CARD_IMAGES_ENABLED ? '이미지 없음' : '이미지 숨김'}</span>
       </div>
     );
   }
@@ -84,18 +69,29 @@ function HoloCardImage({ card }: { card: Card }) {
     <div className="holo-wrapper">
       <div
         ref={rotatorRef}
-        className={`holo-card relative aspect-[5/7] rounded-xl overflow-hidden shadow-2xl ${rarityClass}`}
+        className={`card-image-frame holo-card relative aspect-[5/7] rounded-xl overflow-hidden shadow-2xl ${rarityClass}`}
+        data-watermark="pokesim.kr"
+        onContextMenu={(e) => e.preventDefault()}
       >
         <Image
-          src={resolveImageUrl(card.image_url)}
+          src={resolveCardImageUrl(card.image_url, useOriginal ? {} : { size: 512 })}
           alt={card.name_ko ?? card.card_num}
           fill
           sizes="(max-width: 640px) 90vw, 400px"
           className="object-cover select-none pointer-events-none"
           priority
+          unoptimized
           draggable={false}
+          onContextMenu={(e) => e.preventDefault()}
           onLoad={() => setImgLoaded(true)}
-          onError={() => setImgError(true)}
+          onError={() => {
+            if (!useOriginal && CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED) {
+              setUseOriginal(true);
+              setImgLoaded(false);
+            } else {
+              setImgError(true);
+            }
+          }}
         />
         {imgError && (
           <div className="absolute inset-0 bg-gray-800 flex flex-col items-center justify-center gap-2">
@@ -142,8 +138,8 @@ export function CardModal({ card, onClose }: { card: Card; onClose: () => void }
           <h2 className="text-xl font-bold leading-snug">{card.name_ko ?? card.card_num}</h2>
           {card.rarity && (
             <p className={`text-sm font-semibold ${tierColor}`}>
-              {RARITY_DISPLAY[card.rarity] ?? card.rarity} ·{' '}
-              {RARITY_LABEL[card.rarity] ?? card.rarity}
+              {rarityLabel(card.rarity, card)} ·{' '}
+              {rarityFullLabel(card.rarity, card)}
             </p>
           )}
           <div className="text-xs text-gray-400 space-y-1 pt-2 border-t border-white/5">

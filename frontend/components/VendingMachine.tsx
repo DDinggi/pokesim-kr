@@ -4,71 +4,30 @@ import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, PackResult } from '../lib/types';
 import { simulatePack } from '../lib/simulator';
-import { trackSim } from '../lib/statsTracker';
+import { getBoxImageSrc } from '../lib/boxImages';
+import {
+  createLuckOpening,
+  summarizeLuckEvent,
+} from '../lib/luck';
+import { NEW_SIM_SET_NAMES, isNewSimSet } from '../lib/newSets';
+import { trackSim, trackUserEvent } from '../lib/statsTracker';
 import { CardModal } from './CardModal';
+import {
+  CARD_IMAGES_ENABLED,
+  CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
+  resolveCardImageUrl,
+} from '../lib/images';
+import {
+  CARD_GLOW,
+  RARITY_BADGE,
+  RARITY_TEXT_COLOR,
+  getHitCounts,
+  rarityLabel,
+  sortByRarity,
+} from '../lib/rarity';
 
 const MAX_PER_SET = 10;
 const SESSION_STORAGE_KEY = 'pokesim-kr-session-v1';
-const CDN_BASE = 'https://cards.image.pokemonkorea.co.kr/data/';
-
-const RARITY_DISPLAY: Record<string, string> = { UR: 'MUR' };
-const RARITY_BADGE: Record<string, string> = {
-  C: 'bg-gray-500 text-white',
-  U: 'bg-blue-500 text-white',
-  R: 'bg-purple-500 text-white',
-  RR: 'bg-amber-400 text-gray-900',
-  AR: 'bg-cyan-400 text-gray-900',
-  SR: 'bg-orange-400 text-gray-900',
-  SAR: 'bg-pink-400 text-gray-900',
-  MA: 'bg-fuchsia-400 text-gray-900',
-  UR: 'bg-yellow-300 text-gray-900',
-  BWR: 'bg-gradient-to-r from-gray-100 to-white text-gray-900',
-};
-const CARD_GLOW: Record<string, string> = {
-  RR: 'ring-2 ring-amber-400/60',
-  AR: 'ring-2 ring-cyan-400/70',
-  SR: 'ring-2 ring-orange-400/80 shadow-md shadow-orange-500/30',
-  SAR: 'ring-[3px] ring-pink-400 shadow-lg shadow-pink-500/50',
-  MA: 'ring-[3px] ring-fuchsia-400 shadow-lg shadow-fuchsia-500/50',
-  UR: 'ring-[3px] ring-yellow-300 shadow-xl shadow-yellow-400/60',
-  BWR: 'ring-[3px] ring-white shadow-xl shadow-white/40',
-};
-const RARITY_ORDER = ['BWR', 'UR', 'MA', 'SAR', 'SR', 'AR', 'RR', 'R', 'U', 'C'];
-const HIT_RARITY_ORDER = ['BWR', 'UR', 'MA', 'SAR', 'SR', 'AR'] as const;
-const RARITY_TEXT_COLOR: Record<string, string> = {
-  BWR: 'text-slate-100',
-  UR: 'text-yellow-300',
-  MA: 'text-fuchsia-300',
-  SAR: 'text-pink-300',
-  SR: 'text-orange-300',
-  AR: 'text-cyan-300',
-};
-
-function rarityLabel(r: string): string {
-  return RARITY_DISPLAY[r] ?? r;
-}
-
-function resolveImageUrl(image_url: string): string {
-  return /^https?:\/\//.test(image_url) ? image_url : `${CDN_BASE}${image_url}`;
-}
-
-function sortByRarity(cards: Card[]): Card[] {
-  return [...cards].sort((a, b) => {
-    const ai = RARITY_ORDER.indexOf(a.rarity ?? '');
-    const bi = RARITY_ORDER.indexOf(b.rarity ?? '');
-    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-  });
-}
-
-function getHitCounts(cards: Card[]): Array<{ rarity: string; count: number }> {
-  const counts: Record<string, number> = {};
-  for (const c of cards) {
-    if (c.rarity) counts[c.rarity] = (counts[c.rarity] ?? 0) + 1;
-  }
-  return HIT_RARITY_ORDER
-    .filter((r) => (counts[r] ?? 0) > 0)
-    .map((r) => ({ rarity: r, count: counts[r] }));
-}
 
 interface Session {
   boxes: number;
@@ -125,8 +84,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
   const [packIdx, setPackIdx] = useState(0);
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
 
-  // 배틀파트너즈(sv9-battle-partners) UI에서 강제 숨김 처리
-  const displaySets = useMemo(() => sets.filter((s) => s.code !== 'sv9-battle-partners'), [sets]);
+  const displaySets = useMemo(() => sets, [sets]);
 
   const totalPacks = useMemo(
     () => Object.values(cart).reduce((s, n) => s + n, 0),
@@ -142,6 +100,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
   );
 
   function openModal(set: SetMeta) {
+    trackUserEvent({ eventName: 'select_set', setCode: set.code, mode: 'vending' });
     setModalSet(set);
     // 기본 수량: 이미 담긴 게 있으면 그 값, 없으면 1
     setModalQty(cart[set.code] ?? 1);
@@ -187,16 +146,20 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
     for (const [code, n] of Object.entries(cartToBuy)) {
       const set = displaySets.find((x) => x.code === code);
       if (!set || n <= 0) continue;
+      const setCards: Card[] = [];
       for (let i = 0; i < n; i++) {
-        const { pack, seed } = simulatePack(set.cards, set.type, set.pack_size);
+        const { pack, seed } = simulatePack(set.cards, set.type, set.pack_size, undefined, set.code);
+        setCards.push(...pack.cards);
         packs.push({ setCode: code, setMeta: set, pack, seed });
       }
+      const opening = createLuckOpening(set, { packs: n });
       trackSim({
         setCode: code,
         mode: 'pack',
         boxCount: 0,
         packCount: n,
         krw: (set.pack_price_krw ?? 0) * n,
+        luck: summarizeLuckEvent(setCards, opening),
       });
     }
     if (packs.length === 0) return;
@@ -208,6 +171,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
     }, 0);
 
     const cur = loadSession();
+
     saveSession({
       boxes: cur.boxes,
       packs: cur.packs + packs.length,
@@ -227,10 +191,29 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
     }
   }
   function handleRestart() {
+    const setCodes = Array.from(new Set(purchased.map((p) => p.setCode)));
+    trackUserEvent({
+      eventName: 'open_again',
+      setCode: setCodes.length === 1 ? setCodes[0] : undefined,
+      mode: 'vending',
+      metadata: {
+        pack_count: purchased.length,
+        set_count: setCodes.length,
+      },
+    });
     setCart({});
     setPurchased([]);
     setPackIdx(0);
     setPhase('browse');
+  }
+  function openCard(card: Card, setCode?: string) {
+    trackUserEvent({
+      eventName: 'open_card_modal',
+      setCode,
+      mode: 'vending',
+      rarity: card.rarity ?? null,
+    });
+    setOpenedCard(card);
   }
 
   // ─────────────────────────── REVEAL ───────────────────────────
@@ -260,7 +243,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
 
           <div className="grid grid-cols-5 gap-3 sm:gap-4 w-full">
             {current.pack.cards.map((card, i) => (
-              <CardTile key={i} card={card} onClick={() => setOpenedCard(card)} />
+              <CardTile key={i} card={card} onClick={() => openCard(card, current.setCode)} />
             ))}
           </div>
 
@@ -301,16 +284,20 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
             <span>총 {purchased.length}팩</span>
             <span className="text-gray-700">·</span>
             <span>{totalCostFinal.toLocaleString()}원</span>
-            {hits.map(({ rarity, count }) => (
+            {hits.map(({ rarity, count, sample }) => (
               <span key={rarity} className={RARITY_TEXT_COLOR[rarity]}>
-                · {rarityLabel(rarity)} {count}장
+                · {rarityLabel(rarity, sample)} {count}장
               </span>
             ))}
           </section>
 
           <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3">
             {sorted.map((c, i) => (
-              <CardTile key={i} card={c} onClick={() => setOpenedCard(c)} />
+              <CardTile
+                key={i}
+                card={c}
+                onClick={() => openCard(c, purchased.find((p) => p.pack.cards.includes(c))?.setCode)}
+              />
             ))}
           </div>
 
@@ -360,12 +347,19 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
       </header>
 
       <main className="flex-1 px-4 sm:px-6 py-8 max-w-6xl mx-auto w-full">
+        <div className="mb-4 rounded-lg bg-gray-900/80 ring-1 ring-yellow-300/30 px-4 py-3">
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW</p>
+          <p className="text-sm font-bold text-white mt-0.5">
+            {NEW_SIM_SET_NAMES.join(' · ')} 자판기깡 시뮬 추가
+          </p>
+        </div>
+
         {/* 자판기 본체 — 노란 프레임 → 검정 패널 → 파란 LCD */}
         <div className="rounded-[28px] bg-gradient-to-br from-yellow-400 to-yellow-500 p-3 sm:p-4 shadow-2xl ring-1 ring-yellow-300/50">
           <div className="rounded-3xl bg-gradient-to-b from-gray-950 to-black p-3 sm:p-5 shadow-inner">
-            {/* 포켓몬 로고 헤더 + 피카츄 */}
+            {/* 브랜드 헤더 */}
             <div className="flex items-center justify-between gap-2 mb-3 sm:mb-4 px-2">
-              <PikachuMascot src="/pikachu1.png" />
+              <PikachuMascot src="/pikachu.png" />
               <div className="flex flex-col items-center min-w-0">
                 <h2
                   className="text-2xl sm:text-4xl font-black tracking-wider leading-none"
@@ -376,21 +370,22 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                     letterSpacing: '0.05em',
                   }}
                 >
-                  POKÉMON
+                  POKÉSIM
                 </h2>
                 <p className="text-[10px] sm:text-xs font-bold text-yellow-300 mt-1 flex items-center gap-1.5 tracking-wide">
                   <MonsterBall className="w-3 h-3 sm:w-3.5 sm:h-3.5 inline-block" />
-                  포켓몬 카드 시뮬레이터
+                  카드팩 시뮬레이터
                   <MonsterBall className="w-3 h-3 sm:w-3.5 sm:h-3.5 inline-block" />
                 </p>
               </div>
-              <PikachuMascot src="/pikachu2.png" flip />
+              <PikachuMascot src="/pikachu.png" flip />
             </div>
 
             <div className="rounded-2xl bg-gradient-to-br from-blue-700 via-blue-800 to-blue-950 p-3 sm:p-5">
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
               {displaySets.map((set) => {
                 const inCart = cart[set.code] ?? 0;
+                const isNew = isNewSimSet(set.code);
                 return (
                   <button
                     key={set.code}
@@ -402,9 +397,14 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                         {inCart}
                       </div>
                     )}
+                    {isNew && (
+                      <div className="absolute top-2 right-2 z-10 rounded bg-yellow-300 px-1.5 py-0.5 text-[9px] font-black text-gray-950 shadow">
+                        NEW
+                      </div>
+                    )}
                     <div className="relative aspect-[3/4] w-full bg-white/30 overflow-hidden">
                       <Image
-                        src={`/boxes/${set.code}.png`}
+                        src={getBoxImageSrc(set.code)}
                         alt={set.name_ko}
                         fill
                         sizes="(max-width: 640px) 30vw, (max-width: 1024px) 22vw, 17vw"
@@ -454,7 +454,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                 <li key={set.code} className="flex items-center gap-3 text-sm">
                   <div className="relative w-10 h-12 shrink-0 rounded bg-gray-800 overflow-hidden">
                     <Image
-                      src={`/boxes/${set.code}.png`}
+                      src={getBoxImageSrc(set.code)}
                       alt={set.name_ko}
                       fill
                       sizes="40px"
@@ -538,7 +538,7 @@ function QuantityModal({
         <div className="p-5 sm:p-6 flex items-center gap-4 bg-white/40">
           <div className="relative w-20 h-24 shrink-0 rounded-lg bg-white/60 overflow-hidden ring-1 ring-blue-200">
             <Image
-              src={`/boxes/${set.code}.png`}
+              src={getBoxImageSrc(set.code)}
               alt={set.name_ko}
               fill
               sizes="80px"
@@ -677,13 +677,17 @@ function CardTile({
   const glow = card.rarity ? CARD_GLOW[card.rarity] ?? '' : '';
   const [errored, setErrored] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [useOriginal, setUseOriginal] = useState(false);
   const Wrapper = onClick ? 'button' : 'div';
+  const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
   return (
     <Wrapper
       onClick={onClick}
-      className={`relative aspect-[5/7] rounded-lg overflow-hidden block w-full bg-gray-800 ${glow} ${onClick ? 'cursor-pointer hover:scale-105 active:scale-95 transition-transform' : ''}`}
+      onContextMenu={(e) => e.preventDefault()}
+      className={`card-image-frame relative aspect-[5/7] rounded-lg overflow-hidden block w-full bg-gray-800 select-none ${glow} ${onClick ? 'cursor-pointer hover:scale-105 active:scale-95 transition-transform' : ''}`}
+      data-watermark={showImage ? 'pokesim.kr' : undefined}
     >
-      {errored || !card.image_url ? (
+      {!showImage ? (
         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center p-2 text-center">
           <span className="text-[10px] text-gray-400 leading-tight">{card.name_ko ?? card.card_num}</span>
           {card.rarity && <span className="text-[9px] text-gray-500 mt-1">{card.rarity}</span>}
@@ -692,13 +696,23 @@ function CardTile({
         <>
           {!loaded && <div className="absolute inset-0 bg-gray-800 animate-pulse" />}
           <Image
-            src={resolveImageUrl(card.image_url)}
+            src={resolveCardImageUrl(card.image_url, useOriginal ? {} : { size: 256 })}
             alt={card.name_ko ?? card.card_num}
             fill
             sizes="(max-width: 640px) 30vw, (max-width: 1024px) 18vw, 150px"
             className="object-cover"
+            unoptimized
+            draggable={false}
+            onContextMenu={(e) => e.preventDefault()}
             onLoad={() => setLoaded(true)}
-            onError={() => setErrored(true)}
+            onError={() => {
+              if (!useOriginal && CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED) {
+                setUseOriginal(true);
+                setLoaded(false);
+              } else {
+                setErrored(true);
+              }
+            }}
           />
         </>
       )}
@@ -706,7 +720,7 @@ function CardTile({
         <span
           className={`absolute bottom-1 right-1 text-[10px] font-bold px-1.5 py-0.5 rounded ${RARITY_BADGE[card.rarity] ?? 'bg-gray-600 text-white'} z-10`}
         >
-          {rarityLabel(card.rarity)}
+          {rarityLabel(card.rarity, card)}
         </span>
       )}
     </Wrapper>

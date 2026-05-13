@@ -1,6 +1,14 @@
 import { supabase } from './supabase';
+import type { LuckEventSummary } from './luck';
 
 const SESSION_ID_KEY = 'pokesim-session-id';
+
+export type UserEventName =
+  | 'page_view'
+  | 'select_mode'
+  | 'select_set'
+  | 'open_again'
+  | 'open_card_modal';
 
 // 하루 단위로 갱신되는 익명 세션 ID — DAU 집계용
 export function getSessionId(): string {
@@ -26,16 +34,57 @@ export async function trackSim(event: {
   boxCount: number;
   packCount: number;
   krw: number;
+  luck?: LuckEventSummary;
 }) {
   if (!supabase) return;
-  await supabase.from('sim_events').insert({
+  const basePayload = {
     session_id: getSessionId(),
     set_code: event.setCode,
     mode: event.mode,
     box_count: event.boxCount,
     pack_count: event.packCount,
     krw: event.krw,
-  });
+  };
+  const payload = {
+    ...basePayload,
+    top_count: event.luck?.topCount ?? 0,
+    sar_count: event.luck?.sarCount ?? 0,
+    top_expected: event.luck?.topExpected ?? 0,
+    sar_expected: event.luck?.sarExpected ?? 0,
+  };
+  const { error } = await supabase.from('sim_events').insert(payload);
+  if (error && event.luck && String(error.message).includes('column')) {
+    const retry = await supabase.from('sim_events').insert(basePayload);
+    if (!retry.error) return;
+  }
+  if (error && process.env.NODE_ENV !== 'production') {
+    console.warn('[analytics] sim_events insert failed', error);
+  }
+}
+
+export function trackUserEvent(event: {
+  eventName: UserEventName;
+  setCode?: string;
+  mode?: 'box' | 'vending' | 'pack';
+  rarity?: string | null;
+  metadata?: Record<string, string | number | boolean | null>;
+}) {
+  if (!supabase) return;
+  void supabase
+    .from('user_events')
+    .insert({
+      session_id: getSessionId(),
+      event_name: event.eventName,
+      set_code: event.setCode ?? null,
+      mode: event.mode ?? null,
+      rarity: event.rarity ?? null,
+      metadata: event.metadata ?? {},
+    })
+    .then(({ error }) => {
+      if (error && process.env.NODE_ENV !== 'production') {
+        console.warn('[analytics] user_events insert failed', error);
+      }
+    });
 }
 
 export interface GlobalStats {
@@ -73,24 +122,15 @@ function poissonCDF(k: number, lambda: number): number {
 }
 
 /**
- * 세션 SAR/UR/BWR 행운 지수 계산
- * @returns { percentile: 0-100, isLucky: bool }
- *   percentile: 상위 X% 또는 하위 X%의 X값
- *   isLucky: true → 상위, false → 하위
+ * Luck percentile from the set-specific expected hit count.
+ * Calculate the expected value with `summarizeLuckEvent` in `luck.ts` first.
  */
 export function calcLuckPercentile(
   observedHits: number,
-  boxes: number,
-  singlePacks: number,
+  expectedHits: number,
 ): { percentile: number; isLucky: boolean } | null {
-  const totalPacks = boxes * 30 + singlePacks; // 팩 수 근사 (박스는 30팩 기준)
-  if (totalPacks < 5) return null; // 샘플 너무 적음
-  // 박스당 SAR/UR/BWR 기대값 ≈ 0.37 (SV 기본), 단일팩 ≈ 1.1%
-  const expectedHits = boxes * 0.37 + singlePacks * 0.011;
   if (expectedHits < 0.5) return null;
   const isLucky = observedHits >= expectedHits;
-  // 운 좋음: P(X ≥ k) = 1 - CDF(k-1)
-  // 운 없음: P(X ≤ k) = CDF(k)
   const prob = isLucky
     ? 1 - poissonCDF(Math.max(observedHits - 1, 0), expectedHits)
     : poissonCDF(observedHits, expectedHits);

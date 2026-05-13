@@ -16,14 +16,32 @@
     "RR",
     "SR",
     "SAR",
+    "MA",
     "AR",
     "UR"
   ],
   "box_guarantees": {
-    "rules": [],
-    "_source": "TODO — 커뮤니티 합의(P2) 누적 후 작성.",
-    "_sample_size": null,
-    "_estimated_at": "2026-05-02"
+    "rules": [
+      {
+        "rarity": "RR",
+        "min": 9
+      },
+      {
+        "rarity": "AR",
+        "min": 3
+      },
+      {
+        "rarity": "Trainer SR/SAR",
+        "min": 1
+      },
+      {
+        "rarity": "MA",
+        "min": 1
+      }
+    ],
+    "_source": "pokemon-infomation.com/pull-rates-megadreamex/ 2,000BOX - MA 1, trainer SR/SAR 1, AR 3, optional Pokemon SR 10% / Pokemon SAR 40% / MUR 2%. Korean official pull rates are private.",
+    "_sample_size": 2000,
+    "_estimated_at": "2026-05-10"
   },
   "pack_slots": [],
   "cards": [
@@ -2917,7 +2935,7 @@
       "card_num": "BS2025015223",
       "number": 223,
       "name_ko": "메가리자몽X ex",
-      "rarity": null,
+      "rarity": "MA",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 360,
@@ -2930,7 +2948,7 @@
       "card_num": "BS2025015224",
       "number": 224,
       "name_ko": "메가눈여아 ex",
-      "rarity": null,
+      "rarity": "MA",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 310,
@@ -2943,7 +2961,7 @@
       "card_num": "BS2025015225",
       "number": 225,
       "name_ko": "메가저리더프 ex",
-      "rarity": null,
+      "rarity": "MA",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 350,
@@ -2956,7 +2974,7 @@
       "card_num": "BS2025015226",
       "number": 226,
       "name_ko": "메가가디안 ex",
-      "rarity": null,
+      "rarity": "MA",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 360,
@@ -2969,7 +2987,7 @@
       "card_num": "BS2025015227",
       "number": 227,
       "name_ko": "메가디안시 ex",
-      "rarity": null,
+      "rarity": "MA",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 270,
@@ -2982,7 +3000,7 @@
       "card_num": "BS2025015228",
       "number": 228,
       "name_ko": "메가루카리오 ex",
-      "rarity": null,
+      "rarity": "MA",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 340,
@@ -2995,7 +3013,7 @@
       "card_num": "BS2025015229",
       "number": 229,
       "name_ko": "메가루차불 ex",
-      "rarity": null,
+      "rarity": "MA",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 250,
@@ -3008,7 +3026,7 @@
       "card_num": "BS2025015230",
       "number": 230,
       "name_ko": "메가팬텀 ex",
-      "rarity": null,
+      "rarity": "MA",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 350,
@@ -3021,7 +3039,7 @@
       "card_num": "BS2025015231",
       "number": 231,
       "name_ko": "메가곤율거니 ex",
-      "rarity": null,
+      "rarity": "MA",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 330,
@@ -3034,7 +3052,7 @@
       "card_num": "BS2025015232",
       "number": 232,
       "name_ko": "메가망나뇽 ex",
-      "rarity": null,
+      "rarity": "MA",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 370,
@@ -3273,7 +3291,7 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "https://card.yuyu-tei.jp/poc/100_140/m02a/10486.jpg",
+      "image_url": "external/m-dream-ex/BS2025015250.jpg",
       "_source": "yuyu-tei (https://yuyu-tei.jp/sell/poc/s/m02a)",
       "_fetched_at": "2026-05-02",
       "_manual": true
