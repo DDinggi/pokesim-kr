@@ -16,6 +16,7 @@
     "U",
     "R",
     "RR",
+    "ACE",
     "AR",
     "SR",
     "SAR",
@@ -23,6 +24,10 @@
   ],
   "box_guarantees": {
     "rules": [
+        {
+            "rarity": "ACE",
+            "min": 1
+        },
         {
             "rarity": "AR",
             "min": 3
@@ -32,7 +37,7 @@
             "min": 1
         }
     ],
-    "_source": "pokemon-infomation.com/pull-rates-tyodenbraker/ 1,000BOX - AR 3, SR/SAR/UR slot, SAR 20%, UR 10%, extra SR box ~10%. Korean official pull rates are private.",
+    "_source": "pokemon-infomation.com/pull-rates-tyodenbraker/ 1,000BOX - ACE 1, RR 4~5, AR 3, SR/SAR/UR slot, SAR 20%, UR 10%, extra SR box ~10%. Korean official pull rates are private.",
     "_sample_size": 1000,
     "_estimated_at": "2026-05-10"
 },
@@ -1264,7 +1269,7 @@
       "card_num": "BS2024017095",
       "number": 95,
       "name_ko": "미라클인터컴",
-      "rarity": "C",
+      "rarity": "ACE",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
@@ -1277,7 +1282,7 @@
       "card_num": "BS2024017096",
       "number": 96,
       "name_ko": "스크램블 스위치",
-      "rarity": "C",
+      "rarity": "ACE",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
@@ -1342,7 +1347,7 @@
       "card_num": "BS2024017101",
       "number": 101,
       "name_ko": "희망의 애뮬렛",
-      "rarity": "C",
+      "rarity": "ACE",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": null,

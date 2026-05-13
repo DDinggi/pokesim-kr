@@ -102,8 +102,14 @@ pnpm --dir frontend build
 - 한국판 공식 봉입률은 비공개다.
 - `box_guarantees`는 표시용 메타이고, 실제 시뮬 모델은
   `frontend/lib/simulation/model.ts`와 `expansion.ts`가 사용한다.
-- `SR 1장 확정`이라고 쓰지 않는다. `SR/SAR/UR 중 1장`으로 기록한다.
+- `SR 1장 확정`이라고 쓰지 않는다. 일반 SV는 `SR/SAR/UR 중 1장`,
+  MEGA는 `비서포트 트레이너즈 SR 1장 + SR/SAR/MUR 중 1장`,
+  블랙볼트/화이트플레어는 `SR 1장 + SAR/BWR 선택 슬롯`처럼 슬롯 단위로 기록한다.
 - RR처럼 박스 내 장수 범위가 확인된 슬롯은 평균 가중치가 아니라 명시 슬롯으로 구현한다.
+- 공식 카드목록에서 ACE SPEC 문구가 있는 카드는 rarity를 `ACE`로 수동 확인한다.
+  자동 수집이 `C`로 가져올 수 있다.
+- 미러/마스터볼 미러처럼 별도 카드 변형이 필요한 슬롯은 미구현 상태를
+  `box_guarantees._source`나 문서에 명시한다.
 - 출처, 표본 수, 추정일을 같이 남긴다.
 
 ## 자주 나는 실수
@@ -112,4 +118,6 @@ pnpm --dir frontend build
 - `ACE` 같은 새 rarity를 `rarity.ts`나 `validate-card-data.ts`에 추가하지 않음
 - 이미지 원본은 있는데 `cards/256`, `cards/512` variant가 없어 로컬에서 이름만 보임
 - 평균 RR 수만 맞추고 박스당 RR 최대치를 제한하지 않음
+- MEGA의 비서포트 트레이너즈 SR 확정 슬롯과 포켓몬/서포트 SR 슬롯을 섞어 버림
+- ACE SPEC 카드를 일반 C/U로 둬서 박스 ACE 슬롯이 비어 버림
 - 한국판 공식 확률처럼 보이는 문구를 사용함
