@@ -102,10 +102,10 @@ export const MEGA_MAIN_SR_NUMBER_RANGES: Record<string, Array<[number, number]>>
 };
 
 export const TERASTAL_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
-  NONE: 64,
-  SR: 20,
-  SAR: 10,
-  UR: 6,
+  NONE: 60,
+  SR: 22,
+  SAR: 11,
+  UR: 7,
 };
 
 export const MEGA_DREAM_EXTRA_SLOT_WEIGHTS: Record<string, number> = {

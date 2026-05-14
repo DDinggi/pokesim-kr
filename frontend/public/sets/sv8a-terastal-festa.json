@@ -12,30 +12,26 @@
   "box_price_krw": 50000,
   "pack_price_krw": 5000,
   "rarities": [
-    "C",
-    "U",
-    "R",
     "RR",
-    "AR",
     "SR",
     "SAR",
     "UR"
   ],
   "box_guarantees": {
     "rules": [
-        {
-            "rarity": "RR",
-            "min": 9
-        },
-        {
-            "rarity": "Pokemon SAR",
-            "min": 1
-        }
+      {
+        "rarity": "RR",
+        "min": 9
+      },
+      {
+        "rarity": "Pokemon SAR",
+        "min": 1
+      }
     ],
     "_source": "pokemoncard.co.kr/card/708 product check + pokemon-infomation.com/pull-rates-terafesex/ 2,000BOX - Pokemon SAR 1 guaranteed, RR about 9, optional supporter SR/SAR/UR slot about 40%. Korean official pull rates are private.",
     "_sample_size": 2000,
     "_estimated_at": "2026-05-10"
-},
+  },
   "pack_slots": [],
   "cards": [
     {
@@ -3175,7 +3171,7 @@
       "card_num": "BS2024019139",
       "number": 139,
       "name_ko": "낚싯대MAX",
-      "rarity": "C",
+      "rarity": null,
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
@@ -3422,7 +3418,7 @@
       "card_num": "BS2024019149",
       "number": 149,
       "name_ko": "트레져 가젯",
-      "rarity": "C",
+      "rarity": null,
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
@@ -3435,7 +3431,7 @@
       "card_num": "BS2024019150",
       "number": 150,
       "name_ko": "포켓몬 회수 사이클론",
-      "rarity": "C",
+      "rarity": null,
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
@@ -3448,7 +3444,7 @@
       "card_num": "BS2024019151",
       "number": 151,
       "name_ko": "프라임 캐처",
-      "rarity": "C",
+      "rarity": null,
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
@@ -3565,7 +3561,7 @@
       "card_num": "BS2024019156",
       "number": 156,
       "name_ko": "맥시멈 벨트",
-      "rarity": "C",
+      "rarity": null,
       "card_type": "포켓몬",
       "subtype": null,
       "hp": null,
@@ -3578,7 +3574,7 @@
       "card_num": "BS2024019157",
       "number": 157,
       "name_ko": "반짝이는 결정",
-      "rarity": "C",
+      "rarity": null,
       "card_type": "포켓몬",
       "subtype": null,
       "hp": null,
@@ -4163,7 +4159,7 @@
       "card_num": "BS2024019180",
       "number": 180,
       "name_ko": "뉴트럴센터",
-      "rarity": "C",
+      "rarity": null,
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
@@ -4280,7 +4276,7 @@
       "card_num": "BS2024019185",
       "number": 185,
       "name_ko": "레거시 에너지",
-      "rarity": "C",
+      "rarity": null,
       "card_type": "에너지",
       "subtype": null,
       "hp": null,
