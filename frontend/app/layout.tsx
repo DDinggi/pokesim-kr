@@ -35,6 +35,8 @@ export const metadata: Metadata = {
     "포켓몬 카드깡 시뮬",
     "포켓몬 카드 시뮬",
     "포켓몬 카드깡 시뮬레이터",
+    "포켓몬 박스",
+    "포켓몬 박스 시뮬",
   ],
   alternates: {
     canonical: "/",
