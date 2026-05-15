@@ -4,7 +4,7 @@ import "./globals.css";
 
 const siteUrl = "https://pokesim.kr";
 const siteName = "PokéSim KR";
-const title = "카드깡 시뮬레이터";
+const title = "레이터";
 const description =
   "수집형 카드팩의 박스깡과 1팩 개봉을 가볍게 체험하는 비공식 팬메이드 시뮬레이터입니다.";
 
@@ -24,19 +24,18 @@ export const metadata: Metadata = {
   description,
   keywords: [
     "PokéSim KR",
-    "카드깡 시뮬레이터",
-    "카드깡 시뮬",
-    "카드팩 시뮬레이터",
-    "박스깡 시뮬레이터",
-    "박스깡 시뮬",
-    "팩 개봉 시뮬레이터",
-    "비공식 팬 시뮬레이터",
+    "포켓몬 카드",
+    "포켓몬카드",
+    "포켓몬 TCG",
+    "포켓몬 카드 게임",
+    "포켓몬 카드깡",
     "포켓몬 카드깡 시뮬레이터",
     "포켓몬 카드깡 시뮬",
-    "포켓몬 카드 시뮬",
-    "포켓몬 카드깡 시뮬레이터",
-    "포켓몬 박스",
-    "포켓몬 박스 시뮬",
+    "팩 개봉 시뮬레이터",
+    "닌자스피너",
+    "메가 드림 ex",
+    "pokemon card",
+    "pokemon card simulator",
   ],
   alternates: {
     canonical: "/",

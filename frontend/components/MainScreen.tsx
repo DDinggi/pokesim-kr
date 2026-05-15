@@ -73,18 +73,10 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-5xl mx-auto w-full">
         <div className="mb-5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 ring-1 ring-white/10 px-4 py-3">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-            <div>
-              <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW SIM</p>
-              <p className="text-sm sm:text-base font-bold text-white">
-                {NEW_SIM_SET_NAMES.join(' · ')} 시뮬레이터 추가 · 봉입률 일부 수정
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              <span className="text-[11px] font-bold px-2 py-1 rounded bg-white/10 text-sky-200">박스깡</span>
-              <span className="text-[11px] font-bold px-2 py-1 rounded bg-white/10 text-pink-200">자판기깡</span>
-            </div>
-          </div>
+          <p className="text-sm sm:text-base font-bold text-white">
+            <span className="text-[11px] font-black tracking-widest text-yellow-300 mr-2 align-middle">NEW</span>
+            {NEW_SIM_SET_NAMES.join(' · ')}
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
