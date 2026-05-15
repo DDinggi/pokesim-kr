@@ -67,7 +67,11 @@ const SV_151: StandardSvSetRate = {
 export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'sv1a-triplet': SV_TRIPLET_BEAT,
   'sv2a-151': SV_151,
+  'sv5k-wild-force': SV_SR_55_25,
+  'sv5m-cyber-judge': SV_SR_55_25,
+  'sv5a-crimson-haze': SV_SR_50_30,
   'sv6-mask': SV_SR_55_25,
+  'sv6a-night-wanderer': SV_SR_50_30,
   'sv7-stellar-miracle': SV_SR_50_30,
   'sv7a-paradise-dragona': SV_SR_50_30,
   'sv8-super-electric': SV_SR_55_25,
@@ -106,6 +110,14 @@ export const TERASTAL_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   SR: 22,
   SAR: 11,
   UR: 7,
+};
+
+export const SHINY_TREASURE_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
+  NONE: 50,
+  SR: 18,
+  SSR: 11,
+  SAR: 11,
+  UR: 10,
 };
 
 export const MEGA_DREAM_EXTRA_SLOT_WEIGHTS: Record<string, number> = {

@@ -5,6 +5,7 @@ import {
   HI_CLASS_GOD_PACK_RATE,
   MEGA_DREAM_EXTRA_SLOT_WEIGHTS,
   MEGA_MAIN_SR_NUMBER_RANGES,
+  SHINY_TREASURE_EXTRA_SLOT_WEIGHTS,
   TERASTAL_EXTRA_SLOT_WEIGHTS,
 } from './model';
 import { buildHiClassPack, buildHiClassPacksFromHits } from './pack-builders';
@@ -39,6 +40,29 @@ export function simulateHiClassBox(
       hits.push({
         rarity: extraRarity,
         pool: extraRarity === 'SAR' && trainerSar.length ? trainerSar : undefined,
+      });
+    }
+
+    return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
+  }
+
+  if (setCode === 'sv4a-shiny-treasure-ex') {
+    const pokemonSar = pools.sarPokemon.length ? pools.sarPokemon : pools.sarAll;
+    const trainerSar = pools.sarTrainer.length ? pools.sarTrainer : pools.sarAll;
+    const ssrPool = pools.ssrPokemon.length ? pools.ssrPokemon : pools.ssrAll;
+    const hits: HiClassHitSlot[] = [];
+
+    for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
+    hits.push({ rarity: 'SAR', pool: pokemonSar });
+
+    const extraRarity = ctx.weightedPick(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS);
+    if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
+      hits.push({
+        rarity: extraRarity,
+        pool:
+          extraRarity === 'SAR' && trainerSar.length ? trainerSar :
+          extraRarity === 'SSR' ? ssrPool :
+          undefined,
       });
     }
 
@@ -96,6 +120,31 @@ export function simulateSingleHiClassPack(
       hits.push({
         rarity: extraRarity,
         pool: extraRarity === 'SAR' && trainerSar.length ? trainerSar : undefined,
+      });
+    }
+
+    return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
+  }
+
+  if (setCode === 'sv4a-shiny-treasure-ex') {
+    const pokemonSar = pools.sarPokemon.length ? pools.sarPokemon : pools.sarAll;
+    const trainerSar = pools.sarTrainer.length ? pools.sarTrainer : pools.sarAll;
+    const ssrPool = pools.ssrPokemon.length ? pools.ssrPokemon : pools.ssrAll;
+    const hits: HiClassHitSlot[] = [];
+
+    if (rng() < 9 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
+    if (rng() < 1 / HI_CLASS_BOX_SIZE && pools.sarAll.length) {
+      hits.push({ rarity: 'SAR', pool: pokemonSar });
+    }
+
+    const extraRarity = pickBoxSlotForSinglePack(ctx, SHINY_TREASURE_EXTRA_SLOT_WEIGHTS);
+    if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
+      hits.push({
+        rarity: extraRarity,
+        pool:
+          extraRarity === 'SAR' && trainerSar.length ? trainerSar :
+          extraRarity === 'SSR' ? ssrPool :
+          undefined,
       });
     }
 

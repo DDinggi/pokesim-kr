@@ -3,11 +3,13 @@ import type { BuildContext } from './types';
 
 export interface RarityPools {
   srAll: Card[];
+  ssrAll: Card[];
   sarAll: Card[];
   urAll: Card[];
   bwrAll: Card[];
   srPokemon: Card[];
   srTrainer: Card[];
+  ssrPokemon: Card[];
   sarPokemon: Card[];
   sarTrainer: Card[];
   urPokemon: Card[];
@@ -36,17 +38,20 @@ export function isTrainerLikeCard(card: Card): boolean {
 
 export function getRarityPools(byRarity: Record<string, Card[]>): RarityPools {
   const srAll = byRarity.SR ?? [];
+  const ssrAll = byRarity.SSR ?? [];
   const sarAll = byRarity.SAR ?? [];
   const urAll = byRarity.UR ?? [];
   const bwrAll = byRarity.BWR ?? [];
 
   return {
     srAll,
+    ssrAll,
     sarAll,
     urAll,
     bwrAll,
     srPokemon: srAll.filter(isPokemonCard),
     srTrainer: srAll.filter(isTrainerLikeCard),
+    ssrPokemon: ssrAll.filter(isPokemonCard),
     sarPokemon: sarAll.filter(isPokemonCard),
     sarTrainer: sarAll.filter(isTrainerLikeCard),
     urPokemon: urAll.filter(isPokemonCard),
