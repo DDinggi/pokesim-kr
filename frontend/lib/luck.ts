@@ -5,6 +5,7 @@ import {
   EXPANSION_MONSTER_WEIGHTS_DEFAULT,
   HI_CLASS_GOD_PACK_RATE,
   MEGA_DREAM_EXTRA_SLOT_WEIGHTS,
+  SHINY_TREASURE_EXTRA_SLOT_WEIGHTS,
   SV11_OPTIONAL_TOP_WEIGHTS,
   TERASTAL_EXTRA_SLOT_WEIGHTS,
   getStandardSvSetRate,
@@ -53,6 +54,16 @@ export function getLuckRatesForSet(
         boxSize,
         topPerBox: 0,
         sarPerBox: 1 + weightChance(TERASTAL_EXTRA_SLOT_WEIGHTS, 'SAR'),
+      };
+    }
+
+    if (set.code === 'sv4a-shiny-treasure-ex') {
+      return {
+        boxSize,
+        topPerBox:
+          weightChance(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS, 'UR')
+          + weightChance(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS, 'SSR'),
+        sarPerBox: 1 + weightChance(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS, 'SAR'),
       };
     }
 

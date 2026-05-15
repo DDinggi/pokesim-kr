@@ -13,7 +13,12 @@ import sv8aTerastalFesta from '../public/sets/sv8a-terastal-festa.json';
 import sv8SuperElectric from '../public/sets/sv8-super-electric.json';
 import sv7aParadiseDragona from '../public/sets/sv7a-paradise-dragona.json';
 import sv7StellarMiracle from '../public/sets/sv7-stellar-miracle.json';
+import sv6aNightWanderer from '../public/sets/sv6a-night-wanderer.json';
 import sv6Mask from '../public/sets/sv6-mask.json';
+import sv5aCrimsonHaze from '../public/sets/sv5a-crimson-haze.json';
+import sv5mCyberJudge from '../public/sets/sv5m-cyber-judge.json';
+import sv5kWildForce from '../public/sets/sv5k-wild-force.json';
+import sv4aShinyTreasureEx from '../public/sets/sv4a-shiny-treasure-ex.json';
 import sv2a151 from '../public/sets/sv2a-151.json';
 import sv1aTriplet from '../public/sets/sv1a-triplet.json';
 import m4NinjaSpinner from '../public/sets/m4-ninja-spinner.json';
@@ -29,7 +34,10 @@ const sets: SetMeta[] = [
   // SV 시리즈
   sv11bBlackBolt, sv11aWhiteFlare, sv10Glory, sv9aBlazingArena,
   sv9BattlePartners, sv8aTerastalFesta, sv8SuperElectric,
-  sv7aParadiseDragona, sv7StellarMiracle, sv6Mask,
+  sv7aParadiseDragona, sv7StellarMiracle,
+  sv6aNightWanderer, sv6Mask,
+  sv5aCrimsonHaze, sv5mCyberJudge, sv5kWildForce,
+  sv4aShinyTreasureEx,
   sv2a151, sv1aTriplet,
 ] as SetMeta[];
 

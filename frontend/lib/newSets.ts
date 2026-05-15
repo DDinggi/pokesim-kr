@@ -1,10 +1,18 @@
 export const NEW_SIM_SET_CODES = [
-  'sv9-battle-partners',
-  'sv7-stellar-miracle',
-  'sv7a-paradise-dragona',
+  'sv6a-night-wanderer',
+  'sv5a-crimson-haze',
+  'sv5m-cyber-judge',
+  'sv5k-wild-force',
+  'sv4a-shiny-treasure-ex',
 ] as const;
 
-export const NEW_SIM_SET_NAMES = ['배틀파트너즈', '스텔라미라클', '낙원드래고나'];
+export const NEW_SIM_SET_NAMES = [
+  '나이트원더러',
+  '크림슨헤이즈',
+  '사이버저지',
+  '와일드포스',
+  '샤이니트레저ex',
+];
 
 const NEW_SIM_SET_CODE_SET = new Set<string>(NEW_SIM_SET_CODES);
 
