@@ -110,6 +110,8 @@ export const TERASTAL_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   SR: 22,
   SAR: 11,
   UR: 7,
+<<<<<<< HEAD
+=======
 };
 
 export const SHINY_TREASURE_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
@@ -118,6 +120,7 @@ export const SHINY_TREASURE_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   SSR: 11,
   SAR: 11,
   UR: 10,
+>>>>>>> 7d13f43f75fef40dc97b44006fc8dcf38b57ebfb
 };
 
 export const MEGA_DREAM_EXTRA_SLOT_WEIGHTS: Record<string, number> = {

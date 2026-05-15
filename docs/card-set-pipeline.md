@@ -121,3 +121,26 @@ pnpm --dir frontend build
 - MEGA의 비서포트 트레이너즈 SR 확정 슬롯과 포켓몬/서포트 SR 슬롯을 섞어 버림
 - ACE SPEC 카드를 일반 C/U로 둬서 박스 ACE 슬롯이 비어 버림
 - 한국판 공식 확률처럼 보이는 문구를 사용함
+
+## 신규 rarity 발견 시 (D-150)
+
+자동 수집 스크립트는 `rarityRaw.includes(r)` substring 매칭을 길이 내림차순으로 시도한다.
+새 등급이 기존 등급에 흡수되는 사일런트 손실을 막으려면 **데이터를 다시 받기 전에** 다음을
+한 번에 갱신한다.
+
+1. **세트 JSON**: `data/sets/<code>.json`의 `rarities` 배열에 새 등급 추가.
+2. **검증**: `scripts/validate-card-data.ts`의 `KNOWN_RARITIES`·`HIGH_RARITIES`.
+3. **표시**: `frontend/lib/rarity.ts`의 `RARITY_ORDER`·`DISPLAY_RARITY_ORDER`·`FILTER_RARITY_ORDER`
+   ·`HIT_RARITY_ORDER`·`RARITY_BADGE`·`CARD_GLOW`·`RARITY_TEXT_COLOR`·`RARITY_TIER`
+   ·`RARITY_FULL_LABEL`·`RARE_RARITIES`·`HIT_RARITIES`·`HOLO_RARITIES`.
+4. **풀**: `frontend/lib/simulation/pools.ts`의 `RarityPools` 인터페이스와 `getRarityPools()`에
+   `<r>All` / 필요 시 `<r>Pokemon` / `<r>Trainer` 풀 추가.
+5. **시뮬 모델**: 박스 슬롯에 등장한다면 `model.ts` (가중치 상수) + `hi-class.ts` / `expansion.ts`
+   (슬롯 분기)에서 별도 슬롯으로 처리. 기존 슬롯에 흡수되면 사일런트 손실이 다시 발생한다.
+6. **럭 점수**: `frontend/lib/luck.ts` `getLuckRatesForSet`에서 SAR/UR top 가중 갱신.
+7. **재수집**: `pnpm --dir scripts collect -- --set <code>`. 이때 rarity 배열에 새 등급이
+   포함돼 있어야 fetch가 SR이 아닌 SSR로 정확히 매칭한다.
+8. **검증**: `pnpm --dir scripts validate:data -- --set <code> --strict`.
+
+사례: 2026-05 sv4a 샤이니트레저 ex의 `SSR` (Shiny Super Rare).
+"SSR".includes("SR") → 기존 SR 풀에 18장이 흡수되던 문제를 위 절차로 분리.
