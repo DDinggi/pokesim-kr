@@ -15,9 +15,16 @@ export function App({ sets }: { sets: SetMeta[] }) {
   const [selectedSet, setSelectedSet] = useState<SetMeta | null>(null);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
     trackUserEvent({
       eventName: 'page_view',
-      metadata: { path: window.location.pathname },
+      metadata: {
+        path: window.location.pathname,
+        referrer: document.referrer || null,
+        utm_source: params.get('utm_source'),
+        utm_medium: params.get('utm_medium'),
+        utm_campaign: params.get('utm_campaign'),
+      },
     });
   }, []);
 
