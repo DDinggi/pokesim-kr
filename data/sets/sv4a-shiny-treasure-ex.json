@@ -29,13 +29,13 @@
         "min": 9
       },
       {
-        "rarity": "Pokemon SAR",
+        "rarity": "SSR",
         "min": 1
       }
     ],
-    "_source": "pokemon-infomation.com 일본판 2,000BOX 실측 (하이클래스팩) - 포켓몬 SAR(샤이니 S 포켓몬) 1장 확정 + RR 9장 + 추가 슬롯 40%(SR 22% / SAR 11% / UR 7% / 없음 60%). 추가 SAR 슬롯은 트레이너 SAR 우선 풀. 한국판 공식 봉입률은 비공개. 데이터 한계: pokemoncard.co.kr가 'S'(샤이니 일반)·'SSR'(샤이니 SR)을 별도 레어도로 표기해 SSR은 SR로 흡수되고 'S' 카드는 rarity null로 들어와 시뮬에서 일반 슬롯과 같이 취급된다.",
-    "_sample_size": 2000,
-    "_estimated_at": "2026-05-15"
+    "_source": "pokemon-infomation.com 1,000BOX 실측 + torecamap/uridoki/cuberoom cross-check - SSR 1장 확정 + RR 9장 + 추가 슬롯 60%(SR 30% / SAR 10% / UR 10% / AR 10% / 없음 40%). S(샤이니 일반)는 박스당 평균 약 3장이지만 pokemoncard.co.kr에 rarity null로 들어와 시뮬에서 일반 슬롯과 같이 취급된다. 한국판 공식 봉입률은 비공개.",
+    "_sample_size": 1000,
+    "_estimated_at": "2026-05-16"
   },
   "pack_slots": [],
   "cards": [

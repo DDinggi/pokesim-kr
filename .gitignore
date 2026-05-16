@@ -76,5 +76,3 @@ tmp/
 # 빌드 타임에 생성되므로 빌드 자동화 후 ignore로 전환 검토
 # frontend/public/distributions/
 
-# --- 개인 지원 자료 (이력서·자소서·포트폴리오) ---
-이력서/
