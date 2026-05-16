@@ -77,6 +77,10 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
             <span className="text-[11px] font-black tracking-widest text-yellow-300 mr-2 align-middle">NEW</span>
             {NEW_SIM_SET_NAMES.join(' · ')}
           </p>
+          <p className="mt-1 text-sm sm:text-base font-bold text-white">
+            <span className="text-[11px] font-black tracking-widest text-emerald-300 mr-2 align-middle">UPDATE</span>
+            샤이니트레저 ex 봉입률 수정
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">

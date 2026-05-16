@@ -47,22 +47,18 @@ export function simulateHiClassBox(
   }
 
   if (setCode === 'sv4a-shiny-treasure-ex') {
-    const pokemonSar = pools.sarPokemon.length ? pools.sarPokemon : pools.sarAll;
-    const trainerSar = pools.sarTrainer.length ? pools.sarTrainer : pools.sarAll;
+    const sarPool = pools.sarAll;
     const ssrPool = pools.ssrPokemon.length ? pools.ssrPokemon : pools.ssrAll;
     const hits: HiClassHitSlot[] = [];
 
     for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
-    hits.push({ rarity: 'SAR', pool: pokemonSar });
+    if (ssrPool.length) hits.push({ rarity: 'SSR', pool: ssrPool });
 
     const extraRarity = ctx.weightedPick(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS);
     if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
       hits.push({
         rarity: extraRarity,
-        pool:
-          extraRarity === 'SAR' && trainerSar.length ? trainerSar :
-          extraRarity === 'SSR' ? ssrPool :
-          undefined,
+        pool: extraRarity === 'SAR' && sarPool.length ? sarPool : undefined,
       });
     }
 
@@ -127,24 +123,20 @@ export function simulateSingleHiClassPack(
   }
 
   if (setCode === 'sv4a-shiny-treasure-ex') {
-    const pokemonSar = pools.sarPokemon.length ? pools.sarPokemon : pools.sarAll;
-    const trainerSar = pools.sarTrainer.length ? pools.sarTrainer : pools.sarAll;
+    const sarPool = pools.sarAll;
     const ssrPool = pools.ssrPokemon.length ? pools.ssrPokemon : pools.ssrAll;
     const hits: HiClassHitSlot[] = [];
 
     if (rng() < 9 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
-    if (rng() < 1 / HI_CLASS_BOX_SIZE && pools.sarAll.length) {
-      hits.push({ rarity: 'SAR', pool: pokemonSar });
+    if (rng() < 1 / HI_CLASS_BOX_SIZE && ssrPool.length) {
+      hits.push({ rarity: 'SSR', pool: ssrPool });
     }
 
     const extraRarity = pickBoxSlotForSinglePack(ctx, SHINY_TREASURE_EXTRA_SLOT_WEIGHTS);
     if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
       hits.push({
         rarity: extraRarity,
-        pool:
-          extraRarity === 'SAR' && trainerSar.length ? trainerSar :
-          extraRarity === 'SSR' ? ssrPool :
-          undefined,
+        pool: extraRarity === 'SAR' && sarPool.length ? sarPool : undefined,
       });
     }
 
