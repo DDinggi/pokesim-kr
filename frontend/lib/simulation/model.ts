@@ -22,7 +22,11 @@ export const EXPANSION_MONSTER_WEIGHTS_DEFAULT: Record<string, number> = {
 };
 
 export const ACE_SPEC_SET_CODES = new Set([
+  'sv5k-wild-force',
+  'sv5m-cyber-judge',
+  'sv5a-crimson-haze',
   'sv6-mask',
+  'sv6a-night-wanderer',
   'sv7-stellar-miracle',
   'sv7a-paradise-dragona',
   'sv8-super-electric',

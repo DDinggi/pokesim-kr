@@ -16,6 +16,7 @@
     "U",
     "R",
     "RR",
+    "ACE",
     "AR",
     "SR",
     "SAR",
@@ -23,6 +24,10 @@
   ],
   "box_guarantees": {
     "rules": [
+      {
+        "rarity": "ACE",
+        "min": 1
+      },
       {
         "rarity": "AR",
         "min": 3
@@ -38,7 +43,7 @@
         "max": 2
       }
     ],
-    "_source": "pokemon-infomation.com 일본판 ~1,000BOX 실측 - AR 3장, RR 4장(10% 확률 5장), SR/SAR/UR 보장 슬롯 1장(SR포켓몬 48% / SR트레이너 22% / SAR 20% / UR 10%), 추가 SR 슬롯 10%(포켓몬 69% / 트레이너 31%). 한국판 공식 봉입률은 비공개.",
+    "_source": "pokemoncard.co.kr ACE 카드 확인 + pokemon-infomation.com 일본판 ~1,000BOX 실측 - ACE 1장, AR 3장, RR 4장(10% 확률 5장), SR/SAR/UR 1~2장. 박스 기준 SR포켓몬 약 55% / SR트레이너 약 25% / SAR 20% / UR 10%, 2매박스 약 10%. 한국판 공식 봉입률은 비공개.",
     "_sample_size": 1000,
     "_estimated_at": "2026-05-15"
   },
@@ -828,7 +833,7 @@
       "card_num": "BS2024004061",
       "number": 61,
       "name_ko": "각성의 드럼",
-      "rarity": "C",
+      "rarity": "ACE",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
@@ -880,8 +885,8 @@
       "card_num": "BS2024004065",
       "number": 65,
       "name_ko": "맥시멈 벨트",
-      "rarity": "C",
-      "card_type": "포켓몬",
+      "rarity": "ACE",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
@@ -958,7 +963,7 @@
       "card_num": "BS2024004071",
       "number": 71,
       "name_ko": "네오 어퍼 에너지",
-      "rarity": "C",
+      "rarity": "ACE",
       "card_type": "에너지",
       "subtype": null,
       "hp": null,
