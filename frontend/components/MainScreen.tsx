@@ -204,7 +204,7 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
               오픈채팅 문의
             </a>
             <a
-              href="mailto:whaudrl1234@gmail.com"
+              href="mailto:pokesimkr@gmail.com"
               className="flex items-center gap-1 text-[10px] text-gray-500 hover:text-gray-300 transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">

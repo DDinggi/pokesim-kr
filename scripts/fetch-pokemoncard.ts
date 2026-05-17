@@ -16,7 +16,7 @@ const REPO_ROOT = join(__dirname, "..");
 const BASE_URL = "https://pokemoncard.co.kr";
 const CDN_BASE = "https://cards.image.pokemonkorea.co.kr/data/";
 const PAGE_SIZE = 30;
-const DELAY_MS = 1200;
+const DEFAULT_DELAY_MS = 1200;
 
 // ── CLI args ──────────────────────────────────────────────────────────────────
 const argv = process.argv.slice(2);
@@ -28,6 +28,8 @@ const hasFlag = (name: string) => argv.includes(`--${name}`);
 
 const setCode = getArg("set");
 const dryRun = hasFlag("dry-run");
+const delayMsArg = Number(getArg("delay-ms"));
+const delayMs = Number.isFinite(delayMsArg) && delayMsArg >= 0 ? delayMsArg : DEFAULT_DELAY_MS;
 
 if (!setCode) {
   console.error("Usage: pnpm fetch -- --set <set-code> [--dry-run]");
@@ -132,7 +134,7 @@ async function fetchAllRefs(
 
     if (page.count === 0) break;
     cursor = page.limit; // 서버가 내려준 next cursor
-    await sleep(DELAY_MS);
+    await sleep(delayMs);
   }
 
   return all;
@@ -221,35 +223,36 @@ async function main() {
   }
 
   // Step 2: 상세 페이지 크롤
-  console.log(`\n[2/2] Fetching detail pages (${refs.length} cards, ~${Math.ceil(refs.length * DELAY_MS / 1000)}s)…`);
+  console.log(`\n[2/2] Fetching detail pages (${refs.length} cards, ~${Math.ceil(refs.length * delayMs / 1000)}s)…`);
   const cards: CardEntry[] = [];
 
   for (let i = 0; i < refs.length; i++) {
     const ref = refs[i];
+    const cardNum = ref.CardNum.trim().replace(/\s+/g, "");
     const fallbackImg = ref.feature_image.replace(/\?.*$/, "");
-    process.stdout.write(`  [${String(i + 1).padStart(3)}/${refs.length}] ${ref.CardNum} `);
+    process.stdout.write(`  [${String(i + 1).padStart(3)}/${refs.length}] ${cardNum} `);
 
     try {
-      const res = await fetch(`${BASE_URL}/cards/detail/${ref.CardNum}`, {
+      const res = await fetch(`${BASE_URL}/cards/detail/${cardNum}`, {
         headers: { Referer: `${BASE_URL}/cards` },
       });
       const html = await res.text();
-      const detail = parseCardDetail(html, ref.CardNum, setData.rarities, fallbackImg);
+      const detail = parseCardDetail(html, cardNum, setData.rarities, fallbackImg);
 
       console.log(
         `→ ${detail.name_ko ?? "?"} | ${detail.rarity ?? "?"} | #${detail.number ?? "?"}`
       );
 
       cards.push({
-        card_num: ref.CardNum,
+        card_num: cardNum,
         ...detail,
-        _source: `https://pokemoncard.co.kr/cards/detail/${ref.CardNum}`,
+        _source: `https://pokemoncard.co.kr/cards/detail/${cardNum}`,
         _fetched_at: today,
       });
     } catch (err) {
       console.log(`→ ERROR: ${err}`);
       cards.push({
-        card_num: ref.CardNum,
+        card_num: cardNum,
         number: null,
         name_ko: null,
         rarity: null,
@@ -258,12 +261,12 @@ async function main() {
         hp: null,
         type: null,
         image_url: fallbackImg,
-        _source: `https://pokemoncard.co.kr/cards/detail/${ref.CardNum}`,
+        _source: `https://pokemoncard.co.kr/cards/detail/${cardNum}`,
         _fetched_at: today,
       });
     }
 
-    if (i < refs.length - 1) await sleep(DELAY_MS);
+    if (i < refs.length - 1) await sleep(delayMs);
   }
 
   // 번호 순 정렬
