@@ -8,6 +8,8 @@ import {
   SHINY_TREASURE_EXTRA_SLOT_WEIGHTS,
   SV11_OPTIONAL_TOP_WEIGHTS,
   TERASTAL_EXTRA_SLOT_WEIGHTS,
+  VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS,
+  VSTAR_UNIVERSE_SAR_GOD_PACK_RATE,
   getStandardSvSetRate,
   isMegaExpansionSet,
   isSv11SpecialSet,
@@ -64,6 +66,17 @@ export function getLuckRatesForSet(
           weightChance(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS, 'UR')
           + weightChance(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS, 'SSR'),
         sarPerBox: 1 + weightChance(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS, 'SAR'),
+      };
+    }
+
+    if (set.code === 's12a-vstar-universe') {
+      return {
+        boxSize,
+        topPerBox: weightChance(VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS, 'UR'),
+        sarPerBox:
+          1
+          + weightChance(VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS, 'SAR')
+          + VSTAR_UNIVERSE_SAR_GOD_PACK_RATE * 5,
       };
     }
 
@@ -126,7 +139,10 @@ export function summarizeLuckEvent(cards: Card[], opening: LuckOpening): LuckEve
   const packEquivalent = opening.boxes * opening.boxSize + opening.packs;
 
   return {
-    topCount: cards.filter((card) => card.rarity === 'BWR' || (card.rarity === 'UR' && isMegaContext(card))).length,
+    topCount: cards.filter((card) =>
+      card.rarity === 'BWR'
+      || (card.rarity === 'UR' && (isMegaContext(card) || opening.setCode === 's12a-vstar-universe')),
+    ).length,
     sarCount: cards.filter((card) => card.rarity === 'SAR').length,
     topExpected: (opening.topPerBox / opening.boxSize) * packEquivalent,
     sarExpected: (opening.sarPerBox / opening.boxSize) * packEquivalent,

@@ -19,8 +19,13 @@ import sv5aCrimsonHaze from '../public/sets/sv5a-crimson-haze.json';
 import sv5mCyberJudge from '../public/sets/sv5m-cyber-judge.json';
 import sv5kWildForce from '../public/sets/sv5k-wild-force.json';
 import sv4aShinyTreasureEx from '../public/sets/sv4a-shiny-treasure-ex.json';
+import sv4mFutureFlash from '../public/sets/sv4m-future-flash.json';
+import sv4kAncientRoar from '../public/sets/sv4k-ancient-roar.json';
+import sv3aRagingSurf from '../public/sets/sv3a-raging-surf.json';
+import sv3BlackFlameRuler from '../public/sets/sv3-black-flame-ruler.json';
 import sv2a151 from '../public/sets/sv2a-151.json';
 import sv1aTriplet from '../public/sets/sv1a-triplet.json';
+import s12aVstarUniverse from '../public/sets/s12a-vstar-universe.json';
 import m4NinjaSpinner from '../public/sets/m4-ninja-spinner.json';
 import mNihilZero from '../public/sets/m-nihil-zero.json';
 import mDreamEx from '../public/sets/m-dream-ex.json';
@@ -37,8 +42,9 @@ const sets: SetMeta[] = [
   sv7aParadiseDragona, sv7StellarMiracle,
   sv6aNightWanderer, sv6Mask,
   sv5aCrimsonHaze, sv5mCyberJudge, sv5kWildForce,
-  sv4aShinyTreasureEx,
-  sv2a151, sv1aTriplet,
+  sv4aShinyTreasureEx, sv4mFutureFlash, sv4kAncientRoar,
+  sv3aRagingSurf, sv3BlackFlameRuler,
+  sv2a151, sv1aTriplet, s12aVstarUniverse,
 ] as SetMeta[];
 
 export default function Home() {

@@ -87,9 +87,25 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
     gradient: 'from-lime-700 via-green-800 to-emerald-950',
     accent: 'text-lime-300',
   },
+  'sv4m-future-flash': {
+    gradient: 'from-cyan-700 via-slate-800 to-blue-950',
+    accent: 'text-cyan-300',
+  },
+  'sv4k-ancient-roar': {
+    gradient: 'from-orange-700 via-emerald-900 to-slate-950',
+    accent: 'text-orange-300',
+  },
   'sv4a-shiny-treasure-ex': {
     gradient: 'from-amber-500 via-yellow-600 to-orange-800',
     accent: 'text-yellow-200',
+  },
+  'sv3a-raging-surf': {
+    gradient: 'from-blue-700 via-teal-800 to-slate-950',
+    accent: 'text-blue-300',
+  },
+  'sv3-black-flame-ruler': {
+    gradient: 'from-zinc-900 via-red-950 to-orange-950',
+    accent: 'text-red-300',
   },
   'sv2a-151': {
     gradient: 'from-red-600 via-rose-700 to-red-900',
@@ -98,6 +114,10 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
   'sv1a-triplet': {
     gradient: 'from-emerald-600 via-green-700 to-teal-900',
     accent: 'text-emerald-300',
+  },
+  's12a-vstar-universe': {
+    gradient: 'from-violet-800 via-slate-900 to-amber-950',
+    accent: 'text-amber-200',
   },
 };
 
@@ -204,9 +224,9 @@ export function SetPicker({
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-6xl mx-auto w-full">
         <div className="mb-5 rounded-lg bg-gray-900/80 ring-1 ring-white/10 px-4 py-3">
-          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-05-15</p>
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-05-17</p>
           <p className="text-sm font-bold text-white mt-0.5">
-            구작 SV 5종 박스깡 추가
+            구작 5종 박스깡 추가
           </p>
           <p className="text-xs text-gray-400 mt-1 leading-relaxed">
             {NEW_SIM_SET_NAMES.join(' · ')}

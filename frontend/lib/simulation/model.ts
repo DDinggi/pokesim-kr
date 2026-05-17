@@ -50,6 +50,24 @@ const SV_SR_50_30: StandardSvSetRate = {
   fillerWeights: { R: 83.53, RR: 16.47 },
 };
 
+const SV_SR_50_25: StandardSvSetRate = {
+  mandatoryHighWeights: { SR_POKEMON: 46.667, SR_TRAINER: 23.333, SAR: 20, UR: 10 },
+  extraHighRate: 0.05,
+  extraHighWeights: { SR_POKEMON: 66.667, SR_TRAINER: 33.333 },
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  fillerWeights: { R: 83.53, RR: 16.47 },
+};
+
+const SV_SR_45_30: StandardSvSetRate = {
+  mandatoryHighWeights: { SR_POKEMON: 42, SR_TRAINER: 28, SAR: 20, UR: 10 },
+  extraHighRate: 0.05,
+  extraHighWeights: { SR_POKEMON: 60, SR_TRAINER: 40 },
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  fillerWeights: { R: 83.53, RR: 16.47 },
+};
+
 const SV_TRIPLET_BEAT: StandardSvSetRate = {
   mandatoryHighWeights: { SR_POKEMON: 42, SR_TRAINER: 28, SAR: 20, UR: 10 },
   extraHighRate: 0.05,
@@ -71,6 +89,10 @@ const SV_151: StandardSvSetRate = {
 export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'sv1a-triplet': SV_TRIPLET_BEAT,
   'sv2a-151': SV_151,
+  'sv3-black-flame-ruler': SV_SR_50_25,
+  'sv3a-raging-surf': SV_SR_45_30,
+  'sv4k-ancient-roar': SV_SR_55_25,
+  'sv4m-future-flash': SV_SR_55_25,
   'sv5k-wild-force': SV_SR_55_25,
   'sv5m-cyber-judge': SV_SR_55_25,
   'sv5a-crimson-haze': SV_SR_50_30,
@@ -123,6 +145,16 @@ export const SHINY_TREASURE_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   UR: 10,
   AR: 10,
 };
+
+export const VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
+  NONE: 50,
+  SAR: 20,
+  SR: 20,
+  UR: 10,
+};
+
+export const VSTAR_UNIVERSE_AR_GOD_PACK_RATE = 0.015;
+export const VSTAR_UNIVERSE_SAR_GOD_PACK_RATE = 0.0225;
 
 export const MEGA_DREAM_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   NONE: 48,

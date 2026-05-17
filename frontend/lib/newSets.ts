@@ -1,17 +1,17 @@
 export const NEW_SIM_SET_CODES = [
-  'sv6a-night-wanderer',
-  'sv5a-crimson-haze',
-  'sv5m-cyber-judge',
-  'sv5k-wild-force',
-  'sv4a-shiny-treasure-ex',
+  's12a-vstar-universe',
+  'sv4k-ancient-roar',
+  'sv4m-future-flash',
+  'sv3a-raging-surf',
+  'sv3-black-flame-ruler',
 ] as const;
 
 export const NEW_SIM_SET_NAMES = [
-  '나이트원더러',
-  '크림슨헤이즈',
-  '사이버저지',
-  '와일드포스',
-  '샤이니트레저ex',
+  'VSTAR 유니버스',
+  '고대의 포효',
+  '미래의 일섬',
+  '레이징서프',
+  '흑염의 지배자',
 ];
 
 const NEW_SIM_SET_CODE_SET = new Set<string>(NEW_SIM_SET_CODES);
