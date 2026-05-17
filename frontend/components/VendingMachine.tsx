@@ -25,39 +25,31 @@ import {
   rarityLabel,
   sortByRarity,
 } from '../lib/rarity';
+import {
+  createOpeningEvent,
+  EMPTY_OPENING_SESSION,
+  normalizeOpeningSession,
+  SESSION_STORAGE_KEY,
+  type OpeningEvent,
+  type OpeningSession,
+} from '../lib/openingHistory';
 
 const MAX_PER_SET = 10;
-const SESSION_STORAGE_KEY = 'pokesim-kr-session-v1';
+const EMPTY_SESSION: OpeningSession = EMPTY_OPENING_SESSION;
 
-interface Session {
-  boxes: number;
-  packs: number;
-  cost: number;
-  cards: Card[];
-}
-const EMPTY_SESSION: Session = { boxes: 0, packs: 0, cost: 0, cards: [] };
-
-function loadSession(): Session {
+function loadSession(): OpeningSession {
   if (typeof window === 'undefined') return EMPTY_SESSION;
   try {
     const stored = window.localStorage.getItem(SESSION_STORAGE_KEY);
     if (!stored) return EMPTY_SESSION;
-    const parsed = JSON.parse(stored);
-    if (parsed && typeof parsed === 'object' && Array.isArray(parsed.cards)) {
-      return {
-        boxes: Number(parsed.boxes) || 0,
-        packs: Number(parsed.packs) || 0,
-        cost: Number(parsed.cost) || 0,
-        cards: parsed.cards as Card[],
-      };
-    }
+    return normalizeOpeningSession(JSON.parse(stored));
   } catch {
     /* corrupt — fall through */
   }
   return EMPTY_SESSION;
 }
 
-function saveSession(s: Session) {
+function saveSession(s: OpeningSession) {
   if (typeof window === 'undefined') return;
   try {
     window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(s));
@@ -143,6 +135,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
   }
   function runCheckout(cartToBuy: Record<string, number>) {
     const packs: PurchasedPack[] = [];
+    const openingEvents: OpeningEvent[] = [];
     for (const [code, n] of Object.entries(cartToBuy)) {
       const set = displaySets.find((x) => x.code === code);
       if (!set || n <= 0) continue;
@@ -161,6 +154,15 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
         krw: (set.pack_price_krw ?? 0) * n,
         luck: summarizeLuckEvent(setCards, opening),
       });
+      openingEvents.push(createOpeningEvent({
+        setMeta: set,
+        unit: 'pack',
+        source: 'vending-machine',
+        cards: setCards,
+        boxCount: 0,
+        packCount: n,
+        krw: (set.pack_price_krw ?? 0) * n,
+      }));
     }
     if (packs.length === 0) return;
 
@@ -177,6 +179,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
       packs: cur.packs + packs.length,
       cost: cur.cost + checkoutCost,
       cards: [...cur.cards, ...allCards],
+      openingEvents: [...cur.openingEvents, ...openingEvents],
     });
 
     setPurchased(packs);
