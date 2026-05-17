@@ -30,6 +30,13 @@ import {
   sortRarityKeys,
   sortByRarity,
 } from '../lib/rarity';
+import {
+  createOpeningEvent,
+  EMPTY_OPENING_SESSION,
+  normalizeOpeningSession,
+  SESSION_STORAGE_KEY,
+  type OpeningSession,
+} from '../lib/openingHistory';
 
 const REVEAL_STAGGER_MS = 140;
 const REVEAL_BASE_MS = 600;
@@ -37,23 +44,12 @@ const HIT_HOLD_MS = 1200;
 const NORMAL_HOLD_MS = 600;
 const BETWEEN_MS = 1800;
 
-// 세션 누적 — 세트 변경/새로고침해도 유지 (사용자가 직접 리셋)
-const SESSION_STORAGE_KEY = 'pokesim-kr-session-v1';
-
 function loadStoredSession(): Session {
   if (typeof window === 'undefined') return EMPTY_SESSION;
   try {
     const stored = window.localStorage.getItem(SESSION_STORAGE_KEY);
     if (!stored) return EMPTY_SESSION;
-    const parsed = JSON.parse(stored);
-    if (parsed && typeof parsed === 'object' && Array.isArray(parsed.cards)) {
-      return {
-        boxes: Number(parsed.boxes) || 0,
-        packs: Number(parsed.packs) || 0,
-        cost: Number(parsed.cost) || 0,
-        cards: parsed.cards as Card[],
-      };
-    }
+    return normalizeOpeningSession(JSON.parse(stored));
   } catch {
     /* corrupt — fall through */
   }
@@ -63,14 +59,9 @@ function loadStoredSession(): Session {
 type Mode = 'box-auto' | 'box-manual' | 'box-instant' | 'pack';
 type Phase = 'idle' | 'reveal' | 'done';
 
-interface Session {
-  boxes: number;
-  packs: number;
-  cost: number;
-  cards: Card[];
-}
+type Session = OpeningSession;
 
-const EMPTY_SESSION: Session = { boxes: 0, packs: 0, cost: 0, cards: [] };
+const EMPTY_SESSION: Session = EMPTY_OPENING_SESSION;
 
 function CardTile({
   card,
@@ -955,11 +946,21 @@ export function BoxSimulator({
       if (cancelled) return;
       if (mode === 'pack' && packResult) {
         const opening = createLuckOpening(setMeta, { packs: 1 });
+        const event = createOpeningEvent({
+          setMeta,
+          unit: 'pack',
+          source: 'box-simulator',
+          cards: packResult.pack.cards,
+          boxCount: 0,
+          packCount: 1,
+          krw: setMeta.pack_price_krw,
+        });
         setSession((s) => ({
           ...s,
           packs: s.packs + 1,
           cost: s.cost + setMeta.pack_price_krw,
           cards: [...s.cards, ...packResult.pack.cards],
+          openingEvents: [...s.openingEvents, event],
         }));
         trackSim({ setCode: setMeta.code, mode: 'pack', boxCount: 0, packCount: 1, krw: setMeta.pack_price_krw, luck: summarizeLuckEvent(packResult.pack.cards, opening) });
       } else if (mode === 'box-manual' && boxResult) {
@@ -969,22 +970,42 @@ export function BoxSimulator({
           manualPacksRecorded.current.has(i) ? [] : p.cards,
         );
         const opening = createLuckOpening(setMeta, { boxes: 1 });
+        const event = createOpeningEvent({
+          setMeta,
+          unit: 'box',
+          source: 'box-simulator',
+          cards: all,
+          boxCount: 1,
+          packCount: setMeta.box_size,
+          krw: setMeta.box_price_krw,
+        });
         boxResult.packs.forEach((_, i) => manualPacksRecorded.current.add(i));
         setSession((s) => ({
           ...s,
           boxes: s.boxes + 1,
           cost: s.cost + setMeta.box_price_krw,
           ...(skipped.length > 0 && { cards: [...s.cards, ...skipped] }),
+          openingEvents: [...s.openingEvents, event],
         }));
         trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw, luck: summarizeLuckEvent(all, opening) });
       } else if (mode && mode !== 'pack' && boxResult) {
         const all = boxResult.packs.flatMap((p) => p.cards);
         const opening = createLuckOpening(setMeta, { boxes: 1 });
+        const event = createOpeningEvent({
+          setMeta,
+          unit: 'box',
+          source: 'box-simulator',
+          cards: all,
+          boxCount: 1,
+          packCount: setMeta.box_size,
+          krw: setMeta.box_price_krw,
+        });
         setSession((s) => ({
           ...s,
           boxes: s.boxes + 1,
           cost: s.cost + setMeta.box_price_krw,
           cards: [...s.cards, ...all],
+          openingEvents: [...s.openingEvents, event],
         }));
         trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw, luck: summarizeLuckEvent(all, opening) });
       }
@@ -1031,11 +1052,21 @@ export function BoxSimulator({
     if (phase === 'reveal') {
       if (mode === 'pack' && packResult) {
         const opening = createLuckOpening(setMeta, { packs: 1 });
+        const event = createOpeningEvent({
+          setMeta,
+          unit: 'pack',
+          source: 'box-simulator',
+          cards: packResult.pack.cards,
+          boxCount: 0,
+          packCount: 1,
+          krw: setMeta.pack_price_krw,
+        });
         setSession((s) => ({
           ...s,
           packs: s.packs + 1,
           cost: s.cost + setMeta.pack_price_krw,
           cards: [...s.cards, ...packResult.pack.cards],
+          openingEvents: [...s.openingEvents, event],
         }));
         trackSim({ setCode: setMeta.code, mode: 'pack', boxCount: 0, packCount: 1, krw: setMeta.pack_price_krw, luck: summarizeLuckEvent(packResult.pack.cards, opening) });
       } else if (boxResult) {
@@ -1045,11 +1076,21 @@ export function BoxSimulator({
           ? boxResult.packs.flatMap((p, i) => manualPacksRecorded.current.has(i) ? [] : p.cards)
           : all;
         const opening = createLuckOpening(setMeta, { boxes: 1 });
+        const event = createOpeningEvent({
+          setMeta,
+          unit: 'box',
+          source: 'box-simulator',
+          cards: all,
+          boxCount: 1,
+          packCount: setMeta.box_size,
+          krw: setMeta.box_price_krw,
+        });
         setSession((s) => ({
           ...s,
           boxes: s.boxes + 1,
           cost: s.cost + setMeta.box_price_krw,
           cards: [...s.cards, ...unrecorded],
+          openingEvents: [...s.openingEvents, event],
         }));
         trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw, luck: summarizeLuckEvent(all, opening) });
       }
