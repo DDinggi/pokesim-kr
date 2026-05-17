@@ -1107,15 +1107,18 @@ export function BoxSimulator({
 
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
-      <header className="px-6 py-5 border-b border-gray-800/80 flex items-center justify-between shrink-0">
-        <div>
+      <header className="px-6 py-5 border-b border-gray-800/80 flex items-center justify-between gap-4 shrink-0">
+        <div className="flex items-center gap-4 min-w-0">
           <button
             onClick={onChangeSet}
-            className="text-2xl font-bold tracking-tight hover:text-gray-300 transition-colors"
+            className="shrink-0 text-xs text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/5"
           >
-            PokéSim KR
+            ← 세트 선택
           </button>
-          <p className="text-xs text-gray-400 mt-1">{setMeta.name_ko}</p>
+          <div className="min-w-0">
+            <h1 className="text-2xl font-bold tracking-tight truncate">PokéSim KR</h1>
+            <p className="text-xs text-gray-400 mt-1 truncate">{setMeta.name_ko}</p>
+          </div>
         </div>
         {phase !== 'idle' && (
           <button
