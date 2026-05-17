@@ -75,11 +75,8 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
         <div className="mb-5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 ring-1 ring-white/10 px-4 py-3">
           <p className="text-sm sm:text-base font-bold text-white">
             <span className="text-[11px] font-black tracking-widest text-yellow-300 mr-2 align-middle">NEW</span>
+            <span className="text-[11px] font-bold tracking-widest text-white/45 mr-2 align-middle">2026.05.17</span>
             {NEW_SIM_SET_NAMES.join(' · ')}
-          </p>
-          <p className="mt-1 text-sm sm:text-base font-bold text-white">
-            <span className="text-[11px] font-black tracking-widest text-emerald-300 mr-2 align-middle">UPDATE</span>
-            샤이니트레저 ex 봉입률 수정
           </p>
         </div>
 
