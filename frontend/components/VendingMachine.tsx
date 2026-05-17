@@ -223,6 +223,12 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
     return (
       <div className="min-h-screen bg-gray-950 text-white flex flex-col">
         <header className="px-6 py-5 border-b border-gray-800/80 flex items-center gap-4">
+          <button
+            onClick={onBackToMain}
+            className="text-xs text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/5"
+          >
+            ← 메인
+          </button>
           <span className="text-2xl font-bold tracking-tight">자판기깡</span>
           <span className="text-sm text-gray-400">
             팩 {packIdx + 1} / {purchased.length}
