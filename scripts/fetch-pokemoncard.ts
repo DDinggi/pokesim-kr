@@ -27,6 +27,7 @@ const getArg = (name: string) => {
 const hasFlag = (name: string) => argv.includes(`--${name}`);
 
 const setCode = getArg("set");
+const searchTextOverride = getArg("search-text");
 const dryRun = hasFlag("dry-run");
 const delayMsArg = Number(getArg("delay-ms"));
 const delayMs = Number.isFinite(delayMsArg) && delayMsArg >= 0 ? delayMsArg : DEFAULT_DELAY_MS;
@@ -207,6 +208,7 @@ async function main() {
 
   console.log(`\nSet : ${setData.name_ko}`);
   console.log(`Code: ${setCode}`);
+  if (searchTextOverride) console.log(`Search text override: ${searchTextOverride}`);
 
   // 이미지 폴더 prefix 추출 (기존 sample 카드에서)
   const sampleImg = setData.cards[0]?.image_url ?? "";
@@ -215,7 +217,7 @@ async function main() {
 
   // Step 1: 카드 목록 수집
   console.log("\n[1/2] Collecting card list from search API…");
-  const refs = await fetchAllRefs(setData.name_ko, folderPrefix);
+  const refs = await fetchAllRefs(searchTextOverride ?? setData.name_ko, folderPrefix);
 
   if (refs.length === 0) {
     console.error("No cards found. Check set name and network.");
