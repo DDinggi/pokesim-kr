@@ -1,7 +1,7 @@
 import type { StandardSvSetRate } from './types';
 
 export const PROBABILITY_META = {
-  source: '저지맨 (포켓몬카드 MVC) + pokemon-infomation.com / altema.jp / snkrdunk',
+  source: 'pokemon-infomation.com / altema.jp / snkrdunk',
   disclaimer:
     '봉입률은 커뮤니티 추정치입니다. 포켓몬코리아는 어떤 박스도 확정 봉입을 안내하지 않으며, 봉입 오류로 더 좋게/나쁘게 변동 가능합니다.',
   estimatedAt: '2026-05',
