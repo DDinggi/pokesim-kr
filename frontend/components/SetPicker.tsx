@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import type { SetMeta } from '../lib/types';
 import { getBoxImageSrc } from '../lib/boxImages';
 import { NEW_SIM_SET_NAMES, isNewSimSet } from '../lib/newSets';
+import { fetchSetPopularity, type SetPopularity } from '../lib/statsTracker';
 
 const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
   'm4-ninja-spinner': {
@@ -141,6 +142,127 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
   },
 };
 
+const SEARCH_PANEL_LIMIT = 10;
+
+function normalizeSearchText(value: string): string {
+  return value.toLowerCase().replace(/[\s·._-]+/g, '');
+}
+
+function matchSet(set: SetMeta, query: string): boolean {
+  const q = normalizeSearchText(query);
+  if (!q) return true;
+  return (
+    normalizeSearchText(set.name_ko).includes(q)
+    || normalizeSearchText(set.code).includes(q)
+    || normalizeSearchText(set.type).includes(q)
+  );
+}
+
+function getPopularityScore(popularity: SetPopularity | undefined): number {
+  if (!popularity) return 0;
+  return popularity.totalBoxes * 1_000_000 + popularity.totalPacks * 1_000 + popularity.totalSessions;
+}
+
+function sortSetsByPopularity(
+  sets: SetMeta[],
+  popularityByCode: Map<string, SetPopularity>,
+  originalRankByCode: Map<string, number>,
+): SetMeta[] {
+  return [...sets].sort((a, b) => {
+    const scoreDiff = getPopularityScore(popularityByCode.get(b.code))
+      - getPopularityScore(popularityByCode.get(a.code));
+    if (scoreDiff !== 0) return scoreDiff;
+    return (originalRankByCode.get(a.code) ?? 0) - (originalRankByCode.get(b.code) ?? 0);
+  });
+}
+
+function formatPopularity(set: SetMeta, popularity: SetPopularity | undefined): string {
+  if (!popularity || getPopularityScore(popularity) === 0) {
+    return `${set.box_size}팩 · ${set.cards.length}종`;
+  }
+
+  const loosePacks = Math.max(0, popularity.totalPacks - popularity.totalBoxes * set.box_size);
+  const parts: string[] = [];
+  if (popularity.totalBoxes > 0) parts.push(`${popularity.totalBoxes.toLocaleString()}박스`);
+  if (loosePacks > 0 || popularity.totalBoxes === 0) parts.push(`${loosePacks.toLocaleString()}팩`);
+  parts.push(`${popularity.totalSessions.toLocaleString()}명`);
+  return parts.join(' · ');
+}
+
+function SearchIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function PopularityList({
+  sets,
+  popularityByCode,
+  onSelect,
+  title,
+  emptyLabel,
+  isLoading = false,
+}: {
+  sets: SetMeta[];
+  popularityByCode: Map<string, SetPopularity>;
+  onSelect: (set: SetMeta) => void;
+  title: string;
+  emptyLabel: string;
+  isLoading?: boolean;
+}) {
+  return (
+    <div id="box-search-results" className="absolute left-0 right-0 top-full z-30 mt-2 overflow-hidden rounded-xl border border-white/10 bg-gray-950/98 shadow-2xl shadow-black/50 backdrop-blur">
+      <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+        <p className="text-xs font-black tracking-widest text-gray-400">{title}</p>
+        <span className="text-[10px] text-gray-600">24시간 기준</span>
+      </div>
+      {isLoading ? (
+        <p className="px-4 py-5 text-center text-sm text-gray-500">인기 순위 불러오는 중...</p>
+      ) : sets.length === 0 ? (
+        <p className="px-4 py-5 text-center text-sm text-gray-500">{emptyLabel}</p>
+      ) : (
+        <ol className="max-h-[360px] overflow-y-auto py-1">
+          {sets.slice(0, SEARCH_PANEL_LIMIT).map((set, index) => {
+            const popularity = popularityByCode.get(set.code);
+            return (
+              <li key={set.code}>
+                <button
+                  type="button"
+                  onMouseDown={(event) => event.preventDefault()}
+                  onClick={() => onSelect(set)}
+                  className="flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-white/[0.06]"
+                >
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-white/10 text-xs font-black text-white">
+                    {index + 1}
+                  </span>
+                  <div className="relative h-11 w-9 shrink-0 overflow-hidden rounded bg-black/30">
+                    <Image
+                      src={getBoxImageSrc(set.code)}
+                      alt=""
+                      fill
+                      sizes="36px"
+                      className="object-contain p-0.5"
+                    />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-black text-white">{set.name_ko}</p>
+                    <p className="mt-0.5 text-[11px] text-gray-500">
+                      {formatPopularity(set, popularity)}
+                    </p>
+                  </div>
+                </button>
+              </li>
+            );
+          })}
+        </ol>
+      )}
+    </div>
+  );
+}
+
 function SetCard({
   set,
   theme,
@@ -227,6 +349,53 @@ export function SetPicker({
   onSelect: (set: SetMeta) => void;
   onBackToMain: () => void;
 }) {
+  const [query, setQuery] = useState('');
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [popularity, setPopularity] = useState<SetPopularity[]>([]);
+  const [popularityLoaded, setPopularityLoaded] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchSetPopularity().then((result) => {
+      if (cancelled) return;
+      setPopularity(result);
+      setPopularityLoaded(true);
+    }).catch(() => {
+      if (!cancelled) setPopularityLoaded(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const originalRankByCode = useMemo(
+    () => new Map(sets.map((set, index) => [set.code, index])),
+    [sets],
+  );
+  const popularityByCode = useMemo(
+    () => new Map(popularity.map((row) => [row.setCode, row])),
+    [popularity],
+  );
+  const popularSets = useMemo(
+    () =>
+      sortSetsByPopularity(
+        sets.filter((set) => getPopularityScore(popularityByCode.get(set.code)) > 0),
+        popularityByCode,
+        originalRankByCode,
+      ),
+    [originalRankByCode, popularityByCode, sets],
+  );
+  const filteredSets = useMemo(
+    () => sets.filter((set) => matchSet(set, query)),
+    [query, sets],
+  );
+  const searchResultSets = useMemo(
+    () => sortSetsByPopularity(filteredSets, popularityByCode, originalRankByCode),
+    [filteredSets, originalRankByCode, popularityByCode],
+  );
+  const isSearching = query.trim().length > 0;
+  const panelSets = isSearching ? searchResultSets : popularSets;
+
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
       <header className="px-6 py-5 border-b border-gray-800/80 flex items-center gap-4">
@@ -253,8 +422,52 @@ export function SetPicker({
           </p>
         </div>
 
+        <div className="relative mb-5">
+          <label className="sr-only" htmlFor="box-search">
+            박스 검색
+          </label>
+          <SearchIcon className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
+          <input
+            id="box-search"
+            value={query}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              setSearchOpen(true);
+            }}
+            onFocus={() => setSearchOpen(true)}
+            onBlur={() => window.setTimeout(() => setSearchOpen(false), 120)}
+            onKeyDown={(event) => {
+              if (event.key === 'Escape') {
+                setSearchOpen(false);
+                event.currentTarget.blur();
+              }
+            }}
+            placeholder="박스 이름 검색"
+            className="h-14 w-full rounded-xl border border-white/10 bg-gray-900/80 pl-12 pr-24 text-base font-bold text-white outline-none transition placeholder:text-gray-600 focus:border-cyan-300/60 focus:bg-gray-900"
+            autoComplete="off"
+          />
+          <button
+            type="button"
+            onMouseDown={(event) => event.preventDefault()}
+            onClick={() => setSearchOpen((open) => !open)}
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg bg-white/10 px-3 py-2 text-xs font-black text-gray-300 transition hover:bg-white/15 hover:text-white"
+          >
+            인기순위
+          </button>
+          {searchOpen && (
+            <PopularityList
+              sets={panelSets}
+              popularityByCode={popularityByCode}
+              onSelect={onSelect}
+              title={isSearching ? '검색 결과' : '인기순위'}
+              emptyLabel={isSearching ? '검색 결과가 없습니다' : '아직 인기 순위 데이터가 없습니다'}
+              isLoading={!isSearching && !popularityLoaded}
+            />
+          )}
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {sets.map((s) => {
+          {filteredSets.map((s) => {
             const theme = SET_THEMES[s.code] ?? {
               gradient: 'from-gray-700 to-gray-900',
               accent: 'text-gray-300',
@@ -262,6 +475,11 @@ export function SetPicker({
             return <SetCard key={s.code} set={s} theme={theme} onSelect={() => onSelect(s)} />;
           })}
         </div>
+        {filteredSets.length === 0 && (
+          <div className="rounded-lg border border-dashed border-white/15 px-4 py-10 text-center">
+            <p className="text-sm font-bold text-gray-400">검색 결과가 없습니다</p>
+          </div>
+        )}
       </main>
     </div>
   );

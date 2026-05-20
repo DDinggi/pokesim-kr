@@ -72,7 +72,12 @@ export function MainScreen({ onSelectMode }: { onSelectMode: (m: Mode) => void }
       </header>
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-5xl mx-auto w-full">
-        <div className="mb-5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 ring-1 ring-white/10 px-4 py-3">
+        <div className="mb-5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 ring-1 ring-white/10 px-4 py-3 space-y-1.5">
+          <p className="text-sm sm:text-base font-bold text-white">
+            <span className="text-[11px] font-black tracking-widest text-yellow-300 mr-2 align-middle">NEW</span>
+            <span className="text-[11px] font-bold tracking-widest text-white/45 mr-2 align-middle">2026.05.20</span>
+            박스 검색 기능 추가
+          </p>
           <p className="text-sm sm:text-base font-bold text-white">
             <span className="text-[11px] font-black tracking-widest text-yellow-300 mr-2 align-middle">NEW</span>
             <span className="text-[11px] font-bold tracking-widest text-white/45 mr-2 align-middle">2026.05.17</span>

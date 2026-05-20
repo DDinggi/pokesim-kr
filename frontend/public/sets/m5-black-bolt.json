@@ -32,7 +32,7 @@
         "min": 1
       }
     ],
-    "_source": "저지맨 (포켓몬카드 MVC) + pokemon-infomation.com / altema.jp",
+    "_source": "pokemon-infomation.com / altema.jp",
     "_sample_size": null,
     "_estimated_at": "2026-05-02"
   },
@@ -40,25 +40,25 @@
     {
       "position": 1,
       "weights": { "C": 1.0 },
-      "_source": "저지맨 (포켓몬카드 MVC) + pokemon-infomation.com",
+      "_source": "pokemon-infomation.com",
       "_estimated_at": "2026-05-02"
     },
     {
       "position": 2,
       "weights": { "C": 1.0 },
-      "_source": "저지맨 (포켓몬카드 MVC) + pokemon-infomation.com",
+      "_source": "pokemon-infomation.com",
       "_estimated_at": "2026-05-02"
     },
     {
       "position": 3,
       "weights": { "C": 1.0 },
-      "_source": "저지맨 (포켓몬카드 MVC) + pokemon-infomation.com",
+      "_source": "pokemon-infomation.com",
       "_estimated_at": "2026-05-02"
     },
     {
       "position": 4,
       "weights": { "U": 1.0 },
-      "_source": "저지맨 (포켓몬카드 MVC) + pokemon-infomation.com",
+      "_source": "pokemon-infomation.com",
       "_estimated_at": "2026-05-02"
     },
     {
@@ -71,7 +71,7 @@
         "SAR": 0.010,
         "UR": 0.001
       },
-      "_source": "저지맨 (포켓몬카드 MVC) + pokemon-infomation.com",
+      "_source": "pokemon-infomation.com",
       "_estimated_at": "2026-05-02"
     }
   ],

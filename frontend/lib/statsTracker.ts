@@ -94,6 +94,14 @@ export interface GlobalStats {
   totalKrw: number;
 }
 
+export interface SetPopularity {
+  setCode: string;
+  totalBoxes: number;
+  totalPacks: number;
+  totalKrw: number;
+  totalSessions: number;
+}
+
 export async function fetchGlobalStats(): Promise<GlobalStats | null> {
   if (!supabase) return null;
   // get_global_stats RPC: 서버에서 COUNT/SUM 집계. row 수와 무관하게 응답 ~100B.
@@ -107,6 +115,31 @@ export async function fetchGlobalStats(): Promise<GlobalStats | null> {
     totalBoxes: Number(r.totalBoxes) || 0,
     totalKrw: Number(r.totalKrw) || 0,
   };
+}
+
+export async function fetchSetPopularity(): Promise<SetPopularity[]> {
+  if (!supabase) return [];
+  const { data, error } = await supabase.rpc('get_set_popularity');
+  if (error || !data) {
+    if (error && process.env.NODE_ENV !== 'production') {
+      console.warn('[analytics] get_set_popularity failed', error);
+    }
+    return [];
+  }
+
+  return (data as Array<{
+    set_code: string;
+    total_boxes: number | string | null;
+    total_packs: number | string | null;
+    total_krw: number | string | null;
+    total_sessions: number | string | null;
+  }>).map((row) => ({
+    setCode: row.set_code,
+    totalBoxes: Number(row.total_boxes) || 0,
+    totalPacks: Number(row.total_packs) || 0,
+    totalKrw: Number(row.total_krw) || 0,
+    totalSessions: Number(row.total_sessions) || 0,
+  }));
 }
 
 // 포아송 CDF — 세션 운 지수 계산용
