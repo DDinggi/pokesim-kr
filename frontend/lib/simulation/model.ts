@@ -68,6 +68,50 @@ const SV_SR_45_30: StandardSvSetRate = {
   fillerWeights: { R: 83.53, RR: 16.47 },
 };
 
+const SV_SCARLET_EX: StandardSvSetRate = {
+  mandatoryHighWeights: { SR_POKEMON: 45, SR_TRAINER: 30, SAR: 15, UR: 10 },
+  extraHighRate: 0.05,
+  extraHighWeights: { SR_POKEMON: 60, SR_TRAINER: 40 },
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  fillerWeights: { R: 83.53, RR: 16.47 },
+};
+
+const SV_SNOW_CLAY: StandardSvSetRate = {
+  mandatoryHighWeights: { SR_POKEMON: 52.5, SR_TRAINER: 17.5, SAR: 20, UR: 10 },
+  extraHighRate: 0.1,
+  extraHighWeights: { SR_POKEMON: 75, SR_TRAINER: 25 },
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  fillerWeights: { R: 83.53, RR: 16.47 },
+};
+
+const SWSH_PARADIGM_TRIGGER: StandardSvSetRate = {
+  mandatoryHighWeights: {
+    SR_POKEMON: 33.333,
+    SR_ALT: 14.286,
+    SR_TRAINER: 23.81,
+    HR_POKEMON: 9.524,
+    HR_TRAINER: 9.524,
+    UR: 9.524,
+  },
+  extraHighRate: 0.1,
+  extraHighWeights: {
+    SR_POKEMON: 33.333,
+    SR_ALT: 14.286,
+    SR_TRAINER: 23.81,
+    HR_POKEMON: 9.524,
+    HR_TRAINER: 9.524,
+    UR: 9.524,
+  },
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: { R: 84.17, RR: 10.93, RRR: 4.9 },
+};
+
 const SV_TRIPLET_BEAT: StandardSvSetRate = {
   mandatoryHighWeights: { SR_POKEMON: 42, SR_TRAINER: 28, SAR: 20, UR: 10 },
   extraHighRate: 0.05,
@@ -87,7 +131,11 @@ const SV_151: StandardSvSetRate = {
 };
 
 export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
+  'sv1s-scarlet-ex': SV_SCARLET_EX,
+  'sv1v-violet-ex': SV_SR_45_30,
   'sv1a-triplet': SV_TRIPLET_BEAT,
+  'sv2p-snow-hazard': SV_SNOW_CLAY,
+  'sv2d-clay-burst': SV_SNOW_CLAY,
   'sv2a-151': SV_151,
   'sv3-black-flame-ruler': SV_SR_50_25,
   'sv3a-raging-surf': SV_SR_45_30,
@@ -107,6 +155,7 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   },
   'sv9a-blazing-arena': SV_SR_55_25,
   'sv10-glory': SV_SR_50_30,
+  's12-paradigm-trigger': SWSH_PARADIGM_TRIGGER,
 };
 
 export const SV11_RR_COUNT = 4;
@@ -129,6 +178,10 @@ export const MEGA_MAIN_SR_NUMBER_RANGES: Record<string, Array<[number, number]>>
   'm-mega-brave': [[76, 80], [85, 86]],
   'm-mega-symphonia': [[76, 80], [84, 85]],
   'm-dream-ex': [[219, 221]],
+};
+
+export const ALT_SR_NUMBER_RANGES: Record<string, Array<[number, number]>> = {
+  's12-paradigm-trigger': [[107, 110]],
 };
 
 export const TERASTAL_EXTRA_SLOT_WEIGHTS: Record<string, number> = {

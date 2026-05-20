@@ -6,12 +6,15 @@ export interface RarityPools {
   rrrAll: Card[];
   kAll: Card[];
   ssrAll: Card[];
+  hrAll: Card[];
   sarAll: Card[];
   urAll: Card[];
   bwrAll: Card[];
   srPokemon: Card[];
   srEnergy: Card[];
   srTrainer: Card[];
+  hrPokemon: Card[];
+  hrTrainer: Card[];
   ssrPokemon: Card[];
   sarPokemon: Card[];
   sarTrainer: Card[];
@@ -44,6 +47,7 @@ export function getRarityPools(byRarity: Record<string, Card[]>): RarityPools {
   const rrrAll = byRarity.RRR ?? [];
   const kAll = byRarity.K ?? [];
   const ssrAll = byRarity.SSR ?? [];
+  const hrAll = byRarity.HR ?? [];
   const sarAll = byRarity.SAR ?? [];
   const urAll = byRarity.UR ?? [];
   const bwrAll = byRarity.BWR ?? [];
@@ -53,12 +57,15 @@ export function getRarityPools(byRarity: Record<string, Card[]>): RarityPools {
     rrrAll,
     kAll,
     ssrAll,
+    hrAll,
     sarAll,
     urAll,
     bwrAll,
     srPokemon: srAll.filter(isPokemonCard),
     srEnergy: srAll.filter((card) => card.card_type === '에너지'),
     srTrainer: srAll.filter(isTrainerLikeCard),
+    hrPokemon: hrAll.filter(isPokemonCard),
+    hrTrainer: hrAll.filter(isTrainerLikeCard),
     ssrPokemon: ssrAll.filter(isPokemonCard),
     sarPokemon: sarAll.filter(isPokemonCard),
     sarTrainer: sarAll.filter(isTrainerLikeCard),
@@ -87,14 +94,14 @@ export function filterAvailableWeights(
 
 export function pickWeightedPool(
   ctx: BuildContext,
-  weights: Record<string, number>,
+  weights: Partial<Record<string, number>>,
   pools: Record<string, Card[]>,
   fallback: Card[],
 ): Card[] {
   const availableWeights: Record<string, number> = {};
 
   for (const [rarity, weight] of Object.entries(weights)) {
-    if ((pools[rarity]?.length ?? 0) > 0) availableWeights[rarity] = weight;
+    if (weight && (pools[rarity]?.length ?? 0) > 0) availableWeights[rarity] = weight;
   }
 
   if (Object.keys(availableWeights).length === 0) return fallback;
