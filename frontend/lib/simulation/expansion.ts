@@ -4,6 +4,7 @@ import { shuffle } from './random';
 import {
   EXPANSION_MONSTER_WEIGHTS,
   EXPANSION_MONSTER_WEIGHTS_DEFAULT,
+  ALT_SR_NUMBER_RANGES,
   MEGA_EXTRA_SR_RATE,
   MEGA_MAIN_SR_NUMBER_RANGES,
   MEGA_RR_BASE_COUNT,
@@ -23,6 +24,7 @@ import {
   pickWeightedHitPool,
   pickWeightedPool,
 } from './pools';
+import type { RarityPools } from './pools';
 import type { BuildContext, StandardHighKey, StandardSvSetRate } from './types';
 
 export function simulateExpansionBox(
@@ -71,14 +73,8 @@ function buildStandardSvSlots(
 ): Card[][] {
   const { byRarity } = ctx;
   const pools = getRarityPools(byRarity);
+  const standardHighPools = getStandardHighPools(pools, setCode);
   const slots: Card[][] = [];
-  const standardHighPools: Record<StandardHighKey, Card[]> = {
-    SR_POKEMON: pools.srPokemon.length ? pools.srPokemon : pools.srAll,
-    SR_TRAINER: pools.srTrainer.length ? pools.srTrainer : pools.srAll,
-    SAR: pools.sarAll,
-    UR: pools.urAll,
-    BWR: pools.bwrPokemon.length ? pools.bwrPokemon : pools.bwrAll,
-  };
 
   slots.push(pickWeightedPool(
     ctx,
@@ -97,6 +93,10 @@ function buildStandardSvSlots(
   const rrPool = byRarity.RR ?? byRarity.R ?? [];
   const rrCount = rate.rrBaseCount + (rng() < rate.rrExtraRate ? 1 : 0);
   for (let i = 0; i < rrCount; i++) slots.push(rrPool);
+
+  const rrrPool = byRarity.RRR ?? [];
+  const rrrCount = (rate.rrrBaseCount ?? 0) + (rng() < (rate.rrrExtraRate ?? 0) ? 1 : 0);
+  for (let i = 0; i < rrrCount; i++) slots.push(rrrPool);
 
   const rPool = byRarity.R ?? byRarity.RR ?? [];
   while (slots.length < boxSize) slots.push(rPool);
@@ -220,24 +220,23 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   const arCount = standardSetRate.arCount ?? 3;
   const extraSrRate = standardSetRate.extraHighRate;
   const rrExpected = standardSetRate.rrBaseCount + standardSetRate.rrExtraRate;
-  const rSlots = boxSize - 1 - aceCount - arCount - extraSrRate - rrExpected;
+  const rrrExpected = (standardSetRate.rrrBaseCount ?? 0) + (standardSetRate.rrrExtraRate ?? 0);
+  const rSlots = boxSize - 1 - aceCount - arCount - extraSrRate - rrExpected - rrrExpected;
 
   entries.push({ weight: rSlots * 100, pool: byRarity.R ?? [] });
   entries.push({ weight: rrExpected * 100, pool: byRarity.RR ?? [] });
+  if (rrrExpected > 0) entries.push({ weight: rrrExpected * 100, pool: byRarity.RRR ?? [] });
   if (aceCount > 0) entries.push({ weight: aceCount * 100, pool: byRarity.ACE ?? [] });
   entries.push({ weight: arCount * 100, pool: pools.arPool });
 
-  entries.push({
-    weight: (standardSetRate.mandatoryHighWeights.SR_POKEMON ?? 0) + extraSrRate * standardSetRate.extraHighWeights.SR_POKEMON,
-    pool: pools.srPokemon.length ? pools.srPokemon : pools.srAll,
-  });
-  entries.push({
-    weight: (standardSetRate.mandatoryHighWeights.SR_TRAINER ?? 0) + extraSrRate * standardSetRate.extraHighWeights.SR_TRAINER,
-    pool: pools.srTrainer.length ? pools.srTrainer : pools.srAll,
-  });
-  entries.push({ weight: standardSetRate.mandatoryHighWeights.SAR ?? 0, pool: pools.sarAll });
-  entries.push({ weight: standardSetRate.mandatoryHighWeights.UR ?? 0, pool: pools.urAll });
-  entries.push({ weight: standardSetRate.mandatoryHighWeights.BWR ?? 0, pool: pools.bwrAll });
+  const standardHighPools = getStandardHighPools(pools, setCode);
+  const combinedHighWeights: Partial<Record<StandardHighKey, number>> = { ...standardSetRate.mandatoryHighWeights };
+  for (const [key, weight] of Object.entries(standardSetRate.extraHighWeights) as [StandardHighKey, number][]) {
+    combinedHighWeights[key] = (combinedHighWeights[key] ?? 0) + extraSrRate * weight;
+  }
+  for (const [key, weight] of Object.entries(combinedHighWeights) as [StandardHighKey, number][]) {
+    entries.push({ weight, pool: standardHighPools[key] ?? [] });
+  }
 
   return pickWeightedHitPool(ctx, entries, byRarity.R ?? []);
 }
@@ -302,4 +301,23 @@ function getMegaFixedSrPool(setCode: string | undefined, srAll: Card[]): Card[] 
 
 function isInRanges(number: number, ranges: Array<[number, number]>): boolean {
   return ranges.some(([start, end]) => number >= start && number <= end);
+}
+
+function getStandardHighPools(pools: RarityPools, setCode?: string): Record<StandardHighKey, Card[]> {
+  const altRanges = setCode ? ALT_SR_NUMBER_RANGES[setCode] : undefined;
+  const srAlt = altRanges ? pools.srPokemon.filter((card) => isInRanges(card.number, altRanges)) : [];
+  const srPokemon = altRanges
+    ? pools.srPokemon.filter((card) => !isInRanges(card.number, altRanges))
+    : pools.srPokemon;
+
+  return {
+    SR_POKEMON: srPokemon.length ? srPokemon : pools.srAll,
+    SR_ALT: srAlt,
+    SR_TRAINER: pools.srTrainer.length ? pools.srTrainer : pools.srAll,
+    HR_POKEMON: pools.hrPokemon.length ? pools.hrPokemon : pools.hrAll,
+    HR_TRAINER: pools.hrTrainer.length ? pools.hrTrainer : pools.hrAll,
+    SAR: pools.sarAll,
+    UR: pools.urAll,
+    BWR: pools.bwrPokemon.length ? pools.bwrPokemon : pools.bwrAll,
+  };
 }

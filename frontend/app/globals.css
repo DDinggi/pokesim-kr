@@ -225,6 +225,20 @@ body {
   mix-blend-mode: screen;
 }
 
+/* HR: magenta-gold shimmer */
+.holo-hr .holo-layer {
+  background:
+    radial-gradient(
+      farthest-corner ellipse at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+      rgba(255, 220, 120, 0.65) 0%,
+      transparent 62%
+    ),
+    repeating-linear-gradient(48deg, transparent 0%, rgba(217, 70, 239, 0.42) 3%, transparent 6%),
+    repeating-linear-gradient(-38deg, transparent 0%, rgba(250, 204, 21, 0.28) 2%, transparent 5%);
+  mix-blend-mode: screen;
+  filter: saturate(1.45);
+}
+
 /* SAR: 풀 레인보우 — my에 따라 색상 시프트 */
 .holo-sar .holo-layer {
   background-image:

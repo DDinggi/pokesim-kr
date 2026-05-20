@@ -1,17 +1,17 @@
 export const NEW_SIM_SET_CODES = [
-  's12a-vstar-universe',
-  'sv4k-ancient-roar',
-  'sv4m-future-flash',
-  'sv3a-raging-surf',
-  'sv3-black-flame-ruler',
+  'sv2p-snow-hazard',
+  'sv2d-clay-burst',
+  'sv1s-scarlet-ex',
+  'sv1v-violet-ex',
+  's12-paradigm-trigger',
 ] as const;
 
 export const NEW_SIM_SET_NAMES = [
-  'VSTAR 유니버스',
-  '고대의 포효',
-  '미래의 일섬',
-  '레이징서프',
-  '흑염의 지배자',
+  '스노해저드',
+  '클레이버스트',
+  '스칼렛 ex',
+  '바이올렛 ex',
+  '패러다임트리거',
 ];
 
 const NEW_SIM_SET_CODE_SET = new Set<string>(NEW_SIM_SET_CODES);

@@ -11,14 +11,24 @@ export interface HiClassHitSlot {
   pool?: Card[];
 }
 
-export type StandardHighKey = 'SR_POKEMON' | 'SR_TRAINER' | 'SAR' | 'UR' | 'BWR';
+export type StandardHighKey =
+  | 'SR_POKEMON'
+  | 'SR_ALT'
+  | 'SR_TRAINER'
+  | 'HR_POKEMON'
+  | 'HR_TRAINER'
+  | 'SAR'
+  | 'UR'
+  | 'BWR';
 
 export interface StandardSvSetRate {
   mandatoryHighWeights: Partial<Record<StandardHighKey, number>>;
   extraHighRate: number;
-  extraHighWeights: Record<'SR_POKEMON' | 'SR_TRAINER', number>;
+  extraHighWeights: Partial<Record<StandardHighKey, number>>;
   arCount?: number;
   rrBaseCount: number;
   rrExtraRate: number;
+  rrrBaseCount?: number;
+  rrrExtraRate?: number;
   fillerWeights: Record<string, number>;
 }
