@@ -22,6 +22,7 @@ import {
   RARITY_BADGE,
   RARITY_TEXT_COLOR,
   getHitCounts,
+  isPremiumSparkleRarity,
   rarityLabel,
   sortByRarity,
 } from '../lib/rarity';
@@ -288,7 +289,12 @@ export function VendingMachine({
 
           <div className="grid grid-cols-5 gap-3 sm:gap-4 w-full">
             {current.pack.cards.map((card, i) => (
-              <CardTile key={i} card={card} onClick={() => openCard(card, current.setCode)} />
+              <CardTile
+                key={i}
+                card={card}
+                onClick={() => openCard(card, current.setCode)}
+                premiumSparkle={isPremiumSparkleRarity(card.rarity, card)}
+              />
             ))}
           </div>
 
@@ -344,6 +350,7 @@ export function VendingMachine({
                 key={i}
                 card={c}
                 onClick={() => openCard(c, purchased.find((p) => p.pack.cards.includes(c))?.setCode)}
+                premiumSparkle={isPremiumSparkleRarity(c.rarity, c)}
               />
             ))}
           </div>
@@ -763,9 +770,11 @@ function MonsterBall({ className = '' }: { className?: string }) {
 function CardTile({
   card,
   onClick,
+  premiumSparkle = false,
 }: {
   card: Card;
   onClick?: () => void;
+  premiumSparkle?: boolean;
 }) {
   const glow = card.rarity ? CARD_GLOW[card.rarity] ?? '' : '';
   const [errored, setErrored] = useState(false);
@@ -773,11 +782,15 @@ function CardTile({
   const [useOriginal, setUseOriginal] = useState(false);
   const Wrapper = onClick ? 'button' : 'div';
   const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
+  const showPremiumSparkle = premiumSparkle && showImage && isPremiumSparkleRarity(card.rarity, card);
+  const premiumSparkleRarity = showPremiumSparkle && card.rarity
+    ? rarityLabel(card.rarity, card).toLowerCase()
+    : null;
   return (
     <Wrapper
       onClick={onClick}
       onContextMenu={(e) => e.preventDefault()}
-      className={`card-image-frame relative aspect-[5/7] rounded-lg overflow-hidden block w-full bg-gray-800 select-none ${glow} ${onClick ? 'cursor-pointer hover:scale-105 active:scale-95 transition-transform' : ''}`}
+      className={`card-image-frame relative aspect-[5/7] rounded-lg overflow-hidden block w-full bg-gray-800 select-none ${premiumSparkleRarity ? `premium-hit-card premium-hit-card--${premiumSparkleRarity}` : ''} ${glow} ${onClick ? 'cursor-pointer hover:scale-105 active:scale-95 transition-transform' : ''}`}
       data-watermark={showImage ? 'pokesim.kr' : undefined}
     >
       {!showImage ? (
@@ -807,6 +820,14 @@ function CardTile({
               }
             }}
           />
+          {premiumSparkleRarity && (
+            <span
+              className={`premium-hit-sparkle premium-hit-sparkle--${premiumSparkleRarity}`}
+              aria-hidden="true"
+            >
+              <span className="premium-hit-sparkle__dust" />
+            </span>
+          )}
         </>
       )}
       {card.rarity && (

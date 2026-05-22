@@ -124,6 +124,236 @@ body {
   animation: burst-rays 1s ease-out forwards;
 }
 
+@keyframes premium-sparkle-gloss {
+  0% {
+    transform: translateX(-95%) rotate(10deg);
+    opacity: 0;
+  }
+  34% {
+    transform: translateX(-95%) rotate(10deg);
+    opacity: 0;
+  }
+  44% {
+    opacity: 1;
+  }
+  64% {
+    transform: translateX(95%) rotate(10deg);
+    opacity: 0.22;
+  }
+  100% {
+    transform: translateX(95%) rotate(10deg);
+    opacity: 0;
+  }
+}
+
+@keyframes premium-sparkle-twinkle {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate3d(0, -3px, 0) scale(1.04);
+  }
+}
+
+@keyframes premium-sparkle-drift {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translate3d(-2%, 2%, 0);
+  }
+  50% {
+    opacity: 1;
+    transform: translate3d(2%, -2%, 0);
+  }
+}
+
+@keyframes premium-rainbow-flow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg) saturate(1.35);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: hue-rotate(24deg) saturate(1.75);
+  }
+}
+
+.premium-hit-card.premium-hit-card--sar {
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.38) inset,
+    0 0 24px rgba(125, 211, 252, 0.58),
+    0 0 38px rgba(244, 114, 182, 0.48);
+}
+
+.premium-hit-card.premium-hit-card--mur {
+  box-shadow:
+    0 0 0 2px rgba(254, 240, 138, 0.52) inset,
+    0 0 24px rgba(250, 204, 21, 0.58),
+    0 0 42px rgba(255, 255, 255, 0.26);
+}
+
+.premium-hit-card.premium-hit-card--bwr {
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.58) inset,
+    0 0 26px rgba(255, 255, 255, 0.54),
+    0 0 42px rgba(148, 163, 184, 0.36);
+}
+
+.premium-hit-sparkle {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 1;
+}
+
+.premium-hit-sparkle--sar {
+  background:
+    linear-gradient(
+      115deg,
+      rgba(34, 211, 238, 0.28),
+      rgba(255, 255, 255, 0.18),
+      rgba(244, 114, 182, 0.34),
+      rgba(253, 224, 71, 0.18),
+      rgba(96, 165, 250, 0.3)
+    );
+  background-size: 260% 260%;
+  animation: premium-rainbow-flow 3.2s ease-in-out infinite;
+}
+
+.premium-hit-sparkle--mur {
+  background:
+    linear-gradient(
+      115deg,
+      rgba(250, 204, 21, 0.32),
+      rgba(255, 255, 255, 0.2),
+      rgba(251, 191, 36, 0.42),
+      rgba(255, 255, 255, 0.14),
+      rgba(234, 179, 8, 0.34)
+    );
+  background-size: 240% 240%;
+  animation: premium-rainbow-flow 3.5s ease-in-out infinite;
+}
+
+.premium-hit-sparkle--bwr {
+  background:
+    linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.42),
+      rgba(148, 163, 184, 0.18),
+      rgba(255, 255, 255, 0.32),
+      rgba(203, 213, 225, 0.22),
+      rgba(255, 255, 255, 0.36)
+    );
+  background-size: 230% 230%;
+  animation: premium-rainbow-flow 3.8s ease-in-out infinite;
+}
+
+.premium-hit-card {
+  isolation: isolate;
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.34) inset,
+    0 0 22px rgba(125, 211, 252, 0.45),
+    0 0 34px rgba(244, 114, 182, 0.34);
+}
+
+.premium-hit-sparkle::before,
+.premium-hit-sparkle::after,
+.premium-hit-sparkle__dust {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.premium-hit-sparkle::before {
+  inset: -24%;
+  background:
+    linear-gradient(
+      105deg,
+      transparent 22%,
+      rgba(255, 255, 255, 0.78) 40%,
+      rgba(125, 211, 252, 0.55) 48%,
+      rgba(244, 114, 182, 0.52) 56%,
+      transparent 76%
+    );
+  filter: blur(0.4px);
+  animation: premium-sparkle-gloss 2.75s ease-in-out infinite;
+}
+
+.premium-hit-sparkle--sar::before {
+  background:
+    linear-gradient(
+      105deg,
+      transparent 18%,
+      rgba(255, 255, 255, 0.92) 39%,
+      rgba(125, 211, 252, 0.7) 47%,
+      rgba(244, 114, 182, 0.68) 56%,
+      transparent 78%
+    );
+}
+
+.premium-hit-sparkle--mur::before {
+  background:
+    linear-gradient(
+      105deg,
+      transparent 18%,
+      rgba(255, 255, 255, 0.82) 38%,
+      rgba(254, 240, 138, 0.78) 48%,
+      rgba(250, 204, 21, 0.7) 58%,
+      transparent 78%
+    );
+}
+
+.premium-hit-sparkle--bwr::before {
+  background:
+    linear-gradient(
+      105deg,
+      transparent 18%,
+      rgba(255, 255, 255, 0.96) 38%,
+      rgba(226, 232, 240, 0.86) 50%,
+      rgba(255, 255, 255, 0.7) 60%,
+      transparent 78%
+    );
+}
+
+.premium-hit-sparkle::after {
+  background-image:
+    radial-gradient(circle at 12% 16%, rgba(255, 255, 255, 1) 0 2px, transparent 3.4px),
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.9) 0 1.3px, transparent 2.6px),
+    radial-gradient(circle at 24% 66%, rgba(255, 255, 255, 0.95) 0 1.8px, transparent 3px),
+    radial-gradient(circle at 36% 32%, rgba(255, 255, 255, 1) 0 2.2px, transparent 3.6px),
+    radial-gradient(circle at 45% 15%, rgba(255, 255, 255, 0.85) 0 1.2px, transparent 2.4px),
+    radial-gradient(circle at 52% 74%, rgba(255, 255, 255, 0.98) 0 1.8px, transparent 3.2px),
+    radial-gradient(circle at 63% 47%, rgba(255, 255, 255, 0.9) 0 1.3px, transparent 2.6px),
+    radial-gradient(circle at 68% 22%, rgba(255, 255, 255, 1) 0 2px, transparent 3.4px),
+    radial-gradient(circle at 82% 58%, rgba(255, 255, 255, 0.95) 0 1.7px, transparent 3px),
+    radial-gradient(circle at 92% 12%, rgba(255, 255, 255, 1) 0 1.8px, transparent 3.2px);
+  filter:
+    drop-shadow(0 0 3px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 8px rgba(125, 211, 252, 0.95));
+  animation: premium-sparkle-twinkle 1.25s ease-in-out infinite;
+}
+
+.premium-hit-sparkle__dust {
+  display: block;
+  background:
+    radial-gradient(circle at 9% 84%, rgba(255, 255, 255, 0.95) 0 4px, transparent 16px),
+    radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.78) 0 3px, transparent 14px),
+    radial-gradient(circle at 88% 82%, rgba(255, 255, 255, 0.65) 0 2px, transparent 12px),
+    linear-gradient(180deg, rgba(125, 211, 252, 0.22), rgba(244, 114, 182, 0.34));
+  animation: premium-sparkle-drift 2.4s ease-in-out infinite;
+}
+
 /* === 트랜지션 / 로딩 === */
 @keyframes pokeball-spin {
   to {
@@ -333,5 +563,6 @@ body {
   .loading-bounce {
     animation: none;
   }
-  /* 홀로 카드 효과는 사용자 직접 인터랙션이라 reduced-motion에서도 유지 */
+  /* premium-hit-sparkle: 카드 등급을 표현하는 핵심 시각 정보(SAR/MUR/BWR 식별)라 유지.
+     홀로 카드 효과(.holo-*)도 사용자 인터랙션 기반이라 유지. */
 }

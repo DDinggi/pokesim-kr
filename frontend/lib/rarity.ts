@@ -134,6 +134,13 @@ export function rarityFullLabel(rarity: string, context?: RarityContext): string
   return RARITY_FULL_LABEL[rarityLabel(rarity, context)] ?? rarity;
 }
 
+export function isPremiumSparkleRarity(rarity: string | null, context?: RarityContext): boolean {
+  if (!rarity) return false;
+
+  const displayRarity = rarityLabel(rarity, context);
+  return displayRarity === 'SAR' || displayRarity === 'MUR' || displayRarity === 'BWR';
+}
+
 export function raritySortRank(rarity: string | null, context?: RarityContext): number {
   if (!rarity) return 99;
 
