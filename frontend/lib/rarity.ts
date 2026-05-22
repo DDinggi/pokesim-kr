@@ -93,7 +93,7 @@ export const RARITY_FULL_LABEL: Record<string, string> = {
 };
 
 export const RARE_RARITIES = new Set(['RR', 'RRR', 'K', 'ACE', 'AR', 'SR', 'SSR', 'HR', 'SAR', 'MA', 'UR', 'BWR']);
-export const HIT_RARITIES = new Set(['RRR', 'K', 'SR', 'SSR', 'HR', 'SAR', 'MA', 'UR', 'BWR', 'ACE']);
+export const HIT_RARITIES = new Set(['RRR', 'K', 'AR', 'SR', 'SSR', 'HR', 'SAR', 'MA', 'UR', 'BWR', 'ACE']);
 export const HOLO_RARITIES = new Set(['RR', 'RRR', 'K', 'ACE', 'AR', 'SR', 'SSR', 'HR', 'SAR', 'MA', 'UR', 'BWR']);
 
 type RarityContext =

@@ -7,8 +7,9 @@ import { MainScreen } from './MainScreen';
 import { SetPicker } from './SetPicker';
 import { BoxSimulator } from './BoxSimulator';
 import { VendingMachine } from './VendingMachine';
+import { LuckScreen } from './LuckScreen';
 
-type Mode = 'main' | 'box' | 'vending';
+type Mode = 'main' | 'box' | 'vending' | 'luck';
 type PokesimHistoryState = {
   mode: Mode;
   selectedSetCode: string | null;
@@ -17,7 +18,7 @@ type PokesimHistoryState = {
 const HISTORY_STATE_KEY = 'pokesimApp';
 
 function isMode(value: unknown): value is Mode {
-  return value === 'main' || value === 'box' || value === 'vending';
+  return value === 'main' || value === 'box' || value === 'vending' || value === 'luck';
 }
 
 function readPokesimHistoryState(state: unknown): PokesimHistoryState | null {
@@ -59,7 +60,7 @@ export function App({ sets }: { sets: SetMeta[] }) {
       }
 
       setMode(appState.mode);
-      if (appState.mode === 'box' && appState.selectedSetCode) {
+      if ((appState.mode === 'box' || appState.mode === 'luck') && appState.selectedSetCode) {
         setSelectedSet(sets.find((set) => set.code === appState.selectedSetCode) ?? null);
       } else {
         setSelectedSet(null);
@@ -145,6 +146,10 @@ export function App({ sets }: { sets: SetMeta[] }) {
   if (mode === 'main') {
     return (
       <MainScreen
+        onOpenLuck={() => {
+          trackUserEvent({ eventName: 'open_luck', metadata: { source: 'main_cta' } });
+          pushHistoryState('luck');
+        }}
         onSelectMode={(m) => {
           trackUserEvent({ eventName: 'select_mode', mode: m });
           pushHistoryState(m);
@@ -154,7 +159,26 @@ export function App({ sets }: { sets: SetMeta[] }) {
   }
 
   if (mode === 'vending') {
-    return <VendingMachine sets={sets} onBackToMain={goMain} />;
+    return (
+      <VendingMachine
+        sets={sets}
+        onBackToMain={goMain}
+        onOpenLuck={(setCode) => {
+          const targetSet = setCode ? (sets.find((set) => set.code === setCode) ?? null) : null;
+          trackUserEvent({
+            eventName: 'open_luck',
+            setCode,
+            mode: 'vending',
+            metadata: { source: 'vending_result' },
+          });
+          pushHistoryState('luck', targetSet);
+        }}
+      />
+    );
+  }
+
+  if (mode === 'luck') {
+    return <LuckScreen sets={sets} initialSetCode={selectedSet?.code ?? null} onBackToMain={goMain} />;
   }
 
   // box mode
@@ -170,5 +194,15 @@ export function App({ sets }: { sets: SetMeta[] }) {
       />
     );
   }
-  return <BoxSimulator key={selectedSet.code} setMeta={selectedSet} onChangeSet={goBoxPicker} />;
+  return (
+    <BoxSimulator
+      key={selectedSet.code}
+      setMeta={selectedSet}
+      onChangeSet={goBoxPicker}
+      onOpenLuck={() => {
+        trackUserEvent({ eventName: 'open_luck', metadata: { source: 'box_result' } });
+        pushHistoryState('luck', selectedSet);
+      }}
+    />
+  );
 }

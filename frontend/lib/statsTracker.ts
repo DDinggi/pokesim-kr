@@ -7,6 +7,7 @@ export type UserEventName =
   | 'page_view'
   | 'select_mode'
   | 'select_set'
+  | 'open_luck'
   | 'open_again'
   | 'open_card_modal';
 

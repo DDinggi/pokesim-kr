@@ -37,6 +37,20 @@ import {
 const MAX_PER_SET = 10;
 const EMPTY_SESSION: OpeningSession = EMPTY_OPENING_SESSION;
 
+function normalizeSearchText(value: string): string {
+  return value.toLowerCase().replace(/[\s·._-]+/g, '');
+}
+
+function matchSet(set: SetMeta, query: string): boolean {
+  const q = normalizeSearchText(query);
+  if (!q) return true;
+  return (
+    normalizeSearchText(set.name_ko).includes(q)
+    || normalizeSearchText(set.code).includes(q)
+    || normalizeSearchText(set.type).includes(q)
+  );
+}
+
 function loadSession(): OpeningSession {
   if (typeof window === 'undefined') return EMPTY_SESSION;
   try {
@@ -58,6 +72,15 @@ function saveSession(s: OpeningSession) {
   }
 }
 
+function SearchIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 type Phase = 'browse' | 'reveal' | 'done';
 
 interface PurchasedPack {
@@ -67,7 +90,15 @@ interface PurchasedPack {
   seed: string;
 }
 
-export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBackToMain: () => void }) {
+export function VendingMachine({
+  sets,
+  onBackToMain,
+  onOpenLuck,
+}: {
+  sets: SetMeta[];
+  onBackToMain: () => void;
+  onOpenLuck: (setCode?: string) => void;
+}) {
   const [phase, setPhase] = useState<Phase>('browse');
   const [cart, setCart] = useState<Record<string, number>>({});
   const [modalSet, setModalSet] = useState<SetMeta | null>(null);
@@ -75,8 +106,13 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
   const [purchased, setPurchased] = useState<PurchasedPack[]>([]);
   const [packIdx, setPackIdx] = useState(0);
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
+  const [query, setQuery] = useState('');
 
   const displaySets = useMemo(() => sets, [sets]);
+  const visibleSets = useMemo(
+    () => displaySets.filter((set) => matchSet(set, query)),
+    [displaySets, query],
+  );
 
   const totalPacks = useMemo(
     () => Object.values(cart).reduce((s, n) => s + n, 0),
@@ -275,6 +311,8 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
     const sorted = sortByRarity(allCards);
     const hits = getHitCounts(allCards);
     const totalCostFinal = purchased.reduce((s, p) => s + (p.setMeta.pack_price_krw ?? 0), 0);
+    const purchasedSetCodes = Array.from(new Set(purchased.map((pack) => pack.setCode)));
+    const luckTargetSetCode = purchasedSetCodes.length === 1 ? purchasedSetCodes[0] : undefined;
     return (
       <div className="min-h-screen bg-gray-950 text-white flex flex-col">
         <header className="px-6 py-5 border-b border-gray-800/80 flex items-center gap-4">
@@ -316,6 +354,12 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
               className="px-8 py-3 bg-gradient-to-br from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 active:scale-95 rounded-xl font-bold transition shadow-lg shadow-amber-900/40"
             >
               다시 개봉하기
+            </button>
+            <button
+              onClick={() => onOpenLuck(luckTargetSetCode)}
+              className="px-6 py-3 bg-amber-500/90 text-gray-950 hover:bg-amber-400 active:scale-95 rounded-xl font-black transition shadow-lg shadow-amber-950/20"
+            >
+              내 운 보러가기
             </button>
             <button
               onClick={onBackToMain}
@@ -363,6 +407,38 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
           </p>
         </div>
 
+        <div className="mb-4">
+          <label className="sr-only" htmlFor="vending-search">
+            팩 검색
+          </label>
+          <div className="relative">
+            <SearchIcon className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
+            <input
+              id="vending-search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="팩 이름 검색"
+              className="h-12 w-full rounded-xl border border-white/10 bg-gray-900/80 pl-12 pr-24 text-base font-bold text-white outline-none transition placeholder:text-gray-600 focus:border-yellow-300/60 focus:bg-gray-900"
+              autoComplete="off"
+            />
+            <div className="absolute right-2 top-1/2 flex -translate-y-1/2 items-center gap-1.5">
+              <span className="text-[11px] font-black text-gray-500">
+                {visibleSets.length}/{displaySets.length}
+              </span>
+              {query.trim().length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setQuery('')}
+                  className="flex h-8 w-8 items-center justify-center rounded bg-white/10 text-sm font-black text-gray-300 transition hover:bg-white/15 hover:text-white"
+                  aria-label="검색어 지우기"
+                >
+                  ×
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
         {/* 자판기 본체 — 노란 프레임 → 검정 패널 → 파란 LCD */}
         <div className="rounded-[28px] bg-gradient-to-br from-yellow-400 to-yellow-500 p-3 sm:p-4 shadow-2xl ring-1 ring-yellow-300/50">
           <div className="rounded-3xl bg-gradient-to-b from-gray-950 to-black p-3 sm:p-5 shadow-inner">
@@ -392,7 +468,7 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
 
             <div className="rounded-2xl bg-gradient-to-br from-blue-700 via-blue-800 to-blue-950 p-3 sm:p-5">
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-              {displaySets.map((set) => {
+              {visibleSets.map((set) => {
                 const inCart = cart[set.code] ?? 0;
                 const isNew = isNewSimSet(set.code);
                 return (
@@ -421,6 +497,9 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                       />
                     </div>
                     <div className="px-1.5 pb-2 pt-1">
+                      <p className="mb-1 h-8 overflow-hidden text-center text-[10px] font-black leading-4 text-gray-950">
+                        {set.name_ko}
+                      </p>
                       <div className="rounded-full bg-gray-900 text-white text-center py-1 font-black text-xs tabular-nums">
                         ₩{set.pack_price_krw.toLocaleString()}
                       </div>
@@ -429,6 +508,11 @@ export function VendingMachine({ sets, onBackToMain }: { sets: SetMeta[]; onBack
                 );
               })}
             </div>
+            {visibleSets.length === 0 && (
+              <div className="rounded-xl border border-dashed border-blue-100/25 bg-blue-950/35 px-4 py-8 text-center">
+                <p className="text-sm font-black text-blue-100">검색 결과가 없습니다</p>
+              </div>
+            )}
             <p className="text-center text-xs text-blue-200/80 mt-4 tracking-wide">
               ▼ 시뮬레이션할 팩을 골라보세요 (실제 결제 없음) ▼
             </p>

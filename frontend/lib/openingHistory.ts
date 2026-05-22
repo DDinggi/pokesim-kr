@@ -16,6 +16,7 @@ export interface OpeningEvent {
   cardCount: number;
   krw: number;
   rarityCounts: Record<string, number>;
+  hitCards?: Card[];
 }
 
 export interface OpeningSession {
@@ -66,6 +67,12 @@ export function countRarities(cards: Card[]): Record<string, number> {
   return counts;
 }
 
+const OPENING_HIT_RARITIES = new Set(['BWR', 'SAR', 'UR', 'HR', 'MA', 'SSR', 'SR']);
+
+export function getOpeningHitCards(cards: Card[]): Card[] {
+  return cards.filter((card) => card.rarity && OPENING_HIT_RARITIES.has(card.rarity));
+}
+
 export function createOpeningEvent({
   setMeta,
   unit,
@@ -94,5 +101,6 @@ export function createOpeningEvent({
     cardCount: cards.length,
     krw,
     rarityCounts: countRarities(cards),
+    hitCards: getOpeningHitCards(cards),
   };
 }
