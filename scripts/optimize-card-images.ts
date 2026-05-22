@@ -29,6 +29,8 @@ const dryRun = argv.includes("--dry-run");
 const force = argv.includes("--force");
 const verifyOnly = argv.includes("--verify-only");
 const targetSet = readArg("--set");
+const targetCard = readArg("--card");
+const targetKey = readArg("--key");
 const sizes = parseSizes(readArg("--sizes") ?? "256,512");
 const concurrency = readPositiveInt("--concurrency", 4);
 const quality = readPositiveInt("--quality", 76);
@@ -57,6 +59,7 @@ const s3 =
 
 interface CardEntry {
   card_num?: string;
+  number?: number;
   image_url?: string;
 }
 
@@ -138,7 +141,11 @@ function collectTasks(): ImageTask[] {
     const setCode = setData.code ?? file.replace(/\.json$/, "");
 
     for (const card of setData.cards ?? []) {
-      const originalKey = originalKeyFor(setCode, card);
+      if (targetCard && card.card_num !== targetCard && String(card.number ?? "") !== targetCard) {
+        continue;
+      }
+
+      const originalKey = targetKey ?? originalKeyFor(setCode, card);
       if (!originalKey) continue;
 
       tasks.set(originalKey, {

@@ -28,6 +28,8 @@ const dryRun = argv.includes("--dry-run");
 const force = argv.includes("--force");
 const verifyOnly = argv.includes("--verify-only");
 const targetSet = readArg("--set");
+const targetCard = readArg("--card");
+const targetKey = readArg("--key");
 const verifyConcurrency = Number(readArg("--concurrency") ?? "16");
 
 const accountId = process.env.R2_ACCOUNT_ID;
@@ -229,7 +231,11 @@ async function main() {
     let changed = false;
 
     for (const card of cards) {
-      const key = objectKeyFor(setCode, card);
+      if (targetCard && card.card_num !== targetCard && String(card.number ?? "") !== targetCard) {
+        continue;
+      }
+
+      const key = targetKey ?? objectKeyFor(setCode, card);
       if (!key) {
         stats.skipped++;
         continue;

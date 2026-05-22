@@ -26,6 +26,7 @@ import {
   RARITY_TEXT_COLOR,
   getHitCounts,
   getRarityCounts,
+  isPremiumSparkleRarity,
   rarityLabel,
   sortRarityKeys,
   sortByRarity,
@@ -69,11 +70,13 @@ function CardTile({
   size = 'md',
   onClick,
   priority = false,
+  premiumSparkle = false,
 }: {
   card: Card;
   size?: 'sm' | 'md' | 'lg';
   onClick?: () => void;
   priority?: boolean;
+  premiumSparkle?: boolean;
 }) {
   const glow = card.rarity ? (CARD_GLOW[card.rarity] ?? '') : '';
   const [errored, setErrored] = useState(false);
@@ -81,6 +84,10 @@ function CardTile({
   const [useOriginal, setUseOriginal] = useState(false);
   const Wrapper = onClick ? 'button' : 'div';
   const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
+  const showPremiumSparkle = premiumSparkle && showImage && isPremiumSparkleRarity(card.rarity, card);
+  const premiumSparkleRarity = showPremiumSparkle && card.rarity
+    ? rarityLabel(card.rarity, card).toLowerCase()
+    : null;
   const sizesAttr =
     size === 'sm'
       ? '(max-width: 640px) 12vw, (max-width: 1024px) 8vw, 100px'
@@ -89,7 +96,7 @@ function CardTile({
     <Wrapper
       onClick={onClick}
       onContextMenu={(e) => e.preventDefault()}
-      className={`card-image-frame relative aspect-[5/7] rounded-lg overflow-hidden block w-full bg-gray-800 select-none ${glow} ${onClick ? 'cursor-pointer hover:scale-105 active:scale-95 transition-transform' : ''}`}
+      className={`card-image-frame relative aspect-[5/7] rounded-lg overflow-hidden block w-full bg-gray-800 select-none ${premiumSparkleRarity ? `premium-hit-card premium-hit-card--${premiumSparkleRarity}` : ''} ${glow} ${onClick ? 'cursor-pointer hover:scale-105 active:scale-95 transition-transform' : ''}`}
       data-watermark={showImage ? 'pokesim.kr' : undefined}
     >
       {!showImage ? (
@@ -125,6 +132,14 @@ function CardTile({
               }
             }}
           />
+          {premiumSparkleRarity && (
+            <span
+              className={`premium-hit-sparkle premium-hit-sparkle--${premiumSparkleRarity}`}
+              aria-hidden="true"
+            >
+              <span className="premium-hit-sparkle__dust" />
+            </span>
+          )}
         </>
       )}
       {size !== 'sm' && card.rarity && (
@@ -376,20 +391,29 @@ function AutoBoxReveal({
         >
           {pack.cards.map((card, i) => {
             const isHit = i === hitIdx && isRareHit;
+            const isPremiumHit = isHit && isPremiumSparkleRarity(card.rarity, card);
+            // 프리미엄(SAR/MUR/BWR)은 카드 본체를 정적으로 두고 sparkle 오버레이로만 표현
+            const useHitBurst = isHit && !isPremiumHit;
             const delay = i * REVEAL_STAGGER_MS + (i === hitIdx ? 200 : 0);
             return (
               <div key={i} onClick={(e) => e.stopPropagation()} className="relative">
-                {isHit && (
+                {useHitBurst && (
                   <div
                     className="absolute inset-0 burst-rays rounded-lg pointer-events-none z-0"
                     style={{ animationDelay: `${delay + 400}ms` }}
                   />
                 )}
                 <div
-                  className={`relative z-10 rounded-lg ${isHit ? 'card-reveal-hit' : 'card-reveal'}`}
+                  className={`relative z-10 rounded-lg ${useHitBurst ? 'card-reveal-hit' : 'card-reveal'}`}
                   style={{ animationDelay: `${delay}ms` }}
                 >
-                  <CardTile card={card} size="lg" onClick={() => onCardClick(card)} priority />
+                  <CardTile
+                    card={card}
+                    size="lg"
+                    onClick={() => onCardClick(card)}
+                    priority
+                    premiumSparkle={isPremiumHit}
+                  />
                 </div>
               </div>
             );
@@ -460,7 +484,13 @@ function ManualBoxReveal({
       <div className="grid grid-cols-5 gap-3 sm:gap-4 w-full max-w-4xl mx-auto">
         {pack.cards.map((card, i) =>
           flippedSet.has(i) ? (
-            <CardTile key={i} card={card} size="lg" onClick={() => onCardClick(card)} />
+            <CardTile
+              key={i}
+              card={card}
+              size="lg"
+              onClick={() => onCardClick(card)}
+              premiumSparkle={isPremiumSparkleRarity(card.rarity, card)}
+            />
           ) : (
             <div
               key={i}
@@ -597,7 +627,13 @@ function RarityFilteredGrid({
       {sorted.length > 0 ? (
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
           {sorted.map((card, i) => (
-            <CardTile key={i} card={card} size="lg" onClick={() => onCardClick(card)} />
+            <CardTile
+              key={i}
+              card={card}
+              size="lg"
+              onClick={() => onCardClick(card)}
+              premiumSparkle={isPremiumSparkleRarity(card.rarity, card)}
+            />
           ))}
         </div>
       ) : (
@@ -771,7 +807,13 @@ function PackDoneScreen({
 
       <div className="grid grid-cols-5 gap-3 sm:gap-4 w-full">
         {pack.cards.map((card, i) => (
-          <CardTile key={i} card={card} size="lg" onClick={() => onCardClick(card)} />
+          <CardTile
+            key={i}
+            card={card}
+            size="lg"
+            onClick={() => onCardClick(card)}
+            premiumSparkle={i === pack.cards.length - 1 && isPremiumSparkleRarity(card.rarity, card)}
+          />
         ))}
       </div>
 
