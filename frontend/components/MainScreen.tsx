@@ -3,7 +3,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card } from '../lib/types';
-import { NEW_SIM_SET_NAMES } from '../lib/newSets';
 import { fetchGlobalStats, trackUserEvent, type GlobalStats } from '../lib/statsTracker';
 import {
   normalizeOpeningSession,
@@ -76,13 +75,8 @@ export function MainScreen({
         <div className="mb-5 space-y-1.5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 px-4 py-3 ring-1 ring-white/10">
           <p className="text-sm font-bold text-white sm:text-base">
             <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW</span>
-            <span className="mr-2 align-middle text-[11px] font-bold tracking-widest text-white/45">2026.05.20</span>
+            <span className="mr-2 align-middle text-[11px] font-bold tracking-widest text-white/45">2026.05.22</span>
             내 운 확인 기능 추가
-          </p>
-          <p className="text-sm font-bold text-white sm:text-base">
-            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW</span>
-            <span className="mr-2 align-middle text-[11px] font-bold tracking-widest text-white/45">2026.05.17</span>
-            {NEW_SIM_SET_NAMES.join(' · ')}
           </p>
         </div>
 
