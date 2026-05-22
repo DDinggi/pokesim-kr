@@ -57,6 +57,7 @@ function loadStoredSession(): Session {
 }
 
 type Mode = 'box-auto' | 'box-manual' | 'box-instant' | 'pack';
+type OpenLuckMode = 'box' | 'pack';
 type Phase = 'idle' | 'reveal' | 'done';
 
 type Session = OpeningSession;
@@ -611,7 +612,7 @@ function BoxDoneScreen({
   meta,
   session,
   onRedo,
-  onChangeMode,
+  onOpenLuck,
   onChangeSet,
   onCardClick,
   onResetSession,
@@ -620,7 +621,7 @@ function BoxDoneScreen({
   meta: SetMeta;
   session: Session;
   onRedo: () => void;
-  onChangeMode: () => void;
+  onOpenLuck: (mode: OpenLuckMode) => void;
   onChangeSet: () => void;
   onCardClick: (c: Card) => void;
   onResetSession: () => void;
@@ -667,10 +668,10 @@ function BoxDoneScreen({
           한 박스 더 깡!
         </button>
         <button
-          onClick={onChangeMode}
-          className="px-6 py-3 bg-gray-700 hover:bg-gray-600 active:scale-95 rounded-xl font-bold transition"
+          onClick={() => onOpenLuck('box')}
+          className="px-6 py-3 bg-amber-500/90 text-gray-950 hover:bg-amber-400 active:scale-95 rounded-xl font-black transition shadow-lg shadow-amber-950/20"
         >
-          모드 변경
+          운 확인하러가기
         </button>
         <button
           onClick={onChangeSet}
@@ -736,7 +737,7 @@ function PackDoneScreen({
   meta,
   session,
   onRedo,
-  onChangeMode,
+  onOpenLuck,
   onChangeSet,
   onCardClick,
 }: {
@@ -745,7 +746,7 @@ function PackDoneScreen({
   meta: SetMeta;
   session: Session;
   onRedo: () => void;
-  onChangeMode: () => void;
+  onOpenLuck: (mode: OpenLuckMode) => void;
   onChangeSet: () => void;
   onCardClick: (c: Card) => void;
 }) {
@@ -803,10 +804,10 @@ function PackDoneScreen({
           1팩 더!
         </button>
         <button
-          onClick={onChangeMode}
-          className="px-6 py-3 bg-gray-700 hover:bg-gray-600 active:scale-95 rounded-xl font-bold transition"
+          onClick={() => onOpenLuck('pack')}
+          className="px-6 py-3 bg-amber-500/90 text-gray-950 hover:bg-amber-400 active:scale-95 rounded-xl font-black transition shadow-lg shadow-amber-950/20"
         >
-          모드 변경
+          운 확인하러가기
         </button>
         <button
           onClick={onChangeSet}
@@ -827,9 +828,11 @@ function PackDoneScreen({
 export function BoxSimulator({
   setMeta,
   onChangeSet,
+  onOpenLuck,
 }: {
   setMeta: SetMeta;
   onChangeSet: () => void;
+  onOpenLuck: (mode: OpenLuckMode) => void;
 }) {
   const [phase, setPhase] = useState<Phase>('idle');
   const [mode, setMode] = useState<Mode | null>(null);
@@ -1218,7 +1221,7 @@ export function BoxSimulator({
                 meta={setMeta}
                 session={session}
                 onRedo={() => triggerBoxRedo(mode)}
-                onChangeMode={goToIdle}
+                onOpenLuck={onOpenLuck}
                 onChangeSet={onChangeSet}
                 onCardClick={openCardModal}
                 onResetSession={resetSession}
@@ -1235,7 +1238,7 @@ export function BoxSimulator({
                   trackUserEvent({ eventName: 'open_again', setCode: setMeta.code, mode: 'pack' });
                   startPack();
                 }}
-                onChangeMode={goToIdle}
+                onOpenLuck={onOpenLuck}
                 onChangeSet={onChangeSet}
                 onCardClick={openCardModal}
               />

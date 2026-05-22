@@ -176,19 +176,6 @@ function sortSetsByPopularity(
   });
 }
 
-function formatPopularity(set: SetMeta, popularity: SetPopularity | undefined): string {
-  if (!popularity || getPopularityScore(popularity) === 0) {
-    return `${set.box_size}팩 · ${set.cards.length}종`;
-  }
-
-  const loosePacks = Math.max(0, popularity.totalPacks - popularity.totalBoxes * set.box_size);
-  const parts: string[] = [];
-  if (popularity.totalBoxes > 0) parts.push(`${popularity.totalBoxes.toLocaleString()}박스`);
-  if (loosePacks > 0 || popularity.totalBoxes === 0) parts.push(`${loosePacks.toLocaleString()}팩`);
-  parts.push(`${popularity.totalSessions.toLocaleString()}명`);
-  return parts.join(' · ');
-}
-
 function SearchIcon({ className = '' }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden>
@@ -200,14 +187,12 @@ function SearchIcon({ className = '' }: { className?: string }) {
 
 function PopularityList({
   sets,
-  popularityByCode,
   onSelect,
   title,
   emptyLabel,
   isLoading = false,
 }: {
   sets: SetMeta[];
-  popularityByCode: Map<string, SetPopularity>;
   onSelect: (set: SetMeta) => void;
   title: string;
   emptyLabel: string;
@@ -217,7 +202,6 @@ function PopularityList({
     <div id="box-search-results" className="absolute left-0 right-0 top-full z-30 mt-2 overflow-hidden rounded-xl border border-white/10 bg-gray-950/98 shadow-2xl shadow-black/50 backdrop-blur">
       <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
         <p className="text-xs font-black tracking-widest text-gray-400">{title}</p>
-        <span className="text-[10px] text-gray-600">24시간 기준</span>
       </div>
       {isLoading ? (
         <p className="px-4 py-5 text-center text-sm text-gray-500">인기 순위 불러오는 중...</p>
@@ -226,7 +210,6 @@ function PopularityList({
       ) : (
         <ol className="max-h-[360px] overflow-y-auto py-1">
           {sets.slice(0, SEARCH_PANEL_LIMIT).map((set, index) => {
-            const popularity = popularityByCode.get(set.code);
             return (
               <li key={set.code}>
                 <button
@@ -249,9 +232,6 @@ function PopularityList({
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-black text-white">{set.name_ko}</p>
-                    <p className="mt-0.5 text-[11px] text-gray-500">
-                      {formatPopularity(set, popularity)}
-                    </p>
                   </div>
                 </button>
               </li>
@@ -457,7 +437,6 @@ export function SetPicker({
           {searchOpen && (
             <PopularityList
               sets={panelSets}
-              popularityByCode={popularityByCode}
               onSelect={onSelect}
               title={isSearching ? '검색 결과' : '인기순위'}
               emptyLabel={isSearching ? '검색 결과가 없습니다' : '아직 인기 순위 데이터가 없습니다'}

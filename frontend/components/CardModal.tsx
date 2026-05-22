@@ -11,7 +11,7 @@ import {
 import { HOLO_RARITIES, RARITY_TIER, rarityFullLabel, rarityLabel } from '../lib/rarity';
 
 const TYPE_LABEL: Record<string, string> = {
-  풀: '풀', 불꽃: '불꽃', 물: '물', 번개: '번개',
+  풀: '풀', 불꽃: '불꽃', 물: '물', 번개: '전기',
   초: '에스퍼', 격투: '격투', 악: '악', 강철: '강철',
   드래곤: '드래곤', 무색: '노말',
 };
