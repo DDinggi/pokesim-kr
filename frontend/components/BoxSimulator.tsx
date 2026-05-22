@@ -57,6 +57,7 @@ function loadStoredSession(): Session {
 }
 
 type Mode = 'box-auto' | 'box-manual' | 'box-instant' | 'pack';
+type OpenLuckMode = 'box' | 'pack';
 type Phase = 'idle' | 'reveal' | 'done';
 
 type Session = OpeningSession;
@@ -620,7 +621,7 @@ function BoxDoneScreen({
   meta: SetMeta;
   session: Session;
   onRedo: () => void;
-  onOpenLuck: () => void;
+  onOpenLuck: (mode: OpenLuckMode) => void;
   onChangeSet: () => void;
   onCardClick: (c: Card) => void;
   onResetSession: () => void;
@@ -667,7 +668,7 @@ function BoxDoneScreen({
           한 박스 더 깡!
         </button>
         <button
-          onClick={onOpenLuck}
+          onClick={() => onOpenLuck('box')}
           className="px-6 py-3 bg-amber-500/90 text-gray-950 hover:bg-amber-400 active:scale-95 rounded-xl font-black transition shadow-lg shadow-amber-950/20"
         >
           운 확인하러가기
@@ -745,7 +746,7 @@ function PackDoneScreen({
   meta: SetMeta;
   session: Session;
   onRedo: () => void;
-  onOpenLuck: () => void;
+  onOpenLuck: (mode: OpenLuckMode) => void;
   onChangeSet: () => void;
   onCardClick: (c: Card) => void;
 }) {
@@ -803,7 +804,7 @@ function PackDoneScreen({
           1팩 더!
         </button>
         <button
-          onClick={onOpenLuck}
+          onClick={() => onOpenLuck('pack')}
           className="px-6 py-3 bg-amber-500/90 text-gray-950 hover:bg-amber-400 active:scale-95 rounded-xl font-black transition shadow-lg shadow-amber-950/20"
         >
           운 확인하러가기
@@ -831,7 +832,7 @@ export function BoxSimulator({
 }: {
   setMeta: SetMeta;
   onChangeSet: () => void;
-  onOpenLuck: () => void;
+  onOpenLuck: (mode: OpenLuckMode) => void;
 }) {
   const [phase, setPhase] = useState<Phase>('idle');
   const [mode, setMode] = useState<Mode | null>(null);

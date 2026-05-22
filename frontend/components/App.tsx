@@ -199,8 +199,13 @@ export function App({ sets }: { sets: SetMeta[] }) {
       key={selectedSet.code}
       setMeta={selectedSet}
       onChangeSet={goBoxPicker}
-      onOpenLuck={() => {
-        trackUserEvent({ eventName: 'open_luck', metadata: { source: 'box_result' } });
+      onOpenLuck={(resultMode) => {
+        trackUserEvent({
+          eventName: 'open_luck',
+          setCode: selectedSet.code,
+          mode: resultMode,
+          metadata: { source: resultMode === 'pack' ? 'pack_result' : 'box_result' },
+        });
         pushHistoryState('luck', selectedSet);
       }}
     />

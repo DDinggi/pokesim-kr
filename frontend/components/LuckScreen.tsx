@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta } from '../lib/types';
 import {
@@ -29,6 +29,7 @@ import {
   rarityLabel,
   sortByRarity,
 } from '../lib/rarity';
+import { trackUserEvent } from '../lib/statsTracker';
 import { LuckPyramid } from './LuckPyramid';
 import { CardModal } from './CardModal';
 
@@ -85,11 +86,22 @@ export function LuckScreen({
   const [openHitCardsSetCode, setOpenHitCardsSetCode] = useState<string | null>(null);
   const [setListOpen, setSetListOpen] = useState(false);
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
+  const [sessionLoaded, setSessionLoaded] = useState(false);
+  const trackedEmptyStateKey = useRef<string | null>(null);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setSession(loadSession()), 0);
+    trackUserEvent({
+      eventName: 'view_luck',
+      setCode: initialSetCode ?? undefined,
+      metadata: { hasInitialSet: Boolean(initialSetCode) },
+    });
+
+    const timer = window.setTimeout(() => {
+      setSession(loadSession());
+      setSessionLoaded(true);
+    }, 0);
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [initialSetCode]);
 
   const setByCode = useMemo(() => new Map(sets.map((set) => [set.code, set])), [sets]);
   const setBreakdowns = useMemo(() => {
@@ -149,10 +161,33 @@ export function LuckScreen({
   const hitCardsOpen = Boolean(activeBreakdown && openHitCardsSetCode === activeBreakdown.set.code);
   const hits = getHitCounts(session.cards);
   const hasHistory = session.cards.length > 0 || session.openingEvents.length > 0;
+  const isLuckUnavailable = !hasHistory || setBreakdowns.length === 0 || !activeBreakdown?.score;
 
-  function handleResetAllSession() {
+  useEffect(() => {
+    if (!sessionLoaded || !isLuckUnavailable) return;
+
+    const key = `${hasHistory ? 'legacy' : 'empty'}:${session.openingEvents.length}:${session.cards.length}`;
+    if (trackedEmptyStateKey.current === key) return;
+    trackedEmptyStateKey.current = key;
+
+    trackUserEvent({
+      eventName: 'luck_empty_state',
+      metadata: {
+        reason: hasHistory ? 'legacy_or_unscorable' : 'empty',
+        cards: session.cards.length,
+        openingEvents: session.openingEvents.length,
+      },
+    });
+  }, [hasHistory, isLuckUnavailable, session.cards.length, session.openingEvents.length, sessionLoaded]);
+
+  function handleResetAllSession(source: 'luck_empty' | 'luck_screen' = 'luck_screen') {
     const confirmed = window.confirm('전체 기록을 초기화할까요?');
     if (!confirmed) return;
+
+    trackUserEvent({
+      eventName: 'reset_history',
+      metadata: { source, scope: 'all' },
+    });
 
     saveSession(EMPTY_OPENING_SESSION);
     setSession(EMPTY_OPENING_SESSION);
@@ -165,6 +200,12 @@ export function LuckScreen({
     if (!activeBreakdown) return;
     const confirmed = window.confirm(`${activeBreakdown.set.name_ko} 기록만 초기화할까요?`);
     if (!confirmed) return;
+
+    trackUserEvent({
+      eventName: 'reset_history',
+      setCode: activeBreakdown.set.code,
+      metadata: { source: 'luck_screen', scope: 'set' },
+    });
 
     const nextSession = removeSetFromSession(session, activeBreakdown.set);
     saveSession(nextSession);
@@ -267,6 +308,14 @@ export function LuckScreen({
                               key={group.set.code}
                               type="button"
                               onClick={() => {
+                                trackUserEvent({
+                                  eventName: 'select_luck_set',
+                                  setCode: group.set.code,
+                                  metadata: {
+                                    boxes: group.boxes,
+                                    packs: group.packs,
+                                  },
+                                });
                                 setSelectedSetCode(group.set.code);
                                 setSetListOpen(false);
                               }}
@@ -313,6 +362,17 @@ export function LuckScreen({
                       packs={activeBreakdown.packs}
                       isOpen={hitCardsOpen}
                       onToggle={() => {
+                        if (openHitCardsSetCode !== activeBreakdown.set.code) {
+                          trackUserEvent({
+                            eventName: 'expand_luck_hit_cards',
+                            setCode: activeBreakdown.set.code,
+                            metadata: {
+                              hitCards: activeBreakdown.hitCards.length,
+                              boxes: activeBreakdown.boxes,
+                              packs: activeBreakdown.packs,
+                            },
+                          });
+                        }
                         setOpenHitCardsSetCode((code) => (
                           code === activeBreakdown.set.code ? null : activeBreakdown.set.code
                         ));
@@ -321,15 +381,15 @@ export function LuckScreen({
                     />
                   </>
                 ) : (
-                  <LuckUnavailableMessage onReset={handleResetAllSession} />
+                  <LuckUnavailableMessage onReset={() => handleResetAllSession('luck_empty')} />
                 )}
               </section>
             ) : (
-              <LuckUnavailableMessage onReset={handleResetAllSession} />
+              <LuckUnavailableMessage onReset={() => handleResetAllSession('luck_empty')} />
             )}
           </>
         ) : (
-          <LuckUnavailableMessage onReset={handleResetAllSession} />
+          <LuckUnavailableMessage onReset={() => handleResetAllSession('luck_empty')} />
         )}
       </main>
 

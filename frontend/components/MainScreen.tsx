@@ -4,7 +4,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card } from '../lib/types';
 import { NEW_SIM_SET_NAMES } from '../lib/newSets';
-import { fetchGlobalStats, type GlobalStats } from '../lib/statsTracker';
+import { fetchGlobalStats, trackUserEvent, type GlobalStats } from '../lib/statsTracker';
 import {
   normalizeOpeningSession,
   SESSION_STORAGE_KEY,
@@ -170,6 +170,10 @@ export function MainScreen({
               onClick={() => {
                 const confirmed = window.confirm('지금까지 깐 전체 기록을 초기화할까요?');
                 if (!confirmed) return;
+                trackUserEvent({
+                  eventName: 'reset_history',
+                  metadata: { source: 'main_history', scope: 'all' },
+                });
                 if (typeof window !== 'undefined') {
                   window.localStorage.removeItem(SESSION_STORAGE_KEY);
                 }

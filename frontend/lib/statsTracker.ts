@@ -8,6 +8,11 @@ export type UserEventName =
   | 'select_mode'
   | 'select_set'
   | 'open_luck'
+  | 'view_luck'
+  | 'luck_empty_state'
+  | 'reset_history'
+  | 'select_luck_set'
+  | 'expand_luck_hit_cards'
   | 'open_again'
   | 'open_card_modal';
 
