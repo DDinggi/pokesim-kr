@@ -11,6 +11,7 @@
     "optimize:images": "tsx optimize-card-images.ts",
     "benchmark:images": "tsx benchmark-image-delivery.ts",
     "validate:data": "tsx validate-card-data.ts",
+    "validate:luck": "tsx validate-luck-model.ts",
     "sync": "tsx sync-sets.ts"
   },
   "dependencies": {

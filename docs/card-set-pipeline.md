@@ -34,6 +34,7 @@
 | `scripts/migrate-to-r2.ts` | 원본 카드 이미지를 R2에 업로드/검증. |
 | `scripts/optimize-card-images.ts` | 256/512 WebP variant 생성 및 R2 업로드/검증. |
 | `scripts/validate-card-data.ts` | 세트 JSON, active index, 이미지 키, rarity 검증. |
+| `scripts/validate-luck-model.ts` | 새 세트가 시뮬/운 계산 모델에 명시적으로 연결됐는지 검증. |
 | `scripts/sync-sets.ts` | `data/sets`를 `frontend/public/sets`로 복사. |
 
 ## 새 세트 추가 순서
@@ -60,37 +61,67 @@ pnpm --dir scripts manual-add -- --set <set-code> --tsv data/manual/<set-code>-a
 5. 박스 이미지가 있으면 `frontend/public/boxes/`에 넣고
    `frontend/lib/boxImages.ts`에 매핑한다.
 
-6. 봉입률 모델이 기존 일반 확장팩과 다르면 `frontend/lib/simulation/model.ts`에
-   세트별 모델을 추가한다. 공식 봉입률은 비공개이므로 `box_guarantees._source`,
+6. 봉입률 모델을 `frontend/lib/simulation/model.ts`에 연결한다.
+   공식 봉입률은 비공개이므로 `box_guarantees._source`,
    `_sample_size`, `_estimated_at`도 함께 남긴다.
 
-7. public 세트 JSON을 동기화한다.
+   - 일반 SV 확장팩: `STANDARD_SV_SET_RATES`에 세트 코드를 추가한다.
+   - ACE SPEC 세트: `ACE_SPEC_SET_CODES`에도 추가한다.
+   - MEGA 확장팩: `EXPANSION_MONSTER_WEIGHTS`와
+     `MEGA_MAIN_SR_NUMBER_RANGES`에 추가한다.
+   - SV11 특수 구성: 같은 모델을 쓰는 신규 코드라면 `isSv11SpecialSet()`을 갱신한다.
+   - 하이클래스팩: `hi-class.ts`와 `luck.ts`에 전용 분기가 필요한지 먼저 확인한다.
+
+7. 운 계산 모델을 시뮬 모델과 맞춘다.
+   운 계산은 시뮬을 다시 돌리지 않고 `luck.ts`의 기대값/분포로 계산한다.
+   따라서 박스 슬롯을 추가하거나 고정 슬롯을 바꾸면 다음을 같이 확인한다.
+
+   - `getLuckRatesForSet()` — SAR/top 기대값
+   - `subtractBaselineCounts()` — 박스 고정 슬롯 차감
+   - `getBoxScoreDistribution()` — 박스 단위 운 점수 분포
+   - `getPackScoreDistribution()` — 자판기/1팩 단위 운 점수 분포
+   - `getExpectedScoredRarityCounts()` — 운 화면 표시용 기대 힛카드 수
+
+   특히 박스 보장 슬롯이 있는 세트는 박스와 1팩/자판기가 다르다.
+   박스는 고정 슬롯을 베이스라인으로 차감하고, 1팩/자판기는 같은 박스 모델의
+   기대값을 `1 / box_size`로 환산한다.
+
+8. public 세트 JSON을 동기화한다.
 
 ```powershell
 pnpm --dir scripts sync -- --set <set-code>
 ```
 
-8. 데이터 검증을 돌린다.
+9. 데이터 검증을 돌린다.
 
 ```powershell
 pnpm --dir scripts validate:data -- --set <set-code> --strict
 ```
 
-9. 원본 이미지를 R2에 올리고 검증한다.
+10. 운/시뮬 모델 연결 검증을 돌린다.
+
+```powershell
+pnpm --dir scripts validate:luck -- --set <set-code> --strict
+```
+
+신상 발매 직후 임시 기본 모델을 의도적으로 쓰는 경우에는 `--strict` 없이 돌리고,
+경고 내용을 PR 설명에 남긴다.
+
+11. 원본 이미지를 R2에 올리고 검증한다.
 
 ```powershell
 pnpm --dir scripts migrate-to-r2 -- --set <set-code>
 pnpm --dir scripts migrate-to-r2 -- --set <set-code> --verify-only --concurrency 8
 ```
 
-10. 256/512 WebP variant를 만들고 검증한다.
+12. 256/512 WebP variant를 만들고 검증한다.
 
 ```powershell
 pnpm --dir scripts optimize:images -- --set <set-code> --sizes "256,512" --concurrency 4
 pnpm --dir scripts optimize:images -- --set <set-code> --sizes "256,512" --verify-only --concurrency 8
 ```
 
-11. 프론트 검증을 돌린다.
+13. 프론트 검증을 돌린다.
 
 ```powershell
 pnpm --dir frontend lint
@@ -116,6 +147,9 @@ pnpm --dir frontend build
 
 - `data/sets`만 고치고 `frontend/public/sets`를 동기화하지 않음
 - `ACE` 같은 새 rarity를 `rarity.ts`나 `validate-card-data.ts`에 추가하지 않음
+- 새 세트를 `STANDARD_SV_SET_RATES`/`EXPANSION_MONSTER_WEIGHTS`에만 넣고
+  `luck.ts`의 기대값/베이스라인/분포를 확인하지 않음
+- 박스 모델만 맞추고 `getPackScoreDistribution()`을 빼먹어서 자판기 운이 틀어짐
 - 이미지 원본은 있는데 `cards/256`, `cards/512` variant가 없어 로컬에서 이름만 보임
 - 평균 RR 수만 맞추고 박스당 RR 최대치를 제한하지 않음
 - MEGA의 비서포트 트레이너즈 SR 확정 슬롯과 포켓몬/서포트 SR 슬롯을 섞어 버림
