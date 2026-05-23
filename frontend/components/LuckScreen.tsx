@@ -412,7 +412,7 @@ function getScoreHitParts(score: WeightedLuckScore): HitCountPart[] {
     counts['MUR/BWR'] = score.topCount;
   }
 
-  const parts = ['MUR', 'BWR', 'UR', 'HR', 'SAR', 'MA', 'SSR', 'SR']
+  const parts = ['MUR', 'BWR', 'UR', 'HR', 'SAR', 'CSR', 'MA', 'SSR', 'SR']
     .filter((rarity) => (counts[rarity] ?? 0) > 0)
     .map((rarity) => ({ rarity, count: counts[rarity] }));
 

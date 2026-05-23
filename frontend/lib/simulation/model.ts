@@ -1,4 +1,4 @@
-import type { StandardSvSetRate } from './types';
+import type { StandardHighKey, StandardSvSetRate } from './types';
 
 export const PROBABILITY_META = {
   source: 'pokemon-infomation.com / altema.jp / snkrdunk',
@@ -86,6 +86,19 @@ const SV_SNOW_CLAY: StandardSvSetRate = {
   fillerWeights: { R: 83.53, RR: 16.47 },
 };
 
+const SWSH_FILLER_WEIGHTS = { R: 84.17, RR: 10.93, RRR: 4.9 };
+
+function normalizeHighWeights(
+  weights: Partial<Record<StandardHighKey, number>>,
+): Partial<Record<StandardHighKey, number>> {
+  const total = Object.values(weights).reduce((sum, value) => sum + (value ?? 0), 0);
+  if (total <= 0) return weights;
+
+  return Object.fromEntries(
+    Object.entries(weights).map(([key, value]) => [key, ((value ?? 0) / total) * 100]),
+  ) as Partial<Record<StandardHighKey, number>>;
+}
+
 const SWSH_PARADIGM_TRIGGER: StandardSvSetRate = {
   mandatoryHighWeights: {
     SR_POKEMON: 33.333,
@@ -109,7 +122,88 @@ const SWSH_PARADIGM_TRIGGER: StandardSvSetRate = {
   rrExtraRate: 0.1,
   rrrBaseCount: 2,
   rrrExtraRate: 0.1,
-  fillerWeights: { R: 84.17, RR: 10.93, RRR: 4.9 },
+  fillerWeights: SWSH_FILLER_WEIGHTS,
+};
+
+const SWSH_LOST_ABYSS: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 35,
+    SR_ALT: 15,
+    SR_TRAINER: 25,
+    HR_POKEMON: 10,
+    HR_TRAINER: 10,
+    UR: 10,
+  }),
+  extraHighRate: 0.1,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 35,
+    SR_ALT: 15,
+    SR_TRAINER: 25,
+    HR_POKEMON: 10,
+    HR_TRAINER: 10,
+    UR: 10,
+  }),
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: SWSH_FILLER_WEIGHTS,
+};
+
+const SWSH_TIME_SPACE: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 45,
+    SR_ALT: 12,
+    SR_TRAINER: 25,
+    HR_POKEMON: 9,
+    HR_TRAINER: 9,
+    UR: 10,
+  }),
+  extraHighRate: 0.1,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 45,
+    SR_ALT: 12,
+    SR_TRAINER: 25,
+    HR_POKEMON: 9,
+    HR_TRAINER: 9,
+    UR: 10,
+  }),
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: SWSH_FILLER_WEIGHTS,
+};
+
+const SWSH_CHARACTER_SUBSET: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 40,
+    SR_TRAINER: 25,
+    CSR: 10,
+    HR_POKEMON: 10,
+    HR_TRAINER: 10,
+    UR: 10,
+  }),
+  extraHighRate: 0.1,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 40,
+    SR_TRAINER: 25,
+    CSR: 10,
+    HR_POKEMON: 10,
+    HR_TRAINER: 10,
+    UR: 10,
+  }),
+  arCount: 0,
+  chrCount: 3,
+  kCount: 1,
+  boxSize: 20,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: SWSH_FILLER_WEIGHTS,
 };
 
 const SV_TRIPLET_BEAT: StandardSvSetRate = {
@@ -156,6 +250,11 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'sv9a-blazing-arena': SV_SR_55_25,
   'sv10-glory': SV_SR_50_30,
   's12-paradigm-trigger': SWSH_PARADIGM_TRIGGER,
+  's11a-incandescent-arcana': SWSH_CHARACTER_SUBSET,
+  's11-lost-abyss': SWSH_LOST_ABYSS,
+  's10a-dark-phantasma': SWSH_CHARACTER_SUBSET,
+  's10d-time-gazer': SWSH_TIME_SPACE,
+  's10p-space-juggler': SWSH_TIME_SPACE,
 };
 
 export const SV11_RR_COUNT = 4;
@@ -182,6 +281,9 @@ export const MEGA_MAIN_SR_NUMBER_RANGES: Record<string, Array<[number, number]>>
 
 export const ALT_SR_NUMBER_RANGES: Record<string, Array<[number, number]>> = {
   's12-paradigm-trigger': [[107, 110]],
+  's11-lost-abyss': [[104, 104], [106, 106], [109, 109], [111, 111]],
+  's10d-time-gazer': [[69, 69], [73, 73], [75, 75]],
+  's10p-space-juggler': [[69, 69], [71, 71], [75, 75]],
 };
 
 export const TERASTAL_EXTRA_SLOT_WEIGHTS: Record<string, number> = {

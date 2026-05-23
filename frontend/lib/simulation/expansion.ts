@@ -84,6 +84,8 @@ function buildStandardSvSlots(
   ));
 
   if (hasAceSpecSlot(setCode) && byRarity.ACE?.length) slots.push(byRarity.ACE);
+  for (let i = 0; i < (rate.kCount ?? 0); i++) slots.push(pools.kAll);
+  for (let i = 0; i < (rate.chrCount ?? 0); i++) slots.push(pools.chrAll);
   for (let i = 0; i < (rate.arCount ?? 3); i++) slots.push(pools.arPool);
 
   if (rng() < rate.extraHighRate && pools.srAll.length) {
@@ -197,14 +199,14 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
     return pickWeightedHitPool(ctx, entries, byRarity.R ?? []);
   }
 
-  const boxSize = isSv11Special || setCode === 'sv2a-151' ? 20 : 30;
+  const defaultBoxSize = isSv11Special || setCode === 'sv2a-151' ? 20 : 30;
   const aceCount = hasAceSpecSlot(setCode) && byRarity.ACE?.length ? 1 : 0;
 
   if (isSv11Special) {
     const optionalTopTotal = Object.values(SV11_OPTIONAL_TOP_WEIGHTS).reduce((a, b) => a + b, 0);
     const optionalSar = SV11_OPTIONAL_TOP_WEIGHTS.SAR / optionalTopTotal;
     const optionalBwr = SV11_OPTIONAL_TOP_WEIGHTS.BWR / optionalTopTotal;
-    const rSlots = boxSize - 1 - SV11_EXTRA_SR_RATE - optionalSar - optionalBwr - SV11_AR_COUNT - SV11_RR_COUNT;
+    const rSlots = defaultBoxSize - 1 - SV11_EXTRA_SR_RATE - optionalSar - optionalBwr - SV11_AR_COUNT - SV11_RR_COUNT;
 
     entries.push({ weight: rSlots * 100, pool: byRarity.R ?? [] });
     entries.push({ weight: SV11_RR_COUNT * 100, pool: byRarity.RR ?? [] });
@@ -217,16 +219,21 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
 
   if (!standardSetRate) return fallbackExpansionPackHitPool(ctx, setCode);
 
+  const boxSize = standardSetRate.boxSize ?? defaultBoxSize;
   const arCount = standardSetRate.arCount ?? 3;
+  const kCount = standardSetRate.kCount ?? 0;
+  const chrCount = standardSetRate.chrCount ?? 0;
   const extraSrRate = standardSetRate.extraHighRate;
   const rrExpected = standardSetRate.rrBaseCount + standardSetRate.rrExtraRate;
   const rrrExpected = (standardSetRate.rrrBaseCount ?? 0) + (standardSetRate.rrrExtraRate ?? 0);
-  const rSlots = boxSize - 1 - aceCount - arCount - extraSrRate - rrExpected - rrrExpected;
+  const rSlots = boxSize - 1 - aceCount - kCount - chrCount - arCount - extraSrRate - rrExpected - rrrExpected;
 
   entries.push({ weight: rSlots * 100, pool: byRarity.R ?? [] });
   entries.push({ weight: rrExpected * 100, pool: byRarity.RR ?? [] });
   if (rrrExpected > 0) entries.push({ weight: rrrExpected * 100, pool: byRarity.RRR ?? [] });
   if (aceCount > 0) entries.push({ weight: aceCount * 100, pool: byRarity.ACE ?? [] });
+  if (kCount > 0) entries.push({ weight: kCount * 100, pool: pools.kAll });
+  if (chrCount > 0) entries.push({ weight: chrCount * 100, pool: pools.chrAll });
   entries.push({ weight: arCount * 100, pool: pools.arPool });
 
   const standardHighPools = getStandardHighPools(pools, setCode);
@@ -316,6 +323,7 @@ function getStandardHighPools(pools: RarityPools, setCode?: string): Record<Stan
     SR_TRAINER: pools.srTrainer.length ? pools.srTrainer : pools.srAll,
     HR_POKEMON: pools.hrPokemon.length ? pools.hrPokemon : pools.hrAll,
     HR_TRAINER: pools.hrTrainer.length ? pools.hrTrainer : pools.hrAll,
+    CSR: pools.csrPokemon.length ? pools.csrPokemon : pools.csrAll,
     SAR: pools.sarAll,
     UR: pools.urAll,
     BWR: pools.bwrPokemon.length ? pools.bwrPokemon : pools.bwrAll,

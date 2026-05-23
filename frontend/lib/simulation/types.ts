@@ -15,6 +15,7 @@ export type StandardHighKey =
   | 'SR_POKEMON'
   | 'SR_ALT'
   | 'SR_TRAINER'
+  | 'CSR'
   | 'HR_POKEMON'
   | 'HR_TRAINER'
   | 'SAR'
@@ -26,6 +27,9 @@ export interface StandardSvSetRate {
   extraHighRate: number;
   extraHighWeights: Partial<Record<StandardHighKey, number>>;
   arCount?: number;
+  chrCount?: number;
+  kCount?: number;
+  boxSize?: number;
   rrBaseCount: number;
   rrExtraRate: number;
   rrrBaseCount?: number;

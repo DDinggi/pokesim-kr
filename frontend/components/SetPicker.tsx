@@ -140,6 +140,26 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
     gradient: 'from-indigo-700 via-blue-900 to-zinc-950',
     accent: 'text-blue-200',
   },
+  's11a-incandescent-arcana': {
+    gradient: 'from-sky-700 via-blue-800 to-indigo-950',
+    accent: 'text-sky-200',
+  },
+  's11-lost-abyss': {
+    gradient: 'from-fuchsia-800 via-purple-950 to-zinc-950',
+    accent: 'text-fuchsia-300',
+  },
+  's10a-dark-phantasma': {
+    gradient: 'from-rose-900 via-slate-950 to-indigo-950',
+    accent: 'text-rose-300',
+  },
+  's10d-time-gazer': {
+    gradient: 'from-violet-800 via-slate-900 to-blue-950',
+    accent: 'text-blue-200',
+  },
+  's10p-space-juggler': {
+    gradient: 'from-emerald-700 via-teal-900 to-slate-950',
+    accent: 'text-emerald-300',
+  },
 };
 
 const SEARCH_PANEL_LIMIT = 10;
@@ -393,7 +413,7 @@ export function SetPicker({
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-6xl mx-auto w-full">
         <div className="mb-5 rounded-lg bg-gray-900/80 ring-1 ring-white/10 px-4 py-3">
-          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-05-20</p>
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-05-24</p>
           <p className="text-sm font-bold text-white mt-0.5">
             신규 5종 박스깡 추가
           </p>

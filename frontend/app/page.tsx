@@ -31,6 +31,11 @@ import sv1vVioletEx from '../public/sets/sv1v-violet-ex.json';
 import sv1sScarletEx from '../public/sets/sv1s-scarlet-ex.json';
 import s12aVstarUniverse from '../public/sets/s12a-vstar-universe.json';
 import s12ParadigmTrigger from '../public/sets/s12-paradigm-trigger.json';
+import s11aIncandescentArcana from '../public/sets/s11a-incandescent-arcana.json';
+import s11LostAbyss from '../public/sets/s11-lost-abyss.json';
+import s10aDarkPhantasma from '../public/sets/s10a-dark-phantasma.json';
+import s10dTimeGazer from '../public/sets/s10d-time-gazer.json';
+import s10pSpaceJuggler from '../public/sets/s10p-space-juggler.json';
 import m4NinjaSpinner from '../public/sets/m4-ninja-spinner.json';
 import mNihilZero from '../public/sets/m-nihil-zero.json';
 import mDreamEx from '../public/sets/m-dream-ex.json';
@@ -52,6 +57,8 @@ const sets: SetMeta[] = [
   sv2a151, sv2pSnowHazard, sv2dClayBurst,
   sv1aTriplet, sv1vVioletEx, sv1sScarletEx,
   s12aVstarUniverse, s12ParadigmTrigger,
+  s11aIncandescentArcana, s11LostAbyss,
+  s10aDarkPhantasma, s10dTimeGazer, s10pSpaceJuggler,
 ] as SetMeta[];
 
 export default function Home() {
