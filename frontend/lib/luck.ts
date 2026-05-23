@@ -60,11 +60,12 @@ export interface WeightedLuckScore extends LuckEventSummary {
 export type LuckBand = 'lucky' | 'average' | 'unlucky';
 
 const TOP_RARITY_WEIGHT = 3;
-const OLD_HIGH_RARITIES = ['SR', 'HR', 'SAR', 'UR'] as const;
+const OLD_HIGH_RARITIES = ['SR', 'CSR', 'HR', 'SAR', 'UR'] as const;
 const SCORE_EPSILON = 1e-9;
 const SCORE_WEIGHTS: Record<string, number> = {
   SSR: 0.5,
   SR: 0.5,
+  CSR: 2,
   MA: 0.5,
   HR: 1,
   SAR: 2,
@@ -73,6 +74,7 @@ const SCORE_WEIGHTS: Record<string, number> = {
 };
 const PACK_SCORE_WEIGHTS: Record<string, number> = {
   SR: 1,
+  CSR: 2,
   SSR: 1,
   MA: 1,
   HR: 2,
@@ -81,13 +83,14 @@ const PACK_SCORE_WEIGHTS: Record<string, number> = {
   BWR: 3,
 };
 const LUCK_COMBINATION_RULES = {
-  primaryHitKeys: ['MUR', 'BWR', 'UR', 'HR', 'SAR'],
+  primaryHitKeys: ['MUR', 'BWR', 'UR', 'HR', 'SAR', 'CSR'],
   secondaryHitKeys: ['MA', 'SSR', 'SR'],
   rarityMultiplier: {
     MUR: 1.2,
     BWR: 1.2,
     UR: 0.95,
     SAR: 1,
+    CSR: 1,
     HR: 0.75,
     MA: 0.25,
     SSR: 0.25,
@@ -380,6 +383,7 @@ function getLuckScoreWeightsForSet(
   if (code.startsWith('s') && !code.startsWith('sv') && type !== 'hi-class') {
     return {
       SR: getScoreWeight('SR', mode),
+      CSR: getScoreWeight('CSR', mode),
       HR: getScoreWeight('HR', mode),
       SAR: 2,
       UR: 3,
@@ -623,6 +627,7 @@ function scoreFromRarityWeightKey(key: string, mode: LuckScoreMode): number {
   if (key.startsWith('SR')) return getScoreWeight('SR', mode);
   if (key === 'SSR') return getScoreWeight('SSR', mode);
   if (key === 'MA') return getScoreWeight('MA', mode);
+  if (key === 'CSR') return getScoreWeight('CSR', mode);
   if (key.startsWith('HR')) return getScoreWeight('HR', mode);
   if (key === 'SAR') return getScoreWeight('SAR', mode);
   if (key === 'UR' || key === 'BWR') return getScoreWeight(key, mode);

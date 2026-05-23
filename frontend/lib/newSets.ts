@@ -1,17 +1,17 @@
 export const NEW_SIM_SET_CODES = [
-  'sv2p-snow-hazard',
-  'sv2d-clay-burst',
-  'sv1s-scarlet-ex',
-  'sv1v-violet-ex',
-  's12-paradigm-trigger',
+  's11a-incandescent-arcana',
+  's11-lost-abyss',
+  's10a-dark-phantasma',
+  's10d-time-gazer',
+  's10p-space-juggler',
 ] as const;
 
 export const NEW_SIM_SET_NAMES = [
-  '스노해저드',
-  '클레이버스트',
-  '스칼렛 ex',
-  '바이올렛 ex',
-  '패러다임트리거',
+  '백열의 아르카나',
+  '로스트어비스',
+  '다크판타스마',
+  '타임게이저',
+  '스페이스 저글러',
 ];
 
 const NEW_SIM_SET_CODE_SET = new Set<string>(NEW_SIM_SET_CODES);
