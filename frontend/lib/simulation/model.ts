@@ -206,6 +206,100 @@ const SWSH_CHARACTER_SUBSET: StandardSvSetRate = {
   fillerWeights: SWSH_FILLER_WEIGHTS,
 };
 
+const SWSH_STAR_BIRTH: StandardSvSetRate = {
+  mandatoryHighWeights: {
+    SR_POKEMON: 36,
+    SR_ALT: 14,
+    SR_TRAINER: 24,
+    HR_POKEMON: 10,
+    HR_TRAINER: 8,
+    UR: 8,
+  },
+  extraHighRate: 0.1,
+  extraHighWeights: {
+    SR_POKEMON: 36,
+    SR_ALT: 14,
+    SR_TRAINER: 24,
+    HR_POKEMON: 10,
+    HR_TRAINER: 8,
+    UR: 8,
+  },
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: { R: 84.17, RR: 10.93, RRR: 4.9 },
+};
+
+const SWSH_FUSION_ARTS: StandardSvSetRate = {
+  mandatoryHighWeights: { SR_POKEMON: 100 },
+  extraHighRate: 0.1,
+  extraHighWeights: { SR_POKEMON: 100 },
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: { R: 84.17, RR: 10.93, RRR: 4.9 },
+};
+
+const SWSH_POKEMON_GO: StandardSvSetRate = {
+  mandatoryHighWeights: {
+    SR_POKEMON: 40,
+    SR_ALT: 8,
+    SR_TRAINER: 30,
+    HR_POKEMON: 10,
+    HR_TRAINER: 10,
+    UR: 10,
+  },
+  extraHighRate: 0.15,
+  extraHighWeights: {
+    SR_POKEMON: 36,
+    SR_ALT: 7,
+    SR_TRAINER: 27,
+    HR_POKEMON: 9,
+    HR_TRAINER: 9,
+    UR: 9,
+    GRA: 25,
+  },
+  kCount: 1,
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: { R: 84.17, RR: 10.93, RRR: 4.9 },
+};
+
+const SWSH_BATTLE_REGION: StandardSvSetRate = {
+  mandatoryHighWeights: {
+    SR_POKEMON: 40,
+    CSR: 10,
+    SR_TRAINER: 25,
+    HR_POKEMON: 10,
+    HR_TRAINER: 8,
+    UR: 7,
+  },
+  extraHighRate: 0.1,
+  extraHighWeights: {
+    SR_POKEMON: 40,
+    CSR: 10,
+    SR_TRAINER: 25,
+    HR_POKEMON: 10,
+    HR_TRAINER: 8,
+    UR: 7,
+  },
+  kCount: 1,
+  chrCount: 3,
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: { R: 84.17, RR: 10.93, RRR: 4.9 },
+};
+
 const SV_TRIPLET_BEAT: StandardSvSetRate = {
   mandatoryHighWeights: { SR_POKEMON: 42, SR_TRAINER: 28, SAR: 20, UR: 10 },
   extraHighRate: 0.05,
@@ -252,9 +346,13 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   's12-paradigm-trigger': SWSH_PARADIGM_TRIGGER,
   's11a-incandescent-arcana': SWSH_CHARACTER_SUBSET,
   's11-lost-abyss': SWSH_LOST_ABYSS,
+  's10b-pokemon-go': SWSH_POKEMON_GO,
   's10a-dark-phantasma': SWSH_CHARACTER_SUBSET,
   's10d-time-gazer': SWSH_TIME_SPACE,
   's10p-space-juggler': SWSH_TIME_SPACE,
+  's9a-battle-region': SWSH_BATTLE_REGION,
+  's9-star-birth': SWSH_STAR_BIRTH,
+  's8-fusion-arts': SWSH_FUSION_ARTS,
 };
 
 export const SV11_RR_COUNT = 4;
@@ -282,8 +380,11 @@ export const MEGA_MAIN_SR_NUMBER_RANGES: Record<string, Array<[number, number]>>
 export const ALT_SR_NUMBER_RANGES: Record<string, Array<[number, number]>> = {
   's12-paradigm-trigger': [[107, 110]],
   's11-lost-abyss': [[104, 104], [106, 106], [109, 109], [111, 111]],
+  's10b-pokemon-go': [[74, 76]],
   's10d-time-gazer': [[69, 69], [73, 73], [75, 75]],
   's10p-space-juggler': [[69, 69], [71, 71], [75, 75]],
+  's9-star-birth': [[103, 103], [105, 105], [109, 109], [112, 112]],
+  's8-fusion-arts': [[106, 106], [109, 109]],
 };
 
 export const TERASTAL_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
@@ -307,6 +408,15 @@ export const VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   SR: 20,
   UR: 10,
 };
+
+export const VMAX_CLIMAX_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
+  NONE: 40,
+  SR: 50,
+  GRA: 10,
+};
+
+export const VMAX_CLIMAX_SR_GOD_PACK_RATE = 0.005;
+export const VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE = 0.01;
 
 export const VSTAR_UNIVERSE_AR_GOD_PACK_RATE = 0.015;
 export const VSTAR_UNIVERSE_SAR_GOD_PACK_RATE = 0.0225;

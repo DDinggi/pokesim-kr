@@ -392,7 +392,7 @@ function AutoBoxReveal({
           {pack.cards.map((card, i) => {
             const isHit = i === hitIdx && isRareHit;
             const isPremiumHit = isHit && isPremiumSparkleRarity(card.rarity, card);
-            // 프리미엄(SAR/MUR/BWR)은 카드 본체를 정적으로 두고 sparkle 오버레이로만 표현
+            // 프리미엄(SAR/MUR/BWR/CSR)은 카드 본체를 정적으로 두고 sparkle 오버레이로만 표현
             const useHitBurst = isHit && !isPremiumHit;
             const delay = i * REVEAL_STAGGER_MS + (i === hitIdx ? 200 : 0);
             return (

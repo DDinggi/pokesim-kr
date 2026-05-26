@@ -18,17 +18,19 @@ export type StandardHighKey =
   | 'CSR'
   | 'HR_POKEMON'
   | 'HR_TRAINER'
+  | 'CSR'
   | 'SAR'
   | 'UR'
+  | 'GRA'
   | 'BWR';
 
 export interface StandardSvSetRate {
   mandatoryHighWeights: Partial<Record<StandardHighKey, number>>;
   extraHighRate: number;
   extraHighWeights: Partial<Record<StandardHighKey, number>>;
-  arCount?: number;
-  chrCount?: number;
   kCount?: number;
+  chrCount?: number;
+  arCount?: number;
   boxSize?: number;
   rrBaseCount: number;
   rrExtraRate: number;

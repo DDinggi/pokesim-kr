@@ -75,6 +75,11 @@ export function MainScreen({
         <div className="mb-5 space-y-1.5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 px-4 py-3 ring-1 ring-white/10">
           <p className="text-sm font-bold text-white sm:text-base">
             <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW</span>
+            <span className="mr-2 align-middle text-[11px] font-bold tracking-widest text-white/45">2026.05.26</span>
+            포켓몬 GO · 배틀리전 · 스타버스 · VMAX 클라이맥스 · 퓨전아츠 세트 추가
+          </p>
+          <p className="text-sm font-bold text-white sm:text-base">
+            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-white/35">UPDATE</span>
             <span className="mr-2 align-middle text-[11px] font-bold tracking-widest text-white/45">2026.05.22</span>
             내 운 확인 기능 추가
           </p>

@@ -32,6 +32,7 @@ const KNOWN_HI_CLASS_MODELS = new Set([
   'sv8a-terastal-festa',
   'sv4a-shiny-treasure-ex',
   's12a-vstar-universe',
+  's8b-vmax-climax',
   'm-dream-ex',
 ]);
 
@@ -100,7 +101,7 @@ function validateSet(setCode: string): { warnings: string[]; errors: string[] } 
     if (!KNOWN_HI_CLASS_MODELS.has(set.code)) {
       warnings.push('새 hi-class 세트입니다. hi-class.ts와 luck.ts에 전용 박스/팩/운 분기가 필요합니다.');
     }
-    if (!sourceHasSetCode(hiClassSource, set.code)) {
+    if (!sourceHasSetCode(hiClassSource, set.code) && set.code !== 'm-dream-ex') {
       warnings.push('hi-class.ts에 세트 코드가 직접 등장하지 않습니다. 기존 공통 분기 의도인지 확인하세요.');
     }
     if (!sourceHasSetCode(luckSource, set.code) && set.code !== 'm-dream-ex') {
