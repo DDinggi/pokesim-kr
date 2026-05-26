@@ -10,6 +10,9 @@ import {
   SV11_EXTRA_SR_RATE,
   SV11_OPTIONAL_TOP_WEIGHTS,
   TERASTAL_EXTRA_SLOT_WEIGHTS,
+  VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE,
+  VMAX_CLIMAX_EXTRA_SLOT_WEIGHTS,
+  VMAX_CLIMAX_SR_GOD_PACK_RATE,
   VSTAR_UNIVERSE_AR_GOD_PACK_RATE,
   VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS,
   VSTAR_UNIVERSE_SAR_GOD_PACK_RATE,
@@ -60,16 +63,17 @@ export interface WeightedLuckScore extends LuckEventSummary {
 export type LuckBand = 'lucky' | 'average' | 'unlucky';
 
 const TOP_RARITY_WEIGHT = 3;
-const OLD_HIGH_RARITIES = ['SR', 'CSR', 'HR', 'SAR', 'UR'] as const;
+const OLD_HIGH_RARITIES = ['SR', 'CSR', 'HR', 'SAR', 'UR', 'GRA'] as const;
 const SCORE_EPSILON = 1e-9;
 const SCORE_WEIGHTS: Record<string, number> = {
   SSR: 0.5,
   SR: 0.5,
-  CSR: 2,
+  CSR: 1,
   MA: 0.5,
   HR: 1,
   SAR: 2,
   UR: 3,
+  GRA: 3,
   BWR: 3,
 };
 const PACK_SCORE_WEIGHTS: Record<string, number> = {
@@ -80,18 +84,20 @@ const PACK_SCORE_WEIGHTS: Record<string, number> = {
   HR: 2,
   SAR: 2,
   UR: 3,
+  GRA: 3,
   BWR: 3,
 };
 const LUCK_COMBINATION_RULES = {
-  primaryHitKeys: ['MUR', 'BWR', 'UR', 'HR', 'SAR', 'CSR'],
-  secondaryHitKeys: ['MA', 'SSR', 'SR'],
+  primaryHitKeys: ['MUR', 'BWR', 'UR', 'GRA', 'HR', 'SAR'],
+  secondaryHitKeys: ['MA', 'SSR', 'CSR', 'SR'],
   rarityMultiplier: {
     MUR: 1.2,
     BWR: 1.2,
     UR: 0.95,
+    GRA: 0.95,
     SAR: 1,
-    CSR: 1,
     HR: 0.75,
+    CSR: 0.4,
     MA: 0.25,
     SSR: 0.25,
     SR: 0.18,
@@ -382,11 +388,12 @@ function getLuckScoreWeightsForSet(
 
   if (code.startsWith('s') && !code.startsWith('sv') && type !== 'hi-class') {
     return {
-      SR: getScoreWeight('SR', mode),
       CSR: getScoreWeight('CSR', mode),
+      SR: getScoreWeight('SR', mode),
       HR: getScoreWeight('HR', mode),
       SAR: 2,
       UR: 3,
+      GRA: 3,
     };
   }
 
@@ -409,10 +416,12 @@ function getLuckScoreWeightsForSet(
 
   if (type === 'hi-class') {
     return {
+      CSR: getScoreWeight('CSR', mode),
       SSR: getScoreWeight('SSR', mode),
       SR: getScoreWeight('SR', mode),
       SAR: 2,
       UR: 3,
+      GRA: 3,
       MA: getScoreWeight('MA', mode),
     };
   }
@@ -504,6 +513,14 @@ function getExpectedScoredRarityCounts(
       return counts;
     }
 
+    if (code === 's8b-vmax-climax') {
+      addLoosePackBaselineCount('CSR');
+      addExpectedCountsFromWeights(counts, VMAX_CLIMAX_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
+      addExpectedCount(counts, 'SR', unitCount * VMAX_CLIMAX_SR_GOD_PACK_RATE * 9);
+      addExpectedCount(counts, 'CSR', unitCount * VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE * 4);
+      return counts;
+    }
+
     addLoosePackBaselineCount('SR');
     addLoosePackBaselineCount('MA');
     addExpectedCountsFromWeights(counts, MEGA_DREAM_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
@@ -563,7 +580,7 @@ function subtractBaselineCounts(
   const code = set?.code ?? opening.setCode;
   const isHiClassSet =
     set?.type === 'hi-class'
-    || ['sv8a-terastal-festa', 'sv4a-shiny-treasure-ex', 's12a-vstar-universe', 'm-dream-ex'].includes(code);
+    || ['sv8a-terastal-festa', 'sv4a-shiny-treasure-ex', 's12a-vstar-universe', 's8b-vmax-climax', 'm-dream-ex'].includes(code);
   if (isHiClassSet && ['sv8a-terastal-festa', 's12a-vstar-universe'].includes(code)) {
     counts.SAR = Math.max(0, (counts.SAR ?? 0) - opening.boxes);
   }
@@ -572,6 +589,9 @@ function subtractBaselineCounts(
   }
   if (code === 's12a-vstar-universe') {
     counts.SR = Math.max(0, (counts.SR ?? 0) - opening.boxes);
+  }
+  if (code === 's8b-vmax-climax') {
+    counts.CSR = Math.max(0, (counts.CSR ?? 0) - opening.boxes);
   }
   if (isMegaExpansionSet(code)) {
     counts.SR = Math.max(0, (counts.SR ?? 0) - opening.boxes);
@@ -625,12 +645,13 @@ function estimateExpectedScorePerBox(
 
 function scoreFromRarityWeightKey(key: string, mode: LuckScoreMode): number {
   if (key.startsWith('SR')) return getScoreWeight('SR', mode);
+  if (key === 'CSR') return getScoreWeight('CSR', mode);
   if (key === 'SSR') return getScoreWeight('SSR', mode);
   if (key === 'MA') return getScoreWeight('MA', mode);
   if (key === 'CSR') return getScoreWeight('CSR', mode);
   if (key.startsWith('HR')) return getScoreWeight('HR', mode);
   if (key === 'SAR') return getScoreWeight('SAR', mode);
-  if (key === 'UR' || key === 'BWR') return getScoreWeight(key, mode);
+  if (key === 'UR' || key === 'GRA' || key === 'BWR') return getScoreWeight(key, mode);
   return 0;
 }
 
@@ -717,6 +738,16 @@ function getBoxScoreDistribution(
           { score: 0, probability: VSTAR_UNIVERSE_AR_GOD_PACK_RATE },
           { score: 0, probability: 1 - VSTAR_UNIVERSE_SAR_GOD_PACK_RATE - VSTAR_UNIVERSE_AR_GOD_PACK_RATE },
         ]),
+      );
+    }
+
+    if (code === 's8b-vmax-climax') {
+      return convolveDistributions(
+        convolveDistributions(
+          distributionFromWeights(VMAX_CLIMAX_EXTRA_SLOT_WEIGHTS, 'box'),
+          bernoulliDistribution(getScoreWeight('SR', 'box') * 9, VMAX_CLIMAX_SR_GOD_PACK_RATE),
+        ),
+        bernoulliDistribution(getScoreWeight('CSR', 'box') * 4, VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE),
       );
     }
 
@@ -810,6 +841,25 @@ function getPackScoreDistribution(
           { score: getScoreWeight('SAR', 'pack') * 5, probability: VSTAR_UNIVERSE_SAR_GOD_PACK_RATE / boxSize },
           { score: 0, probability: VSTAR_UNIVERSE_AR_GOD_PACK_RATE / boxSize },
           { score: 0, probability: 1 - (VSTAR_UNIVERSE_SAR_GOD_PACK_RATE + VSTAR_UNIVERSE_AR_GOD_PACK_RATE) / boxSize },
+        ]),
+      );
+    }
+
+    if (code === 's8b-vmax-climax') {
+      distribution = convolveDistributions(
+        distribution,
+        bernoulliDistribution(getScoreWeight('CSR', 'pack'), 1 / boxSize),
+      );
+      distribution = convolveDistributions(
+        distribution,
+        optionalPackDistributionFromBoxWeights(VMAX_CLIMAX_EXTRA_SLOT_WEIGHTS, boxSize, 'pack'),
+      );
+      return convolveDistributions(
+        distribution,
+        normalizeDistribution([
+          { score: getScoreWeight('SR', 'pack') * 9, probability: VMAX_CLIMAX_SR_GOD_PACK_RATE / boxSize },
+          { score: getScoreWeight('CSR', 'pack') * 5, probability: VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE / boxSize },
+          { score: 0, probability: 1 - (VMAX_CLIMAX_SR_GOD_PACK_RATE + VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE) / boxSize },
         ]),
       );
     }
@@ -924,6 +974,7 @@ export function summarizeLuckRarityCounts(
     topCount:
       (rarityCounts.BWR ?? 0)
       + (rarityCounts.MUR ?? 0)
+      + (rarityCounts.GRA ?? 0)
       + (treatsUrAsTop ? rarityCounts.UR ?? 0 : 0),
     sarCount: rarityCounts.SAR ?? 0,
     topExpected: (opening.topPerBox / opening.boxSize) * packEquivalent,
@@ -992,6 +1043,14 @@ export function getLuckRatesForSet(
       };
     }
 
+    if (set.code === 's8b-vmax-climax') {
+      return {
+        boxSize,
+        topPerBox: weightChance(VMAX_CLIMAX_EXTRA_SLOT_WEIGHTS, 'GRA'),
+        sarPerBox: 0,
+      };
+    }
+
     return {
       boxSize,
       topPerBox: isMegaExpansionSet(set.code) ? weightChance(MEGA_DREAM_EXTRA_SLOT_WEIGHTS, 'UR') : 0,
@@ -1053,6 +1112,7 @@ export function summarizeLuckEvent(cards: Card[], opening: LuckOpening): LuckEve
   return {
     topCount: cards.filter((card) =>
       card.rarity === 'BWR'
+      || card.rarity === 'GRA'
       || (card.rarity === 'UR' && (isMegaContext(card) || opening.setCode === 's12a-vstar-universe')),
     ).length,
     sarCount: cards.filter((card) => card.rarity === 'SAR').length,

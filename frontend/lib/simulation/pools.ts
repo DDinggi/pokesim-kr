@@ -11,6 +11,7 @@ export interface RarityPools {
   hrAll: Card[];
   sarAll: Card[];
   urAll: Card[];
+  graAll: Card[];
   bwrAll: Card[];
   srPokemon: Card[];
   srEnergy: Card[];
@@ -55,6 +56,7 @@ export function getRarityPools(byRarity: Record<string, Card[]>): RarityPools {
   const hrAll = byRarity.HR ?? [];
   const sarAll = byRarity.SAR ?? [];
   const urAll = byRarity.UR ?? [];
+  const graAll = byRarity.GRA ?? [];
   const bwrAll = byRarity.BWR ?? [];
 
   return {
@@ -67,6 +69,7 @@ export function getRarityPools(byRarity: Record<string, Card[]>): RarityPools {
     hrAll,
     sarAll,
     urAll,
+    graAll,
     bwrAll,
     srPokemon: srAll.filter(isPokemonCard),
     srEnergy: srAll.filter((card) => card.card_type === '에너지'),

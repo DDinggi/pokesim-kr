@@ -84,8 +84,12 @@ function buildStandardSvSlots(
   ));
 
   if (hasAceSpecSlot(setCode) && byRarity.ACE?.length) slots.push(byRarity.ACE);
-  for (let i = 0; i < (rate.kCount ?? 0); i++) slots.push(pools.kAll);
-  for (let i = 0; i < (rate.chrCount ?? 0); i++) slots.push(pools.chrAll);
+  for (let i = 0; i < (rate.kCount ?? 0); i++) {
+    if (pools.kAll.length) slots.push(pools.kAll);
+  }
+  for (let i = 0; i < (rate.chrCount ?? 0); i++) {
+    if (pools.chrAll.length) slots.push(pools.chrAll);
+  }
   for (let i = 0; i < (rate.arCount ?? 3); i++) slots.push(pools.arPool);
 
   if (rng() < rate.extraHighRate && pools.srAll.length) {
@@ -199,7 +203,7 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
     return pickWeightedHitPool(ctx, entries, byRarity.R ?? []);
   }
 
-  const defaultBoxSize = isSv11Special || setCode === 'sv2a-151' ? 20 : 30;
+  const defaultBoxSize = isSv11Special ? 20 : getStandardExpansionBoxSize(setCode);
   const aceCount = hasAceSpecSlot(setCode) && byRarity.ACE?.length ? 1 : 0;
 
   if (isSv11Special) {
@@ -234,7 +238,7 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   if (aceCount > 0) entries.push({ weight: aceCount * 100, pool: byRarity.ACE ?? [] });
   if (kCount > 0) entries.push({ weight: kCount * 100, pool: pools.kAll });
   if (chrCount > 0) entries.push({ weight: chrCount * 100, pool: pools.chrAll });
-  entries.push({ weight: arCount * 100, pool: pools.arPool });
+  if (arCount > 0) entries.push({ weight: arCount * 100, pool: pools.arPool });
 
   const standardHighPools = getStandardHighPools(pools, setCode);
   const combinedHighWeights: Partial<Record<StandardHighKey, number>> = { ...standardSetRate.mandatoryHighWeights };
@@ -275,7 +279,7 @@ function fallbackExpansionPackHitPool(ctx: BuildContext, setCode?: string): Card
   const { byRarity } = ctx;
   const pools = getRarityPools(byRarity);
   const entries: { weight: number; pool: Card[] }[] = [];
-  const boxSize = setCode === 'sv2a-151' ? 20 : 30;
+  const boxSize = getStandardExpansionBoxSize(setCode);
   const aceCount = hasAceSpecSlot(setCode) && byRarity.ACE?.length ? 1 : 0;
   const arCount = 3;
   const rrExpected = 4.1;
@@ -326,6 +330,12 @@ function getStandardHighPools(pools: RarityPools, setCode?: string): Record<Stan
     CSR: pools.csrPokemon.length ? pools.csrPokemon : pools.csrAll,
     SAR: pools.sarAll,
     UR: pools.urAll,
+    GRA: pools.graAll,
     BWR: pools.bwrPokemon.length ? pools.bwrPokemon : pools.bwrAll,
   };
+}
+
+function getStandardExpansionBoxSize(setCode?: string): number {
+  if (setCode === 'sv2a-151' || setCode === 's10b-pokemon-go' || setCode === 's9a-battle-region') return 20;
+  return 30;
 }

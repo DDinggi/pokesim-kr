@@ -18,6 +18,7 @@ const KNOWN_RARITIES = new Set([
   "RR",
   "RRR",
   "K",
+  "CHR",
   "ACE",
   "AR",
   "CHR",
@@ -28,9 +29,10 @@ const KNOWN_RARITIES = new Set([
   "SAR",
   "MA",
   "UR",
+  "GRA",
   "BWR",
 ]);
-const HIGH_RARITIES = new Set(["RRR", "K", "ACE", "AR", "CHR", "SR", "SSR", "CSR", "HR", "SAR", "MA", "UR", "BWR"]);
+const HIGH_RARITIES = new Set(["RRR", "K", "CHR", "ACE", "AR", "SR", "SSR", "CSR", "HR", "SAR", "MA", "UR", "GRA", "BWR"]);
 
 interface CardEntry {
   card_num?: string;
@@ -203,13 +205,23 @@ function validateNumberContinuity(setCode: string, cards: CardEntry[]) {
     }
   }
 
-  if (missing.length > 0) {
+  const unexpectedMissing = missing.filter((number) => !getAllowedMissingNumbers(setCode).has(number));
+
+  if (unexpectedMissing.length > 0) {
     add(
       "warn",
       setCode,
-      `number가 연속되지 않습니다. 누락 범위 예: ${compactNumbers(missing.slice(0, 30))}${missing.length > 30 ? " ..." : ""}`,
+      `number가 연속되지 않습니다. 누락 범위 예: ${compactNumbers(unexpectedMissing.slice(0, 30))}${unexpectedMissing.length > 30 ? " ..." : ""}`,
     );
   }
+}
+
+function getAllowedMissingNumbers(setCode: string): Set<number> {
+  if (setCode === "s8b-vmax-climax") {
+    return new Set([57, 58, 59, 226, 227, 228, 229]);
+  }
+
+  return new Set();
 }
 
 function validateImages(setCode: string, cards: CardEntry[]) {
