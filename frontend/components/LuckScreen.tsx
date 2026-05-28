@@ -229,6 +229,7 @@ export function LuckScreen({
     if (document.fonts?.ready) {
       await document.fonts.ready;
     }
+    await waitForImages(node);
     const { toPng } = await import('html-to-image');
     return toPng(node, {
       cacheBust: true,
@@ -464,6 +465,7 @@ export function LuckScreen({
                           boxes={activeBreakdown.boxes}
                           packs={activeBreakdown.packs}
                         />
+                        <LuckShareHitCards cards={activeBreakdown.hitCards} />
                         <div className="mt-3 flex items-center justify-between gap-3 px-1 text-[10px] font-black text-gray-500">
                           <span>PokéSim KR</span>
                           <span>pokesim.kr</span>
@@ -588,6 +590,91 @@ function getShareStatusMessage(status: 'idle' | 'rendering' | 'shared' | 'saved'
   if (status === 'saved') return '이미지를 저장했어요';
   if (status === 'error') return '이미지 생성에 실패했어요';
   return '';
+}
+
+function waitForImages(node: HTMLElement): Promise<void> {
+  const images = Array.from(node.querySelectorAll('img'));
+  if (images.length === 0) return Promise.resolve();
+
+  return Promise.all(
+    images.map((image) => {
+      if (image.complete) return Promise.resolve();
+      return new Promise<void>((resolve) => {
+        image.addEventListener('load', () => resolve(), { once: true });
+        image.addEventListener('error', () => resolve(), { once: true });
+      });
+    }),
+  ).then(() => undefined);
+}
+
+function LuckShareHitCards({ cards }: { cards: Card[] }) {
+  const visibleCards = cards.slice(0, 8);
+  const hiddenCount = Math.max(0, cards.length - visibleCards.length);
+
+  return (
+    <section className="mt-3 rounded-2xl bg-gray-900/70 p-4 ring-1 ring-white/10">
+      <div className="mb-3 flex items-end justify-between gap-3">
+        <div>
+          <p className="text-[10px] font-black tracking-widest text-gray-500">HIT CARDS</p>
+          <h3 className="mt-0.5 text-base font-black tracking-tight text-white">실제로 뜬 힛카드</h3>
+        </div>
+        <span className="shrink-0 rounded-full bg-white/10 px-3 py-1 text-xs font-black text-white ring-1 ring-white/10">
+          {cards.length}장
+        </span>
+      </div>
+
+      {visibleCards.length > 0 ? (
+        <div className="grid grid-cols-4 gap-2 sm:grid-cols-8">
+          {visibleCards.map((card, index) => (
+            <ShareCardImage key={`${card.card_num}-${index}`} card={card} />
+          ))}
+          {hiddenCount > 0 && (
+            <div className="flex aspect-[5/7] items-center justify-center rounded-lg bg-gray-950/70 text-center text-xs font-black text-gray-400 ring-1 ring-white/10">
+              +{hiddenCount}장
+            </div>
+          )}
+        </div>
+      ) : (
+        <p className="rounded-xl border border-dashed border-white/10 px-4 py-5 text-center text-xs font-bold text-gray-500">
+          SR 이상 힛카드가 없어요.
+        </p>
+      )}
+    </section>
+  );
+}
+
+function ShareCardImage({ card }: { card: Card }) {
+  const [errored, setErrored] = useState(false);
+  const src = CARD_IMAGES_ENABLED && card.image_url && !errored
+    ? resolveCardImageUrl(card.image_url, { size: 256 })
+    : '';
+
+  return (
+    <div className="card-image-frame relative aspect-[5/7] overflow-hidden rounded-lg bg-gray-800 ring-1 ring-white/10" data-watermark={src ? 'pokesim.kr' : undefined}>
+      {src ? (
+        <Image
+          src={src}
+          alt={card.name_ko ?? card.card_num}
+          fill
+          sizes="96px"
+          className="object-cover"
+          crossOrigin="anonymous"
+          unoptimized
+          draggable={false}
+          onError={() => setErrored(true)}
+        />
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center p-1 text-center">
+          <span className="text-[9px] leading-tight text-gray-400">{card.name_ko ?? card.card_num}</span>
+        </div>
+      )}
+      {card.rarity && (
+        <span className={`absolute right-0.5 bottom-0.5 z-10 rounded px-1 py-px text-[9px] font-bold ${RARITY_BADGE[card.rarity] ?? 'bg-gray-600 text-white'}`}>
+          {rarityLabel(card.rarity, card)}
+        </span>
+      )}
+    </div>
+  );
 }
 
 function HitCardsPanel({
