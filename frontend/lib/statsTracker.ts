@@ -2,6 +2,7 @@ import { supabase } from './supabase';
 import type { LuckEventSummary } from './luck';
 
 const SESSION_ID_KEY = 'pokesim-session-id';
+const VISITOR_ID_KEY = 'pokesim-visitor-id';
 
 export type UserEventName =
   | 'page_view'
@@ -28,6 +29,21 @@ export function getSessionId(): string {
     }
     const id = crypto.randomUUID();
     localStorage.setItem(SESSION_ID_KEY, JSON.stringify({ id, date: today }));
+    return id;
+  } catch {
+    return 'unknown';
+  }
+}
+
+// 평생 유지되는 익명 식별자 — 코호트/리텐션 분석용 (D1, D7)
+export function getVisitorId(): string {
+  if (typeof window === 'undefined') return '';
+  try {
+    const stored = localStorage.getItem(VISITOR_ID_KEY);
+    if (stored) return stored;
+    
+    const id = crypto.randomUUID();
+    localStorage.setItem(VISITOR_ID_KEY, id);
     return id;
   } catch {
     return 'unknown';
@@ -84,7 +100,10 @@ export function trackUserEvent(event: {
       set_code: event.setCode ?? null,
       mode: event.mode ?? null,
       rarity: event.rarity ?? null,
-      metadata: event.metadata ?? {},
+      metadata: {
+        ...(event.metadata || {}),
+        visitor_id: getVisitorId(),
+      },
     })
     .then(({ error }) => {
       if (error && process.env.NODE_ENV !== 'production') {
