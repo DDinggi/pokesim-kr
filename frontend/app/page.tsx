@@ -41,6 +41,7 @@ import s9aBattleRegion from '../public/sets/s9a-battle-region.json';
 import s9StarBirth from '../public/sets/s9-star-birth.json';
 import s8bVmaxClimax from '../public/sets/s8b-vmax-climax.json';
 import s8FusionArts from '../public/sets/s8-fusion-arts.json';
+import s7rSkyStream from '../public/sets/s7r-sky-stream.json';
 import mStartDeck100 from '../public/sets/m-start-deck-100.json';
 import m4NinjaSpinner from '../public/sets/m4-ninja-spinner.json';
 import mNihilZero from '../public/sets/m-nihil-zero.json';
@@ -67,6 +68,7 @@ const sets: SetMeta[] = [
   s11aIncandescentArcana, s11LostAbyss, s10bPokemonGo,
   s10aDarkPhantasma, s10dTimeGazer, s10pSpaceJuggler,
   s9aBattleRegion, s9StarBirth, s8bVmaxClimax, s8FusionArts,
+  s7rSkyStream,
 ] as SetMeta[];
 
 export default function Home() {

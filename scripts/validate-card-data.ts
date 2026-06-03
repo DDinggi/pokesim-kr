@@ -97,6 +97,10 @@ const jsonOutput = argv.includes("--json");
 const strict = argv.includes("--strict");
 
 const findings: Finding[] = [];
+const ALLOWED_EXTERNAL_IMAGE_PREFIXES = [
+  "https://www.pokemon-card.com/assets/images/card_images/",
+  "https://primary.jwwb.nl/public/",
+];
 
 main();
 
@@ -262,7 +266,10 @@ function validateImages(setCode: string, cards: CardEntry[]) {
       continue;
     }
 
-    if (/^https?:\/\//.test(card.image_url) && !card.image_url.startsWith("https://www.pokemon-card.com/assets/images/card_images/")) {
+    if (
+      /^https?:\/\//.test(card.image_url) &&
+      !ALLOWED_EXTERNAL_IMAGE_PREFIXES.some((prefix) => card.image_url?.startsWith(prefix))
+    ) {
       add("warn", setCode, `${card.card_num ?? card.number ?? "unknown"} image_url이 외부 절대 URL입니다.`);
     }
   }

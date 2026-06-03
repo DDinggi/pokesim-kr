@@ -1,0 +1,16 @@
+# 자동 생성 — 일본판 메타 + 이미지 URL
+# 출처: yuyu-tei (이름/rarity/번호) + PokeGuardian (고화질 이미지)
+# name_ko 칼럼은 일본어 이름 그대로. 필요 시 직접 편집.
+# 생성: 2026-06-03
+number	name_ko	rarity	card_type	subtype	hp	type	image_url	_source
+80	대로트 VMAX	HR	포켓몬		320	풀	https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/3s7s97/18-17.jpg	PokeGuardian (https://www.pokeguardian.com/703672_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards)
+81	갸라도스 VMAX	HR	포켓몬		330	물	https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/tb5nwh/10-20.jpg	PokeGuardian (https://www.pokeguardian.com/703672_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards)
+82	레쿠쟈 VMAX	HR	포켓몬		320	드래곤	https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/nowf70/5-30.jpg	PokeGuardian (https://www.pokeguardian.com/703672_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards)
+83	레쿠쟈 VMAX	HR	포켓몬		320	드래곤	https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/9jsmmt/20-13.jpg	PokeGuardian (https://www.pokeguardian.com/703672_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards)
+84	사나	HR	트레이너				https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/z953dy/4-35.jpg	PokeGuardian (https://www.pokeguardian.com/703672_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards)
+85	스쿨보이	HR	트레이너				https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/yg95x1/17-14.jpg	PokeGuardian (https://www.pokeguardian.com/703672_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards)
+86	피아나의 결의	HR	트레이너				https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/tju53j/6-31.jpg	PokeGuardian (https://www.pokeguardian.com/703672_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards)
+87	눈여아	UR	포켓몬		90	물	https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/9glcfy/9-27.jpg	PokeGuardian (https://www.pokeguardian.com/703672_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards)
+88	토이캐처	UR	트레이너				https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/8gyuem/13-19.jpg	PokeGuardian (https://www.pokeguardian.com/703672_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards)
+89	폭풍산맥	UR	트레이너				https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/rjm8il/11-21.jpg	PokeGuardian (https://www.pokeguardian.com/703672_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards)
+90	기본 번개 에너지	UR	에너지				https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/ce0fey/5-33.jpg	PokeGuardian (https://www.pokeguardian.com/703672_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards)
