@@ -9,6 +9,7 @@ export const NEW_SIM_SET_CODES = [
   's9-star-birth',
   's8b-vmax-climax',
   's8-fusion-arts',
+  's7r-sky-stream',
 ] as const;
 
 export const NEW_SIM_SET_NAMES = [
@@ -22,6 +23,7 @@ export const NEW_SIM_SET_NAMES = [
   '스타버스',
   'VMAX 클라이맥스',
   '퓨전아츠',
+  '창공스트림',
 ];
 
 const NEW_SIM_SET_CODE_SET = new Set<string>(NEW_SIM_SET_CODES);

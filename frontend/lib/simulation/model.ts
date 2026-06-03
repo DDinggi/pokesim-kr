@@ -244,6 +244,32 @@ const SWSH_FUSION_ARTS: StandardSvSetRate = {
   fillerWeights: { R: 84.17, RR: 10.93, RRR: 4.9 },
 };
 
+const SWSH_SKY_STREAM: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 5,
+    SR_ALT: 4,
+    SR_TRAINER: 3,
+    HR_POKEMON: 4,
+    HR_TRAINER: 3,
+    UR: 4,
+  }),
+  extraHighRate: 0.1,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 5,
+    SR_ALT: 4,
+    SR_TRAINER: 3,
+    HR_POKEMON: 4,
+    HR_TRAINER: 3,
+    UR: 4,
+  }),
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: { R: 84.17, RR: 10.93, RRR: 4.9 },
+};
+
 const SWSH_POKEMON_GO: StandardSvSetRate = {
   mandatoryHighWeights: {
     SR_POKEMON: 40,
@@ -353,6 +379,7 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   's9a-battle-region': SWSH_BATTLE_REGION,
   's9-star-birth': SWSH_STAR_BIRTH,
   's8-fusion-arts': SWSH_FUSION_ARTS,
+  's7r-sky-stream': SWSH_SKY_STREAM,
 };
 
 export const SV11_RR_COUNT = 4;
@@ -385,6 +412,7 @@ export const ALT_SR_NUMBER_RANGES: Record<string, Array<[number, number]>> = {
   's10p-space-juggler': [[69, 69], [71, 71], [75, 75]],
   's9-star-birth': [[103, 103], [105, 105], [109, 109], [112, 112]],
   's8-fusion-arts': [[106, 106], [109, 109]],
+  's7r-sky-stream': [[72, 72], [74, 74], [76, 76]],
 };
 
 export const TERASTAL_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
