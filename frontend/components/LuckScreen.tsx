@@ -87,6 +87,8 @@ export function LuckScreen({
   const [setListOpen, setSetListOpen] = useState(false);
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
   const [sessionLoaded, setSessionLoaded] = useState(false);
+  const [shareStatus, setShareStatus] = useState<'idle' | 'rendering' | 'shared' | 'saved' | 'error'>('idle');
+  const luckShareRef = useRef<HTMLDivElement | null>(null);
   const trackedEmptyStateKey = useRef<string | null>(null);
 
   useEffect(() => {
@@ -194,6 +196,7 @@ export function LuckScreen({
     setSelectedSetCode(null);
     setOpenHitCardsSetCode(null);
     setSetListOpen(false);
+    setShareStatus('idle');
   }
 
   function handleResetActiveSet() {
@@ -213,6 +216,86 @@ export function LuckScreen({
     setSelectedSetCode(null);
     setOpenHitCardsSetCode(null);
     setSetListOpen(false);
+    setShareStatus('idle');
+  }
+
+  async function renderLuckShareImage(): Promise<string> {
+    const node = luckShareRef.current;
+    if (!node || !activeBreakdown?.score) {
+      throw new Error('공유할 운 결과가 없습니다.');
+    }
+
+    setShareStatus('rendering');
+    if (document.fonts?.ready) {
+      await document.fonts.ready;
+    }
+    await waitForImages(node);
+    const { toPng } = await import('html-to-image');
+    return toPng(node, {
+      cacheBust: true,
+      pixelRatio: 2,
+      backgroundColor: '#030712',
+    });
+  }
+
+  async function handleSaveLuckImage() {
+    if (!activeBreakdown?.score) return;
+    try {
+      const dataUrl = await renderLuckShareImage();
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = `pokesim-luck-${activeBreakdown.set.code}.png`;
+      link.click();
+      setShareStatus('saved');
+      trackUserEvent({
+        eventName: 'download_luck_share',
+        setCode: activeBreakdown.set.code,
+        metadata: {
+          boxes: activeBreakdown.boxes,
+          packs: activeBreakdown.packs,
+          luckTierScore: Number(activeBreakdown.score.luckTierScore.toFixed(3)),
+        },
+      });
+    } catch {
+      setShareStatus('error');
+    }
+  }
+
+  async function handleShareLuckImage() {
+    if (!activeBreakdown?.score) return;
+    try {
+      const dataUrl = await renderLuckShareImage();
+      const file = dataUrlToFile(dataUrl, `pokesim-luck-${activeBreakdown.set.code}.png`);
+      const shareData = {
+        title: '내 포켓몬카드 운 결과',
+        text: `${activeBreakdown.set.name_ko} ${formatOpeningAmount(activeBreakdown.boxes, activeBreakdown.packs)} 운 결과`,
+        files: [file],
+      };
+
+      if (navigator.canShare?.(shareData)) {
+        await navigator.share(shareData);
+        setShareStatus('shared');
+        trackUserEvent({
+          eventName: 'share_luck',
+          setCode: activeBreakdown.set.code,
+          metadata: {
+            boxes: activeBreakdown.boxes,
+            packs: activeBreakdown.packs,
+            luckTierScore: Number(activeBreakdown.score.luckTierScore.toFixed(3)),
+            method: 'native',
+          },
+        });
+        return;
+      }
+
+      await handleSaveLuckImage();
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        setShareStatus('idle');
+        return;
+      }
+      setShareStatus('error');
+    }
   }
 
   return (
@@ -318,6 +401,7 @@ export function LuckScreen({
                                 });
                                 setSelectedSetCode(group.set.code);
                                 setSetListOpen(false);
+                                setShareStatus('idle');
                               }}
                               className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition ${
                                 isActive
@@ -349,13 +433,45 @@ export function LuckScreen({
 
                 {activeBreakdown?.score ? (
                   <>
-                    <LuckPyramid
-                      score={activeBreakdown.score}
-                      seed={activeBreakdown.eventIds.join(':') || activeBreakdown.set.code}
-                      title={activeBreakdown.set.name_ko}
-                      boxes={activeBreakdown.boxes}
-                      packs={activeBreakdown.packs}
-                    />
+                    <section className="space-y-3">
+                      <div className="flex flex-wrap items-center justify-end gap-2">
+                        {shareStatus !== 'idle' && (
+                          <span className={`mr-auto text-xs font-bold ${shareStatus === 'error' ? 'text-red-300' : 'text-gray-500'}`}>
+                            {getShareStatusMessage(shareStatus)}
+                          </span>
+                        )}
+                        <button
+                          type="button"
+                          onClick={handleSaveLuckImage}
+                          disabled={shareStatus === 'rendering'}
+                          className="rounded-full bg-white/10 px-3 py-2 text-xs font-black text-white ring-1 ring-white/10 transition hover:bg-white/15 disabled:cursor-wait disabled:opacity-60"
+                        >
+                          이미지 저장
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleShareLuckImage}
+                          disabled={shareStatus === 'rendering'}
+                          className="rounded-full bg-emerald-400 px-3 py-2 text-xs font-black text-gray-950 ring-1 ring-emerald-200/70 transition hover:bg-emerald-300 disabled:cursor-wait disabled:opacity-60"
+                        >
+                          공유하기
+                        </button>
+                      </div>
+                      <div ref={luckShareRef} className="bg-gray-950 p-3 sm:p-4">
+                        <LuckPyramid
+                          score={activeBreakdown.score}
+                          seed={activeBreakdown.eventIds.join(':') || activeBreakdown.set.code}
+                          title={activeBreakdown.set.name_ko}
+                          boxes={activeBreakdown.boxes}
+                          packs={activeBreakdown.packs}
+                        />
+                        <LuckShareHitCards cards={activeBreakdown.hitCards} />
+                        <div className="mt-3 flex items-center justify-between gap-3 px-1 text-[10px] font-black text-gray-500">
+                          <span>PokéSim KR</span>
+                          <span>pokesim.kr</span>
+                        </div>
+                      </div>
+                    </section>
                     <HitCardsPanel
                       cards={activeBreakdown.hitCards}
                       boxes={activeBreakdown.boxes}
@@ -456,6 +572,110 @@ function formatOpeningAmount(boxes: number, packs: number): string {
   if (boxes > 0) parts.push(`${boxes.toLocaleString()}박스`);
   if (packs > 0) parts.push(`${packs.toLocaleString()}팩`);
   return parts.length > 0 ? parts.join(' · ') : '0팩';
+}
+
+function dataUrlToFile(dataUrl: string, fileName: string): File {
+  const [header, base64] = dataUrl.split(',');
+  const mime = header.match(/data:(.*);base64/)?.[1] ?? 'image/png';
+  const binary = window.atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+  return new File([bytes], fileName, { type: mime });
+}
+
+function getShareStatusMessage(status: 'idle' | 'rendering' | 'shared' | 'saved' | 'error'): string {
+  if (status === 'rendering') return '공유 이미지 만드는 중';
+  if (status === 'shared') return '공유를 열었어요';
+  if (status === 'saved') return '이미지를 저장했어요';
+  if (status === 'error') return '이미지 생성에 실패했어요';
+  return '';
+}
+
+function waitForImages(node: HTMLElement): Promise<void> {
+  const images = Array.from(node.querySelectorAll('img'));
+  if (images.length === 0) return Promise.resolve();
+
+  return Promise.all(
+    images.map((image) => {
+      if (image.complete) return Promise.resolve();
+      return new Promise<void>((resolve) => {
+        image.addEventListener('load', () => resolve(), { once: true });
+        image.addEventListener('error', () => resolve(), { once: true });
+      });
+    }),
+  ).then(() => undefined);
+}
+
+function LuckShareHitCards({ cards }: { cards: Card[] }) {
+  const visibleCards = cards.slice(0, 8);
+  const hiddenCount = Math.max(0, cards.length - visibleCards.length);
+
+  return (
+    <section className="mt-3 rounded-2xl bg-gray-900/70 p-4 ring-1 ring-white/10">
+      <div className="mb-3 flex items-end justify-between gap-3">
+        <div>
+          <p className="text-[10px] font-black tracking-widest text-gray-500">HIT CARDS</p>
+          <h3 className="mt-0.5 text-base font-black tracking-tight text-white">실제로 뜬 힛카드</h3>
+        </div>
+        <span className="shrink-0 rounded-full bg-white/10 px-3 py-1 text-xs font-black text-white ring-1 ring-white/10">
+          {cards.length}장
+        </span>
+      </div>
+
+      {visibleCards.length > 0 ? (
+        <div className="grid grid-cols-4 gap-2 sm:grid-cols-8">
+          {visibleCards.map((card, index) => (
+            <ShareCardImage key={`${card.card_num}-${index}`} card={card} />
+          ))}
+          {hiddenCount > 0 && (
+            <div className="flex aspect-[5/7] items-center justify-center rounded-lg bg-gray-950/70 text-center text-xs font-black text-gray-400 ring-1 ring-white/10">
+              +{hiddenCount}장
+            </div>
+          )}
+        </div>
+      ) : (
+        <p className="rounded-xl border border-dashed border-white/10 px-4 py-5 text-center text-xs font-bold text-gray-500">
+          SR 이상 힛카드가 없어요.
+        </p>
+      )}
+    </section>
+  );
+}
+
+function ShareCardImage({ card }: { card: Card }) {
+  const [errored, setErrored] = useState(false);
+  const src = CARD_IMAGES_ENABLED && card.image_url && !errored
+    ? resolveCardImageUrl(card.image_url, { size: 256 })
+    : '';
+
+  return (
+    <div className="card-image-frame relative aspect-[5/7] overflow-hidden rounded-lg bg-gray-800 ring-1 ring-white/10" data-watermark={src ? 'pokesim.kr' : undefined}>
+      {src ? (
+        <Image
+          src={src}
+          alt={card.name_ko ?? card.card_num}
+          fill
+          sizes="96px"
+          className="object-cover"
+          crossOrigin="anonymous"
+          unoptimized
+          draggable={false}
+          onError={() => setErrored(true)}
+        />
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center p-1 text-center">
+          <span className="text-[9px] leading-tight text-gray-400">{card.name_ko ?? card.card_num}</span>
+        </div>
+      )}
+      {card.rarity && (
+        <span className={`absolute right-0.5 bottom-0.5 z-10 rounded px-1 py-px text-[9px] font-bold ${RARITY_BADGE[card.rarity] ?? 'bg-gray-600 text-white'}`}>
+          {rarityLabel(card.rarity, card)}
+        </span>
+      )}
+    </div>
+  );
 }
 
 function HitCardsPanel({

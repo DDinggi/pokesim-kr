@@ -14,6 +14,8 @@ export type UserEventName =
   | 'reset_history'
   | 'select_luck_set'
   | 'expand_luck_hit_cards'
+  | 'download_luck_share'
+  | 'share_luck'
   | 'open_again'
   | 'open_card_modal';
 
