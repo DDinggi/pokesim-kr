@@ -193,6 +193,35 @@
       "default": "https://cards.image.pokemonkorea.co.kr/data/",
       "description": "이미지 CDN base URL. 카드 이미지 = base + image_url. R2 마이그레이션 후엔 자체 도메인으로 교체."
     },
+    "start_deck": {
+      "type": "object",
+      "description": "type='starter'(스타트 덱 100) 전용. 박스/팩 봉입률이 아니라 '100개 일반 덱 + 특수 덱 + 골드 변형 덱 중 1개 무작위' 제품. 대표카드는 ex/메가 ex 기반 추정(공식 덱 구성 비공개).",
+      "required": ["rep_card_nums", "special_rep_card_nums", "special_deck_rate", "_source", "_estimated_at"],
+      "properties": {
+        "deck_count": { "type": "integer", "minimum": 1, "description": "총 덱 수(일반 + 특수)." },
+        "special_deck_no": { "type": "integer", "minimum": 1, "description": "특수 덱 번호(101번)." },
+        "special_deck_rate": { "type": "number", "minimum": 0, "maximum": 1, "description": "특수 덱 등장 확률(추정치)." },
+        "gold_deck_no": { "type": "integer", "minimum": 1, "description": "골드 변형 덱 번호(001번)." },
+        "gold_deck_rate": { "type": "number", "minimum": 0, "maximum": 1, "description": "골드 변형 덱 등장 확률(추정치)." },
+        "rep_card_nums": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "일반 덱(1~N) 대표카드 card_num 목록. 뽑기 시 균등 추첨."
+        },
+        "special_rep_card_nums": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "특수 덱(101번) 대표카드 card_num 목록(3장)."
+        },
+        "gold_rep_card_nums": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "골드 변형 덱(001번) 대표카드 card_num 목록(#766 MUR)."
+        },
+        "_source": { "type": "string" },
+        "_estimated_at": { "type": "string", "format": "date" }
+      }
+    },
     "_source": {
       "type": "string",
       "description": "세트 데이터 1차 출처 도메인 (예: 'pokemoncard.co.kr')."

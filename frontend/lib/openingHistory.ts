@@ -69,7 +69,9 @@ export function countRarities(cards: Card[]): Record<string, number> {
 
 const OPENING_HIT_RARITIES = new Set(['BWR', 'SAR', 'UR', 'HR', 'MA', 'SSR', 'SR']);
 
-export function getOpeningHitCards(cards: Card[]): Card[] {
+export function getOpeningHitCards(cards: Card[], setMeta?: Pick<SetMeta, 'type'>): Card[] {
+  if (setMeta?.type === 'starter') return cards;
+
   return cards.filter((card) => card.rarity && OPENING_HIT_RARITIES.has(card.rarity));
 }
 
@@ -82,7 +84,7 @@ export function createOpeningEvent({
   packCount,
   krw,
 }: {
-  setMeta: Pick<SetMeta, 'code'>;
+  setMeta: Pick<SetMeta, 'code' | 'type'>;
   unit: OpeningUnit;
   source: OpeningSource;
   cards: Card[];
@@ -101,6 +103,6 @@ export function createOpeningEvent({
     cardCount: cards.length,
     krw,
     rarityCounts: countRarities(cards),
-    hitCards: getOpeningHitCards(cards),
+    hitCards: getOpeningHitCards(cards, setMeta),
   };
 }

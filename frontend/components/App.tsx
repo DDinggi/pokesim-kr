@@ -6,6 +6,7 @@ import { trackUserEvent } from '../lib/statsTracker';
 import { MainScreen } from './MainScreen';
 import { SetPicker } from './SetPicker';
 import { BoxSimulator } from './BoxSimulator';
+import { StartDeckSimulator } from './StartDeckSimulator';
 import { VendingMachine } from './VendingMachine';
 import { LuckScreen } from './LuckScreen';
 
@@ -191,6 +192,24 @@ export function App({ sets }: { sets: SetMeta[] }) {
           pushHistoryState('box', set);
         }}
         onBackToMain={goMain}
+      />
+    );
+  }
+  if (selectedSet.type === 'starter') {
+    return (
+      <StartDeckSimulator
+        key={selectedSet.code}
+        setMeta={selectedSet}
+        onChangeSet={goBoxPicker}
+        onOpenLuck={(resultMode) => {
+          trackUserEvent({
+            eventName: 'open_luck',
+            setCode: selectedSet.code,
+            mode: resultMode,
+            metadata: { source: 'starter_result' },
+          });
+          pushHistoryState('luck', selectedSet);
+        }}
       />
     );
   }

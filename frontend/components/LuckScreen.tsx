@@ -69,7 +69,7 @@ function removeSetFromSession(session: OpeningSession, set: SetMeta): OpeningSes
 
 function getSetHitCards(cards: Card[], set: SetMeta): Card[] {
   const setCardNums = new Set(set.cards.map((card) => card.card_num));
-  return getOpeningHitCards(cards.filter((card) => setCardNums.has(card.card_num)));
+  return getOpeningHitCards(cards.filter((card) => setCardNums.has(card.card_num)), set);
 }
 
 export function LuckScreen({
@@ -130,7 +130,7 @@ export function LuckScreen({
       group.boxes += event.boxCount;
       group.packs += event.unit === 'pack' ? event.packCount : 0;
       group.eventIds.push(event.id);
-      if (Array.isArray(event.hitCards)) {
+      if (Array.isArray(event.hitCards) && !(set.type === 'starter' && event.cardCount > 0 && event.hitCards.length === 0)) {
         group.hitCards.push(...event.hitCards);
       } else {
         group.missingHitCards = true;
@@ -360,6 +360,7 @@ export function LuckScreen({
                       cards={activeBreakdown.hitCards}
                       boxes={activeBreakdown.boxes}
                       packs={activeBreakdown.packs}
+                      isStarter={activeBreakdown.set.type === 'starter'}
                       isOpen={hitCardsOpen}
                       onToggle={() => {
                         if (openHitCardsSetCode !== activeBreakdown.set.code) {
@@ -461,6 +462,7 @@ function HitCardsPanel({
   cards,
   boxes,
   packs,
+  isStarter,
   isOpen,
   onToggle,
   onCardClick,
@@ -468,6 +470,7 @@ function HitCardsPanel({
   cards: Card[];
   boxes: number;
   packs: number;
+  isStarter: boolean;
   isOpen: boolean;
   onToggle: () => void;
   onCardClick: (card: Card) => void;
@@ -481,8 +484,15 @@ function HitCardsPanel({
         className="flex w-full items-center justify-between gap-3 text-left"
       >
         <div>
-          <p className="text-[11px] font-black tracking-widest text-gray-500">HIT CARDS</p>
-          <h2 className="mt-1 text-lg font-black tracking-tight">
+          <p className="text-[11px] font-black tracking-widest text-gray-500">
+            {isStarter ? 'REP / HIT CARDS' : 'HIT CARDS'}
+          </p>
+          {isStarter && (
+            <h2 className="mt-1 text-lg font-black tracking-tight">
+              {openingAmount}에서 나온 대표/힛카드
+            </h2>
+          )}
+          <h2 className={`mt-1 text-lg font-black tracking-tight ${isStarter ? 'sr-only' : ''}`}>
             {openingAmount}에서 나온 SR 이상 힛카드
           </h2>
         </div>

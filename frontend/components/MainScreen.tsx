@@ -75,13 +75,25 @@ export function MainScreen({
         <div className="mb-5 space-y-1.5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 px-4 py-3 ring-1 ring-white/10">
           <p className="text-sm font-bold text-white sm:text-base">
             <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW</span>
-            <span className="mr-2 align-middle text-[11px] font-bold tracking-widest text-white/45">2026.05.26</span>
-            포켓몬 GO · 배틀리전 · 스타버스 · VMAX 클라이맥스 · 퓨전아츠 세트 추가
+            스타트 100덱 추가
           </p>
-          <p className="text-sm font-bold text-white sm:text-base">
-            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-white/35">UPDATE</span>
-            <span className="mr-2 align-middle text-[11px] font-bold tracking-widest text-white/45">2026.05.22</span>
-            내 운 확인 기능 추가
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-relaxed text-gray-400">
+            <span>4일 주기 업데이트 예정입니다. 피드백과 문의는 언제든 환영합니다.</span>
+            <a
+              href="https://open.kakao.com/o/sqFZE7ti"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-cyan-200/90 transition-colors hover:text-cyan-100"
+            >
+              오픈채팅 문의
+            </a>
+            <span className="text-gray-600">·</span>
+            <a
+              href="mailto:pokesimkr@gmail.com"
+              className="font-mono text-[10px] text-gray-500 transition-colors hover:text-gray-300"
+            >
+              pokesimkr@gmail.com
+            </a>
           </p>
         </div>
 

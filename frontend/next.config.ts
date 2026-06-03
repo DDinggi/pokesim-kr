@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "img.pokesim.kr" },
       { protocol: "https", hostname: "cards.image.pokemonkorea.co.kr" },
+      { protocol: "https", hostname: "www.pokemon-card.com" }, // 일본 공식 카드 DB 보조 이미지
       { protocol: "https", hostname: "primary.jwwb.nl" }, // PokeGuardian 일본판 카드 이미지
       { protocol: "https", hostname: "card.yuyu-tei.jp" }, // yuyu-tei 일본 카드샵 이미지
     ],

@@ -109,7 +109,8 @@ export function VendingMachine({
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
   const [query, setQuery] = useState('');
 
-  const displaySets = useMemo(() => sets, [sets]);
+  // 스타트 덱(starter)은 낱팩 제품이 아니라 자판기깡에서 제외한다.
+  const displaySets = useMemo(() => sets.filter((set) => set.type !== 'starter'), [sets]);
   const visibleSets = useMemo(
     () => displaySets.filter((set) => matchSet(set, query)),
     [displaySets, query],

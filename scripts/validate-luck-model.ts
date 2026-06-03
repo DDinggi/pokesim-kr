@@ -14,6 +14,7 @@ type SetJson = {
   series?: string;
   rarities?: string[];
   cards?: Array<{ rarity?: string | null }>;
+  start_deck?: unknown;
 };
 
 type Args = {
@@ -27,6 +28,7 @@ const modelSource = readFileSync(resolve(ROOT_DIR, 'frontend', 'lib', 'simulatio
 const expansionSource = readFileSync(resolve(ROOT_DIR, 'frontend', 'lib', 'simulation', 'expansion.ts'), 'utf8');
 const hiClassSource = readFileSync(resolve(ROOT_DIR, 'frontend', 'lib', 'simulation', 'hi-class.ts'), 'utf8');
 const luckSource = readFileSync(resolve(ROOT_DIR, 'frontend', 'lib', 'luck.ts'), 'utf8');
+const starterSource = readFileSync(resolve(ROOT_DIR, 'frontend', 'lib', 'simulation', 'starter.ts'), 'utf8');
 
 const KNOWN_HI_CLASS_MODELS = new Set([
   'sv8a-terastal-festa',
@@ -97,7 +99,20 @@ function validateSet(setCode: string): { warnings: string[]; errors: string[] } 
     warnings.push('카드 목록이 비어 있어 운/시뮬 검증을 건너뜁니다.');
   }
 
-  if (set.type === 'hi-class') {
+  if (set.type === 'starter') {
+    if (!set.start_deck) {
+      errors.push('starter 세트인데 start_deck 메타(대표카드 풀)가 없습니다.');
+    }
+    if (!sourceHasSetCode(modelSource, set.code)) {
+      warnings.push('model.ts STARTER_SET_CODES에 세트 코드가 없습니다. isMegaExpansionSet 오탐 가능성.');
+    }
+    if (!luckSource.includes('isStarterSet')) {
+      warnings.push('luck.ts에 starter 분기(isStarterSet)가 없습니다.');
+    }
+    if (!starterSource.includes('simulateStartDeck')) {
+      errors.push('simulation/starter.ts에 simulateStartDeck 구현이 없습니다.');
+    }
+  } else if (set.type === 'hi-class') {
     if (!KNOWN_HI_CLASS_MODELS.has(set.code)) {
       warnings.push('새 hi-class 세트입니다. hi-class.ts와 luck.ts에 전용 박스/팩/운 분기가 필요합니다.');
     }
@@ -130,7 +145,7 @@ function validateSet(setCode: string): { warnings: string[]; errors: string[] } 
     warnings.push('BWR 카드가 있지만 SV11 특수 운 모델이 아닙니다. luck.ts top rarity 처리 확인이 필요합니다.');
   }
 
-  if (set.code.startsWith('m') && !hasRarity(set, 'UR')) {
+  if (set.code.startsWith('m') && set.type !== 'starter' && !hasRarity(set, 'UR')) {
     warnings.push('MEGA 세트인데 UR(MUR 정규화) 카드가 없습니다. MUR 누락 가능성이 큽니다.');
   }
 
