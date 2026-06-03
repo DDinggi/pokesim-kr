@@ -430,8 +430,34 @@ export const MEGA_DREAM_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
 
 export const HI_CLASS_GOD_PACK_RATE = 0.0075;
 
+/**
+ * 스타트 덱 100 (배틀 컬렉션). 코드가 'm'으로 시작하지만 MEGA 확장팩 봉입률 모델이
+ * 아니라 "101개 덱 중 1개 무작위" 제품이라 별도 starter 경로로 처리한다.
+ */
+export const STARTER_SET_CODES = new Set(['m-start-deck-100']);
+
+/** 특수 덱(101번, 대표 SAR 3장) 등장 확률(잠정 추정치 -- 실데이터 확보 시 갱신). */
+export const STARTER_SPECIAL_DECK_RATE = 0.01;
+/** 골드 001번 변형 덱(#766 MUR) 등장 확률(잠정 추정치 -- 실데이터 확보 시 갱신). */
+export const STARTER_GOLD_DECK_RATE = 0.01;
+/**
+ * 한 번 뽑을 때 대표카드로 SR/SAR/UR(MUR)이 나올 기대 장수(운 모델용).
+ * 일반 100덱 대표: SR 4장, SAR 2장. 특수 101번 덱: SAR 3장.
+ * 골드 001번 변형: #766 MUR 1장. 한국 공식 봉입률은 비공개라 둘 다 1% 잠정 추정.
+ */
+export const STARTER_STANDARD_DECK_RATE = 1 - STARTER_SPECIAL_DECK_RATE - STARTER_GOLD_DECK_RATE;
+export const STARTER_SPECIAL_SAR_COUNT = 3;
+export const STARTER_SR_RATE = STARTER_STANDARD_DECK_RATE * (4 / 100);
+export const STARTER_STANDARD_SAR_RATE = STARTER_STANDARD_DECK_RATE * (2 / 100);
+export const STARTER_UR_RATE = STARTER_GOLD_DECK_RATE;
+export const STARTER_SAR_RATE = STARTER_STANDARD_SAR_RATE + STARTER_SPECIAL_DECK_RATE * STARTER_SPECIAL_SAR_COUNT;
+
+export function isStarterSet(setCode?: string): boolean {
+  return Boolean(setCode && STARTER_SET_CODES.has(setCode));
+}
+
 export function isMegaExpansionSet(setCode?: string): boolean {
-  return Boolean(setCode?.startsWith('m'));
+  return Boolean(setCode?.startsWith('m')) && !isStarterSet(setCode);
 }
 
 export function isSv11SpecialSet(setCode?: string): boolean {

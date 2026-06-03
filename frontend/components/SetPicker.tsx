@@ -8,6 +8,10 @@ import { NEW_SIM_SET_NAMES, isNewSimSet } from '../lib/newSets';
 import { fetchSetPopularity, type SetPopularity } from '../lib/statsTracker';
 
 const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
+  'm-start-deck-100': {
+    gradient: 'from-sky-500 via-blue-600 to-indigo-800',
+    accent: 'text-sky-200',
+  },
   'm4-ninja-spinner': {
     gradient: 'from-cyan-700 via-blue-800 to-indigo-900',
     accent: 'text-cyan-300',
@@ -323,7 +327,7 @@ function SetCard({
         )}
         <div className="absolute top-3 left-3">
           <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded bg-black/40 backdrop-blur text-white/90">
-            {set.type === 'hi-class' ? '하이클래스팩' : '확장팩'}
+            {set.type === 'hi-class' ? '하이클래스팩' : set.type === 'starter' ? '스타트덱' : '확장팩'}
           </span>
         </div>
         {isNew && (
@@ -335,7 +339,7 @@ function SetCard({
         )}
         <div className="absolute top-3 right-3">
           <span className={`text-[10px] font-bold px-2 py-1 rounded bg-black/40 backdrop-blur ${theme.accent}`}>
-            {set.box_size}팩 × {set.pack_size}장
+            {set.type === 'starter' ? '100덱 중 1개' : `${set.box_size}팩 × ${set.pack_size}장`}
           </span>
         </div>
       </div>

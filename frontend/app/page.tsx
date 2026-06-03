@@ -41,6 +41,7 @@ import s9aBattleRegion from '../public/sets/s9a-battle-region.json';
 import s9StarBirth from '../public/sets/s9-star-birth.json';
 import s8bVmaxClimax from '../public/sets/s8b-vmax-climax.json';
 import s8FusionArts from '../public/sets/s8-fusion-arts.json';
+import mStartDeck100 from '../public/sets/m-start-deck-100.json';
 import m4NinjaSpinner from '../public/sets/m4-ninja-spinner.json';
 import mNihilZero from '../public/sets/m-nihil-zero.json';
 import mDreamEx from '../public/sets/m-dream-ex.json';
@@ -50,6 +51,7 @@ import mMegaSymphonia from '../public/sets/m-mega-symphonia.json';
 
 const sets: SetMeta[] = [
   // MEGA 시리즈
+  mStartDeck100,
   m4NinjaSpinner, mNihilZero, mDreamEx, mInfernoX, mMegaBrave, mMegaSymphonia,
   // SV 시리즈
   sv11bBlackBolt, sv11aWhiteFlare, sv10Glory, sv9aBlazingArena,

@@ -130,10 +130,11 @@ export function isMegaContext(context?: RarityContext): boolean {
   }
 
   return Boolean(
-    context.image_url?.startsWith('wmimages/MEGA/') ||
+      context.image_url?.startsWith('wmimages/MEGA/') ||
       context.image_url?.startsWith('external/m-') ||
+      context.image_url?.includes('/card_images/large/MC/') ||
       (context.card_num && /^BS20250(10|14|15)/.test(context.card_num)) ||
-      (context.card_num && /^BS202600[23]/.test(context.card_num)),
+      (context.card_num && /^BS202600[123]/.test(context.card_num)),
   );
 }
 

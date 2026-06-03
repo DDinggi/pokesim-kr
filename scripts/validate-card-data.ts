@@ -33,6 +33,20 @@ const KNOWN_RARITIES = new Set([
   "BWR",
 ]);
 const HIGH_RARITIES = new Set(["RRR", "K", "CHR", "ACE", "AR", "SR", "SSR", "CSR", "HR", "SAR", "MA", "UR", "GRA", "BWR"]);
+const START_DECK_100_REP_NUMBERS = [
+  85, 204, 437, 146, 68, 18, 151, 94, 185, 204,
+  3, 470, 380, 374, 169, 192, 746, 208, 750, 68,
+  290, 82, 205, 259, 764, 437, 227, 284, 370, 351,
+  42, 765, 113, 753, 287, 129, 747, 68, 147, 755,
+  756, 297, 154, 126, 758, 380, 82, 425, 312, 71,
+  77, 512, 353, 227, 744, 169, 429, 77, 749, 36,
+  364, 394, 237, 759, 192, 378, 38, 514, 82, 754,
+  64, 227, 132, 751, 192, 478, 752, 282, 222, 757,
+  486, 85, 743, 203, 44, 284, 380, 583, 748, 113,
+  208, 22, 745, 18, 760, 149, 284, 77, 126, 233,
+];
+const START_DECK_100_SPECIAL_REP_NUMBERS = [761, 762, 763];
+const START_DECK_100_GOLD_REP_NUMBERS = [766];
 
 interface CardEntry {
   card_num?: string;
@@ -50,6 +64,18 @@ interface SetJson {
   type?: string;
   rarities?: string[];
   cards?: CardEntry[];
+  start_deck?: StartDeckMeta;
+}
+
+interface StartDeckMeta {
+  deck_count?: number;
+  special_deck_no?: number;
+  special_deck_rate?: number;
+  gold_deck_no?: number;
+  gold_deck_rate?: number;
+  rep_card_nums?: string[];
+  special_rep_card_nums?: string[];
+  gold_rep_card_nums?: string[];
 }
 
 interface SetsIndex {
@@ -128,12 +154,15 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
     add("info", setCode, "placeholder 세트입니다. active_sets에 넣기 전 카드 수집이 필요합니다.");
   }
 
-  if (cards.length > 0 && highCount === 0) {
+  // 스타트 덱(starter)은 카드에 rarity 표기가 없는 구축 덱 제품이라 고레어/UR 검사를 건너뛴다.
+  const isStarter = set.type === "starter";
+
+  if (!isStarter && cards.length > 0 && highCount === 0) {
     const level: Level = isActive ? "warn" : "info";
     add(level, setCode, "AR/SR/SAR/UR/BWR 등 고레어 카드가 하나도 없습니다.");
   }
 
-  if (isMegaSet(set, setCode) && cards.length > 0 && !rarityCounts.UR) {
+  if (!isStarter && isMegaSet(set, setCode) && cards.length > 0 && !rarityCounts.UR) {
     add("warn", setCode, "MEGA 세트인데 UR(MUR 정규화) 카드가 없습니다. MUR 누락 가능성이 큽니다.");
   }
 
@@ -148,13 +177,15 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
   }
 
   const nullCount = rarityCounts.__null__ ?? 0;
-  if (cards.length > 0 && nullCount / cards.length > 0.5 && set.type !== "hi-class") {
+  if (cards.length > 0 && nullCount / cards.length > 0.5 && set.type !== "hi-class" && !isStarter) {
     add("warn", setCode, `rarity null이 ${nullCount}/${cards.length}장입니다. 의도된 병렬/리버스 카드인지 확인이 필요합니다.`);
   }
 
   validateDuplicates(setCode, cards);
   validateNumberContinuity(setCode, cards);
   validateImages(setCode, cards);
+  validateImageNumberAlignment(setCode, cards);
+  validateStartDeck(setCode, set, cards);
   validatePublicCopy(setCode, filePath);
 
   if (!isActive && !isPlanned && cards.length > 0 && set.type !== "promo") {
@@ -231,9 +262,90 @@ function validateImages(setCode: string, cards: CardEntry[]) {
       continue;
     }
 
-    if (/^https?:\/\//.test(card.image_url)) {
+    if (/^https?:\/\//.test(card.image_url) && !card.image_url.startsWith("https://www.pokemon-card.com/assets/images/card_images/")) {
       add("warn", setCode, `${card.card_num ?? card.number ?? "unknown"} image_url이 외부 절대 URL입니다.`);
     }
+  }
+}
+
+function validateImageNumberAlignment(setCode: string, cards: CardEntry[]) {
+  for (const card of cards) {
+    if (!Number.isInteger(card.number) || !card.image_url?.includes("wmimages/")) continue;
+
+    const imageNumber = card.image_url.match(/_(\d+)(?:_m)?\.[a-z0-9]+$/i)?.[1];
+    if (imageNumber && Number(imageNumber) !== card.number) {
+      add(
+        "warn",
+        setCode,
+        `${card.card_num ?? card.number ?? "unknown"} image number ${imageNumber} does not match card number ${card.number}.`,
+      );
+    }
+  }
+}
+
+function validateStartDeck(setCode: string, set: SetJson, cards: CardEntry[]) {
+  if (set.type !== "starter") return;
+
+  const meta = set.start_deck;
+  if (!meta) {
+    add("error", setCode, "starter set is missing start_deck metadata.");
+    return;
+  }
+
+  const byCardNum = new Map(cards.filter((card) => card.card_num).map((card) => [card.card_num, card]));
+  const byNumber = new Map(cards.filter((card) => Number.isInteger(card.number)).map((card) => [card.number, card]));
+  const repCardNums = meta.rep_card_nums ?? [];
+  const specialRepCardNums = meta.special_rep_card_nums ?? [];
+  const goldRepCardNums = meta.gold_rep_card_nums ?? [];
+
+  for (const cardNum of [...repCardNums, ...specialRepCardNums, ...goldRepCardNums]) {
+    if (!byCardNum.has(cardNum)) {
+      add("error", setCode, `start_deck references missing card_num ${cardNum}.`);
+    }
+  }
+
+  const duplicatedRepCardNums = Object.entries(countBy(repCardNums, (cardNum) => cardNum)).filter(([, count]) => count > 1);
+  if (duplicatedRepCardNums.length > 0) {
+    add("info", setCode, `start_deck representative cards repeat: ${duplicatedRepCardNums.slice(0, 8).map(([key, count]) => `${key}x${count}`).join(", ")}`);
+  }
+
+  if (setCode !== "m-start-deck-100") return;
+
+  if (meta.deck_count !== 102) {
+    add("error", setCode, `expected deck_count 102, got ${meta.deck_count ?? "missing"}.`);
+  }
+
+  if (meta.special_deck_no !== 101) {
+    add("error", setCode, `expected special_deck_no 101, got ${meta.special_deck_no ?? "missing"}.`);
+  }
+
+  if (meta.gold_deck_no !== 1) {
+    add("error", setCode, `expected gold_deck_no 1, got ${meta.gold_deck_no ?? "missing"}.`);
+  }
+
+  if (repCardNums.length !== START_DECK_100_REP_NUMBERS.length) {
+    add("error", setCode, `expected ${START_DECK_100_REP_NUMBERS.length} normal deck representatives, got ${repCardNums.length}.`);
+  }
+
+  START_DECK_100_REP_NUMBERS.forEach((expectedNumber, index) => {
+    const card = byCardNum.get(repCardNums[index]);
+    if (card && card.number !== expectedNumber) {
+      add("error", setCode, `Deck No.${String(index + 1).padStart(3, "0")} representative should be #${expectedNumber}, got #${card.number}.`);
+    }
+
+    if (!byNumber.has(expectedNumber)) {
+      add("error", setCode, `expected representative card #${expectedNumber} is missing from cards.`);
+    }
+  });
+
+  const specialNumbers = specialRepCardNums.map((cardNum) => byCardNum.get(cardNum)?.number);
+  if (specialNumbers.join(",") !== START_DECK_100_SPECIAL_REP_NUMBERS.join(",")) {
+    add("error", setCode, `Deck No.101 representatives should be #${START_DECK_100_SPECIAL_REP_NUMBERS.join(",")}, got #${specialNumbers.join(",")}.`);
+  }
+
+  const goldNumbers = goldRepCardNums.map((cardNum) => byCardNum.get(cardNum)?.number);
+  if (goldNumbers.join(",") !== START_DECK_100_GOLD_REP_NUMBERS.join(",")) {
+    add("error", setCode, `Gold Deck No.001 representatives should be #${START_DECK_100_GOLD_REP_NUMBERS.join(",")}, got #${goldNumbers.join(",")}.`);
   }
 }
 

@@ -18,7 +18,15 @@ import {
   VSTAR_UNIVERSE_SAR_GOD_PACK_RATE,
   getStandardSvSetRate,
   isMegaExpansionSet,
+  isStarterSet,
   isSv11SpecialSet,
+  STARTER_GOLD_DECK_RATE,
+  STARTER_SAR_RATE,
+  STARTER_SPECIAL_DECK_RATE,
+  STARTER_SPECIAL_SAR_COUNT,
+  STARTER_SR_RATE,
+  STARTER_STANDARD_SAR_RATE,
+  STARTER_UR_RATE,
 } from './simulation/model';
 
 const DEFAULT_BOX_SIZE = 30;
@@ -386,6 +394,11 @@ function getLuckScoreWeightsForSet(
   const code = 'code' in setOrOpening ? setOrOpening.code : setOrOpening.setCode;
   const type = 'type' in setOrOpening ? setOrOpening.type : undefined;
 
+  if (isStarterSet(code)) {
+    // 스타트 덱 100: 대표 SR/SAR/MUR을 힛으로 본다.
+    return { UR: getScoreWeight('UR', mode), SAR: 2, SR: getScoreWeight('SR', mode) };
+  }
+
   if (code.startsWith('s') && !code.startsWith('sv') && type !== 'hi-class') {
     return {
       CSR: getScoreWeight('CSR', mode),
@@ -435,7 +448,7 @@ function getLuckScoreWeightsForSet(
 }
 
 function getScoredCountKey(rarity: string, opening: LuckOpening): string {
-  if (rarity === 'UR' && isMegaExpansionSet(opening.setCode)) return 'MUR';
+  if (rarity === 'UR' && (isMegaExpansionSet(opening.setCode) || isStarterSet(opening.setCode))) return 'MUR';
   return rarity;
 }
 
@@ -491,6 +504,13 @@ function getExpectedScoredRarityCounts(
   };
 
   if (unitCount <= 0) return counts;
+
+  if (isStarterSet(code)) {
+    addExpectedCount(counts, getScoredCountKey('UR', opening), unitCount * STARTER_UR_RATE);
+    addExpectedCount(counts, 'SAR', unitCount * STARTER_SAR_RATE);
+    addExpectedCount(counts, 'SR', unitCount * STARTER_SR_RATE);
+    return counts;
+  }
 
   if (set?.type === 'hi-class') {
     if (code === 'sv8a-terastal-festa') {
@@ -716,10 +736,25 @@ function bernoulliDistribution(score: number, probability: number): LuckScoreOut
   ]);
 }
 
+function getStarterScoreDistribution(mode: LuckScoreMode): LuckScoreOutcome[] {
+  const zeroScoreRate = 1 - STARTER_GOLD_DECK_RATE - STARTER_SR_RATE - STARTER_STANDARD_SAR_RATE - STARTER_SPECIAL_DECK_RATE;
+  return normalizeDistribution([
+    { score: 0, probability: zeroScoreRate },
+    { score: getScoreWeight('UR', mode), probability: STARTER_GOLD_DECK_RATE },
+    { score: getScoreWeight('SR', mode), probability: STARTER_SR_RATE },
+    { score: getScoreWeight('SAR', mode), probability: STARTER_STANDARD_SAR_RATE },
+    { score: getScoreWeight('SAR', mode) * STARTER_SPECIAL_SAR_COUNT, probability: STARTER_SPECIAL_DECK_RATE },
+  ]);
+}
+
 function getBoxScoreDistribution(
   set: Pick<SetMeta, 'code' | 'type'> | undefined,
 ): LuckScoreOutcome[] {
   const code = set?.code;
+
+  if (code && isStarterSet(code)) {
+    return getStarterScoreDistribution('box');
+  }
 
   if (set?.type === 'hi-class') {
     if (code === 'sv8a-terastal-festa') {
@@ -798,6 +833,11 @@ function getPackScoreDistribution(
 ): LuckScoreOutcome[] {
   const code = set?.code;
   let distribution: LuckScoreOutcome[] = [{ score: 0, probability: 1 }];
+
+  if (code && isStarterSet(code)) {
+    // 한 번 뽑기 = starter deck 1개.
+    return getStarterScoreDistribution('pack');
+  }
 
   if (set?.type === 'hi-class') {
     if (code === 'sv8a-terastal-festa') {
@@ -961,7 +1001,7 @@ export function summarizeLuckRarityCounts(
   set?: Pick<SetMeta, 'code' | 'type' | 'cards'>,
 ): LuckEventSummary {
   const packEquivalent = opening.boxes * opening.boxSize + opening.packs;
-  const treatsUrAsTop = isMegaExpansionSet(opening.setCode) || opening.setCode === 's12a-vstar-universe';
+  const treatsUrAsTop = isMegaExpansionSet(opening.setCode) || isStarterSet(opening.setCode) || opening.setCode === 's12a-vstar-universe';
   const scoreMode: LuckScoreMode = opening.boxes > 0 ? 'box' : 'pack';
   const weights = getLuckScoreWeightsForSet(set ?? opening, scoreMode);
   const adjustedCounts = subtractBaselineCounts(rarityCounts, opening, set);
@@ -1012,6 +1052,10 @@ export function getLuckRatesForSet(
   set: Pick<SetMeta, 'code' | 'type' | 'box_size'>,
 ): Pick<LuckOpening, 'boxSize' | 'topPerBox' | 'sarPerBox'> {
   const boxSize = Math.max(1, set.box_size || DEFAULT_BOX_SIZE);
+
+  if (isStarterSet(set.code)) {
+    return { boxSize, topPerBox: STARTER_UR_RATE, sarPerBox: STARTER_SAR_RATE };
+  }
 
   if (set.type === 'hi-class') {
     if (set.code === 'sv8a-terastal-festa') {
