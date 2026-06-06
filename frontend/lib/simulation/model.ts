@@ -326,6 +326,75 @@ const SWSH_BATTLE_REGION: StandardSvSetRate = {
   fillerWeights: { R: 84.17, RR: 10.93, RRR: 4.9 },
 };
 
+const SWSH_EEVEE_HEROES: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 30,
+    SR_ALT: 30,
+    SR_TRAINER: 15,
+    HR_POKEMON: 15,
+    HR_TRAINER: 10,
+    UR: 10,
+  }),
+  extraHighRate: 0.1,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 30,
+    SR_ALT: 30,
+    SR_TRAINER: 15,
+    HR_POKEMON: 15,
+    HR_TRAINER: 10,
+    UR: 10,
+  }),
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: SWSH_FILLER_WEIGHTS,
+};
+
+const SWSH_SILVER_LANCE: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 6,
+    SR_ALT: 3,
+    SR_TRAINER: 4,
+    HR_POKEMON: 4,
+    HR_TRAINER: 4,
+    UR: 4,
+  }),
+  extraHighRate: 0.1,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 6,
+    SR_ALT: 3,
+    SR_TRAINER: 4,
+    HR_POKEMON: 4,
+    HR_TRAINER: 4,
+    UR: 4,
+  }),
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: SWSH_FILLER_WEIGHTS,
+};
+
+export const ANNIVERSARY_25_SET_CODE = 's8a-25th-anniversary';
+export const ANNIVERSARY_25_BOX_SIZE = 16;
+export const ANNIVERSARY_25_BASE_RARITY = '25TH';
+export const ANNIVERSARY_25_PROMO_RARITY = 'S8AP';
+export const ANNIVERSARY_25_PROMO_INTERVAL = 4;
+export const ANNIVERSARY_25_HIT_WEIGHTS: Record<string, number> = {
+  '25TH': 17,
+  RR: 5,
+  RRR: 2,
+};
+export const ANNIVERSARY_25_LUCK_SCORE_WEIGHTS: Record<string, number> = {
+  S8AP: 1,
+  '25TH': 0,
+  RR: 0.2,
+  RRR: 1,
+};
+
 const SV_TRIPLET_BEAT: StandardSvSetRate = {
   mandatoryHighWeights: { SR_POKEMON: 42, SR_TRAINER: 28, SAR: 20, UR: 10 },
   extraHighRate: 0.05,
@@ -380,6 +449,8 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   's9-star-birth': SWSH_STAR_BIRTH,
   's8-fusion-arts': SWSH_FUSION_ARTS,
   's7r-sky-stream': SWSH_SKY_STREAM,
+  's6a-eevee-heroes': SWSH_EEVEE_HEROES,
+  's6h-silver-lance': SWSH_SILVER_LANCE,
 };
 
 export const SV11_RR_COUNT = 4;
@@ -413,6 +484,8 @@ export const ALT_SR_NUMBER_RANGES: Record<string, Array<[number, number]>> = {
   's9-star-birth': [[103, 103], [105, 105], [109, 109], [112, 112]],
   's8-fusion-arts': [[106, 106], [109, 109]],
   's7r-sky-stream': [[72, 72], [74, 74], [76, 76]],
+  's6a-eevee-heroes': [[71, 71], [73, 73], [75, 75], [77, 77], [79, 79], [81, 81], [83, 83], [85, 85]],
+  's6h-silver-lance': [[73, 73], [75, 75], [79, 79]],
 };
 
 export const TERASTAL_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
@@ -494,6 +567,10 @@ export function isSv11SpecialSet(setCode?: string): boolean {
 
 export function hasAceSpecSlot(setCode?: string): boolean {
   return Boolean(setCode && ACE_SPEC_SET_CODES.has(setCode));
+}
+
+export function isAnniversary25Set(setCode?: string): boolean {
+  return setCode === ANNIVERSARY_25_SET_CODE;
 }
 
 export function getStandardSvSetRate(setCode?: string): StandardSvSetRate | undefined {

@@ -11,6 +11,7 @@ import {
 } from '../lib/luck';
 import {
   EMPTY_OPENING_SESSION,
+  countRarities,
   getOpeningHitCards,
   normalizeOpeningSession,
   SESSION_STORAGE_KEY,
@@ -135,9 +136,12 @@ export function LuckScreen({
       } else {
         group.missingHitCards = true;
       }
+      const rarityCounts = event.setCode === 's6a-eevee-heroes' && Array.isArray(event.hitCards) && event.hitCards.length > 0
+        ? countRarities(event.hitCards, set.code)
+        : event.rarityCounts;
       group.summaries.push(
         summarizeLuckRarityCounts(
-          event.rarityCounts,
+          rarityCounts,
           createLuckOpening(set, {
             boxes: event.boxCount,
             packs: event.unit === 'pack' ? event.packCount : 0,
@@ -413,7 +417,7 @@ function getScoreHitParts(score: WeightedLuckScore): HitCountPart[] {
     counts['MUR/BWR'] = score.topCount;
   }
 
-  const parts = ['MUR', 'BWR', 'GRA', 'UR', 'HR', 'SAR', 'CSR', 'MA', 'SSR', 'SR']
+  const parts = ['MUR', 'BWR', 'GRA', 'UR', 'SAR', 'HR', 'SR_ALT', 'CSR', 'MA', 'SSR', 'SR']
     .filter((rarity) => (counts[rarity] ?? 0) > 0)
     .map((rarity) => ({ rarity, count: counts[rarity] }));
 
@@ -438,7 +442,7 @@ function ScoreHitSummary({
       {parts.map((part, index) => (
         <span key={part.rarity} className="inline-flex items-center gap-1">
           {index > 0 && <span className="text-gray-700">·</span>}
-          <span className={getHitTextColor(part.rarity)}>{part.rarity}</span>
+          <span className={getHitTextColor(part.rarity)}>{formatHitRarityLabel(part.rarity)}</span>
           <span className="text-gray-200">{part.count}</span>
         </span>
       ))}
@@ -449,6 +453,11 @@ function ScoreHitSummary({
 function getHitTextColor(rarity: string): string {
   if (rarity === 'MUR/BWR') return RARITY_TEXT_COLOR.MUR;
   return RARITY_TEXT_COLOR[rarity] ?? 'text-gray-200';
+}
+
+function formatHitRarityLabel(rarity: string): string {
+  if (rarity === 'SR_ALT') return '특일 SR';
+  return rarity;
 }
 
 function formatOpeningAmount(boxes: number, packs: number): string {

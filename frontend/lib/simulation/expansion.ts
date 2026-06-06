@@ -2,6 +2,10 @@ import type { Card, PackResult } from '../types';
 import type { RNG } from './random';
 import { shuffle } from './random';
 import {
+  ANNIVERSARY_25_BASE_RARITY,
+  ANNIVERSARY_25_HIT_WEIGHTS,
+  ANNIVERSARY_25_PROMO_INTERVAL,
+  ANNIVERSARY_25_PROMO_RARITY,
   EXPANSION_MONSTER_WEIGHTS,
   EXPANSION_MONSTER_WEIGHTS_DEFAULT,
   ALT_SR_NUMBER_RANGES,
@@ -15,6 +19,7 @@ import {
   SV11_RR_COUNT,
   getStandardSvSetRate,
   hasAceSpecSlot,
+  isAnniversary25Set,
   isMegaExpansionSet,
   isSv11SpecialSet,
 } from './model';
@@ -35,8 +40,63 @@ export function simulateExpansionBox(
   setCode?: string,
   packSize = 5,
 ): PackResult[] {
+  if (isAnniversary25Set(setCode)) {
+    const packs = Array.from({ length: boxSize }, () => buildAnniversary25Pack(ctx, rng, packSize));
+    for (let index = ANNIVERSARY_25_PROMO_INTERVAL - 1; index < packs.length; index += ANNIVERSARY_25_PROMO_INTERVAL) {
+      packs[index] = maybeAppendAnniversary25Promo(packs[index], ctx, rng);
+    }
+    return packs;
+  }
+
   const slots = buildExpansionBoxHitSlots(boxSize, ctx, rng, setCode);
   return shuffle(slots, rng).map((pool) => buildExpansionPack(ctx, pool, packSize));
+}
+
+export function buildAnniversary25Pack(ctx: BuildContext, rng: RNG, packSize = 5): PackResult {
+  const { byRarity, pick } = ctx;
+  const cards: Card[] = [];
+  const anniversaryPool = byRarity[ANNIVERSARY_25_BASE_RARITY] ?? [];
+  const unmarked = byRarity.__null__ ?? [];
+  const baseCards = anniversaryPool.length ? anniversaryPool : unmarked;
+  const isEnergy = (card: Card) => card.card_type === '에너지';
+  const energyPool = baseCards.filter(isEnergy);
+  const nonEnergyCount = Math.max(0, packSize - (energyPool.length ? 1 : 0));
+
+  for (let i = 0; i < nonEnergyCount; i++) {
+    const slotPool = anniversary25HitPool(ctx);
+    if (slotPool.length) cards.push(pick(slotPool));
+  }
+
+  if (energyPool.length) cards.push(pick(energyPool));
+
+  return { cards: shuffle(cards, rng) };
+}
+
+export function maybeAppendAnniversary25Promo(
+  pack: PackResult,
+  ctx: BuildContext,
+  rng: RNG,
+  chance = 1,
+): PackResult {
+  if (rng() >= chance) return pack;
+
+  const promoPool = ctx.byRarity[ANNIVERSARY_25_PROMO_RARITY] ?? [];
+  if (!promoPool.length) return pack;
+
+  return { cards: [...pack.cards, ctx.pick(promoPool)] };
+}
+
+function anniversary25HitPool(ctx: BuildContext): Card[] {
+  const { byRarity } = ctx;
+  const anniversaryPool = byRarity[ANNIVERSARY_25_BASE_RARITY] ?? byRarity.__null__ ?? [];
+  const basePool = anniversaryPool.filter((card) => card.card_type !== '에너지');
+  const entries = [
+    { weight: ANNIVERSARY_25_HIT_WEIGHTS['25TH'], pool: basePool },
+    { weight: ANNIVERSARY_25_HIT_WEIGHTS.RR, pool: byRarity.RR ?? [] },
+    { weight: ANNIVERSARY_25_HIT_WEIGHTS.RRR, pool: byRarity.RRR ?? [] },
+  ];
+
+  return pickWeightedHitPool(ctx, entries, basePool.length ? basePool : (byRarity.RRR ?? byRarity.RR ?? byRarity.__null__ ?? []));
 }
 
 function buildExpansionBoxHitSlots(
@@ -185,6 +245,10 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   const isSv11Special = isSv11SpecialSet(setCode);
   const standardSetRate = getStandardSvSetRate(setCode);
   const entries: { weight: number; pool: Card[] }[] = [];
+
+  if (isAnniversary25Set(setCode)) {
+    return anniversary25HitPool(ctx);
+  }
 
   if (isMegaExpansion) {
     const highWeights = (setCode ? EXPANSION_MONSTER_WEIGHTS[setCode] : null) ?? EXPANSION_MONSTER_WEIGHTS_DEFAULT;

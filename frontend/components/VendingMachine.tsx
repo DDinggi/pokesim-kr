@@ -190,7 +190,7 @@ export function VendingMachine({
         boxCount: 0,
         packCount: n,
         krw: (set.pack_price_krw ?? 0) * n,
-        luck: summarizeLuckEvent(setCards, opening),
+        luck: summarizeLuckEvent(setCards, opening, set),
       });
       openingEvents.push(createOpeningEvent({
         setMeta: set,

@@ -5,5 +5,7 @@ const BOX_IMAGE_BY_SET_CODE: Record<string, string> = {
 };
 
 export function getBoxImageSrc(setCode: string): string {
-  return `/boxes/${BOX_IMAGE_BY_SET_CODE[setCode] ?? `${setCode}.png`}`;
+  const imageName = BOX_IMAGE_BY_SET_CODE[setCode];
+  if (imageName?.startsWith('/')) return imageName;
+  return `/boxes/${imageName ?? `${setCode}.png`}`;
 }

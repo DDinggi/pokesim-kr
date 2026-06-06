@@ -113,7 +113,7 @@ const newCards: Card[] = rows.map((r) => {
 const newNumbers = new Set(newCards.map((c) => c.number));
 setData.cards = setData.cards.filter((c) => !newNumbers.has(c.number));
 setData.cards.push(...newCards);
-setData.cards.sort((a, b) => a.number - b.number);
+setData.cards.sort((a, b) => (a.number ?? Number.MAX_SAFE_INTEGER) - (b.number ?? Number.MAX_SAFE_INTEGER));
 
 writeFileSync(setPath, JSON.stringify(setData, null, 2) + "\n", "utf-8");
 

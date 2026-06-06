@@ -75,7 +75,7 @@ export function MainScreen({
         <div className="mb-5 space-y-1.5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 px-4 py-3 ring-1 ring-white/10">
           <p className="text-sm font-bold text-white sm:text-base">
             <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW</span>
-            6/3 스타트 100덱 추가, 창공스트림
+            6/7 이브이 히어로즈, 백은의 랜스 추가
           </p>
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-relaxed text-gray-400">
             <span>4일 주기 업데이트 예정입니다. 피드백과 문의는 언제든 환영합니다.</span>
