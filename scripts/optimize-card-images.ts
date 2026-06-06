@@ -61,6 +61,7 @@ interface CardEntry {
   card_num?: string;
   number?: number;
   image_url?: string;
+  _image_source_url?: string;
 }
 
 interface SetJson {
@@ -234,6 +235,10 @@ function originalKeyFor(setCode: string, card: CardEntry): string | null {
 }
 
 function sourceUrlFor(card: CardEntry, originalKey: string): string {
+  if (card._image_source_url && /^https?:\/\//.test(card._image_source_url)) {
+    return card._image_source_url;
+  }
+
   if (card.image_url && /^https?:\/\//.test(card.image_url)) {
     return card.image_url;
   }
@@ -275,10 +280,7 @@ async function r2ObjectExists(key: string): Promise<boolean> {
 
 async function downloadSource(url: string): Promise<Buffer> {
   const response = await fetch(url, {
-    headers: {
-      "User-Agent": "PokeSim KR image optimizer (+https://pokesim.kr)",
-      Referer: "https://pokesim.kr/",
-    },
+    headers: downloadHeadersFor(url),
   });
 
   if (!response.ok) {
@@ -286,6 +288,24 @@ async function downloadSource(url: string): Promise<Buffer> {
   }
 
   return Buffer.from(await response.arrayBuffer());
+}
+
+function downloadHeadersFor(url: string): Record<string, string> {
+  const origin = originFor(url);
+  return {
+    "User-Agent":
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36 PokeSimKRImageBot/1.0",
+    Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+    Referer: origin ? `${origin}/` : "https://pokesim.kr/",
+  };
+}
+
+function originFor(url: string): string | null {
+  try {
+    return new URL(url).origin;
+  } catch {
+    return null;
+  }
 }
 
 async function uploadVariant(key: string, body: Buffer) {

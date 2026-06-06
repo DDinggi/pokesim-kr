@@ -236,7 +236,7 @@ const TEAM_GRUNTS = [
   '옐단 조무래기',
   '스타단의 조무래기',
 ];
-const SCORE_COUNT_ORDER = ['MUR', 'BWR', 'UR', 'HR', 'SAR', 'MA', 'SSR', 'SR'];
+const SCORE_COUNT_ORDER = ['MUR', 'BWR', 'UR', 'SAR', 'HR', 'SR_ALT', 'MA', 'SSR', 'SR'];
 
 type LuckTier = {
   minTierScore: number;
@@ -407,7 +407,7 @@ export function LuckPyramid({
                 hitParts.map((part, index) => (
                   <span key={part.rarity} className="inline-flex items-center gap-1">
                     {index > 0 && <span className="text-gray-700">·</span>}
-                    <span className={getHitTextColor(part.rarity)}>{part.rarity}</span>
+                    <span className={getHitTextColor(part.rarity)}>{formatHitRarityLabel(part.rarity)}</span>
                     <span className="text-gray-200">{part.count}</span>
                   </span>
                 ))
@@ -457,4 +457,9 @@ export function LuckPyramid({
 function getHitTextColor(rarity: string): string {
   if (rarity === 'MUR/BWR') return RARITY_TEXT_COLOR.MUR;
   return RARITY_TEXT_COLOR[rarity] ?? 'text-gray-200';
+}
+
+function formatHitRarityLabel(rarity: string): string {
+  if (rarity === 'SR_ALT') return '특일 SR';
+  return rarity;
 }

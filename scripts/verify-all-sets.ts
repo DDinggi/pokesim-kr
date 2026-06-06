@@ -9,7 +9,13 @@ const { simulateBox } = simulatorDefault as unknown as typeof import('../fronten
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 const INDEX = JSON.parse(readFileSync(resolve(ROOT_DIR, 'data', 'sets-index.json'), 'utf8')) as { active_sets: string[] };
-const HIT_RARITIES = ['CHR', 'CSR', 'AR', 'K', 'ACE', 'SR', 'SSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR'];
+const HIT_RARITIES = ['CHR', 'CSR', 'AR', 'K', 'ACE', '25TH', 'S8AP', 'SR', 'SSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR'];
+const ANNIVERSARY_25_SET_CODE = 's8a-25th-anniversary';
+const SWSH_CHARACTER_SUBSETS = new Set([
+  's11a-incandescent-arcana',
+  's10a-dark-phantasma',
+  's9a-battle-region',
+]);
 
 type Report = {
   code: string;
@@ -54,6 +60,10 @@ function simulateBoxes(set: SetMeta, n: number): Record<string, number> {
   return perBox;
 }
 
+function getHitRarities(code: string): string[] {
+  return code === ANNIVERSARY_25_SET_CODE ? ['RR', 'RRR', ...HIT_RARITIES] : HIT_RARITIES;
+}
+
 const BOX_TRIALS = 1000;
 const reports: Report[] = [];
 
@@ -64,7 +74,7 @@ for (const code of INDEX.active_sets) {
     const perBox = simulateBoxes(set, BOX_TRIALS);
     const warnings: string[] = [];
 
-    if (nullCount > 0) warnings.push(`${nullCount} cards with null rarity`);
+    if (nullCount > 0 && code !== ANNIVERSARY_25_SET_CODE) warnings.push(`${nullCount} cards with null rarity`);
     if (set.cards.length < 30) warnings.push('very few cards in data');
 
     // High rarity expected by typical hi-class but missing in data
@@ -73,9 +83,8 @@ for (const code of INDEX.active_sets) {
       if (!counts.SR) warnings.push('hi-class missing SR');
     }
 
-    // expansion sets typically have CHR / SAR for SwSh era
-    if (set.type === 'expansion' && code.startsWith('s') && !code.startsWith('sv')) {
-      if (!counts.CHR) warnings.push('SwSh expansion missing CHR');
+    if (SWSH_CHARACTER_SUBSETS.has(code)) {
+      if (!counts.CHR) warnings.push('SwSh character subset missing CHR');
     }
     if (set.type === 'expansion' && code.startsWith('sv')) {
       if (!counts.SAR) warnings.push('SV expansion missing SAR');
@@ -86,7 +95,8 @@ for (const code of INDEX.active_sets) {
       if (!counts.UR && !counts.MUR) warnings.push('mega set missing UR/MUR');
     }
 
-    const totalHits = HIT_RARITIES.reduce((sum, r) => sum + (perBox[r] ?? 0), 0);
+    const hitRarities = getHitRarities(code);
+    const totalHits = hitRarities.reduce((sum, r) => sum + (perBox[r] ?? 0), 0);
 
     reports.push({
       code,
@@ -97,7 +107,7 @@ for (const code of INDEX.active_sets) {
       nullRarity: nullCount,
       rarityCounts: counts,
       perBoxHits: perBox,
-      emptyHighPools: HIT_RARITIES.filter((r) => !counts[r]),
+      emptyHighPools: hitRarities.filter((r) => !counts[r]),
       totalExpectedHitsPerBox: totalHits,
       warnings,
     });
@@ -126,7 +136,7 @@ for (const r of reports.filter((x) => x.warnings.length > 0)) {
   console.log(`\n--- ${r.code} (${r.type}, box ${r.box_size}p × pack ${r.pack_size}c) ---`);
   console.log(`  Rarity counts:`, r.rarityCounts);
   console.log(`  Per-box hits (only HIT rarities):`);
-  for (const k of HIT_RARITIES) {
+  for (const k of getHitRarities(r.code)) {
     if (r.perBoxHits[k]) console.log(`    ${k.padEnd(5)} ${r.perBoxHits[k].toFixed(3)}`);
   }
   console.log(`  WARNINGS: ${r.warnings.join(' | ')}`);

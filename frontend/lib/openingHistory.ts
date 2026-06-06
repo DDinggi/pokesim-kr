@@ -1,4 +1,10 @@
 import type { Card, SetMeta } from './types';
+import {
+  ALT_SR_NUMBER_RANGES,
+  isAnniversary25Set,
+  isMegaExpansionSet,
+  isStarterSet,
+} from './simulation/model';
 
 export const SESSION_STORAGE_KEY = 'pokesim-kr-session-v1';
 
@@ -56,18 +62,50 @@ export function normalizeOpeningSession(value: unknown): OpeningSession {
   };
 }
 
-export function countRarities(cards: Card[]): Record<string, number> {
+function isInRanges(number: number, ranges: Array<[number, number]> | undefined): boolean {
+  return Boolean(ranges?.some(([start, end]) => number >= start && number <= end));
+}
+
+function isLowScoreUrSet(setCode?: string): boolean {
+  return Boolean(
+    setCode
+      && !isStarterSet(setCode)
+      && !isMegaExpansionSet(setCode)
+      && !isAnniversary25Set(setCode),
+  );
+}
+
+function openingCountKeyForCard(card: Card, setCode?: string): string {
+  if (
+    isLowScoreUrSet(setCode)
+    && card.rarity === 'UR'
+    && card.card_type !== '포켓몬'
+  ) {
+    return 'UR_LOW';
+  }
+  if (
+    card.rarity === 'SR'
+    && card.card_type === '포켓몬'
+    && setCode
+    && isInRanges(card.number, ALT_SR_NUMBER_RANGES[setCode])
+  ) {
+    return 'SR_ALT';
+  }
+  return card.rarity ?? 'UNKNOWN';
+}
+
+export function countRarities(cards: Card[], setCode?: string): Record<string, number> {
   const counts: Record<string, number> = {};
 
   for (const card of cards) {
-    const rarity = card.rarity ?? 'UNKNOWN';
+    const rarity = openingCountKeyForCard(card, setCode);
     counts[rarity] = (counts[rarity] ?? 0) + 1;
   }
 
   return counts;
 }
 
-const OPENING_HIT_RARITIES = new Set(['BWR', 'SAR', 'UR', 'HR', 'MA', 'SSR', 'SR']);
+const OPENING_HIT_RARITIES = new Set(['BWR', 'SAR', 'UR', 'HR', 'MA', 'SSR', 'SR', '25TH', 'S8AP']);
 
 export function getOpeningHitCards(cards: Card[], setMeta?: Pick<SetMeta, 'type'>): Card[] {
   if (setMeta?.type === 'starter') return cards;
@@ -102,7 +140,7 @@ export function createOpeningEvent({
     packCount,
     cardCount: cards.length,
     krw,
-    rarityCounts: countRarities(cards),
+    rarityCounts: countRarities(cards, setMeta.code),
     hitCards: getOpeningHitCards(cards, setMeta),
   };
 }

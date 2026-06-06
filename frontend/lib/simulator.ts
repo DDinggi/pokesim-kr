@@ -1,9 +1,14 @@
 import seedrandom from 'seedrandom';
 import type { Card, PackResult, BoxResult } from './types';
-import { expansionPackHitPool, simulateExpansionBox } from './simulation/expansion';
+import {
+  buildAnniversary25Pack,
+  expansionPackHitPool,
+  maybeAppendAnniversary25Promo,
+  simulateExpansionBox,
+} from './simulation/expansion';
 import { buildExpansionPack } from './simulation/pack-builders';
 import { simulateHiClassBox, simulateSingleHiClassPack } from './simulation/hi-class';
-import { PROBABILITY_META } from './simulation/model';
+import { ANNIVERSARY_25_PROMO_INTERVAL, PROBABILITY_META, isAnniversary25Set } from './simulation/model';
 import { groupByRarity } from './simulation/pools';
 import { makePick, makeWeightedPick } from './simulation/random';
 import type { BuildContext } from './simulation/types';
@@ -38,6 +43,13 @@ export function simulatePack(
   const pack =
     type === 'hi-class'
       ? simulateSingleHiClassPack(ctx, rng, setCode, packSize)
+      : isAnniversary25Set(setCode)
+        ? maybeAppendAnniversary25Promo(
+            buildAnniversary25Pack(ctx, rng, packSize),
+            ctx,
+            rng,
+            1 / ANNIVERSARY_25_PROMO_INTERVAL,
+          )
       : buildExpansionPack(ctx, expansionPackHitPool(ctx, setCode), packSize);
 
   return { pack, seed };

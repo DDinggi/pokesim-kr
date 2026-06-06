@@ -1,6 +1,9 @@
 import type { Card, SetMeta } from './types';
-import { isMegaContext } from './rarity';
 import {
+  ANNIVERSARY_25_BOX_SIZE,
+  ANNIVERSARY_25_HIT_WEIGHTS,
+  ANNIVERSARY_25_LUCK_SCORE_WEIGHTS,
+  ANNIVERSARY_25_PROMO_INTERVAL,
   EXPANSION_MONSTER_WEIGHTS,
   EXPANSION_MONSTER_WEIGHTS_DEFAULT,
   HI_CLASS_GOD_PACK_RATE,
@@ -17,6 +20,7 @@ import {
   VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS,
   VSTAR_UNIVERSE_SAR_GOD_PACK_RATE,
   getStandardSvSetRate,
+  isAnniversary25Set,
   isMegaExpansionSet,
   isStarterSet,
   isSv11SpecialSet,
@@ -27,6 +31,7 @@ import {
   STARTER_SR_RATE,
   STARTER_STANDARD_SAR_RATE,
   STARTER_UR_RATE,
+  ALT_SR_NUMBER_RANGES,
 } from './simulation/model';
 
 const DEFAULT_BOX_SIZE = 30;
@@ -71,32 +76,36 @@ export interface WeightedLuckScore extends LuckEventSummary {
 export type LuckBand = 'lucky' | 'average' | 'unlucky';
 
 const TOP_RARITY_WEIGHT = 3;
-const OLD_HIGH_RARITIES = ['SR', 'CSR', 'HR', 'SAR', 'UR', 'GRA'] as const;
+const OLD_HIGH_RARITIES = ['SR_ALT', 'SR', 'CSR', 'HR', 'SAR', 'UR', 'UR_LOW', 'GRA'] as const;
 const SCORE_EPSILON = 1e-9;
 const SCORE_WEIGHTS: Record<string, number> = {
   SSR: 0.5,
+  SR_ALT: 1.2,
   SR: 0.5,
   CSR: 1,
   MA: 0.5,
   HR: 1,
   SAR: 2,
   UR: 3,
+  UR_LOW: 0,
   GRA: 3,
   BWR: 3,
 };
 const PACK_SCORE_WEIGHTS: Record<string, number> = {
   SR: 1,
+  SR_ALT: 2,
   CSR: 2,
   SSR: 1,
   MA: 1,
   HR: 2,
   SAR: 2,
   UR: 3,
+  UR_LOW: 0,
   GRA: 3,
   BWR: 3,
 };
 const LUCK_COMBINATION_RULES = {
-  primaryHitKeys: ['MUR', 'BWR', 'UR', 'GRA', 'HR', 'SAR'],
+  primaryHitKeys: ['MUR', 'BWR', 'UR', 'GRA', 'SAR', 'HR', 'SR_ALT'],
   secondaryHitKeys: ['MA', 'SSR', 'CSR', 'SR'],
   rarityMultiplier: {
     MUR: 1.2,
@@ -105,6 +114,7 @@ const LUCK_COMBINATION_RULES = {
     GRA: 0.95,
     SAR: 1,
     HR: 0.75,
+    SR_ALT: 0.55,
     CSR: 0.4,
     MA: 0.25,
     SSR: 0.25,
@@ -138,9 +148,72 @@ function weightChance(weights: Record<string, number>, key: string): number {
 }
 
 type LuckScoreMode = 'box' | 'pack';
+type LuckSetContext = Pick<SetMeta, 'code' | 'type' | 'cards'>;
+type LuckUrContext = Pick<SetMeta, 'code'> & Partial<Pick<SetMeta, 'cards'>>;
 
 function getScoreWeight(rarity: string, mode: LuckScoreMode): number {
   return (mode === 'pack' ? PACK_SCORE_WEIGHTS : SCORE_WEIGHTS)[rarity] ?? 0;
+}
+
+function isInRanges(number: number, ranges: Array<[number, number]> | undefined): boolean {
+  return Boolean(ranges?.some(([start, end]) => number >= start && number <= end));
+}
+
+function isLowScoreUrCard(card: Card, setCode?: string): boolean {
+  return isLowScoreUrSet(setCode)
+    && card.rarity === 'UR'
+    && card.card_type !== '포켓몬';
+}
+
+function getLuckCountKeyForCard(card: Card, setCode?: string): string | null {
+  if (!card.rarity) return null;
+  if (isLowScoreUrCard(card, setCode)) return 'UR_LOW';
+  if (
+    card.rarity === 'SR'
+    && card.card_type === '포켓몬'
+    && setCode
+    && isInRanges(card.number, ALT_SR_NUMBER_RANGES[setCode])
+  ) {
+    return 'SR_ALT';
+  }
+  return card.rarity;
+}
+
+function getLuckAdjustedHighWeights(
+  weights: Partial<Record<string, number>>,
+  set?: LuckUrContext,
+): Record<string, number> {
+  const adjusted: Record<string, number> = {};
+  for (const [key, value] of Object.entries(weights)) {
+    if (typeof value === 'number') adjusted[key] = value;
+  }
+
+  const urSplit = getUrScoreSplit(set);
+  if (urSplit && adjusted.UR && adjusted.UR > 0) {
+    const urWeight = adjusted.UR;
+    adjusted.UR = urWeight * urSplit.top;
+    adjusted.UR_LOW = urWeight * urSplit.low;
+  }
+  return adjusted;
+}
+
+function isLowScoreUrSet(setCode?: string): boolean {
+  return Boolean(
+    setCode
+      && !isStarterSet(setCode)
+      && !isMegaExpansionSet(setCode)
+      && !isAnniversary25Set(setCode),
+  );
+}
+
+function getUrScoreSplit(set?: LuckUrContext): { top: number; low: number } | null {
+  if (!isLowScoreUrSet(set?.code)) return null;
+
+  const urCards = set?.cards?.filter((card) => card.rarity === 'UR') ?? [];
+  if (urCards.length === 0) return null;
+
+  const top = urCards.filter((card) => card.card_type === '포켓몬').length / urCards.length;
+  return { top, low: 1 - top };
 }
 
 function normalizeDistribution(outcomes: LuckScoreOutcome[]): LuckScoreOutcome[] {
@@ -399,9 +472,14 @@ function getLuckScoreWeightsForSet(
     return { UR: getScoreWeight('UR', mode), SAR: 2, SR: getScoreWeight('SR', mode) };
   }
 
+  if (isAnniversary25Set(code)) {
+    return ANNIVERSARY_25_LUCK_SCORE_WEIGHTS;
+  }
+
   if (code.startsWith('s') && !code.startsWith('sv') && type !== 'hi-class') {
     return {
       CSR: getScoreWeight('CSR', mode),
+      SR_ALT: getScoreWeight('SR_ALT', mode),
       SR: getScoreWeight('SR', mode),
       HR: getScoreWeight('HR', mode),
       SAR: 2,
@@ -483,7 +561,8 @@ function addExpectedCountsFromWeights(
   for (const [key, weight] of Object.entries(weights)) {
     if (key === 'NONE' || weight <= 0) continue;
     const rarity =
-      key.startsWith('SR') ? 'SR'
+      key === 'SR_ALT' ? 'SR_ALT'
+      : key.startsWith('SR') ? 'SR'
       : key.startsWith('HR') ? 'HR'
       : key;
     const countKey = opening ? getScoredCountKey(rarity, opening) : rarity;
@@ -493,7 +572,7 @@ function addExpectedCountsFromWeights(
 
 function getExpectedScoredRarityCounts(
   opening: LuckOpening,
-  set?: Pick<SetMeta, 'code' | 'type'>,
+  set?: LuckSetContext,
 ): Record<string, number> {
   const counts: Record<string, number> = {};
   const unitCount = opening.boxes + opening.packs / opening.boxSize;
@@ -509,6 +588,13 @@ function getExpectedScoredRarityCounts(
     addExpectedCount(counts, getScoredCountKey('UR', opening), unitCount * STARTER_UR_RATE);
     addExpectedCount(counts, 'SAR', unitCount * STARTER_SAR_RATE);
     addExpectedCount(counts, 'SR', unitCount * STARTER_SR_RATE);
+    return counts;
+  }
+
+  if (isAnniversary25Set(code)) {
+    addExpectedCount(counts, '25TH', unitCount * opening.boxSize);
+    addExpectedCount(counts, 'S8AP', (unitCount * opening.boxSize) / ANNIVERSARY_25_PROMO_INTERVAL);
+    addExpectedCountsFromWeights(counts, ANNIVERSARY_25_HIT_WEIGHTS, unitCount * opening.boxSize * 4, 1, opening);
     return counts;
   }
 
@@ -571,8 +657,8 @@ function getExpectedScoredRarityCounts(
 
   const standardRate = getStandardSvSetRate(code);
   if (standardRate) {
-    addExpectedCountsFromWeights(counts, standardRate.mandatoryHighWeights, unitCount, 1, opening);
-    addExpectedCountsFromWeights(counts, standardRate.extraHighWeights, unitCount, standardRate.extraHighRate, opening);
+    addExpectedCountsFromWeights(counts, getLuckAdjustedHighWeights(standardRate.mandatoryHighWeights, set ?? { code }), unitCount, 1, opening);
+    addExpectedCountsFromWeights(counts, getLuckAdjustedHighWeights(standardRate.extraHighWeights, set ?? { code }), unitCount, standardRate.extraHighRate, opening);
     return counts;
   }
 
@@ -594,7 +680,7 @@ function getObservedScore(
 function subtractBaselineCounts(
   rarityCounts: Record<string, number>,
   opening: LuckOpening,
-  set?: Pick<SetMeta, 'code' | 'type'>,
+  set?: LuckSetContext,
 ): Record<string, number> {
   const counts = { ...rarityCounts };
   const code = set?.code ?? opening.setCode;
@@ -625,19 +711,20 @@ function subtractBaselineCounts(
   return counts;
 }
 
-function getRarityCounts(cards: Card[]): Record<string, number> {
+function getRarityCounts(cards: Card[], setCode?: string): Record<string, number> {
   return cards.reduce<Record<string, number>>((counts, card) => {
-    if (card.rarity) counts[card.rarity] = (counts[card.rarity] ?? 0) + 1;
+    const key = getLuckCountKeyForCard(card, setCode);
+    if (key) counts[key] = (counts[key] ?? 0) + 1;
     return counts;
   }, {});
 }
 
 function estimateOldHighSlotScorePerBox(
-  set: Pick<SetMeta, 'cards'>,
+  set: Pick<SetMeta, 'code' | 'cards'>,
   weights: Record<string, number>,
 ): number | null {
   const highCounts = OLD_HIGH_RARITIES.reduce<Record<string, number>>((counts, rarity) => {
-    const count = set.cards.filter((card) => card.rarity === rarity).length;
+    const count = set.cards.filter((card) => getLuckCountKeyForCard(card, set.code) === rarity).length;
     if (count > 0) counts[rarity] = count;
     return counts;
   }, {});
@@ -655,6 +742,10 @@ function estimateExpectedScorePerBox(
   weights: Record<string, number>,
   set?: Pick<SetMeta, 'code' | 'type' | 'cards'>,
 ): number {
+  if (isAnniversary25Set(set?.code ?? opening.setCode)) {
+    return distributionExpectedScore(getAnniversary25BoxScoreDistribution(opening.boxSize));
+  }
+
   if (set?.code.startsWith('s') && !set.code.startsWith('sv') && set.type !== 'hi-class') {
     return estimateOldHighSlotScorePerBox(set, weights) ?? opening.sarPerBox + opening.topPerBox * TOP_RARITY_WEIGHT;
   }
@@ -664,6 +755,9 @@ function estimateExpectedScorePerBox(
 }
 
 function scoreFromRarityWeightKey(key: string, mode: LuckScoreMode): number {
+  if (key === '25TH') return ANNIVERSARY_25_LUCK_SCORE_WEIGHTS[key] ?? 0;
+  if (key === 'S8AP') return ANNIVERSARY_25_LUCK_SCORE_WEIGHTS[key] ?? 0;
+  if (key === 'SR_ALT') return getScoreWeight('SR_ALT', mode);
   if (key.startsWith('SR')) return getScoreWeight('SR', mode);
   if (key === 'CSR') return getScoreWeight('CSR', mode);
   if (key === 'SSR') return getScoreWeight('SSR', mode);
@@ -671,7 +765,9 @@ function scoreFromRarityWeightKey(key: string, mode: LuckScoreMode): number {
   if (key === 'CSR') return getScoreWeight('CSR', mode);
   if (key.startsWith('HR')) return getScoreWeight('HR', mode);
   if (key === 'SAR') return getScoreWeight('SAR', mode);
+  if (key === 'UR_LOW') return 0;
   if (key === 'UR' || key === 'GRA' || key === 'BWR') return getScoreWeight(key, mode);
+  if (key === 'RR' || key === 'RRR') return ANNIVERSARY_25_LUCK_SCORE_WEIGHTS[key] ?? 0;
   return 0;
 }
 
@@ -686,6 +782,17 @@ function distributionFromWeights(
       score: scoreFromRarityWeightKey(rarity, mode),
       probability: weight / total,
     })),
+  );
+}
+
+function getAnniversary25BoxScoreDistribution(boxSize = ANNIVERSARY_25_BOX_SIZE): LuckScoreOutcome[] {
+  const hitDistribution = distributionFromWeights(ANNIVERSARY_25_HIT_WEIGHTS, 'box');
+  return convolveDistributions(
+    repeatDistribution(hitDistribution, Math.max(1, Math.floor(boxSize || ANNIVERSARY_25_BOX_SIZE) * 4)),
+    repeatDistribution(
+      [{ score: ANNIVERSARY_25_LUCK_SCORE_WEIGHTS.S8AP ?? 0, probability: 1 }],
+      Math.max(1, Math.floor((boxSize || ANNIVERSARY_25_BOX_SIZE) / ANNIVERSARY_25_PROMO_INTERVAL)),
+    ),
   );
 }
 
@@ -748,12 +855,16 @@ function getStarterScoreDistribution(mode: LuckScoreMode): LuckScoreOutcome[] {
 }
 
 function getBoxScoreDistribution(
-  set: Pick<SetMeta, 'code' | 'type'> | undefined,
+  set: LuckSetContext | undefined,
 ): LuckScoreOutcome[] {
   const code = set?.code;
 
   if (code && isStarterSet(code)) {
     return getStarterScoreDistribution('box');
+  }
+
+  if (code && isAnniversary25Set(code)) {
+    return getAnniversary25BoxScoreDistribution(ANNIVERSARY_25_BOX_SIZE);
   }
 
   if (set?.type === 'hi-class') {
@@ -811,10 +922,12 @@ function getBoxScoreDistribution(
 
   const standardRate = getStandardSvSetRate(code);
   if (standardRate) {
+    const mandatoryHighWeights = getLuckAdjustedHighWeights(standardRate.mandatoryHighWeights, set ?? (code ? { code } : undefined));
+    const extraHighWeights = getLuckAdjustedHighWeights(standardRate.extraHighWeights, set ?? (code ? { code } : undefined));
     return convolveDistributions(
-      distributionFromWeights(standardRate.mandatoryHighWeights as Record<string, number>, 'box'),
+      distributionFromWeights(mandatoryHighWeights, 'box'),
       optionalDistributionFromWeights(
-        standardRate.extraHighWeights as Record<string, number>,
+        extraHighWeights,
         standardRate.extraHighRate,
         'box',
       ),
@@ -828,7 +941,7 @@ function getBoxScoreDistribution(
 }
 
 function getPackScoreDistribution(
-  set: Pick<SetMeta, 'code' | 'type'> | undefined,
+  set: LuckSetContext | undefined,
   boxSize: number,
 ): LuckScoreOutcome[] {
   const code = set?.code;
@@ -837,6 +950,16 @@ function getPackScoreDistribution(
   if (code && isStarterSet(code)) {
     // 한 번 뽑기 = starter deck 1개.
     return getStarterScoreDistribution('pack');
+  }
+
+  if (code && isAnniversary25Set(code)) {
+    return convolveDistributions(
+      repeatDistribution(distributionFromWeights(ANNIVERSARY_25_HIT_WEIGHTS, 'pack'), 4),
+      bernoulliDistribution(
+        ANNIVERSARY_25_LUCK_SCORE_WEIGHTS.S8AP ?? 0,
+        1 / ANNIVERSARY_25_PROMO_INTERVAL,
+      ),
+    );
   }
 
   if (set?.type === 'hi-class') {
@@ -957,14 +1080,16 @@ function getPackScoreDistribution(
 
   const standardRate = getStandardSvSetRate(code);
   if (standardRate) {
+    const mandatoryHighWeights = getLuckAdjustedHighWeights(standardRate.mandatoryHighWeights, set ?? (code ? { code } : undefined));
+    const extraHighWeights = getLuckAdjustedHighWeights(standardRate.extraHighWeights, set ?? (code ? { code } : undefined));
     distribution = convolveDistributions(
       distribution,
-      weightedSlotDistribution(standardRate.mandatoryHighWeights as Record<string, number>, 1 / boxSize, 'pack'),
+      weightedSlotDistribution(mandatoryHighWeights, 1 / boxSize, 'pack'),
     );
     return convolveDistributions(
       distribution,
       weightedSlotDistribution(
-        standardRate.extraHighWeights as Record<string, number>,
+        extraHighWeights,
         standardRate.extraHighRate / boxSize,
         'pack',
       ),
@@ -983,7 +1108,7 @@ function getPackScoreDistribution(
 
 function getScoreDistributionForOpening(
   opening: LuckOpening,
-  set?: Pick<SetMeta, 'code' | 'type'>,
+  set?: LuckSetContext,
 ): LuckScoreOutcome[] {
   const boxDistribution = getBoxScoreDistribution(set);
   const packDistribution = getPackScoreDistribution(set, opening.boxSize);
@@ -1033,7 +1158,7 @@ export function summarizeWeightedLuckEvent(
   opening: LuckOpening,
   set?: Pick<SetMeta, 'code' | 'type' | 'cards'>,
 ): WeightedLuckScore | null {
-  return scoreLuckSummary(summarizeLuckRarityCounts(getRarityCounts(cards), opening, set));
+  return scoreLuckSummary(summarizeLuckRarityCounts(getRarityCounts(cards, set?.code ?? opening.setCode), opening, set));
 }
 
 const DEFAULT_STANDARD_SV_HIGH_WEIGHTS = {
@@ -1055,6 +1180,10 @@ export function getLuckRatesForSet(
 
   if (isStarterSet(set.code)) {
     return { boxSize, topPerBox: STARTER_UR_RATE, sarPerBox: STARTER_SAR_RATE };
+  }
+
+  if (isAnniversary25Set(set.code)) {
+    return { boxSize, topPerBox: 0, sarPerBox: 0 };
   }
 
   if (set.type === 'hi-class') {
@@ -1150,17 +1279,10 @@ export function createLuckOpening(
   };
 }
 
-export function summarizeLuckEvent(cards: Card[], opening: LuckOpening): LuckEventSummary {
-  const packEquivalent = opening.boxes * opening.boxSize + opening.packs;
-
-  return {
-    topCount: cards.filter((card) =>
-      card.rarity === 'BWR'
-      || card.rarity === 'GRA'
-      || (card.rarity === 'UR' && (isMegaContext(card) || opening.setCode === 's12a-vstar-universe')),
-    ).length,
-    sarCount: cards.filter((card) => card.rarity === 'SAR').length,
-    topExpected: (opening.topPerBox / opening.boxSize) * packEquivalent,
-    sarExpected: (opening.sarPerBox / opening.boxSize) * packEquivalent,
-  };
+export function summarizeLuckEvent(
+  cards: Card[],
+  opening: LuckOpening,
+  set?: Pick<SetMeta, 'code' | 'type' | 'cards'>,
+): LuckEventSummary {
+  return summarizeLuckRarityCounts(getRarityCounts(cards, set?.code ?? opening.setCode), opening, set);
 }

@@ -17,6 +17,8 @@ const KNOWN_RARITIES = new Set([
   "R",
   "RR",
   "RRR",
+  "25TH",
+  "S8AP",
   "K",
   "CHR",
   "ACE",
@@ -32,7 +34,7 @@ const KNOWN_RARITIES = new Set([
   "GRA",
   "BWR",
 ]);
-const HIGH_RARITIES = new Set(["RRR", "K", "CHR", "ACE", "AR", "SR", "SSR", "CSR", "HR", "SAR", "MA", "UR", "GRA", "BWR"]);
+const HIGH_RARITIES = new Set(["RRR", "25TH", "S8AP", "K", "CHR", "ACE", "AR", "SR", "SSR", "CSR", "HR", "SAR", "MA", "UR", "GRA", "BWR"]);
 const START_DECK_100_REP_NUMBERS = [
   85, 204, 437, 146, 68, 18, 151, 94, 185, 204,
   3, 470, 380, 374, 169, 192, 746, 208, 750, 68,
@@ -181,7 +183,7 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
   }
 
   const nullCount = rarityCounts.__null__ ?? 0;
-  if (cards.length > 0 && nullCount / cards.length > 0.5 && set.type !== "hi-class" && !isStarter) {
+  if (cards.length > 0 && nullCount / cards.length > 0.5 && set.type !== "hi-class" && !isStarter && setCode !== "s8a-25th-anniversary") {
     add("warn", setCode, `rarity null이 ${nullCount}/${cards.length}장입니다. 의도된 병렬/리버스 카드인지 확인이 필요합니다.`);
   }
 
@@ -254,6 +256,10 @@ function validateNumberContinuity(setCode: string, cards: CardEntry[]) {
 function getAllowedMissingNumbers(setCode: string): Set<number> {
   if (setCode === "s8b-vmax-climax") {
     return new Set([57, 58, 59, 226, 227, 228, 229]);
+  }
+
+  if (setCode === "s8a-25th-anniversary") {
+    return new Set([25, 26, 27, 28, 29, 30]);
   }
 
   return new Set();

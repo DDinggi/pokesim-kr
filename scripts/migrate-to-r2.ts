@@ -57,6 +57,7 @@ const s3 =
 interface CardEntry {
   card_num?: string;
   image_url?: string;
+  _image_source_url?: string;
   [key: string]: unknown;
 }
 
@@ -121,6 +122,10 @@ function objectKeyFor(setCode: string, card: CardEntry): string | null {
 }
 
 function sourceUrlFor(card: CardEntry): string | null {
+  if (card._image_source_url && /^https?:\/\//.test(card._image_source_url)) {
+    return card._image_source_url;
+  }
+
   const imageUrl = card.image_url;
   if (!imageUrl) return null;
   if (/^https?:\/\//.test(imageUrl)) return imageUrl;
@@ -176,10 +181,7 @@ async function uploadObject(key: string, sourceUrl: string): Promise<void> {
   if (!s3) throw new Error("R2 client is not configured.");
 
   const response = await fetch(sourceUrl, {
-    headers: {
-      "User-Agent": "PokéSim KR asset migration (+https://pokesim.kr)",
-      Referer: "https://pokesim.kr/",
-    },
+    headers: downloadHeadersFor(sourceUrl),
   });
   if (!response.ok) throw new Error(`download failed: HTTP ${response.status}`);
 
@@ -194,6 +196,24 @@ async function uploadObject(key: string, sourceUrl: string): Promise<void> {
       CacheControl: CACHE_CONTROL,
     }),
   );
+}
+
+function downloadHeadersFor(url: string): Record<string, string> {
+  const origin = originFor(url);
+  return {
+    "User-Agent":
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36 PokeSimKRImageBot/1.0",
+    Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+    Referer: origin ? `${origin}/` : "https://pokesim.kr/",
+  };
+}
+
+function originFor(url: string): string | null {
+  try {
+    return new URL(url).origin;
+  } catch {
+    return null;
+  }
 }
 
 function formatError(error: unknown): string {

@@ -201,7 +201,7 @@ export function StartDeckSimulator({
       boxCount: 0,
       packCount: 1,
       krw: setMeta.box_price_krw,
-      luck: summarizeLuckEvent(drawn.cards, opening),
+      luck: summarizeLuckEvent(drawn.cards, opening, setMeta),
     });
     trackUserEvent({
       eventName: 'open_again',
