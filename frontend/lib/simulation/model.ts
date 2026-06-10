@@ -378,6 +378,32 @@ const SWSH_SILVER_LANCE: StandardSvSetRate = {
   fillerWeights: SWSH_FILLER_WEIGHTS,
 };
 
+// 소드&실드 일반/강화 확장팩 (캐릭터레어 없음): 일격마스터(s5i) / 연격마스터(s5r) /
+// 쌍벽의 파이터(s5a) / 칠흑의 가이스트(s6k). 박스 톱히트 1슬롯을 SR/HR/UR로 분배한다.
+const SWSH_BASE_EXPANSION: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 45,
+    SR_TRAINER: 25,
+    HR_POKEMON: 10,
+    HR_TRAINER: 10,
+    UR: 10,
+  }),
+  extraHighRate: 0.1,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 45,
+    SR_TRAINER: 25,
+    HR_POKEMON: 10,
+    HR_TRAINER: 10,
+    UR: 10,
+  }),
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: SWSH_FILLER_WEIGHTS,
+};
+
 export const ANNIVERSARY_25_SET_CODE = 's8a-25th-anniversary';
 export const ANNIVERSARY_25_BOX_SIZE = 16;
 export const ANNIVERSARY_25_BASE_RARITY = '25TH';
@@ -451,6 +477,10 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   's7r-sky-stream': SWSH_SKY_STREAM,
   's6a-eevee-heroes': SWSH_EEVEE_HEROES,
   's6h-silver-lance': SWSH_SILVER_LANCE,
+  's6k-jet-black-spirit': SWSH_BASE_EXPANSION,
+  's5a-matchless-fighters': SWSH_BASE_EXPANSION,
+  's5i-single-strike-master': SWSH_BASE_EXPANSION,
+  's5r-rapid-strike-master': SWSH_BASE_EXPANSION,
 };
 
 export const SV11_RR_COUNT = 4;
@@ -465,6 +495,7 @@ export const SV11_OPTIONAL_TOP_WEIGHTS: Record<string, number> = {
 export const MEGA_EXTRA_SR_RATE = 0.1;
 export const MEGA_RR_BASE_COUNT = 4;
 export const MEGA_RR_EXTRA_RATE = 0.1;
+export const MEGA_AR_COUNT = 3;
 
 export const MEGA_MAIN_SR_NUMBER_RANGES: Record<string, Array<[number, number]>> = {
   'm4-ninja-spinner': [[96, 103], [108, 111]],
@@ -542,14 +573,21 @@ export const STARTER_SPECIAL_DECK_RATE = 0.01;
 /** 골드 001번 변형 덱(#766 MUR) 등장 확률(잠정 추정치 -- 실데이터 확보 시 갱신). */
 export const STARTER_GOLD_DECK_RATE = 0.01;
 /**
- * 한 번 뽑을 때 대표카드로 SR/SAR/UR(MUR)이 나올 기대 장수(운 모델용).
- * 일반 100덱 대표: SR 4장, SAR 2장. 특수 101번 덱: SAR 3장.
- * 골드 001번 변형: #766 MUR 1장. 한국 공식 봉입률은 비공개라 둘 다 1% 잠정 추정.
+ * 대표카드는 AR 이상만(일반 덱 풀 = AR 14 + SR 4 + SAR 2 = 20장).
+ * 특수 101번 덱: SAR 3장 / 골드 001번 변형: #766 MUR 1장. (둘 다 1% 잠정 추정)
+ *
+ * 운(가치 기반) 모델 기준선은 '평범한 AR/SR 뽑기'로 잡는다. SAR/특수/골드는 잭팟이라
+ * 기대치에 넣지 않아야 평범한 뽑기가 mid 등급으로 나오고 잭팟이 서프라이즈가 된다.
  */
+export const STARTER_NORMAL_POOL_SIZE = 20;
+export const STARTER_NORMAL_AR_COUNT = 14;
+export const STARTER_NORMAL_SR_COUNT = 4;
+export const STARTER_NORMAL_SAR_COUNT = 2;
 export const STARTER_STANDARD_DECK_RATE = 1 - STARTER_SPECIAL_DECK_RATE - STARTER_GOLD_DECK_RATE;
 export const STARTER_SPECIAL_SAR_COUNT = 3;
-export const STARTER_SR_RATE = STARTER_STANDARD_DECK_RATE * (4 / 100);
-export const STARTER_STANDARD_SAR_RATE = STARTER_STANDARD_DECK_RATE * (2 / 100);
+export const STARTER_AR_RATE = STARTER_STANDARD_DECK_RATE * (STARTER_NORMAL_AR_COUNT / STARTER_NORMAL_POOL_SIZE);
+export const STARTER_SR_RATE = STARTER_STANDARD_DECK_RATE * (STARTER_NORMAL_SR_COUNT / STARTER_NORMAL_POOL_SIZE);
+export const STARTER_STANDARD_SAR_RATE = STARTER_STANDARD_DECK_RATE * (STARTER_NORMAL_SAR_COUNT / STARTER_NORMAL_POOL_SIZE);
 export const STARTER_UR_RATE = STARTER_GOLD_DECK_RATE;
 export const STARTER_SAR_RATE = STARTER_STANDARD_SAR_RATE + STARTER_SPECIAL_DECK_RATE * STARTER_SPECIAL_SAR_COUNT;
 

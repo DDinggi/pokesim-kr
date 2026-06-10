@@ -27,6 +27,7 @@ import {
   getHitCounts,
   getRarityCounts,
   isPremiumSparkleRarity,
+  premiumSparkleVariant,
   rarityLabel,
   sortRarityKeys,
   sortByRarity,
@@ -84,10 +85,7 @@ function CardTile({
   const [useOriginal, setUseOriginal] = useState(false);
   const Wrapper = onClick ? 'button' : 'div';
   const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
-  const showPremiumSparkle = premiumSparkle && showImage && isPremiumSparkleRarity(card.rarity, card);
-  const premiumSparkleRarity = showPremiumSparkle && card.rarity
-    ? rarityLabel(card.rarity, card).toLowerCase()
-    : null;
+  const premiumSparkleRarity = premiumSparkle && showImage ? premiumSparkleVariant(card.rarity, card) : null;
   const sizesAttr =
     size === 'sm'
       ? '(max-width: 640px) 12vw, (max-width: 1024px) 8vw, 100px'
@@ -643,6 +641,52 @@ function RarityFilteredGrid({
   );
 }
 
+function SessionByBox({
+  session,
+  onCardClick,
+}: {
+  session: Session;
+  onCardClick: (c: Card) => void;
+}) {
+  // 박스 단위 개봉 이벤트를 박스별로(최신 박스가 위) 나눠서 보여준다.
+  const boxRows = session.openingEvents
+    .filter((event) => event.unit === 'box')
+    .map((event, index) => ({ event, boxNo: index + 1 }))
+    .reverse();
+
+  if (boxRows.length === 0) return null;
+
+  return (
+    <div className="space-y-3">
+      {boxRows.map(({ event, boxNo }) => {
+        const hitCards = event.hitCards ?? [];
+        const rares = sortByRarity(hitCards.filter((c) => c.rarity && RARE_RARITIES.has(c.rarity)));
+        return (
+          <div key={event.id} className="rounded-lg bg-gray-900/40 ring-1 ring-white/5 p-3">
+            <p className="text-[11px] font-bold text-gray-400 mb-2">
+              박스 #{boxNo} · {event.krw.toLocaleString()}원
+              {getHitCounts(hitCards).map(({ rarity, count, sample }) => (
+                <span key={rarity} className={RARITY_TEXT_COLOR[rarity]}>
+                  {' · '}{rarityLabel(rarity, sample)} {count}
+                </span>
+              ))}
+            </p>
+            {rares.length > 0 ? (
+              <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
+                {rares.map((c, i) => (
+                  <CardTile key={i} card={c} size="sm" onClick={() => onCardClick(c)} />
+                ))}
+              </div>
+            ) : (
+              <p className="text-[10px] text-gray-600">RR 이상 없음</p>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function BoxDoneScreen({
   result,
   meta,
@@ -664,8 +708,6 @@ function BoxDoneScreen({
 }) {
   const allCards = result.packs.flatMap((p) => p.cards);
   const rares = allCards.filter((c) => c.rarity && RARE_RARITIES.has(c.rarity));
-  const sessionRares = sortByRarity(session.cards.filter((c) => c.rarity && RARE_RARITIES.has(c.rarity)));
-
 
   return (
     <div className="px-4 py-6 max-w-6xl mx-auto">
@@ -740,16 +782,10 @@ function BoxDoneScreen({
             </button>
           </summary>
           <div className="mt-3">
-            {sessionRares.length > 0 && (
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 mb-4">
-                {sessionRares.map((c, i) => (
-                  <CardTile key={i} card={c} size="lg" onClick={() => onCardClick(c)} />
-                ))}
-              </div>
-            )}
-            <details className="text-xs text-gray-500">
+            <SessionByBox session={session} onCardClick={onCardClick} />
+            <details className="text-xs text-gray-500 mt-4">
               <summary className="cursor-pointer hover:text-gray-300">
-                누적 전체 {session.cards.length}장 보기
+                누적 전체 {session.cards.length}장 보기 (박스 합산)
               </summary>
               <div className="mt-3">
                 <CollectionGrid cards={session.cards} onCardClick={onCardClick} />

@@ -1,0 +1,76 @@
+{
+  "exchange_rates": {
+    "jpy_krw": 9.5,
+    "usd_krw": 1350,
+    "eur_krw": 1450,
+    "updated_at": "2026-06-07",
+    "source": "manual config; override with PRICE_JPY_KRW / PRICE_USD_KRW / PRICE_EUR_KRW"
+  },
+  "settings": {
+    "min_price_ref_krw": 1000,
+    "jp_to_kr_estimate_factor": 0.65,
+    "rarity_floor_krw": {
+      "AR": 1000,
+      "SR": 2000,
+      "SAR": 5000
+    }
+  },
+  "cards": {
+    "BS2022010094": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 980,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000018355/s08b/page1/recommend/; mapped_from=s8b_basic_grass_energy_gra",
+      "price_updated_at": "2026-06-10",
+      "note": "Korean s10b Pokemon GO GRA basic energy has no Japanese S10b FullAhead number; use the same Japanese gold basic energy reference from S8b."
+    },
+    "BS2022010095": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 29800,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000018356/s08b/page1/recommend/; mapped_from=s8b_basic_fire_energy_gra",
+      "price_updated_at": "2026-06-10",
+      "note": "Korean s10b Pokemon GO GRA basic energy has no Japanese S10b FullAhead number; use the same Japanese gold basic energy reference from S8b."
+    },
+    "BS2022010096": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 27800,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000018357/s08b/page7/recommend/; mapped_from=s8b_basic_water_energy_gra",
+      "price_updated_at": "2026-06-10",
+      "note": "Korean s10b Pokemon GO GRA basic energy has no Japanese S10b FullAhead number; use the same Japanese gold basic energy reference from S8b."
+    },
+    "BS2022010097": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 1480,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000018358/s08b/page1/recommend/; mapped_from=s8b_basic_lightning_energy_gra",
+      "price_updated_at": "2026-06-10",
+      "note": "Korean s10b Pokemon GO GRA basic energy has no Japanese S10b FullAhead number; use the same Japanese gold basic energy reference from S8b."
+    },
+    "BS2022010098": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 980,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000018359/s08b/page1/recommend/; mapped_from=s8b_basic_psychic_energy_gra",
+      "price_updated_at": "2026-06-10",
+      "note": "Korean s10b Pokemon GO GRA basic energy has no Japanese S10b FullAhead number; use the same Japanese gold basic energy reference from S8b."
+    },
+    "BS2022010099": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 1380,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000018360/s08b/page1/recommend/; mapped_from=s8b_basic_fighting_energy_gra",
+      "price_updated_at": "2026-06-10",
+      "note": "Korean s10b Pokemon GO GRA basic energy has no Japanese S10b FullAhead number; use the same Japanese gold basic energy reference from S8b."
+    },
+    "BS2022010100": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 42800,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000018361/s08b/page7/recommend/; mapped_from=s8b_basic_darkness_energy_gra",
+      "price_updated_at": "2026-06-10",
+      "note": "Korean s10b Pokemon GO GRA basic energy has no Japanese S10b FullAhead number; use the same Japanese gold basic energy reference from S8b."
+    },
+    "BS2022010101": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 780,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000018362/s08b/page1/recommend/; mapped_from=s8b_basic_metal_energy_gra",
+      "price_updated_at": "2026-06-10",
+      "note": "Korean s10b Pokemon GO GRA basic energy has no Japanese S10b FullAhead number; use the same Japanese gold basic energy reference from S8b."
+    }
+  }
+}

@@ -20,7 +20,7 @@ import {
   SESSION_STORAGE_KEY,
   type OpeningSession,
 } from '../lib/openingHistory';
-import { CARD_GLOW, RARITY_BADGE, rarityLabel } from '../lib/rarity';
+import { CARD_GLOW, RARITY_BADGE, premiumSparkleVariant, rarityLabel } from '../lib/rarity';
 
 type Phase = 'idle' | 'reveal';
 type OpenLuckMode = 'box' | 'pack';
@@ -53,13 +53,14 @@ function DeckCard({
   const [useOriginal, setUseOriginal] = useState(false);
   const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
   const glow = card.rarity ? (CARD_GLOW[card.rarity] ?? '') : '';
+  const premiumSparkleRarity = showImage ? premiumSparkleVariant(card.rarity, card) : null;
   const Wrapper = onClick ? 'button' : 'div';
 
   return (
     <Wrapper
       onClick={onClick}
       onContextMenu={(e) => e.preventDefault()}
-      className={`card-image-frame relative aspect-[5/7] w-full overflow-hidden rounded-xl bg-gray-800 ring-1 ring-white/10 select-none block ${glow} ${onClick ? 'cursor-pointer transition-transform hover:scale-105 active:scale-95' : ''}`}
+      className={`card-image-frame relative aspect-[5/7] w-full overflow-hidden rounded-xl bg-gray-800 ring-1 ring-white/10 select-none block ${premiumSparkleRarity ? `premium-hit-card premium-hit-card--${premiumSparkleRarity}` : ''} ${glow} ${onClick ? 'cursor-pointer transition-transform hover:scale-105 active:scale-95' : ''}`}
       data-watermark={showImage ? 'pokesim.kr' : undefined}
     >
       {!showImage ? (
@@ -89,6 +90,14 @@ function DeckCard({
               }
             }}
           />
+          {premiumSparkleRarity && (
+            <span
+              className={`premium-hit-sparkle premium-hit-sparkle--${premiumSparkleRarity}`}
+              aria-hidden="true"
+            >
+              <span className="premium-hit-sparkle__dust" />
+            </span>
+          )}
         </>
       )}
       {card.rarity && (
@@ -176,16 +185,20 @@ export function StartDeckSimulator({
     setResult(drawn);
     setPhase('reveal');
 
-    // 표시 카드에 실제 추정 등급(AR/SAR/MUR)이 있으므로 그대로 운 모델에 반영.
-    const event = createOpeningEvent({
-      setMeta,
-      unit: 'pack',
-      source: 'box-simulator',
-      cards: drawn.cards,
-      boxCount: 0,
-      packCount: 1,
-      krw: setMeta.box_price_krw,
-    });
+    // 스타트덱 대표카드는 전부 AR 이상(가치 있는 카드)이라 뽑은 카드를 모두 hit으로 본다.
+    // (getOpeningHitCards는 AR을 hit에서 제외하므로, 가치 기반 운 계산을 위해 직접 채운다.)
+    const event = {
+      ...createOpeningEvent({
+        setMeta,
+        unit: 'pack',
+        source: 'box-simulator',
+        cards: drawn.cards,
+        boxCount: 0,
+        packCount: 1,
+        krw: setMeta.box_price_krw,
+      }),
+      hitCards: drawn.cards,
+    };
     setSession((s) => ({
       ...s,
       packs: s.packs + 1,

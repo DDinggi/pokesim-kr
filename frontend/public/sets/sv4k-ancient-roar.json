@@ -913,7 +913,13 @@
       "type": "풀",
       "image_url": "wmimages/SV/SV4K/SV4K_067.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021067",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042442/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021068",
@@ -926,7 +932,13 @@
       "type": "불꽃",
       "image_url": "wmimages/SV/SV4K/SV4K_068.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021068",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 5400,
+      "price_ref_jpy": 880,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042443/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021069",
@@ -939,7 +951,13 @@
       "type": "물",
       "image_url": "wmimages/SV/SV4K/SV4K_069.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021069",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 4800,
+      "price_ref_jpy": 780,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042444/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021070",
@@ -952,7 +970,13 @@
       "type": "물",
       "image_url": "wmimages/SV/SV4K/SV4K_070.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021070",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042445/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021071",
@@ -965,7 +989,13 @@
       "type": "초",
       "image_url": "wmimages/SV/SV4K/SV4K_071.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021071",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042446/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021072",
@@ -978,7 +1008,13 @@
       "type": "격투",
       "image_url": "wmimages/SV/SV4K/SV4K_072.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021072",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042447/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021073",
@@ -991,7 +1027,13 @@
       "type": "격투",
       "image_url": "wmimages/SV/SV4K/SV4K_073.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021073",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042448/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021074",
@@ -1004,7 +1046,13 @@
       "type": "격투",
       "image_url": "wmimages/SV/SV4K/SV4K_074.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021074",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042449/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021075",
@@ -1017,7 +1065,13 @@
       "type": "악",
       "image_url": "wmimages/SV/SV4K/SV4K_075.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021075",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042450/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021076",
@@ -1030,7 +1084,13 @@
       "type": "악",
       "image_url": "wmimages/SV/SV4K/SV4K_076.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021076",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 7900,
+      "price_ref_jpy": 1280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042451/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021077",
@@ -1043,7 +1103,13 @@
       "type": "악",
       "image_url": "wmimages/SV/SV4K/SV4K_077.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021077",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042452/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021078",
@@ -1056,7 +1122,13 @@
       "type": "무색",
       "image_url": "wmimages/SV/SV4K/SV4K_078.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021078",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 4800,
+      "price_ref_jpy": 780,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042453/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021079",
@@ -1069,7 +1141,13 @@
       "type": "불꽃",
       "image_url": "wmimages/SV/SV4K/SV4K_079.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021079",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042454/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021080",
@@ -1082,7 +1160,13 @@
       "type": "물",
       "image_url": "wmimages/SV/SV4K/SV4K_080.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021080",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042455/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021081",
@@ -1095,7 +1179,13 @@
       "type": "물",
       "image_url": "wmimages/SV/SV4K/SV4K_081.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021081",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042456/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021082",
@@ -1108,7 +1198,13 @@
       "type": "초",
       "image_url": "wmimages/SV/SV4K/SV4K_082.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021082",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042457/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021083",
@@ -1121,7 +1217,13 @@
       "type": "격투",
       "image_url": "wmimages/SV/SV4K/SV4K_083.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021083",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042458/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021084",
@@ -1134,7 +1236,13 @@
       "type": "악",
       "image_url": "wmimages/SV/SV4K/SV4K_084.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021084",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042459/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021085",
@@ -1147,7 +1255,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV4K/SV4K_085.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021085",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042460/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021086",
@@ -1160,7 +1274,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV4K/SV4K_086.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021086",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042461/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021087",
@@ -1173,7 +1293,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV4K/SV4K_087.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021087",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042462/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021088",
@@ -1186,7 +1312,13 @@
       "type": "물",
       "image_url": "wmimages/SV/SV4K/SV4K_088.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021088",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 15900,
+      "price_ref_jpy": 2580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042463/sv04k/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021089",
@@ -1199,7 +1331,13 @@
       "type": "격투",
       "image_url": "wmimages/SV/SV4K/SV4K_089.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021089",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 9100,
+      "price_ref_jpy": 1480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042464/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021090",
@@ -1212,7 +1350,13 @@
       "type": "악",
       "image_url": "wmimages/SV/SV4K/SV4K_090.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021090",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 41900,
+      "price_ref_jpy": 6780,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042465/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021091",
@@ -1225,7 +1369,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV4K/SV4K_091.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021091",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 9800,
+      "price_ref_jpy": 1580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042466/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021092",
@@ -1238,7 +1388,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV4K/SV4K_092.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021092",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 15300,
+      "price_ref_jpy": 2480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042467/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021093",
@@ -1251,7 +1407,13 @@
       "type": "악",
       "image_url": "wmimages/SV/SV4K/SV4K_093.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021093",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 8500,
+      "price_ref_jpy": 1380,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042468/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021094",
@@ -1264,7 +1426,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV4K/SV4K_094.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021094",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042469/sv04k/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023021095",
@@ -1277,11 +1445,77 @@
       "type": null,
       "image_url": "wmimages/SV/SV4K/SV4K_095.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021095",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 40000,
+      "price_ref_jpy": 6480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042470/sv04k/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     }
   ],
   "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
   "_source": "pokemoncard.co.kr",
   "_fetched_at": "2026-05-17",
-  "_notes": "자동 수집 전 skeleton. cards[]는 scripts/fetch-pokemoncard.ts로 채움."
+  "_notes": "자동 수집 전 skeleton. cards[]는 scripts/fetch-pokemoncard.ts로 채움.",
+  "luck_value_ref": {
+    "box_median_krw": 17400,
+    "pack_median_krw": 0,
+    "box_quantiles_krw": [
+      13800,
+      13800,
+      14400,
+      15000,
+      15600,
+      16200,
+      17400,
+      18700,
+      20500,
+      23500,
+      29700,
+      52700,
+      55700,
+      57000,
+      63600
+    ],
+    "pack_quantiles_krw": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      3600,
+      4200,
+      5400,
+      7900,
+      41900
+    ],
+    "quantile_points": [
+      0,
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      0.95,
+      0.98,
+      0.99,
+      1
+    ],
+    "_iterations": {
+      "box": 20000,
+      "pack": 40000
+    },
+    "_built_at": "2026-06-10"
+  }
 }

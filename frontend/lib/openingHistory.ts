@@ -5,6 +5,7 @@ import {
   isMegaExpansionSet,
   isStarterSet,
 } from './simulation/model';
+import { getCardReferenceValueKrw } from './valueLuck';
 
 export const SESSION_STORAGE_KEY = 'pokesim-kr-session-v1';
 
@@ -105,12 +106,10 @@ export function countRarities(cards: Card[], setCode?: string): Record<string, n
   return counts;
 }
 
-const OPENING_HIT_RARITIES = new Set(['BWR', 'SAR', 'UR', 'HR', 'MA', 'SSR', 'SR', '25TH', 'S8AP']);
-
-export function getOpeningHitCards(cards: Card[], setMeta?: Pick<SetMeta, 'type'>): Card[] {
+export function getOpeningHitCards(cards: Card[], setMeta?: Pick<SetMeta, 'code' | 'type'>): Card[] {
   if (setMeta?.type === 'starter') return cards;
 
-  return cards.filter((card) => card.rarity && OPENING_HIT_RARITIES.has(card.rarity));
+  return cards.filter((card) => getCardReferenceValueKrw(card, setMeta?.code) > 0);
 }
 
 export function createOpeningEvent({

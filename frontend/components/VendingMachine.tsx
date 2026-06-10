@@ -23,6 +23,7 @@ import {
   RARITY_TEXT_COLOR,
   getHitCounts,
   isPremiumSparkleRarity,
+  premiumSparkleVariant,
   rarityLabel,
   sortByRarity,
 } from '../lib/rarity';
@@ -783,10 +784,7 @@ function CardTile({
   const [useOriginal, setUseOriginal] = useState(false);
   const Wrapper = onClick ? 'button' : 'div';
   const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
-  const showPremiumSparkle = premiumSparkle && showImage && isPremiumSparkleRarity(card.rarity, card);
-  const premiumSparkleRarity = showPremiumSparkle && card.rarity
-    ? rarityLabel(card.rarity, card).toLowerCase()
-    : null;
+  const premiumSparkleRarity = premiumSparkle && showImage ? premiumSparkleVariant(card.rarity, card) : null;
   return (
     <Wrapper
       onClick={onClick}

@@ -27,6 +27,7 @@ import {
   RARITY_BADGE,
   RARITY_TEXT_COLOR,
   getHitCounts,
+  premiumSparkleVariant,
   rarityLabel,
   sortByRarity,
 } from '../lib/rarity';
@@ -73,6 +74,17 @@ function getSetHitCards(cards: Card[], set: SetMeta): Card[] {
   return getOpeningHitCards(cards.filter((card) => setCardNums.has(card.card_num)), set);
 }
 
+function mergeRarityCounts(
+  left: Record<string, number>,
+  right: Record<string, number>,
+): Record<string, number> {
+  const merged = { ...left };
+  for (const [rarity, count] of Object.entries(right)) {
+    merged[rarity] = (merged[rarity] ?? 0) + count;
+  }
+  return merged;
+}
+
 export function LuckScreen({
   sets,
   initialSetCode,
@@ -112,6 +124,7 @@ export function LuckScreen({
       packs: number;
       eventIds: string[];
       hitCards: Card[];
+      rarityCounts: Record<string, number>;
       missingHitCards: boolean;
       summaries: ReturnType<typeof summarizeLuckRarityCounts>[];
     }>();
@@ -125,6 +138,7 @@ export function LuckScreen({
         packs: 0,
         eventIds: [],
         hitCards: [],
+        rarityCounts: {},
         missingHitCards: false,
         summaries: [],
       };
@@ -139,6 +153,7 @@ export function LuckScreen({
       const rarityCounts = event.setCode === 's6a-eevee-heroes' && Array.isArray(event.hitCards) && event.hitCards.length > 0
         ? countRarities(event.hitCards, set.code)
         : event.rarityCounts;
+      group.rarityCounts = mergeRarityCounts(group.rarityCounts, rarityCounts);
       group.summaries.push(
         summarizeLuckRarityCounts(
           rarityCounts,
@@ -147,6 +162,7 @@ export function LuckScreen({
             packs: event.unit === 'pack' ? event.packCount : 0,
           }),
           set,
+          Array.isArray(event.hitCards) ? event.hitCards : undefined,
         ),
       );
       groups.set(event.setCode, group);
@@ -154,10 +170,22 @@ export function LuckScreen({
 
     return Array.from(groups.values()).map((group) => {
       const hitCards = group.missingHitCards ? getSetHitCards(session.cards, group.set) : group.hitCards;
+      const canUseAggregateScore = (group.boxes > 0 && group.packs === 0) || (group.boxes === 0 && group.packs > 0);
+      const score = canUseAggregateScore
+        ? scoreLuckSummaries([
+            summarizeLuckRarityCounts(
+              group.rarityCounts,
+              createLuckOpening(group.set, { boxes: group.boxes, packs: group.packs }),
+              group.set,
+              hitCards,
+            ),
+          ])
+        : scoreLuckSummaries(group.summaries);
+
       return {
         ...group,
         hitCards: sortByRarity(hitCards),
-        score: scoreLuckSummaries(group.summaries),
+        score,
       };
     });
   }, [session.cards, session.openingEvents, setByCode]);
@@ -552,12 +580,13 @@ function CardTile({ card, onClick }: { card: Card; onClick?: () => void }) {
   const [loaded, setLoaded] = useState(false);
   const [useOriginal, setUseOriginal] = useState(false);
   const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
+  const premiumSparkleRarity = showImage ? premiumSparkleVariant(card.rarity, card) : null;
   const Wrapper = onClick ? 'button' : 'div';
 
   return (
     <Wrapper
       onClick={onClick}
-      className={`card-image-frame relative aspect-[5/7] overflow-hidden rounded-lg bg-gray-800 select-none block w-full ${glow} ${onClick ? 'cursor-pointer transition-transform hover:scale-105 active:scale-95' : ''}`}
+      className={`card-image-frame relative aspect-[5/7] overflow-hidden rounded-lg bg-gray-800 select-none block w-full ${premiumSparkleRarity ? `premium-hit-card premium-hit-card--${premiumSparkleRarity}` : ''} ${glow} ${onClick ? 'cursor-pointer transition-transform hover:scale-105 active:scale-95' : ''}`}
       data-watermark={showImage ? 'pokesim.kr' : undefined}
       onContextMenu={(event) => event.preventDefault()}
     >
@@ -587,6 +616,14 @@ function CardTile({ card, onClick }: { card: Card; onClick?: () => void }) {
               }
             }}
           />
+          {premiumSparkleRarity && (
+            <span
+              className={`premium-hit-sparkle premium-hit-sparkle--${premiumSparkleRarity}`}
+              aria-hidden="true"
+            >
+              <span className="premium-hit-sparkle__dust" />
+            </span>
+          )}
         </>
       )}
       {card.rarity && (

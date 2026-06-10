@@ -1,5 +1,13 @@
 import type { Card, SetMeta } from './types';
 import {
+  estimateReferenceValueFromCounts,
+  getDistributionValueLuckScore,
+  getObservedReferenceValueKrw,
+  getObservedReferenceValueSource,
+  getReferenceValueRatio,
+} from './valueLuck';
+import type { ReferenceValueSource, ValueLuckMode } from './valueLuck';
+import {
   ANNIVERSARY_25_BOX_SIZE,
   ANNIVERSARY_25_HIT_WEIGHTS,
   ANNIVERSARY_25_LUCK_SCORE_WEIGHTS,
@@ -7,9 +15,12 @@ import {
   EXPANSION_MONSTER_WEIGHTS,
   EXPANSION_MONSTER_WEIGHTS_DEFAULT,
   HI_CLASS_GOD_PACK_RATE,
+  hasAceSpecSlot,
+  MEGA_AR_COUNT,
   MEGA_DREAM_EXTRA_SLOT_WEIGHTS,
   MEGA_EXTRA_SR_RATE,
   SHINY_TREASURE_EXTRA_SLOT_WEIGHTS,
+  SV11_AR_COUNT,
   SV11_EXTRA_SR_RATE,
   SV11_OPTIONAL_TOP_WEIGHTS,
   TERASTAL_EXTRA_SLOT_WEIGHTS,
@@ -24,15 +35,13 @@ import {
   isMegaExpansionSet,
   isStarterSet,
   isSv11SpecialSet,
-  STARTER_GOLD_DECK_RATE,
-  STARTER_SAR_RATE,
-  STARTER_SPECIAL_DECK_RATE,
-  STARTER_SPECIAL_SAR_COUNT,
+  STARTER_AR_RATE,
   STARTER_SR_RATE,
   STARTER_STANDARD_SAR_RATE,
   STARTER_UR_RATE,
   ALT_SR_NUMBER_RANGES,
 } from './simulation/model';
+import type { StandardSvSetRate } from './simulation/types';
 
 const DEFAULT_BOX_SIZE = 30;
 
@@ -50,6 +59,13 @@ export interface LuckEventSummary {
   sarCount: number;
   topExpected: number;
   sarExpected: number;
+  observedValueKrw?: number;
+  expectedValueKrw?: number;
+  valueRatio?: number | null;
+  valueSource?: ReferenceValueSource;
+  valuePercentile?: number | null;
+  valueTierScore?: number | null;
+  valueScoreWeight?: number;
   observedScore?: number;
   expectedScore?: number;
   scoreCounts?: Record<string, number>;
@@ -71,6 +87,13 @@ export interface WeightedLuckScore extends LuckEventSummary {
   luckBand: LuckBand;
   isLucky: boolean;
   scoreCounts: Record<string, number>;
+  observedValueKrw?: number;
+  expectedValueKrw?: number;
+  valueRatio?: number | null;
+  valueSource?: ReferenceValueSource;
+  valuePercentile?: number | null;
+  valueTierScore?: number | null;
+  valueScoreWeight?: number;
 }
 
 export type LuckBand = 'lucky' | 'average' | 'unlucky';
@@ -148,7 +171,7 @@ function weightChance(weights: Record<string, number>, key: string): number {
 }
 
 type LuckScoreMode = 'box' | 'pack';
-type LuckSetContext = Pick<SetMeta, 'code' | 'type' | 'cards'>;
+type LuckSetContext = Pick<SetMeta, 'code' | 'type' | 'cards' | 'luck_value_ref'>;
 type LuckUrContext = Pick<SetMeta, 'code'> & Partial<Pick<SetMeta, 'cards'>>;
 
 function getScoreWeight(rarity: string, mode: LuckScoreMode): number {
@@ -363,14 +386,47 @@ function getLuckBand(luckZScore: number): LuckBand {
   return 'average';
 }
 
+function getValueLuckTierScore(valueRatio: number | null | undefined): number | null {
+  if (valueRatio === null || valueRatio === undefined || !Number.isFinite(valueRatio)) return null;
+  if (valueRatio <= 0) return -4;
+  return Math.max(-4, Math.min(4, Math.log2(valueRatio)));
+}
+
+function mergeValueSource(
+  left: LuckEventSummary['valueSource'],
+  right: LuckEventSummary['valueSource'],
+): LuckEventSummary['valueSource'] {
+  if (!left) return right;
+  if (!right) return left;
+  if (left === right) return left;
+  return 'mixed';
+}
+
 export function scoreLuckSummary(summary: LuckEventSummary): WeightedLuckScore | null {
-  const observedScore = summary.observedScore ?? summary.sarCount + summary.topCount * TOP_RARITY_WEIGHT;
-  const expectedScore = summary.expectedScore
-    ?? (summary.scoreDistribution ? distributionExpectedScore(summary.scoreDistribution) : summary.sarExpected + summary.topExpected * TOP_RARITY_WEIGHT);
+  const valueRatio = summary.valueRatio
+    ?? getReferenceValueRatio(summary.observedValueKrw ?? 0, summary.expectedValueKrw ?? 0);
+  const ratioValueTierScore = getValueLuckTierScore(valueRatio);
+  const hasDistributionValueScore = summary.valueTierScore !== null && summary.valueTierScore !== undefined;
+  const positiveRatioValueTierScore = ratioValueTierScore !== null && ratioValueTierScore > 0
+    ? ratioValueTierScore
+    : null;
+  const valueTierScore = hasDistributionValueScore
+    ? summary.valueTierScore ?? null
+    : positiveRatioValueTierScore;
+  const usesDistributionValueScore = hasDistributionValueScore && valueTierScore !== null;
+  const observedScore = usesDistributionValueScore
+    ? (summary.valuePercentile ?? valueRatio ?? 0)
+    : summary.observedScore ?? summary.sarCount + summary.topCount * TOP_RARITY_WEIGHT;
+  const expectedScore = usesDistributionValueScore
+    ? 1
+    : summary.expectedScore
+      ?? (summary.scoreDistribution ? distributionExpectedScore(summary.scoreDistribution) : summary.sarExpected + summary.topExpected * TOP_RARITY_WEIGHT);
   if (expectedScore < 0) return null;
 
   const stdDev = summary.scoreDistribution ? distributionStdDev(summary.scoreDistribution, expectedScore) : 0;
-  const luckZScore = stdDev > SCORE_EPSILON ? (observedScore - expectedScore) / stdDev : 0;
+  const luckZScore = usesDistributionValueScore
+    ? valueTierScore ?? 0
+    : stdDev > SCORE_EPSILON ? (observedScore - expectedScore) / stdDev : 0;
   const scoreCounts = summary.scoreCounts ?? {
     SAR: summary.sarCount,
     TOP: summary.topCount,
@@ -390,11 +446,11 @@ export function scoreLuckSummary(summary: LuckEventSummary): WeightedLuckScore |
     Math.min(LUCK_COMBINATION_RULES.baselineMaxScore, luckZScore),
   );
   const secondaryOrBaselineScore = Math.max(secondarySurpriseScore, baselineTierScore);
-  const luckTierScore =
-    primarySurpriseScore >= LUCK_COMBINATION_RULES.primaryActivationScore ? primarySurpriseScore
-    : secondaryOrBaselineScore > 0 ? secondaryOrBaselineScore
-    : droughtTierScore < 0 ? droughtTierScore
-    : secondaryOrBaselineScore;
+  const rarityTierScore = primarySurpriseScore >= LUCK_COMBINATION_RULES.primaryActivationScore ? primarySurpriseScore
+      : secondaryOrBaselineScore > 0 ? secondaryOrBaselineScore
+      : droughtTierScore < 0 ? droughtTierScore
+      : secondaryOrBaselineScore;
+  const luckTierScore = Math.max(valueTierScore ?? Number.NEGATIVE_INFINITY, rarityTierScore);
   const luckBand = getLuckBand(luckZScore);
   const isLucky = luckBand === 'lucky';
 
@@ -402,6 +458,7 @@ export function scoreLuckSummary(summary: LuckEventSummary): WeightedLuckScore |
     ...summary,
     observedScore,
     expectedScore,
+    valueRatio,
     luckTierScore,
     luckZScore,
     luckBand,
@@ -417,16 +474,47 @@ export function scoreLuckSummaries(summaries: LuckEventSummary[]): WeightedLuckS
         const scoreDistribution = total.scoreDistribution && summary.scoreDistribution
           ? convolveDistributions(total.scoreDistribution, summary.scoreDistribution)
           : total.scoreDistribution ?? summary.scoreDistribution;
+        const observedValueKrw = (total.observedValueKrw ?? 0) + (summary.observedValueKrw ?? 0);
+        const expectedValueKrw = (total.expectedValueKrw ?? 0) + (summary.expectedValueKrw ?? 0);
+        const totalValueWeight = total.valueScoreWeight ?? 0;
+        const summaryValueWeight = summary.valueTierScore !== null && summary.valueTierScore !== undefined
+          ? summary.valueScoreWeight ?? summary.openingUnits ?? 1
+          : 0;
+        const valueScoreWeight = totalValueWeight + summaryValueWeight;
+        const valueTierScore = valueScoreWeight > 0
+          ? (
+              (total.valueTierScore ?? 0) * totalValueWeight
+              + (summary.valueTierScore ?? 0) * summaryValueWeight
+            ) / valueScoreWeight
+          : undefined;
+        const valuePercentile = valueScoreWeight > 0
+          ? (
+              (total.valuePercentile ?? 0) * totalValueWeight
+              + (summary.valuePercentile ?? 0) * summaryValueWeight
+            ) / valueScoreWeight
+          : undefined;
+        const hasValueScore = expectedValueKrw > 0 || valueScoreWeight > 0;
 
         return {
           topCount: total.topCount + summary.topCount,
           sarCount: total.sarCount + summary.sarCount,
           topExpected: total.topExpected + summary.topExpected,
           sarExpected: total.sarExpected + summary.sarExpected,
-          observedScore: (total.observedScore ?? 0) + (summary.observedScore ?? summary.sarCount + summary.topCount * TOP_RARITY_WEIGHT),
-          expectedScore: scoreDistribution
-            ? distributionExpectedScore(scoreDistribution)
-            : (total.expectedScore ?? 0) + (summary.expectedScore ?? summary.sarExpected + summary.topExpected * TOP_RARITY_WEIGHT),
+          observedValueKrw,
+          expectedValueKrw,
+          valueRatio: getReferenceValueRatio(observedValueKrw, expectedValueKrw),
+          valueSource: mergeValueSource(total.valueSource, summary.valueSource),
+          valuePercentile,
+          valueTierScore,
+          valueScoreWeight,
+          observedScore: hasValueScore
+            ? undefined
+            : (total.observedScore ?? 0) + (summary.observedScore ?? summary.sarCount + summary.topCount * TOP_RARITY_WEIGHT),
+          expectedScore: hasValueScore
+            ? undefined
+            : scoreDistribution
+              ? distributionExpectedScore(scoreDistribution)
+              : (total.expectedScore ?? 0) + (summary.expectedScore ?? summary.sarExpected + summary.topExpected * TOP_RARITY_WEIGHT),
           scoreCounts: mergeScoreCounts(total.scoreCounts, summary.scoreCounts),
           expectedScoreCounts: mergeScoreCounts(total.expectedScoreCounts, summary.expectedScoreCounts),
           scoreDistribution,
@@ -440,6 +528,12 @@ export function scoreLuckSummaries(summaries: LuckEventSummary[]): WeightedLuckS
         sarExpected: 0,
         observedScore: 0,
         expectedScore: 0,
+        observedValueKrw: 0,
+        expectedValueKrw: 0,
+        valueRatio: null,
+        valuePercentile: null,
+        valueTierScore: null,
+        valueScoreWeight: 0,
         scoreCounts: {},
         expectedScoreCounts: {},
         scoreDistribution: [{ score: 0, probability: 1 }],
@@ -578,15 +672,21 @@ function getExpectedScoredRarityCounts(
   const unitCount = opening.boxes + opening.packs / opening.boxSize;
   const loosePackUnitCount = opening.packs / opening.boxSize;
   const code = set?.code ?? opening.setCode;
+  // 가치 기반 운에서는 observed가 박스 안 모든 가격 카드를 더하므로, 박스 확정 슬롯도
+  // 박스당 1장(unitCount) 기준으로 기대치에 넣어야 한다. (loosePackUnitCount는 박스에서 0이라
+  // 확정 SAR/CSR 등이 기대치에서 빠져 SAR이 없어도 고등급으로 뜨던 버그가 있었다.)
+  void loosePackUnitCount;
   const addLoosePackBaselineCount = (rarity: string, perBox = 1) => {
-    addExpectedCount(counts, getScoredCountKey(rarity, opening), loosePackUnitCount * perBox);
+    addExpectedCount(counts, getScoredCountKey(rarity, opening), unitCount * perBox);
   };
 
   if (unitCount <= 0) return counts;
 
   if (isStarterSet(code)) {
-    addExpectedCount(counts, getScoredCountKey('UR', opening), unitCount * STARTER_UR_RATE);
-    addExpectedCount(counts, 'SAR', unitCount * STARTER_SAR_RATE);
+    // 가치 기반 운: 기대 가치 기준선을 '평범한 AR/SR 뽑기'로 잡는다.
+    // SAR(고가)·특수덱·골드(MUR) 잭팟은 기대치에서 빼야 평범한 AR 뽑기가 mid로 나오고
+    // 비싼 카드를 뽑았을 때만 서프라이즈로 등급이 올라간다.
+    addExpectedCount(counts, 'AR', unitCount * STARTER_AR_RATE);
     addExpectedCount(counts, 'SR', unitCount * STARTER_SR_RATE);
     return counts;
   }
@@ -614,6 +714,8 @@ function getExpectedScoredRarityCounts(
     if (code === 's12a-vstar-universe') {
       addLoosePackBaselineCount('SAR');
       addLoosePackBaselineCount('SR');
+      addExpectedCount(counts, 'K', unitCount);       // 확정 K 1장
+      addExpectedCount(counts, 'AR', unitCount * 3);   // 확정 AR 3장
       addExpectedCountsFromWeights(counts, VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
       addExpectedCount(counts, 'SAR', unitCount * VSTAR_UNIVERSE_SAR_GOD_PACK_RATE * 5);
       return counts;
@@ -621,14 +723,17 @@ function getExpectedScoredRarityCounts(
 
     if (code === 's8b-vmax-climax') {
       addLoosePackBaselineCount('CSR');
+      addExpectedCount(counts, 'CHR', unitCount * 3.5); // 확정 CHR 3~4장
       addExpectedCountsFromWeights(counts, VMAX_CLIMAX_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
       addExpectedCount(counts, 'SR', unitCount * VMAX_CLIMAX_SR_GOD_PACK_RATE * 9);
       addExpectedCount(counts, 'CSR', unitCount * VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE * 4);
       return counts;
     }
 
+    // 기본 하이클래스(MEGA 드림 ex 등): 확정 AR 3장
     addLoosePackBaselineCount('SR');
     addLoosePackBaselineCount('MA');
+    addExpectedCount(counts, 'AR', unitCount * 3);
     addExpectedCountsFromWeights(counts, MEGA_DREAM_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
     addExpectedCount(counts, 'MA', unitCount * HI_CLASS_GOD_PACK_RATE * 5);
     addExpectedCount(counts, 'SAR', unitCount * HI_CLASS_GOD_PACK_RATE * 4);
@@ -645,6 +750,7 @@ function getExpectedScoredRarityCounts(
       opening,
     );
     addExpectedCount(counts, 'SR', unitCount * MEGA_EXTRA_SR_RATE);
+    addExpectedCount(counts, 'AR', unitCount * MEGA_AR_COUNT);
     return counts;
   }
 
@@ -652,6 +758,7 @@ function getExpectedScoredRarityCounts(
     addLoosePackBaselineCount('SR');
     addExpectedCountsFromWeights(counts, SV11_OPTIONAL_TOP_WEIGHTS, unitCount, 1, opening);
     addExpectedCount(counts, 'SR', unitCount * SV11_EXTRA_SR_RATE);
+    addExpectedCount(counts, 'AR', unitCount * SV11_AR_COUNT);
     return counts;
   }
 
@@ -659,12 +766,31 @@ function getExpectedScoredRarityCounts(
   if (standardRate) {
     addExpectedCountsFromWeights(counts, getLuckAdjustedHighWeights(standardRate.mandatoryHighWeights, set ?? { code }), unitCount, 1, opening);
     addExpectedCountsFromWeights(counts, getLuckAdjustedHighWeights(standardRate.extraHighWeights, set ?? { code }), unitCount, standardRate.extraHighRate, opening);
+    addStandardFixedSlotCounts(counts, standardRate, unitCount, code);
     return counts;
   }
 
   addExpectedCountsFromWeights(counts, DEFAULT_STANDARD_SV_HIGH_WEIGHTS, unitCount, 1, opening);
   addExpectedCountsFromWeights(counts, DEFAULT_STANDARD_EXTRA_HIGH_WEIGHTS, unitCount, DEFAULT_STANDARD_EXTRA_HIGH_RATE, opening);
+  addExpectedCount(counts, 'AR', unitCount * 3);
   return counts;
+}
+
+/**
+ * 가치 기반 운에서 observed는 박스 안의 *모든 가격 카드*를 더한다. 따라서 박스마다 확정으로
+ * 들어가는 가격 슬롯(AR 3장, ACE 1장, K/CHR 등)을 기대치에도 똑같이 넣어줘야 한다.
+ * 안 그러면 확정 AR 가치만큼 observed가 항상 expected를 초과해 SAR이 없어도 고등급으로 뜬다.
+ */
+function addStandardFixedSlotCounts(
+  counts: Record<string, number>,
+  rate: StandardSvSetRate,
+  unitCount: number,
+  code?: string,
+): void {
+  addExpectedCount(counts, 'AR', unitCount * (rate.arCount ?? 3));
+  if (rate.kCount) addExpectedCount(counts, 'K', unitCount * rate.kCount);
+  if (rate.chrCount) addExpectedCount(counts, 'CHR', unitCount * rate.chrCount);
+  if (hasAceSpecSlot(code)) addExpectedCount(counts, 'ACE', unitCount);
 }
 
 function getObservedScore(
@@ -740,7 +866,7 @@ function estimateOldHighSlotScorePerBox(
 function estimateExpectedScorePerBox(
   opening: LuckOpening,
   weights: Record<string, number>,
-  set?: Pick<SetMeta, 'code' | 'type' | 'cards'>,
+  set?: LuckSetContext,
 ): number {
   if (isAnniversary25Set(set?.code ?? opening.setCode)) {
     return distributionExpectedScore(getAnniversary25BoxScoreDistribution(opening.boxSize));
@@ -844,13 +970,14 @@ function bernoulliDistribution(score: number, probability: number): LuckScoreOut
 }
 
 function getStarterScoreDistribution(mode: LuckScoreMode): LuckScoreOutcome[] {
-  const zeroScoreRate = 1 - STARTER_GOLD_DECK_RATE - STARTER_SR_RATE - STARTER_STANDARD_SAR_RATE - STARTER_SPECIAL_DECK_RATE;
+  // 베이스라인 = '평범한 덱' 1개(표준 SR/SAR)만. 골드(MUR)·특수덱(SAR 3장) 잭팟은
+  // 여기 넣지 않는다 — 넣으면 평균이 잭팟에 끌려올라가 평범한 뽑기가 항상 '평균 이하'가 된다.
+  // 잭팟은 expectedScoreCounts 대비 서프라이즈로만 점수에 반영한다.
+  const zeroScoreRate = 1 - STARTER_SR_RATE - STARTER_STANDARD_SAR_RATE;
   return normalizeDistribution([
     { score: 0, probability: zeroScoreRate },
-    { score: getScoreWeight('UR', mode), probability: STARTER_GOLD_DECK_RATE },
     { score: getScoreWeight('SR', mode), probability: STARTER_SR_RATE },
     { score: getScoreWeight('SAR', mode), probability: STARTER_STANDARD_SAR_RATE },
-    { score: getScoreWeight('SAR', mode) * STARTER_SPECIAL_SAR_COUNT, probability: STARTER_SPECIAL_DECK_RATE },
   ]);
 }
 
@@ -1120,10 +1247,40 @@ function getScoreDistributionForOpening(
   );
 }
 
+function getDistributionValueMode(opening: LuckOpening): ValueLuckMode | null {
+  if (opening.boxes > 0 && opening.packs === 0) return 'box';
+  if (opening.boxes === 0 && opening.packs > 0) return 'pack';
+  return null;
+}
+
+function getDistributionValueUnitCount(opening: LuckOpening, mode: ValueLuckMode | null): number {
+  if (mode === 'box') return Math.max(1, opening.boxes);
+  if (mode === 'pack') return Math.max(1, opening.packs);
+  return 1;
+}
+
+/**
+ * 등급 카운트를 가치 평균(getSetValueAverages) 버킷 키에 맞게 변환한다.
+ * starter/MEGA는 UR이 MUR 버킷으로 저장되므로 UR→MUR로 합친다.
+ */
+function remapValueCountKeys(
+  counts: Record<string, number>,
+  setCode?: string,
+): Record<string, number> {
+  if (!isStarterSet(setCode) && !isMegaExpansionSet(setCode)) return counts;
+  const remapped: Record<string, number> = {};
+  for (const [key, count] of Object.entries(counts)) {
+    const mapped = key === 'UR' ? 'MUR' : key;
+    remapped[mapped] = (remapped[mapped] ?? 0) + count;
+  }
+  return remapped;
+}
+
 export function summarizeLuckRarityCounts(
   rarityCounts: Record<string, number>,
   opening: LuckOpening,
-  set?: Pick<SetMeta, 'code' | 'type' | 'cards'>,
+  set?: LuckSetContext,
+  cards?: Card[],
 ): LuckEventSummary {
   const packEquivalent = opening.boxes * opening.boxSize + opening.packs;
   const treatsUrAsTop = isMegaExpansionSet(opening.setCode) || isStarterSet(opening.setCode) || opening.setCode === 's12a-vstar-universe';
@@ -1134,6 +1291,33 @@ export function summarizeLuckRarityCounts(
   const scoreDistribution = getScoreDistributionForOpening(opening, set);
   const observedScore = getObservedScore(adjustedCounts, weights);
   const scoreCounts = getScoredRarityCounts(adjustedCounts, opening, weights);
+  const expectedScoreCounts = getExpectedScoredRarityCounts(opening, set);
+  // 스타트덱은 카드 가격 편차가 1000배라 실제 가격을 쓰면 같은 등급도 조무래기~최강자로 튄다.
+  // 등급별 평균가로 매끄럽게 환산해 "AR=중간, SAR/MUR=최상위"처럼 등급 기준으로 본다.
+  const observedValueKrw = cards && cards.length > 0
+    ? getObservedReferenceValueKrw(cards, set)
+    : isStarterSet(opening.setCode)
+      ? estimateReferenceValueFromCounts(remapValueCountKeys(adjustedCounts, opening.setCode), set)
+      : estimateReferenceValueFromCounts(adjustedCounts, set);
+  const valueMode = getDistributionValueMode(opening);
+  const useBoxEquivalentValueForMultiPack = valueMode === 'pack' && opening.packs > 1;
+  const distributionValueMode = useBoxEquivalentValueForMultiPack ? 'box' : valueMode;
+  const valueUnitCount = useBoxEquivalentValueForMultiPack
+    ? opening.packs / opening.boxSize
+    : getDistributionValueUnitCount(opening, valueMode);
+  const rawDistributionValueLuck = distributionValueMode
+    ? getDistributionValueLuckScore(observedValueKrw / valueUnitCount, set, distributionValueMode)
+    : null;
+  const distributionValueLuck = rawDistributionValueLuck && useBoxEquivalentValueForMultiPack
+    ? {
+        ...rawDistributionValueLuck,
+        tierScore: Math.max(rawDistributionValueLuck.tierScore, 0.4),
+      }
+    : rawDistributionValueLuck;
+  const expectedValueKrw = distributionValueLuck?.referenceValueKrw
+    ? distributionValueLuck.referenceValueKrw * valueUnitCount
+    : estimateReferenceValueFromCounts(expectedScoreCounts, set);
+  const valueRatio = getReferenceValueRatio(observedValueKrw, expectedValueKrw);
 
   return {
     topCount:
@@ -1144,10 +1328,17 @@ export function summarizeLuckRarityCounts(
     sarCount: rarityCounts.SAR ?? 0,
     topExpected: (opening.topPerBox / opening.boxSize) * packEquivalent,
     sarExpected: (opening.sarPerBox / opening.boxSize) * packEquivalent,
+    observedValueKrw,
+    expectedValueKrw,
+    valueRatio,
+    valueSource: cards && cards.length > 0 ? getObservedReferenceValueSource(cards, set) : getObservedReferenceValueSource([], set),
+    valuePercentile: distributionValueLuck?.percentile ?? null,
+    valueTierScore: distributionValueLuck?.tierScore ?? null,
+    valueScoreWeight: distributionValueLuck ? opening.boxes + opening.packs / opening.boxSize : 0,
     observedScore,
     expectedScore: scoreDistribution ? distributionExpectedScore(scoreDistribution) : (expectedScorePerBox / opening.boxSize) * packEquivalent,
     scoreCounts,
-    expectedScoreCounts: getExpectedScoredRarityCounts(opening, set),
+    expectedScoreCounts,
     scoreDistribution,
     openingUnits: opening.boxes + opening.packs / opening.boxSize,
   };
@@ -1156,9 +1347,9 @@ export function summarizeLuckRarityCounts(
 export function summarizeWeightedLuckEvent(
   cards: Card[],
   opening: LuckOpening,
-  set?: Pick<SetMeta, 'code' | 'type' | 'cards'>,
+  set?: LuckSetContext,
 ): WeightedLuckScore | null {
-  return scoreLuckSummary(summarizeLuckRarityCounts(getRarityCounts(cards, set?.code ?? opening.setCode), opening, set));
+  return scoreLuckSummary(summarizeLuckRarityCounts(getRarityCounts(cards, set?.code ?? opening.setCode), opening, set, cards));
 }
 
 const DEFAULT_STANDARD_SV_HIGH_WEIGHTS = {
@@ -1179,7 +1370,7 @@ export function getLuckRatesForSet(
   const boxSize = Math.max(1, set.box_size || DEFAULT_BOX_SIZE);
 
   if (isStarterSet(set.code)) {
-    return { boxSize, topPerBox: STARTER_UR_RATE, sarPerBox: STARTER_SAR_RATE };
+    return { boxSize, topPerBox: STARTER_UR_RATE, sarPerBox: STARTER_STANDARD_SAR_RATE };
   }
 
   if (isAnniversary25Set(set.code)) {
@@ -1282,7 +1473,7 @@ export function createLuckOpening(
 export function summarizeLuckEvent(
   cards: Card[],
   opening: LuckOpening,
-  set?: Pick<SetMeta, 'code' | 'type' | 'cards'>,
+  set?: LuckSetContext,
 ): LuckEventSummary {
-  return summarizeLuckRarityCounts(getRarityCounts(cards, set?.code ?? opening.setCode), opening, set);
+  return summarizeLuckRarityCounts(getRarityCounts(cards, set?.code ?? opening.setCode), opening, set, cards);
 }
