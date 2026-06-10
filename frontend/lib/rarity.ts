@@ -70,6 +70,8 @@ export const RARITY_TEXT_COLOR: Record<string, string> = {
   RRR: 'text-red-300',
 };
 
+export const PREMIUM_HIT_PRICE_THRESHOLD_KRW = 100_000;
+
 export const RARITY_TIER: Record<string, string> = {
   C: 'text-gray-400',
   U: 'text-blue-400',
@@ -123,7 +125,7 @@ export const HIT_RARITIES = new Set(['RRR', '25TH', 'S8AP', 'K', 'CHR', 'AR', 'S
 export const HOLO_RARITIES = new Set(['RR', 'RRR', '25TH', 'S8AP', 'K', 'CHR', 'ACE', 'AR', 'SR', 'SSR', 'CSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR']);
 
 type RarityContext =
-  | Partial<Pick<Card, 'card_num' | 'image_url'>>
+  | Partial<Pick<Card, 'card_num' | 'image_url' | 'price_ref_krw' | 'price_confidence'>>
   | Pick<SetMeta, 'code'>
   | string
   | null
@@ -161,11 +163,28 @@ export function rarityFullLabel(rarity: string, context?: RarityContext): string
   return RARITY_FULL_LABEL[rarityLabel(rarity, context)] ?? rarity;
 }
 
-export function isPremiumSparkleRarity(rarity: string | null, context?: RarityContext): boolean {
-  if (!rarity) return false;
+export function isPremiumPriceHit(context?: RarityContext): boolean {
+  if (!context || typeof context === 'string' || 'code' in context) return false;
 
-  const displayRarity = rarityLabel(rarity, context);
-  return displayRarity === 'SAR' || displayRarity === 'MUR' || displayRarity === 'BWR' || displayRarity === 'CSR';
+  return (
+    context.price_confidence !== 'proxy'
+    && typeof context.price_ref_krw === 'number'
+    && Number.isFinite(context.price_ref_krw)
+    && context.price_ref_krw >= PREMIUM_HIT_PRICE_THRESHOLD_KRW
+  );
+}
+
+export function premiumSparkleVariant(rarity: string | null, context?: RarityContext): string | null {
+  const displayRarity = rarity ? rarityLabel(rarity, context) : null;
+  if (displayRarity === 'SAR' || displayRarity === 'MUR' || displayRarity === 'BWR' || displayRarity === 'CSR') {
+    return displayRarity.toLowerCase();
+  }
+
+  return isPremiumPriceHit(context) ? 'chase' : null;
+}
+
+export function isPremiumSparkleRarity(rarity: string | null, context?: RarityContext): boolean {
+  return premiumSparkleVariant(rarity, context) !== null;
 }
 
 export function raritySortRank(rarity: string | null, context?: RarityContext): number {

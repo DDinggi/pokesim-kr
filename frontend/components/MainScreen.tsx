@@ -20,6 +20,7 @@ import {
   RARITY_BADGE,
   RARITY_TEXT_COLOR,
   getHitCounts,
+  premiumSparkleVariant,
   rarityLabel,
   sortByRarity,
 } from '../lib/rarity';
@@ -74,8 +75,14 @@ export function MainScreen({
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6">
         <div className="mb-5 space-y-1.5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 px-4 py-3 ring-1 ring-white/10">
           <p className="text-sm font-bold text-white sm:text-base">
-            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW</span>
-            6/7 이브이 히어로즈, 백은의 랜스 추가
+            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 6/11</span>
+            신규 세트 카드깡 추가
+          </p>
+          <p className="text-[13px] font-semibold text-gray-200">
+            칠흑의 가이스트 · 쌍벽의 파이터 · 일격마스터 · 연격마스터
+          </p>
+          <p className="text-[12px] leading-relaxed text-gray-300">
+            ‘내 운 확인’을 시세 기준으로 바꾸었습니다
           </p>
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-relaxed text-gray-400">
             <span>4일 주기 업데이트 예정입니다. 피드백과 문의는 언제든 환영합니다.</span>
@@ -339,12 +346,13 @@ function CardTile({ card, onClick }: { card: Card; onClick?: () => void }) {
   const [loaded, setLoaded] = useState(false);
   const [useOriginal, setUseOriginal] = useState(false);
   const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
+  const premiumSparkleRarity = showImage ? premiumSparkleVariant(card.rarity, card) : null;
   const Wrapper = onClick ? 'button' : 'div';
 
   return (
     <Wrapper
       onClick={onClick}
-      className={`card-image-frame relative aspect-[5/7] overflow-hidden rounded-lg bg-gray-800 select-none block w-full ${glow} ${onClick ? 'cursor-pointer transition-transform hover:scale-105 active:scale-95' : ''}`}
+      className={`card-image-frame relative aspect-[5/7] overflow-hidden rounded-lg bg-gray-800 select-none block w-full ${premiumSparkleRarity ? `premium-hit-card premium-hit-card--${premiumSparkleRarity}` : ''} ${glow} ${onClick ? 'cursor-pointer transition-transform hover:scale-105 active:scale-95' : ''}`}
       data-watermark={showImage ? 'pokesim.kr' : undefined}
       onContextMenu={(event) => event.preventDefault()}
     >
@@ -374,6 +382,14 @@ function CardTile({ card, onClick }: { card: Card; onClick?: () => void }) {
               }
             }}
           />
+          {premiumSparkleRarity && (
+            <span
+              className={`premium-hit-sparkle premium-hit-sparkle--${premiumSparkleRarity}`}
+              aria-hidden="true"
+            >
+              <span className="premium-hit-sparkle__dust" />
+            </span>
+          )}
         </>
       )}
       {card.rarity && (

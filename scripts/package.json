@@ -10,9 +10,16 @@
     "migrate-to-r2": "tsx migrate-to-r2.ts",
     "optimize:images": "tsx optimize-card-images.ts",
     "benchmark:images": "tsx benchmark-image-delivery.ts",
+    "fetch:prices": "tsx fetch-reference-prices.ts",
+    "fetch:fullahead-prices": "tsx fetch-fullahead-prices.ts",
+    "remove:proxy-prices": "tsx remove-proxy-prices.ts",
+    "build:luck-dist": "tsx build-luck-distributions.ts",
     "audit:swsh": "tsx audit-swsh-set.ts",
+    "audit:value-luck": "tsx audit-value-luck-distribution.ts",
     "validate:data": "tsx validate-card-data.ts",
     "validate:luck": "tsx validate-luck-model.ts",
+    "validate:chase-luck": "tsx validate-chase-luck.ts",
+    "validate:value-luck": "tsx validate-value-luck.ts",
     "sync": "tsx sync-sets.ts"
   },
   "dependencies": {

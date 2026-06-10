@@ -210,6 +210,13 @@ body {
     0 0 40px rgba(129, 140, 248, 0.46);
 }
 
+.premium-hit-card.premium-hit-card--chase {
+  box-shadow:
+    0 0 0 2px rgba(165, 243, 252, 0.5) inset,
+    0 0 24px rgba(45, 212, 191, 0.5),
+    0 0 40px rgba(251, 191, 36, 0.36);
+}
+
 .premium-hit-sparkle {
   display: block;
   position: absolute;
@@ -276,6 +283,20 @@ body {
     );
   background-size: 250% 250%;
   animation: premium-rainbow-flow 3.4s ease-in-out infinite;
+}
+
+.premium-hit-sparkle--chase {
+  background:
+    linear-gradient(
+      115deg,
+      rgba(45, 212, 191, 0.3),
+      rgba(255, 255, 255, 0.2),
+      rgba(251, 191, 36, 0.3),
+      rgba(125, 211, 252, 0.26),
+      rgba(16, 185, 129, 0.28)
+    );
+  background-size: 250% 250%;
+  animation: premium-rainbow-flow 3.3s ease-in-out infinite;
 }
 
 .premium-hit-card {
@@ -355,6 +376,18 @@ body {
       rgba(255, 255, 255, 0.88) 38%,
       rgba(147, 197, 253, 0.74) 48%,
       rgba(165, 180, 252, 0.66) 58%,
+      transparent 78%
+    );
+}
+
+.premium-hit-sparkle--chase::before {
+  background:
+    linear-gradient(
+      105deg,
+      transparent 18%,
+      rgba(255, 255, 255, 0.9) 38%,
+      rgba(94, 234, 212, 0.72) 48%,
+      rgba(251, 191, 36, 0.58) 58%,
       transparent 78%
     );
 }

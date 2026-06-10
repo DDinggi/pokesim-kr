@@ -927,7 +927,13 @@
       "type": "풀",
       "image_url": "wmimages/S/S7/S7R_068.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009068",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014376/s07r/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009069",
@@ -940,7 +946,13 @@
       "type": "불꽃",
       "image_url": "wmimages/S/S7/S7R_069.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009069",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014377/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009070",
@@ -953,7 +965,13 @@
       "type": "물",
       "image_url": "wmimages/S/S7/S7R_070.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009070",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "price_ref_krw": 15900,
+      "price_ref_jpy": 2580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014378/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009071",
@@ -966,7 +984,13 @@
       "type": "격투",
       "image_url": "wmimages/S/S7/S7R_071.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009071",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014379/s07r/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009072",
@@ -979,7 +1003,13 @@
       "type": "격투",
       "image_url": "wmimages/S/S7/S7R_072.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009072",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "price_ref_krw": 21500,
+      "price_ref_jpy": 3480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014380/s07r/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009073",
@@ -992,7 +1022,13 @@
       "type": "드래곤",
       "image_url": "wmimages/S/S7/S7R_073.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009073",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "price_ref_krw": 17200,
+      "price_ref_jpy": 2780,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014381/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009074",
@@ -1005,7 +1041,13 @@
       "type": "드래곤",
       "image_url": "wmimages/S/S7/S7R_074.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009074",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "price_ref_krw": 523600,
+      "price_ref_jpy": 84800,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014382/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009075",
@@ -1018,7 +1060,13 @@
       "type": "드래곤",
       "image_url": "wmimages/S/S7/S7R_075.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009075",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "price_ref_krw": 91400,
+      "price_ref_jpy": 14800,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014383/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009076",
@@ -1031,7 +1079,13 @@
       "type": "드래곤",
       "image_url": "wmimages/S/S7/S7R_076.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009076",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "price_ref_krw": 1037400,
+      "price_ref_jpy": 168000,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014384/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009077",
@@ -1044,7 +1098,13 @@
       "type": null,
       "image_url": "wmimages/S/S7/S7R_077.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009077",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "price_ref_krw": 66700,
+      "price_ref_jpy": 10800,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014385/s07r/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009078",
@@ -1057,7 +1117,13 @@
       "type": null,
       "image_url": "wmimages/S/S7/S7R_078.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009078",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014386/s07r/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009079",
@@ -1070,7 +1136,13 @@
       "type": null,
       "image_url": "wmimages/S/S7/S7R_079.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009079",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "price_ref_krw": 41900,
+      "price_ref_jpy": 6780,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014387/s07r/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009080",
@@ -1084,7 +1156,13 @@
       "image_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/3s7s97/18-17.jpg",
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 5400,
+      "price_ref_jpy": 880,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014388/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009081",
@@ -1098,7 +1176,13 @@
       "image_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/tb5nwh/10-20.jpg",
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 29500,
+      "price_ref_jpy": 4780,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014389/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009082",
@@ -1112,7 +1196,13 @@
       "image_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/nowf70/5-30.jpg",
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 245800,
+      "price_ref_jpy": 39800,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014390/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009083",
@@ -1126,7 +1216,13 @@
       "image_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/9jsmmt/20-13.jpg",
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 5236400,
+      "price_ref_jpy": 848000,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014391/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009084",
@@ -1140,7 +1236,13 @@
       "image_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/z953dy/4-35.jpg",
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 11600,
+      "price_ref_jpy": 1880,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014392/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009085",
@@ -1154,7 +1256,13 @@
       "image_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/yg95x1/17-14.jpg",
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014393/s07r/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009086",
@@ -1168,7 +1276,13 @@
       "image_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/tju53j/6-31.jpg",
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 12200,
+      "price_ref_jpy": 1980,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014394/s07r/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009087",
@@ -1182,7 +1296,13 @@
       "image_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/9glcfy/9-27.jpg",
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 14700,
+      "price_ref_jpy": 2380,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014395/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009088",
@@ -1196,7 +1316,13 @@
       "image_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/8gyuem/13-19.jpg",
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014396/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009089",
@@ -1210,7 +1336,13 @@
       "image_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/rjm8il/11-21.jpg",
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 6100,
+      "price_ref_jpy": 980,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014397/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021009090",
@@ -1224,11 +1356,77 @@
       "image_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/ce0fey/5-33.jpg",
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 27700,
+      "price_ref_jpy": 4480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014398/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     }
   ],
   "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
   "_source": "pokemoncard.co.kr",
   "_fetched_at": "2026-06-03",
-  "_notes": "S7R. Korean official card/product metadata from pokemoncard.co.kr. Official search/detail data currently resolves #001-079 only; #080-090 HR/UR cards are temporarily enriched from the Japanese S7R PokeGuardian list because the Korean detail/image endpoints are unavailable. Pull-rate model uses the full SR/HR/UR secret pool with community-style box guarantees; Korean official pull rates are private."
+  "_notes": "S7R. Korean official card/product metadata from pokemoncard.co.kr. Official search/detail data currently resolves #001-079 only; #080-090 HR/UR cards are temporarily enriched from the Japanese S7R PokeGuardian list because the Korean detail/image endpoints are unavailable. Pull-rate model uses the full SR/HR/UR secret pool with community-style box guarantees; Korean official pull rates are private.",
+  "luck_value_ref": {
+    "box_median_krw": 21500,
+    "pack_median_krw": 0,
+    "box_quantiles_krw": [
+      3000,
+      3000,
+      3000,
+      3600,
+      6100,
+      14700,
+      21500,
+      29500,
+      66700,
+      245800,
+      1037400,
+      1561000,
+      5236400,
+      5236400,
+      10472800
+    ],
+    "pack_quantiles_krw": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      12200,
+      41900,
+      5236400
+    ],
+    "quantile_points": [
+      0,
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      0.95,
+      0.98,
+      0.99,
+      1
+    ],
+    "_iterations": {
+      "box": 20000,
+      "pack": 40000
+    },
+    "_built_at": "2026-06-10"
+  }
 }

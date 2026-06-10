@@ -972,7 +972,13 @@
       "image_url": "external/s6h-silver-lance/BS2021004071.jpg",
       "_source": "https://www.pokemon-card.com/card-search/details.php/card/39525/regu/all",
       "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039525_P_BORUKENIONV.jpg"
+      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039525_P_BORUKENIONV.jpg",
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013494/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004072",
@@ -986,7 +992,13 @@
       "image_url": "external/s6h-silver-lance/BS2021004072.jpg",
       "_source": "https://www.pokemon-card.com/card-search/details.php/card/39526/regu/all",
       "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039526_P_HAKUBABADOREKKUSUV.jpg"
+      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039526_P_HAKUBABADOREKKUSUV.jpg",
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013495/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004073",
@@ -1000,7 +1012,13 @@
       "image_url": "external/s6h-silver-lance/BS2021004073.jpg",
       "_source": "https://www.pokemon-card.com/card-search/details.php/card/39527/regu/all",
       "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039527_P_HAKUBABADOREKKUSUV.jpg"
+      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039527_P_HAKUBABADOREKKUSUV.jpg",
+      "price_ref_krw": 23300,
+      "price_ref_jpy": 3780,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013496/s06h/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004074",
@@ -1014,7 +1032,13 @@
       "image_url": "external/s6h-silver-lance/BS2021004074.jpg",
       "_source": "https://www.pokemon-card.com/card-search/details.php/card/39528/regu/all",
       "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039528_P_GARARUGYAROPPUV.jpg"
+      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039528_P_GARARUGYAROPPUV.jpg",
+      "price_ref_krw": 5400,
+      "price_ref_jpy": 880,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013497/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004075",
@@ -1028,7 +1052,13 @@
       "image_url": "external/s6h-silver-lance/BS2021004075.jpg",
       "_source": "https://www.pokemon-card.com/card-search/details.php/card/39529/regu/all",
       "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039529_P_GARARUGYAROPPUV.jpg"
+      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039529_P_GARARUGYAROPPUV.jpg",
+      "price_ref_krw": 40000,
+      "price_ref_jpy": 6480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013498/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004076",
@@ -1042,7 +1072,13 @@
       "image_url": "external/s6h-silver-lance/BS2021004076.jpg",
       "_source": "https://www.pokemon-card.com/card-search/details.php/card/39530/regu/all",
       "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039530_P_SADAIJAV.jpg"
+      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039530_P_SADAIJAV.jpg",
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013499/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004077",
@@ -1056,7 +1092,13 @@
       "image_url": "external/s6h-silver-lance/BS2021004077.jpg",
       "_source": "https://www.pokemon-card.com/card-search/details.php/card/39531/regu/all",
       "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039531_P_REPARUDASUV.jpg"
+      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039531_P_REPARUDASUV.jpg",
+      "price_ref_krw": 4800,
+      "price_ref_jpy": 780,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013500/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004078",
@@ -1070,7 +1112,13 @@
       "image_url": "external/s6h-silver-lance/BS2021004078.jpg",
       "_source": "https://www.pokemon-card.com/card-search/details.php/card/39532/regu/all",
       "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039532_P_TORUNEROSUV.jpg"
+      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039532_P_TORUNEROSUV.jpg",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013501/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004079",
@@ -1084,7 +1132,13 @@
       "image_url": "external/s6h-silver-lance/BS2021004079.jpg",
       "_source": "https://www.pokemon-card.com/card-search/details.php/card/39533/regu/all",
       "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039533_P_TORUNEROSUV.jpg"
+      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039533_P_TORUNEROSUV.jpg",
+      "price_ref_krw": 26400,
+      "price_ref_jpy": 4280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013502/s06h/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004080",
@@ -1098,7 +1152,13 @@
       "image_url": "external/s6h-silver-lance/BS2021004080.jpg",
       "_source": "https://www.pokemon-card.com/card-search/details.php/card/39534/regu/all",
       "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039534_T_ASUNA.jpg"
+      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039534_T_ASUNA.jpg",
+      "price_ref_krw": 10400,
+      "price_ref_jpy": 1680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013503/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004081",
@@ -1112,7 +1172,13 @@
       "image_url": "external/s6h-silver-lance/BS2021004081.jpg",
       "_source": "https://www.pokemon-card.com/card-search/details.php/card/39535/regu/all",
       "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039535_T_DOKUTA.jpg"
+      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039535_T_DOKUTA.jpg",
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013504/s06h/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004082",
@@ -1126,7 +1192,13 @@
       "image_url": "external/s6h-silver-lance/BS2021004082.jpg",
       "_source": "https://www.pokemon-card.com/card-search/details.php/card/39536/regu/all",
       "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039536_T_PIONI.jpg"
+      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039536_T_PIONI.jpg",
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013505/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004083",
@@ -1140,7 +1212,13 @@
       "image_url": "external/s6h-silver-lance/BS2021004083.jpg",
       "_source": "https://www.pokemon-card.com/card-search/details.php/card/39537/regu/all",
       "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039537_T_MERON.jpg"
+      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039537_T_MERON.jpg",
+      "price_ref_krw": 11600,
+      "price_ref_jpy": 1880,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013506/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004084",
@@ -1156,7 +1234,13 @@
       "_fetched_at": "2026-06-05",
       "_manual": true,
       "_image_source_url": "https://cdn.shopify.com/s/files/1/0763/0536/7360/products/IuW14Md9z6vU2tiHC6mXjvBeZzAOShBHKtrk6z8s.jpg?v=1705496872",
-      "_image_source_size": "762x1047"
+      "_image_source_size": "762x1047",
+      "price_ref_krw": 9100,
+      "price_ref_jpy": 1480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013507/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004085",
@@ -1172,7 +1256,13 @@
       "_fetched_at": "2026-06-05",
       "_manual": true,
       "_image_source_url": "https://cdn.shopify.com/s/files/1/0763/0536/7360/products/b04neYh7S9BFcEv3Z0vv4pbB0lVUurcQl9tiacD2.jpg?v=1705496920",
-      "_image_source_size": "1049x1462"
+      "_image_source_size": "1049x1462",
+      "price_ref_krw": 492800,
+      "price_ref_jpy": 79800,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013508/s06h/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004086",
@@ -1188,7 +1278,13 @@
       "_fetched_at": "2026-06-05",
       "_manual": true,
       "_image_source_url": "https://cdn.shopify.com/s/files/1/0763/0536/7360/products/edCmebU7c1ZxzMgSjkRxjQgbn5MpZbDQ6ROdqo2n.jpg?v=1705496978",
-      "_image_source_size": "902x1255"
+      "_image_source_size": "902x1255",
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013509/s06h/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004087",
@@ -1204,7 +1300,13 @@
       "_fetched_at": "2026-06-05",
       "_manual": true,
       "_image_source_url": "https://cdn.shopify.com/s/files/1/0763/0536/7360/products/i9o5m9MRfaqzghwj8PyJRiBwXfa7peRnrRMNlvRB.jpg?v=1705497047",
-      "_image_source_size": "558x790"
+      "_image_source_size": "558x790",
+      "price_ref_krw": 5400,
+      "price_ref_jpy": 880,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013510/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004088",
@@ -1220,7 +1322,13 @@
       "_fetched_at": "2026-06-05",
       "_manual": true,
       "_image_source_url": "https://cdn.shopify.com/s/files/1/0763/0536/7360/products/XVmziCu8UGMq06M0NIUdt37hS4dLqYGn2tTFo16i.jpg?v=1705497109",
-      "_image_source_size": "1145x1571"
+      "_image_source_size": "1145x1571",
+      "price_ref_krw": 5400,
+      "price_ref_jpy": 880,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013511/s06h/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004089",
@@ -1236,7 +1344,13 @@
       "_fetched_at": "2026-06-05",
       "_manual": true,
       "_image_source_url": "https://cdn.shopify.com/s/files/1/0763/0536/7360/products/oxZhMec7pF70UhxrjNpmAcxG9BSBTlHcBydWsCMZ.jpg?v=1705497171",
-      "_image_source_size": "983x1363"
+      "_image_source_size": "983x1363",
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013512/s06h/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004090",
@@ -1252,7 +1366,13 @@
       "_fetched_at": "2026-06-05",
       "_manual": true,
       "_image_source_url": "https://cdn.shopify.com/s/files/1/0763/0536/7360/products/dI2FSB1brf5qCZq0YbODvpOG1q4ZbS3n3vnpp1li.jpg?v=1705497239",
-      "_image_source_size": "1144x1608"
+      "_image_source_size": "1144x1608",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013513/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004091",
@@ -1268,7 +1388,13 @@
       "_fetched_at": "2026-06-05",
       "_manual": true,
       "_image_source_url": "https://cdn.shopify.com/s/files/1/0763/0536/7360/products/fhaYZlPhFsqU4ebFzVPjMiefytDtz8xWOEAWye59.jpg?v=1705502176",
-      "_image_source_size": "1134x1564"
+      "_image_source_size": "1134x1564",
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013514/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004092",
@@ -1284,7 +1410,13 @@
       "_fetched_at": "2026-06-05",
       "_manual": true,
       "_image_source_url": "https://tracazipangu.com/cdn/shop/products/s6H022.jpg?v=1740132829",
-      "_image_source_size": "569x800"
+      "_image_source_size": "569x800",
+      "price_ref_krw": 4800,
+      "price_ref_jpy": 780,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013515/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004093",
@@ -1300,7 +1432,13 @@
       "_fetched_at": "2026-06-05",
       "_manual": true,
       "_image_source_url": "https://tracazipangu.com/cdn/shop/products/s6H023.jpg?v=1741331561",
-      "_image_source_size": "565x800"
+      "_image_source_size": "565x800",
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013516/s06h/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004094",
@@ -1316,7 +1454,13 @@
       "_fetched_at": "2026-06-05",
       "_manual": true,
       "_image_source_url": "https://cdn.shopify.com/s/files/1/0763/0536/7360/products/gIVBo31LuP3wOABtnd0SeyZlf8Pt1mNw9WUpb6YN.jpg?v=1705502323",
-      "_image_source_size": "568x790"
+      "_image_source_size": "568x790",
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013517/s06h/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2021004095",
@@ -1332,11 +1476,77 @@
       "_fetched_at": "2026-06-05",
       "_manual": true,
       "_image_source_url": "https://cdn.shopify.com/s/files/1/0763/0536/7360/products/avZfY5MBIppBtMBQbeXwfLUcxYMUbiQZxkkYpwp4.jpg?v=1705502363",
-      "_image_source_size": "573x801"
+      "_image_source_size": "573x801",
+      "price_ref_krw": 24600,
+      "price_ref_jpy": 3980,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013518/s06h/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     }
   ],
   "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
   "_source": "pokemoncard.co.kr",
   "_fetched_at": "2026-06-05",
-  "_notes": "S6H. 30팩×5장 표준 확장팩."
+  "_notes": "S6H. 30팩×5장 표준 확장팩.",
+  "luck_value_ref": {
+    "box_median_krw": 4800,
+    "pack_median_krw": 0,
+    "box_quantiles_krw": [
+      3000,
+      3000,
+      3000,
+      3600,
+      4200,
+      4200,
+      4800,
+      5400,
+      10400,
+      23300,
+      27500,
+      43600,
+      492800,
+      492800,
+      985600
+    ],
+    "pack_quantiles_krw": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      4200,
+      9100,
+      492800
+    ],
+    "quantile_points": [
+      0,
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      0.95,
+      0.98,
+      0.99,
+      1
+    ],
+    "_iterations": {
+      "box": 20000,
+      "pack": 40000
+    },
+    "_built_at": "2026-06-10"
+  }
 }

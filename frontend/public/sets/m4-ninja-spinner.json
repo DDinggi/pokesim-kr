@@ -1133,7 +1133,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003084.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059390/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003085",
@@ -1147,7 +1153,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003085.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059391/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003086",
@@ -1161,7 +1173,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003086.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059392/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003087",
@@ -1175,7 +1193,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003087.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059393/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003088",
@@ -1189,7 +1213,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003088.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059394/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003089",
@@ -1203,7 +1233,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003089.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059395/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003090",
@@ -1217,7 +1253,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003090.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059396/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003091",
@@ -1231,7 +1273,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003091.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059397/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003092",
@@ -1245,7 +1293,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003092.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059398/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003093",
@@ -1259,7 +1313,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003093.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059399/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003094",
@@ -1273,7 +1333,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003094.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059400/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003095",
@@ -1287,7 +1353,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003095.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059401/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003096",
@@ -1301,7 +1373,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003096.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059402/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003097",
@@ -1315,7 +1393,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003097.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059403/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003098",
@@ -1329,7 +1413,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003098.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 14700,
+      "price_ref_jpy": 2380,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059404/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003099",
@@ -1343,7 +1433,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003099.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059405/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003100",
@@ -1357,7 +1453,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003100.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059406/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003101",
@@ -1371,7 +1473,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003101.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059407/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003102",
@@ -1385,7 +1493,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003102.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059408/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003103",
@@ -1399,7 +1513,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003103.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059409/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003104",
@@ -1413,7 +1533,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003104.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059410/m04/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003105",
@@ -1427,7 +1553,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003105.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059411/m04/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003106",
@@ -1441,7 +1573,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003106.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059412/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003107",
@@ -1455,7 +1593,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003107.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059413/m04/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003108",
@@ -1469,7 +1613,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003108.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059414/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003109",
@@ -1483,7 +1633,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003109.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059415/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003110",
@@ -1497,7 +1653,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003110.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059416/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003111",
@@ -1511,7 +1673,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003111.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059417/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003112",
@@ -1525,7 +1693,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003112.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059418/m04/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003113",
@@ -1539,7 +1713,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003113.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059419/m04/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003114",
@@ -1553,7 +1733,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003114.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 326000,
+      "price_ref_jpy": 52800,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059420/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003115",
@@ -1567,7 +1753,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003115.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 13500,
+      "price_ref_jpy": 2180,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059421/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003116",
@@ -1581,7 +1773,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003116.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 15900,
+      "price_ref_jpy": 2580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059422/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003117",
@@ -1595,7 +1793,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003117.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 30800,
+      "price_ref_jpy": 4980,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059423/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003118",
@@ -1609,7 +1813,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003118.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 8500,
+      "price_ref_jpy": 1380,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059424/m04/page3/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003119",
@@ -1623,7 +1833,13 @@
       "image_url": "external/m4-ninja-spinner/BS2026003119.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 11000,
+      "price_ref_jpy": 1780,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059425/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2026003120",
@@ -1637,11 +1853,77 @@
       "image_url": "external/m4-ninja-spinner/BS2026003120.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
-      "_manual": true
+      "_manual": true,
+      "price_ref_krw": 913900,
+      "price_ref_jpy": 148000,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059426/m04/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-06",
+      "price_confidence": "source"
     }
   ],
   "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
   "_source": "pokemoncard.co.kr",
   "_fetched_at": "2026-05-08",
-  "_notes": "2026-05-02 자동 수집 완료(83장). pokemoncard.co.kr 현재 C/U/R/RR만 등록 — AR/SR/SAR/UR은 사이트에 미업로드 상태. 추후 사이트 갱신 후 pnpm collect -- --set m4-ninja-spinner 재실행 필요."
+  "_notes": "2026-05-02 자동 수집 완료(83장). pokemoncard.co.kr 현재 C/U/R/RR만 등록 — AR/SR/SAR/UR은 사이트에 미업로드 상태. 추후 사이트 갱신 후 pnpm collect -- --set m4-ninja-spinner 재실행 필요.",
+  "luck_value_ref": {
+    "box_median_krw": 16200,
+    "pack_median_krw": 0,
+    "box_quantiles_krw": [
+      14000,
+      14000,
+      14600,
+      14600,
+      15200,
+      15800,
+      16200,
+      18200,
+      22600,
+      26700,
+      42400,
+      337600,
+      343000,
+      926100,
+      941800
+    ],
+    "pack_quantiles_krw": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      3000,
+      3600,
+      4200,
+      11000,
+      913900
+    ],
+    "quantile_points": [
+      0,
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      0.95,
+      0.98,
+      0.99,
+      1
+    ],
+    "_iterations": {
+      "box": 20000,
+      "pack": 40000
+    },
+    "_built_at": "2026-06-10"
+  }
 }
