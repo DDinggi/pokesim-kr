@@ -840,7 +840,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV5M/SV5M_061.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024005061",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "price_ref_krw": 500,
+      "price_ref_jpy": 80,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000049454/sv05m/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2024005062",
@@ -853,7 +859,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV5M/SV5M_062.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024005062",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "price_ref_krw": 500,
+      "price_ref_jpy": 80,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000049455/sv05m/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2024005063",
@@ -905,7 +917,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV5M/SV5M_066.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024005066",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "price_ref_krw": 500,
+      "price_ref_jpy": 80,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000049459/sv05m/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2024005067",
@@ -1528,24 +1546,24 @@
   "_source": "pokemoncard.co.kr",
   "_fetched_at": "2026-05-15",
   "luck_value_ref": {
-    "box_median_krw": 24800,
+    "box_median_krw": 25300,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
-      12000,
-      16200,
-      17500,
-      19800,
-      21700,
-      23000,
-      24800,
-      26700,
-      29100,
-      32200,
-      39100,
-      47700,
-      66200,
-      69300,
-      87100
+      12500,
+      16700,
+      18000,
+      20300,
+      22200,
+      23500,
+      25300,
+      27200,
+      29600,
+      32700,
+      39600,
+      48200,
+      66700,
+      69800,
+      87600
     ],
     "pack_quantiles_krw": [
       0,
@@ -1585,6 +1603,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-10"
+    "_built_at": "2026-06-13"
   }
 }

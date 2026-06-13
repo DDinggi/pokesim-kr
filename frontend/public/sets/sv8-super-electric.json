@@ -1276,7 +1276,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV8/SV8_095.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024017095",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "price_ref_krw": 500,
+      "price_ref_jpy": 80,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000051646/sv08/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2024017096",
@@ -1289,7 +1295,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV8/SV8_096.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024017096",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "price_ref_krw": 500,
+      "price_ref_jpy": 80,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000051647/sv08/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2024017097",
@@ -1354,7 +1366,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV8/SV8_101.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024017101",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "price_ref_krw": 500,
+      "price_ref_jpy": 80,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000051652/sv08/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2024017102",
@@ -2035,24 +2053,24 @@
   "_fetched_at": "2026-05-08",
   "_notes": "sv8. 간판: 피카츄 ex (스텔라 테라스탈).",
   "luck_value_ref": {
-    "box_median_krw": 24800,
+    "box_median_krw": 25300,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
-      14400,
-      16800,
-      18000,
-      19200,
-      20500,
-      22300,
-      24800,
-      27300,
-      30900,
-      50700,
-      103900,
-      230600,
-      588000,
-      593000,
-      673200
+      14900,
+      17300,
+      18500,
+      19700,
+      21000,
+      22800,
+      25300,
+      27800,
+      31400,
+      51200,
+      104400,
+      231100,
+      588500,
+      593500,
+      673700
     ],
     "pack_quantiles_krw": [
       0,
@@ -2092,6 +2110,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-10"
+    "_built_at": "2026-06-13"
   }
 }

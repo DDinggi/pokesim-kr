@@ -17,6 +17,8 @@ const KNOWN_RARITIES = new Set([
   "R",
   "RR",
   "RRR",
+  "S",
+  "A",
   "25TH",
   "S8AP",
   "K",
@@ -34,7 +36,7 @@ const KNOWN_RARITIES = new Set([
   "GRA",
   "BWR",
 ]);
-const HIGH_RARITIES = new Set(["RRR", "25TH", "S8AP", "K", "CHR", "ACE", "AR", "SR", "SSR", "CSR", "HR", "SAR", "MA", "UR", "GRA", "BWR"]);
+const HIGH_RARITIES = new Set(["RRR", "S", "A", "25TH", "S8AP", "K", "CHR", "ACE", "AR", "SR", "SSR", "CSR", "HR", "SAR", "MA", "UR", "GRA", "BWR"]);
 const START_DECK_100_REP_NUMBERS = [
   85, 204, 437, 146, 68, 18, 151, 94, 185, 204,
   3, 470, 380, 374, 169, 192, 746, 208, 750, 68,

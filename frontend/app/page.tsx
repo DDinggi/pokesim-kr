@@ -48,6 +48,8 @@ import s6kJetBlackSpirit from '../public/sets/s6k-jet-black-spirit.json';
 import s5aMatchlessFighters from '../public/sets/s5a-matchless-fighters.json';
 import s5iSingleStrikeMaster from '../public/sets/s5i-single-strike-master.json';
 import s5rRapidStrikeMaster from '../public/sets/s5r-rapid-strike-master.json';
+import s4aShinyStarV from '../public/sets/s4a-shiny-star-v.json';
+import s4AmazingVoltTackle from '../public/sets/s4-amazing-volt-tackle.json';
 import mStartDeck100 from '../public/sets/m-start-deck-100.json';
 import m4NinjaSpinner from '../public/sets/m4-ninja-spinner.json';
 import mNihilZero from '../public/sets/m-nihil-zero.json';
@@ -77,6 +79,7 @@ const sets: SetMeta[] = [
   s8FusionArts, s7rSkyStream, s6aEeveeHeroes, s6hSilverLance,
   s6kJetBlackSpirit, s5aMatchlessFighters,
   s5iSingleStrikeMaster, s5rRapidStrikeMaster,
+  s4aShinyStarV, s4AmazingVoltTackle,
 ] as SetMeta[];
 
 export default function Home() {

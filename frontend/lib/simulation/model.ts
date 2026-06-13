@@ -233,9 +233,23 @@ const SWSH_STAR_BIRTH: StandardSvSetRate = {
 };
 
 const SWSH_FUSION_ARTS: StandardSvSetRate = {
-  mandatoryHighWeights: { SR_POKEMON: 100 },
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 8,
+    SR_ALT: 3,
+    SR_TRAINER: 4,
+    HR_POKEMON: 5,
+    HR_TRAINER: 4,
+    UR: 5,
+  }),
   extraHighRate: 0.1,
-  extraHighWeights: { SR_POKEMON: 100 },
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 8,
+    SR_ALT: 3,
+    SR_TRAINER: 4,
+    HR_POKEMON: 5,
+    HR_TRAINER: 4,
+    UR: 5,
+  }),
   arCount: 0,
   rrBaseCount: 4,
   rrExtraRate: 0.1,
@@ -378,23 +392,73 @@ const SWSH_SILVER_LANCE: StandardSvSetRate = {
   fillerWeights: SWSH_FILLER_WEIGHTS,
 };
 
-// 소드&실드 일반/강화 확장팩 (캐릭터레어 없음): 일격마스터(s5i) / 연격마스터(s5r) /
-// 쌍벽의 파이터(s5a) / 칠흑의 가이스트(s6k). 박스 톱히트 1슬롯을 SR/HR/UR로 분배한다.
-const SWSH_BASE_EXPANSION: StandardSvSetRate = {
+const SWSH_S4_VOLT_TACKLE: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
-    SR_POKEMON: 45,
-    SR_TRAINER: 25,
-    HR_POKEMON: 10,
-    HR_TRAINER: 10,
-    UR: 10,
+    SR_POKEMON: 8,
+    SR_TRAINER: 3,
+    HR_POKEMON: 4,
+    HR_TRAINER: 3,
+    UR: 3,
   }),
   extraHighRate: 0.1,
   extraHighWeights: normalizeHighWeights({
-    SR_POKEMON: 45,
-    SR_TRAINER: 25,
-    HR_POKEMON: 10,
-    HR_TRAINER: 10,
-    UR: 10,
+    SR_POKEMON: 8,
+    SR_TRAINER: 3,
+    HR_POKEMON: 4,
+    HR_TRAINER: 3,
+    UR: 3,
+  }),
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: SWSH_FILLER_WEIGHTS,
+};
+
+const SWSH_SINGLE_RAPID_STRIKE: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 6,
+    SR_ALT: 2,
+    SR_TRAINER: 3,
+    HR_POKEMON: 4,
+    HR_TRAINER: 3,
+    UR: 3,
+  }),
+  extraHighRate: 0.1,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 6,
+    SR_ALT: 2,
+    SR_TRAINER: 3,
+    HR_POKEMON: 4,
+    HR_TRAINER: 3,
+    UR: 3,
+  }),
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: SWSH_FILLER_WEIGHTS,
+};
+
+const SWSH_MATCHLESS_FIGHTERS: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 6,
+    SR_ALT: 4,
+    SR_TRAINER: 4,
+    HR_POKEMON: 4,
+    HR_TRAINER: 4,
+    UR: 4,
+  }),
+  extraHighRate: 0.1,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 6,
+    SR_ALT: 4,
+    SR_TRAINER: 4,
+    HR_POKEMON: 4,
+    HR_TRAINER: 4,
+    UR: 4,
   }),
   arCount: 0,
   rrBaseCount: 4,
@@ -477,10 +541,11 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   's7r-sky-stream': SWSH_SKY_STREAM,
   's6a-eevee-heroes': SWSH_EEVEE_HEROES,
   's6h-silver-lance': SWSH_SILVER_LANCE,
-  's6k-jet-black-spirit': SWSH_BASE_EXPANSION,
-  's5a-matchless-fighters': SWSH_BASE_EXPANSION,
-  's5i-single-strike-master': SWSH_BASE_EXPANSION,
-  's5r-rapid-strike-master': SWSH_BASE_EXPANSION,
+  's6k-jet-black-spirit': SWSH_SILVER_LANCE,
+  's5a-matchless-fighters': SWSH_MATCHLESS_FIGHTERS,
+  's5i-single-strike-master': SWSH_SINGLE_RAPID_STRIKE,
+  's5r-rapid-strike-master': SWSH_SINGLE_RAPID_STRIKE,
+  's4-amazing-volt-tackle': SWSH_S4_VOLT_TACKLE,
 };
 
 export const SV11_RR_COUNT = 4;
@@ -513,10 +578,14 @@ export const ALT_SR_NUMBER_RANGES: Record<string, Array<[number, number]>> = {
   's10d-time-gazer': [[69, 69], [73, 73], [75, 75]],
   's10p-space-juggler': [[69, 69], [71, 71], [75, 75]],
   's9-star-birth': [[103, 103], [105, 105], [109, 109], [112, 112]],
-  's8-fusion-arts': [[106, 106], [109, 109]],
+  's8-fusion-arts': [[106, 106], [109, 109], [111, 111]],
   's7r-sky-stream': [[72, 72], [74, 74], [76, 76]],
   's6a-eevee-heroes': [[71, 71], [73, 73], [75, 75], [77, 77], [79, 79], [81, 81], [83, 83], [85, 85]],
+  's6k-jet-black-spirit': [[74, 74], [76, 76], [79, 79]],
   's6h-silver-lance': [[73, 73], [75, 75], [79, 79]],
+  's5a-matchless-fighters': [[74, 74], [76, 76], [78, 78], [80, 80]],
+  's5r-rapid-strike-master': [[74, 74], [77, 77]],
+  's5i-single-strike-master': [[75, 75], [77, 77]],
 };
 
 export const TERASTAL_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
@@ -532,6 +601,12 @@ export const SHINY_TREASURE_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   SAR: 10,
   UR: 10,
   AR: 10,
+};
+
+export const SHINY_STAR_V_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
+  NONE: 50,
+  SR: 40,
+  UR: 10,
 };
 
 export const VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS: Record<string, number> = {

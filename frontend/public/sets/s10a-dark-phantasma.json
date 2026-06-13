@@ -664,7 +664,13 @@
       "type": "초",
       "image_url": "wmimages/S/S10a/S10a_027.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022011047",
-      "_fetched_at": "2026-05-23"
+      "_fetched_at": "2026-05-23",
+      "price_ref_krw": 500,
+      "price_ref_jpy": 80,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000021122/s10a/page3/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2022011049",
@@ -1145,7 +1151,13 @@
       "type": "악",
       "image_url": "wmimages/S/S10a/S10a_049.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022011084",
-      "_fetched_at": "2026-05-23"
+      "_fetched_at": "2026-05-23",
+      "price_ref_krw": 600,
+      "price_ref_jpy": 90,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000021229/s10a/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2022011085",
@@ -2159,23 +2171,23 @@
   "_fetched_at": "2026-05-23",
   "_notes": "S10a. 한국판 공식 봉입률은 비공개. 일본판 500BOX 실측을 한국판 소드&실드 강화 확장팩 모델에 준용. CHR/CSR은 공식 rarity로 분리.",
   "luck_value_ref": {
-    "box_median_krw": 76400,
+    "box_median_krw": 76500,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
-      12000,
-      16200,
-      20500,
+      12500,
+      16700,
+      21000,
       33300,
-      50800,
-      58600,
-      76400,
-      91500,
-      105800,
-      125600,
+      51300,
+      58700,
+      76500,
+      91600,
+      106100,
+      126100,
       144500,
       168100,
-      192600,
-      204500,
+      192700,
+      204700,
       253900
     ],
     "pack_quantiles_krw": [
@@ -2216,6 +2228,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-10"
+    "_built_at": "2026-06-13"
   }
 }

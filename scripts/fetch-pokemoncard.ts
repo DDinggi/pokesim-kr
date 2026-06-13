@@ -163,7 +163,10 @@ function parseCardDetail(
   const rarityRaw = root.querySelector("#no_wrap_by_admin")?.text ?? "";
   // 긴 코드 먼저 매칭 (SAR > SR > R 등 순서 중요)
   const knownRarities = [...rarities].sort((a, b) => b.length - a.length);
-  const rarity = knownRarities.find((r) => rarityRaw.includes(r)) ?? null;
+  const rarity = knownRarities.find((r) => {
+    const escaped = r.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return new RegExp(`(^|[^A-Z0-9])${escaped}([^A-Z0-9]|$)`).test(rarityRaw);
+  }) ?? null;
 
   // 세트 내 번호 — "001/083" 중 앞 부분
   const pNumText = root.querySelector(".p_num")?.text ?? "";

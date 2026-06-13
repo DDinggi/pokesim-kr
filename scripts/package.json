@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "discover": "tsx discover-set.ts",
     "collect": "tsx fetch-pokemoncard.ts",
     "manual-add": "tsx manual-add.ts",
     "fetch-jp-images": "tsx fetch-jp-images.ts",
@@ -20,6 +21,7 @@
     "validate:luck": "tsx validate-luck-model.ts",
     "validate:chase-luck": "tsx validate-chase-luck.ts",
     "validate:value-luck": "tsx validate-value-luck.ts",
+    "audit:coverage": "tsx audit-card-coverage.ts",
     "sync": "tsx sync-sets.ts"
   },
   "dependencies": {

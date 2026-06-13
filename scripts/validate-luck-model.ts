@@ -33,6 +33,7 @@ const starterSource = readFileSync(resolve(ROOT_DIR, 'frontend', 'lib', 'simulat
 const KNOWN_HI_CLASS_MODELS = new Set([
   'sv8a-terastal-festa',
   'sv4a-shiny-treasure-ex',
+  's4a-shiny-star-v',
   's12a-vstar-universe',
   's8b-vmax-climax',
   'm-dream-ex',

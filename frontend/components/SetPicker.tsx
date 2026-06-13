@@ -453,12 +453,15 @@ export function SetPicker({
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-6xl mx-auto w-full">
         <div className="mb-5 rounded-lg bg-gray-900/80 ring-1 ring-white/10 px-4 py-3">
-          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-06-11</p>
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-06-14</p>
           <p className="text-sm font-bold text-white mt-0.5">
             신규 세트 박스깡 추가
           </p>
           <p className="text-xs text-gray-400 mt-1 leading-relaxed">
             {NEW_SIM_SET_NAMES.join(' · ')}
+          </p>
+          <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+            퓨전아츠 누락 힛카드 보강 완료
           </p>
         </div>
 

@@ -1,15 +1,11 @@
 export const NEW_SIM_SET_CODES = [
-  's6k-jet-black-spirit',
-  's5a-matchless-fighters',
-  's5i-single-strike-master',
-  's5r-rapid-strike-master',
+  's4-amazing-volt-tackle',
+  's4a-shiny-star-v',
 ] as const;
 
 export const NEW_SIM_SET_NAMES = [
-  '칠흑의 가이스트',
-  '쌍벽의 파이터',
-  '일격마스터',
-  '연격마스터',
+  '앙천의 볼트태클',
+  '샤이니스타 V',
 ];
 
 const NEW_SIM_SET_CODE_SET = new Set<string>(NEW_SIM_SET_CODES);
