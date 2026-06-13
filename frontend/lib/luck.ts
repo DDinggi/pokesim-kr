@@ -19,6 +19,7 @@ import {
   MEGA_AR_COUNT,
   MEGA_DREAM_EXTRA_SLOT_WEIGHTS,
   MEGA_EXTRA_SR_RATE,
+  SHINY_STAR_V_EXTRA_SLOT_WEIGHTS,
   SHINY_TREASURE_EXTRA_SLOT_WEIGHTS,
   SV11_AR_COUNT,
   SV11_EXTRA_SR_RATE,
@@ -99,9 +100,11 @@ export interface WeightedLuckScore extends LuckEventSummary {
 export type LuckBand = 'lucky' | 'average' | 'unlucky';
 
 const TOP_RARITY_WEIGHT = 3;
-const OLD_HIGH_RARITIES = ['SR_ALT', 'SR', 'CSR', 'HR', 'SAR', 'UR', 'UR_LOW', 'GRA'] as const;
+const OLD_HIGH_RARITIES = ['A', 'SR_ALT', 'SR', 'CSR', 'HR', 'SAR', 'UR', 'UR_LOW', 'GRA'] as const;
 const SCORE_EPSILON = 1e-9;
 const SCORE_WEIGHTS: Record<string, number> = {
+  S: 0.08,
+  A: 0.5,
   SSR: 0.5,
   SR_ALT: 1.2,
   SR: 0.5,
@@ -115,6 +118,8 @@ const SCORE_WEIGHTS: Record<string, number> = {
   BWR: 3,
 };
 const PACK_SCORE_WEIGHTS: Record<string, number> = {
+  S: 0.25,
+  A: 1,
   SR: 1,
   SR_ALT: 2,
   CSR: 2,
@@ -129,7 +134,7 @@ const PACK_SCORE_WEIGHTS: Record<string, number> = {
 };
 const LUCK_COMBINATION_RULES = {
   primaryHitKeys: ['MUR', 'BWR', 'UR', 'GRA', 'SAR', 'HR', 'SR_ALT'],
-  secondaryHitKeys: ['MA', 'SSR', 'CSR', 'SR'],
+  secondaryHitKeys: ['MA', 'SSR', 'CSR', 'SR', 'A'],
   rarityMultiplier: {
     MUR: 1.2,
     BWR: 1.2,
@@ -139,6 +144,7 @@ const LUCK_COMBINATION_RULES = {
     HR: 0.75,
     SR_ALT: 0.55,
     CSR: 0.4,
+    A: 0.25,
     MA: 0.25,
     SSR: 0.25,
     SR: 0.18,
@@ -572,6 +578,7 @@ function getLuckScoreWeightsForSet(
 
   if (code.startsWith('s') && !code.startsWith('sv') && type !== 'hi-class') {
     return {
+      A: getScoreWeight('A', mode),
       CSR: getScoreWeight('CSR', mode),
       SR_ALT: getScoreWeight('SR_ALT', mode),
       SR: getScoreWeight('SR', mode),
@@ -601,6 +608,7 @@ function getLuckScoreWeightsForSet(
 
   if (type === 'hi-class') {
     return {
+      S: getScoreWeight('S', mode),
       CSR: getScoreWeight('CSR', mode),
       SSR: getScoreWeight('SSR', mode),
       SR: getScoreWeight('SR', mode),
@@ -711,6 +719,13 @@ function getExpectedScoredRarityCounts(
       return counts;
     }
 
+    if (code === 's4a-shiny-star-v') {
+      addExpectedCount(counts, 'S', unitCount * 3);
+      addLoosePackBaselineCount('SSR');
+      addExpectedCountsFromWeights(counts, SHINY_STAR_V_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
+      return counts;
+    }
+
     if (code === 's12a-vstar-universe') {
       addLoosePackBaselineCount('SAR');
       addLoosePackBaselineCount('SR');
@@ -812,11 +827,15 @@ function subtractBaselineCounts(
   const code = set?.code ?? opening.setCode;
   const isHiClassSet =
     set?.type === 'hi-class'
-    || ['sv8a-terastal-festa', 'sv4a-shiny-treasure-ex', 's12a-vstar-universe', 's8b-vmax-climax', 'm-dream-ex'].includes(code);
+    || ['sv8a-terastal-festa', 'sv4a-shiny-treasure-ex', 's4a-shiny-star-v', 's12a-vstar-universe', 's8b-vmax-climax', 'm-dream-ex'].includes(code);
   if (isHiClassSet && ['sv8a-terastal-festa', 's12a-vstar-universe'].includes(code)) {
     counts.SAR = Math.max(0, (counts.SAR ?? 0) - opening.boxes);
   }
   if (code === 'sv4a-shiny-treasure-ex') {
+    counts.SSR = Math.max(0, (counts.SSR ?? 0) - opening.boxes);
+  }
+  if (code === 's4a-shiny-star-v') {
+    counts.S = Math.max(0, (counts.S ?? 0) - opening.boxes * 3);
     counts.SSR = Math.max(0, (counts.SSR ?? 0) - opening.boxes);
   }
   if (code === 's12a-vstar-universe') {
@@ -883,6 +902,8 @@ function estimateExpectedScorePerBox(
 function scoreFromRarityWeightKey(key: string, mode: LuckScoreMode): number {
   if (key === '25TH') return ANNIVERSARY_25_LUCK_SCORE_WEIGHTS[key] ?? 0;
   if (key === 'S8AP') return ANNIVERSARY_25_LUCK_SCORE_WEIGHTS[key] ?? 0;
+  if (key === 'S') return getScoreWeight('S', mode);
+  if (key === 'A') return getScoreWeight('A', mode);
   if (key === 'SR_ALT') return getScoreWeight('SR_ALT', mode);
   if (key.startsWith('SR')) return getScoreWeight('SR', mode);
   if (key === 'CSR') return getScoreWeight('CSR', mode);
@@ -1003,6 +1024,10 @@ function getBoxScoreDistribution(
       return distributionFromWeights(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS, 'box');
     }
 
+    if (code === 's4a-shiny-star-v') {
+      return distributionFromWeights(SHINY_STAR_V_EXTRA_SLOT_WEIGHTS, 'box');
+    }
+
     if (code === 's12a-vstar-universe') {
       return convolveDistributions(
         distributionFromWeights(VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS, 'box'),
@@ -1109,6 +1134,21 @@ function getPackScoreDistribution(
       return convolveDistributions(
         distribution,
         optionalPackDistributionFromBoxWeights(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS, boxSize, 'pack'),
+      );
+    }
+
+    if (code === 's4a-shiny-star-v') {
+      distribution = convolveDistributions(
+        distribution,
+        bernoulliDistribution(getScoreWeight('S', 'pack'), 3 / boxSize),
+      );
+      distribution = convolveDistributions(
+        distribution,
+        bernoulliDistribution(getScoreWeight('SSR', 'pack'), 1 / boxSize),
+      );
+      return convolveDistributions(
+        distribution,
+        optionalPackDistributionFromBoxWeights(SHINY_STAR_V_EXTRA_SLOT_WEIGHTS, boxSize, 'pack'),
       );
     }
 
@@ -1393,6 +1433,14 @@ export function getLuckRatesForSet(
           weightChance(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS, 'UR')
           + weightChance(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS, 'SSR'),
         sarPerBox: 1 + weightChance(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS, 'SAR'),
+      };
+    }
+
+    if (set.code === 's4a-shiny-star-v') {
+      return {
+        boxSize,
+        topPerBox: weightChance(SHINY_STAR_V_EXTRA_SLOT_WEIGHTS, 'UR'),
+        sarPerBox: 0,
       };
     }
 

@@ -2,138 +2,229 @@
 
 이 문서는 새 카드 세트를 추가할 때의 작업 순서를 고정하기 위한 운영 노트다.
 카드 메타의 SSOT는 `data/sets/*.json`이고, 앱에서 읽는 사본은
-`frontend/public/sets/*.json`이다.
+`frontend/public/sets/*.json`이다. 한 번에 빠짐없이 따라갈 수 있는 **엔드투엔드 체크리스트**를
+"전체 작업 순서"에 두고, 세부는 아래 전용 섹션에서 설명한다.
 
-## 이번 변경 요약
+## 변경 이력
 
-- `sv9-battle-partners`, `sv7-stellar-miracle`, `sv7a-paradise-dragona` 세트 추가
-- 세트 선택, 박스깡, 자판기깡에서 세 세트가 노출되도록 연결
-- 박스 이미지 매핑 추가: `partners.png`, `miracle.png`, `dragona.png`
-- `ACE` rarity를 UI/검증/시뮬에서 인식하도록 추가
-- 스텔라미라클/낙원드래고나는 ACE SPEC 1장 박스 모델 적용
-- 세 세트의 RR은 박스 기준 `4장 + 10% 확률로 1장 추가`로 고정
-- 카드 이미지 256/512 WebP variant를 R2에 업로드 및 검증
-- `optimize-card-images.ts`는 `wmimages/...` 원본을 공식 이미지 CDN에서 받아 R2 variant만 업로드하도록 수정
+- **2026-06-11** — 소드실드 4종(`s6k-jet-black-spirit`, `s5a-matchless-fighters`,
+  `s5i-single-strike-master`, `s5r-rapid-strike-master`) 추가.
+  - pokemoncard.co.kr 검색 API로 세트명/CDN 폴더/파일 prefix 디스커버리
+  - 일본판 보강 시크릿(`external/...`)의 깨진 한글명(`???`)을 fullahead 일본어 카드명 +
+    동일 세트 기본 카드 한국어 표기 + 마스크 글자수 교차검증으로 복원
+  - `STANDARD_SV_SET_RATES`에 `SWSH_BASE_EXPANSION` 공통 레이트로 등록(운/시뮬 자동 연결)
+  - fullahead 일본판 시세 → `jpy_krw × jp_to_kr_factor(0.65)`로 한국판 추정가 산출
+  - `build:luck-dist`로 시세 운(가치 운) 분포 `luck_value_ref` 생성
+  - 카드 이미지 256/512 WebP variant R2 업로드, 박스 이미지 `{code}.png`로 통일
+- **(이전)** `sv9-battle-partners`, `sv7-stellar-miracle`, `sv7a-paradise-dragona` 추가 시
+  ACE rarity 인식, ACE SPEC 박스 모델, RR `4 + 10%` 슬롯, 256/512 variant 파이프라인 정립.
 
-## 폴더 역할
+## 폴더 / 스크립트 역할
 
 | 경로 | 역할 |
 | --- | --- |
 | `data/sets/*.json` | 카드/세트 원본 데이터. 직접 수정은 여기부터 한다. |
 | `frontend/public/sets/*.json` | Next 앱이 정적으로 fetch하는 세트 데이터 사본. `sync`로 맞춘다. |
 | `data/sets-index.json` | 앱에 노출할 active/planned 세트 목록. |
+| `data/prices/price-matches.json` | 환율(`jpy_krw`), `jp_to_kr_estimate_factor`, rarity 하한가, 카드별 수동 시세 오버라이드. |
 | `frontend/lib/simulation/` | 봉입률 모델과 시뮬레이션 내부 구현. |
 | `frontend/lib/simulator.ts` | 컴포넌트가 쓰는 공개 API. `simulateBox`, `simulatePack`만 여기서 보면 된다. |
 | `frontend/lib/rarity.ts` | rarity 정렬, 배지, 홀로/히트 판정. |
-| `frontend/lib/boxImages.ts` | 세트 코드별 박스 이미지 파일명 매핑. |
+| `frontend/lib/luck.ts` | 운 점수/기대값/분포. 시세 운은 `luck_value_ref`를 읽는다. |
+| `frontend/lib/boxImages.ts` | 세트 코드별 박스 이미지 파일명 매핑. 파일명이 `{code}.png`면 매핑 불필요. |
 | `frontend/lib/images.ts` | 카드 이미지 URL 해석. 256/512 variant 경로를 만든다. |
+| `frontend/lib/newSets.ts` | 메인/세트선택 화면 `NEW` 뱃지에 노출할 코드·이름. |
+| `frontend/app/page.tsx` | 전 세트 import + `sets` 배열(노출 순서). |
+| `frontend/components/SetPicker.tsx` | 세트 선택 화면. `SET_THEMES` 그라데이션 + 상단 NEW 배너. |
+| `frontend/components/MainScreen.tsx` | 첫 화면 공지 블록. |
 | `frontend/public/boxes/` | 박스 이미지 정적 파일. |
-| `scripts/fetch-pokemoncard.ts` | pokemoncard.co.kr에서 한국판 카드 메타 수집. |
-| `scripts/manual-add.ts` | TSV로 누락 카드 수동 보강. |
-| `scripts/fetch-jp-images.ts` | 일본판 보강 이미지 수집용 보조 스크립트. |
-| `scripts/migrate-to-r2.ts` | 원본 카드 이미지를 R2에 업로드/검증. |
-| `scripts/optimize-card-images.ts` | 256/512 WebP variant 생성 및 R2 업로드/검증. |
-| `scripts/validate-card-data.ts` | 세트 JSON, active index, 이미지 키, rarity 검증. |
-| `scripts/validate-luck-model.ts` | 새 세트가 시뮬/운 계산 모델에 명시적으로 연결됐는지 검증. |
-| `scripts/sync-sets.ts` | `data/sets`를 `frontend/public/sets`로 복사. |
+| `scripts/discover-set.ts` (`discover`) | pokemoncard.co.kr 검색 API로 세트 폴더/파일 prefix/card_num prefix/번호 범위/shop code 식별. |
+| `scripts/fetch-pokemoncard.ts` (`collect`) | pokemoncard.co.kr에서 한국판 카드 메타 수집. |
+| `scripts/manual-add.ts` (`manual-add`) | TSV로 누락 카드 수동 보강. |
+| `scripts/fetch-jp-images.ts` (`fetch-jp-images`) | 일본판 보강 이미지 수집용 보조 스크립트. |
+| `scripts/fetch-fullahead-prices.ts` (`fetch:fullahead-prices`) | fullahead 일본판 시세 → 한국판 추정가 기입. |
+| `scripts/build-luck-distributions.ts` (`build:luck-dist`) | 시세 운 분포 `luck_value_ref`(박스/팩 중앙값·분위수) 생성. |
+| `scripts/migrate-to-r2.ts` (`migrate-to-r2`) | 원본 카드 이미지를 R2에 업로드/검증. |
+| `scripts/optimize-card-images.ts` (`optimize:images`) | 256/512 WebP variant 생성 및 R2 업로드/검증. |
+| `scripts/validate-card-data.ts` (`validate:data`) | 세트 JSON, active index, 이미지 키, rarity 검증. |
+| `scripts/validate-luck-model.ts` (`validate:luck`) | 새 세트가 시뮬/운 모델에 명시적으로 연결됐는지 검증. |
+| `scripts/validate-value-luck.ts` (`validate:value-luck`) | 시세 운 분포/가치 계산 정합 검증. |
+| `scripts/sync-sets.ts` (`sync`) | `data/sets`를 `frontend/public/sets`로 복사. |
 
-## 새 세트 추가 순서
+> 모든 스크립트는 레포 루트에서 `pnpm --dir scripts <name> -- <args>`로 돌린다.
+> 이미지/R2 작업은 `frontend/.env.local`의 `R2_ACCOUNT_ID/ACCESS_KEY_ID/SECRET_ACCESS_KEY`가 필요하다.
 
-1. `data/sets/<set-code>.json`을 만든다.
-   기존 세트를 복사해서 `code`, `name_ko`, `series`, `type`,
-   `release_date`, `box_size`, `pack_size`, `price`, `rarities`,
-   `box_guarantees`를 먼저 채운다.
+## 전체 작업 순서
 
-2. 한국 공식 제품/카드 페이지 기준으로 카드 메타를 수집한다.
+0. **디스커버리** — 검색어로 세트를 식별한다(상세는 아래 "디스커버리" 섹션).
 
-```powershell
-pnpm --dir scripts collect -- --set <set-code>
-```
+   ```powershell
+   pnpm --dir scripts discover -- "일격마스터"
+   ```
 
-3. 자동 수집 누락이 있으면 TSV로 보강한다.
+   확보할 것: 정확한 검색어, CDN 폴더 prefix(`wmimages/S/S5/`), 파일 prefix(`S5I`),
+   `card_num` prefix(`BS2021001`), fullahead shop code(= 파일 prefix 소문자, `s5i`),
+   번호 범위. 자매 세트/프로모 폴더가 섞이면 스크립트가 prefix별로 갈라 보여준다.
+1. `data/sets/<code>.json` 스켈레톤 작성. 기존 세트를 복사해 `code`, `name_ko/en/jp`,
+   `series`, `type`(expansion/enhanced/hi-class/starter), `release_date`, `box_size`,
+   `pack_size`, `*_price_krw`, `rarities`, `box_guarantees`, `pack_slots: []`를 채우고,
+   `cards`에는 폴더 prefix를 잡아줄 seed 카드 1장(`image_url`)만 둔다.
+   - `rarities`는 길이 내림차순 substring 매칭이라 넉넉한 상위집합으로 둔다(누락 시 rarity=null).
+2. 카드 메타 수집:
 
-```powershell
-pnpm --dir scripts manual-add -- --set <set-code> --tsv data/manual/<set-code>-additions.tsv
-```
+   ```powershell
+   pnpm --dir scripts collect -- --set <code>
+   # 검색어가 세트명과 다르면(예: "일격마스터") 오버라이드
+   pnpm --dir scripts collect -- --set <code> --search-text "일격마스터"
+   ```
 
-4. `data/sets-index.json`의 `active_sets`에 세트 코드를 추가한다.
+3. 자동 수집 누락은 TSV로 보강:
 
-5. 박스 이미지가 있으면 `frontend/public/boxes/`에 넣고
-   `frontend/lib/boxImages.ts`에 매핑한다.
+   ```powershell
+   pnpm --dir scripts manual-add -- --set <code> --tsv data/manual/<code>-additions.tsv
+   ```
 
-6. 봉입률 모델을 `frontend/lib/simulation/model.ts`에 연결한다.
-   공식 봉입률은 비공개이므로 `box_guarantees._source`,
-   `_sample_size`, `_estimated_at`도 함께 남긴다.
+4. **데이터 검수**: 번호 연속성/누락/null/레어도 분포/이미지 prefix를 확인한다.
+   한국 CDN에 없는 시크릿(`external/...`)은 일본판 보강이라 한글명이 `???`로 깨질 수 있다 →
+   "일본판 보강 카드 한글명 복원" 섹션으로 처리한다.
+5. `data/sets-index.json`의 `active_sets`에 코드 추가.
+6. **봉입률 모델 연결**(`frontend/lib/simulation/model.ts`). 공식 봉입률은 비공개이므로
+   `box_guarantees._source/_sample_size/_estimated_at`도 같이 남긴다.
+   - 일반 SV / SWSH 확장팩: `STANDARD_SV_SET_RATES`에 코드 추가(SWSH 공통은 `SWSH_BASE_EXPANSION`).
+   - 캐릭터 SR 등 알트아트가 있으면 `ALT_SR_NUMBER_RANGES`에 번호 범위 추가.
+   - ACE SPEC 세트: `ACE_SPEC_SET_CODES`에도 추가.
+   - MEGA 확장팩: `EXPANSION_MONSTER_WEIGHTS` + `MEGA_MAIN_SR_NUMBER_RANGES`.
+   - SV11 특수/하이클래스: `isSv11SpecialSet()` / `hi-class.ts` 전용 분기 확인.
+   - `STANDARD_SV_SET_RATES`에 등록하면 `luck.ts`의 `getStandardSvSetRate` 경로로
+     **운 모델이 자동 연결**된다(별도 luck 코드 불필요). 특수 분기 세트만 7번을 직접 확인.
+7. **운 모델 정합**(특수 분기 세트만). 운은 시뮬 재실행 없이 `luck.ts` 기대값/분포로 계산하므로
+   박스 슬롯/고정 슬롯을 바꾸면 다음을 같이 본다: `getLuckRatesForSet()`,
+   `subtractBaselineCounts()`, `getBoxScoreDistribution()`, `getPackScoreDistribution()`,
+   `getExpectedScoredRarityCounts()`. 박스는 고정 슬롯을 베이스라인으로 차감하고,
+   1팩/자판기는 같은 박스 모델 기대값을 `1 / box_size`로 환산한다.
+8. **프론트 등록**:
+   - `frontend/app/page.tsx` — `import` + `sets` 배열에 추가(노출 순서).
+   - `frontend/components/SetPicker.tsx` — `SET_THEMES`에 그라데이션, 필요 시 상단 NEW 배너 날짜.
+   - `frontend/lib/newSets.ts` — `NEW_SIM_SET_CODES`/`NEW_SIM_SET_NAMES`를 이번 신상으로 교체.
+   - `frontend/components/MainScreen.tsx` — 첫 화면 공지 문구.
+   - 박스 이미지: 파일명을 `frontend/public/boxes/<code>.png`로 두면 기본 리졸버가 자동 처리
+     (`boxImages.ts` 매핑 불필요). 다른 이름일 때만 `boxImages.ts`에 매핑.
+9. **시세 수집**(아래 "시세 + 시세 운" 섹션):
 
-   - 일반 SV 확장팩: `STANDARD_SV_SET_RATES`에 세트 코드를 추가한다.
-   - ACE SPEC 세트: `ACE_SPEC_SET_CODES`에도 추가한다.
-   - MEGA 확장팩: `EXPANSION_MONSTER_WEIGHTS`와
-     `MEGA_MAIN_SR_NUMBER_RANGES`에 추가한다.
-   - SV11 특수 구성: 같은 모델을 쓰는 신규 코드라면 `isSv11SpecialSet()`을 갱신한다.
-   - 하이클래스팩: `hi-class.ts`와 `luck.ts`에 전용 분기가 필요한지 먼저 확인한다.
+   ```powershell
+   pnpm --dir scripts fetch:fullahead-prices -- --set <code> --dry-run
+   pnpm --dir scripts fetch:fullahead-prices -- --set <code>
+   ```
 
-7. 운 계산 모델을 시뮬 모델과 맞춘다.
-   운 계산은 시뮬을 다시 돌리지 않고 `luck.ts`의 기대값/분포로 계산한다.
-   따라서 박스 슬롯을 추가하거나 고정 슬롯을 바꾸면 다음을 같이 확인한다.
+10. **시세 운(가치 운) 분포 생성** — 반드시 시세 수집 뒤에:
 
-   - `getLuckRatesForSet()` — SAR/top 기대값
-   - `subtractBaselineCounts()` — 박스 고정 슬롯 차감
-   - `getBoxScoreDistribution()` — 박스 단위 운 점수 분포
-   - `getPackScoreDistribution()` — 자판기/1팩 단위 운 점수 분포
-   - `getExpectedScoredRarityCounts()` — 운 화면 표시용 기대 힛카드 수
+    ```powershell
+    pnpm --dir scripts build:luck-dist -- --set <code>
+    ```
 
-   특히 박스 보장 슬롯이 있는 세트는 박스와 1팩/자판기가 다르다.
-   박스는 고정 슬롯을 베이스라인으로 차감하고, 1팩/자판기는 같은 박스 모델의
-   기대값을 `1 / box_size`로 환산한다.
+11. public 동기화:
 
-8. public 세트 JSON을 동기화한다.
+    ```powershell
+    pnpm --dir scripts sync -- --set <code>
+    ```
 
-```powershell
-pnpm --dir scripts sync -- --set <set-code>
-```
+12. 검증:
 
-9. 데이터 검증을 돌린다.
+    ```powershell
+    pnpm --dir scripts validate:data -- --set <code> --strict
+    pnpm --dir scripts validate:luck -- --set <code> --strict
+    pnpm --dir scripts validate:value-luck -- --set <code>
+    ```
 
-```powershell
-pnpm --dir scripts validate:data -- --set <set-code> --strict
-```
+    신상 직후 임시 기본 모델을 의도적으로 쓸 땐 `--strict` 없이 돌리고 경고를 PR에 남긴다.
+13. 이미지 R2 업로드/검증:
 
-10. 운/시뮬 모델 연결 검증을 돌린다.
+    ```powershell
+    pnpm --dir scripts migrate-to-r2 -- --set <code>
+    pnpm --dir scripts optimize:images -- --set <code> --sizes "256,512" --concurrency 6
+    pnpm --dir scripts optimize:images -- --set <code> --sizes "256,512" --verify-only --concurrency 8
+    ```
 
-```powershell
-pnpm --dir scripts validate:luck -- --set <set-code> --strict
-```
+    `optimize:images`는 일반 카드는 공식 이미지 CDN(`wmimages/...`)에서, 시크릿은
+    카드의 `_image_source_url`(일본판 보강 출처)에서 받아 256/512 WebP로 R2에 올린다.
+14. 새너티 + 프론트 검증:
 
-신상 발매 직후 임시 기본 모델을 의도적으로 쓰는 경우에는 `--strict` 없이 돌리고,
-경고 내용을 PR 설명에 남긴다.
+    ```powershell
+    pnpm --dir frontend exec tsc --noEmit
+    pnpm --dir frontend lint
+    pnpm --dir frontend build
+    ```
 
-11. 원본 이미지를 R2에 올리고 검증한다.
+    추가로 박스 몬테카를로(예: 3,000박스)를 돌려 박스당 RR/RRR/톱히트 수, 2히트 박스 비율이
+    `box_guarantees`와 맞는지 눈으로 확인하면 좋다.
+15. 박스 이미지는 직접 넣고(`{code}.png`), 브랜치/PR로 올린다(커밋은 Conventional Commits,
+    한국어 설명, AI 흔적 라인 금지). main 직접 push 금지(D-134).
 
-```powershell
-pnpm --dir scripts migrate-to-r2 -- --set <set-code>
-pnpm --dir scripts migrate-to-r2 -- --set <set-code> --verify-only --concurrency 8
-```
+## 디스커버리 (pokemoncard.co.kr 검색 API)
 
-12. 256/512 WebP variant를 만들고 검증한다.
+`pnpm --dir scripts discover -- "<검색어>"`로 폴더/파일 prefix/card_num prefix/번호 범위/
+shop code를 한 번에 뽑는다. 자매 세트나 프로모가 섞이면 prefix별로 갈라 보여주고, 특정
+prefix만 보려면 `--prefix S5I`를 붙인다. 아래는 그 스크립트의 내부 동작과 알아둘 함정이다.
 
-```powershell
-pnpm --dir scripts optimize:images -- --set <set-code> --sizes "256,512" --concurrency 4
-pnpm --dir scripts optimize:images -- --set <set-code> --sizes "256,512" --verify-only --concurrency 8
-```
+엔드포인트는 사이트 JS와 동일하게
+`POST https://pokemoncard.co.kr/v2/ajax2_dev2`, `FormData`로
+`action=search_text_cards`, `search_text=<검색어>`, `search_params=all`, `limit=<커서>`.
+첫 호출 `limit=0`, 응답의 `limit`이 다음 커서, `count=0`이면 종료.
 
-13. 프론트 검증을 돌린다.
+- 결과의 `feature_image`에서 폴더(`wmimages/S/S5/`)와 파일 prefix(`S5I_081`)를, `CardNum`에서
+  `BS2021001...` prefix를 얻는다.
+- **검색어 함정**: 공식 표기와 검색 인덱스가 다를 수 있다(예: "일격 마스터"는 0건, "일격마스터"는 매칭).
+  `collect`에는 `--search-text`로 검증된 검색어를 넘긴다.
+- **폴더 공유**: 자매 세트가 폴더를 공유한다(`S5I`/`S5R` 둘 다 `wmimages/S/S5/`,
+  `S6K`/`S6H` 둘 다 `wmimages/S/S6/`). `collect`의 폴더 필터는 같지만 세트명 검색이
+  분리해 주므로, 수집 후 파일 prefix(`S5I_` vs `S5R_`)로 교차오염이 없는지 확인한다.
+- fullahead shop code = 파일 prefix 소문자(`S5I` → `s5i`). 시세 수집은 카드 `image_url`의
+  파일 prefix에서 자동 추출한다.
 
-```powershell
-pnpm --dir frontend lint
-pnpm --dir frontend build
-```
+## 일본판 보강 카드 한글명 복원 (`???` 처리)
+
+한국 CDN에 없는 시크릿(SR/HR/UR)은 일본판 보강(`external/...`)으로 들어오는데, 한글명이
+`??? VMAX`처럼 깨져 들어올 수 있다. `?`는 **글자 수가 보존**되므로 다음으로 정확히 복원한다.
+
+1. fullahead 카드 타이틀에서 일본어 카드명 + 번호 + 레어도를 얻는다
+   (`span.itemName`의 `PK-<SHOP>-<번호> <이름> <레어도>`).
+2. 일본어→한국어 매핑은 **같은 세트 기본 카드**에서 가져온다. V/VMAX 시크릿은 같은 포켓몬의
+   기본 V(RR)·VMAX(RRR) 카드가 한국어 표기를 갖고 있고, 번호가 정렬돼 있어 바로 짝지어진다.
+   골드(UR)·트레이너는 세트 내 일반 카드(C/U)의 한국어 표기를 쓴다.
+3. 마스크된 `?`의 글자 수/띄어쓰기 패턴으로 후보를 교차검증한다
+   (예: `?? ???? VMAX` = 2글자+4글자 → "일격 우라오스 VMAX").
+4. `name_ko`와 함께 `card_type`(포켓몬/트레이너/에너지)도 채운다. 이후 `sync` + `build:luck-dist`
+   재실행(카드 타입이 히트 판정/가치에 영향).
+
+> 보강 출처에 따라 `name_ko`가 일본어/깨짐일 수 있으니, 시크릿은 항상 4번 검수에서 눈으로 본다.
+
+## 시세 + 시세 운(가치 운) 파이프라인
+
+한국판 공식 시세 데이터가 없으므로 **일본판 시세에 한국 보정계수를 곱한 추정치**를 쓴다.
+
+- `fetch:fullahead-prices -- --set <code>`
+  - shop code는 카드 `image_url` 파일 prefix에서 자동 추출(`S6K` → `s6k`).
+  - `price_ref_krw = round(priceJpy × jpy_krw × jp_to_kr_factor)`.
+    기본값은 `data/prices/price-matches.json`(`jpy_krw=9.5`, `jp_to_kr_estimate_factor=0.65`),
+    환경변수 `PRICE_JPY_KRW`/`PRICE_JP_TO_KR_FACTOR`로 오버라이드.
+  - 레어도 하한가(`rarity_floor_krw`: AR 1000 / SR 2000 / SAR 5000), 최소 표시가
+    `min_price_ref_krw=1000` 미만은 스킵(`--include-low`로 해제).
+  - 카드 단위 수동 시세는 `price-matches.json`의 `cards.<card_num>`로 고정(일본판 번호 부재 등).
+  - C/U/R/RR/RRR은 기본 제외(고레어만). 결과는 `data/sets` + `frontend/public/sets` 둘 다 기입.
+  - `price_source`에 fullahead URL + `jp_to_kr_factor`를 박아 출처를 남긴다(D-034).
+  - 플래그: `--dry-run`, `--force`(기존 source 덮어쓰기), `--include-low`, `--all`(planned 포함).
+- `build:luck-dist -- --set <code>`
+  - 박스 20,000회 / 팩 40,000회 시뮬로 "전형적(중앙값) 박스/팩 가치"를 구해
+    `luck_value_ref`(box/pack median + 분위수)를 세트 JSON에 박는다.
+  - **반드시 시세 수집 뒤**에, 그리고 가격이나 `card_type`(히트 판정)을 바꾸면 다시 돌린다.
+  - 시세 운은 시뮬을 다시 돌리지 않고 이 분위수로 observed/expected 등급을 매긴다.
 
 ## 봉입률 기록 원칙
 
 - 한국판 공식 봉입률은 비공개다.
 - `box_guarantees`는 표시용 메타이고, 실제 시뮬 모델은
   `frontend/lib/simulation/model.ts`와 `expansion.ts`가 사용한다.
-- `SR 1장 확정`이라고 쓰지 않는다. 일반 SV는 `SR/SAR/UR 중 1장`,
+- `SR 1장 확정`이라고 쓰지 않는다. 일반 SV/SWSH는 `SR/HR/UR 중 1장`,
   MEGA는 `비서포트 트레이너즈 SR 1장 + SR/SAR/MUR 중 1장`,
   블랙볼트/화이트플레어는 `SR 1장 + SAR/BWR 선택 슬롯`처럼 슬롯 단위로 기록한다.
 - RR처럼 박스 내 장수 범위가 확인된 슬롯은 평균 가중치가 아니라 명시 슬롯으로 구현한다.
@@ -146,14 +237,16 @@ pnpm --dir frontend build
 ## 자주 나는 실수
 
 - `data/sets`만 고치고 `frontend/public/sets`를 동기화하지 않음
+- `page.tsx`/`SetPicker`/`newSets`에 등록을 빠뜨려 화면에 안 뜸
 - `ACE` 같은 새 rarity를 `rarity.ts`나 `validate-card-data.ts`에 추가하지 않음
 - 새 세트를 `STANDARD_SV_SET_RATES`/`EXPANSION_MONSTER_WEIGHTS`에만 넣고
-  `luck.ts`의 기대값/베이스라인/분포를 확인하지 않음
+  `luck.ts`의 기대값/베이스라인/분포(특수 분기)를 확인하지 않음
 - 박스 모델만 맞추고 `getPackScoreDistribution()`을 빼먹어서 자판기 운이 틀어짐
+- 시세를 수집하고 `build:luck-dist`를 안 돌려 `luck_value_ref`가 비거나 옛값으로 남음
+- `card_type`을 고친 뒤 `build:luck-dist`를 다시 안 돌림
 - 이미지 원본은 있는데 `cards/256`, `cards/512` variant가 없어 로컬에서 이름만 보임
+- 일본판 보강 시크릿의 `???`/일본어 `name_ko`를 그대로 둠
 - 평균 RR 수만 맞추고 박스당 RR 최대치를 제한하지 않음
-- MEGA의 비서포트 트레이너즈 SR 확정 슬롯과 포켓몬/서포트 SR 슬롯을 섞어 버림
-- ACE SPEC 카드를 일반 C/U로 둬서 박스 ACE 슬롯이 비어 버림
 - 한국판 공식 확률처럼 보이는 문구를 사용함
 
 ## 신규 rarity 발견 시 (D-150)

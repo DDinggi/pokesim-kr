@@ -303,7 +303,13 @@
       "type": "불꽃",
       "image_url": "wmimages/S/S9a/S9a_011.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022004019",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "price_ref_krw": 700,
+      "price_ref_jpy": 120,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000020357/s09a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2022004021",
@@ -998,7 +1004,13 @@
       "type": "격투",
       "image_url": "wmimages/S/S9a/S9a_043.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022004072",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "price_ref_krw": 700,
+      "price_ref_jpy": 120,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000020389/s09a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2022004073",
@@ -2020,24 +2032,24 @@
   "_fetched_at": "2026-05-26",
   "_notes": "S9a. Korean official card/product metadata from pokemoncard.co.kr. Pull-rate model uses Japanese community estimates; Korean official pull rates are private.",
   "luck_value_ref": {
-    "box_median_krw": 16100,
+    "box_median_krw": 16300,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
-      12000,
-      13200,
-      13800,
-      14400,
-      15000,
+      12700,
+      13900,
+      14500,
+      15100,
       15500,
-      16100,
-      16900,
-      18000,
-      20600,
-      66900,
-      138000,
+      15700,
+      16300,
+      17300,
+      18500,
+      21300,
+      67600,
+      138700,
       140900,
       142100,
-      269300
+      269500
     ],
     "pack_quantiles_krw": [
       0,
@@ -2077,6 +2089,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-10"
+    "_built_at": "2026-06-13"
   }
 }

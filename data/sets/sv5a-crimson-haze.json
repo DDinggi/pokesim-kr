@@ -807,7 +807,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV5a/SV5a_058.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024007058",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "price_ref_krw": 300,
+      "price_ref_jpy": 50,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000050096/sv05a/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2024007059",
@@ -1494,23 +1500,23 @@
   "_source": "pokemoncard.co.kr",
   "_fetched_at": "2026-05-15",
   "luck_value_ref": {
-    "box_median_krw": 27300,
+    "box_median_krw": 27500,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
-      12600,
-      15800,
+      12900,
+      15900,
       16700,
       18500,
-      20500,
-      22900,
-      27300,
+      20700,
+      23100,
+      27500,
       34000,
-      48300,
-      53200,
+      48500,
+      53400,
       82000,
-      129900,
+      130200,
       349600,
-      375700,
+      376000,
       444000
     ],
     "pack_quantiles_krw": [
@@ -1551,6 +1557,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-10"
+    "_built_at": "2026-06-13"
   }
 }

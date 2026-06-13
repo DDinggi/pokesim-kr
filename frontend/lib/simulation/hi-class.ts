@@ -5,6 +5,7 @@ import {
   HI_CLASS_GOD_PACK_RATE,
   MEGA_DREAM_EXTRA_SLOT_WEIGHTS,
   MEGA_MAIN_SR_NUMBER_RANGES,
+  SHINY_STAR_V_EXTRA_SLOT_WEIGHTS,
   SHINY_TREASURE_EXTRA_SLOT_WEIGHTS,
   TERASTAL_EXTRA_SLOT_WEIGHTS,
   VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE,
@@ -66,6 +67,25 @@ export function simulateHiClassBox(
         rarity: extraRarity,
         pool: extraRarity === 'SAR' && sarPool.length ? sarPool : undefined,
       });
+    }
+
+    return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
+  }
+
+  if (setCode === 's4a-shiny-star-v') {
+    const sPool = byRarity.S ?? [];
+    const ssrPool = pools.ssrPokemon.length ? pools.ssrPokemon : pools.ssrAll;
+    const hits: HiClassHitSlot[] = [];
+
+    for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
+    for (let i = 0; i < 3; i++) {
+      if (sPool.length) hits.push({ rarity: 'S', pool: sPool });
+    }
+    if (ssrPool.length) hits.push({ rarity: 'SSR', pool: ssrPool });
+
+    const extraRarity = ctx.weightedPick(SHINY_STAR_V_EXTRA_SLOT_WEIGHTS);
+    if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
+      hits.push({ rarity: extraRarity });
     }
 
     return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
@@ -170,6 +190,25 @@ export function simulateSingleHiClassPack(
         rarity: extraRarity,
         pool: extraRarity === 'SAR' && sarPool.length ? sarPool : undefined,
       });
+    }
+
+    return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
+  }
+
+  if (setCode === 's4a-shiny-star-v') {
+    const sPool = byRarity.S ?? [];
+    const ssrPool = pools.ssrPokemon.length ? pools.ssrPokemon : pools.ssrAll;
+    const hits: HiClassHitSlot[] = [];
+
+    if (rng() < 9 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
+    if (rng() < 3 / HI_CLASS_BOX_SIZE && sPool.length) hits.push({ rarity: 'S', pool: sPool });
+    if (rng() < 1 / HI_CLASS_BOX_SIZE && ssrPool.length) {
+      hits.push({ rarity: 'SSR', pool: ssrPool });
+    }
+
+    const extraRarity = pickBoxSlotForSinglePack(ctx, SHINY_STAR_V_EXTRA_SLOT_WEIGHTS);
+    if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
+      hits.push({ rarity: extraRarity });
     }
 
     return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });

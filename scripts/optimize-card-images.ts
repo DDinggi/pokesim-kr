@@ -28,6 +28,7 @@ const argv = process.argv.slice(2);
 const dryRun = argv.includes("--dry-run");
 const force = argv.includes("--force");
 const verifyOnly = argv.includes("--verify-only");
+const externalOnly = argv.includes("--external-only");
 const targetSet = readArg("--set");
 const targetCard = readArg("--card");
 const targetKey = readArg("--key");
@@ -145,6 +146,9 @@ function collectTasks(): ImageTask[] {
       if (targetCard && card.card_num !== targetCard && String(card.number ?? "") !== targetCard) {
         continue;
       }
+      if (externalOnly && !isExternalSource(card)) {
+        continue;
+      }
 
       const originalKey = targetKey ?? originalKeyFor(setCode, card);
       if (!originalKey) continue;
@@ -159,6 +163,14 @@ function collectTasks(): ImageTask[] {
   }
 
   return Array.from(tasks.values());
+}
+
+function isExternalSource(card: CardEntry): boolean {
+  return Boolean(
+    (card._image_source_url && /^https?:\/\//.test(card._image_source_url))
+      || (card.image_url && /^https?:\/\//.test(card.image_url))
+      || card.image_url?.startsWith("external/"),
+  );
 }
 
 async function processImage(task: ImageTask, stats: Stats) {

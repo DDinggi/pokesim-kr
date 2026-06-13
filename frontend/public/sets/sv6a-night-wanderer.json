@@ -878,7 +878,13 @@
       "type": null,
       "image_url": "wmimages/SV/SV6a/SV6a_063.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024011063",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "price_ref_krw": 500,
+      "price_ref_jpy": 80,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000050656/sv06a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2024011064",
@@ -1468,23 +1474,23 @@
   "_source": "pokemoncard.co.kr",
   "_fetched_at": "2026-05-15",
   "luck_value_ref": {
-    "box_median_krw": 26300,
+    "box_median_krw": 26500,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
-      13800,
+      14300,
       18600,
       19800,
-      21800,
+      22000,
       23500,
-      24800,
-      26300,
-      27900,
-      29900,
+      25000,
+      26500,
+      28100,
+      30000,
       32700,
-      37400,
-      42700,
-      48500,
-      51500,
+      37600,
+      42900,
+      48800,
+      51900,
       65000
     ],
     "pack_quantiles_krw": [
@@ -1525,6 +1531,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-10"
+    "_built_at": "2026-06-13"
   }
 }

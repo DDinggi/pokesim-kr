@@ -182,6 +182,24 @@ body {
   }
 }
 
+@keyframes premium-jackpot-aura {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 2px rgba(255, 255, 255, 0.72) inset,
+      0 0 24px rgba(250, 204, 21, 0.55),
+      0 0 48px rgba(255, 255, 255, 0.38),
+      0 0 72px rgba(244, 114, 182, 0.26);
+  }
+  50% {
+    box-shadow:
+      0 0 0 3px rgba(254, 240, 138, 0.9) inset,
+      0 0 34px rgba(250, 204, 21, 0.82),
+      0 0 66px rgba(255, 255, 255, 0.58),
+      0 0 96px rgba(34, 211, 238, 0.36);
+  }
+}
+
 .premium-hit-card.premium-hit-card--sar {
   box-shadow:
     0 0 0 2px rgba(255, 255, 255, 0.38) inset,
@@ -210,11 +228,24 @@ body {
     0 0 40px rgba(129, 140, 248, 0.46);
 }
 
+.premium-hit-card.premium-hit-card--value,
 .premium-hit-card.premium-hit-card--chase {
   box-shadow:
     0 0 0 2px rgba(165, 243, 252, 0.5) inset,
     0 0 24px rgba(45, 212, 191, 0.5),
     0 0 40px rgba(251, 191, 36, 0.36);
+}
+
+.premium-hit-card.premium-hit-card--rare {
+  box-shadow:
+    0 0 0 2px rgba(253, 186, 116, 0.55) inset,
+    0 0 26px rgba(251, 113, 133, 0.58),
+    0 0 46px rgba(168, 85, 247, 0.42),
+    0 0 58px rgba(250, 204, 21, 0.24);
+}
+
+.premium-hit-card.premium-hit-card--jackpot {
+  animation: premium-jackpot-aura 1.85s ease-in-out infinite;
 }
 
 .premium-hit-sparkle {
@@ -285,6 +316,7 @@ body {
   animation: premium-rainbow-flow 3.4s ease-in-out infinite;
 }
 
+.premium-hit-sparkle--value,
 .premium-hit-sparkle--chase {
   background:
     linear-gradient(
@@ -297,6 +329,35 @@ body {
     );
   background-size: 250% 250%;
   animation: premium-rainbow-flow 3.3s ease-in-out infinite;
+}
+
+.premium-hit-sparkle--rare {
+  background:
+    linear-gradient(
+      115deg,
+      rgba(251, 113, 133, 0.34),
+      rgba(255, 255, 255, 0.22),
+      rgba(168, 85, 247, 0.34),
+      rgba(250, 204, 21, 0.28),
+      rgba(34, 211, 238, 0.24)
+    );
+  background-size: 270% 270%;
+  animation: premium-rainbow-flow 2.85s ease-in-out infinite;
+}
+
+.premium-hit-sparkle--jackpot {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.26), transparent 42%),
+    conic-gradient(
+      from 35deg,
+      rgba(255, 255, 255, 0.42),
+      rgba(250, 204, 21, 0.42),
+      rgba(244, 114, 182, 0.3),
+      rgba(34, 211, 238, 0.3),
+      rgba(255, 255, 255, 0.42)
+    );
+  background-size: 180% 180%, 260% 260%;
+  animation: premium-rainbow-flow 2.35s ease-in-out infinite;
 }
 
 .premium-hit-card {
@@ -380,6 +441,7 @@ body {
     );
 }
 
+.premium-hit-sparkle--value::before,
 .premium-hit-sparkle--chase::before {
   background:
     linear-gradient(
@@ -390,6 +452,34 @@ body {
       rgba(251, 191, 36, 0.58) 58%,
       transparent 78%
     );
+}
+
+.premium-hit-sparkle--rare::before {
+  background:
+    linear-gradient(
+      105deg,
+      transparent 16%,
+      rgba(255, 255, 255, 0.96) 36%,
+      rgba(251, 113, 133, 0.78) 46%,
+      rgba(168, 85, 247, 0.66) 56%,
+      rgba(250, 204, 21, 0.46) 64%,
+      transparent 80%
+    );
+  animation-duration: 2.25s;
+}
+
+.premium-hit-sparkle--jackpot::before {
+  background:
+    linear-gradient(
+      105deg,
+      transparent 12%,
+      rgba(255, 255, 255, 1) 32%,
+      rgba(254, 240, 138, 0.92) 43%,
+      rgba(255, 255, 255, 0.86) 52%,
+      rgba(34, 211, 238, 0.54) 62%,
+      transparent 82%
+    );
+  animation-duration: 1.9s;
 }
 
 .premium-hit-sparkle::after {
@@ -410,6 +500,22 @@ body {
   animation: premium-sparkle-twinkle 1.25s ease-in-out infinite;
 }
 
+.premium-hit-sparkle--rare::after {
+  filter:
+    drop-shadow(0 0 4px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 9px rgba(251, 113, 133, 0.9))
+    drop-shadow(0 0 12px rgba(168, 85, 247, 0.7));
+  animation-duration: 1.05s;
+}
+
+.premium-hit-sparkle--jackpot::after {
+  filter:
+    drop-shadow(0 0 5px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 11px rgba(250, 204, 21, 1))
+    drop-shadow(0 0 16px rgba(34, 211, 238, 0.75));
+  animation-duration: 0.9s;
+}
+
 .premium-hit-sparkle__dust {
   display: block;
   background:
@@ -418,6 +524,24 @@ body {
     radial-gradient(circle at 88% 82%, rgba(255, 255, 255, 0.65) 0 2px, transparent 12px),
     linear-gradient(180deg, rgba(125, 211, 252, 0.22), rgba(244, 114, 182, 0.34));
   animation: premium-sparkle-drift 2.4s ease-in-out infinite;
+}
+
+.premium-hit-sparkle--rare .premium-hit-sparkle__dust {
+  background:
+    radial-gradient(circle at 14% 82%, rgba(255, 255, 255, 0.95) 0 4px, transparent 15px),
+    radial-gradient(circle at 72% 20%, rgba(253, 186, 116, 0.8) 0 4px, transparent 15px),
+    radial-gradient(circle at 86% 78%, rgba(216, 180, 254, 0.78) 0 3px, transparent 13px),
+    linear-gradient(180deg, rgba(251, 113, 133, 0.3), rgba(168, 85, 247, 0.34));
+  animation-duration: 2s;
+}
+
+.premium-hit-sparkle--jackpot .premium-hit-sparkle__dust {
+  background:
+    radial-gradient(circle at 10% 82%, rgba(255, 255, 255, 1) 0 5px, transparent 17px),
+    radial-gradient(circle at 76% 18%, rgba(254, 240, 138, 0.98) 0 5px, transparent 18px),
+    radial-gradient(circle at 88% 80%, rgba(255, 255, 255, 0.88) 0 4px, transparent 15px),
+    linear-gradient(180deg, rgba(250, 204, 21, 0.34), rgba(255, 255, 255, 0.28), rgba(34, 211, 238, 0.22));
+  animation-duration: 1.65s;
 }
 
 /* === 트랜지션 / 로딩 === */

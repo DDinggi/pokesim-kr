@@ -1,9 +1,9 @@
 import type { Card, SetMeta } from './types';
 
-export const DISPLAY_RARITY_ORDER = ['MUR', 'BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'AR', 'CHR', 'K', 'RRR', '25TH', 'RR', 'R', 'U', 'C'];
-export const RARITY_ORDER = ['BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'AR', 'CHR', 'K', 'RRR', '25TH', 'RR', 'R', 'U', 'C'];
-export const FILTER_RARITY_ORDER = ['BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'AR', 'CHR', 'K', 'RRR', '25TH', 'RR'];
-export const HIT_RARITY_ORDER = ['BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'AR', 'CHR', 'K', 'RRR', '25TH'] as const;
+export const DISPLAY_RARITY_ORDER = ['MUR', 'BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'AR', 'A', 'CHR', 'K', 'S', 'RRR', '25TH', 'RR', 'R', 'U', 'C'];
+export const RARITY_ORDER = ['BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'AR', 'A', 'CHR', 'K', 'S', 'RRR', '25TH', 'RR', 'R', 'U', 'C'];
+export const FILTER_RARITY_ORDER = ['BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'AR', 'A', 'CHR', 'K', 'S', 'RRR', '25TH', 'RR'];
+export const HIT_RARITY_ORDER = ['BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'AR', 'A', 'CHR', 'K', 'S', 'RRR', '25TH'] as const;
 
 export const RARITY_BADGE: Record<string, string> = {
   C: 'bg-gray-500 text-white',
@@ -11,6 +11,8 @@ export const RARITY_BADGE: Record<string, string> = {
   R: 'bg-purple-500 text-white',
   RR: 'bg-amber-400 text-gray-900',
   RRR: 'bg-red-400 text-gray-900',
+  S: 'bg-gradient-to-r from-emerald-200 to-teal-300 text-gray-900',
+  A: 'bg-gradient-to-r from-rose-300 via-yellow-200 to-cyan-300 text-gray-950',
   K: 'bg-emerald-300 text-gray-900',
   '25TH': 'bg-indigo-300 text-gray-950',
   CHR: 'bg-sky-300 text-gray-900',
@@ -32,6 +34,8 @@ export const RARITY_BADGE: Record<string, string> = {
 export const CARD_GLOW: Record<string, string> = {
   RR: 'ring-2 ring-amber-400/60',
   RRR: 'ring-2 ring-red-400/70',
+  S: 'ring-2 ring-teal-300/75 shadow-md shadow-teal-400/25',
+  A: 'ring-2 ring-yellow-200/80 shadow-md shadow-rose-400/30',
   K: 'ring-2 ring-emerald-300/80 shadow-md shadow-emerald-400/30',
   '25TH': 'ring-2 ring-indigo-300/80 shadow-md shadow-indigo-400/30',
   CHR: 'ring-2 ring-sky-300/80 shadow-md shadow-sky-400/30',
@@ -66,11 +70,18 @@ export const RARITY_TEXT_COLOR: Record<string, string> = {
   AR: 'text-cyan-300',
   CHR: 'text-sky-300',
   K: 'text-emerald-300',
+  S: 'text-teal-300',
+  A: 'text-yellow-200',
   '25TH': 'text-indigo-300',
   RRR: 'text-red-300',
 };
 
-export const PREMIUM_HIT_PRICE_THRESHOLD_KRW = 100_000;
+export const PREMIUM_HIT_PRICE_TIERS_KRW = {
+  value: 100_000,
+  rare: 300_000,
+  jackpot: 800_000,
+} as const;
+export const PREMIUM_HIT_PRICE_THRESHOLD_KRW = PREMIUM_HIT_PRICE_TIERS_KRW.value;
 
 export const RARITY_TIER: Record<string, string> = {
   C: 'text-gray-400',
@@ -79,6 +90,8 @@ export const RARITY_TIER: Record<string, string> = {
   RR: 'text-amber-300',
   RRR: 'text-red-300',
   K: 'text-emerald-300',
+  S: 'text-teal-300',
+  A: 'text-yellow-200',
   '25TH': 'text-indigo-300',
   CHR: 'text-sky-300',
   ACE: 'text-lime-300',
@@ -103,6 +116,8 @@ export const RARITY_FULL_LABEL: Record<string, string> = {
   RR: '더블레어',
   RRR: '트리플레어',
   K: '찬란한 포켓몬',
+  S: '색이 다른 포켓몬',
+  A: '어메이징레어',
   '25TH': '25주년 홀로',
   CHR: '캐릭터레어',
   ACE: 'ACE SPEC',
@@ -120,9 +135,9 @@ export const RARITY_FULL_LABEL: Record<string, string> = {
   BWR: '블랙 화이트 레어',
 };
 
-export const RARE_RARITIES = new Set(['RR', 'RRR', '25TH', 'S8AP', 'K', 'CHR', 'ACE', 'AR', 'SR', 'SSR', 'CSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR']);
-export const HIT_RARITIES = new Set(['RRR', '25TH', 'S8AP', 'K', 'CHR', 'AR', 'SR', 'SSR', 'CSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR', 'ACE']);
-export const HOLO_RARITIES = new Set(['RR', 'RRR', '25TH', 'S8AP', 'K', 'CHR', 'ACE', 'AR', 'SR', 'SSR', 'CSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR']);
+export const RARE_RARITIES = new Set(['RR', 'RRR', 'S', 'A', '25TH', 'S8AP', 'K', 'CHR', 'ACE', 'AR', 'SR', 'SSR', 'CSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR']);
+export const HIT_RARITIES = new Set(['RRR', 'S', 'A', '25TH', 'S8AP', 'K', 'CHR', 'AR', 'SR', 'SSR', 'CSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR', 'ACE']);
+export const HOLO_RARITIES = new Set(['RR', 'RRR', 'S', 'A', '25TH', 'S8AP', 'K', 'CHR', 'ACE', 'AR', 'SR', 'SSR', 'CSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR']);
 
 type RarityContext =
   | Partial<Pick<Card, 'card_num' | 'image_url' | 'price_ref_krw' | 'price_confidence'>>
@@ -164,23 +179,36 @@ export function rarityFullLabel(rarity: string, context?: RarityContext): string
 }
 
 export function isPremiumPriceHit(context?: RarityContext): boolean {
-  if (!context || typeof context === 'string' || 'code' in context) return false;
+  return premiumPriceSparkleVariant(context) !== null;
+}
 
-  return (
-    context.price_confidence !== 'proxy'
-    && typeof context.price_ref_krw === 'number'
-    && Number.isFinite(context.price_ref_krw)
-    && context.price_ref_krw >= PREMIUM_HIT_PRICE_THRESHOLD_KRW
-  );
+function premiumPriceSparkleVariant(context?: RarityContext): 'value' | 'rare' | 'jackpot' | null {
+  if (!context || typeof context === 'string' || 'code' in context) return null;
+
+  if (
+    context.price_confidence === 'proxy'
+    || typeof context.price_ref_krw !== 'number'
+    || !Number.isFinite(context.price_ref_krw)
+    || context.price_ref_krw < PREMIUM_HIT_PRICE_TIERS_KRW.value
+  ) {
+    return null;
+  }
+
+  if (context.price_ref_krw >= PREMIUM_HIT_PRICE_TIERS_KRW.jackpot) return 'jackpot';
+  if (context.price_ref_krw >= PREMIUM_HIT_PRICE_TIERS_KRW.rare) return 'rare';
+  return 'value';
 }
 
 export function premiumSparkleVariant(rarity: string | null, context?: RarityContext): string | null {
+  const priceVariant = premiumPriceSparkleVariant(context);
+  if (priceVariant) return priceVariant;
+
   const displayRarity = rarity ? rarityLabel(rarity, context) : null;
   if (displayRarity === 'SAR' || displayRarity === 'MUR' || displayRarity === 'BWR' || displayRarity === 'CSR') {
     return displayRarity.toLowerCase();
   }
 
-  return isPremiumPriceHit(context) ? 'chase' : null;
+  return null;
 }
 
 export function isPremiumSparkleRarity(rarity: string | null, context?: RarityContext): boolean {

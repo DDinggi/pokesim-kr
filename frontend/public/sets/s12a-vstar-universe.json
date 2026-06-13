@@ -820,7 +820,13 @@
       "type": "번개",
       "image_url": "wmimages/S/S12a/S12a_039.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023001039",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 700,
+      "price_ref_jpy": 120,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000023035/s12a/page3/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023001040",
@@ -1515,7 +1521,13 @@
       "type": "격투",
       "image_url": "wmimages/S/S12a/S12a_078.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023001078",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "price_ref_krw": 500,
+      "price_ref_jpy": 80,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000023074/s12a/page3/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2023001079",
@@ -5189,23 +5201,23 @@
   "_fetched_at": "2026-05-17",
   "_notes": "pokemoncard.co.kr 검색 API의 BS2023001173 상세 응답이 비어 있어 173번 히스이 찌리리공 AR만 공식 이미지 경로와 일본판 S12a 번호 기준으로 수동 보정.",
   "luck_value_ref": {
-    "box_median_krw": 64800,
-    "pack_median_krw": 0,
+    "box_median_krw": 65100,
+    "pack_median_krw": 700,
     "box_quantiles_krw": [
-      18000,
-      30200,
-      35000,
-      42500,
-      49300,
-      56200,
-      64800,
-      80000,
-      102200,
-      157400,
-      270500,
+      18700,
+      30300,
+      35200,
+      42600,
+      49400,
+      56400,
+      65100,
+      80100,
+      102300,
+      157500,
+      270800,
       371800,
       456600,
-      517700,
+      518400,
       1040400
     ],
     "pack_quantiles_krw": [
@@ -5215,7 +5227,7 @@
       0,
       0,
       0,
-      0,
+      700,
       3000,
       4800,
       9100,
@@ -5246,6 +5258,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-10"
+    "_built_at": "2026-06-13"
   }
 }

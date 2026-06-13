@@ -248,7 +248,13 @@
       "type": "풀",
       "image_url": "wmimages/S/S11a/S11a_009.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016009",
-      "_fetched_at": "2026-05-23"
+      "_fetched_at": "2026-05-23",
+      "price_ref_krw": 700,
+      "price_ref_jpy": 120,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022223/s11a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-06-13",
+      "price_confidence": "source"
     },
     {
       "card_num": "BS2022016010",
@@ -2049,23 +2055,23 @@
   "_fetched_at": "2026-05-23",
   "_notes": "S11a. 한국판 공식 봉입률은 비공개. 일본판 500BOX 실측을 한국판 소드&실드 강화 확장팩 모델에 준용. CHR/CSR은 공식 rarity로 분리.",
   "luck_value_ref": {
-    "box_median_krw": 26700,
+    "box_median_krw": 26900,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
-      12000,
-      16800,
-      18200,
-      20700,
-      22900,
-      24800,
-      26700,
-      29100,
-      31900,
+      12700,
+      17000,
+      18600,
+      21000,
+      23100,
+      25000,
+      26900,
+      29200,
+      32200,
       37100,
       53800,
-      90400,
-      95600,
-      99200,
+      90600,
+      95900,
+      99300,
       175700
     ],
     "pack_quantiles_krw": [
@@ -2106,6 +2112,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-10"
+    "_built_at": "2026-06-13"
   }
 }
