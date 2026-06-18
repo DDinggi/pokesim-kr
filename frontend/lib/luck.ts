@@ -803,6 +803,7 @@ function addStandardFixedSlotCounts(
   code?: string,
 ): void {
   addExpectedCount(counts, 'AR', unitCount * (rate.arCount ?? 3));
+  if (rate.aCount) addExpectedCount(counts, 'A', unitCount * rate.aCount);
   if (rate.kCount) addExpectedCount(counts, 'K', unitCount * rate.kCount);
   if (rate.chrCount) addExpectedCount(counts, 'CHR', unitCount * rate.chrCount);
   if (hasAceSpecSlot(code)) addExpectedCount(counts, 'ACE', unitCount);
@@ -1076,7 +1077,7 @@ function getBoxScoreDistribution(
   if (standardRate) {
     const mandatoryHighWeights = getLuckAdjustedHighWeights(standardRate.mandatoryHighWeights, set ?? (code ? { code } : undefined));
     const extraHighWeights = getLuckAdjustedHighWeights(standardRate.extraHighWeights, set ?? (code ? { code } : undefined));
-    return convolveDistributions(
+    let standardDistribution = convolveDistributions(
       distributionFromWeights(mandatoryHighWeights, 'box'),
       optionalDistributionFromWeights(
         extraHighWeights,
@@ -1084,6 +1085,13 @@ function getBoxScoreDistribution(
         'box',
       ),
     );
+    if (standardRate.aCount) {
+      standardDistribution = convolveDistributions(
+        standardDistribution,
+        [{ score: getScoreWeight('A', 'box') * standardRate.aCount, probability: 1 }],
+      );
+    }
+    return standardDistribution;
   }
 
   return convolveDistributions(
@@ -1253,6 +1261,15 @@ function getPackScoreDistribution(
       distribution,
       weightedSlotDistribution(mandatoryHighWeights, 1 / boxSize, 'pack'),
     );
+    if (standardRate.aCount) {
+      distribution = convolveDistributions(
+        distribution,
+        repeatDistribution(
+          bernoulliDistribution(getScoreWeight('A', 'pack'), 1 / boxSize),
+          standardRate.aCount,
+        ),
+      );
+    }
     return convolveDistributions(
       distribution,
       weightedSlotDistribution(

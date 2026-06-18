@@ -416,6 +416,79 @@ const SWSH_S4_VOLT_TACKLE: StandardSvSetRate = {
   fillerWeights: SWSH_FILLER_WEIGHTS,
 };
 
+const SWSH_S3A_LEGENDARY_HEARTBEAT: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 6,
+    SR_TRAINER: 3,
+    HR_POKEMON: 3,
+    HR_TRAINER: 3,
+    UR: 3,
+  }),
+  extraHighRate: 0.1,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 6,
+    SR_TRAINER: 3,
+    HR_POKEMON: 3,
+    HR_TRAINER: 3,
+    UR: 3,
+  }),
+  aCount: 1,
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: SWSH_FILLER_WEIGHTS,
+};
+
+const SWSH_S3_EARLY_V_SERIES: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 8,
+    SR_TRAINER: 2,
+    HR_POKEMON: 4,
+    HR_TRAINER: 2,
+    UR: 3,
+  }),
+  extraHighRate: 0.1,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 8,
+    SR_TRAINER: 2,
+    HR_POKEMON: 4,
+    HR_TRAINER: 2,
+    UR: 3,
+  }),
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: SWSH_FILLER_WEIGHTS,
+};
+
+const SWSH_S2A_EXPLOSIVE_WALKER: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 6,
+    SR_TRAINER: 2,
+    HR_POKEMON: 3,
+    HR_TRAINER: 2,
+    UR: 3,
+  }),
+  extraHighRate: 0.1,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 6,
+    SR_TRAINER: 2,
+    HR_POKEMON: 3,
+    HR_TRAINER: 2,
+    UR: 3,
+  }),
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0.1,
+  fillerWeights: SWSH_FILLER_WEIGHTS,
+};
+
 const SWSH_SINGLE_RAPID_STRIKE: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
     SR_POKEMON: 6,
@@ -546,6 +619,10 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   's5i-single-strike-master': SWSH_SINGLE_RAPID_STRIKE,
   's5r-rapid-strike-master': SWSH_SINGLE_RAPID_STRIKE,
   's4-amazing-volt-tackle': SWSH_S4_VOLT_TACKLE,
+  's3a-legendary-heartbeat': SWSH_S3A_LEGENDARY_HEARTBEAT,
+  's3-infinity-zone': SWSH_S3_EARLY_V_SERIES,
+  's2a-explosive-walker': SWSH_S2A_EXPLOSIVE_WALKER,
+  's2-rebellion-crash': SWSH_S3_EARLY_V_SERIES,
 };
 
 export const SV11_RR_COUNT = 4;

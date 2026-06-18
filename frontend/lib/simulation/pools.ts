@@ -5,6 +5,7 @@ export interface RarityPools {
   srAll: Card[];
   rrrAll: Card[];
   kAll: Card[];
+  aAll: Card[];
   chrAll: Card[];
   csrAll: Card[];
   ssrAll: Card[];
@@ -24,6 +25,7 @@ export interface RarityPools {
   sarTrainer: Card[];
   urPokemon: Card[];
   bwrPokemon: Card[];
+  aPool: Card[];
   arPool: Card[];
 }
 
@@ -50,6 +52,7 @@ export function getRarityPools(byRarity: Record<string, Card[]>): RarityPools {
   const srAll = byRarity.SR ?? [];
   const rrrAll = byRarity.RRR ?? [];
   const kAll = byRarity.K ?? [];
+  const aAll = byRarity.A ?? [];
   const chrAll = byRarity.CHR ?? [];
   const csrAll = byRarity.CSR ?? [];
   const ssrAll = byRarity.SSR ?? [];
@@ -63,6 +66,7 @@ export function getRarityPools(byRarity: Record<string, Card[]>): RarityPools {
     srAll,
     rrrAll,
     kAll,
+    aAll,
     chrAll,
     csrAll,
     ssrAll,
@@ -82,6 +86,7 @@ export function getRarityPools(byRarity: Record<string, Card[]>): RarityPools {
     sarTrainer: sarAll.filter(isTrainerLikeCard),
     urPokemon: urAll.filter(isPokemonCard),
     bwrPokemon: bwrAll.filter(isPokemonCard),
+    aPool: aAll,
     arPool: byRarity.AR ?? [],
   };
 }

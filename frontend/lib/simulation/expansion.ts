@@ -150,6 +150,9 @@ function buildStandardSvSlots(
   for (let i = 0; i < (rate.chrCount ?? 0); i++) {
     if (pools.chrAll.length) slots.push(pools.chrAll);
   }
+  for (let i = 0; i < (rate.aCount ?? 0); i++) {
+    if (pools.aPool.length) slots.push(pools.aPool);
+  }
   for (let i = 0; i < (rate.arCount ?? 3); i++) slots.push(pools.arPool);
 
   if (rng() < rate.extraHighRate && pools.srAll.length) {
@@ -289,12 +292,13 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
 
   const boxSize = standardSetRate.boxSize ?? defaultBoxSize;
   const arCount = standardSetRate.arCount ?? 3;
+  const aCount = standardSetRate.aCount ?? 0;
   const kCount = standardSetRate.kCount ?? 0;
   const chrCount = standardSetRate.chrCount ?? 0;
   const extraSrRate = standardSetRate.extraHighRate;
   const rrExpected = standardSetRate.rrBaseCount + standardSetRate.rrExtraRate;
   const rrrExpected = (standardSetRate.rrrBaseCount ?? 0) + (standardSetRate.rrrExtraRate ?? 0);
-  const rSlots = boxSize - 1 - aceCount - kCount - chrCount - arCount - extraSrRate - rrExpected - rrrExpected;
+  const rSlots = boxSize - 1 - aceCount - kCount - chrCount - aCount - arCount - extraSrRate - rrExpected - rrrExpected;
 
   entries.push({ weight: rSlots * 100, pool: byRarity.R ?? [] });
   entries.push({ weight: rrExpected * 100, pool: byRarity.RR ?? [] });
@@ -302,6 +306,7 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   if (aceCount > 0) entries.push({ weight: aceCount * 100, pool: byRarity.ACE ?? [] });
   if (kCount > 0) entries.push({ weight: kCount * 100, pool: pools.kAll });
   if (chrCount > 0) entries.push({ weight: chrCount * 100, pool: pools.chrAll });
+  if (aCount > 0) entries.push({ weight: aCount * 100, pool: pools.aPool });
   if (arCount > 0) entries.push({ weight: arCount * 100, pool: pools.arPool });
 
   const standardHighPools = getStandardHighPools(pools, setCode);

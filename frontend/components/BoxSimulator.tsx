@@ -179,7 +179,13 @@ function RareHistory({
       {rares.length > 0 ? (
         <div className="grid grid-cols-8 sm:grid-cols-10 md:grid-cols-12 gap-2">
           {rares.map((c, i) => (
-            <CardTile key={i} card={c} size="sm" onClick={() => onCardClick(c)} />
+            <CardTile
+              key={i}
+              card={c}
+              size="sm"
+              onClick={() => onCardClick(c)}
+              premiumSparkle={isPremiumSparkleRarity(c.rarity, c)}
+            />
           ))}
         </div>
       ) : (
@@ -567,7 +573,13 @@ function CollectionGrid({
   return (
     <div className="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-11 gap-1.5">
       {sorted.map((card, i) => (
-        <CardTile key={i} card={card} size="sm" onClick={() => onCardClick(card)} />
+        <CardTile
+          key={i}
+          card={card}
+          size="sm"
+          onClick={() => onCardClick(card)}
+          premiumSparkle={isPremiumSparkleRarity(card.rarity, card)}
+        />
       ))}
     </div>
   );
@@ -674,7 +686,13 @@ function SessionByBox({
             {rares.length > 0 ? (
               <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
                 {rares.map((c, i) => (
-                  <CardTile key={i} card={c} size="sm" onClick={() => onCardClick(c)} />
+                  <CardTile
+                    key={i}
+                    card={c}
+                    size="sm"
+                    onClick={() => onCardClick(c)}
+                    premiumSparkle={isPremiumSparkleRarity(c.rarity, c)}
+                  />
                 ))}
               </div>
             ) : (
@@ -867,7 +885,13 @@ function PackDoneScreen({
           {sessionRares.length > 0 && (
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
               {sessionRares.map((c, i) => (
-                <CardTile key={i} card={c} size="lg" onClick={() => onCardClick(c)} />
+                <CardTile
+                  key={i}
+                  card={c}
+                  size="lg"
+                  onClick={() => onCardClick(c)}
+                  premiumSparkle={isPremiumSparkleRarity(c.rarity, c)}
+                />
               ))}
             </div>
           )}

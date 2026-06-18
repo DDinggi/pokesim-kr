@@ -1,11 +1,15 @@
 export const NEW_SIM_SET_CODES = [
-  's4-amazing-volt-tackle',
-  's4a-shiny-star-v',
+  's3a-legendary-heartbeat',
+  's3-infinity-zone',
+  's2a-explosive-walker',
+  's2-rebellion-crash',
 ] as const;
 
 export const NEW_SIM_SET_NAMES = [
-  '앙천의 볼트태클',
-  '샤이니스타 V',
+  '전설의 고동',
+  '무한존',
+  '폭염워커',
+  '반역크래시',
 ];
 
 const NEW_SIM_SET_CODE_SET = new Set<string>(NEW_SIM_SET_CODES);
