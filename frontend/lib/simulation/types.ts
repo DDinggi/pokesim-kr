@@ -29,6 +29,7 @@ export interface StandardSvSetRate {
   extraHighRate: number;
   extraHighWeights: Partial<Record<StandardHighKey, number>>;
   kCount?: number;
+  aCount?: number;
   chrCount?: number;
   arCount?: number;
   boxSize?: number;
