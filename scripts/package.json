@@ -11,6 +11,7 @@
     "migrate-to-r2": "tsx migrate-to-r2.ts",
     "optimize:images": "tsx optimize-card-images.ts",
     "benchmark:images": "tsx benchmark-image-delivery.ts",
+    "audit:images": "tsx audit-card-images.ts",
     "fetch:prices": "tsx fetch-reference-prices.ts",
     "fetch:fullahead-prices": "tsx fetch-fullahead-prices.ts",
     "remove:proxy-prices": "tsx remove-proxy-prices.ts",
