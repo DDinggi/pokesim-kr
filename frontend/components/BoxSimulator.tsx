@@ -744,7 +744,7 @@ function BoxDoneScreen({
         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
           ✨ 이번 박스 레어 ({rares.length}장) — 등급 토글로 필터
         </h3>
-        <RarityFilteredGrid cards={allCards} onCardClick={onCardClick} />
+        <RarityFilteredGrid key={result.seed} cards={allCards} onCardClick={onCardClick} />
         <details className="mt-3">
           <summary className="cursor-pointer text-[10px] text-gray-700 hover:text-gray-500 select-none w-fit">
             전체 {allCards.length}장 보기 (커먼/언커먼 포함)
