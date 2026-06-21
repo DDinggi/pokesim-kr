@@ -568,10 +568,11 @@ ID 부여된 결정 한 줄 요약. 깊은 이유는 `docs/adr/` 폴더.
 - **D-145** MEGA 확장팩 포켓몬 SR/SAR/MUR 슬롯 가중치 — pokemon-infomation.com + Samurai Sword Tokyo (2026-05) 실데이터 기반. 현재 MEGA 확장팩 공통 모델은 포켓몬 메인 슬롯 SR 70% / SAR 28% / MUR 2% + 추가 포켓몬 SR 슬롯 약 10%.
 - **D-146** 추가 SR/SR+ 슬롯 모델 — SV 일반/MEGA 확장팩/블랙볼트·화이트플레어 모두 2장 이상 박스 가능성을 반영한다. SV 일반은 추가 SR 약 10%(트리플렛비트 5%), MEGA 확장은 추가 포켓몬 SR 약 10%, SV11 계열은 추가 SR 약 10%로 둔다. 한국판 공식 봉입률은 비공개이므로 실데이터 확보 시 갱신.
 - **D-147** 박스→박스 1.8초 트랜지션 연출 — `/loading.gif`, `/loading2.gif` 번갈아 노출. 팩→팩은 즉시 (트랜지션 X).
-- **D-148** 일본판 데이터 보강 파이프라인 — 한국 발매 직후 pokemoncard.co.kr 미업로드 카드는 yuyu-tei + PokeGuardian으로 임시 보강. MUR/HR rarity → 'UR'로 정규화.
+- **D-148** 일본판 데이터 보강 파이프라인 — pokemoncard.co.kr에 없는 카드는 일본판 전체 리스트(yuyu-tei / PokeGuardian / FullAhead)로 보강한다. 한국 공식 DB의 상세 부재만으로 미수록 처리하지 않는다. 레어도는 세대 표기를 유지하며, MEGA의 MUR만 내부 데이터 태그 'UR'로 정규화하고 소드&실드·썬&문의 HR은 'HR'로 보존한다.
 - **D-149** 인페르노X / 메가브레이브 / 메가심포니아 세트 추가 — 일본판 데이터 기반 (D-148 파이프라인 활용).
 - **D-150** 신규 rarity 발견 시 등록 절차 — 자동 수집(`scripts/fetch-pokemoncard.ts`)이 substring 매칭이라 `"SSR".includes("SR")`처럼 새 등급이 기존 등급에 흡수돼 사일런트 손실이 발생한다. 새 등급(예: SSR, S 등)을 발견하면 다음을 한 번에 반영한다 — (1) 해당 세트 JSON `rarities` 배열에 추가, (2) `scripts/validate-card-data.ts`의 `KNOWN_RARITIES`·`HIGH_RARITIES`, (3) `frontend/lib/rarity.ts`의 `RARITY_ORDER`·`RARITY_BADGE`·`CARD_GLOW`·`RARITY_TEXT_COLOR`·`RARITY_TIER`·`RARITY_FULL_LABEL`·`RARE_RARITIES`·`HIT_RARITIES`·`HOLO_RARITIES`, (4) 필요 시 `frontend/lib/simulation/pools.ts`의 `RarityPools`·`getRarityPools` 풀 추가, (5) 시뮬 모델의 슬롯 가중치(`model.ts`/`hi-class.ts`/`expansion.ts`), (6) `frontend/lib/luck.ts` `getLuckRatesForSet`. 적용 후 해당 세트 재수집(`pnpm collect`)이 필요하다. 사례: 2026-05 sv4a 샤이니트레저 ex의 SSR(Shiny Super Rare).
 - **D-151** 새 세트 추가 시 운 계산 모델도 같은 작업 단위로 갱신한다 — 시뮬 슬롯(`model.ts`/`expansion.ts`/`hi-class.ts`)과 운 기대값/분포(`frontend/lib/luck.ts`)는 항상 같이 맞춘다. 박스 고정 슬롯은 베이스라인으로 차감하고, 1팩/자판기는 같은 박스 모델의 기대값을 `1 / box_size`로 환산한다. 새 세트 PR에서는 `pnpm --dir scripts validate:luck -- --set <code> --strict`를 실행한다.
+- **D-152** 카드 구성 완전성 검증 — 한국판과 대응 일본판 세트의 카드 구성을 동일 기준으로 보고, `audit:coverage`로 일본판 전체 번호를 대조한다. 한국 공식 검색에서 누락된 HR/UR도 한국 정식 카드명으로 복원하고 일본판 이미지·시세 출처를 기록해 추가한다.
 
 ---
 

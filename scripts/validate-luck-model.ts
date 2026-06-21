@@ -36,6 +36,7 @@ const KNOWN_HI_CLASS_MODELS = new Set([
   's4a-shiny-star-v',
   's12a-vstar-universe',
   's8b-vmax-climax',
+  'sm12a-tag-team-gx-tag-all-stars',
   'm-dream-ex',
 ]);
 

@@ -43,6 +43,7 @@
 | `scripts/manual-add.ts` (`manual-add`) | TSV로 누락 카드 수동 보강. |
 | `scripts/fetch-jp-images.ts` (`fetch-jp-images`) | 일본판 보강 이미지 수집용 보조 스크립트. |
 | `scripts/fetch-fullahead-prices.ts` (`fetch:fullahead-prices`) | fullahead 일본판 시세 → 한국판 추정가 기입. |
+| `scripts/import-fullahead-secrets.ts` (`import:fullahead-secrets`) | 한국 DB에 없는 일본판 시크릿을 manifest의 한국 정식명으로 보강하고 이미지·가격·출처를 함께 기입. |
 | `scripts/build-luck-distributions.ts` (`build:luck-dist`) | 시세 운 분포 `luck_value_ref`(박스/팩 중앙값·분위수) 생성. |
 | `scripts/migrate-to-r2.ts` (`migrate-to-r2`) | 원본 카드 이미지를 R2에 업로드/검증. |
 | `scripts/optimize-card-images.ts` (`optimize:images`) | 256/512 WebP variant 생성 및 R2 업로드/검증. |
@@ -82,6 +83,13 @@
 
    ```powershell
    pnpm --dir scripts manual-add -- --set <code> --tsv data/manual/<code>-additions.tsv
+   ```
+
+   한국 공식 DB의 상세 부재는 미수록 근거가 아니다. 대응 일본판 전체 리스트와 `audit:coverage`를 대조해
+   빠진 HR/UR이 있으면 한국 정식명 manifest로 보강한다.
+
+   ```powershell
+   pnpm --dir scripts import:fullahead-secrets -- --manifest ../data/manual/<manifest>.json
    ```
 
 4. **데이터 검수**: 번호 연속성/누락/null/레어도 분포/이미지 prefix를 확인한다.

@@ -54,6 +54,12 @@ import s3aLegendaryHeartbeat from '../public/sets/s3a-legendary-heartbeat.json';
 import s3InfinityZone from '../public/sets/s3-infinity-zone.json';
 import s2aExplosiveWalker from '../public/sets/s2a-explosive-walker.json';
 import s2RebellionCrash from '../public/sets/s2-rebellion-crash.json';
+import s1aVmaxRising from '../public/sets/s1a-vmax-rising.json';
+import s1wSword from '../public/sets/s1w-sword.json';
+import s1hShield from '../public/sets/s1h-shield.json';
+import sm12aTagTeamGxTagAllStars from '../public/sets/sm12a-tag-team-gx-tag-all-stars.json';
+import sm12AlterGenesis from '../public/sets/sm12-alter-genesis.json';
+import sm11bDreamLeague from '../public/sets/sm11b-dream-league.json';
 import mStartDeck100 from '../public/sets/m-start-deck-100.json';
 import m4NinjaSpinner from '../public/sets/m4-ninja-spinner.json';
 import mNihilZero from '../public/sets/m-nihil-zero.json';
@@ -86,6 +92,8 @@ const sets: SetMeta[] = [
   s4aShinyStarV, s4AmazingVoltTackle,
   s3aLegendaryHeartbeat, s3InfinityZone,
   s2aExplosiveWalker, s2RebellionCrash,
+  s1aVmaxRising, s1wSword, s1hShield,
+  sm12aTagTeamGxTagAllStars, sm12AlterGenesis, sm11bDreamLeague,
 ] as SetMeta[];
 
 export default function Home() {

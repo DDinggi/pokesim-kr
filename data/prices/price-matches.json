@@ -11,6 +11,7 @@
     "jp_to_kr_estimate_factor": 0.65,
     "rarity_floor_krw": {
       "AR": 1000,
+      "TR": 1000,
       "SR": 2000,
       "SAR": 5000
     }
@@ -71,6 +72,71 @@
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000018362/s08b/page1/recommend/; mapped_from=s8b_basic_metal_energy_gra",
       "price_updated_at": "2026-06-10",
       "note": "Korean s10b Pokemon GO GRA basic energy has no Japanese S10b FullAhead number; use the same Japanese gold basic energy reference from S8b."
+    },
+    "BS2019017189": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 192,
+      "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
+    },
+    "BS2019017190": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 193,
+      "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
+    },
+    "BS2019017191": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 201,
+      "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
+    },
+    "BS2019017192": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 198,
+      "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
+    },
+    "BS2019017193": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 190,
+      "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
+    },
+    "BS2019017194": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 197,
+      "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
+    },
+    "BS2019017195": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 196,
+      "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
+    },
+    "BS2019017196": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 199,
+      "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
+    },
+    "BS2019017197": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 200,
+      "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
+    },
+    "BS2019017198": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 191,
+      "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
+    },
+    "BS2019017199": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 189,
+      "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
+    },
+    "BS2019017200": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 194,
+      "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
+    },
+    "BS2019017201": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 195,
+      "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
     }
   }
 }

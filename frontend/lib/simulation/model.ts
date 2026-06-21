@@ -87,6 +87,7 @@ const SV_SNOW_CLAY: StandardSvSetRate = {
 };
 
 const SWSH_FILLER_WEIGHTS = { R: 84.17, RR: 10.93, RRR: 4.9 };
+const SM_FILLER_WEIGHTS = { R: 86.67, RR: 13.33 };
 
 function normalizeHighWeights(
   weights: Partial<Record<StandardHighKey, number>>,
@@ -489,6 +490,97 @@ const SWSH_S2A_EXPLOSIVE_WALKER: StandardSvSetRate = {
   fillerWeights: SWSH_FILLER_WEIGHTS,
 };
 
+const SWSH_S1_BASE: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 56.25,
+    SR_TRAINER: 18.75,
+    HR_POKEMON: 8.333,
+    HR_TRAINER: 8.333,
+    UR: 8.334,
+  }),
+  extraHighRate: 0,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 56.25,
+    SR_TRAINER: 18.75,
+    HR_POKEMON: 8.333,
+    HR_TRAINER: 8.333,
+    UR: 8.334,
+  }),
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.5,
+  rrrBaseCount: 1,
+  rrrExtraRate: 0.1,
+  fillerWeights: SWSH_FILLER_WEIGHTS,
+};
+
+const SWSH_S1A_VMAX_RISING: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 52.5,
+    SR_TRAINER: 17.5,
+    HR_POKEMON: 12,
+    HR_TRAINER: 8,
+    UR: 10,
+  }),
+  extraHighRate: 0.1,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 52.5,
+    SR_TRAINER: 17.5,
+    HR_POKEMON: 12,
+    HR_TRAINER: 8,
+    UR: 10,
+  }),
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 0.1,
+  rrrBaseCount: 2,
+  rrrExtraRate: 0,
+  fillerWeights: SWSH_FILLER_WEIGHTS,
+};
+
+const SM_DREAM_LEAGUE: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 40,
+    SR_TRAINER: 30,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  extraHighRate: 1 / 12,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 40,
+    SR_TRAINER: 30,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  chrCount: 3,
+  arCount: 0,
+  rrBaseCount: 3,
+  rrExtraRate: 1 / 3,
+  fillerWeights: SM_FILLER_WEIGHTS,
+};
+
+const SM_ALTER_GENESIS: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 53.846,
+    SR_TRAINER: 16.154,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  extraHighRate: 1 / 12,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 53.846,
+    SR_TRAINER: 16.154,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  trCount: 1,
+  trExtraRate: 1 / 12,
+  arCount: 0,
+  rrBaseCount: 3,
+  rrExtraRate: 1 / 3,
+  fillerWeights: SM_FILLER_WEIGHTS,
+};
+
 const SWSH_SINGLE_RAPID_STRIKE: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
     SR_POKEMON: 6,
@@ -623,6 +715,11 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   's3-infinity-zone': SWSH_S3_EARLY_V_SERIES,
   's2a-explosive-walker': SWSH_S2A_EXPLOSIVE_WALKER,
   's2-rebellion-crash': SWSH_S3_EARLY_V_SERIES,
+  's1a-vmax-rising': SWSH_S1A_VMAX_RISING,
+  's1w-sword': SWSH_S1_BASE,
+  's1h-shield': SWSH_S1_BASE,
+  'sm12-alter-genesis': SM_ALTER_GENESIS,
+  'sm11b-dream-league': SM_DREAM_LEAGUE,
 };
 
 export const SV11_RR_COUNT = 4;
@@ -701,6 +798,14 @@ export const VMAX_CLIMAX_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
 
 export const VMAX_CLIMAX_SR_GOD_PACK_RATE = 0.005;
 export const VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE = 0.01;
+
+export const TAG_ALL_STARS_MAIN_SLOT_WEIGHTS: Record<string, number> = {
+  SR: 70,
+  HR: 20,
+  UR: 10,
+};
+
+export const TAG_ALL_STARS_GOD_PACK_RATE = 0.05;
 
 export const VSTAR_UNIVERSE_AR_GOD_PACK_RATE = 0.015;
 export const VSTAR_UNIVERSE_SAR_GOD_PACK_RATE = 0.0225;

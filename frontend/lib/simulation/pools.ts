@@ -7,6 +7,7 @@ export interface RarityPools {
   kAll: Card[];
   aAll: Card[];
   chrAll: Card[];
+  trAll: Card[];
   csrAll: Card[];
   ssrAll: Card[];
   hrAll: Card[];
@@ -54,6 +55,7 @@ export function getRarityPools(byRarity: Record<string, Card[]>): RarityPools {
   const kAll = byRarity.K ?? [];
   const aAll = byRarity.A ?? [];
   const chrAll = byRarity.CHR ?? [];
+  const trAll = byRarity.TR ?? [];
   const csrAll = byRarity.CSR ?? [];
   const ssrAll = byRarity.SSR ?? [];
   const hrAll = byRarity.HR ?? [];
@@ -68,6 +70,7 @@ export function getRarityPools(byRarity: Record<string, Card[]>): RarityPools {
     kAll,
     aAll,
     chrAll,
+    trAll,
     csrAll,
     ssrAll,
     hrAll,

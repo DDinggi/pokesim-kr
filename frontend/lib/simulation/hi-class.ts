@@ -7,6 +7,8 @@ import {
   MEGA_MAIN_SR_NUMBER_RANGES,
   SHINY_STAR_V_EXTRA_SLOT_WEIGHTS,
   SHINY_TREASURE_EXTRA_SLOT_WEIGHTS,
+  TAG_ALL_STARS_GOD_PACK_RATE,
+  TAG_ALL_STARS_MAIN_SLOT_WEIGHTS,
   TERASTAL_EXTRA_SLOT_WEIGHTS,
   VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE,
   VMAX_CLIMAX_EXTRA_SLOT_WEIGHTS,
@@ -114,6 +116,29 @@ export function simulateHiClassBox(
       : null;
     const hits = buildVmaxClimaxBoxHits(ctx, rng, pools, !godPackHits);
 
+    return buildHiClassPacksFromHitsWithGodPack(ctx, rng, boxSize, packSize, hits, godPackHits);
+  }
+
+  if (setCode === 'sm12a-tag-team-gx-tag-all-stars') {
+    const hits: HiClassHitSlot[] = [];
+    const mainSrPool = pools.srAll.filter((card) => card.card_type !== '에너지');
+    const energySrPool = pools.srAll.filter((card) => card.card_type === '에너지');
+    const isGodPack = rng() < TAG_ALL_STARS_GOD_PACK_RATE;
+
+    for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
+
+    if (!isGodPack) {
+      const mainRarity = ctx.weightedPick(TAG_ALL_STARS_MAIN_SLOT_WEIGHTS);
+      if (hasRarity(byRarity, mainRarity)) {
+        hits.push({
+          rarity: mainRarity,
+          pool: mainRarity === 'SR' && mainSrPool.length ? mainSrPool : undefined,
+        });
+      }
+      if (energySrPool.length) hits.push({ rarity: 'SR', pool: energySrPool });
+    }
+
+    const godPackHits = isGodPack ? buildTagAllStarsGodPackHits(pools) : null;
     return buildHiClassPacksFromHitsWithGodPack(ctx, rng, boxSize, packSize, hits, godPackHits);
   }
 
@@ -279,6 +304,31 @@ export function simulateSingleHiClassPack(
     return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
   }
 
+  if (setCode === 'sm12a-tag-team-gx-tag-all-stars') {
+    if (rng() < TAG_ALL_STARS_GOD_PACK_RATE / HI_CLASS_BOX_SIZE) {
+      return buildHiClassPack(ctx, buildTagAllStarsGodPackHits(pools), packSize, { defaultHitRarity: null });
+    }
+
+    const hits: HiClassHitSlot[] = [];
+    const mainSrPool = pools.srAll.filter((card) => card.card_type !== '에너지');
+    const energySrPool = pools.srAll.filter((card) => card.card_type === '에너지');
+
+    if (rng() < 9 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
+
+    const mainRarity = pickBoxSlotForSinglePack(ctx, TAG_ALL_STARS_MAIN_SLOT_WEIGHTS);
+    if (mainRarity !== 'NONE' && hasRarity(byRarity, mainRarity)) {
+      hits.push({
+        rarity: mainRarity,
+        pool: mainRarity === 'SR' && mainSrPool.length ? mainSrPool : undefined,
+      });
+    }
+    if (rng() < 1 / HI_CLASS_BOX_SIZE && energySrPool.length) {
+      hits.push({ rarity: 'SR', pool: energySrPool });
+    }
+
+    return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
+  }
+
   if (rng() < HI_CLASS_GOD_PACK_RATE / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'MA')) {
     return buildHiClassPack(ctx, buildMegaDreamGodPackHits(pools), packSize, { defaultHitRarity: null });
   }
@@ -315,6 +365,12 @@ function pickBoxSlotForSinglePack(ctx: BuildContext, boxWeights: Record<string, 
   }
 
   return ctx.weightedPick(packWeights);
+}
+
+function buildTagAllStarsGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
+  const hits: HiClassHitSlot[] = [];
+  for (let i = 0; i < 10; i++) hits.push({ rarity: 'SR', pool: pools.srAll });
+  return hits;
 }
 
 function buildMegaDreamGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {

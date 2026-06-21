@@ -14,6 +14,7 @@
     "audit:images": "tsx audit-card-images.ts",
     "fetch:prices": "tsx fetch-reference-prices.ts",
     "fetch:fullahead-prices": "tsx fetch-fullahead-prices.ts",
+    "import:fullahead-secrets": "tsx import-fullahead-secrets.ts",
     "remove:proxy-prices": "tsx remove-proxy-prices.ts",
     "build:luck-dist": "tsx build-luck-distributions.ts",
     "audit:swsh": "tsx audit-swsh-set.ts",
