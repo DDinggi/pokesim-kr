@@ -31,6 +31,8 @@ export interface StandardSvSetRate {
   kCount?: number;
   aCount?: number;
   chrCount?: number;
+  trCount?: number;
+  trExtraRate?: number;
   arCount?: number;
   boxSize?: number;
   rrBaseCount: number;

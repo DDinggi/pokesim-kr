@@ -150,6 +150,10 @@ function buildStandardSvSlots(
   for (let i = 0; i < (rate.chrCount ?? 0); i++) {
     if (pools.chrAll.length) slots.push(pools.chrAll);
   }
+  for (let i = 0; i < (rate.trCount ?? 0); i++) {
+    if (pools.trAll.length) slots.push(pools.trAll);
+  }
+  if (rng() < (rate.trExtraRate ?? 0) && pools.trAll.length) slots.push(pools.trAll);
   for (let i = 0; i < (rate.aCount ?? 0); i++) {
     if (pools.aPool.length) slots.push(pools.aPool);
   }
@@ -165,7 +169,17 @@ function buildStandardSvSlots(
 
   const rrrPool = byRarity.RRR ?? [];
   const rrrCount = (rate.rrrBaseCount ?? 0) + (rng() < (rate.rrrExtraRate ?? 0) ? 1 : 0);
-  for (let i = 0; i < rrrCount; i++) slots.push(rrrPool);
+  const shuffledRrrPool = shuffle(rrrPool, rng);
+  const cycleDistinctRrr = setCode === 's1w-sword'
+    || setCode === 's1h-shield'
+    || setCode === 's1a-vmax-rising';
+  for (let i = 0; i < rrrCount; i++) {
+    if (cycleDistinctRrr && shuffledRrrPool.length) {
+      slots.push([shuffledRrrPool[i % shuffledRrrPool.length]]);
+    } else {
+      slots.push(rrrPool);
+    }
+  }
 
   const rPool = byRarity.R ?? byRarity.RR ?? [];
   while (slots.length < boxSize) slots.push(rPool);
@@ -295,10 +309,11 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   const aCount = standardSetRate.aCount ?? 0;
   const kCount = standardSetRate.kCount ?? 0;
   const chrCount = standardSetRate.chrCount ?? 0;
+  const trCount = (standardSetRate.trCount ?? 0) + (standardSetRate.trExtraRate ?? 0);
   const extraSrRate = standardSetRate.extraHighRate;
   const rrExpected = standardSetRate.rrBaseCount + standardSetRate.rrExtraRate;
   const rrrExpected = (standardSetRate.rrrBaseCount ?? 0) + (standardSetRate.rrrExtraRate ?? 0);
-  const rSlots = boxSize - 1 - aceCount - kCount - chrCount - aCount - arCount - extraSrRate - rrExpected - rrrExpected;
+  const rSlots = boxSize - 1 - aceCount - kCount - chrCount - trCount - aCount - arCount - extraSrRate - rrExpected - rrrExpected;
 
   entries.push({ weight: rSlots * 100, pool: byRarity.R ?? [] });
   entries.push({ weight: rrExpected * 100, pool: byRarity.RR ?? [] });
@@ -306,6 +321,7 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   if (aceCount > 0) entries.push({ weight: aceCount * 100, pool: byRarity.ACE ?? [] });
   if (kCount > 0) entries.push({ weight: kCount * 100, pool: pools.kAll });
   if (chrCount > 0) entries.push({ weight: chrCount * 100, pool: pools.chrAll });
+  if (trCount > 0) entries.push({ weight: trCount * 100, pool: pools.trAll });
   if (aCount > 0) entries.push({ weight: aCount * 100, pool: pools.aPool });
   if (arCount > 0) entries.push({ weight: arCount * 100, pool: pools.arPool });
 

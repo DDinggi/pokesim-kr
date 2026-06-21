@@ -292,7 +292,7 @@ export function LuckScreen({
                   <div>
                     <h2 className="text-xl font-black tracking-tight">박스 종류별 운</h2>
                     <p className="mt-1 text-xs text-gray-500">
-                      기대 힛카드 수 대비 실제 힛카드 수를 비교해요.
+                      카드 시세를 바탕으로, 각 박스에서 얼마나 좋은 결과가 나왔는지 비교해요.
                     </p>
                   </div>
                   {activeBreakdown && (

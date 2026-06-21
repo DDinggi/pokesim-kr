@@ -31,6 +31,10 @@ interface SetsIndex {
   planned_sets?: string[];
 }
 
+interface PriceCardMatch {
+  fullahead_number?: number;
+}
+
 interface PriceConfig {
   exchange_rates?: {
     jpy_krw?: number;
@@ -40,6 +44,7 @@ interface PriceConfig {
     jp_to_kr_estimate_factor?: number;
     rarity_floor_krw?: Record<string, number>;
   };
+  cards?: Record<string, PriceCardMatch>;
 }
 
 interface FullaheadItem {
@@ -80,6 +85,7 @@ async function main() {
   const minPriceRefKrw = includeLow ? 0 : priceConfig.settings?.min_price_ref_krw ?? 1000;
   const rarityFloorKrw = {
     AR: 1000,
+    TR: 1000,
     SR: 2000,
     SAR: 5000,
     ...(priceConfig.settings?.rarity_floor_krw ?? {}),
@@ -123,8 +129,10 @@ async function main() {
     for (const card of set.cards) {
       if (!shouldPriceCard(card)) continue;
 
-      const item = card.number ? byNumber.get(card.number) : undefined;
-      if (!item) {
+      const priceMatch = card.card_num ? priceConfig.cards?.[card.card_num] : undefined;
+      const fullaheadNumber = priceMatch?.fullahead_number ?? card.number;
+      const item = fullaheadNumber ? byNumber.get(fullaheadNumber) : undefined;
+      if (!item || !isCompatibleRarity(card.rarity, item.rarity)) {
         unmatchedHigh++;
         continue;
       }
@@ -141,6 +149,7 @@ async function main() {
       const source = [
         `fullahead:sale:${item.url}`,
         `jp_to_kr_factor=${jpToKrFactor}`,
+        priceMatch?.fullahead_number ? `mapped_from_number=${card.number}; fullahead_number=${fullaheadNumber}` : null,
         floorKrw > rawKrw ? `floor_${card.rarity}_krw=${floorKrw}` : null,
       ].filter(Boolean).join("; ");
 
@@ -312,6 +321,12 @@ function extractSetCodeFromImage(imageUrl: string | null | undefined): string | 
   return match?.[1] ?? null;
 }
 
+function isCompatibleRarity(cardRarity: string | null | undefined, itemRarity: string | null): boolean {
+  if (!cardRarity || !itemRarity) return true;
+  if (cardRarity === itemRarity) return true;
+  return cardRarity === "UR" && itemRarity === "MUR";
+}
+
 function shouldPriceCard(card: CardEntry): boolean {
   if (!card.rarity) return false;
   if (includeLow) return true;
@@ -349,7 +364,7 @@ function getTargetSetCodes(): string[] {
 
 function extractRarity(title: string): string | null {
   const normalized = title.toUpperCase();
-  const match = normalized.match(/\b(BWR|MUR|GRA|SAR|CSR|CHR|SSR|AR|SR|HR|UR|ACE|K)\b/);
+  const match = normalized.match(/\b(BWR|MUR|GRA|SAR|CSR|CHR|SSR|AR|SR|HR|UR|ACE|TR|K)\b/);
   return match?.[1] ?? null;
 }
 

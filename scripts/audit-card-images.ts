@@ -20,6 +20,7 @@ const DEFAULT_RARITIES = new Set([
   "S8AP",
   "K",
   "CHR",
+  "TR",
   "ACE",
   "AR",
   "SR",
