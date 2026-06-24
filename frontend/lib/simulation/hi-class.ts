@@ -370,7 +370,7 @@ function pickBoxSlotForSinglePack(ctx: BuildContext, boxWeights: Record<string, 
 
 function buildTagAllStarsGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
   const hits: HiClassHitSlot[] = [];
-  for (let i = 0; i < 10; i++) hits.push({ rarity: 'SR', pool: pools.srAll, uniqueGroup: 'tag-all-stars-sr10' });
+  for (let i = 0; i < 10; i++) hits.push({ rarity: 'SR', pool: pools.srAll });
   return hits;
 }
 
@@ -378,7 +378,7 @@ function buildMegaDreamGodPackHits(pools: ReturnType<typeof getRarityPools>): Hi
   const godPackSarPool = pools.sarPokemon.length ? pools.sarPokemon : pools.sarAll;
   const hits: HiClassHitSlot[] = [{ rarity: 'AR' }];
   for (let i = 0; i < 5; i++) hits.push({ rarity: 'MA' });
-  for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR', pool: godPackSarPool, uniqueGroup: 'mega-dream-god-sar' });
+  for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR', pool: godPackSarPool });
   return hits;
 }
 
@@ -436,7 +436,7 @@ function buildVmaxClimaxBoxHits(
 function buildVmaxClimaxSrGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
   const srPool = pools.srTrainer.length ? pools.srTrainer : pools.srAll;
   const hits: HiClassHitSlot[] = [];
-  for (let i = 0; i < 9; i++) hits.push({ rarity: 'SR', pool: srPool, uniqueGroup: 'vmax-climax-sr-god' });
+  for (let i = 0; i < 9; i++) hits.push({ rarity: 'SR', pool: srPool });
   return hits;
 }
 
@@ -461,7 +461,7 @@ function buildVstarUniverseSarGodPackHits(pools: ReturnType<typeof getRarityPool
   const hits: HiClassHitSlot[] = [];
 
   for (let i = 0; i < 5; i++) hits.push({ rarity: 'AR', pool: arPool });
-  for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR', pool: pokemonSarPool, uniqueGroup: 'vstar-universe-sar-god-pokemon' });
+  for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR', pool: pokemonSarPool });
   hits.push({ rarity: 'SAR', pool: supporterSarPool });
   return hits;
 }
