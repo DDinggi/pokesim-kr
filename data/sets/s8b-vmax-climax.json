@@ -4398,24 +4398,24 @@
   "_fetched_at": "2026-05-26",
   "_notes": "S8b. Korean official card/product metadata from pokemoncard.co.kr. Pull-rate model uses Japanese 1,000BOX aggregate; Korean official pull rates are private.",
   "luck_value_ref": {
-    "box_median_krw": 45700,
+    "box_median_krw": 45600,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
       13200,
-      19400,
-      22300,
-      27600,
-      33400,
-      39100,
-      45700,
-      54400,
-      69400,
-      92900,
-      192800,
-      229400,
-      283700,
-      310700,
-      586100
+      19700,
+      22500,
+      28200,
+      33700,
+      39200,
+      45600,
+      54000,
+      68500,
+      94800,
+      197300,
+      227700,
+      279900,
+      309300,
+      630200
     ],
     "pack_quantiles_krw": [
       0,
@@ -4432,7 +4432,7 @@
       27700,
       66700,
       171700,
-      662000
+      557000
     ],
     "quantile_points": [
       0,
@@ -4455,6 +4455,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-13"
+    "_built_at": "2026-06-24"
   }
 }

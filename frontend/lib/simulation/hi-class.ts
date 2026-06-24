@@ -23,6 +23,7 @@ import {
   hasRarity,
 } from './pools';
 import type { BuildContext, HiClassHitSlot } from './types';
+import { resolveUniqueHitSlots } from './unique';
 
 const HI_CLASS_BOX_SIZE = 10;
 
@@ -369,7 +370,7 @@ function pickBoxSlotForSinglePack(ctx: BuildContext, boxWeights: Record<string, 
 
 function buildTagAllStarsGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
   const hits: HiClassHitSlot[] = [];
-  for (let i = 0; i < 10; i++) hits.push({ rarity: 'SR', pool: pools.srAll });
+  for (let i = 0; i < 10; i++) hits.push({ rarity: 'SR', pool: pools.srAll, uniqueGroup: 'tag-all-stars-sr10' });
   return hits;
 }
 
@@ -377,7 +378,7 @@ function buildMegaDreamGodPackHits(pools: ReturnType<typeof getRarityPools>): Hi
   const godPackSarPool = pools.sarPokemon.length ? pools.sarPokemon : pools.sarAll;
   const hits: HiClassHitSlot[] = [{ rarity: 'AR' }];
   for (let i = 0; i < 5; i++) hits.push({ rarity: 'MA' });
-  for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR', pool: godPackSarPool });
+  for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR', pool: godPackSarPool, uniqueGroup: 'mega-dream-god-sar' });
   return hits;
 }
 
@@ -435,7 +436,7 @@ function buildVmaxClimaxBoxHits(
 function buildVmaxClimaxSrGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
   const srPool = pools.srTrainer.length ? pools.srTrainer : pools.srAll;
   const hits: HiClassHitSlot[] = [];
-  for (let i = 0; i < 9; i++) hits.push({ rarity: 'SR', pool: srPool });
+  for (let i = 0; i < 9; i++) hits.push({ rarity: 'SR', pool: srPool, uniqueGroup: 'vmax-climax-sr-god' });
   return hits;
 }
 
@@ -460,7 +461,7 @@ function buildVstarUniverseSarGodPackHits(pools: ReturnType<typeof getRarityPool
   const hits: HiClassHitSlot[] = [];
 
   for (let i = 0; i < 5; i++) hits.push({ rarity: 'AR', pool: arPool });
-  for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR', pool: pokemonSarPool });
+  for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR', pool: pokemonSarPool, uniqueGroup: 'vstar-universe-sar-god-pokemon' });
   hits.push({ rarity: 'SAR', pool: supporterSarPool });
   return hits;
 }
@@ -475,13 +476,16 @@ function buildHiClassPacksFromHitsWithGodPack(
 ): PackResult[] {
   if (!godPackHits) return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
 
+  const usedCardNums = new Set<string>();
+  const resolvedGodPackHits = resolveUniqueHitSlots(ctx, godPackHits, usedCardNums);
+  const resolvedHits = resolveUniqueHitSlots(ctx, hits, usedCardNums);
   const packHits: HiClassHitSlot[][] = Array.from({ length: boxSize }, () => []);
   const godPackIndex = Math.floor(rng() * boxSize);
   const availablePackIndexes = Array.from({ length: boxSize }, (_, index) => index)
     .filter((index) => index !== godPackIndex);
 
-  packHits[godPackIndex] = godPackHits;
-  shuffle(hits, rng).forEach((hit, index) => {
+  packHits[godPackIndex] = resolvedGodPackHits;
+  shuffle(resolvedHits, rng).forEach((hit, index) => {
     const packIndex = availablePackIndexes[index] ?? availablePackIndexes[Math.floor(rng() * availablePackIndexes.length)];
     packHits[packIndex].push(hit);
   });

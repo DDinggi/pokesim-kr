@@ -9,6 +9,8 @@ export interface BuildContext {
 export interface HiClassHitSlot {
   rarity: string;
   pool?: Card[];
+  card?: Card;
+  uniqueGroup?: string;
 }
 
 export type StandardHighKey =
