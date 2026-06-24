@@ -31,6 +31,7 @@ import {
 } from './pools';
 import type { RarityPools } from './pools';
 import type { BuildContext, StandardHighKey, StandardSvSetRate } from './types';
+import { pickUniqueCard, UNIQUE_BOX_HIT_RARITIES } from './unique';
 
 export function simulateExpansionBox(
   _allCards: Card[],
@@ -48,7 +49,7 @@ export function simulateExpansionBox(
     return packs;
   }
 
-  const slots = buildExpansionBoxHitSlots(boxSize, ctx, rng, setCode);
+  const slots = resolveUniqueExpansionSlots(ctx, buildExpansionBoxHitSlots(boxSize, ctx, rng, setCode));
   return shuffle(slots, rng).map((pool) => buildExpansionPack(ctx, pool, packSize));
 }
 
@@ -381,6 +382,22 @@ function fallbackExpansionPackHitPool(ctx: BuildContext, setCode?: string): Card
   entries.push({ weight: 10, pool: pools.urAll });
 
   return pickWeightedHitPool(ctx, entries, byRarity.R ?? []);
+}
+
+function resolveUniqueExpansionSlots(ctx: BuildContext, slots: Card[][]): Card[][] {
+  const usedCardNums = new Set<string>();
+
+  return slots.map((pool) => {
+    if (!isUniqueExpansionSlot(pool)) return pool;
+
+    const card = pickUniqueCard(ctx, pool, usedCardNums);
+    return card ? [card] : pool;
+  });
+}
+
+function isUniqueExpansionSlot(pool: Card[]): boolean {
+  return pool.length > 0
+    && pool.every((card) => card.rarity !== null && UNIQUE_BOX_HIT_RARITIES.has(card.rarity));
 }
 
 function getMegaMainSrPool(setCode: string | undefined, srAll: Card[]): Card[] {

@@ -2,6 +2,7 @@ import type { Card, PackResult } from '../types';
 import type { RNG } from './random';
 import { shuffle } from './random';
 import type { BuildContext, HiClassHitSlot } from './types';
+import { resolveUniqueHitSlots } from './unique';
 
 export function buildExpansionPack(ctx: BuildContext, hitPool: Card[], packSize = 5): PackResult {
   const { byRarity, pick } = ctx;
@@ -47,7 +48,12 @@ export function buildHiClassPack(
     if (basePool.length) cards.push(pick(basePool));
   }
 
-  for (const hit of effectiveHitSlots) {
+  for (const hit of resolveUniqueHitSlots(ctx, effectiveHitSlots)) {
+    if (hit.card) {
+      cards.push(hit.card);
+      continue;
+    }
+
     const hitPool = hit.pool?.length ? hit.pool : (byRarity[hit.rarity] ?? byRarity.RR ?? basePool);
     if (hitPool.length) cards.push(pick(hitPool));
   }
@@ -63,7 +69,7 @@ export function buildHiClassPacksFromHits(
   hits: HiClassHitSlot[],
 ): PackResult[] {
   const packHits: HiClassHitSlot[][] = Array.from({ length: boxSize }, () => []);
-  const shuffledHits = shuffle(hits, rng);
+  const shuffledHits = shuffle(resolveUniqueHitSlots(ctx, hits), rng);
 
   shuffledHits.forEach((hit, index) => {
     const packIndex = index < boxSize ? index : Math.floor(rng() * boxSize);
