@@ -512,9 +512,6 @@ export function SetPicker({
           <p className="text-xs text-gray-400 mt-1 leading-relaxed">
             {NEW_SIM_SET_NAMES.join(' · ')}
           </p>
-          <p className="text-xs text-gray-500 mt-1 leading-relaxed">
-            썬&문 후반팩 3종 박스 이미지와 카드 이미지 보강 완료
-          </p>
         </div>
 
         <div className="relative mb-5">

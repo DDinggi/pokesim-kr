@@ -82,9 +82,6 @@ export function MainScreen({
             리믹스바우트 · GX 울트라샤이니 ULTIMATE · 미라클트윈
           </p>
           <p className="text-[12px] leading-relaxed text-gray-300">
-            썬&문 후반 인기팩 3종의 박스 이미지와 카드 이미지 변환을 보강했습니다
-          </p>
-          <p className="text-[12px] leading-relaxed text-gray-300">
             운 점수 측정은 카드 시세를 바탕으로 이루어집니다
           </p>
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-relaxed text-gray-400">
