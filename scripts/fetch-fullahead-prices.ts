@@ -364,7 +364,7 @@ function getTargetSetCodes(): string[] {
 
 function extractRarity(title: string): string | null {
   const normalized = title.toUpperCase();
-  const match = normalized.match(/\b(BWR|MUR|GRA|SAR|CSR|CHR|SSR|AR|SR|HR|UR|ACE|TR|K)\b/);
+  const match = normalized.match(/\b(BWR|MUR|GRA|SAR|CSR|CHR|SSR|AR|SR|HR|UR|ACE|TR|PR|K)\b/);
   return match?.[1] ?? null;
 }
 

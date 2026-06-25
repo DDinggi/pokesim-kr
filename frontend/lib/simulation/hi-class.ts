@@ -2,6 +2,7 @@ import type { Card, PackResult } from '../types';
 import type { RNG } from './random';
 import { shuffle } from './random';
 import {
+  GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS,
   HI_CLASS_GOD_PACK_RATE,
   MEGA_DREAM_EXTRA_SLOT_WEIGHTS,
   MEGA_MAIN_SR_NUMBER_RANGES,
@@ -89,6 +90,31 @@ export function simulateHiClassBox(
     const extraRarity = ctx.weightedPick(SHINY_STAR_V_EXTRA_SLOT_WEIGHTS);
     if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
       hits.push({ rarity: extraRarity });
+    }
+
+    return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
+  }
+
+  if (setCode === 'sm8b-gx-ultra-shiny') {
+    const sPool = byRarity.S ?? [];
+    const prPool = byRarity.PR ?? [];
+    const ssrPool = pools.ssrPokemon.length ? pools.ssrPokemon : pools.ssrAll;
+    const hits: HiClassHitSlot[] = [];
+
+    for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
+    for (let i = 0; i < 3; i++) {
+      if (sPool.length) hits.push({ rarity: 'S', pool: sPool });
+    }
+    if (prPool.length) hits.push({ rarity: 'PR', pool: prPool });
+    if (ssrPool.length) hits.push({ rarity: 'SSR', pool: ssrPool });
+
+    const extraRarity = ctx.weightedPick(GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS);
+    if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
+      const extraPool =
+        extraRarity === 'SR' ? (pools.srTrainer.length ? pools.srTrainer : pools.srAll)
+        : extraRarity === 'UR' ? pools.urAll
+        : (byRarity[extraRarity] ?? []);
+      if (extraPool.length) hits.push({ rarity: extraRarity, pool: extraPool });
     }
 
     return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
@@ -235,6 +261,29 @@ export function simulateSingleHiClassPack(
     const extraRarity = pickBoxSlotForSinglePack(ctx, SHINY_STAR_V_EXTRA_SLOT_WEIGHTS);
     if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
       hits.push({ rarity: extraRarity });
+    }
+
+    return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
+  }
+
+  if (setCode === 'sm8b-gx-ultra-shiny') {
+    const sPool = byRarity.S ?? [];
+    const prPool = byRarity.PR ?? [];
+    const ssrPool = pools.ssrPokemon.length ? pools.ssrPokemon : pools.ssrAll;
+    const hits: HiClassHitSlot[] = [];
+
+    if (rng() < 9 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
+    if (rng() < 3 / HI_CLASS_BOX_SIZE && sPool.length) hits.push({ rarity: 'S', pool: sPool });
+    if (rng() < 1 / HI_CLASS_BOX_SIZE && prPool.length) hits.push({ rarity: 'PR', pool: prPool });
+    if (rng() < 1 / HI_CLASS_BOX_SIZE && ssrPool.length) hits.push({ rarity: 'SSR', pool: ssrPool });
+
+    const extraRarity = pickBoxSlotForSinglePack(ctx, GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS);
+    if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
+      const extraPool =
+        extraRarity === 'SR' ? (pools.srTrainer.length ? pools.srTrainer : pools.srAll)
+        : extraRarity === 'UR' ? pools.urAll
+        : (byRarity[extraRarity] ?? []);
+      if (extraPool.length) hits.push({ rarity: extraRarity, pool: extraPool });
     }
 
     return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });

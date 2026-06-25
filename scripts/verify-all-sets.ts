@@ -9,12 +9,17 @@ const { simulateBox } = simulatorDefault as unknown as typeof import('../fronten
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 const INDEX = JSON.parse(readFileSync(resolve(ROOT_DIR, 'data', 'sets-index.json'), 'utf8')) as { active_sets: string[] };
-const HIT_RARITIES = ['CHR', 'CSR', 'AR', 'K', 'ACE', '25TH', 'S8AP', 'SR', 'SSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR'];
+const HIT_RARITIES = ['S', 'CHR', 'CSR', 'AR', 'K', 'ACE', '25TH', 'S8AP', 'PR', 'SR', 'SSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR'];
 const ANNIVERSARY_25_SET_CODE = 's8a-25th-anniversary';
 const SWSH_CHARACTER_SUBSETS = new Set([
   's11a-incandescent-arcana',
   's10a-dark-phantasma',
   's9a-battle-region',
+]);
+const HI_CLASS_WITHOUT_CHR_OR_SAR = new Set([
+  's4a-shiny-star-v',
+  'sm12a-tag-team-gx-tag-all-stars',
+  'sm8b-gx-ultra-shiny',
 ]);
 
 type Report = {
@@ -79,7 +84,7 @@ for (const code of INDEX.active_sets) {
 
     // High rarity expected by typical hi-class but missing in data
     if (set.type === 'hi-class') {
-      if (!counts.CHR && !counts.SAR) warnings.push('hi-class missing both CHR and SAR');
+      if (!HI_CLASS_WITHOUT_CHR_OR_SAR.has(code) && !counts.CHR && !counts.SAR) warnings.push('hi-class missing both CHR and SAR');
       if (!counts.SR) warnings.push('hi-class missing SR');
     }
 

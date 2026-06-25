@@ -15,7 +15,7 @@ const SETS = [
   's8-fusion-arts',
 ];
 
-const HIT_RARITIES = ['CHR', 'CSR', 'AR', 'K', '25TH', 'S8AP', 'SR', 'SSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR', 'ACE'];
+const HIT_RARITIES = ['S', 'CHR', 'CSR', 'AR', 'K', '25TH', 'S8AP', 'PR', 'SR', 'SSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR', 'ACE'];
 
 function loadSet(code: string): SetMeta {
   const path = resolve(ROOT_DIR, 'frontend', 'public', 'sets', `${code}.json`);

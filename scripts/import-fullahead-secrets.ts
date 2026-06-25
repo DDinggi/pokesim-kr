@@ -247,7 +247,7 @@ function normalizeFullaheadUrl(href: string): string {
 }
 
 function extractRarity(title: string): string | null {
-  return title.toUpperCase().match(/\b(BWR|MUR|GRA|SAR|CSR|CHR|SSR|AR|SR|HR|UR|ACE|TR|K)\b/)?.[1] ?? null;
+  return title.toUpperCase().match(/\b(BWR|MUR|GRA|SAR|CSR|CHR|SSR|AR|SR|HR|UR|ACE|TR|PR|K)\b/)?.[1] ?? null;
 }
 
 function extensionFromUrl(url: string): string {
