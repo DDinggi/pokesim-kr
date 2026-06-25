@@ -2,11 +2,12 @@ import type { Card, PackResult } from '../types';
 import type { RNG } from './random';
 import { shuffle } from './random';
 import {
-  HI_CLASS_GOD_PACK_RATE,
+  GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS,
   MEGA_DREAM_EXTRA_SLOT_WEIGHTS,
   MEGA_MAIN_SR_NUMBER_RANGES,
   SHINY_STAR_V_EXTRA_SLOT_WEIGHTS,
   SHINY_TREASURE_EXTRA_SLOT_WEIGHTS,
+  TAG_ALL_STARS_GOD_PACK_PACK_RATE,
   TAG_ALL_STARS_GOD_PACK_RATE,
   TAG_ALL_STARS_MAIN_SLOT_WEIGHTS,
   TERASTAL_EXTRA_SLOT_WEIGHTS,
@@ -38,8 +39,8 @@ export function simulateHiClassBox(
   const pools = getRarityPools(byRarity);
 
   if (setCode === 'sv8a-terastal-festa') {
-    const pokemonSar = pools.sarAll.filter((card) => card.card_type === '포켓몬');
-    const trainerSar = pools.sarAll.filter((card) => card.card_type === '트레이너' || card.card_type === '에너지');
+    const pokemonSar = pools.sarAll.filter((card) => card.card_type === '\uD3EC\uCF13\uBAAC');
+    const trainerSar = pools.sarAll.filter((card) => card.card_type === '\uD2B8\uB808\uC774\uB108' || card.card_type === '\uC5D0\uB108\uC9C0');
     const hits: HiClassHitSlot[] = [];
 
     for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
@@ -94,6 +95,31 @@ export function simulateHiClassBox(
     return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
   }
 
+  if (setCode === 'sm8b-gx-ultra-shiny') {
+    const sPool = byRarity.S ?? [];
+    const prPool = byRarity.PR ?? [];
+    const ssrPool = pools.ssrPokemon.length ? pools.ssrPokemon : pools.ssrAll;
+    const hits: HiClassHitSlot[] = [];
+
+    for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
+    for (let i = 0; i < 3; i++) {
+      if (sPool.length) hits.push({ rarity: 'S', pool: sPool });
+    }
+    if (prPool.length) hits.push({ rarity: 'PR', pool: prPool });
+    if (ssrPool.length) hits.push({ rarity: 'SSR', pool: ssrPool });
+
+    const extraRarity = ctx.weightedPick(GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS);
+    if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
+      const extraPool =
+        extraRarity === 'SR' ? (pools.srTrainer.length ? pools.srTrainer : pools.srAll)
+        : extraRarity === 'UR' ? pools.urAll
+        : (byRarity[extraRarity] ?? []);
+      if (extraPool.length) hits.push({ rarity: extraRarity, pool: extraPool });
+    }
+
+    return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
+  }
+
   if (setCode === 's12a-vstar-universe') {
     const hits = buildVstarUniverseBoxHits(ctx, rng, pools);
     const godPackRoll = rng();
@@ -122,8 +148,8 @@ export function simulateHiClassBox(
 
   if (setCode === 'sm12a-tag-team-gx-tag-all-stars') {
     const hits: HiClassHitSlot[] = [];
-    const mainSrPool = pools.srAll.filter((card) => card.card_type !== '에너지');
-    const energySrPool = pools.srAll.filter((card) => card.card_type === '에너지');
+    const mainSrPool = pools.srAll.filter((card) => card.card_type !== '\uC5D0\uB108\uC9C0');
+    const energySrPool = pools.srAll.filter((card) => card.card_type === '\uC5D0\uB108\uC9C0');
     const isGodPack = rng() < TAG_ALL_STARS_GOD_PACK_RATE;
 
     for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
@@ -144,9 +170,6 @@ export function simulateHiClassBox(
   }
 
   const hits: HiClassHitSlot[] = [];
-  const godPackHits = rng() < HI_CLASS_GOD_PACK_RATE && hasRarity(byRarity, 'MA')
-    ? buildMegaDreamGodPackHits(pools)
-    : null;
 
   for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
   if (hasRarity(byRarity, 'AR')) hits.push({ rarity: 'AR' }, { rarity: 'AR' }, { rarity: 'AR' });
@@ -167,7 +190,7 @@ export function simulateHiClassBox(
     if (pokemonPool.length) hits.push({ rarity: extraRarity, pool: pokemonPool });
   }
 
-  return buildHiClassPacksFromHitsWithGodPack(ctx, rng, boxSize, packSize, hits, godPackHits);
+  return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
 }
 
 export function simulateSingleHiClassPack(
@@ -180,8 +203,8 @@ export function simulateSingleHiClassPack(
   const pools = getRarityPools(byRarity);
 
   if (setCode === 'sv8a-terastal-festa') {
-    const pokemonSar = pools.sarAll.filter((card) => card.card_type === '포켓몬');
-    const trainerSar = pools.sarAll.filter((card) => card.card_type === '트레이너' || card.card_type === '에너지');
+    const pokemonSar = pools.sarAll.filter((card) => card.card_type === '\uD3EC\uCF13\uBAAC');
+    const trainerSar = pools.sarAll.filter((card) => card.card_type === '\uD2B8\uB808\uC774\uB108' || card.card_type === '\uC5D0\uB108\uC9C0');
     const hits: HiClassHitSlot[] = [];
 
     if (rng() < 9 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
@@ -235,6 +258,29 @@ export function simulateSingleHiClassPack(
     const extraRarity = pickBoxSlotForSinglePack(ctx, SHINY_STAR_V_EXTRA_SLOT_WEIGHTS);
     if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
       hits.push({ rarity: extraRarity });
+    }
+
+    return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
+  }
+
+  if (setCode === 'sm8b-gx-ultra-shiny') {
+    const sPool = byRarity.S ?? [];
+    const prPool = byRarity.PR ?? [];
+    const ssrPool = pools.ssrPokemon.length ? pools.ssrPokemon : pools.ssrAll;
+    const hits: HiClassHitSlot[] = [];
+
+    if (rng() < 9 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
+    if (rng() < 3 / HI_CLASS_BOX_SIZE && sPool.length) hits.push({ rarity: 'S', pool: sPool });
+    if (rng() < 1 / HI_CLASS_BOX_SIZE && prPool.length) hits.push({ rarity: 'PR', pool: prPool });
+    if (rng() < 1 / HI_CLASS_BOX_SIZE && ssrPool.length) hits.push({ rarity: 'SSR', pool: ssrPool });
+
+    const extraRarity = pickBoxSlotForSinglePack(ctx, GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS);
+    if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
+      const extraPool =
+        extraRarity === 'SR' ? (pools.srTrainer.length ? pools.srTrainer : pools.srAll)
+        : extraRarity === 'UR' ? pools.urAll
+        : (byRarity[extraRarity] ?? []);
+      if (extraPool.length) hits.push({ rarity: extraRarity, pool: extraPool });
     }
 
     return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
@@ -306,13 +352,13 @@ export function simulateSingleHiClassPack(
   }
 
   if (setCode === 'sm12a-tag-team-gx-tag-all-stars') {
-    if (rng() < TAG_ALL_STARS_GOD_PACK_RATE / HI_CLASS_BOX_SIZE) {
+    if (rng() < TAG_ALL_STARS_GOD_PACK_PACK_RATE) {
       return buildHiClassPack(ctx, buildTagAllStarsGodPackHits(pools), packSize, { defaultHitRarity: null });
     }
 
     const hits: HiClassHitSlot[] = [];
-    const mainSrPool = pools.srAll.filter((card) => card.card_type !== '에너지');
-    const energySrPool = pools.srAll.filter((card) => card.card_type === '에너지');
+    const mainSrPool = pools.srAll.filter((card) => card.card_type !== '\uC5D0\uB108\uC9C0');
+    const energySrPool = pools.srAll.filter((card) => card.card_type === '\uC5D0\uB108\uC9C0');
 
     if (rng() < 9 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
 
@@ -330,9 +376,6 @@ export function simulateSingleHiClassPack(
     return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
   }
 
-  if (rng() < HI_CLASS_GOD_PACK_RATE / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'MA')) {
-    return buildHiClassPack(ctx, buildMegaDreamGodPackHits(pools), packSize, { defaultHitRarity: null });
-  }
 
   const fixedSrPool = getMegaFixedSrPool(setCode, pools.srAll);
   const mainSrPool = getMegaMainSrPool(setCode, pools.srAll);
@@ -369,16 +412,35 @@ function pickBoxSlotForSinglePack(ctx: BuildContext, boxWeights: Record<string, 
 }
 
 function buildTagAllStarsGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
-  const hits: HiClassHitSlot[] = [];
-  for (let i = 0; i < 10; i++) hits.push({ rarity: 'SR', pool: pools.srAll });
-  return hits;
+  return repeatedUniqueHits('SR', pools.srAll, 10, 'sm12a-sr10');
 }
 
-function buildMegaDreamGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
-  const godPackSarPool = pools.sarPokemon.length ? pools.sarPokemon : pools.sarAll;
-  const hits: HiClassHitSlot[] = [{ rarity: 'AR' }];
-  for (let i = 0; i < 5; i++) hits.push({ rarity: 'MA' });
-  for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR', pool: godPackSarPool });
+function fixedNumberHits(
+  rarity: string,
+  sourcePool: Card[],
+  numbers: number[],
+  fallbackPool: Card[],
+  uniqueGroup: string,
+): HiClassHitSlot[] {
+  const byNumber = new Map(sourcePool.map((card) => [card.number, card]));
+  const fixedCards = numbers.map((number) => byNumber.get(number)).filter((card): card is Card => Boolean(card));
+
+  if (fixedCards.length === numbers.length) {
+    return fixedCards.map((card) => ({ rarity, card, uniqueGroup }));
+  }
+
+  const pool = sourcePool.length ? sourcePool : fallbackPool;
+  return repeatedUniqueHits(rarity, pool, numbers.length, uniqueGroup);
+}
+
+function repeatedUniqueHits(
+  rarity: string,
+  pool: Card[],
+  count: number,
+  uniqueGroup: string,
+): HiClassHitSlot[] {
+  const hits: HiClassHitSlot[] = [];
+  for (let i = 0; i < count; i++) hits.push({ rarity, pool, uniqueGroup });
   return hits;
 }
 
@@ -434,36 +496,35 @@ function buildVmaxClimaxBoxHits(
 }
 
 function buildVmaxClimaxSrGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
-  const srPool = pools.srTrainer.length ? pools.srTrainer : pools.srAll;
-  const hits: HiClassHitSlot[] = [];
-  for (let i = 0; i < 9; i++) hits.push({ rarity: 'SR', pool: srPool });
-  return hits;
+  const gymLeaderSrNumbers = [256, 257, 261, 262, 268, 270, 271, 272, 275, 277];
+  return fixedNumberHits('SR', pools.srTrainer, gymLeaderSrNumbers, pools.srAll, 's8b-sr10');
 }
 
 function buildVmaxClimaxChrCsrGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
-  const hits: HiClassHitSlot[] = [];
-  for (let i = 0; i < 5; i++) hits.push({ rarity: 'CHR', pool: pools.chrAll });
-  for (let i = 0; i < 5; i++) hits.push({ rarity: 'CSR', pool: pools.csrAll });
-  return hits;
+  const csrVPool = pools.csrAll.filter((card) => / V(?!MAX|-UNION)/.test(card.name_ko ?? ''));
+  const csrVmaxPool = pools.csrAll.filter((card) => (card.name_ko ?? '').includes('VMAX'));
+  return [
+    ...repeatedUniqueHits('CHR', pools.chrAll, 5, 's8b-chr-csr10-chr'),
+    ...repeatedUniqueHits('CSR', csrVPool.length ? csrVPool : pools.csrAll, 3, 's8b-chr-csr10-csr-v'),
+    ...repeatedUniqueHits('CSR', csrVmaxPool.length ? csrVmaxPool : pools.csrAll, 2, 's8b-chr-csr10-csr-vmax'),
+  ];
 }
 
 function buildVstarUniverseArGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
-  const hits: HiClassHitSlot[] = [];
-  const arPool = pools.arPool.length ? pools.arPool : pools.sarPokemon;
-  for (let i = 0; i < 9; i++) hits.push({ rarity: 'AR', pool: arPool });
-  return hits;
+  const ar9Numbers = [201, 202, 203, 204, 205, 206, 207, 208, 209];
+  return fixedNumberHits('AR', pools.arPool, ar9Numbers, pools.arPool, 's12a-ar9');
 }
 
 function buildVstarUniverseSarGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
   const pokemonSarPool = pools.sarPokemon.length ? pools.sarPokemon : pools.sarAll;
   const supporterSarPool = pools.sarTrainer.length ? pools.sarTrainer : pools.sarAll;
   const arPool = pools.arPool.length ? pools.arPool : pokemonSarPool;
-  const hits: HiClassHitSlot[] = [];
 
-  for (let i = 0; i < 5; i++) hits.push({ rarity: 'AR', pool: arPool });
-  for (let i = 0; i < 4; i++) hits.push({ rarity: 'SAR', pool: pokemonSarPool });
-  hits.push({ rarity: 'SAR', pool: supporterSarPool });
-  return hits;
+  return [
+    ...repeatedUniqueHits('AR', arPool, 5, 's12a-sar10-ar'),
+    ...repeatedUniqueHits('SAR', pokemonSarPool, 4, 's12a-sar10-pokemon-sar'),
+    ...repeatedUniqueHits('SAR', supporterSarPool, 1, 's12a-sar10-supporter-sar'),
+  ];
 }
 
 function buildHiClassPacksFromHitsWithGodPack(

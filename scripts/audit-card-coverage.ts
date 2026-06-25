@@ -59,6 +59,7 @@ const HIGH_RARITIES = new Set([
   "25TH",
   "S8AP",
   "K",
+  "PR",
   "CHR",
   "TR",
   "ACE",
@@ -336,7 +337,7 @@ function extractSetCodeFromImage(imageUrl: string | null | undefined): string | 
 
 function extractRarity(title: string): string | null {
   const normalized = title.toUpperCase();
-  const match = normalized.match(/\b(BWR|MUR|GRA|SAR|CSR|CHR|SSR|AR|SR|HR|UR|ACE|TR|K|S8AP|25TH|MA|A|S|RRR|RR|R|U|C)\b/);
+  const match = normalized.match(/\b(BWR|MUR|GRA|SAR|CSR|CHR|SSR|AR|SR|HR|UR|ACE|TR|PR|K|S8AP|25TH|MA|A|S|RRR|RR|R|U|C)\b/);
   return match?.[1] ?? null;
 }
 

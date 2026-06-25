@@ -240,6 +240,18 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
     gradient: 'from-cyan-700 via-fuchsia-800 to-slate-950',
     accent: 'text-cyan-200',
   },
+  'sm11a-remix-bout': {
+    gradient: 'from-emerald-700 via-red-800 to-blue-950',
+    accent: 'text-emerald-200',
+  },
+  'sm11-miracle-twin': {
+    gradient: 'from-fuchsia-700 via-indigo-800 to-slate-950',
+    accent: 'text-fuchsia-200',
+  },
+  'sm8b-gx-ultra-shiny': {
+    gradient: 'from-slate-900 via-violet-900 to-cyan-950',
+    accent: 'text-cyan-200',
+  },
 };
 
 const SEARCH_PANEL_LIMIT = 10;
@@ -493,15 +505,15 @@ export function SetPicker({
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-6xl mx-auto w-full">
         <div className="mb-5 rounded-lg bg-gray-900/80 ring-1 ring-white/10 px-4 py-3">
-          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-06-21</p>
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-06-25</p>
           <p className="text-sm font-bold text-white mt-0.5">
-            신규 세트 박스깡 추가
+            신규 세트 박스깡 · 박스 업데이트
           </p>
           <p className="text-xs text-gray-400 mt-1 leading-relaxed">
             {NEW_SIM_SET_NAMES.join(' · ')}
           </p>
           <p className="text-xs text-gray-500 mt-1 leading-relaxed">
-            소드&실드 초기 확장팩 라인업 보강 완료
+            썬&문 후반팩 3종 박스 이미지와 카드 이미지 보강 완료
           </p>
         </div>
 

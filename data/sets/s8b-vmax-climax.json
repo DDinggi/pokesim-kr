@@ -50,9 +50,9 @@
         "max": 1
       }
     ],
-    "_source": "pokemoncard.co.kr/card/401 product metadata + https://pokemon-infomation.com/pull-rates-vmaxclimax/ Japanese 1,000BOX aggregate. Box model: RR 5-6, RRR 3-4, CHR 3-4, CSR 1, Support SR about 50%, GRA about 10%; special packs are not modeled until Korean/box-level evidence is stronger. Korean official pull rates are unpublished.",
+    "_source": "pokemoncard.co.kr/card/401 product metadata + pokemon-infomation.com/pull-rates-vmaxclimax/ Japanese 1,000BOX aggregate. Box model: RR 5-6, RRR 3-4, CHR 3-4, CSR 1, Support SR about 50%, GRA about 10%; modeled special packs: Galar Gym Leader SR10 pack about 1.5% per box and CHR5/CSR5 pack about 1.0% per box. Korean official pull rates are unpublished.",
     "_sample_size": 1000,
-    "_estimated_at": "2026-05-26"
+    "_estimated_at": "2026-06-25"
   },
   "pack_slots": [],
   "cards": [
@@ -4398,24 +4398,24 @@
   "_fetched_at": "2026-05-26",
   "_notes": "S8b. Korean official card/product metadata from pokemoncard.co.kr. Pull-rate model uses Japanese 1,000BOX aggregate; Korean official pull rates are private.",
   "luck_value_ref": {
-    "box_median_krw": 45600,
+    "box_median_krw": 46000,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
       13200,
       19700,
       22500,
       28200,
-      33700,
-      39200,
-      45600,
-      54000,
-      68500,
-      94700,
-      197300,
+      34000,
+      39500,
+      46000,
+      54900,
+      70400,
+      96000,
+      197200,
       227700,
-      280000,
-      309800,
-      630200
+      281200,
+      311900,
+      736200
     ],
     "pack_quantiles_krw": [
       0,
@@ -4432,7 +4432,7 @@
       27700,
       66700,
       171700,
-      557000
+      441400
     ],
     "quantile_points": [
       0,
@@ -4455,6 +4455,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-06-25"
   }
 }

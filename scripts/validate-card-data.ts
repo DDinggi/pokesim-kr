@@ -22,6 +22,7 @@ const KNOWN_RARITIES = new Set([
   "25TH",
   "S8AP",
   "K",
+  "PR",
   "CHR",
   "TR",
   "ACE",
@@ -37,7 +38,7 @@ const KNOWN_RARITIES = new Set([
   "GRA",
   "BWR",
 ]);
-const HIGH_RARITIES = new Set(["RRR", "S", "A", "25TH", "S8AP", "K", "CHR", "TR", "ACE", "AR", "SR", "SSR", "CSR", "HR", "SAR", "MA", "UR", "GRA", "BWR"]);
+const HIGH_RARITIES = new Set(["RRR", "S", "A", "25TH", "S8AP", "K", "PR", "CHR", "TR", "ACE", "AR", "SR", "SSR", "CSR", "HR", "SAR", "MA", "UR", "GRA", "BWR"]);
 const START_DECK_100_REP_NUMBERS = [
   85, 204, 437, 146, 68, 18, 151, 94, 185, 204,
   3, 470, 380, 374, 169, 192, 746, 208, 750, 68,
@@ -288,7 +289,7 @@ function validateImageNumberAlignment(setCode: string, cards: CardEntry[]) {
   for (const card of cards) {
     if (!Number.isInteger(card.number) || !card.image_url?.includes("wmimages/")) continue;
 
-    const imageNumber = card.image_url.match(/_(\d+)(?:_m)?\.[a-z0-9]+$/i)?.[1];
+    const imageNumber = card.image_url.match(/_(\d+)(?:_\d+)?(?:_m)?\.[a-z0-9]+$/i)?.[1];
     if (imageNumber && Number(imageNumber) !== card.number) {
       add(
         "warn",

@@ -581,6 +581,50 @@ const SM_ALTER_GENESIS: StandardSvSetRate = {
   fillerWeights: SM_FILLER_WEIGHTS,
 };
 
+const SM11_MIRACLE_TWIN: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 9,
+    SR_TRAINER: 3,
+    HR_POKEMON: 6,
+    UR: 3,
+  }),
+  extraHighRate: 1 / 12,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 9,
+    SR_TRAINER: 3,
+    HR_POKEMON: 6,
+    UR: 3,
+  }),
+  trCount: 1,
+  trExtraRate: 1 / 12,
+  arCount: 0,
+  rrBaseCount: 3,
+  rrExtraRate: 1 / 3,
+  fillerWeights: SM_FILLER_WEIGHTS,
+};
+
+const SM11A_REMIX_BOUT: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 7,
+    SR_TRAINER: 2,
+    HR_POKEMON: 4,
+    UR: 3,
+  }),
+  extraHighRate: 1 / 12,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 7,
+    SR_TRAINER: 2,
+    HR_POKEMON: 4,
+    UR: 3,
+  }),
+  trCount: 1,
+  trExtraRate: 1 / 12,
+  arCount: 0,
+  rrBaseCount: 3,
+  rrExtraRate: 1 / 3,
+  fillerWeights: SM_FILLER_WEIGHTS,
+};
+
 const SWSH_SINGLE_RAPID_STRIKE: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
     SR_POKEMON: 6,
@@ -720,6 +764,8 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   's1h-shield': SWSH_S1_BASE,
   'sm12-alter-genesis': SM_ALTER_GENESIS,
   'sm11b-dream-league': SM_DREAM_LEAGUE,
+  'sm11a-remix-bout': SM11A_REMIX_BOUT,
+  'sm11-miracle-twin': SM11_MIRACLE_TWIN,
 };
 
 export const SV11_RR_COUNT = 4;
@@ -783,6 +829,12 @@ export const SHINY_STAR_V_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   UR: 10,
 };
 
+export const GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
+  NONE: 50,
+  SR: 40,
+  UR: 10,
+};
+
 export const VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   NONE: 50,
   SAR: 20,
@@ -796,7 +848,7 @@ export const VMAX_CLIMAX_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   GRA: 10,
 };
 
-export const VMAX_CLIMAX_SR_GOD_PACK_RATE = 0.005;
+export const VMAX_CLIMAX_SR_GOD_PACK_RATE = 0.015;
 export const VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE = 0.01;
 
 export const TAG_ALL_STARS_MAIN_SLOT_WEIGHTS: Record<string, number> = {
@@ -805,7 +857,8 @@ export const TAG_ALL_STARS_MAIN_SLOT_WEIGHTS: Record<string, number> = {
   UR: 10,
 };
 
-export const TAG_ALL_STARS_GOD_PACK_RATE = 0.05;
+export const TAG_ALL_STARS_GOD_PACK_PACK_RATE = 1 / 250;
+export const TAG_ALL_STARS_GOD_PACK_RATE = 1 - (1 - TAG_ALL_STARS_GOD_PACK_PACK_RATE) ** 10;
 
 export const VSTAR_UNIVERSE_AR_GOD_PACK_RATE = 0.015;
 export const VSTAR_UNIVERSE_SAR_GOD_PACK_RATE = 0.0225;
@@ -817,7 +870,6 @@ export const MEGA_DREAM_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   UR: 2,
 };
 
-export const HI_CLASS_GOD_PACK_RATE = 0.0075;
 
 /**
  * 스타트 덱 100 (배틀 컬렉션). 코드가 'm'으로 시작하지만 MEGA 확장팩 봉입률 모델이

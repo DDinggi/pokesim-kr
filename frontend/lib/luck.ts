@@ -13,8 +13,8 @@ import {
   ANNIVERSARY_25_LUCK_SCORE_WEIGHTS,
   ANNIVERSARY_25_PROMO_INTERVAL,
   EXPANSION_MONSTER_WEIGHTS,
+  GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS,
   EXPANSION_MONSTER_WEIGHTS_DEFAULT,
-  HI_CLASS_GOD_PACK_RATE,
   hasAceSpecSlot,
   MEGA_AR_COUNT,
   MEGA_DREAM_EXTRA_SLOT_WEIGHTS,
@@ -24,6 +24,7 @@ import {
   SV11_AR_COUNT,
   SV11_EXTRA_SR_RATE,
   SV11_OPTIONAL_TOP_WEIGHTS,
+  TAG_ALL_STARS_GOD_PACK_PACK_RATE,
   TAG_ALL_STARS_GOD_PACK_RATE,
   TAG_ALL_STARS_MAIN_SLOT_WEIGHTS,
   TERASTAL_EXTRA_SLOT_WEIGHTS,
@@ -102,12 +103,13 @@ export interface WeightedLuckScore extends LuckEventSummary {
 export type LuckBand = 'lucky' | 'average' | 'unlucky';
 
 const TOP_RARITY_WEIGHT = 3;
-const OLD_HIGH_RARITIES = ['A', 'K', 'CHR', 'TR', 'SR_ALT', 'SR', 'CSR', 'HR', 'SAR', 'UR', 'UR_LOW', 'GRA'] as const;
+const OLD_HIGH_RARITIES = ['A', 'K', 'PR', 'CHR', 'TR', 'SR_ALT', 'SR', 'CSR', 'HR', 'SAR', 'UR', 'UR_LOW', 'GRA'] as const;
 const SCORE_EPSILON = 1e-9;
 const SCORE_WEIGHTS: Record<string, number> = {
   S: 0.08,
   A: 0.5,
   K: 0.12,
+  PR: 0.12,
   CHR: 0.12,
   TR: 0.12,
   SSR: 0.5,
@@ -126,6 +128,7 @@ const PACK_SCORE_WEIGHTS: Record<string, number> = {
   S: 0.25,
   A: 1,
   K: 0.35,
+  PR: 0.35,
   CHR: 0.35,
   TR: 0.35,
   SR: 1,
@@ -142,7 +145,7 @@ const PACK_SCORE_WEIGHTS: Record<string, number> = {
 };
 const LUCK_COMBINATION_RULES = {
   primaryHitKeys: ['MUR', 'BWR', 'UR', 'GRA', 'SAR', 'HR', 'SR_ALT'],
-  secondaryHitKeys: ['MA', 'SSR', 'CSR', 'SR', 'A', 'K', 'CHR', 'TR'],
+  secondaryHitKeys: ['MA', 'SSR', 'CSR', 'SR', 'A', 'K', 'PR', 'CHR', 'TR'],
   rarityMultiplier: {
     MUR: 1.2,
     BWR: 1.2,
@@ -154,6 +157,7 @@ const LUCK_COMBINATION_RULES = {
     CSR: 0.4,
     A: 0.25,
     K: 0.12,
+    PR: 0.12,
     CHR: 0.12,
     TR: 0.12,
     MA: 0.25,
@@ -748,22 +752,31 @@ function getExpectedScoredRarityCounts(
       return counts;
     }
 
+    if (code === 'sm8b-gx-ultra-shiny') {
+      addExpectedCount(counts, 'S', unitCount * 3);
+      addExpectedCount(counts, 'PR', unitCount);
+      addLoosePackBaselineCount('SSR');
+      addExpectedCountsFromWeights(counts, GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
+      return counts;
+    }
+
     if (code === 's12a-vstar-universe') {
       addLoosePackBaselineCount('SAR');
       addLoosePackBaselineCount('SR');
       addExpectedCount(counts, 'K', unitCount);       // 확정 K 1장
       addExpectedCount(counts, 'AR', unitCount * 3);   // 확정 AR 3장
       addExpectedCountsFromWeights(counts, VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
+      addExpectedCount(counts, 'AR', unitCount * (VSTAR_UNIVERSE_AR_GOD_PACK_RATE * 9 + VSTAR_UNIVERSE_SAR_GOD_PACK_RATE * 5));
       addExpectedCount(counts, 'SAR', unitCount * VSTAR_UNIVERSE_SAR_GOD_PACK_RATE * 5);
       return counts;
     }
 
     if (code === 's8b-vmax-climax') {
-      addLoosePackBaselineCount('CSR');
-      addExpectedCount(counts, 'CHR', unitCount * 3.5); // 확정 CHR 3~4장
+      const ordinaryCsrCount = unitCount * (1 - VMAX_CLIMAX_SR_GOD_PACK_RATE - VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE);
+      addExpectedCount(counts, 'CSR', ordinaryCsrCount + unitCount * VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE * 5);
+      addExpectedCount(counts, 'CHR', unitCount * (3.5 + VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE * 5)); // 확정 CHR 3~4장 + CHR/CSR10팩
       addExpectedCountsFromWeights(counts, VMAX_CLIMAX_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
-      addExpectedCount(counts, 'SR', unitCount * VMAX_CLIMAX_SR_GOD_PACK_RATE * 9);
-      addExpectedCount(counts, 'CSR', unitCount * VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE * 4);
+      addExpectedCount(counts, 'SR', unitCount * VMAX_CLIMAX_SR_GOD_PACK_RATE * 10);
       return counts;
     }
 
@@ -780,8 +793,6 @@ function getExpectedScoredRarityCounts(
     addLoosePackBaselineCount('MA');
     addExpectedCount(counts, 'AR', unitCount * 3);
     addExpectedCountsFromWeights(counts, MEGA_DREAM_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
-    addExpectedCount(counts, 'MA', unitCount * HI_CLASS_GOD_PACK_RATE * 5);
-    addExpectedCount(counts, 'SAR', unitCount * HI_CLASS_GOD_PACK_RATE * 4);
     return counts;
   }
 
@@ -861,7 +872,7 @@ function subtractBaselineCounts(
   const code = set?.code ?? opening.setCode;
   const isHiClassSet =
     set?.type === 'hi-class'
-    || ['sv8a-terastal-festa', 'sv4a-shiny-treasure-ex', 's4a-shiny-star-v', 's12a-vstar-universe', 's8b-vmax-climax', 'sm12a-tag-team-gx-tag-all-stars', 'm-dream-ex'].includes(code);
+    || ['sv8a-terastal-festa', 'sv4a-shiny-treasure-ex', 's4a-shiny-star-v', 'sm8b-gx-ultra-shiny', 's12a-vstar-universe', 's8b-vmax-climax', 'sm12a-tag-team-gx-tag-all-stars', 'm-dream-ex'].includes(code);
   if (isHiClassSet && ['sv8a-terastal-festa', 's12a-vstar-universe'].includes(code)) {
     counts.SAR = Math.max(0, (counts.SAR ?? 0) - opening.boxes);
   }
@@ -870,6 +881,11 @@ function subtractBaselineCounts(
   }
   if (code === 's4a-shiny-star-v') {
     counts.S = Math.max(0, (counts.S ?? 0) - opening.boxes * 3);
+    counts.SSR = Math.max(0, (counts.SSR ?? 0) - opening.boxes);
+  }
+  if (code === 'sm8b-gx-ultra-shiny') {
+    counts.S = Math.max(0, (counts.S ?? 0) - opening.boxes * 3);
+    counts.PR = Math.max(0, (counts.PR ?? 0) - opening.boxes);
     counts.SSR = Math.max(0, (counts.SSR ?? 0) - opening.boxes);
   }
   if (code === 's12a-vstar-universe') {
@@ -944,6 +960,7 @@ function scoreFromRarityWeightKey(key: string, mode: LuckScoreMode): number {
   if (key === 'K') return getScoreWeight('K', mode);
   if (key === 'CHR') return getScoreWeight('CHR', mode);
   if (key === 'TR') return getScoreWeight('TR', mode);
+  if (key === 'PR') return getScoreWeight('PR', mode);
   if (key === 'SR_ALT') return getScoreWeight('SR_ALT', mode);
   if (key.startsWith('SR')) return getScoreWeight('SR', mode);
   if (key === 'CSR') return getScoreWeight('CSR', mode);
@@ -1068,12 +1085,16 @@ function getBoxScoreDistribution(
       return distributionFromWeights(SHINY_STAR_V_EXTRA_SLOT_WEIGHTS, 'box');
     }
 
+    if (code === 'sm8b-gx-ultra-shiny') {
+      return distributionFromWeights(GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS, 'box');
+    }
+
     if (code === 's12a-vstar-universe') {
       return convolveDistributions(
         distributionFromWeights(VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS, 'box'),
         normalizeDistribution([
-          { score: getScoreWeight('SAR', 'box') * 5, probability: VSTAR_UNIVERSE_SAR_GOD_PACK_RATE },
-          { score: 0, probability: VSTAR_UNIVERSE_AR_GOD_PACK_RATE },
+          { score: getScoreWeight('AR', 'box') * 5 + getScoreWeight('SAR', 'box') * 5, probability: VSTAR_UNIVERSE_SAR_GOD_PACK_RATE },
+          { score: getScoreWeight('AR', 'box') * 9, probability: VSTAR_UNIVERSE_AR_GOD_PACK_RATE },
           { score: 0, probability: 1 - VSTAR_UNIVERSE_SAR_GOD_PACK_RATE - VSTAR_UNIVERSE_AR_GOD_PACK_RATE },
         ]),
       );
@@ -1083,7 +1104,7 @@ function getBoxScoreDistribution(
       return convolveDistributions(
         convolveDistributions(
           distributionFromWeights(VMAX_CLIMAX_EXTRA_SLOT_WEIGHTS, 'box'),
-          bernoulliDistribution(getScoreWeight('SR', 'box') * 9, VMAX_CLIMAX_SR_GOD_PACK_RATE),
+          bernoulliDistribution(getScoreWeight('SR', 'box') * 10, VMAX_CLIMAX_SR_GOD_PACK_RATE),
         ),
         bernoulliDistribution(getScoreWeight('CSR', 'box') * 4, VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE),
       );
@@ -1097,19 +1118,13 @@ function getBoxScoreDistribution(
           probability: outcome.probability * (1 - TAG_ALL_STARS_GOD_PACK_RATE),
         })),
         {
-          score: getScoreWeight('SR', 'box') * 9,
+          score: getScoreWeight('SR', 'box') * 10,
           probability: TAG_ALL_STARS_GOD_PACK_RATE,
         },
       ]);
     }
 
-    return convolveDistributions(
-      distributionFromWeights(MEGA_DREAM_EXTRA_SLOT_WEIGHTS, 'box'),
-      bernoulliDistribution(
-        getScoreWeight('MA', 'box') * 5 + getScoreWeight('SAR', 'box') * 4,
-        HI_CLASS_GOD_PACK_RATE,
-      ),
-    );
+    return distributionFromWeights(MEGA_DREAM_EXTRA_SLOT_WEIGHTS, 'box');
   }
 
   if (code && isMegaExpansionSet(code)) {
@@ -1237,6 +1252,25 @@ function getPackScoreDistribution(
       );
     }
 
+    if (code === 'sm8b-gx-ultra-shiny') {
+      distribution = convolveDistributions(
+        distribution,
+        bernoulliDistribution(getScoreWeight('S', 'pack'), 3 / boxSize),
+      );
+      distribution = convolveDistributions(
+        distribution,
+        bernoulliDistribution(getScoreWeight('PR', 'pack'), 1 / boxSize),
+      );
+      distribution = convolveDistributions(
+        distribution,
+        bernoulliDistribution(getScoreWeight('SSR', 'pack'), 1 / boxSize),
+      );
+      return convolveDistributions(
+        distribution,
+        optionalPackDistributionFromBoxWeights(GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS, boxSize, 'pack'),
+      );
+    }
+
     if (code === 's12a-vstar-universe') {
       distribution = convolveDistributions(
         distribution,
@@ -1253,8 +1287,8 @@ function getPackScoreDistribution(
       return convolveDistributions(
         distribution,
         normalizeDistribution([
-          { score: getScoreWeight('SAR', 'pack') * 5, probability: VSTAR_UNIVERSE_SAR_GOD_PACK_RATE / boxSize },
-          { score: 0, probability: VSTAR_UNIVERSE_AR_GOD_PACK_RATE / boxSize },
+          { score: getScoreWeight('AR', 'pack') * 5 + getScoreWeight('SAR', 'pack') * 5, probability: VSTAR_UNIVERSE_SAR_GOD_PACK_RATE / boxSize },
+          { score: getScoreWeight('AR', 'pack') * 9, probability: VSTAR_UNIVERSE_AR_GOD_PACK_RATE / boxSize },
           { score: 0, probability: 1 - (VSTAR_UNIVERSE_SAR_GOD_PACK_RATE + VSTAR_UNIVERSE_AR_GOD_PACK_RATE) / boxSize },
         ]),
       );
@@ -1272,7 +1306,7 @@ function getPackScoreDistribution(
       return convolveDistributions(
         distribution,
         normalizeDistribution([
-          { score: getScoreWeight('SR', 'pack') * 9, probability: VMAX_CLIMAX_SR_GOD_PACK_RATE / boxSize },
+          { score: getScoreWeight('SR', 'pack') * 10, probability: VMAX_CLIMAX_SR_GOD_PACK_RATE / boxSize },
           { score: getScoreWeight('CSR', 'pack') * 5, probability: VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE / boxSize },
           { score: 0, probability: 1 - (VMAX_CLIMAX_SR_GOD_PACK_RATE + VMAX_CLIMAX_CHR_CSR_GOD_PACK_RATE) / boxSize },
         ]),
@@ -1284,7 +1318,7 @@ function getPackScoreDistribution(
         bernoulliDistribution(getScoreWeight('SR', 'pack'), 1 / boxSize),
         optionalPackDistributionFromBoxWeights(TAG_ALL_STARS_MAIN_SLOT_WEIGHTS, boxSize, 'pack'),
       );
-      const godPackRate = TAG_ALL_STARS_GOD_PACK_RATE / boxSize;
+      const godPackRate = TAG_ALL_STARS_GOD_PACK_PACK_RATE;
       return normalizeDistribution([
         ...ordinary.map((outcome) => ({
           ...outcome,
@@ -1306,13 +1340,7 @@ function getPackScoreDistribution(
       distribution,
       optionalPackDistributionFromBoxWeights(MEGA_DREAM_EXTRA_SLOT_WEIGHTS, boxSize, 'pack'),
     );
-    return convolveDistributions(
-      distribution,
-      bernoulliDistribution(
-        getScoreWeight('MA', 'pack') * 5 + getScoreWeight('SAR', 'pack') * 4,
-        HI_CLASS_GOD_PACK_RATE / boxSize,
-      ),
-    );
+    return distribution;
   }
 
   if (code && isMegaExpansionSet(code)) {
@@ -1586,6 +1614,14 @@ export function getLuckRatesForSet(
       };
     }
 
+    if (set.code === 'sm8b-gx-ultra-shiny') {
+      return {
+        boxSize,
+        topPerBox: weightChance(GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS, 'UR'),
+        sarPerBox: 0,
+      };
+    }
+
     if (set.code === 's12a-vstar-universe') {
       return {
         boxSize,
@@ -1618,7 +1654,7 @@ export function getLuckRatesForSet(
     return {
       boxSize,
       topPerBox: isMegaExpansionSet(set.code) ? weightChance(MEGA_DREAM_EXTRA_SLOT_WEIGHTS, 'UR') : 0,
-      sarPerBox: weightChance(MEGA_DREAM_EXTRA_SLOT_WEIGHTS, 'SAR') + HI_CLASS_GOD_PACK_RATE * 4,
+      sarPerBox: weightChance(MEGA_DREAM_EXTRA_SLOT_WEIGHTS, 'SAR'),
     };
   }
 
