@@ -505,7 +505,7 @@ export function SetPicker({
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-6xl mx-auto w-full">
         <div className="mb-5 rounded-lg bg-gray-900/80 ring-1 ring-white/10 px-4 py-3">
-          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-06-25</p>
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 6/25</p>
           <p className="text-sm font-bold text-white mt-0.5">
             신규 세트 박스깡 · 박스 업데이트
           </p>
