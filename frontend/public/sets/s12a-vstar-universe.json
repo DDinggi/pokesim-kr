@@ -50,9 +50,9 @@
         "min": 1
       }
     ],
-    "_source": "pokemoncard.co.kr/card/506 product metadata + https://pokemon-infomation.com/pull-rates-vstaruniverse/ Japanese 1,800BOX aggregate. Box model: RR 5-6, RRR 3-4, K 1, AR 3, Pokemon SAR 1, SR Energy 1; optional Support SAR 20%, Support SR 20%, UR 10%; AR9 pack 1-2%, SAR10 pack 2-2.5%. Korean official pull rates are unpublished.",
+    "_source": "pokemoncard.co.kr/card/506 product metadata + pokemon-infomation.com/pull-rates-vstaruniverse/ Japanese 1,800BOX aggregate. Box model: RR 5-6, RRR 3-4, K 1, AR 3, Pokemon SAR 1, SR Energy 1; optional Support SAR 20%, Support SR 20%, UR 10%; modeled special packs: fixed AR9 pack 1-2% and AR5/Pokemon SAR4/Support SAR1 pack 2-2.5%. Korean official pull rates are unpublished.",
     "_sample_size": 1800,
-    "_estimated_at": "2026-05-17"
+    "_estimated_at": "2026-06-25"
   },
   "pack_slots": [],
   "cards": [
@@ -5211,14 +5211,14 @@
       49900,
       56700,
       65300,
-      80700,
-      105500,
-      161100,
-      303100,
-      374700,
-      446500,
-      492500,
-      852300
+      80800,
+      106300,
+      164300,
+      345200,
+      384000,
+      469600,
+      529300,
+      1078300
     ],
     "pack_quantiles_krw": [
       0,
@@ -5233,9 +5233,9 @@
       9100,
       20300,
       46200,
-      122300,
-      236800,
-      629100
+      125300,
+      319900,
+      639500
     ],
     "quantile_points": [
       0,
@@ -5258,6 +5258,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-06-25"
   }
 }

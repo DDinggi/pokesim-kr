@@ -39,9 +39,9 @@
         "min": 1
       }
     ],
-    "_source": "pokemon-infomation.com/pull-rates-megadreamex/ 2,000BOX - MA 1, trainer SR/SAR 1, AR 3, optional Pokemon SR 10% / Pokemon SAR 40% / MUR 2%. Korean official pull rates are private.",
+    "_source": "pokemon-infomation.com/pull-rates-megadreamex/ 2,000BOX - MA 1, trainer SR/SAR 1, AR 3, optional Pokemon SR 10% / Pokemon SAR 40% / MUR 2%. No separate god-pack model is applied until a measured rate/source is available. Korean official pull rates are private.",
     "_sample_size": 2000,
-    "_estimated_at": "2026-05-10"
+    "_estimated_at": "2026-06-25"
   },
   "pack_slots": [],
   "cards": [
@@ -3644,24 +3644,24 @@
   "_fetched_at": "2026-05-01",
   "_notes": "하이클래스팩 — box_size/pack_size/price는 커뮤니티 확인 후 갱신 필요. 자동 수집 전 skeleton.",
   "luck_value_ref": {
-    "box_median_krw": 34300,
+    "box_median_krw": 34200,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
       15800,
       16400,
       16400,
-      18700,
+      18800,
       23200,
-      30500,
-      34300,
-      43000,
-      57200,
-      78900,
-      276400,
-      404200,
-      498100,
-      519000,
-      1661300
+      30100,
+      34200,
+      42500,
+      57000,
+      78000,
+      256600,
+      381400,
+      496800,
+      504800,
+      574700
     ],
     "pack_quantiles_krw": [
       0,
@@ -3678,7 +3678,7 @@
       20400,
       66700,
       236400,
-      1378800
+      550100
     ],
     "quantile_points": [
       0,
@@ -3701,6 +3701,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-06-25"
   }
 }

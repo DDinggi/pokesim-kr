@@ -35,9 +35,9 @@
         "max": 10
       }
     ],
-    "_source": "pokemoncard.co.kr Korean official card list + FullAhead Japanese secret-card supplement. Japanese official product page guarantees at least one SR-or-higher card per box. Community model: RR 9-10, basic-energy SR 1, main high slot SR 70% / HR 20% / UR 10%, and SR 10-card pack about 1 per 20 boxes. Korean official pull rates are unpublished.",
+    "_source": "pokemoncard.co.kr Korean official card list + FullAhead Japanese secret-card supplement + Bulbapedia SM12a product notes. Japanese product model guarantees at least one SR-or-higher card per box; community model: RR 9-10, basic-energy SR 1, main high slot SR 70% / HR 20% / UR 10%, and SR10 god pack about 1 per 250 packs (box-level about 3.9%). Korean official pull rates are unpublished.",
     "_sample_size": null,
-    "_estimated_at": "2026-06-21"
+    "_estimated_at": "2026-06-25"
   },
   "pack_slots": [],
   "cards": [
@@ -3449,24 +3449,24 @@
   ],
   "_fetched_at": "2026-06-20",
   "luck_value_ref": {
-    "box_median_krw": 95600,
+    "box_median_krw": 94300,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
       6600,
       10300,
       12100,
-      18300,
-      26400,
-      63900,
-      95600,
-      175900,
-      299400,
+      17100,
+      25700,
+      62800,
+      94300,
+      175300,
+      253100,
       373500,
-      673000,
-      1411500,
-      1850400,
-      2438000,
-      5446300
+      671100,
+      1161800,
+      1578500,
+      2167800,
+      4098000
     ],
     "pack_quantiles_krw": [
       0,
@@ -3479,11 +3479,11 @@
       0,
       0,
       0,
-      7900,
-      91400,
-      369300,
-      666900,
-      4324700
+      7300,
+      79000,
+      361100,
+      529400,
+      3994300
     ],
     "quantile_points": [
       0,
@@ -3506,6 +3506,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-06-25"
   }
 }
