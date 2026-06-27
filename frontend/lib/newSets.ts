@@ -1,13 +1,13 @@
 export const NEW_SIM_SET_CODES = [
-  'sm11a-remix-bout',
-  'sm8b-gx-ultra-shiny',
-  'sm11-miracle-twin',
+  'sm10b-sky-legend',
+  'sm10a-gg-end',
+  'sm10-double-blaze',
 ] as const;
 
 export const NEW_SIM_SET_NAMES = [
-  '리믹스바우트',
-  'GX 울트라샤이니 ULTIMATE',
-  '미라클트윈',
+  '스카이레전드',
+  'GG엔드',
+  '더블블레이즈',
 ];
 
 const NEW_SIM_SET_CODE_SET = new Set<string>(NEW_SIM_SET_CODES);

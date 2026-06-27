@@ -62,6 +62,9 @@ import sm12AlterGenesis from '../public/sets/sm12-alter-genesis.json';
 import sm11bDreamLeague from '../public/sets/sm11b-dream-league.json';
 import sm11aRemixBout from '../public/sets/sm11a-remix-bout.json';
 import sm11MiracleTwin from '../public/sets/sm11-miracle-twin.json';
+import sm10bSkyLegend from '../public/sets/sm10b-sky-legend.json';
+import sm10aGgEnd from '../public/sets/sm10a-gg-end.json';
+import sm10DoubleBlaze from '../public/sets/sm10-double-blaze.json';
 import sm8bGxUltraShiny from '../public/sets/sm8b-gx-ultra-shiny.json';
 import mStartDeck100 from '../public/sets/m-start-deck-100.json';
 import m4NinjaSpinner from '../public/sets/m4-ninja-spinner.json';
@@ -97,7 +100,8 @@ const sets: SetMeta[] = [
   s2aExplosiveWalker, s2RebellionCrash,
   s1aVmaxRising, s1wSword, s1hShield,
   sm12aTagTeamGxTagAllStars, sm12AlterGenesis, sm11bDreamLeague,
-  sm11aRemixBout, sm11MiracleTwin, sm8bGxUltraShiny,
+  sm11aRemixBout, sm11MiracleTwin, sm10bSkyLegend, sm10aGgEnd,
+  sm10DoubleBlaze, sm8bGxUltraShiny,
 ] as SetMeta[];
 
 export default function Home() {
