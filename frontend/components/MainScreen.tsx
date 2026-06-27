@@ -75,11 +75,11 @@ export function MainScreen({
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6">
         <div className="mb-5 space-y-1.5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 px-4 py-3 ring-1 ring-white/10">
           <p className="text-sm font-bold text-white sm:text-base">
-            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 6/25</span>
+            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 6/27</span>
             신규 세트 카드깡 · 박스 업데이트
           </p>
           <p className="text-[13px] font-semibold text-gray-200">
-            리믹스바우트 · GX 울트라샤이니 ULTIMATE · 미라클트윈
+            스카이레전드 · GG엔드 · 더블블레이즈
           </p>
           <p className="text-[12px] leading-relaxed text-gray-300">
             운 점수 측정은 카드 시세를 바탕으로 이루어집니다
@@ -107,11 +107,11 @@ export function MainScreen({
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
           <ModeCard
             title="박스깡"
-            subtitle="BOX · 30팩 한 번에 개봉"
+            subtitle="BOX · 한 상자 한 번에 개봉"
             description="한 박스를 통째로 까기. SR·SAR 보장 슬롯을 반영합니다."
             accent="from-red-600 via-rose-700 to-rose-950"
             tag="BOX"
-            tagSub="x 30팩"
+            tagSub="세트별 구성"
             onClick={() => onSelectMode('box')}
             imageNode={
               <Image
