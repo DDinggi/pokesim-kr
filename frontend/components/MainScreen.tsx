@@ -75,7 +75,7 @@ export function MainScreen({
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6">
         <div className="mb-5 space-y-1.5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 px-4 py-3 ring-1 ring-white/10">
           <p className="text-sm font-bold text-white sm:text-base">
-            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 6/27</span>
+            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 6/28</span>
             신규 세트 카드깡 · 박스 업데이트
           </p>
           <p className="text-[13px] font-semibold text-gray-200">

@@ -17,6 +17,71 @@
     }
   },
   "cards": {
+    "BS2019011053": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 54,
+      "note": "Sky Legend Korean TR order differs from Japanese SM10b: Lusamine maps to JP 054."
+    },
+    "BS2019011054": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 53,
+      "note": "Sky Legend Korean TR order differs from Japanese SM10b: Lillie maps to JP 053."
+    },
+    "BS2019011061": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 62,
+      "note": "Sky Legend Korean trainer-SR order differs from Japanese SM10b: Jessie & James maps to JP 062."
+    },
+    "BS2019011062": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 61,
+      "note": "Sky Legend Korean trainer-SR order differs from Japanese SM10b: Pokemon Maniac maps to JP 061."
+    },
+    "BS2019010051": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 52,
+      "note": "GG End Korean TR order differs from Japanese SM10a: Nest Ball maps to JP 052."
+    },
+    "BS2019010052": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 51,
+      "note": "GG End Korean TR order differs from Japanese SM10a: Escape Rope maps to JP 051."
+    },
+    "BS2019007092": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 93,
+      "note": "Double Blaze Korean TR order differs from Japanese SM10: Rescue Stretcher maps to JP 093."
+    },
+    "BS2019007093": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 92,
+      "note": "Double Blaze Korean TR order differs from Japanese SM10: Fiery Flint maps to JP 092."
+    },
+    "BS2019007094": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 95,
+      "note": "Double Blaze Korean TR order differs from Japanese SM10: Cynthia maps to JP 095."
+    },
+    "BS2019007095": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 94,
+      "note": "Double Blaze Korean TR order differs from Japanese SM10: Kiawe maps to JP 094."
+    },
+    "BS2019007105": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 107,
+      "note": "Double Blaze Korean trainer-SR order differs from Japanese SM10: Red's Challenge maps to JP 107."
+    },
+    "BS2019007106": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 105,
+      "note": "Double Blaze Korean trainer-SR order differs from Japanese SM10: Giovanni's Exile maps to JP 105."
+    },
+    "BS2019007107": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 106,
+      "note": "Double Blaze Korean trainer-SR order differs from Japanese SM10: Welder maps to JP 106."
+    },
     "BS2022010094": {
       "provider": "manual_jpy",
       "price_ref_jpy": 980,

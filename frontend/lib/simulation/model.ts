@@ -581,19 +581,19 @@ const SM_ALTER_GENESIS: StandardSvSetRate = {
   fillerWeights: SM_FILLER_WEIGHTS,
 };
 
-const SM10_ENHANCED: StandardSvSetRate = {
+const SM10_TR_SERIES: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
-    SR_POKEMON: 6,
-    SR_TRAINER: 2,
-    HR_POKEMON: 4,
-    UR: 3,
+    SR_POKEMON: 52.5,
+    SR_TRAINER: 17.5,
+    HR_POKEMON: 20,
+    UR: 10,
   }),
   extraHighRate: 1 / 12,
   extraHighWeights: normalizeHighWeights({
-    SR_POKEMON: 6,
-    SR_TRAINER: 2,
-    HR_POKEMON: 4,
-    UR: 3,
+    SR_POKEMON: 52.5,
+    SR_TRAINER: 17.5,
+    HR_POKEMON: 20,
+    UR: 10,
   }),
   trCount: 1,
   trExtraRate: 1 / 12,
@@ -788,9 +788,9 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'sm11b-dream-league': SM_DREAM_LEAGUE,
   'sm11a-remix-bout': SM11A_REMIX_BOUT,
   'sm11-miracle-twin': SM11_MIRACLE_TWIN,
-  'sm10b-sky-legend': SM10_ENHANCED,
-  'sm10a-gg-end': SM10_ENHANCED,
-  'sm10-double-blaze': SM11_MIRACLE_TWIN,
+  'sm10b-sky-legend': SM10_TR_SERIES,
+  'sm10a-gg-end': SM10_TR_SERIES,
+  'sm10-double-blaze': SM10_TR_SERIES,
 };
 
 export const SV11_RR_COUNT = 4;

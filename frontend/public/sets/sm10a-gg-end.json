@@ -39,8 +39,8 @@
         "max": 2
       }
     ],
-    "_source": "https://pokemoncard.co.kr/card/198 Korean official product/card list + FullAhead Japanese secret-card supplement. Korean product: 20 packs x 8 cards. Sun & Moon community box model: RR 3-4, TR 1-2, and SR-or-higher 1-2 per box. High-slot weights follow the complete secret-card composition: SR Pokemon 6, SR Trainer 2, HR Pokemon 4, UR 3. Korean official pull rates are unpublished.",
-    "_sample_size": null,
+    "_source": "https://pokemoncard.co.kr/card/198 Korean official product/card list + FullAhead Japanese secret-card supplement. Historical opening reports: https://pokecanews.com/archives/9492; carton expectation summary: https://pokecanews.com/archives/10352 (SR-or-higher 13/12 boxes, TR 13/12 boxes, RR 40/12 boxes). High-rarity category estimate uses the 4,500-box community aggregate at https://pokemon-infomation.com/pull-rates-pokemoncard-ss/ (SR 70%, HR 20%, UR 10%); Pokemon/Trainer SR split follows the SR card composition in this set. Korean official pull rates are unpublished.",
+    "_sample_size": "Historical community opening reports; high-rarity aggregate 4,500 boxes (cross-set)",
     "_estimated_at": "2026-06-27"
   },
   "pack_slots": [],
@@ -707,10 +707,10 @@
       "image_url": "wmimages/SM/SM10a/SM10a_051.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019010051",
       "_fetched_at": "2026-06-27",
-      "price_ref_krw": 5400,
-      "price_ref_jpy": 880,
+      "price_ref_krw": 15300,
+      "price_ref_jpy": 2480,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000002268/sm10a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000002269/sm10a/page1/recommend/; jp_to_kr_factor=0.65; mapped_from_number=51; fullahead_number=52",
       "price_updated_at": "2026-06-27",
       "price_confidence": "source"
     },
@@ -726,10 +726,10 @@
       "image_url": "wmimages/SM/SM10a/SM10a_052.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019010052",
       "_fetched_at": "2026-06-27",
-      "price_ref_krw": 15300,
-      "price_ref_jpy": 2480,
+      "price_ref_krw": 5400,
+      "price_ref_jpy": 880,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000002269/sm10a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000002268/sm10a/page1/recommend/; jp_to_kr_factor=0.65; mapped_from_number=52; fullahead_number=51",
       "price_updated_at": "2026-06-27",
       "price_confidence": "source"
     },
@@ -1075,24 +1075,24 @@
   "_source": "pokemoncard.co.kr",
   "_fetched_at": "2026-06-27",
   "luck_value_ref": {
-    "box_median_krw": 23200,
+    "box_median_krw": 25700,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
       5900,
-      6500,
+      7100,
       7800,
       10200,
-      12700,
-      19500,
-      23200,
-      54700,
-      68400,
-      78300,
-      283100,
-      618600,
+      13300,
+      20100,
+      25700,
+      60200,
+      72100,
+      88200,
+      297300,
+      621700,
       631600,
-      633300,
-      1247900
+      633900,
+      1253300
     ],
     "pack_quantiles_krw": [
       0,
@@ -1108,7 +1108,7 @@
       0,
       4200,
       15300,
-      58500,
+      66700,
       616300
     ],
     "quantile_points": [
