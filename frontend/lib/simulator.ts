@@ -2,6 +2,8 @@ import seedrandom from 'seedrandom';
 import type { Card, PackResult, BoxResult } from './types';
 import {
   buildAnniversary25Pack,
+  buildDetectivePikachuPack,
+  buildNightUnisonPack,
   expansionPackHitPool,
   maybeAppendAnniversary25Promo,
   simulateExpansionBox,
@@ -50,7 +52,11 @@ export function simulatePack(
             rng,
             1 / ANNIVERSARY_25_PROMO_INTERVAL,
           )
-      : buildExpansionPack(ctx, expansionPackHitPool(ctx, setCode), packSize);
+      : setCode === 'smp2-detective-pikachu'
+        ? buildDetectivePikachuPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
+        : setCode === 'sm9a-night-unison'
+          ? buildNightUnisonPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
+          : buildExpansionPack(ctx, expansionPackHitPool(ctx, setCode), packSize);
 
   return { pack, seed };
 }

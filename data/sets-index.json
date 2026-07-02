@@ -65,12 +65,17 @@
     "sm11b-dream-league",
     "sm11a-remix-bout",
     "sm11-miracle-twin",
+    "sm9b-full-metal-wall",
+    "sm9a-night-unison",
     "sm10b-sky-legend",
     "sm10a-gg-end",
     "sm10-double-blaze",
     "sm8b-gx-ultra-shiny"
   ],
-  "planned_sets": [],
+  "planned_sets": [
+    "m5-abyss-eye",
+    "smp2-detective-pikachu"
+  ],
   "_notes": "MEGA 라인업 + SV 확장팩 라인업 추가 (sv1a~sv11B). active_sets는 데이터 작성 완료 후 이동. 신상 발매 시 planned_sets에 추가 → 데이터 작성 → active_sets로 이동.",
-  "_updated_at": "2026-06-24"
+  "_updated_at": "2026-07-02"
 }

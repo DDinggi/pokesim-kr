@@ -12,6 +12,7 @@ interface CardEntry {
   card_num?: string;
   number?: number;
   rarity?: string | null;
+  subtype?: string | null;
   image_url?: string | null;
   price_ref_krw?: number | null;
   price_ref_jpy?: number | null;
@@ -127,7 +128,7 @@ async function main() {
     let unmatchedHigh = 0;
 
     for (const card of set.cards) {
-      if (!shouldPriceCard(card)) continue;
+      if (!shouldPriceCard(set.code, card)) continue;
 
       const priceMatch = card.card_num ? priceConfig.cards?.[card.card_num] : undefined;
       const fullaheadNumber = priceMatch?.fullahead_number ?? card.number;
@@ -327,8 +328,17 @@ function isCompatibleRarity(cardRarity: string | null | undefined, itemRarity: s
   return cardRarity === "UR" && itemRarity === "MUR";
 }
 
-function shouldPriceCard(card: CardEntry): boolean {
+function shouldPriceCard(setCode: string, card: CardEntry): boolean {
   if (!card.rarity) return false;
+  // Japanese SMP2 only has holo cards. Korean regular C/U cards have no
+  // equivalent FullAhead listing, so sharing the mirror price double-counts them.
+  if (
+    setCode === "smp2-detective-pikachu"
+    && card.subtype !== "미러"
+    && (card.rarity === "C" || card.rarity === "U")
+  ) return false;
+  // Korean SM9a mirror cards have no like-for-like Japanese listing.
+  if (setCode === "sm9a-night-unison" && card.subtype === "미러") return false;
   if (includeLow) return true;
   if (LOW_VALUE_RARITIES.has(card.rarity)) return false;
   return true;

@@ -17,6 +17,46 @@
     }
   },
   "cards": {
+    "BS2019005045": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 46,
+      "note": "Full Metal Wall Korean trainer order differs from Japanese SM9b: Metal Core Barrier maps to JP 046."
+    },
+    "BS2019005046": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 45,
+      "note": "Full Metal Wall Korean trainer order differs from Japanese SM9b: Beast Bringer maps to JP 045."
+    },
+    "BS2019005047": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 49,
+      "note": "Full Metal Wall Korean trainer order differs from Japanese SM9b: Molayne maps to JP 049."
+    },
+    "BS2019005049": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 47,
+      "note": "Full Metal Wall Korean trainer order differs from Japanese SM9b: Ultra Forest Kartenvoy maps to JP 047."
+    },
+    "BS2019005051": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 52,
+      "note": "Full Metal Wall Korean TR order differs from Japanese SM9b: Beast Ring maps to JP 052."
+    },
+    "BS2019005052": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 51,
+      "note": "Full Metal Wall Korean TR order differs from Japanese SM9b: Ultra Ball maps to JP 051."
+    },
+    "BS2019005061": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 62,
+      "note": "Full Metal Wall Korean trainer-SR order differs from Japanese SM9b: Molayne maps to JP 062."
+    },
+    "BS2019005062": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 61,
+      "note": "Full Metal Wall Korean trainer-SR order differs from Japanese SM9b: Blue's Exploration maps to JP 061."
+    },
     "BS2019011053": {
       "provider": "fullahead_number_map",
       "fullahead_number": 54,

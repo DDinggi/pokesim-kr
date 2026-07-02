@@ -590,7 +590,7 @@ ID 부여된 결정 한 줄 요약. 깊은 이유는 `docs/adr/` 폴더.
 - 인프라: GitHub(branch protection) + Cloudflare Workers(OpenNext) + R2 + Node 22 + pnpm
 - 카드 데이터 수집 파이프라인 (`scripts/` — discover/collect/manual-add/sync/검증). 자세히는
   [docs/card-set-pipeline.md](docs/card-set-pipeline.md)
-- 다중 세트 (현재 **active 69종**, MEGA + SV + 소드실드 + 썬&문 라인업)
+- 다중 세트 (현재 **active 71종**, MEGA + SV + 소드실드 + 썬&문 라인업)
 - 박스/팩 시뮬 (`frontend/lib/simulator.ts`, 시드 기반) — 자동/수동/즉시/1팩 모드
 - 럭 점수 + 백분위 (`frontend/lib/luck.ts`) — 등장 운 + **시세 운(가치 운)** 2종
 - 홀로그래픽 효과 (CSS 자체 구현, `prefers-reduced-motion` 회고는 [docs/debug-holo-card-transform.md](docs/debug-holo-card-transform.md))
@@ -846,7 +846,7 @@ main 직접 push 안 함 (실수 방지).
   - 운 점수: 등장 운 + 시세 운(가치 운) 2종
   - 홀로그래픽 효과 (CSS), 세션 누적(localStorage), 박스→박스 트랜지션
   - 카드 이미지 R2 CDN(img.pokesim.kr) + 256/512 WebP variant
-  - active 69종 (MEGA + SV + 소드실드 + 썬&문 라인업, data/sets-index.json)
+  - active 71종 (MEGA + SV + 소드실드 + 썬&문 라인업, data/sets-index.json)
   - 데이터 수집/검증 파이프라인 (docs/card-set-pipeline.md)
 
 데이터 보강 메모:
@@ -900,6 +900,8 @@ main 직접 push 안 함 (실수 방지).
 - 2026-05-xx — **인페르노X / 메가브레이브 / 메가심포니아 세트 추가 (D-149).** 일본판 데이터 보강 파이프라인으로 수집.
 - 2026-05-07 — **D-140~D-149 결정 박제. 18절 현재 상태 갱신 (MVP 완성, 배포 직전). 코드 정리 (중복 sort 제거, D-NNN 사용자 노출 문자열 정리, 인라인 코멘트 정리).**
 - 2026-05-22 — **D-151 추가.** 새 세트 추가 파이프라인에 운 계산 모델 동기화와 `validate:luck` 검증을 포함.
+- 2026-07-02 — **나이트유니슨 추가 및 세트 노출 정리.** 나이트유니슨의 한국 공식 기본 55장·C/U 미러 40장·SR 8장을 수집하고, 일본판 전체 목록으로 누락 HR/UR 7장을 보강했다. 한국판 8장 팩은 미러 1장 슬롯으로 분리 모델링하고, 어비스아이와 명탐정 피카츄는 데이터 보존 상태로 active/UI 노출에서 제외했다.
+- 2026-07-01 — **어비스아이·명탐정 피카츄·풀메탈월 추가.** 한국 공식 상품 구성과 카드 목록을 기준으로 등록하고, 일본판 전체 번호 대조로 누락 AR/SR/SAR/MUR/HR/UR 45장을 보강했다. 명탐정 피카츄는 박스당 요시다 경위 SR 1장과 팩당 홀로 1장 구성을 별도 모델링하고, 세 세트의 일본 시세·운 분포·256/512 이미지 파이프라인을 동기화.
 - 2026-06-28 — **썬&문 SM10 계열 3종 추가.** 스카이레전드·GG엔드·더블블레이즈를 한국 공식 상품 구성으로 등록하고, 일본판 전체 목록 대조로 누락 HR/UR 23장을 한국 정식명·일본 이미지·시세와 함께 보강. 세트별 고레어 풀 비율, 운 분포, 256/512 이미지 파이프라인을 동기화.
 - 2026-06-25 — **갓팩/특수팩 모델 근거 기반 정리.** 공통 1% 갓팩·MEGA 드림 ex 임시 갓팩을 폐기하고, 태그올스타즈 SR10팩(1/250팩), VSTAR 유니버스 AR9/SAR10팩, VMAX 클라이맥스 SR10/CHR·CSR10팩처럼 출처가 있는 세트별 특수팩만 모델링하도록 D-127/D-130과 시뮬 절차를 갱신. 고정 구성 특수팩은 카드 번호/레어도 조합을 고정하고 동일 카드 중복을 우선 방지.
 - 2026-06-13 — **문서 대청소(실제 구현과 정합).** 초기 FastAPI+Fly.io+Neon+Upstash Redis 단계적

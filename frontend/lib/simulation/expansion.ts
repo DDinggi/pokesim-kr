@@ -50,7 +50,13 @@ export function simulateExpansionBox(
   }
 
   const slots = resolveUniqueExpansionSlots(ctx, buildExpansionBoxHitSlots(boxSize, ctx, rng, setCode));
-  return shuffle(slots, rng).map((pool) => buildExpansionPack(ctx, pool, packSize));
+  return shuffle(slots, rng).map((pool) => (
+    setCode === 'smp2-detective-pikachu'
+      ? buildDetectivePikachuPack(ctx, pool, packSize)
+      : setCode === 'sm9a-night-unison'
+        ? buildNightUnisonPack(ctx, pool, packSize)
+        : buildExpansionPack(ctx, pool, packSize)
+  ));
 }
 
 export function buildAnniversary25Pack(ctx: BuildContext, rng: RNG, packSize = 5): PackResult {
@@ -110,6 +116,10 @@ function buildExpansionBoxHitSlots(
   const isSv11Special = isSv11SpecialSet(setCode);
   const standardSetRate = getStandardSvSetRate(setCode);
 
+  if (setCode === 'smp2-detective-pikachu') {
+    return buildDetectivePikachuSlots(boxSize, ctx);
+  }
+
   if (isMegaExpansion) {
     return buildMegaExpansionSlots(boxSize, ctx, rng, setCode);
   }
@@ -123,6 +133,71 @@ function buildExpansionBoxHitSlots(
   }
 
   return buildFallbackExpansionSlots(boxSize, ctx, rng, setCode);
+}
+
+export function buildDetectivePikachuPack(
+  ctx: BuildContext,
+  hitPool: Card[],
+  packSize = 5,
+): PackResult {
+  const { byRarity, pick } = ctx;
+  const cards: Card[] = [];
+  const regularC = (byRarity.C ?? []).filter((card) => card.subtype !== '미러');
+  const regularU = (byRarity.U ?? []).filter((card) => card.subtype !== '미러');
+
+  for (let i = 0; i < packSize - 2; i++) {
+    if (regularC.length) cards.push(pick(regularC));
+  }
+  if (regularU.length) cards.push(pick(regularU));
+  if (hitPool.length) cards.push(pick(hitPool));
+
+  return { cards };
+}
+
+export function buildNightUnisonPack(
+  ctx: BuildContext,
+  hitPool: Card[],
+  packSize = 8,
+): PackResult {
+  const { byRarity, pick } = ctx;
+  const cards: Card[] = [];
+  const regularC = (byRarity.C ?? []).filter((card) => card.subtype !== '미러');
+  const regularU = (byRarity.U ?? []).filter((card) => card.subtype !== '미러');
+  const mirrorPool = [
+    ...(byRarity.C ?? []).filter((card) => card.subtype === '미러'),
+    ...(byRarity.U ?? []).filter((card) => card.subtype === '미러'),
+  ];
+
+  for (let i = 0; i < packSize - 3; i++) {
+    if (regularC.length) cards.push(pick(regularC));
+  }
+  if (regularU.length) cards.push(pick(regularU));
+  if (mirrorPool.length) cards.push(pick(mirrorPool));
+  if (hitPool.length) cards.push(pick(hitPool));
+
+  return { cards };
+}
+
+function buildDetectivePikachuSlots(
+  boxSize: number,
+  ctx: BuildContext,
+): Card[][] {
+  const { byRarity } = ctx;
+  const slots: Card[][] = [];
+  const srPool = byRarity.SR ?? [];
+  if (srPool.length) slots.push(srPool);
+
+  const holoPool = [
+    ...(byRarity.C ?? []).filter((card) => card.subtype === '미러'),
+    ...(byRarity.U ?? []).filter((card) => card.subtype === '미러'),
+    ...(byRarity.RR ?? []),
+  ];
+  const holoSlots = Math.max(0, boxSize - slots.length);
+  for (let i = 0; i < holoSlots; i++) {
+    if (holoPool.length) slots.push(holoPool);
+  }
+
+  return slots;
 }
 
 function buildStandardSvSlots(
@@ -266,6 +341,20 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
 
   if (isAnniversary25Set(setCode)) {
     return anniversary25HitPool(ctx);
+  }
+
+  if (setCode === 'smp2-detective-pikachu') {
+    entries.push({ weight: 100, pool: byRarity.SR ?? [] });
+    entries.push({
+      weight: 1187.5,
+      pool: (byRarity.C ?? []).filter((card) => card.subtype === '미러'),
+    });
+    entries.push({
+      weight: 475,
+      pool: (byRarity.U ?? []).filter((card) => card.subtype === '미러'),
+    });
+    entries.push({ weight: 237.5, pool: byRarity.RR ?? [] });
+    return pickWeightedHitPool(ctx, entries, byRarity.U ?? byRarity.C ?? []);
   }
 
   if (isMegaExpansion) {
