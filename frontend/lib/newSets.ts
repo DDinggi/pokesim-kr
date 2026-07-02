@@ -1,13 +1,11 @@
 export const NEW_SIM_SET_CODES = [
-  'sm10b-sky-legend',
-  'sm10a-gg-end',
-  'sm10-double-blaze',
+  'sm9b-full-metal-wall',
+  'sm9a-night-unison',
 ] as const;
 
 export const NEW_SIM_SET_NAMES = [
-  '스카이레전드',
-  'GG엔드',
-  '더블블레이즈',
+  '풀메탈월',
+  '나이트유니슨',
 ];
 
 const NEW_SIM_SET_CODE_SET = new Set<string>(NEW_SIM_SET_CODES);

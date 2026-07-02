@@ -9,6 +9,7 @@ export const PROBABILITY_META = {
 
 export const EXPANSION_MONSTER_WEIGHTS: Record<string, Record<string, number>> = {
   'm4-ninja-spinner': { SR: 70, SAR: 28, UR: 2 },
+  'm5-abyss-eye': { SR: 70, SAR: 28, UR: 2 },
   'm-nihil-zero': { SR: 70, SAR: 28, UR: 2 },
   'm-inferno-x': { SR: 70, SAR: 28, UR: 2 },
   'm-mega-brave': { SR: 70, SAR: 28, UR: 2 },
@@ -581,6 +582,17 @@ const SM_ALTER_GENESIS: StandardSvSetRate = {
   fillerWeights: SM_FILLER_WEIGHTS,
 };
 
+const DETECTIVE_PIKACHU: StandardSvSetRate = {
+  mandatoryHighWeights: { SR_TRAINER: 100 },
+  extraHighRate: 0,
+  extraHighWeights: { SR_TRAINER: 100 },
+  arCount: 0,
+  boxSize: 20,
+  rrBaseCount: 2,
+  rrExtraRate: 3 / 8,
+  fillerWeights: { C: 75, U: 25 },
+};
+
 const SM10_TR_SERIES: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
     SR_POKEMON: 52.5,
@@ -788,6 +800,9 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'sm11b-dream-league': SM_DREAM_LEAGUE,
   'sm11a-remix-bout': SM11A_REMIX_BOUT,
   'sm11-miracle-twin': SM11_MIRACLE_TWIN,
+  'smp2-detective-pikachu': DETECTIVE_PIKACHU,
+  'sm9b-full-metal-wall': SM10_TR_SERIES,
+  'sm9a-night-unison': SM10_TR_SERIES,
   'sm10b-sky-legend': SM10_TR_SERIES,
   'sm10a-gg-end': SM10_TR_SERIES,
   'sm10-double-blaze': SM10_TR_SERIES,
@@ -809,6 +824,7 @@ export const MEGA_AR_COUNT = 3;
 
 export const MEGA_MAIN_SR_NUMBER_RANGES: Record<string, Array<[number, number]>> = {
   'm4-ninja-spinner': [[96, 103], [108, 111]],
+  'm5-abyss-eye': [[94, 101], [108, 111]],
   'm-nihil-zero': [[93, 100], [105, 108]],
   'm-inferno-x': [[93, 100], [105, 107]],
   'm-mega-brave': [[76, 80], [85, 86]],

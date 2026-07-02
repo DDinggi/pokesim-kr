@@ -60,6 +60,7 @@ interface CardEntry {
   name_ko?: string | null;
   rarity?: string | null;
   card_type?: string | null;
+  subtype?: string | null;
   image_url?: string | null;
 }
 
@@ -287,6 +288,7 @@ function validateImages(setCode: string, cards: CardEntry[]) {
 
 function validateImageNumberAlignment(setCode: string, cards: CardEntry[]) {
   for (const card of cards) {
+    if (card.subtype === "미러") continue;
     if (!Number.isInteger(card.number) || !card.image_url?.includes("wmimages/")) continue;
 
     const imageNumber = card.image_url.match(/_(\d+)(?:_\d+)?(?:_m)?\.[a-z0-9]+$/i)?.[1];

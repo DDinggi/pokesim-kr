@@ -36,6 +36,20 @@ const CASES: ChaseCase[] = [
     label: 'Inferno X Mega Charizard X ex MUR in 7 boxes',
   },
   {
+    setCode: 'm5-abyss-eye',
+    cardNum: 'BS2026004118',
+    boxes: 7,
+    minTierScore: 1,
+    label: 'Abyss Eye Mega Darkrai ex MUR in 7 boxes',
+  },
+  {
+    setCode: 'sm9a-night-unison',
+    cardNum: 'BS2019003061',
+    boxes: 1,
+    minTierScore: 1.3,
+    label: 'Night Unison Gardevoir & Sylveon GX alternate SR in 1 box',
+  },
+  {
     setCode: 'm-dream-ex',
     cardNum: 'BS2025015250',
     boxes: 4,

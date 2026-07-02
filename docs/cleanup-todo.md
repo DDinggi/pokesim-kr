@@ -4,7 +4,7 @@
 
 ## P0: 데이터 정합성
 
-- `m-black-volt`, `m4-black-bolt`, `m5-black-bolt`, `s4-black-volt`는 placeholder다. `sets-index.active_sets`에 넣기 전 실제 카드 데이터를 수집한다.
+- `m-black-volt`, `m4-black-bolt`, `s4-black-volt`는 placeholder다. `sets-index.active_sets`에 넣기 전 실제 카드 데이터를 수집한다.
 - `sv9-battle-partners`는 planned/hidden 상태다. 고레어 수집이 끝나기 전에는 UI에 노출하지 않는다.
 
 검증 명령:
