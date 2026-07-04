@@ -54,7 +54,7 @@ export function simulatePack(
           )
       : setCode === 'smp2-detective-pikachu'
         ? buildDetectivePikachuPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
-        : setCode === 'sm9a-night-unison'
+        : setCode === 'sm9a-night-unison' || setCode === 'sm8a-dark-order'
           ? buildNightUnisonPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
           : buildExpansionPack(ctx, expansionPackHitPool(ctx, setCode), packSize);
 

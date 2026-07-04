@@ -50,6 +50,20 @@ const CASES: ChaseCase[] = [
     label: 'Night Unison Gardevoir & Sylveon GX alternate SR in 1 box',
   },
   {
+    setCode: 'sm9-tag-bolt',
+    cardNum: 'BS2019001105',
+    boxes: 1,
+    minTierScore: 1.3,
+    label: 'Tag Bolt Latias & Latios GX alternate SR in 1 box',
+  },
+  {
+    setCode: 'sm8b-gx-ultra-shiny',
+    cardNum: 'BS2019002209',
+    boxes: 1,
+    minTierScore: 1.3,
+    label: 'GX Ultra Shiny Charizard GX SSR in 1 box',
+  },
+  {
     setCode: 'm-dream-ex',
     cardNum: 'BS2025015250',
     boxes: 4,

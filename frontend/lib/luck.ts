@@ -14,6 +14,7 @@ import {
   ANNIVERSARY_25_PROMO_INTERVAL,
   EXPANSION_MONSTER_WEIGHTS,
   GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS,
+  GX_ULTRA_SHINY_SECOND_PR_RATE,
   EXPANSION_MONSTER_WEIGHTS_DEFAULT,
   hasAceSpecSlot,
   MEGA_AR_COUNT,
@@ -753,8 +754,10 @@ function getExpectedScoredRarityCounts(
     }
 
     if (code === 'sm8b-gx-ultra-shiny') {
-      addExpectedCount(counts, 'S', unitCount * 3);
-      addExpectedCount(counts, 'PR', unitCount);
+      const extraWeightTotal = Object.values(GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS).reduce((sum, value) => sum + value, 0);
+      const noExtraRate = GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS.NONE / extraWeightTotal;
+      addExpectedCount(counts, 'S', unitCount * (1 + noExtraRate));
+      addExpectedCount(counts, 'PR', unitCount * (1 + GX_ULTRA_SHINY_SECOND_PR_RATE));
       addLoosePackBaselineCount('SSR');
       addExpectedCountsFromWeights(counts, GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
       return counts;
@@ -847,6 +850,7 @@ function addStandardFixedSlotCounts(
   if (rate.aCount) addExpectedCount(counts, 'A', unitCount * rate.aCount);
   if (rate.kCount) addExpectedCount(counts, 'K', unitCount * rate.kCount);
   if (rate.chrCount) addExpectedCount(counts, 'CHR', unitCount * rate.chrCount);
+  if (rate.prCount) addExpectedCount(counts, 'PR', unitCount * rate.prCount);
   if (rate.trCount || rate.trExtraRate) {
     addExpectedCount(counts, 'TR', unitCount * ((rate.trCount ?? 0) + (rate.trExtraRate ?? 0)));
   }
@@ -880,7 +884,7 @@ function subtractBaselineCounts(
     counts.SSR = Math.max(0, (counts.SSR ?? 0) - opening.boxes);
   }
   if (code === 's4a-shiny-star-v') {
-    counts.S = Math.max(0, (counts.S ?? 0) - opening.boxes * 3);
+    counts.S = Math.max(0, (counts.S ?? 0) - opening.boxes);
     counts.SSR = Math.max(0, (counts.SSR ?? 0) - opening.boxes);
   }
   if (code === 'sm8b-gx-ultra-shiny') {
@@ -1086,7 +1090,15 @@ function getBoxScoreDistribution(
     }
 
     if (code === 'sm8b-gx-ultra-shiny') {
-      return distributionFromWeights(GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS, 'box');
+      const extraDistribution = distributionFromWeights(GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS, 'box')
+        .map((outcome) => ({
+          ...outcome,
+          score: outcome.score === 0 ? getScoreWeight('S', 'box') : outcome.score,
+        }));
+      return convolveDistributions(
+        normalizeDistribution(extraDistribution),
+        bernoulliDistribution(getScoreWeight('PR', 'box'), GX_ULTRA_SHINY_SECOND_PR_RATE),
+      );
     }
 
     if (code === 's12a-vstar-universe') {
@@ -1171,6 +1183,12 @@ function getBoxScoreDistribution(
         [{ score: getScoreWeight('CHR', 'box') * standardRate.chrCount, probability: 1 }],
       );
     }
+    if (standardRate.prCount) {
+      standardDistribution = convolveDistributions(
+        standardDistribution,
+        [{ score: getScoreWeight('PR', 'box') * standardRate.prCount, probability: 1 }],
+      );
+    }
     if (standardRate.trCount) {
       standardDistribution = convolveDistributions(
         standardDistribution,
@@ -1240,7 +1258,7 @@ function getPackScoreDistribution(
     if (code === 's4a-shiny-star-v') {
       distribution = convolveDistributions(
         distribution,
-        bernoulliDistribution(getScoreWeight('S', 'pack'), 3 / boxSize),
+        bernoulliDistribution(getScoreWeight('S', 'pack'), 1.5 / boxSize),
       );
       distribution = convolveDistributions(
         distribution,
@@ -1259,7 +1277,7 @@ function getPackScoreDistribution(
       );
       distribution = convolveDistributions(
         distribution,
-        bernoulliDistribution(getScoreWeight('PR', 'pack'), 1 / boxSize),
+        bernoulliDistribution(getScoreWeight('PR', 'pack'), 1.5 / boxSize),
       );
       distribution = convolveDistributions(
         distribution,
@@ -1405,6 +1423,15 @@ function getPackScoreDistribution(
         repeatDistribution(
           bernoulliDistribution(getScoreWeight('CHR', 'pack'), 1 / boxSize),
           standardRate.chrCount,
+        ),
+      );
+    }
+    if (standardRate.prCount) {
+      distribution = convolveDistributions(
+        distribution,
+        repeatDistribution(
+          bernoulliDistribution(getScoreWeight('PR', 'pack'), 1 / boxSize),
+          standardRate.prCount,
         ),
       );
     }

@@ -53,7 +53,7 @@ export function simulateExpansionBox(
   return shuffle(slots, rng).map((pool) => (
     setCode === 'smp2-detective-pikachu'
       ? buildDetectivePikachuPack(ctx, pool, packSize)
-      : setCode === 'sm9a-night-unison'
+      : setCode === 'sm9a-night-unison' || setCode === 'sm8a-dark-order'
         ? buildNightUnisonPack(ctx, pool, packSize)
         : buildExpansionPack(ctx, pool, packSize)
   ));
@@ -230,6 +230,9 @@ function buildStandardSvSlots(
     if (pools.trAll.length) slots.push(pools.trAll);
   }
   if (rng() < (rate.trExtraRate ?? 0) && pools.trAll.length) slots.push(pools.trAll);
+  for (let i = 0; i < (rate.prCount ?? 0); i++) {
+    if (byRarity.PR?.length) slots.push(byRarity.PR);
+  }
   for (let i = 0; i < (rate.aCount ?? 0); i++) {
     if (pools.aPool.length) slots.push(pools.aPool);
   }
@@ -400,14 +403,16 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   const kCount = standardSetRate.kCount ?? 0;
   const chrCount = standardSetRate.chrCount ?? 0;
   const trCount = (standardSetRate.trCount ?? 0) + (standardSetRate.trExtraRate ?? 0);
+  const prCount = standardSetRate.prCount ?? 0;
   const extraSrRate = standardSetRate.extraHighRate;
   const rrExpected = standardSetRate.rrBaseCount + standardSetRate.rrExtraRate;
   const rrrExpected = (standardSetRate.rrrBaseCount ?? 0) + (standardSetRate.rrrExtraRate ?? 0);
-  const rSlots = boxSize - 1 - aceCount - kCount - chrCount - trCount - aCount - arCount - extraSrRate - rrExpected - rrrExpected;
+  const rSlots = boxSize - 1 - aceCount - kCount - chrCount - trCount - prCount - aCount - arCount - extraSrRate - rrExpected - rrrExpected;
 
   entries.push({ weight: rSlots * 100, pool: byRarity.R ?? [] });
   entries.push({ weight: rrExpected * 100, pool: byRarity.RR ?? [] });
   if (rrrExpected > 0) entries.push({ weight: rrrExpected * 100, pool: byRarity.RRR ?? [] });
+  if (prCount > 0) entries.push({ weight: prCount * 100, pool: byRarity.PR ?? [] });
   if (aceCount > 0) entries.push({ weight: aceCount * 100, pool: byRarity.ACE ?? [] });
   if (kCount > 0) entries.push({ weight: kCount * 100, pool: pools.kAll });
   if (chrCount > 0) entries.push({ weight: chrCount * 100, pool: pools.chrAll });

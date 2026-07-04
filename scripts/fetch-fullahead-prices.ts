@@ -72,7 +72,7 @@ const targetSet = readArg("--set");
 const all = argv.includes("--all");
 const includeLow = argv.includes("--include-low");
 const force = argv.includes("--force");
-const today = new Date().toISOString().slice(0, 10);
+const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date());
 
 main().catch((error) => {
   console.error(error instanceof Error ? error.stack ?? error.message : error);
