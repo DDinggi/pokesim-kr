@@ -62,6 +62,8 @@ import sm12AlterGenesis from '../public/sets/sm12-alter-genesis.json';
 import sm11bDreamLeague from '../public/sets/sm11b-dream-league.json';
 import sm11aRemixBout from '../public/sets/sm11a-remix-bout.json';
 import sm11MiracleTwin from '../public/sets/sm11-miracle-twin.json';
+import sm9TagBolt from '../public/sets/sm9-tag-bolt.json';
+import sm8aDarkOrder from '../public/sets/sm8a-dark-order.json';
 import sm9bFullMetalWall from '../public/sets/sm9b-full-metal-wall.json';
 import sm9aNightUnison from '../public/sets/sm9a-night-unison.json';
 import sm10bSkyLegend from '../public/sets/sm10b-sky-legend.json';
@@ -103,7 +105,7 @@ const sets: SetMeta[] = [
   s1aVmaxRising, s1wSword, s1hShield,
   sm12aTagTeamGxTagAllStars, sm12AlterGenesis, sm11bDreamLeague,
   sm11aRemixBout, sm11MiracleTwin,
-  sm9bFullMetalWall, sm9aNightUnison, sm10bSkyLegend, sm10aGgEnd,
+  sm9TagBolt, sm8aDarkOrder, sm9bFullMetalWall, sm9aNightUnison, sm10bSkyLegend, sm10aGgEnd,
   sm10DoubleBlaze, sm8bGxUltraShiny,
 ] as SetMeta[];
 

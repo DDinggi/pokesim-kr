@@ -593,6 +593,51 @@ const DETECTIVE_PIKACHU: StandardSvSetRate = {
   fillerWeights: { C: 75, U: 25 },
 };
 
+const SM_TAG_BOLT: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 30,
+    SR_ALT: 25,
+    SR_TRAINER: 15,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  extraHighRate: 1 / 12,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 30,
+    SR_ALT: 25,
+    SR_TRAINER: 15,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  trCount: 1,
+  arCount: 0,
+  rrBaseCount: 3,
+  rrExtraRate: 1 / 3,
+  fillerWeights: SM_FILLER_WEIGHTS,
+};
+
+const SM_DARK_ORDER: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 46.667,
+    SR_TRAINER: 23.333,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  extraHighRate: 1 / 12,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 46.667,
+    SR_TRAINER: 23.333,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  prCount: 1,
+  arCount: 0,
+  boxSize: 20,
+  rrBaseCount: 3,
+  rrExtraRate: 1 / 3,
+  fillerWeights: SM_FILLER_WEIGHTS,
+};
+
 const SM10_TR_SERIES: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
     SR_POKEMON: 52.5,
@@ -801,6 +846,8 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'sm11a-remix-bout': SM11A_REMIX_BOUT,
   'sm11-miracle-twin': SM11_MIRACLE_TWIN,
   'smp2-detective-pikachu': DETECTIVE_PIKACHU,
+  'sm9-tag-bolt': SM_TAG_BOLT,
+  'sm8a-dark-order': SM_DARK_ORDER,
   'sm9b-full-metal-wall': SM10_TR_SERIES,
   'sm9a-night-unison': SM10_TR_SERIES,
   'sm10b-sky-legend': SM10_TR_SERIES,
@@ -833,6 +880,7 @@ export const MEGA_MAIN_SR_NUMBER_RANGES: Record<string, Array<[number, number]>>
 };
 
 export const ALT_SR_NUMBER_RANGES: Record<string, Array<[number, number]>> = {
+  'sm9-tag-bolt': [[97, 97], [99, 99], [101, 101], [103, 103], [105, 105]],
   's12-paradigm-trigger': [[107, 110]],
   's11-lost-abyss': [[104, 104], [106, 106], [109, 109], [111, 111]],
   's10b-pokemon-go': [[74, 76]],
@@ -872,9 +920,12 @@ export const SHINY_STAR_V_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
 
 export const GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   NONE: 50,
-  SR: 40,
-  UR: 10,
+  SR: 35,
+  UR: 15,
 };
+
+// Contemporary opening summaries only establish a 1-2 PR range, so use its midpoint.
+export const GX_ULTRA_SHINY_SECOND_PR_RATE = 0.5;
 
 export const VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   NONE: 50,

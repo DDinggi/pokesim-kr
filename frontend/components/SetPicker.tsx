@@ -248,6 +248,14 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
     gradient: 'from-fuchsia-700 via-indigo-800 to-slate-950',
     accent: 'text-fuchsia-200',
   },
+  'sm9-tag-bolt': {
+    gradient: 'from-yellow-600 via-cyan-800 to-zinc-950',
+    accent: 'text-yellow-200',
+  },
+  'sm8a-dark-order': {
+    gradient: 'from-gray-950 via-red-950 to-amber-950',
+    accent: 'text-amber-200',
+  },
   'sm9b-full-metal-wall': {
     gradient: 'from-zinc-700 via-amber-900 to-gray-950',
     accent: 'text-yellow-200',

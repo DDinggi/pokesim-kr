@@ -103,7 +103,7 @@ function build(setCode: string): boolean {
     pack_quantiles_krw: quantilesOf(packVals),
     quantile_points: QUANTILES,
     _iterations: { box: BOX_ITER, pack: PACK_ITER },
-    _built_at: new Date().toISOString().slice(0, 10),
+    _built_at: new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date()),
   };
 
   const out = JSON.stringify(set, null, 2) + '\n';
