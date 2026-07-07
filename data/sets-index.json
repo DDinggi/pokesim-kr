@@ -1,12 +1,13 @@
 {
   "active_sets": [
-    "m-start-deck-100",
     "m4-ninja-spinner",
+    "m5-abyss-eye",
     "m-nihil-zero",
     "m-dream-ex",
     "m-inferno-x",
     "m-mega-brave",
     "m-mega-symphonia",
+    "m-start-deck-100",
     "sv11b-black-bolt",
     "sv11a-white-flare",
     "sv10-glory",
@@ -75,9 +76,8 @@
     "sm8b-gx-ultra-shiny"
   ],
   "planned_sets": [
-    "m5-abyss-eye",
     "smp2-detective-pikachu"
   ],
   "_notes": "MEGA 라인업 + SV 확장팩 라인업 추가 (sv1a~sv11B). active_sets는 데이터 작성 완료 후 이동. 신상 발매 시 planned_sets에 추가 → 데이터 작성 → active_sets로 이동.",
-  "_updated_at": "2026-07-05"
+  "_updated_at": "2026-07-07"
 }

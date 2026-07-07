@@ -3,6 +3,7 @@
  * Usage (scripts/ 디렉터리에서):
  *   pnpm fetch -- --set m4-ninja-spinner
  *   pnpm fetch -- --set m4-ninja-spinner --dry-run
+ *   pnpm fetch -- --set m4-ninja-spinner --merge
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
@@ -29,11 +30,12 @@ const hasFlag = (name: string) => argv.includes(`--${name}`);
 const setCode = getArg("set");
 const searchTextOverride = getArg("search-text");
 const dryRun = hasFlag("dry-run");
+const merge = hasFlag("merge");
 const delayMsArg = Number(getArg("delay-ms"));
 const delayMs = Number.isFinite(delayMsArg) && delayMsArg >= 0 ? delayMsArg : DEFAULT_DELAY_MS;
 
 if (!setCode) {
-  console.error("Usage: pnpm fetch -- --set <set-code> [--dry-run]");
+  console.error("Usage: pnpm fetch -- --set <set-code> [--dry-run] [--merge]");
   process.exit(1);
 }
 
@@ -63,6 +65,7 @@ interface CardEntry {
   image_url: string;
   _source: string;
   _fetched_at: string;
+  [key: string]: unknown;
 }
 
 // ── Utilities ─────────────────────────────────────────────────────────────────
@@ -207,7 +210,7 @@ function parseCardDetail(
 async function main() {
   const dataPath = join(REPO_ROOT, "data", "sets", `${setCode}.json`);
   const setData: SetJson = JSON.parse(readFileSync(dataPath, "utf8"));
-  const today = new Date().toISOString().slice(0, 10);
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(new Date());
 
   console.log(`\nSet : ${setData.name_ko}`);
   console.log(`Code: ${setCode}`);
@@ -284,15 +287,44 @@ async function main() {
     console.log(`\nTotal cards fetched: ${cards.length}`);
   }
 
+  const outputCards = merge ? mergeOfficialCards(setData.cards, cards) : cards;
+
   if (dryRun) {
     console.log("\n[dry-run] First 3 cards:");
-    console.log(JSON.stringify(cards.slice(0, 3), null, 2));
+    console.log(JSON.stringify(outputCards.slice(0, 3), null, 2));
     return;
   }
 
-  const updated: SetJson = { ...setData, cards, _fetched_at: today };
+  const updated: SetJson = { ...setData, cards: outputCards, _fetched_at: today };
   writeFileSync(dataPath, JSON.stringify(updated, null, 2) + "\n", "utf8");
   console.log(`\nSaved → ${dataPath}`);
+}
+
+function mergeOfficialCards(existingCards: CardEntry[], officialCards: CardEntry[]): CardEntry[] {
+  const existingByCardNum = new Map(existingCards.map((card) => [card.card_num, card]));
+  const officialCardNums = new Set(officialCards.map((card) => card.card_num));
+  const mergedCards = officialCards.map((officialCard) => {
+    const existingCard = existingByCardNum.get(officialCard.card_num);
+    const validOfficialFields = Object.fromEntries(
+      Object.entries(officialCard).filter(([, value]) => value !== null && value !== ""),
+    );
+    const mergedCard = { ...existingCard, ...validOfficialFields } as CardEntry;
+
+    if (officialCard.name_ko && officialCard.rarity && officialCard.image_url) {
+      delete mergedCard._manual;
+      delete mergedCard._image_source_url;
+    }
+
+    return mergedCard;
+  });
+
+  const preservedCards = existingCards.filter((card) => !officialCardNums.has(card.card_num));
+  const outputCards = [...mergedCards, ...preservedCards];
+  outputCards.sort((a, b) => (a.number ?? 9999) - (b.number ?? 9999));
+  console.log(
+    `Merged official=${officialCards.length}, preserved local-only=${preservedCards.length}, total=${outputCards.length}`,
+  );
+  return outputCards;
 }
 
 main().catch((err) => {

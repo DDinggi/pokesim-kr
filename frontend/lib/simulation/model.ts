@@ -9,7 +9,7 @@ export const PROBABILITY_META = {
 
 export const EXPANSION_MONSTER_WEIGHTS: Record<string, Record<string, number>> = {
   'm4-ninja-spinner': { SR: 70, SAR: 28, UR: 2 },
-  'm5-abyss-eye': { SR: 70, SAR: 28, UR: 2 },
+  'm5-abyss-eye': { SR: 71, SAR: 28, UR: 1 },
   'm-nihil-zero': { SR: 70, SAR: 28, UR: 2 },
   'm-inferno-x': { SR: 70, SAR: 28, UR: 2 },
   'm-mega-brave': { SR: 70, SAR: 28, UR: 2 },
