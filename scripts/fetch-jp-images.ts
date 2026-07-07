@@ -67,11 +67,13 @@ interface JpCard {
 }
 
 // yuyu-tei alt 형식: "NNN/총수 RARITY 名前"
+// 최근 페이지는 alt 앞뒤에 공백이 들어가고, m5 대신 m05처럼 zero-padded 코드로
+// 이미지 경로가 내려오기도 한다.
 // 이미지 URL: https://card.yuyu-tei.jp/poc/100_140/<jp-code>/10NNN.jpg
 function parseYuyuTei(html: string): JpCard[] {
   const cards: JpCard[] = [];
   const imgRe =
-    /<img[^>]*src="(https:\/\/card\.yuyu-tei\.jp\/poc\/[^"]+\/(\d{5})\.jpg)"[^>]*alt="(\d{3})\/\d+ ([A-Z]+) ([^"]+)"/g;
+    /<img[^>]*src="(https:\/\/card\.yuyu-tei\.jp\/poc\/[^"]+\/(\d{5})\.jpg)"[^>]*alt="\s*(\d{3})\/\d+\s+([A-Z-]+)\s+([^"]+?)\s*"/g;
   let m: RegExpExecArray | null;
   while ((m = imgRe.exec(html)) !== null) {
     const [, src, , numStr, rawRarity, name] = m;
@@ -87,13 +89,14 @@ function parseYuyuTei(html: string): JpCard[] {
   return cards;
 }
 
-// PokeGuardian: NNN-high-<hash>.jpg URL을 number별로 매핑
+// PokeGuardian: NNN-high-<hash>.jpg / m5-NNN<hash>-high.jpg URL을 number별로 매핑
 function parsePokeGuardian(html: string): Map<number, string> {
   const map = new Map<number, string>();
-  const re = /https:\/\/primary\.jwwb\.nl\/public\/[^"?]*?(\d{3})-high-[a-z0-9]+\.jpg/gi;
+  const re =
+    /https:\/\/primary\.jwwb\.nl\/public\/[^"?]*?(?:(\d{3})-high-[a-z0-9]+|m\d+-(\d{3})[a-z0-9-]*-high[a-z0-9-]*)\.jpg/gi;
   let m: RegExpExecArray | null;
   while ((m = re.exec(html)) !== null) {
-    const num = parseInt(m[1], 10);
+    const num = parseInt(m[1] ?? m[2], 10);
     const url = m[0];
     if (!map.has(num)) map.set(num, url);
   }

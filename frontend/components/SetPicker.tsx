@@ -16,6 +16,10 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
     gradient: 'from-cyan-700 via-blue-800 to-indigo-900',
     accent: 'text-cyan-300',
   },
+  'm5-abyss-eye': {
+    gradient: 'from-fuchsia-900 via-gray-950 to-cyan-950',
+    accent: 'text-fuchsia-200',
+  },
   'm-nihil-zero': {
     gradient: 'from-emerald-700 via-teal-800 to-slate-900',
     accent: 'text-emerald-300',

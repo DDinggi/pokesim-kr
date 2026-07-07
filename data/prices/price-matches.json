@@ -242,6 +242,31 @@
       "provider": "fullahead_number_map",
       "fullahead_number": 195,
       "note": "TAG TEAM GX Tag All Stars Korean trainer-SR order differs from the Japanese SM12a numbering."
+    },
+    "BS2026003104": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 106,
+      "note": "Ninja Spinner Korean trainer-SR order differs from Japanese M4: Special Red Card maps to JP 106."
+    },
+    "BS2026003105": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 104,
+      "note": "Ninja Spinner Korean trainer-SR order differs from Japanese M4: Energy Retrieval maps to JP 104."
+    },
+    "BS2026003106": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 105,
+      "note": "Ninja Spinner Korean trainer-SR order differs from Japanese M4: Jumbo Ice maps to JP 105."
+    },
+    "BS2026003109": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 111,
+      "note": "Ninja Spinner Korean supporter-SR order differs from Japanese M4: Matiere maps to JP 111."
+    },
+    "BS2026003111": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 109,
+      "note": "Ninja Spinner Korean supporter-SR order differs from Japanese M4: Jip maps to JP 109."
     }
   }
 }
