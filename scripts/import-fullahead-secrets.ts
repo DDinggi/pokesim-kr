@@ -198,7 +198,7 @@ async function fetchFirstCategoryPage(shopCode: string): Promise<{ categoryCode:
 
 function parseFullaheadItems(html: string, shopCode: string): FullaheadItem[] {
   const items: FullaheadItem[] = [];
-  const codeRegex = new RegExp(`PK-${escapeRegExp(shopCode.toUpperCase())}-([0-9]{1,3})`, 'i');
+  const codeRegex = new RegExp(`PK-${fullaheadCodePattern(shopCode)}-([0-9]{1,3})`, 'i');
   const root = parse(html);
 
   for (const nameNode of root.querySelectorAll('span.itemName')) {
@@ -239,6 +239,11 @@ function categoryCandidates(shopCode: string): string[] {
   const padded = lower.replace(/^([a-z]+)(\d)([a-z]*)$/, '$10$2$3');
   const noLeadingZero = lower.replace(/^([a-z]+)0+(\d)/, '$1$2');
   return [...new Set([lower, padded, noLeadingZero])];
+}
+
+function fullaheadCodePattern(shopCode: string): string {
+  const escaped = escapeRegExp(shopCode.toUpperCase());
+  return escaped.endsWith('PLUS') ? `${escaped.slice(0, -4)}(?:PLUS|\\+)` : escaped;
 }
 
 function normalizeFullaheadUrl(href: string): string {

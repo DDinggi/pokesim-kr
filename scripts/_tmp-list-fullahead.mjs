@@ -27,9 +27,13 @@ function candidates(shopCode) {
   const noLead = lower.replace(/^([a-z]+)0+(\d)/, "$1$2");
   return [...new Set([lower, padded, noLead])];
 }
+function fullaheadCodePattern(shopCode) {
+  const escaped = escapeRegExp(shopCode.toUpperCase());
+  return escaped.endsWith("PLUS") ? `${escaped.slice(0, -4)}(?:PLUS|\\+)` : escaped;
+}
 function parseItems(html, shopCode) {
   const items = [];
-  const codeRegex = new RegExp(`PK-${escapeRegExp(shopCode.toUpperCase())}-([0-9]{1,3})`, "i");
+  const codeRegex = new RegExp(`PK-${fullaheadCodePattern(shopCode)}-([0-9]{1,3})`, "i");
   const root = parse(html);
   for (const n of root.querySelectorAll("span.itemName")) {
     const title = decodeHtml(n.text.trim());

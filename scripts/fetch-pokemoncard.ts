@@ -118,9 +118,16 @@ async function searchPage(
   return { count: data.count ?? 0, limit: data.limit ?? 0, results };
 }
 
+function getFilePrefix(imageUrl: string): string | null {
+  const clean = imageUrl.replace(/\?.*$/, "");
+  const match = clean.match(/\/([A-Za-z0-9]+)_\d+\.(?:png|jpg|jpeg|webp)$/i);
+  return match?.[1]?.toUpperCase() ?? null;
+}
+
 async function fetchAllRefs(
   setName: string,
-  folderPrefix: string
+  folderPrefix: string,
+  filePrefix: string | null
 ): Promise<SearchResult[]> {
   const all: SearchResult[] = [];
   // 첫 호출은 limit=0 (사이트 JS의 "start fresh" 규약)
@@ -129,9 +136,9 @@ async function fetchAllRefs(
   while (true) {
     process.stdout.write(`  cursor=${cursor}…`);
     const page = await searchPage(setName, cursor);
-    const filtered = folderPrefix
-      ? page.results.filter((r) => r.feature_image.includes(folderPrefix))
-      : page.results;
+    const filtered = filePrefix
+      ? page.results.filter((r) => getFilePrefix(r.feature_image) === filePrefix)
+      : (folderPrefix ? page.results.filter((r) => r.feature_image.includes(folderPrefix)) : page.results);
 
     all.push(...filtered);
     console.log(` count=${page.count} +${filtered.length} (${all.length} total)`);
@@ -219,11 +226,13 @@ async function main() {
   // 이미지 폴더 prefix 추출 (기존 sample 카드에서)
   const sampleImg = setData.cards[0]?.image_url ?? "";
   const folderPrefix = sampleImg ? sampleImg.replace(/\/[^/]+$/, "/") : "";
+  const filePrefix = getFilePrefix(sampleImg);
   console.log(`CDN folder prefix: ${folderPrefix || "(not set)"}`);
+  if (filePrefix) console.log(`CDN file prefix: ${filePrefix}`);
 
   // Step 1: 카드 목록 수집
   console.log("\n[1/2] Collecting card list from search API…");
-  const refs = await fetchAllRefs(searchTextOverride ?? setData.name_ko, folderPrefix);
+  const refs = await fetchAllRefs(searchTextOverride ?? setData.name_ko, folderPrefix, filePrefix);
 
   if (refs.length === 0) {
     console.error("No cards found. Check set name and network.");

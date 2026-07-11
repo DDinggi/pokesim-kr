@@ -638,6 +638,52 @@ const SM_DARK_ORDER: StandardSvSetRate = {
   fillerWeights: SM_FILLER_WEIGHTS,
 };
 
+const SM7A_PLASMA_SPARK: StandardSvSetRate = {
+  ...SM_DARK_ORDER,
+};
+
+const SM8_BURST_IMPACT: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 43.75,
+    SR_TRAINER: 26.25,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  extraHighRate: 1 / 12,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 43.75,
+    SR_TRAINER: 26.25,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  prCount: 1,
+  arCount: 0,
+  rrBaseCount: 3,
+  rrExtraRate: 1 / 3,
+  fillerWeights: SM_FILLER_WEIGHTS,
+};
+
+const SM4PLUS_GX_BATTLE_BOOST_REMASTER: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 35,
+    SR_TRAINER: 35,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  extraHighRate: 1 / 12,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 35,
+    SR_TRAINER: 35,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  arCount: 0,
+  boxSize: 20,
+  rrBaseCount: 18,
+  rrExtraRate: 0,
+  fillerWeights: { R: 100 },
+};
+
 const SM10_TR_SERIES: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
     SR_POKEMON: 52.5,
@@ -846,6 +892,9 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'sm11a-remix-bout': SM11A_REMIX_BOUT,
   'sm11-miracle-twin': SM11_MIRACLE_TWIN,
   'smp2-detective-pikachu': DETECTIVE_PIKACHU,
+  'sm7a-plasma-spark': SM7A_PLASMA_SPARK,
+  'sm4plus-gx-battle-boost-remaster': SM4PLUS_GX_BATTLE_BOOST_REMASTER,
+  'sm8-burst-impact': SM8_BURST_IMPACT,
   'sm9-tag-bolt': SM_TAG_BOLT,
   'sm8a-dark-order': SM_DARK_ORDER,
   'sm9b-full-metal-wall': SM10_TR_SERIES,

@@ -270,6 +270,40 @@ function getAllowedMissingNumbers(setCode: string): Set<number> {
   return new Set();
 }
 
+function getAllowedImageNumberMismatchCardNums(setCode: string): Set<string> {
+  if (setCode === "sm4plus-gx-battle-boost-remaster") {
+    // Pokemon Korea's SM4+ image filenames preserve the original DB asset ids for these cards.
+    return new Set([
+      "BS2018011038",
+      "BS2018011088",
+      "BS2018011089",
+      "BS2018011090",
+      "BS2018011091",
+      "BS2018011092",
+      "BS2018011093",
+      "BS2018011094",
+      "BS2018011095",
+      "BS2018011096",
+      "BS2018011097",
+      "BS2018011098",
+      "BS2018011099",
+      "BS2018011100",
+      "BS2018011101",
+      "BS2018011103",
+      "BS2018011104",
+      "BS2018011105",
+      "BS2018011106",
+      "BS2018011107",
+      "BS2018011108",
+      "BS2018011109",
+      "BS2018011112",
+      "BS2018011113",
+    ]);
+  }
+
+  return new Set();
+}
+
 function validateImages(setCode: string, cards: CardEntry[]) {
   for (const card of cards) {
     if (!card.image_url) {
@@ -287,12 +321,16 @@ function validateImages(setCode: string, cards: CardEntry[]) {
 }
 
 function validateImageNumberAlignment(setCode: string, cards: CardEntry[]) {
+  const allowedMismatchCardNums = getAllowedImageNumberMismatchCardNums(setCode);
+
   for (const card of cards) {
     if (card.subtype === "미러") continue;
     if (!Number.isInteger(card.number) || !card.image_url?.includes("wmimages/")) continue;
 
     const imageNumber = card.image_url.match(/_(\d+)(?:_\d+)?(?:_m)?\.[a-z0-9]+$/i)?.[1];
     if (imageNumber && Number(imageNumber) !== card.number) {
+      if (card.card_num && allowedMismatchCardNums.has(card.card_num)) continue;
+
       add(
         "warn",
         setCode,

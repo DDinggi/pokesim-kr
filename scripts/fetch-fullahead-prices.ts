@@ -249,6 +249,11 @@ function getCategoryCandidates(shopCode: string): string[] {
   return Array.from(new Set([lower, padded, noLeadingZero]));
 }
 
+function fullaheadCodePattern(shopCode: string): string {
+  const escaped = escapeRegExp(shopCode.toUpperCase());
+  return escaped.endsWith("PLUS") ? `${escaped.slice(0, -4)}(?:PLUS|\\+)` : escaped;
+}
+
 async function fetchEucJp(url: string): Promise<string> {
   const response = await fetch(url, {
     headers: {
@@ -265,7 +270,7 @@ async function fetchEucJp(url: string): Promise<string> {
 
 function parseFullaheadItems(html: string, shopCode: string): FullaheadItem[] {
   const items: FullaheadItem[] = [];
-  const codeRegex = new RegExp(`PK-${escapeRegExp(shopCode.toUpperCase())}-([0-9]{1,3})`, "i");
+  const codeRegex = new RegExp(`PK-${fullaheadCodePattern(shopCode)}-([0-9]{1,3})`, "i");
   const root = parse(html);
 
   for (const nameNode of root.querySelectorAll("span.itemName")) {
