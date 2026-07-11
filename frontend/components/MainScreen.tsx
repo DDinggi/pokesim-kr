@@ -81,9 +81,6 @@ export function MainScreen({
           <p className="text-[13px] font-semibold text-gray-200">
             플라스마 스파크 · GX배틀부스트 REMASTER · 버스트임팩트
           </p>
-          <p className="text-[12px] leading-relaxed text-gray-300">
-            썬&문 인기 확장팩 3종을 새롭게 즐겨보세요.
-          </p>
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-relaxed text-gray-400">
             <span>4일 주기 업데이트 예정입니다. 피드백과 문의는 언제든 환영합니다.</span>
             <a
