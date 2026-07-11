@@ -1,15 +1,13 @@
 export const NEW_SIM_SET_CODES = [
-  'm5-abyss-eye',
-  'sm8b-gx-ultra-shiny',
-  'sm9-tag-bolt',
-  'sm8a-dark-order',
+  'sm7a-plasma-spark',
+  'sm4plus-gx-battle-boost-remaster',
+  'sm8-burst-impact',
 ] as const;
 
 export const NEW_SIM_SET_NAMES = [
-  '어비스 아이',
-  'GX 울트라샤이니',
-  '태그볼트',
-  '다크오더',
+  '플라스마 스파크',
+  'GX배틀부스트 REMASTER',
+  '버스트임팩트',
 ];
 
 const NEW_SIM_SET_CODE_SET = new Set<string>(NEW_SIM_SET_CODES);
