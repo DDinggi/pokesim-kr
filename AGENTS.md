@@ -578,6 +578,7 @@ ID 부여된 결정 한 줄 요약. 깊은 이유는 `docs/adr/` 폴더.
 - **D-150** 신규 rarity 발견 시 등록 절차 — 자동 수집(`scripts/fetch-pokemoncard.ts`)이 substring 매칭이라 `"SSR".includes("SR")`처럼 새 등급이 기존 등급에 흡수돼 사일런트 손실이 발생한다. 새 등급(예: SSR, S 등)을 발견하면 다음을 한 번에 반영한다 — (1) 해당 세트 JSON `rarities` 배열에 추가, (2) `scripts/validate-card-data.ts`의 `KNOWN_RARITIES`·`HIGH_RARITIES`, (3) `frontend/lib/rarity.ts`의 `RARITY_ORDER`·`RARITY_BADGE`·`CARD_GLOW`·`RARITY_TEXT_COLOR`·`RARITY_TIER`·`RARITY_FULL_LABEL`·`RARE_RARITIES`·`HIT_RARITIES`·`HOLO_RARITIES`, (4) 필요 시 `frontend/lib/simulation/pools.ts`의 `RarityPools`·`getRarityPools` 풀 추가, (5) 시뮬 모델의 슬롯 가중치(`model.ts`/`hi-class.ts`/`expansion.ts`), (6) `frontend/lib/luck.ts` `getLuckRatesForSet`. 적용 후 해당 세트 재수집(`pnpm collect`)이 필요하다. 사례: 2026-05 sv4a 샤이니트레저 ex의 SSR(Shiny Super Rare).
 - **D-151** 새 세트 추가 시 운 계산 모델도 같은 작업 단위로 갱신한다 — 시뮬 슬롯(`model.ts`/`expansion.ts`/`hi-class.ts`)과 운 기대값/분포(`frontend/lib/luck.ts`)는 항상 같이 맞춘다. 박스 고정 슬롯은 베이스라인으로 차감하고, 1팩/자판기는 같은 박스 모델의 기대값을 `1 / box_size`로 환산한다. 새 세트 PR에서는 `pnpm --dir scripts validate:luck -- --set <code> --strict`를 실행한다.
 - **D-152** 카드 구성 완전성 검증 — 한국판과 대응 일본판 세트의 카드 구성을 동일 기준으로 보고, `audit:coverage`로 일본판 전체 번호를 대조한다. 한국 공식 검색에서 누락된 HR/UR도 한국 정식 카드명으로 복원하고 일본판 이미지·시세 출처를 기록해 추가한다.
+- **D-153** V-UNION 이미지 처리 — 공식 DB가 4장 합본 이미지만 제공하면 공식 번호 순서(좌상·우상·좌하·우하)에 따라 정확히 2×2 분할하고 카드마다 버전된 R2 키를 사용한다. 합본 출처와 사분면을 카드 메타에 기록하며, 이미지 감사에서 V-UNION 중복을 예외 처리하지 않는다.
 
 ---
 
