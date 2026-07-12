@@ -10,6 +10,11 @@ import {
   type OpeningSession,
 } from '../lib/openingHistory';
 import {
+  getHitDexStats,
+  loadHitDex,
+  type HitDexState,
+} from '../lib/hitDex';
+import {
   CARD_IMAGES_ENABLED,
   CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
   resolveCardImageUrl,
@@ -44,12 +49,15 @@ function loadSession(): OpeningSession | null {
 export function MainScreen({
   onSelectMode,
   onOpenLuck,
+  onOpenHitDex,
 }: {
   onSelectMode: (mode: Mode) => void;
   onOpenLuck: () => void;
+  onOpenHitDex: () => void;
 }) {
   const [stats, setStats] = useState<GlobalStats | null>(null);
   const [session, setSession] = useState<OpeningSession | null>(null);
+  const [hitDex, setHitDex] = useState<HitDexState | null>(null);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [showAllHistoryCards, setShowAllHistoryCards] = useState(false);
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
@@ -58,7 +66,10 @@ export function MainScreen({
     fetchGlobalStats().then((nextStats) => {
       if (nextStats) setStats(nextStats);
     });
-    const timer = window.setTimeout(() => setSession(loadSession()), 0);
+    const timer = window.setTimeout(() => {
+      setSession(loadSession());
+      setHitDex(loadHitDex());
+    }, 0);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -143,6 +154,7 @@ export function MainScreen({
         <button
           onClick={() => {
             setSession(loadSession());
+            setHitDex(loadHitDex());
             onOpenLuck();
           }}
           className="mt-4 w-full rounded-2xl bg-gray-900/90 px-5 py-4 text-left ring-1 ring-white/10 transition hover:bg-gray-900 hover:ring-amber-300/40 active:scale-[0.99]"
@@ -159,6 +171,14 @@ export function MainScreen({
             </span>
           </div>
         </button>
+
+        <HitDexPanel
+          hitDex={hitDex}
+          onOpen={() => {
+            setHitDex(loadHitDex());
+            onOpenHitDex();
+          }}
+        />
       </main>
 
       {session && (
@@ -183,7 +203,7 @@ export function MainScreen({
             </button>
             <button
               onClick={() => {
-                const confirmed = window.confirm('지금까지 깐 전체 기록을 초기화할까요?');
+                const confirmed = window.confirm('지금까지 깐 전체 기록을 초기화할까요?\n힛카드 도감은 유지됩니다.');
                 if (!confirmed) return;
                 trackUserEvent({
                   eventName: 'reset_history',
@@ -255,6 +275,46 @@ export function MainScreen({
         </div>
       </footer>
     </div>
+  );
+}
+
+function HitDexPanel({
+  hitDex,
+  onOpen,
+}: {
+  hitDex: HitDexState | null;
+  onOpen: () => void;
+}) {
+  if (!hitDex) return null;
+
+  const stats = getHitDexStats(hitDex);
+  const hasEntries = hitDex.entries.length > 0;
+
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className="mt-4 w-full rounded-2xl bg-gray-900/90 px-5 py-4 text-left ring-1 ring-white/10 transition hover:bg-gray-900 hover:ring-cyan-300/40 active:scale-[0.99]"
+    >
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-lg font-black text-white">힛카드 도감</p>
+          <p className="mt-0.5 text-xs text-gray-500">
+            반짝이는 카드 등록 현황 보기
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          {hasEntries && (
+            <span className="rounded-full bg-cyan-300/15 px-3 py-1.5 text-xs font-black text-cyan-100 ring-1 ring-cyan-200/20">
+              {stats.uniqueCount}종
+            </span>
+          )}
+          <span className="rounded-full bg-cyan-300 px-3 py-1.5 text-xs font-black text-gray-950">
+            DEX
+          </span>
+        </div>
+      </div>
+    </button>
   );
 }
 

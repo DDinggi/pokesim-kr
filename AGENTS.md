@@ -78,7 +78,7 @@
 
 ### 비목표 (절대 안 함)
 
-- ❌ 컬렉션 영구 저장 (사용자별 카드 수집 기록)
+- ❌ 서버/계정 기반 컬렉션 영구 저장 (사용자별 카드 수집 기록)
 - ❌ 사용자 간 상호작용 (DM, 친구, 팔로우)
 - ❌ 카드 거래 / 결제
 - ❌ 실시간 멀티플레이
@@ -89,6 +89,7 @@
 ### 부분 도입 (조건부)
 
 - ⚠️ 로그인 — 리뷰 작성 등 일부 기능에만. 시뮬은 영원히 익명. 자세히는 [9. 접근 제어 정책](#9-접근-제어-정책)
+- ✅ 익명 힛카드 도감 — 로그인 없이 브라우저 `localStorage`에만 저장. 세션 기록과 분리하며 서버/계정 컬렉션으로 확장하지 않는다.
 
 ### 비전 (시기 미정)
 
@@ -340,6 +341,7 @@ RR 등장 확률
 - 시세 **보기**
 - 공유 링크 생성/조회
 - 랭킹 페이지 보기
+- 익명 힛카드 도감 보기 (브라우저 `localStorage` 전용)
 
 ### 로그인 필요
 
@@ -458,7 +460,7 @@ ID 부여된 결정 한 줄 요약. 깊은 이유는 `docs/adr/` 폴더.
 ### 기능 범위
 
 - **D-060** 로그인 부분 도입 (변경됨)
-- **D-061** 컬렉션 영구 저장 X
+- **D-061** 서버/계정 기반 컬렉션 영구 저장 X — 익명 힛카드 도감은 브라우저 `localStorage` 전용으로만 허용
 - **D-062** 광고 X
 - **D-063** 결제 X
 - **D-064** 모바일 앱 X
@@ -593,6 +595,7 @@ ID 부여된 결정 한 줄 요약. 깊은 이유는 `docs/adr/` 폴더.
 - 다중 세트 (현재 **active 77종**, MEGA + SV + 소드실드 + 썬&문 라인업)
 - 박스/팩 시뮬 (`frontend/lib/simulator.ts`, 시드 기반) — 자동/수동/즉시/1팩 모드
 - 럭 점수 + 백분위 (`frontend/lib/luck.ts`) — 등장 운 + **시세 운(가치 운)** 2종
+- 익명 힛카드 도감 (`frontend/lib/hitDex.ts`, `frontend/components/HitDexScreen.tsx`) — SAR/MUR/BWR/특별 힛카드를 `localStorage`에만 저장하고, 전용 도감 화면에서 MEGA/SV/소드&실드/썬&문 분류별 등록·미등록 상태 표시
 - 홀로그래픽 효과 (CSS 자체 구현, `prefers-reduced-motion` 회고는 [docs/debug-holo-card-transform.md](docs/debug-holo-card-transform.md))
 - 글로벌 통계 + 사용자 이벤트/리텐션 추적 (Supabase, `visitor_id` 기반)
 - 이미지 R2 CDN 마이그레이션 + 256/512 WebP variant ([docs/image-delivery.md](docs/image-delivery.md))

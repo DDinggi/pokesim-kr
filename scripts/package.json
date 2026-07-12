@@ -24,6 +24,8 @@
     "validate:chase-luck": "tsx validate-chase-luck.ts",
     "validate:value-luck": "tsx validate-value-luck.ts",
     "audit:coverage": "tsx audit-card-coverage.ts",
+    "audit:hit-dex": "tsx audit-hit-dex-coverage.ts",
+    "debug:fill-hit-dex": "tsx fill-hit-dex-debug.ts",
     "sync": "tsx sync-sets.ts"
   },
   "dependencies": {

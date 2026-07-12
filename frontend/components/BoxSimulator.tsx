@@ -39,6 +39,7 @@ import {
   SESSION_STORAGE_KEY,
   type OpeningSession,
 } from '../lib/openingHistory';
+import { addCardsToHitDex } from '../lib/hitDex';
 
 const REVEAL_STAGGER_MS = 140;
 const REVEAL_BASE_MS = 600;
@@ -792,7 +793,7 @@ function BoxDoneScreen({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                if (window.confirm('지금까지 깐 카드 기록을 모두 초기화할까요?')) onResetSession();
+                if (window.confirm('지금까지 깐 카드 기록을 모두 초기화할까요?\n힛카드 도감은 유지됩니다.')) onResetSession();
               }}
               className="ml-4 shrink-0 normal-case font-normal text-gray-500 hover:text-red-400 transition-colors underline-offset-2 hover:underline tracking-normal"
             >
@@ -1060,6 +1061,7 @@ export function BoxSimulator({
           packCount: 1,
           krw: setMeta.pack_price_krw,
         });
+        addCardsToHitDex(packResult.pack.cards, setMeta);
         setSession((s) => ({
           ...s,
           packs: s.packs + 1,
@@ -1085,6 +1087,7 @@ export function BoxSimulator({
           krw: setMeta.box_price_krw,
         });
         boxResult.packs.forEach((_, i) => manualPacksRecorded.current.add(i));
+        addCardsToHitDex(skipped, setMeta);
         setSession((s) => ({
           ...s,
           boxes: s.boxes + 1,
@@ -1105,6 +1108,7 @@ export function BoxSimulator({
           packCount: setMeta.box_size,
           krw: setMeta.box_price_krw,
         });
+        addCardsToHitDex(all, setMeta);
         setSession((s) => ({
           ...s,
           boxes: s.boxes + 1,
@@ -1128,6 +1132,7 @@ export function BoxSimulator({
     if (mode === 'box-manual' && !manualPacksRecorded.current.has(packIdx)) {
       manualPacksRecorded.current.add(packIdx);
       const packCards = boxResult.packs[packIdx].cards;
+      addCardsToHitDex(packCards, setMeta);
       setSession((s) => ({ ...s, cards: [...s.cards, ...packCards] }));
     }
     if (packIdx + 1 >= boxResult.packs.length) {
@@ -1136,7 +1141,7 @@ export function BoxSimulator({
       setPackIdx(packIdx + 1);
       setFlippedSet(new Set());
     }
-  }, [boxResult, packIdx, mode]);
+  }, [boxResult, packIdx, mode, setMeta]);
 
   const flipCard = useCallback((i: number) => {
     setFlippedSet((s) => {
@@ -1166,6 +1171,7 @@ export function BoxSimulator({
           packCount: 1,
           krw: setMeta.pack_price_krw,
         });
+        addCardsToHitDex(packResult.pack.cards, setMeta);
         setSession((s) => ({
           ...s,
           packs: s.packs + 1,
@@ -1190,6 +1196,7 @@ export function BoxSimulator({
           packCount: setMeta.box_size,
           krw: setMeta.box_price_krw,
         });
+        addCardsToHitDex(unrecorded, setMeta);
         setSession((s) => ({
           ...s,
           boxes: s.boxes + 1,

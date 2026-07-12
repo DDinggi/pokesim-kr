@@ -71,8 +71,8 @@ desktop.ini
 *.tmp
 .tmp/
 tmp/
+frontend/public/debug/
 
 # --- 시뮬 분포 빌드 산출물 (F2 단계) ---
 # 빌드 타임에 생성되므로 빌드 자동화 후 ignore로 전환 검토
 # frontend/public/distributions/
-

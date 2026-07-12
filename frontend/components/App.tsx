@@ -9,8 +9,9 @@ import { BoxSimulator } from './BoxSimulator';
 import { StartDeckSimulator } from './StartDeckSimulator';
 import { VendingMachine } from './VendingMachine';
 import { LuckScreen } from './LuckScreen';
+import { HitDexScreen } from './HitDexScreen';
 
-type Mode = 'main' | 'box' | 'vending' | 'luck';
+type Mode = 'main' | 'box' | 'vending' | 'luck' | 'hit-dex';
 type PokesimHistoryState = {
   mode: Mode;
   selectedSetCode: string | null;
@@ -19,7 +20,7 @@ type PokesimHistoryState = {
 const HISTORY_STATE_KEY = 'pokesimApp';
 
 function isMode(value: unknown): value is Mode {
-  return value === 'main' || value === 'box' || value === 'vending' || value === 'luck';
+  return value === 'main' || value === 'box' || value === 'vending' || value === 'luck' || value === 'hit-dex';
 }
 
 function readPokesimHistoryState(state: unknown): PokesimHistoryState | null {
@@ -45,6 +46,20 @@ function withPokesimHistoryState(state: unknown, appState: PokesimHistoryState) 
 
 function currentHistoryUrl() {
   return `${window.location.pathname}${window.location.search}${window.location.hash}`;
+}
+
+function isLocalDebugHitDexRequest(): boolean {
+  if (typeof window === 'undefined') return false;
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  if (!isLocalhost) return false;
+  return new URLSearchParams(window.location.search).get('debugHitDex') === 'full';
+}
+
+function currentHistoryUrlWithoutDebugHitDex() {
+  const params = new URLSearchParams(window.location.search);
+  params.delete('debugHitDex');
+  const search = params.toString();
+  return `${window.location.pathname}${search ? `?${search}` : ''}${window.location.hash}`;
 }
 
 export function App({ sets }: { sets: SetMeta[] }) {
@@ -85,11 +100,18 @@ export function App({ sets }: { sets: SetMeta[] }) {
   }, []);
 
   useEffect(() => {
+    const initialMode: Mode = isLocalDebugHitDexRequest() ? 'hit-dex' : 'main';
     window.history.replaceState(
-      withPokesimHistoryState(window.history.state, { mode: 'main', selectedSetCode: null }),
+      withPokesimHistoryState(window.history.state, { mode: initialMode, selectedSetCode: null }),
       '',
       currentHistoryUrl(),
     );
+    if (initialMode !== 'main') {
+      window.setTimeout(() => {
+        setMode(initialMode);
+        setSelectedSet(null);
+      }, 0);
+    }
 
     const handlePopState = (event: PopStateEvent) => {
       applyHistoryState(event.state);
@@ -113,6 +135,17 @@ export function App({ sets }: { sets: SetMeta[] }) {
   }, []);
 
   const goMain = () => {
+    if (isLocalDebugHitDexRequest()) {
+      setMode('main');
+      setSelectedSet(null);
+      window.history.replaceState(
+        withPokesimHistoryState(window.history.state, { mode: 'main', selectedSetCode: null }),
+        '',
+        currentHistoryUrlWithoutDebugHitDex(),
+      );
+      return;
+    }
+
     const appState = readPokesimHistoryState(window.history.state);
     if (appState && appState.mode !== 'main') {
       window.history.back();
@@ -155,8 +188,16 @@ export function App({ sets }: { sets: SetMeta[] }) {
           trackUserEvent({ eventName: 'select_mode', mode: m });
           pushHistoryState(m);
         }}
+        onOpenHitDex={() => {
+          trackUserEvent({ eventName: 'select_mode', metadata: { mode: 'hit_dex', source: 'main_hit_dex' } });
+          pushHistoryState('hit-dex');
+        }}
       />
     );
+  }
+
+  if (mode === 'hit-dex') {
+    return <HitDexScreen sets={sets} onBackToMain={goMain} />;
   }
 
   if (mode === 'vending') {

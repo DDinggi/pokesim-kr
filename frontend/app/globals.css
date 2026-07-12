@@ -43,6 +43,12 @@ body {
   mix-blend-mode: soft-light;
 }
 
+.card-image-frame,
+.card-image-frame img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 /* === 카드 펼침 애니메이션 (하스스톤 풍) === */
 @keyframes card-flip-in {
   0% {
@@ -258,6 +264,8 @@ body {
   pointer-events: none;
   mix-blend-mode: screen;
   opacity: 1;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .premium-hit-sparkle--sar {
@@ -362,10 +370,18 @@ body {
 
 .premium-hit-card {
   isolation: isolate;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  contain: paint;
   box-shadow:
     0 0 0 2px rgba(255, 255, 255, 0.34) inset,
     0 0 22px rgba(125, 211, 252, 0.45),
     0 0 34px rgba(244, 114, 182, 0.34);
+}
+
+.premium-hit-card img {
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .premium-hit-sparkle::before,

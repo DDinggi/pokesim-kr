@@ -40,7 +40,7 @@ import {
   isMegaExpansionSet,
   isStarterSet,
   isSv11SpecialSet,
-  STARTER_AR_RATE,
+  STARTER_RR_RATE,
   STARTER_SR_RATE,
   STARTER_STANDARD_SAR_RATE,
   STARTER_UR_RATE,
@@ -718,10 +718,10 @@ function getExpectedScoredRarityCounts(
   if (unitCount <= 0) return counts;
 
   if (isStarterSet(code)) {
-    // 가치 기반 운: 기대 가치 기준선을 '평범한 AR/SR 뽑기'로 잡는다.
-    // SAR(고가)·특수덱·골드(MUR) 잭팟은 기대치에서 빼야 평범한 AR 뽑기가 mid로 나오고
+    // 가치 기반 운: 기대 가치 기준선을 '평범한 RR/SR 뽑기'로 잡는다.
+    // SAR(고가)·특수덱·골드(MUR) 잭팟은 기대치에서 빼야 평범한 RR 뽑기가 mid로 나오고
     // 비싼 카드를 뽑았을 때만 서프라이즈로 등급이 올라간다.
-    addExpectedCount(counts, 'AR', unitCount * STARTER_AR_RATE);
+    addExpectedCount(counts, 'RR', unitCount * STARTER_RR_RATE);
     addExpectedCount(counts, 'SR', unitCount * STARTER_SR_RATE);
     return counts;
   }

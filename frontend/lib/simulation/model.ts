@@ -1023,19 +1023,19 @@ export const STARTER_SPECIAL_DECK_RATE = 0.01;
 /** 골드 001번 변형 덱(#766 MUR) 등장 확률(잠정 추정치 -- 실데이터 확보 시 갱신). */
 export const STARTER_GOLD_DECK_RATE = 0.01;
 /**
- * 대표카드는 AR 이상만(일반 덱 풀 = AR 14 + SR 4 + SAR 2 = 20장).
+ * 대표카드는 RR 이상만(일반 덱 풀 = RR 14 + SR 4 + SAR 2 = 20장).
  * 특수 101번 덱: SAR 3장 / 골드 001번 변형: #766 MUR 1장. (둘 다 1% 잠정 추정)
  *
- * 운(가치 기반) 모델 기준선은 '평범한 AR/SR 뽑기'로 잡는다. SAR/특수/골드는 잭팟이라
+ * 운(가치 기반) 모델 기준선은 '평범한 RR/SR 뽑기'로 잡는다. SAR/특수/골드는 잭팟이라
  * 기대치에 넣지 않아야 평범한 뽑기가 mid 등급으로 나오고 잭팟이 서프라이즈가 된다.
  */
 export const STARTER_NORMAL_POOL_SIZE = 20;
-export const STARTER_NORMAL_AR_COUNT = 14;
+export const STARTER_NORMAL_RR_COUNT = 14;
 export const STARTER_NORMAL_SR_COUNT = 4;
 export const STARTER_NORMAL_SAR_COUNT = 2;
 export const STARTER_STANDARD_DECK_RATE = 1 - STARTER_SPECIAL_DECK_RATE - STARTER_GOLD_DECK_RATE;
 export const STARTER_SPECIAL_SAR_COUNT = 3;
-export const STARTER_AR_RATE = STARTER_STANDARD_DECK_RATE * (STARTER_NORMAL_AR_COUNT / STARTER_NORMAL_POOL_SIZE);
+export const STARTER_RR_RATE = STARTER_STANDARD_DECK_RATE * (STARTER_NORMAL_RR_COUNT / STARTER_NORMAL_POOL_SIZE);
 export const STARTER_SR_RATE = STARTER_STANDARD_DECK_RATE * (STARTER_NORMAL_SR_COUNT / STARTER_NORMAL_POOL_SIZE);
 export const STARTER_STANDARD_SAR_RATE = STARTER_STANDARD_DECK_RATE * (STARTER_NORMAL_SAR_COUNT / STARTER_NORMAL_POOL_SIZE);
 export const STARTER_UR_RATE = STARTER_GOLD_DECK_RATE;

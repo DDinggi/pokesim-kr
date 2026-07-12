@@ -35,6 +35,7 @@ import {
   type OpeningEvent,
   type OpeningSession,
 } from '../lib/openingHistory';
+import { addCardsToHitDex } from '../lib/hitDex';
 
 const MAX_PER_SET = 10;
 const EMPTY_SESSION: OpeningSession = EMPTY_OPENING_SESSION;
@@ -202,6 +203,7 @@ export function VendingMachine({
         packCount: n,
         krw: (set.pack_price_krw ?? 0) * n,
       }));
+      addCardsToHitDex(setCards, set);
     }
     if (packs.length === 0) return;
 
