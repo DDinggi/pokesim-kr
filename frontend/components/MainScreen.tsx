@@ -50,10 +50,12 @@ export function MainScreen({
   onSelectMode,
   onOpenLuck,
   onOpenHitDex,
+  hitDexAccessGranted,
 }: {
   onSelectMode: (mode: Mode) => void;
   onOpenLuck: () => void;
   onOpenHitDex: () => void;
+  hitDexAccessGranted: boolean;
 }) {
   const [stats, setStats] = useState<GlobalStats | null>(null);
   const [session, setSession] = useState<OpeningSession | null>(null);
@@ -66,12 +68,15 @@ export function MainScreen({
     fetchGlobalStats().then((nextStats) => {
       if (nextStats) setStats(nextStats);
     });
+  }, []);
+
+  useEffect(() => {
     const timer = window.setTimeout(() => {
       setSession(loadSession());
-      setHitDex(loadHitDex());
+      setHitDex(hitDexAccessGranted ? loadHitDex() : null);
     }, 0);
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [hitDexAccessGranted]);
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-950 text-white">
@@ -174,8 +179,9 @@ export function MainScreen({
 
         <HitDexPanel
           hitDex={hitDex}
+          accessGranted={hitDexAccessGranted}
           onOpen={() => {
-            setHitDex(loadHitDex());
+            if (hitDexAccessGranted) setHitDex(loadHitDex());
             onOpenHitDex();
           }}
         />
@@ -280,15 +286,15 @@ export function MainScreen({
 
 function HitDexPanel({
   hitDex,
+  accessGranted,
   onOpen,
 }: {
   hitDex: HitDexState | null;
+  accessGranted: boolean;
   onOpen: () => void;
 }) {
-  if (!hitDex) return null;
-
-  const stats = getHitDexStats(hitDex);
-  const hasEntries = hitDex.entries.length > 0;
+  const stats = hitDex ? getHitDexStats(hitDex) : null;
+  const hasEntries = Boolean(hitDex?.entries.length);
 
   return (
     <button
@@ -300,11 +306,11 @@ function HitDexPanel({
         <div>
           <p className="text-lg font-black text-white">힛카드 도감</p>
           <p className="mt-0.5 text-xs text-gray-500">
-            반짝이는 카드 등록 현황 보기
+            {accessGranted ? '반짝이는 카드 등록 현황 보기' : 'Google 로그인 후 확인'}
           </p>
         </div>
         <div className="flex items-center gap-2">
-          {hasEntries && (
+          {accessGranted && hasEntries && stats && (
             <span className="rounded-full bg-cyan-300/15 px-3 py-1.5 text-xs font-black text-cyan-100 ring-1 ring-cyan-200/20">
               {stats.uniqueCount}종
             </span>

@@ -1,7 +1,8 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SetMeta } from '../lib/types';
+import { AUTH_RETURN_MODE_KEY, useGoogleAuth } from '../lib/auth';
 import { trackUserEvent } from '../lib/statsTracker';
 import { MainScreen } from './MainScreen';
 import { SetPicker } from './SetPicker';
@@ -55,9 +56,22 @@ function isLocalDebugHitDexRequest(): boolean {
   return new URLSearchParams(window.location.search).get('debugHitDex') === 'full';
 }
 
-function currentHistoryUrlWithoutDebugHitDex() {
+function isLocalAuthPreviewRequest(): boolean {
+  if (typeof window === 'undefined') return false;
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  if (!isLocalhost) return false;
+  return new URLSearchParams(window.location.search).get('debugAuth') === '1';
+}
+
+function hasPendingHitDexAuthReturn(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.sessionStorage.getItem(AUTH_RETURN_MODE_KEY) === 'hit-dex';
+}
+
+function currentHistoryUrlWithoutHitDexDebug() {
   const params = new URLSearchParams(window.location.search);
   params.delete('debugHitDex');
+  params.delete('debugAuth');
   const search = params.toString();
   return `${window.location.pathname}${search ? `?${search}` : ''}${window.location.hash}`;
 }
@@ -65,6 +79,10 @@ function currentHistoryUrlWithoutDebugHitDex() {
 export function App({ sets }: { sets: SetMeta[] }) {
   const [mode, setMode] = useState<Mode>('main');
   const [selectedSet, setSelectedSet] = useState<SetMeta | null>(null);
+  const [localAuthPreview, setLocalAuthPreview] = useState(false);
+  const initialModeRef = useRef<Mode | null>(null);
+  const auth = useGoogleAuth();
+  const hitDexAccessGranted = Boolean(auth.session) || localAuthPreview;
 
   const applyHistoryState = useCallback(
     (state: unknown) => {
@@ -100,7 +118,16 @@ export function App({ sets }: { sets: SetMeta[] }) {
   }, []);
 
   useEffect(() => {
-    const initialMode: Mode = isLocalDebugHitDexRequest() ? 'hit-dex' : 'main';
+    if (initialModeRef.current === null) {
+      const returningFromAuth = hasPendingHitDexAuthReturn();
+      initialModeRef.current = isLocalDebugHitDexRequest() || returningFromAuth ? 'hit-dex' : 'main';
+      if (returningFromAuth) window.sessionStorage.removeItem(AUTH_RETURN_MODE_KEY);
+    }
+
+    const initialMode = initialModeRef.current;
+    const previewTimer = window.setTimeout(() => {
+      setLocalAuthPreview(isLocalAuthPreviewRequest());
+    }, 0);
     window.history.replaceState(
       withPokesimHistoryState(window.history.state, { mode: initialMode, selectedSetCode: null }),
       '',
@@ -118,7 +145,10 @@ export function App({ sets }: { sets: SetMeta[] }) {
     };
 
     window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    return () => {
+      window.clearTimeout(previewTimer);
+      window.removeEventListener('popstate', handlePopState);
+    };
   }, [applyHistoryState]);
 
   const pushHistoryState = useCallback((nextMode: Mode, nextSet: SetMeta | null = null) => {
@@ -135,14 +165,15 @@ export function App({ sets }: { sets: SetMeta[] }) {
   }, []);
 
   const goMain = () => {
-    if (isLocalDebugHitDexRequest()) {
+    if (isLocalDebugHitDexRequest() || isLocalAuthPreviewRequest()) {
       setMode('main');
       setSelectedSet(null);
       window.history.replaceState(
         withPokesimHistoryState(window.history.state, { mode: 'main', selectedSetCode: null }),
         '',
-        currentHistoryUrlWithoutDebugHitDex(),
+        currentHistoryUrlWithoutHitDexDebug(),
       );
+      setLocalAuthPreview(false);
       return;
     }
 
@@ -192,12 +223,25 @@ export function App({ sets }: { sets: SetMeta[] }) {
           trackUserEvent({ eventName: 'select_mode', metadata: { mode: 'hit_dex', source: 'main_hit_dex' } });
           pushHistoryState('hit-dex');
         }}
+        hitDexAccessGranted={hitDexAccessGranted}
       />
     );
   }
 
   if (mode === 'hit-dex') {
-    return <HitDexScreen sets={sets} onBackToMain={goMain} />;
+    return (
+      <HitDexScreen
+        sets={sets}
+        onBackToMain={goMain}
+        authReady={auth.ready}
+        authPending={auth.pending}
+        authError={auth.error}
+        accessGranted={hitDexAccessGranted}
+        localAuthPreview={localAuthPreview}
+        onSignIn={auth.signInWithGoogle}
+        onSignOut={auth.signOut}
+      />
+    );
   }
 
   if (mode === 'vending') {

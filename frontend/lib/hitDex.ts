@@ -8,6 +8,7 @@ import {
 import { getCardReferenceValueKrw } from './valueLuck';
 
 export const HIT_DEX_STORAGE_KEY = 'pokesim-kr-hit-dex-v1';
+export const HIT_DEX_DEBUG_STORAGE_KEY = 'pokesim-kr-hit-dex-debug-v1';
 
 const HIT_DEX_VERSION = 1;
 const ALWAYS_DEX_DISPLAY_RARITIES = new Set(['SAR', 'MUR', 'BWR', 'CSR', 'MA', 'GRA', 'S8AP']);
@@ -50,6 +51,14 @@ export const EMPTY_HIT_DEX_STATE: HitDexState = {
   updatedAt: null,
   entries: [],
 };
+
+function activeHitDexStorageKey(): string {
+  if (typeof window === 'undefined') return HIT_DEX_STORAGE_KEY;
+
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const isFullDebug = new URLSearchParams(window.location.search).get('debugHitDex') === 'full';
+  return isLocalhost && isFullDebug ? HIT_DEX_DEBUG_STORAGE_KEY : HIT_DEX_STORAGE_KEY;
+}
 
 function isCardLike(value: unknown): value is Card {
   return Boolean(
@@ -106,7 +115,7 @@ export function loadHitDex(): HitDexState {
   if (typeof window === 'undefined') return EMPTY_HIT_DEX_STATE;
 
   try {
-    const stored = window.localStorage.getItem(HIT_DEX_STORAGE_KEY);
+    const stored = window.localStorage.getItem(activeHitDexStorageKey());
     if (!stored) return EMPTY_HIT_DEX_STATE;
     return normalizeHitDexState(JSON.parse(stored));
   } catch {
@@ -120,7 +129,7 @@ export function saveHitDex(state: HitDexState): void {
   if (typeof window === 'undefined') return;
 
   try {
-    window.localStorage.setItem(HIT_DEX_STORAGE_KEY, JSON.stringify(state));
+    window.localStorage.setItem(activeHitDexStorageKey(), JSON.stringify(state));
   } catch {
     /* quota / private mode - ignore */
   }

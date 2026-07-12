@@ -7,7 +7,7 @@ import type { Card, SetMeta } from '../frontend/lib/types.ts';
 import type { HitDexEntry, HitDexState } from '../frontend/lib/hitDex.ts';
 
 const {
-  HIT_DEX_STORAGE_KEY,
+  HIT_DEX_DEBUG_STORAGE_KEY,
   getHitDexCardKey,
   getSortedHitDexEntries,
   isHitDexCard,
@@ -74,17 +74,17 @@ function renderHtml(totalEntries: number, totalSets: number, builtAt: string): s
     <h1>도감 채우는 중</h1>
     <p id="status"><strong>${totalEntries.toLocaleString()}</strong>장의 힛카드를 이 브라우저 도감에 등록합니다.</p>
     <p class="muted">세트 ${totalSets.toLocaleString()}개 · 생성 시각 ${escapeHtml(builtAt)}</p>
-    <a id="open" href="/?debugHitDex=full">꽉 찬 도감 열기</a>
+    <a id="open" href="/?debugHitDex=full&amp;debugAuth=1">꽉 찬 도감 열기</a>
   </main>
   <script>
-    const storageKey = ${JSON.stringify(HIT_DEX_STORAGE_KEY)};
+    const storageKey = ${JSON.stringify(HIT_DEX_DEBUG_STORAGE_KEY)};
     async function fillDex() {
       const response = await fetch('/debug/hit-dex-full-state.json', { cache: 'no-store' });
       if (!response.ok) throw new Error('state json load failed');
       const state = await response.json();
       localStorage.setItem(storageKey, JSON.stringify(state));
       document.getElementById('status').innerHTML = '<strong>' + state.entries.length.toLocaleString() + '</strong>장 등록 완료. 곧 도감으로 이동합니다.';
-      window.setTimeout(() => window.location.replace('/?debugHitDex=full'), 350);
+      window.setTimeout(() => window.location.replace('/?debugHitDex=full&debugAuth=1'), 350);
     }
     fillDex().catch((error) => {
       document.getElementById('status').textContent = '도감 채우기 실패: ' + error.message;

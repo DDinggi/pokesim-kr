@@ -114,9 +114,23 @@ function buildCatalog(sets: SetMeta[], hitDex: HitDexState): HitDexSetSection[] 
 export function HitDexScreen({
   sets,
   onBackToMain,
+  authReady,
+  authPending,
+  authError,
+  accessGranted,
+  localAuthPreview,
+  onSignIn,
+  onSignOut,
 }: {
   sets: SetMeta[];
   onBackToMain: () => void;
+  authReady: boolean;
+  authPending: boolean;
+  authError: string | null;
+  accessGranted: boolean;
+  localAuthPreview: boolean;
+  onSignIn: () => Promise<void>;
+  onSignOut: () => Promise<void>;
 }) {
   const [hitDex, setHitDex] = useState<HitDexState | null>(null);
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
@@ -124,9 +138,11 @@ export function HitDexScreen({
   const [activeEra, setActiveEra] = useState<DexEraKey>('mega');
 
   useEffect(() => {
+    if (!accessGranted) return;
+
     const timer = window.setTimeout(() => setHitDex(loadHitDex()), 0);
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [accessGranted]);
 
   const sections = useMemo(() => (hitDex ? buildCatalog(sets, hitDex) : []), [sets, hitDex]);
   const eraSummaries = useMemo(() => buildEraSummaries(sections), [sections]);
@@ -139,6 +155,30 @@ export function HitDexScreen({
     ? progressPercent(selectedEraSummary.registeredCards, selectedEraSummary.totalCards)
     : 0;
 
+  if (!authReady && !localAuthPreview) {
+    return (
+      <HitDexAccessScreen
+        loading
+        pending={authPending}
+        error={authError}
+        onBackToMain={onBackToMain}
+        onSignIn={onSignIn}
+      />
+    );
+  }
+
+  if (!accessGranted) {
+    return (
+      <HitDexAccessScreen
+        loading={false}
+        pending={authPending}
+        error={authError}
+        onBackToMain={onBackToMain}
+        onSignIn={onSignIn}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       <header className="flex items-center justify-between gap-4 border-b border-gray-900 px-4 py-4 sm:px-6">
@@ -149,7 +189,18 @@ export function HitDexScreen({
         >
           ← 메인
         </button>
-        <div aria-hidden />
+        {!localAuthPreview ? (
+          <button
+            type="button"
+            onClick={() => void onSignOut()}
+            disabled={authPending}
+            className="rounded px-2 py-1 text-xs font-bold text-gray-400 transition hover:bg-white/5 hover:text-white disabled:cursor-wait disabled:opacity-50"
+          >
+            로그아웃
+          </button>
+        ) : (
+          <div aria-hidden />
+        )}
       </header>
 
       <main className="mx-auto w-full max-w-7xl px-3 py-5 sm:px-6 sm:py-8">
@@ -194,6 +245,76 @@ export function HitDexScreen({
 
       {selectedCard && <CardModal card={selectedCard} onClose={() => setSelectedCard(null)} />}
       {unknownItem && <UnknownHitModal item={unknownItem} onClose={() => setUnknownItem(null)} />}
+    </div>
+  );
+}
+
+function HitDexAccessScreen({
+  loading,
+  pending,
+  error,
+  onBackToMain,
+  onSignIn,
+}: {
+  loading: boolean;
+  pending: boolean;
+  error: string | null;
+  onBackToMain: () => void;
+  onSignIn: () => Promise<void>;
+}) {
+  const busy = loading || pending;
+
+  return (
+    <div className="min-h-screen bg-gray-950 text-white">
+      <header className="flex items-center border-b border-gray-900 px-4 py-4 sm:px-6">
+        <button
+          type="button"
+          onClick={onBackToMain}
+          className="rounded px-2 py-1 text-xs font-bold text-gray-400 transition hover:bg-white/5 hover:text-white"
+        >
+          ← 메인
+        </button>
+      </header>
+
+      <main className="mx-auto flex min-h-[calc(100vh-57px)] w-full max-w-xl items-center px-4 py-16 sm:px-6">
+        <section className="relative w-full overflow-visible rounded-[32px] bg-gradient-to-br from-red-600 via-orange-600 to-rose-950 p-2 pt-16 shadow-2xl shadow-red-950/40 ring-1 ring-red-300/30 sm:rounded-[40px] sm:p-3 sm:pt-20">
+          <DexFrameFace />
+          <div className="relative z-10 rounded-[24px] bg-gray-950 p-4 ring-1 ring-white/10 sm:rounded-[30px] sm:p-6">
+            <div className="rounded-[22px] border border-cyan-200/20 bg-gradient-to-br from-cyan-950/45 via-gray-950 to-slate-950 px-5 py-10 text-center shadow-inner shadow-cyan-950/50 sm:px-8 sm:py-12">
+              <p className="text-xl font-black text-white">힛카드 도감</p>
+              <p className="mt-2 text-sm font-bold text-cyan-100/60">
+                {loading ? '로그인 확인 중' : 'Google 계정으로 계속'}
+              </p>
+
+              <button
+                type="button"
+                onClick={() => void onSignIn()}
+                disabled={busy}
+                className="mx-auto mt-7 flex h-12 w-full max-w-xs items-center justify-center gap-3 rounded-lg bg-white px-5 text-sm font-black text-gray-900 shadow-lg shadow-black/25 transition hover:bg-gray-100 active:scale-[0.99] disabled:cursor-wait disabled:opacity-70"
+              >
+                {busy ? (
+                  <span className="h-5 w-5 animate-spin rounded-full border-2 border-gray-300 border-t-gray-900" aria-hidden />
+                ) : (
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-200 text-sm font-black text-blue-600" aria-hidden>
+                    G
+                  </span>
+                )}
+                <span>{busy ? '확인 중...' : 'Google로 계속하기'}</span>
+              </button>
+
+              <p className="mx-auto mt-5 max-w-sm text-[11px] leading-relaxed text-gray-500">
+                도감 기록은 이 브라우저에만 저장되며 Google 계정이나 서버에 업로드되지 않습니다.
+              </p>
+
+              {error && (
+                <p className="mx-auto mt-4 max-w-sm text-xs font-bold leading-relaxed text-red-300" role="alert">
+                  {error}
+                </p>
+              )}
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
