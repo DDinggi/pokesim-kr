@@ -98,11 +98,11 @@ export function MainScreen({
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6">
         <div className="mb-5 space-y-1.5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 px-4 py-3 ring-1 ring-white/10">
           <p className="text-sm font-bold text-white sm:text-base">
-            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 7/11</span>
-            신규 세트 카드깡 · 박스 업데이트
+            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 7/15</span>
+            힛카드 도감 · Google 기록 보관
           </p>
           <p className="text-[13px] font-semibold text-gray-200">
-            플라스마 스파크 · GX배틀부스트 REMASTER · 버스트임팩트
+            뽑은 힛카드를 도감에 모으고, 개봉 기록을 계정에 저장할 수 있어요.
           </p>
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-relaxed text-gray-400">
             <span>4일 주기 업데이트 예정입니다. 피드백과 문의는 언제든 환영합니다.</span>
