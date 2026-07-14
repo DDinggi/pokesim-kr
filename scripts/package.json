@@ -23,8 +23,10 @@
     "validate:luck": "tsx validate-luck-model.ts",
     "validate:chase-luck": "tsx validate-chase-luck.ts",
     "validate:value-luck": "tsx validate-value-luck.ts",
+    "validate:records": "tsx validate-record-backup.ts",
     "audit:coverage": "tsx audit-card-coverage.ts",
     "audit:hit-dex": "tsx audit-hit-dex-coverage.ts",
+    "audit:special-packs": "tsx audit-special-pack-exclusives.ts",
     "debug:fill-hit-dex": "tsx fill-hit-dex-debug.ts",
     "sync": "tsx sync-sets.ts"
   },

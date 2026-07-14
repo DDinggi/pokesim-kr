@@ -1,11 +1,17 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { SetMeta } from '../lib/types';
 import { getBoxImageSrc } from '../lib/boxImages';
 import { NEW_SIM_SET_NAMES, isNewSimSet } from '../lib/newSets';
+import {
+  getAvailableSetSeries,
+  getSetSeriesKey,
+  type SetSeriesKey,
+} from '../lib/setSeries';
 import { fetchSetPopularity, type SetPopularity } from '../lib/statsTracker';
+import { SetSeriesTabs } from './SetSeriesTabs';
 
 const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
   'm-start-deck-100': {
@@ -480,15 +486,20 @@ export function SetPicker({
   sets,
   onSelect,
   onBackToMain,
+  accountBar,
 }: {
   sets: SetMeta[];
   onSelect: (set: SetMeta) => void;
   onBackToMain: () => void;
+  accountBar?: ReactNode;
 }) {
   const [query, setQuery] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
   const [popularity, setPopularity] = useState<SetPopularity[]>([]);
   const [popularityLoaded, setPopularityLoaded] = useState(false);
+  const [activeSeries, setActiveSeries] = useState<SetSeriesKey>(
+    () => getAvailableSetSeries(sets)[0]?.key ?? 'mega',
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -521,29 +532,42 @@ export function SetPicker({
       ),
     [originalRankByCode, popularityByCode, sets],
   );
+  const availableSeries = useMemo(() => getAvailableSetSeries(sets), [sets]);
+  const selectedSeries = availableSeries.some((series) => series.key === activeSeries)
+    ? activeSeries
+    : (availableSeries[0]?.key ?? 'mega');
+  const seriesSets = useMemo(
+    () => sets.filter((set) => getSetSeriesKey(set) === selectedSeries),
+    [selectedSeries, sets],
+  );
+  const isSearching = query.trim().length > 0;
   const filteredSets = useMemo(
-    () => sets.filter((set) => matchSet(set, query)),
-    [query, sets],
+    () => (isSearching ? sets : seriesSets).filter((set) => matchSet(set, query)),
+    [isSearching, query, seriesSets, sets],
   );
   const searchResultSets = useMemo(
     () => sortSetsByPopularity(filteredSets, popularityByCode, originalRankByCode),
     [filteredSets, originalRankByCode, popularityByCode],
   );
-  const isSearching = query.trim().length > 0;
   const panelSets = isSearching ? searchResultSets : popularSets;
 
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
-      <header className="px-6 py-5 border-b border-gray-800/80 flex items-center gap-4">
-        <button
-          onClick={onBackToMain}
-          className="text-xs text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/5"
-        >
-          ← 메인
-        </button>
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">박스깡</h1>
-          <p className="text-xs text-gray-500 mt-1">박스를 골라 통째로 까기</p>
+      <header className="border-b border-gray-800/80 px-4 py-5 sm:px-6">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative flex min-w-0 items-center gap-4 min-[1400px]:block">
+          <button
+            onClick={onBackToMain}
+            className="shrink-0 whitespace-nowrap rounded px-2 py-1 text-xs text-gray-400 transition-colors hover:bg-white/5 hover:text-white min-[1400px]:absolute min-[1400px]:right-full min-[1400px]:top-1/2 min-[1400px]:mr-4 min-[1400px]:-translate-y-1/2"
+          >
+            ← 메인
+          </button>
+          <div className="min-w-0">
+            <h1 className="truncate text-2xl font-bold tracking-tight">박스깡</h1>
+            <p className="mt-1 truncate text-xs text-gray-500">박스를 골라 통째로 까기</p>
+          </div>
+        </div>
+          {accountBar ? <div className="w-full sm:ml-auto sm:w-auto">{accountBar}</div> : null}
         </div>
       </header>
 
@@ -599,6 +623,18 @@ export function SetPicker({
               isLoading={!isSearching && !popularityLoaded}
             />
           )}
+        </div>
+
+        <div className="mb-5">
+          <SetSeriesTabs
+            sets={sets}
+            active={selectedSeries}
+            onChange={(series) => {
+              setActiveSeries(series);
+              setQuery('');
+              setSearchOpen(false);
+            }}
+          />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, PackResult } from '../lib/types';
 import { simulatePack } from '../lib/simulator';
@@ -29,16 +29,20 @@ import {
 } from '../lib/rarity';
 import {
   createOpeningEvent,
-  EMPTY_OPENING_SESSION,
-  normalizeOpeningSession,
-  SESSION_STORAGE_KEY,
+  loadOpeningSession,
+  saveOpeningSession,
   type OpeningEvent,
   type OpeningSession,
 } from '../lib/openingHistory';
 import { addCardsToHitDex } from '../lib/hitDex';
+import {
+  getAvailableSetSeries,
+  getSetSeriesKey,
+  type SetSeriesKey,
+} from '../lib/setSeries';
+import { SetSeriesTabs } from './SetSeriesTabs';
 
 const MAX_PER_SET = 10;
-const EMPTY_SESSION: OpeningSession = EMPTY_OPENING_SESSION;
 
 function normalizeSearchText(value: string): string {
   return value.toLowerCase().replace(/[\s·._-]+/g, '');
@@ -55,24 +59,11 @@ function matchSet(set: SetMeta, query: string): boolean {
 }
 
 function loadSession(): OpeningSession {
-  if (typeof window === 'undefined') return EMPTY_SESSION;
-  try {
-    const stored = window.localStorage.getItem(SESSION_STORAGE_KEY);
-    if (!stored) return EMPTY_SESSION;
-    return normalizeOpeningSession(JSON.parse(stored));
-  } catch {
-    /* corrupt — fall through */
-  }
-  return EMPTY_SESSION;
+  return loadOpeningSession();
 }
 
 function saveSession(s: OpeningSession) {
-  if (typeof window === 'undefined') return;
-  try {
-    window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(s));
-  } catch {
-    /* quota — ignore */
-  }
+  saveOpeningSession(s);
 }
 
 function SearchIcon({ className = '' }: { className?: string }) {
@@ -97,10 +88,14 @@ export function VendingMachine({
   sets,
   onBackToMain,
   onOpenLuck,
+  onOpenHitDex,
+  accountBar,
 }: {
   sets: SetMeta[];
   onBackToMain: () => void;
   onOpenLuck: (setCode?: string) => void;
+  onOpenHitDex: () => void;
+  accountBar?: ReactNode;
 }) {
   const [phase, setPhase] = useState<Phase>('browse');
   const [cart, setCart] = useState<Record<string, number>>({});
@@ -110,12 +105,24 @@ export function VendingMachine({
   const [packIdx, setPackIdx] = useState(0);
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
   const [query, setQuery] = useState('');
+  const [activeSeries, setActiveSeries] = useState<SetSeriesKey>(
+    () => getAvailableSetSeries(sets.filter((set) => set.type !== 'starter'))[0]?.key ?? 'mega',
+  );
 
   // 스타트 덱(starter)은 낱팩 제품이 아니라 자판기깡에서 제외한다.
   const displaySets = useMemo(() => sets.filter((set) => set.type !== 'starter'), [sets]);
+  const availableSeries = useMemo(() => getAvailableSetSeries(displaySets), [displaySets]);
+  const selectedSeries = availableSeries.some((series) => series.key === activeSeries)
+    ? activeSeries
+    : (availableSeries[0]?.key ?? 'mega');
+  const seriesSets = useMemo(
+    () => displaySets.filter((set) => getSetSeriesKey(set) === selectedSeries),
+    [displaySets, selectedSeries],
+  );
+  const isSearching = query.trim().length > 0;
   const visibleSets = useMemo(
-    () => displaySets.filter((set) => matchSet(set, query)),
-    [displaySets, query],
+    () => (isSearching ? displaySets : seriesSets).filter((set) => matchSet(set, query)),
+    [displaySets, isSearching, query, seriesSets],
   );
 
   const totalPacks = useMemo(
@@ -266,22 +273,27 @@ export function VendingMachine({
     const isLast = packIdx === purchased.length - 1;
     return (
       <div className="min-h-screen bg-gray-950 text-white flex flex-col">
-        <header className="px-6 py-5 border-b border-gray-800/80 flex items-center gap-4">
-          <button
-            onClick={onBackToMain}
-            className="text-xs text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/5"
-          >
-            ← 메인
-          </button>
-          <span className="text-2xl font-bold tracking-tight">자판기깡</span>
-          <span className="text-sm text-gray-400">
-            팩 {packIdx + 1} / {purchased.length}
-          </span>
-          <div className="flex-1 h-1.5 bg-gray-800 rounded-full overflow-hidden ml-2">
+        <header className="border-b border-gray-800/80 px-4 py-5 sm:px-6">
+          <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 sm:flex-row sm:items-center">
+          <div className="relative flex min-w-0 items-center gap-4 min-[1400px]:block">
+            <button
+              onClick={onBackToMain}
+              className="shrink-0 whitespace-nowrap rounded px-2 py-1 text-xs text-gray-400 transition-colors hover:bg-white/5 hover:text-white min-[1400px]:absolute min-[1400px]:right-full min-[1400px]:top-1/2 min-[1400px]:mr-4 min-[1400px]:-translate-y-1/2"
+            >
+              ← 메인
+            </button>
+            <div className="min-w-0">
+              <h1 className="truncate text-2xl font-bold tracking-tight">자판기깡</h1>
+              <p className="mt-1 truncate text-xs text-gray-500">팩 {packIdx + 1} / {purchased.length}</p>
+            </div>
+          </div>
+          <div className="h-1.5 w-full flex-1 overflow-hidden rounded-full bg-gray-800 sm:ml-2 sm:min-w-32">
             <div
               className="h-full bg-amber-400 transition-all duration-300"
               style={{ width: `${((packIdx + 1) / purchased.length) * 100}%` }}
             />
+          </div>
+            {accountBar ? <div className="w-full sm:ml-auto sm:w-auto">{accountBar}</div> : null}
           </div>
         </header>
 
@@ -325,14 +337,22 @@ export function VendingMachine({
     const luckTargetSetCode = purchasedSetCodes.length === 1 ? purchasedSetCodes[0] : undefined;
     return (
       <div className="min-h-screen bg-gray-950 text-white flex flex-col">
-        <header className="px-6 py-5 border-b border-gray-800/80 flex items-center gap-4">
-          <button
-            onClick={onBackToMain}
-            className="text-xs text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/5"
-          >
-            ← 메인
-          </button>
-          <h1 className="text-2xl font-bold tracking-tight">자판기깡 결과</h1>
+        <header className="border-b border-gray-800/80 px-4 py-5 sm:px-6">
+          <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="relative flex min-w-0 items-center gap-4 min-[1400px]:block">
+            <button
+              onClick={onBackToMain}
+              className="shrink-0 whitespace-nowrap rounded px-2 py-1 text-xs text-gray-400 transition-colors hover:bg-white/5 hover:text-white min-[1400px]:absolute min-[1400px]:right-full min-[1400px]:top-1/2 min-[1400px]:mr-4 min-[1400px]:-translate-y-1/2"
+            >
+              ← 메인
+            </button>
+            <div className="min-w-0">
+              <h1 className="truncate text-2xl font-bold tracking-tight">자판기깡 결과</h1>
+              <p className="mt-1 truncate text-xs text-gray-500">총 {purchased.length}팩 개봉</p>
+            </div>
+          </div>
+            {accountBar ? <div className="w-full sm:ml-auto sm:w-auto">{accountBar}</div> : null}
+          </div>
         </header>
 
         <main className="flex-1 px-4 sm:px-6 py-8 max-w-6xl mx-auto w-full">
@@ -373,6 +393,12 @@ export function VendingMachine({
               내 운 보러가기
             </button>
             <button
+              onClick={onOpenHitDex}
+              className="rounded-xl bg-cyan-400/90 px-6 py-3 font-black text-gray-950 shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-300 active:scale-95"
+            >
+              힛카드 도감 보러가기
+            </button>
+            <button
               onClick={onBackToMain}
               className="px-6 py-3 bg-gray-800 hover:bg-gray-700 active:scale-95 rounded-xl font-bold transition"
             >
@@ -397,16 +423,21 @@ export function VendingMachine({
 
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
-      <header className="px-6 py-5 border-b border-gray-800/80 flex items-center gap-4">
-        <button
-          onClick={onBackToMain}
-          className="text-xs text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/5"
-        >
-          ← 메인
-        </button>
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">자판기깡</h1>
-          <p className="text-xs text-gray-500 mt-1">시뮬레이션 · 원하는 팩을 골라 깡하기 · 세트당 최대 {MAX_PER_SET}팩</p>
+      <header className="border-b border-gray-800/80 px-4 py-5 sm:px-6">
+          <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative flex min-w-0 items-center gap-4 min-[1400px]:block">
+          <button
+            onClick={onBackToMain}
+            className="shrink-0 whitespace-nowrap rounded px-2 py-1 text-xs text-gray-400 transition-colors hover:bg-white/5 hover:text-white min-[1400px]:absolute min-[1400px]:right-full min-[1400px]:top-1/2 min-[1400px]:mr-4 min-[1400px]:-translate-y-1/2"
+          >
+            ← 메인
+          </button>
+          <div className="min-w-0">
+            <h1 className="truncate text-2xl font-bold tracking-tight">자판기깡</h1>
+            <p className="mt-1 truncate text-xs text-gray-500">원하는 팩을 골라 깡하기 · 세트당 최대 {MAX_PER_SET}팩</p>
+          </div>
+        </div>
+          {accountBar ? <div className="w-full sm:ml-auto sm:w-auto">{accountBar}</div> : null}
         </div>
       </header>
 
@@ -434,7 +465,7 @@ export function VendingMachine({
             />
             <div className="absolute right-2 top-1/2 flex -translate-y-1/2 items-center gap-1.5">
               <span className="text-[11px] font-black text-gray-500">
-                {visibleSets.length}/{displaySets.length}
+                {visibleSets.length}/{isSearching ? displaySets.length : seriesSets.length}
               </span>
               {query.trim().length > 0 && (
                 <button
@@ -448,6 +479,18 @@ export function VendingMachine({
               )}
             </div>
           </div>
+        </div>
+
+        <div className="mb-4">
+          <SetSeriesTabs
+            sets={displaySets}
+            active={selectedSeries}
+            onChange={(series) => {
+              setActiveSeries(series);
+              setQuery('');
+            }}
+            tone="vending"
+          />
         </div>
 
         {/* 자판기 본체 — 노란 프레임 → 검정 패널 → 파란 LCD */}

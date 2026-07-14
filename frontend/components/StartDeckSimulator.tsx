@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta } from '../lib/types';
 import { simulateStartDeck, type StartDeckResult } from '../lib/simulation/starter';
@@ -16,8 +16,8 @@ import {
 import {
   createOpeningEvent,
   EMPTY_OPENING_SESSION,
-  normalizeOpeningSession,
-  SESSION_STORAGE_KEY,
+  loadOpeningSession,
+  saveOpeningSession,
   type OpeningSession,
 } from '../lib/openingHistory';
 import { addCardsToHitDex } from '../lib/hitDex';
@@ -29,15 +29,7 @@ type OpenLuckMode = 'box' | 'pack';
 const EMPTY_SESSION: OpeningSession = EMPTY_OPENING_SESSION;
 
 function loadStoredSession(): OpeningSession {
-  if (typeof window === 'undefined') return EMPTY_SESSION;
-  try {
-    const stored = window.localStorage.getItem(SESSION_STORAGE_KEY);
-    if (!stored) return EMPTY_SESSION;
-    return normalizeOpeningSession(JSON.parse(stored));
-  } catch {
-    /* corrupt — fall through */
-  }
-  return EMPTY_SESSION;
+  return loadOpeningSession();
 }
 
 function DeckCard({
@@ -141,10 +133,14 @@ export function StartDeckSimulator({
   setMeta,
   onChangeSet,
   onOpenLuck,
+  onOpenHitDex,
+  accountBar,
 }: {
   setMeta: SetMeta;
   onChangeSet: () => void;
   onOpenLuck: (mode: OpenLuckMode) => void;
+  onOpenHitDex: () => void;
+  accountBar?: ReactNode;
 }) {
   const [phase, setPhase] = useState<Phase>('idle');
   const [result, setResult] = useState<StartDeckResult | null>(null);
@@ -163,11 +159,7 @@ export function StartDeckSimulator({
 
   useEffect(() => {
     if (!hydrated) return;
-    try {
-      window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
-    } catch {
-      /* quota / 비공개 모드 — 무시 */
-    }
+    saveOpeningSession(session);
   }, [session, hydrated]);
 
   useEffect(() => {
@@ -236,7 +228,8 @@ export function StartDeckSimulator({
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-950 text-white">
-      <header className="flex shrink-0 items-center justify-between gap-4 border-b border-gray-800/80 px-6 py-5">
+      <header className="shrink-0 border-b border-gray-800/80 px-4 py-5 sm:px-6">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex min-w-0 items-center gap-4">
           <button
             onClick={onChangeSet}
@@ -249,17 +242,21 @@ export function StartDeckSimulator({
             <p className="mt-1 truncate text-xs text-gray-400">{setMeta.name_ko}</p>
           </div>
         </div>
-        {phase !== 'idle' && (
-          <button
-            onClick={() => {
-              setPhase('idle');
-              setResult(null);
-            }}
-            className="text-xs text-gray-500 transition-colors hover:text-gray-300"
-          >
-            처음으로
-          </button>
-        )}
+        <div className="flex w-full shrink-0 items-center justify-end gap-3 sm:ml-auto sm:w-auto">
+          {phase !== 'idle' && (
+            <button
+              onClick={() => {
+                setPhase('idle');
+                setResult(null);
+              }}
+              className="text-xs text-gray-500 transition-colors hover:text-gray-300"
+            >
+              처음으로
+            </button>
+          )}
+            {accountBar}
+          </div>
+        </div>
       </header>
 
       <main className="flex-1">
@@ -352,7 +349,13 @@ export function StartDeckSimulator({
                 onClick={() => onOpenLuck('pack')}
                 className="rounded-xl bg-amber-500/90 px-6 py-3 font-black text-gray-950 shadow-lg shadow-amber-950/20 transition hover:bg-amber-400 active:scale-95"
               >
-                운 확인하러가기
+                내 운 보러가기
+              </button>
+              <button
+                onClick={onOpenHitDex}
+                className="rounded-xl bg-cyan-400/90 px-6 py-3 font-black text-gray-950 shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-300 active:scale-95"
+              >
+                힛카드 도감 보러가기
               </button>
               <button
                 onClick={onChangeSet}

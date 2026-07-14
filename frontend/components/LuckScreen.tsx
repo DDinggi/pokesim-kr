@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta } from '../lib/types';
 import {
@@ -10,11 +10,8 @@ import {
   type WeightedLuckScore,
 } from '../lib/luck';
 import {
-  EMPTY_OPENING_SESSION,
   countRarities,
   getOpeningHitCards,
-  normalizeOpeningSession,
-  SESSION_STORAGE_KEY,
   type OpeningSession,
 } from '../lib/openingHistory';
 import {
@@ -35,40 +32,6 @@ import { trackUserEvent } from '../lib/statsTracker';
 import { LuckPyramid } from './LuckPyramid';
 import { CardModal } from './CardModal';
 
-function loadSession(): OpeningSession {
-  if (typeof window === 'undefined') return EMPTY_OPENING_SESSION;
-  try {
-    const stored = window.localStorage.getItem(SESSION_STORAGE_KEY);
-    if (!stored) return EMPTY_OPENING_SESSION;
-    return normalizeOpeningSession(JSON.parse(stored));
-  } catch {
-    return EMPTY_OPENING_SESSION;
-  }
-}
-
-function saveSession(session: OpeningSession): void {
-  if (typeof window === 'undefined') return;
-  if (session.cards.length === 0 && session.openingEvents.length === 0) {
-    window.localStorage.removeItem(SESSION_STORAGE_KEY);
-    return;
-  }
-  window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
-}
-
-function removeSetFromSession(session: OpeningSession, set: SetMeta): OpeningSession {
-  const setCardNums = new Set(set.cards.map((card) => card.card_num));
-  const openingEvents = session.openingEvents.filter((event) => event.setCode !== set.code);
-  const cards = session.cards.filter((card) => !setCardNums.has(card.card_num));
-
-  return {
-    boxes: openingEvents.reduce((sum, event) => sum + event.boxCount, 0),
-    packs: openingEvents.reduce((sum, event) => sum + (event.unit === 'pack' ? event.packCount : 0), 0),
-    cost: openingEvents.reduce((sum, event) => sum + event.krw, 0),
-    cards,
-    openingEvents,
-  };
-}
-
 function getSetHitCards(cards: Card[], set: SetMeta): Card[] {
   const setCardNums = new Set(set.cards.map((card) => card.card_num));
   return getOpeningHitCards(cards.filter((card) => setCardNums.has(card.card_num)), set);
@@ -87,19 +50,23 @@ function mergeRarityCounts(
 
 export function LuckScreen({
   sets,
+  session,
   initialSetCode,
   onBackToMain,
+  onResetRecords,
+  backupBar,
 }: {
   sets: SetMeta[];
+  session: OpeningSession;
   initialSetCode?: string | null;
   onBackToMain: () => void;
+  onResetRecords: (setCode?: string) => Promise<void>;
+  backupBar?: ReactNode;
 }) {
-  const [session, setSession] = useState<OpeningSession>(EMPTY_OPENING_SESSION);
   const [selectedSetCode, setSelectedSetCode] = useState<string | null>(initialSetCode ?? null);
   const [openHitCardsSetCode, setOpenHitCardsSetCode] = useState<string | null>(null);
   const [setListOpen, setSetListOpen] = useState(false);
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
-  const [sessionLoaded, setSessionLoaded] = useState(false);
   const trackedEmptyStateKey = useRef<string | null>(null);
 
   useEffect(() => {
@@ -109,11 +76,6 @@ export function LuckScreen({
       metadata: { hasInitialSet: Boolean(initialSetCode) },
     });
 
-    const timer = window.setTimeout(() => {
-      setSession(loadSession());
-      setSessionLoaded(true);
-    }, 0);
-    return () => window.clearTimeout(timer);
   }, [initialSetCode]);
 
   const setByCode = useMemo(() => new Map(sets.map((set) => [set.code, set])), [sets]);
@@ -196,7 +158,7 @@ export function LuckScreen({
   const isLuckUnavailable = !hasHistory || setBreakdowns.length === 0 || !activeBreakdown?.score;
 
   useEffect(() => {
-    if (!sessionLoaded || !isLuckUnavailable) return;
+    if (!isLuckUnavailable) return;
 
     const key = `${hasHistory ? 'legacy' : 'empty'}:${session.openingEvents.length}:${session.cards.length}`;
     if (trackedEmptyStateKey.current === key) return;
@@ -210,7 +172,7 @@ export function LuckScreen({
         openingEvents: session.openingEvents.length,
       },
     });
-  }, [hasHistory, isLuckUnavailable, session.cards.length, session.openingEvents.length, sessionLoaded]);
+  }, [hasHistory, isLuckUnavailable, session.cards.length, session.openingEvents.length]);
 
   function handleResetAllSession(source: 'luck_empty' | 'luck_screen' = 'luck_screen') {
     const confirmed = window.confirm('전체 기록을 초기화할까요?');
@@ -221,8 +183,7 @@ export function LuckScreen({
       metadata: { source, scope: 'all' },
     });
 
-    saveSession(EMPTY_OPENING_SESSION);
-    setSession(EMPTY_OPENING_SESSION);
+    void onResetRecords();
     setSelectedSetCode(null);
     setOpenHitCardsSetCode(null);
     setSetListOpen(false);
@@ -239,9 +200,7 @@ export function LuckScreen({
       metadata: { source: 'luck_screen', scope: 'set' },
     });
 
-    const nextSession = removeSetFromSession(session, activeBreakdown.set);
-    saveSession(nextSession);
-    setSession(nextSession);
+    void onResetRecords(activeBreakdown.set.code);
     setSelectedSetCode(null);
     setOpenHitCardsSetCode(null);
     setSetListOpen(false);
@@ -249,20 +208,21 @@ export function LuckScreen({
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
-      <header className="border-b border-gray-800/80 px-6 py-5">
-        <div className="mx-auto flex max-w-6xl items-center gap-4">
+      <header className="border-b border-gray-800/80 px-4 py-5 sm:px-6">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative flex min-w-0 items-center gap-4 min-[1400px]:block">
           <button
             onClick={onBackToMain}
-            className="shrink-0 rounded px-2 py-1 text-xs text-gray-400 transition hover:bg-white/5 hover:text-white"
+            className="shrink-0 whitespace-nowrap rounded px-2 py-1 text-xs text-gray-400 transition hover:bg-white/5 hover:text-white min-[1400px]:absolute min-[1400px]:right-full min-[1400px]:top-1/2 min-[1400px]:mr-4 min-[1400px]:-translate-y-1/2"
           >
-            메인
+            ← 메인
           </button>
           <div className="min-w-0">
-            <h1 className="truncate text-2xl font-black tracking-tight">내 운 확인</h1>
-            <p className="mt-1 text-xs text-gray-500">
-              힛카드 수에 대한 확률을 박스 종류별로 계산합니다.
-            </p>
+            <h1 className="truncate text-2xl font-bold tracking-tight">누적 운</h1>
+            <p className="mt-1 truncate text-xs text-gray-500">카드깡 기록 확인</p>
           </div>
+        </div>
+          {backupBar ? <div className="w-full sm:ml-auto sm:w-auto">{backupBar}</div> : null}
         </div>
       </header>
 

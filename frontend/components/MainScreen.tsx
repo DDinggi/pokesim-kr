@@ -1,17 +1,15 @@
 'use client';
 
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState, useSyncExternalStore, type ReactNode } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import type { Card } from '../lib/types';
 import { fetchGlobalStats, trackUserEvent, type GlobalStats } from '../lib/statsTracker';
 import {
-  normalizeOpeningSession,
-  SESSION_STORAGE_KEY,
   type OpeningSession,
 } from '../lib/openingHistory';
 import {
   getHitDexStats,
-  loadHitDex,
   type HitDexState,
 } from '../lib/hitDex';
 import {
@@ -33,36 +31,34 @@ import { CardModal } from './CardModal';
 
 type Mode = 'box' | 'vending';
 
-function loadSession(): OpeningSession | null {
-  if (typeof window === 'undefined') return null;
-  try {
-    const stored = window.localStorage.getItem(SESSION_STORAGE_KEY);
-    if (!stored) return null;
-    const session = normalizeOpeningSession(JSON.parse(stored));
-    if (session.cards.length > 0 || session.openingEvents.length > 0) return session;
-  } catch {
-    /* ignore corrupt localStorage */
-  }
-  return null;
-}
+const subscribeToClientReady = () => () => {};
 
 export function MainScreen({
   onSelectMode,
   onOpenLuck,
   onOpenHitDex,
-  hitDexAccessGranted,
+  recordSession,
+  recordHitDex,
+  onResetRecords,
+  accountBar,
 }: {
   onSelectMode: (mode: Mode) => void;
   onOpenLuck: () => void;
   onOpenHitDex: () => void;
-  hitDexAccessGranted: boolean;
+  recordSession: OpeningSession;
+  recordHitDex: HitDexState;
+  onResetRecords: () => Promise<void>;
+  accountBar?: ReactNode;
 }) {
   const [stats, setStats] = useState<GlobalStats | null>(null);
-  const [session, setSession] = useState<OpeningSession | null>(null);
-  const [hitDex, setHitDex] = useState<HitDexState | null>(null);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [showAllHistoryCards, setShowAllHistoryCards] = useState(false);
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
+  const localRecordsReady = useSyncExternalStore(
+    subscribeToClientReady,
+    () => true,
+    () => false,
+  );
 
   useEffect(() => {
     fetchGlobalStats().then((nextStats) => {
@@ -70,22 +66,33 @@ export function MainScreen({
     });
   }, []);
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setSession(loadSession());
-      setHitDex(hitDexAccessGranted ? loadHitDex() : null);
-    }, 0);
-    return () => window.clearTimeout(timer);
-  }, [hitDexAccessGranted]);
+  const session = localRecordsReady
+    && (recordSession.cards.length > 0 || recordSession.openingEvents.length > 0)
+    ? recordSession
+    : null;
+  const dexStats = getHitDexStats(recordHitDex);
+  const recordedCardCount = session?.openingEvents.reduce(
+    (sum, event) => sum + event.cardCount,
+    0,
+  ) ?? 0;
+  const hasFullCardHistory = Boolean(session && session.cards.length >= recordedCardCount);
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-950 text-white">
-      <header className="border-b border-gray-800/80 px-6 py-5">
-        <h1 className="text-2xl font-bold tracking-tight">PokéSim KR</h1>
-        <p className="mt-1 text-xs text-gray-500">포켓몬 카드 시뮬레이터</p>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-400">
-          카드 개봉의 재미를 가볍게 체험할 수 있도록 만든 비공식 팬 프로젝트입니다.
-        </p>
+      <header className="border-b border-gray-800/80 px-4 py-5 sm:px-6">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+          <div className="min-w-0 lg:max-w-xl">
+            <h1 className="text-2xl font-bold tracking-tight">PokéSim KR</h1>
+            <p className="mt-1 text-xs text-gray-500">포켓몬 카드 시뮬레이터</p>
+            <p className="mt-3 text-sm leading-relaxed text-gray-400">
+              카드 개봉의 재미를 가볍게 체험할 수 있도록 만든 비공식 팬 프로젝트입니다.
+            </p>
+          </div>
+
+          <div className="w-full lg:max-w-xl">
+            {accountBar}
+          </div>
+        </div>
       </header>
 
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6">
@@ -156,35 +163,30 @@ export function MainScreen({
           />
         </div>
 
-        <button
-          onClick={() => {
-            setSession(loadSession());
-            setHitDex(loadHitDex());
-            onOpenLuck();
-          }}
-          className="mt-4 w-full rounded-2xl bg-gray-900/90 px-5 py-4 text-left ring-1 ring-white/10 transition hover:bg-gray-900 hover:ring-amber-300/40 active:scale-[0.99]"
-        >
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-lg font-black text-white">내 운 확인</p>
-              <p className="mt-0.5 text-xs text-gray-500">
-                지금까지 깐 기록으로 누적 운 피라미드 보기
-              </p>
-            </div>
-            <span className="rounded-full bg-amber-300 px-3 py-1.5 text-xs font-black text-gray-950">
-              LUCK
-            </span>
-          </div>
-        </button>
-
-        <HitDexPanel
-          hitDex={hitDex}
-          accessGranted={hitDexAccessGranted}
-          onOpen={() => {
-            if (hitDexAccessGranted) setHitDex(loadHitDex());
-            onOpenHitDex();
-          }}
-        />
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <RecordShortcut
+            title="누적 운"
+            detail={!localRecordsReady
+              ? '기록 보기'
+              : session
+                ? `${session.boxes}박스 · ${session.packs}팩`
+                : '개봉 기록 없음'}
+            label="LUCK"
+            tone="amber"
+            onClick={onOpenLuck}
+          />
+          <RecordShortcut
+            title="힛카드 도감"
+            detail={!localRecordsReady
+              ? '도감 보기'
+              : dexStats.uniqueCount > 0
+                ? `${dexStats.uniqueCount}종 등록`
+                : '등록 카드 없음'}
+            label="HIT"
+            tone="cyan"
+            onClick={onOpenHitDex}
+          />
+        </div>
       </main>
 
       {session && (
@@ -200,7 +202,7 @@ export function MainScreen({
               className="flex-1 px-6 py-3.5 transition-colors hover:bg-white/5"
             >
               <div className="flex flex-wrap items-center gap-3 text-sm">
-                <span className="font-bold text-gray-300">지금까지 깐 카드</span>
+                <span className="font-bold text-gray-300">지금까지 깐 기록</span>
                 <span className="text-gray-500 tabular-nums">
                   {session.boxes}박스 · {session.packs}팩 · {session.cost.toLocaleString()}원
                 </span>
@@ -215,10 +217,7 @@ export function MainScreen({
                   eventName: 'reset_history',
                   metadata: { source: 'main_history', scope: 'all' },
                 });
-                if (typeof window !== 'undefined') {
-                  window.localStorage.removeItem(SESSION_STORAGE_KEY);
-                }
-                setSession(null);
+                void onResetRecords();
                 setHistoryOpen(false);
                 setShowAllHistoryCards(false);
               }}
@@ -233,6 +232,7 @@ export function MainScreen({
               <CardHistoryPanel
                 cards={session.cards}
                 showAll={showAllHistoryCards}
+                hasFullHistory={hasFullCardHistory}
                 onToggleShowAll={() => setShowAllHistoryCards((showAll) => !showAll)}
                 onCardClick={setOpenedCard}
               />
@@ -262,7 +262,19 @@ export function MainScreen({
             본 사이트는 개인이 만든 비영리 시뮬레이터이며 공식 권리자와 제휴 관계가 없습니다.
           </p>
           <p className="text-center text-[10px] text-gray-700">©{new Date().getFullYear()} pokesim_kr</p>
-          <div className="mt-1 flex items-center gap-4">
+          <div className="mt-1 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <Link
+              href="/terms"
+              className="text-[10px] text-gray-500 transition-colors hover:text-gray-300"
+            >
+              이용약관
+            </Link>
+            <Link
+              href="/privacy"
+              className="text-[10px] text-gray-500 transition-colors hover:text-gray-300"
+            >
+              개인정보처리방침
+            </Link>
             <a
               href="https://open.kakao.com/o/sqFZE7ti"
               target="_blank"
@@ -281,46 +293,6 @@ export function MainScreen({
         </div>
       </footer>
     </div>
-  );
-}
-
-function HitDexPanel({
-  hitDex,
-  accessGranted,
-  onOpen,
-}: {
-  hitDex: HitDexState | null;
-  accessGranted: boolean;
-  onOpen: () => void;
-}) {
-  const stats = hitDex ? getHitDexStats(hitDex) : null;
-  const hasEntries = Boolean(hitDex?.entries.length);
-
-  return (
-    <button
-      type="button"
-      onClick={onOpen}
-      className="mt-4 w-full rounded-2xl bg-gray-900/90 px-5 py-4 text-left ring-1 ring-white/10 transition hover:bg-gray-900 hover:ring-cyan-300/40 active:scale-[0.99]"
-    >
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-lg font-black text-white">힛카드 도감</p>
-          <p className="mt-0.5 text-xs text-gray-500">
-            {accessGranted ? '반짝이는 카드 등록 현황 보기' : 'Google 로그인 후 확인'}
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          {accessGranted && hasEntries && stats && (
-            <span className="rounded-full bg-cyan-300/15 px-3 py-1.5 text-xs font-black text-cyan-100 ring-1 ring-cyan-200/20">
-              {stats.uniqueCount}종
-            </span>
-          )}
-          <span className="rounded-full bg-cyan-300 px-3 py-1.5 text-xs font-black text-gray-950">
-            DEX
-          </span>
-        </div>
-      </div>
-    </button>
   );
 }
 
@@ -369,27 +341,35 @@ function getHistoryHitCards(cards: Card[]): Card[] {
 function CardHistoryPanel({
   cards,
   showAll,
+  hasFullHistory,
   onToggleShowAll,
   onCardClick,
 }: {
   cards: Card[];
   showAll: boolean;
+  hasFullHistory: boolean;
   onToggleShowAll: () => void;
   onCardClick: (card: Card) => void;
 }) {
   const hitCards = getHistoryHitCards(cards);
-  const visibleCards = showAll ? cards : hitCards;
+  const visibleCards = showAll && hasFullHistory ? cards : hitCards;
 
   return (
     <section className="rounded-2xl bg-gray-900/55 p-4 ring-1 ring-white/10 sm:p-5">
       <div className="flex justify-end">
-        <button
-          type="button"
-          onClick={onToggleShowAll}
-          className="w-fit rounded-full bg-white/10 px-3 py-1.5 text-xs font-black text-white transition hover:bg-white/15"
-        >
-          {showAll ? `힛카드만 보기 (${hitCards.length}장)` : `전체 카드 보기 (${cards.length}장)`}
-        </button>
+        {hasFullHistory ? (
+          <button
+            type="button"
+            onClick={onToggleShowAll}
+            className="w-fit rounded-full bg-white/10 px-3 py-1.5 text-xs font-black text-white transition hover:bg-white/15"
+          >
+            {showAll ? `힛카드만 보기 (${hitCards.length}장)` : `전체 카드 보기 (${cards.length}장)`}
+          </button>
+        ) : (
+          <span className="rounded-full bg-white/[0.06] px-3 py-1.5 text-xs font-bold text-gray-500">
+            다른 기기에서 보관된 힛카드 {hitCards.length}장
+          </span>
+        )}
       </div>
 
       {visibleCards.length > 0 ? (
@@ -466,6 +446,38 @@ function CardTile({ card, onClick }: { card: Card; onClick?: () => void }) {
   );
 }
 
+function RecordShortcut({
+  title,
+  detail,
+  label,
+  tone,
+  onClick,
+}: {
+  title: string;
+  detail: string;
+  label: string;
+  tone: 'amber' | 'cyan';
+  onClick: () => void;
+}) {
+  const labelClass = tone === 'amber' ? 'text-amber-200' : 'text-cyan-200';
+  const hoverClass = tone === 'amber'
+    ? 'hover:border-amber-300/35'
+    : 'hover:border-cyan-300/35';
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`min-w-0 w-full overflow-hidden rounded-md border border-gray-800 bg-gray-900/70 px-3 py-2.5 text-left transition hover:bg-gray-900 active:scale-[0.99] ${hoverClass}`}
+    >
+      <span className="flex items-center justify-between gap-2">
+        <span className="truncate text-xs font-black text-white sm:text-sm">{title}</span>
+        <span className={`shrink-0 text-[10px] font-black ${labelClass}`}>{label}</span>
+      </span>
+      <span className="mt-1 block truncate text-[11px] font-bold text-gray-500">{detail}</span>
+    </button>
+  );
+}
 function ModeCard({
   title,
   subtitle,

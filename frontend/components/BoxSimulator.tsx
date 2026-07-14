@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
 import { simulateBox, simulatePack, PROBABILITY_META } from '../lib/simulator';
@@ -35,8 +35,8 @@ import {
 import {
   createOpeningEvent,
   EMPTY_OPENING_SESSION,
-  normalizeOpeningSession,
-  SESSION_STORAGE_KEY,
+  loadOpeningSession,
+  saveOpeningSession,
   type OpeningSession,
 } from '../lib/openingHistory';
 import { addCardsToHitDex } from '../lib/hitDex';
@@ -48,15 +48,7 @@ const NORMAL_HOLD_MS = 600;
 const BETWEEN_MS = 1800;
 
 function loadStoredSession(): Session {
-  if (typeof window === 'undefined') return EMPTY_SESSION;
-  try {
-    const stored = window.localStorage.getItem(SESSION_STORAGE_KEY);
-    if (!stored) return EMPTY_SESSION;
-    return normalizeOpeningSession(JSON.parse(stored));
-  } catch {
-    /* corrupt — fall through */
-  }
-  return EMPTY_SESSION;
+  return loadOpeningSession();
 }
 
 type Mode = 'box-auto' | 'box-manual' | 'box-instant' | 'pack';
@@ -712,6 +704,7 @@ function BoxDoneScreen({
   session,
   onRedo,
   onOpenLuck,
+  onOpenHitDex,
   onChangeSet,
   onCardClick,
   onResetSession,
@@ -721,6 +714,7 @@ function BoxDoneScreen({
   session: Session;
   onRedo: () => void;
   onOpenLuck: (mode: OpenLuckMode) => void;
+  onOpenHitDex: () => void;
   onChangeSet: () => void;
   onCardClick: (c: Card) => void;
   onResetSession: () => void;
@@ -768,7 +762,13 @@ function BoxDoneScreen({
           onClick={() => onOpenLuck('box')}
           className="px-6 py-3 bg-amber-500/90 text-gray-950 hover:bg-amber-400 active:scale-95 rounded-xl font-black transition shadow-lg shadow-amber-950/20"
         >
-          운 확인하러가기
+          내 운 보러가기
+        </button>
+        <button
+          onClick={onOpenHitDex}
+          className="rounded-xl bg-cyan-400/90 px-6 py-3 font-black text-gray-950 shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-300 active:scale-95"
+        >
+          힛카드 도감 보러가기
         </button>
         <button
           onClick={onChangeSet}
@@ -829,6 +829,7 @@ function PackDoneScreen({
   session,
   onRedo,
   onOpenLuck,
+  onOpenHitDex,
   onChangeSet,
   onCardClick,
 }: {
@@ -838,6 +839,7 @@ function PackDoneScreen({
   session: Session;
   onRedo: () => void;
   onOpenLuck: (mode: OpenLuckMode) => void;
+  onOpenHitDex: () => void;
   onChangeSet: () => void;
   onCardClick: (c: Card) => void;
 }) {
@@ -910,7 +912,13 @@ function PackDoneScreen({
           onClick={() => onOpenLuck('pack')}
           className="px-6 py-3 bg-amber-500/90 text-gray-950 hover:bg-amber-400 active:scale-95 rounded-xl font-black transition shadow-lg shadow-amber-950/20"
         >
-          운 확인하러가기
+          내 운 보러가기
+        </button>
+        <button
+          onClick={onOpenHitDex}
+          className="rounded-xl bg-cyan-400/90 px-6 py-3 font-black text-gray-950 shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-300 active:scale-95"
+        >
+          힛카드 도감 보러가기
         </button>
         <button
           onClick={onChangeSet}
@@ -932,10 +940,14 @@ export function BoxSimulator({
   setMeta,
   onChangeSet,
   onOpenLuck,
+  onOpenHitDex,
+  accountBar,
 }: {
   setMeta: SetMeta;
   onChangeSet: () => void;
   onOpenLuck: (mode: OpenLuckMode) => void;
+  onOpenHitDex: () => void;
+  accountBar?: ReactNode;
 }) {
   const [phase, setPhase] = useState<Phase>('idle');
   const [mode, setMode] = useState<Mode | null>(null);
@@ -962,11 +974,7 @@ export function BoxSimulator({
   // 세션 변경 → localStorage 저장 (hydrate 끝나기 전엔 덮어쓰지 않음)
   useEffect(() => {
     if (!hydrated) return;
-    try {
-      window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
-    } catch {
-      /* quota / 비공개 모드 — 무시 */
-    }
+    saveOpeningSession(session);
   }, [session, hydrated]);
 
   // 세트 변경 시 시뮬 상태만 리셋 (세션은 유지 — 사용자가 직접 리셋)
@@ -1260,7 +1268,8 @@ export function BoxSimulator({
 
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
-      <header className="px-6 py-5 border-b border-gray-800/80 flex items-center justify-between gap-4 shrink-0">
+      <header className="shrink-0 border-b border-gray-800/80 px-4 py-5 sm:px-6">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4 min-w-0">
           <button
             onClick={onChangeSet}
@@ -1273,14 +1282,18 @@ export function BoxSimulator({
             <p className="text-xs text-gray-400 mt-1 truncate">{setMeta.name_ko}</p>
           </div>
         </div>
-        {phase !== 'idle' && (
-          <button
-            onClick={goToIdle}
-            className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
-          >
-            처음으로
-          </button>
-        )}
+        <div className="flex w-full shrink-0 items-center justify-end gap-3 sm:ml-auto sm:w-auto">
+          {phase !== 'idle' && (
+            <button
+              onClick={goToIdle}
+              className="text-xs text-gray-500 transition-colors hover:text-gray-300"
+            >
+              처음으로
+            </button>
+          )}
+            {accountBar}
+          </div>
+        </div>
       </header>
 
       <main className="flex-1">
@@ -1331,6 +1344,7 @@ export function BoxSimulator({
                 session={session}
                 onRedo={() => triggerBoxRedo(mode)}
                 onOpenLuck={onOpenLuck}
+                onOpenHitDex={onOpenHitDex}
                 onChangeSet={onChangeSet}
                 onCardClick={openCardModal}
                 onResetSession={resetSession}
@@ -1348,6 +1362,7 @@ export function BoxSimulator({
                   startPack();
                 }}
                 onOpenLuck={onOpenLuck}
+                onOpenHitDex={onOpenHitDex}
                 onChangeSet={onChangeSet}
                 onCardClick={openCardModal}
               />

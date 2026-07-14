@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import type { SetMeta } from '../lib/types';
 import { AUTH_RETURN_MODE_KEY, useGoogleAuth } from '../lib/auth';
 import { trackUserEvent } from '../lib/statsTracker';
@@ -11,8 +11,13 @@ import { StartDeckSimulator } from './StartDeckSimulator';
 import { VendingMachine } from './VendingMachine';
 import { LuckScreen } from './LuckScreen';
 import { HitDexScreen } from './HitDexScreen';
+import { RecordBackupBar } from './RecordBackupBar';
+import { RecordMergeDialog } from './RecordMergeDialog';
+import { AccountScreen } from './AccountScreen';
+import { clearRecordBackupMarkers, useRecordBackup } from '../lib/useRecordBackup';
+import { buildRecordExport, downloadRecordExport } from '../lib/recordExport';
 
-type Mode = 'main' | 'box' | 'vending' | 'luck' | 'hit-dex';
+type Mode = 'main' | 'box' | 'vending' | 'luck' | 'hit-dex' | 'account';
 type PokesimHistoryState = {
   mode: Mode;
   selectedSetCode: string | null;
@@ -21,7 +26,7 @@ type PokesimHistoryState = {
 const HISTORY_STATE_KEY = 'pokesimApp';
 
 function isMode(value: unknown): value is Mode {
-  return value === 'main' || value === 'box' || value === 'vending' || value === 'luck' || value === 'hit-dex';
+  return value === 'main' || value === 'box' || value === 'vending' || value === 'luck' || value === 'hit-dex' || value === 'account';
 }
 
 function readPokesimHistoryState(state: unknown): PokesimHistoryState | null {
@@ -63,9 +68,11 @@ function isLocalAuthPreviewRequest(): boolean {
   return new URLSearchParams(window.location.search).get('debugAuth') === '1';
 }
 
-function hasPendingHitDexAuthReturn(): boolean {
-  if (typeof window === 'undefined') return false;
-  return window.sessionStorage.getItem(AUTH_RETURN_MODE_KEY) === 'hit-dex';
+function pendingRecordAuthReturn(): 'luck' | 'hit-dex' | null {
+  if (typeof window === 'undefined') return null;
+  const value = window.sessionStorage.getItem(AUTH_RETURN_MODE_KEY);
+  window.sessionStorage.removeItem(AUTH_RETURN_MODE_KEY);
+  return value === 'luck' || value === 'hit-dex' ? value : null;
 }
 
 function currentHistoryUrlWithoutHitDexDebug() {
@@ -76,13 +83,40 @@ function currentHistoryUrlWithoutHitDexDebug() {
   return `${window.location.pathname}${search ? `?${search}` : ''}${window.location.hash}`;
 }
 
+function googleAccountId(email: string | undefined): string | null {
+  const accountId = email?.split('@')[0]?.trim();
+  return accountId || null;
+}
+
+function authDisplayName(session: ReturnType<typeof useGoogleAuth>['session']): string | null {
+  if (!session) return null;
+
+  const metadata = session.user.user_metadata as Record<string, unknown>;
+  const customDisplayName = metadata.display_name;
+  if (typeof customDisplayName === 'string' && customDisplayName.trim()) {
+    return customDisplayName.trim();
+  }
+
+  return googleAccountId(session.user.email) ?? 'Google 사용자';
+}
+
+function authNickname(session: ReturnType<typeof useGoogleAuth>['session']): string {
+  return authDisplayName(session) ?? '';
+}
+
 export function App({ sets }: { sets: SetMeta[] }) {
   const [mode, setMode] = useState<Mode>('main');
   const [selectedSet, setSelectedSet] = useState<SetMeta | null>(null);
   const [localAuthPreview, setLocalAuthPreview] = useState(false);
   const initialModeRef = useRef<Mode | null>(null);
   const auth = useGoogleAuth();
-  const hitDexAccessGranted = Boolean(auth.session) || localAuthPreview;
+  const authUserId = auth.session?.user.id ?? null;
+  const records = useRecordBackup({
+    userId: authUserId,
+    authReady: auth.ready,
+    sets,
+    disabled: localAuthPreview,
+  });
 
   const applyHistoryState = useCallback(
     (state: unknown) => {
@@ -119,9 +153,8 @@ export function App({ sets }: { sets: SetMeta[] }) {
 
   useEffect(() => {
     if (initialModeRef.current === null) {
-      const returningFromAuth = hasPendingHitDexAuthReturn();
-      initialModeRef.current = isLocalDebugHitDexRequest() || returningFromAuth ? 'hit-dex' : 'main';
-      if (returningFromAuth) window.sessionStorage.removeItem(AUTH_RETURN_MODE_KEY);
+      const returningFromAuth = pendingRecordAuthReturn();
+      initialModeRef.current = isLocalDebugHitDexRequest() ? 'hit-dex' : (returningFromAuth ?? 'main');
     }
 
     const initialMode = initialModeRef.current;
@@ -165,31 +198,16 @@ export function App({ sets }: { sets: SetMeta[] }) {
   }, []);
 
   const goMain = () => {
-    if (isLocalDebugHitDexRequest() || isLocalAuthPreviewRequest()) {
-      setMode('main');
-      setSelectedSet(null);
-      window.history.replaceState(
-        withPokesimHistoryState(window.history.state, { mode: 'main', selectedSetCode: null }),
-        '',
-        currentHistoryUrlWithoutHitDexDebug(),
-      );
-      setLocalAuthPreview(false);
-      return;
-    }
-
-    const appState = readPokesimHistoryState(window.history.state);
-    if (appState && appState.mode !== 'main') {
-      window.history.back();
-      return;
-    }
-
     setMode('main');
     setSelectedSet(null);
     window.history.replaceState(
       withPokesimHistoryState(window.history.state, { mode: 'main', selectedSetCode: null }),
       '',
-      currentHistoryUrl(),
+      isLocalDebugHitDexRequest() || isLocalAuthPreviewRequest()
+        ? currentHistoryUrlWithoutHitDexDebug()
+        : currentHistoryUrl(),
     );
+    setLocalAuthPreview(false);
   };
 
   const goBoxPicker = () => {
@@ -208,47 +226,108 @@ export function App({ sets }: { sets: SetMeta[] }) {
     );
   };
 
+  const recordBackupBar = () => (
+    <RecordBackupBar
+      authenticated={Boolean(authUserId)}
+      displayName={authDisplayName(auth.session)}
+      authReady={auth.ready}
+      authPending={auth.pending}
+      status={records.status}
+      error={auth.error ?? records.error}
+      onGoogleCredential={auth.signInWithGoogleIdToken}
+      onRetry={() => void records.retry().catch(() => undefined)}
+      onSignOut={async () => {
+        if (authUserId) await records.retry().catch(() => undefined);
+        await auth.signOut();
+        goMain();
+      }}
+      onOpenAccount={() => {
+        if (mode !== 'account') pushHistoryState('account');
+      }}
+    />
+  );
+
+  const renderScreen = (screen: ReactNode) => (
+    <>
+      {screen}
+      {records.guestSummary ? (
+        <RecordMergeDialog
+          summary={records.guestSummary}
+          pending={records.mergePending}
+          error={records.error}
+          onMerge={() => void records.mergeGuestRecords()}
+          onKeepSeparate={records.keepGuestSeparate}
+        />
+      ) : null}
+    </>
+  );
   if (mode === 'main') {
-    return (
+    return renderScreen(
       <MainScreen
         onOpenLuck={() => {
           trackUserEvent({ eventName: 'open_luck', metadata: { source: 'main_cta' } });
           pushHistoryState('luck');
         }}
+        onOpenHitDex={() => pushHistoryState('hit-dex')}
         onSelectMode={(m) => {
           trackUserEvent({ eventName: 'select_mode', mode: m });
           pushHistoryState(m);
         }}
-        onOpenHitDex={() => {
-          trackUserEvent({ eventName: 'select_mode', metadata: { mode: 'hit_dex', source: 'main_hit_dex' } });
-          pushHistoryState('hit-dex');
-        }}
-        hitDexAccessGranted={hitDexAccessGranted}
+        recordSession={records.session}
+        recordHitDex={records.hitDex}
+        onResetRecords={() => records.resetOpeningRecords()}
+        accountBar={recordBackupBar()}
       />
     );
   }
 
-  if (mode === 'hit-dex') {
-    return (
-      <HitDexScreen
-        sets={sets}
-        onBackToMain={goMain}
-        authReady={auth.ready}
+  if (mode === 'account') {
+    return renderScreen(
+      <AccountScreen
+        email={auth.session?.user.email ?? ''}
+        displayName={authNickname(auth.session)}
         authPending={auth.pending}
         authError={auth.error}
-        accessGranted={hitDexAccessGranted}
-        localAuthPreview={localAuthPreview}
-        onSignIn={auth.signInWithGoogle}
-        onSignOut={auth.signOut}
+        onBackToMain={goMain}
+        onSaveDisplayName={auth.updateDisplayName}
+        onDownloadRecords={() => {
+          downloadRecordExport(buildRecordExport({
+            account: {
+              email: auth.session?.user.email ?? '',
+              displayName: authNickname(auth.session),
+            },
+            session: records.session,
+            hitDex: records.hitDex,
+          }));
+        }}
+        onDeleteAccount={async () => {
+          const deletingUserId = authUserId;
+          await auth.deleteAccount();
+          if (deletingUserId) clearRecordBackupMarkers(deletingUserId);
+          goMain();
+        }}
+        accountBar={recordBackupBar()}
+      />,
+    );
+  }
+
+  if (mode === 'hit-dex') {
+    return renderScreen(
+      <HitDexScreen
+        sets={sets}
+        hitDex={records.hitDex}
+        onBackToMain={goMain}
+        backupBar={recordBackupBar()}
       />
     );
   }
 
   if (mode === 'vending') {
-    return (
+    return renderScreen(
       <VendingMachine
         sets={sets}
         onBackToMain={goMain}
+        onOpenHitDex={() => pushHistoryState('hit-dex')}
         onOpenLuck={(setCode) => {
           const targetSet = setCode ? (sets.find((set) => set.code === setCode) ?? null) : null;
           trackUserEvent({
@@ -259,17 +338,27 @@ export function App({ sets }: { sets: SetMeta[] }) {
           });
           pushHistoryState('luck', targetSet);
         }}
+        accountBar={recordBackupBar()}
       />
     );
   }
 
   if (mode === 'luck') {
-    return <LuckScreen sets={sets} initialSetCode={selectedSet?.code ?? null} onBackToMain={goMain} />;
+    return renderScreen(
+      <LuckScreen
+        sets={sets}
+        session={records.session}
+        initialSetCode={selectedSet?.code ?? null}
+        onBackToMain={goMain}
+        onResetRecords={records.resetOpeningRecords}
+        backupBar={recordBackupBar()}
+      />,
+    );
   }
 
   // box mode
   if (!selectedSet) {
-    return (
+    return renderScreen(
       <SetPicker
         sets={sets}
         onSelect={(set) => {
@@ -277,15 +366,17 @@ export function App({ sets }: { sets: SetMeta[] }) {
           pushHistoryState('box', set);
         }}
         onBackToMain={goMain}
+        accountBar={recordBackupBar()}
       />
     );
   }
   if (selectedSet.type === 'starter') {
-    return (
+    return renderScreen(
       <StartDeckSimulator
         key={selectedSet.code}
         setMeta={selectedSet}
         onChangeSet={goBoxPicker}
+        onOpenHitDex={() => pushHistoryState('hit-dex')}
         onOpenLuck={(resultMode) => {
           trackUserEvent({
             eventName: 'open_luck',
@@ -295,14 +386,16 @@ export function App({ sets }: { sets: SetMeta[] }) {
           });
           pushHistoryState('luck', selectedSet);
         }}
+        accountBar={recordBackupBar()}
       />
     );
   }
-  return (
+  return renderScreen(
     <BoxSimulator
       key={selectedSet.code}
       setMeta={selectedSet}
       onChangeSet={goBoxPicker}
+      onOpenHitDex={() => pushHistoryState('hit-dex')}
       onOpenLuck={(resultMode) => {
         trackUserEvent({
           eventName: 'open_luck',
@@ -312,6 +405,7 @@ export function App({ sets }: { sets: SetMeta[] }) {
         });
         pushHistoryState('luck', selectedSet);
       }}
+      accountBar={recordBackupBar()}
     />
   );
 }

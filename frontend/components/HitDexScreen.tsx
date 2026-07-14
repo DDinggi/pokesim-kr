@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta } from '../lib/types';
 import {
@@ -9,19 +9,26 @@ import {
   resolveCardImageUrl,
 } from '../lib/images';
 import {
-  CARD_GLOW,
+  PREMIUM_HIT_PRICE_TIERS_KRW,
   RARITY_BADGE,
-  premiumSparkleVariant,
   rarityLabel,
 } from '../lib/rarity';
+import { getCardReferenceValueKrw } from '../lib/valueLuck';
+import {
+  getSetSeriesKey,
+  SET_SERIES,
+  type SetSeriesKey,
+} from '../lib/setSeries';
 import {
   getHitDexCardKey,
+  isFeaturedHitDexCard,
   isHitDexCard,
-  loadHitDex,
   type HitDexEntry,
   type HitDexState,
 } from '../lib/hitDex';
 import { CardModal } from './CardModal';
+
+const HIT_DEX_EFFECT_MIN_PRICE_KRW = 70_000;
 
 interface HitDexCatalogItem {
   key: string;
@@ -36,18 +43,8 @@ interface HitDexSetSection {
   registeredCount: number;
 }
 
-const DEX_ERAS = [
-  { key: 'mega', label: 'MEGA 확장팩', shortLabel: 'MEGA' },
-  { key: 'sv', label: '스칼렛&바이올렛', shortLabel: 'SV' },
-  { key: 'swsh', label: '소드&실드', shortLabel: 'SWSH' },
-  { key: 'sm', label: '썬&문', shortLabel: 'SM' },
-  { key: 'other', label: '기타', shortLabel: 'ETC' },
-] as const;
-
-type DexEraKey = (typeof DEX_ERAS)[number]['key'];
-
 interface HitDexEraSummary {
-  key: DexEraKey;
+  key: SetSeriesKey;
   label: string;
   shortLabel: string;
   totalCards: number;
@@ -55,17 +52,11 @@ interface HitDexEraSummary {
   setCount: number;
 }
 
-function getDexEraForSet(set: SetMeta): DexEraKey {
-  if (set.code.startsWith('m')) return 'mega';
-  if (set.code.startsWith('sv')) return 'sv';
-  if (set.code.startsWith('sm')) return 'sm';
-  if (set.code.startsWith('s')) return 'swsh';
-  return 'other';
-}
+type HitDexEffectVariant = 'value' | 'rare' | 'jackpot';
 
 function buildEraSummaries(sections: HitDexSetSection[]): HitDexEraSummary[] {
-  return DEX_ERAS.map((era) => {
-    const eraSections = sections.filter((section) => getDexEraForSet(section.set) === era.key);
+  return SET_SERIES.map((era) => {
+    const eraSections = sections.filter((section) => getSetSeriesKey(section.set) === era.key);
     return {
       ...era,
       totalCards: eraSections.reduce((sum, section) => sum + section.cards.length, 0),
@@ -111,100 +102,101 @@ function buildCatalog(sets: SetMeta[], hitDex: HitDexState): HitDexSetSection[] 
     .filter((section) => section.cards.length > 0);
 }
 
+function hitDexEffectVariant(priceKrw: number): HitDexEffectVariant {
+  if (priceKrw >= PREMIUM_HIT_PRICE_TIERS_KRW.jackpot) return 'jackpot';
+  if (priceKrw >= PREMIUM_HIT_PRICE_TIERS_KRW.rare) return 'rare';
+  return 'value';
+}
+
+function hitDexEffectLimit(cardCount: number): number {
+  if (cardCount >= 40) return 6;
+  if (cardCount >= 24) return 5;
+  if (cardCount >= 12) return 4;
+  if (cardCount >= 8) return 3;
+  return 2;
+}
+
+function buildHitDexEffectVariants(sections: HitDexSetSection[]): Map<string, HitDexEffectVariant> {
+  const effects = new Map<string, HitDexEffectVariant>();
+
+  for (const section of sections) {
+    const pricedCards = section.cards
+      .map((item) => ({
+        item,
+        priceKrw: getCardReferenceValueKrw(item.card, section.set.code),
+      }))
+      .filter(({ priceKrw }) => priceKrw >= HIT_DEX_EFFECT_MIN_PRICE_KRW)
+      .sort((a, b) => {
+        const priceDiff = b.priceKrw - a.priceKrw;
+        if (priceDiff !== 0) return priceDiff;
+        return a.item.card.number - b.item.card.number;
+      });
+
+    const topCards = pricedCards.slice(0, hitDexEffectLimit(section.cards.length));
+    for (const topCard of topCards) {
+      effects.set(topCard.item.key, hitDexEffectVariant(topCard.priceKrw));
+    }
+
+    for (const item of section.cards) {
+      if (!isFeaturedHitDexCard(item.card, section.set.code)) continue;
+      const priceKrw = getCardReferenceValueKrw(item.card, section.set.code);
+      effects.set(item.key, hitDexEffectVariant(priceKrw));
+    }
+  }
+
+  return effects;
+}
+
 export function HitDexScreen({
   sets,
+  hitDex,
   onBackToMain,
-  authReady,
-  authPending,
-  authError,
-  accessGranted,
-  localAuthPreview,
-  onSignIn,
-  onSignOut,
+  backupBar,
 }: {
   sets: SetMeta[];
+  hitDex: HitDexState;
   onBackToMain: () => void;
-  authReady: boolean;
-  authPending: boolean;
-  authError: string | null;
-  accessGranted: boolean;
-  localAuthPreview: boolean;
-  onSignIn: () => Promise<void>;
-  onSignOut: () => Promise<void>;
+  backupBar?: ReactNode;
 }) {
-  const [hitDex, setHitDex] = useState<HitDexState | null>(null);
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
   const [unknownItem, setUnknownItem] = useState<HitDexCatalogItem | null>(null);
-  const [activeEra, setActiveEra] = useState<DexEraKey>('mega');
-
-  useEffect(() => {
-    if (!accessGranted) return;
-
-    const timer = window.setTimeout(() => setHitDex(loadHitDex()), 0);
-    return () => window.clearTimeout(timer);
-  }, [accessGranted]);
-
-  const sections = useMemo(() => (hitDex ? buildCatalog(sets, hitDex) : []), [sets, hitDex]);
+  const [activeEra, setActiveEra] = useState<SetSeriesKey>('mega');
+  const sections = useMemo(() => buildCatalog(sets, hitDex), [sets, hitDex]);
   const eraSummaries = useMemo(() => buildEraSummaries(sections), [sections]);
+  const effectVariants = useMemo(() => buildHitDexEffectVariants(sections), [sections]);
   const selectedEra = eraSummaries.some((era) => era.key === activeEra)
     ? activeEra
     : (eraSummaries[0]?.key ?? 'mega');
   const selectedEraSummary = eraSummaries.find((era) => era.key === selectedEra) ?? null;
-  const visibleSections = sections.filter((section) => getDexEraForSet(section.set) === selectedEra);
+  const visibleSections = sections.filter((section) => getSetSeriesKey(section.set) === selectedEra);
   const selectedProgress = selectedEraSummary
     ? progressPercent(selectedEraSummary.registeredCards, selectedEraSummary.totalCards)
     : 0;
 
-  if (!authReady && !localAuthPreview) {
-    return (
-      <HitDexAccessScreen
-        loading
-        pending={authPending}
-        error={authError}
-        onBackToMain={onBackToMain}
-        onSignIn={onSignIn}
-      />
-    );
-  }
-
-  if (!accessGranted) {
-    return (
-      <HitDexAccessScreen
-        loading={false}
-        pending={authPending}
-        error={authError}
-        onBackToMain={onBackToMain}
-        onSignIn={onSignIn}
-      />
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
-      <header className="flex items-center justify-between gap-4 border-b border-gray-900 px-4 py-4 sm:px-6">
-        <button
-          type="button"
-          onClick={onBackToMain}
-          className="rounded px-2 py-1 text-xs font-bold text-gray-400 transition hover:bg-white/5 hover:text-white"
-        >
-          ← 메인
-        </button>
-        {!localAuthPreview ? (
+      <header className="border-b border-gray-800/80 px-4 py-5 sm:px-6">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative flex min-w-0 items-center gap-4 min-[1400px]:block">
           <button
             type="button"
-            onClick={() => void onSignOut()}
-            disabled={authPending}
-            className="rounded px-2 py-1 text-xs font-bold text-gray-400 transition hover:bg-white/5 hover:text-white disabled:cursor-wait disabled:opacity-50"
+            onClick={onBackToMain}
+            className="shrink-0 whitespace-nowrap rounded px-2 py-1 text-xs font-bold text-gray-400 transition hover:bg-white/5 hover:text-white min-[1400px]:absolute min-[1400px]:right-full min-[1400px]:top-1/2 min-[1400px]:mr-4 min-[1400px]:-translate-y-1/2"
           >
-            로그아웃
+            ← 메인
           </button>
-        ) : (
-          <div aria-hidden />
-        )}
+          <div className="min-w-0">
+            <h1 className="truncate text-2xl font-bold tracking-tight">힛카드 도감</h1>
+            <p className="mt-1 truncate text-xs text-gray-500">뽑은 힛카드 모아보기</p>
+          </div>
+        </div>
+          {backupBar ? <div className="w-full sm:ml-auto sm:w-auto">{backupBar}</div> : null}
+        </div>
       </header>
 
       <main className="mx-auto w-full max-w-7xl px-3 py-5 sm:px-6 sm:py-8">
-        <section className="relative mt-12 overflow-visible rounded-[32px] bg-gradient-to-br from-red-600 via-orange-600 to-rose-950 p-2 pt-16 shadow-2xl shadow-red-950/40 ring-1 ring-red-300/30 sm:mt-16 sm:rounded-[40px] sm:p-3 sm:pt-20">
+        <section className="relative mt-12 overflow-visible rounded-[32px] bg-gradient-to-br from-red-600 via-orange-600 to-rose-950 p-2 pt-[clamp(3rem,14vw,5rem)] shadow-2xl shadow-red-950/40 ring-1 ring-red-300/30 sm:mt-16 sm:rounded-[40px] sm:p-3 sm:pt-20">
           <DexFrameFace />
           <div className="relative z-10 rounded-[24px] bg-gray-950 p-3 ring-1 ring-white/10 sm:rounded-[30px] sm:p-5">
             {eraSummaries.length > 0 && (
@@ -232,6 +224,7 @@ export function HitDexScreen({
                     <HitDexSetSectionView
                       key={section.set.code}
                       section={section}
+                      effectVariants={effectVariants}
                       onCardClick={setSelectedCard}
                       onUnknownClick={setUnknownItem}
                     />
@@ -249,84 +242,14 @@ export function HitDexScreen({
   );
 }
 
-function HitDexAccessScreen({
-  loading,
-  pending,
-  error,
-  onBackToMain,
-  onSignIn,
-}: {
-  loading: boolean;
-  pending: boolean;
-  error: string | null;
-  onBackToMain: () => void;
-  onSignIn: () => Promise<void>;
-}) {
-  const busy = loading || pending;
-
-  return (
-    <div className="min-h-screen bg-gray-950 text-white">
-      <header className="flex items-center border-b border-gray-900 px-4 py-4 sm:px-6">
-        <button
-          type="button"
-          onClick={onBackToMain}
-          className="rounded px-2 py-1 text-xs font-bold text-gray-400 transition hover:bg-white/5 hover:text-white"
-        >
-          ← 메인
-        </button>
-      </header>
-
-      <main className="mx-auto flex min-h-[calc(100vh-57px)] w-full max-w-xl items-center px-4 py-16 sm:px-6">
-        <section className="relative w-full overflow-visible rounded-[32px] bg-gradient-to-br from-red-600 via-orange-600 to-rose-950 p-2 pt-16 shadow-2xl shadow-red-950/40 ring-1 ring-red-300/30 sm:rounded-[40px] sm:p-3 sm:pt-20">
-          <DexFrameFace />
-          <div className="relative z-10 rounded-[24px] bg-gray-950 p-4 ring-1 ring-white/10 sm:rounded-[30px] sm:p-6">
-            <div className="rounded-[22px] border border-cyan-200/20 bg-gradient-to-br from-cyan-950/45 via-gray-950 to-slate-950 px-5 py-10 text-center shadow-inner shadow-cyan-950/50 sm:px-8 sm:py-12">
-              <p className="text-xl font-black text-white">힛카드 도감</p>
-              <p className="mt-2 text-sm font-bold text-cyan-100/60">
-                {loading ? '로그인 확인 중' : 'Google 계정으로 계속'}
-              </p>
-
-              <button
-                type="button"
-                onClick={() => void onSignIn()}
-                disabled={busy}
-                className="mx-auto mt-7 flex h-12 w-full max-w-xs items-center justify-center gap-3 rounded-lg bg-white px-5 text-sm font-black text-gray-900 shadow-lg shadow-black/25 transition hover:bg-gray-100 active:scale-[0.99] disabled:cursor-wait disabled:opacity-70"
-              >
-                {busy ? (
-                  <span className="h-5 w-5 animate-spin rounded-full border-2 border-gray-300 border-t-gray-900" aria-hidden />
-                ) : (
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-200 text-sm font-black text-blue-600" aria-hidden>
-                    G
-                  </span>
-                )}
-                <span>{busy ? '확인 중...' : 'Google로 계속하기'}</span>
-              </button>
-
-              <p className="mx-auto mt-5 max-w-sm text-[11px] leading-relaxed text-gray-500">
-                도감 기록은 이 브라우저에만 저장되며 Google 계정이나 서버에 업로드되지 않습니다.
-              </p>
-
-              {error && (
-                <p className="mx-auto mt-4 max-w-sm text-xs font-bold leading-relaxed text-red-300" role="alert">
-                  {error}
-                </p>
-              )}
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
-  );
-}
-
 function EraProgressPanel({
   summaries,
   activeEra,
   onSelectEra,
 }: {
   summaries: HitDexEraSummary[];
-  activeEra: DexEraKey;
-  onSelectEra: (era: DexEraKey) => void;
+  activeEra: SetSeriesKey;
+  onSelectEra: (era: SetSeriesKey) => void;
 }) {
   return (
     <section className="mb-4 rounded-[24px] border border-cyan-200/15 bg-black/25 p-3 ring-1 ring-white/5 sm:p-4">
@@ -369,34 +292,68 @@ function EraProgressPanel({
 }
 
 function DexFrameFace() {
-  return (
-    <div className="pointer-events-none absolute left-1/2 top-0 z-30 h-28 w-[min(560px,84%)] -translate-x-1/2 -translate-y-1/2" aria-hidden>
-      <span className="absolute left-[17%] top-[78px] h-2 w-2 rounded-full bg-gray-950/85" />
-      <span className="absolute left-[17%] top-[96px] h-2 w-2 rounded-full bg-gray-950/85" />
-      <span className="absolute right-[17%] top-[78px] h-2 w-2 rounded-full bg-gray-950/85" />
-      <span className="absolute right-[17%] top-[96px] h-2 w-2 rounded-full bg-gray-950/85" />
+  const eyeOuter = 'M31 1 C17 4 7 20 6 42 C5 64 15 79 30 81 C45 82 55 66 56 42 C57 20 47 3 31 1 Z';
+  const eyePupil = 'M35 16 C27 17 21 30 21 46 C21 60 27 68 34 67 C42 64 47 49 47 34 C47 22 43 16 35 16 Z';
 
-      <span className="absolute left-[34%] top-[58px] h-16 w-12 -rotate-[14deg] rounded-[55%] bg-white shadow-md ring-1 ring-slate-300/60">
-        <span className="absolute left-3 top-3 h-10 w-5 rounded-[50%] bg-blue-700" />
-      </span>
-      <span className="absolute right-[34%] top-[58px] h-16 w-12 rotate-[14deg] rounded-[55%] bg-white shadow-md ring-1 ring-slate-300/60">
-        <span className="absolute right-3 top-3 h-10 w-5 rounded-[50%] bg-blue-700" />
-      </span>
+  return (
+    <div className="pointer-events-none absolute left-1/2 top-0 z-30 aspect-[5/1] w-[min(560px,84%)] -translate-x-1/2 -translate-y-1/2" aria-hidden>
+      <span className="absolute left-[17%] top-[70%] aspect-square w-[1.45%] rounded-full bg-gray-950/85" />
+      <span className="absolute left-[17%] top-[86%] aspect-square w-[1.45%] rounded-full bg-gray-950/85" />
+      <span className="absolute right-[17%] top-[70%] aspect-square w-[1.45%] rounded-full bg-gray-950/85" />
+      <span className="absolute right-[17%] top-[86%] aspect-square w-[1.45%] rounded-full bg-gray-950/85" />
+
+      <svg
+        viewBox="0 0 60 82"
+        className="absolute left-[34%] top-[52%] z-10 aspect-[30/41] w-[8.6%] -rotate-[14deg] overflow-visible drop-shadow-[0_2px_2px_rgba(0,0,0,0.2)]"
+        focusable="false"
+      >
+        <path d={eyeOuter} fill="white" stroke="#cbd5e1" strokeWidth="1.2" />
+        <path d={eyePupil} fill="#1d4ed8" />
+      </svg>
+      <svg
+        viewBox="0 0 60 82"
+        className="absolute right-[34%] top-[52%] z-10 aspect-[30/41] w-[8.6%] rotate-[14deg] overflow-visible drop-shadow-[0_2px_2px_rgba(0,0,0,0.2)]"
+        focusable="false"
+      >
+        <g transform="translate(60 0) scale(-1 1)">
+          <path d={eyeOuter} fill="white" stroke="#cbd5e1" strokeWidth="1.2" />
+          <path d={eyePupil} fill="#1d4ed8" />
+        </g>
+      </svg>
+
+      <svg
+        viewBox="0 0 120 52"
+        className="absolute left-1/2 top-[81%] z-20 aspect-[30/13] w-[15%] -translate-x-1/2 drop-shadow-[0_2px_1px_rgba(0,0,0,0.2)]"
+        focusable="false"
+      >
+        <path
+          d="M8 10 C25 13 39 28 60 29 C81 28 95 13 112 10 C107 31 91 44 60 46 C29 44 13 31 8 10 Z"
+          fill="white"
+          stroke="#030712"
+          strokeWidth="3"
+          strokeLinejoin="round"
+        />
+        <path d="M26 17 L25 34" fill="none" stroke="#030712" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M43 25 L42 41" fill="none" stroke="#030712" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M60 29 L60 46" fill="none" stroke="#030712" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M77 25 L78 41" fill="none" stroke="#030712" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M94 17 L95 34" fill="none" stroke="#030712" strokeWidth="1.6" strokeLinecap="round" />
+      </svg>
     </div>
   );
-}
-
-function HitDexSetSectionView({
+}function HitDexSetSectionView({
   section,
+  effectVariants,
   onCardClick,
   onUnknownClick,
 }: {
   section: HitDexSetSection;
+  effectVariants: Map<string, HitDexEffectVariant>;
   onCardClick: (card: Card) => void;
   onUnknownClick: (item: HitDexCatalogItem) => void;
 }) {
   return (
-    <section>
+    <section className="hit-dex-set-section">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div className="min-w-0">
           <h2 className="truncate text-sm font-black text-cyan-50 sm:text-base">{section.set.name_ko}</h2>
@@ -408,7 +365,12 @@ function HitDexSetSectionView({
       <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12">
         {section.cards.map((item) => (
           item.entry ? (
-            <RegisteredHitTile key={item.key} item={item} onClick={() => onCardClick(item.card)} />
+            <RegisteredHitTile
+              key={item.key}
+              item={item}
+              effectVariant={effectVariants.get(item.key) ?? null}
+              onClick={() => onCardClick(item.card)}
+            />
           ) : (
             <UnknownHitTile key={item.key} item={item} onClick={() => onUnknownClick(item)} />
           )
@@ -418,11 +380,18 @@ function HitDexSetSectionView({
   );
 }
 
-function RegisteredHitTile({ item, onClick }: { item: HitDexCatalogItem; onClick: () => void }) {
-  const { card, entry } = item;
+function RegisteredHitTile({
+  item,
+  effectVariant,
+  onClick,
+}: {
+  item: HitDexCatalogItem;
+  effectVariant: HitDexEffectVariant | null;
+  onClick: () => void;
+}) {
+  const { card } = item;
   const displayName = card.name_ko ?? '이름 확인 중';
-  const glow = card.rarity ? CARD_GLOW[card.rarity] ?? '' : '';
-  const sparkle = premiumSparkleVariant(card.rarity, card);
+  const displayRarity = card.rarity ? rarityLabel(card.rarity, card) : null;
   const [errored, setErrored] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [useOriginal, setUseOriginal] = useState(false);
@@ -436,7 +405,7 @@ function RegisteredHitTile({ item, onClick }: { item: HitDexCatalogItem; onClick
       className="group block min-w-0 select-none text-left"
     >
       <div
-        className={`card-image-frame relative aspect-[5/7] w-full overflow-hidden rounded-lg bg-gray-800 ring-1 ring-cyan-200/15 ${sparkle ? `premium-hit-card premium-hit-card--${sparkle}` : ''} ${glow} transition-transform group-hover:scale-[1.03]`}
+        className={`card-image-frame relative aspect-[5/7] w-full overflow-hidden rounded-lg bg-gray-800 ring-1 ring-cyan-200/15 transition-transform group-hover:scale-[1.03] ${effectVariant ? `hit-dex-chase-card premium-hit-card premium-hit-card--${effectVariant}` : ''}`}
         data-watermark={showImage ? 'pokesim.kr' : undefined}
         onContextMenu={(event) => event.preventDefault()}
         onDragStart={(event) => event.preventDefault()}
@@ -468,21 +437,17 @@ function RegisteredHitTile({ item, onClick }: { item: HitDexCatalogItem; onClick
                 }
               }}
             />
-            {sparkle && (
-              <span className={`premium-hit-sparkle premium-hit-sparkle--${sparkle}`} aria-hidden="true">
+            {effectVariant && (
+              <span className={`hit-dex-chase-sparkle premium-hit-sparkle premium-hit-sparkle--${effectVariant}`} aria-hidden="true">
                 <span className="premium-hit-sparkle__dust" />
               </span>
             )}
           </>
         )}
-        {entry && entry.pullCount > 1 && (
-          <span className="absolute left-1 top-1 z-10 rounded bg-gray-950/85 px-1.5 py-0.5 text-[10px] font-black text-amber-200 ring-1 ring-amber-200/30">
-            x{entry.pullCount}
-          </span>
-        )}
+
         {card.rarity && (
           <span className={`absolute bottom-0.5 right-0.5 z-10 rounded px-1 py-px text-[9px] font-bold ${RARITY_BADGE[card.rarity] ?? 'bg-gray-600 text-white'}`}>
-            {rarityLabel(card.rarity, card)}
+            {displayRarity}
           </span>
         )}
       </div>

@@ -25,6 +25,49 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.legal-content {
+  color: rgb(156 163 175);
+  font-size: 0.875rem;
+  line-height: 1.8;
+}
+
+.legal-content h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: rgb(243 244 246);
+  font-size: 1.125rem;
+  font-weight: 900;
+}
+
+.legal-content h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: rgb(209 213 219);
+  font-size: 0.875rem;
+  font-weight: 800;
+}
+
+.legal-content p + p,
+.legal-content ul + p,
+.legal-content p + ul {
+  margin-top: 0.75rem;
+}
+
+.legal-content ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.legal-content li + li {
+  margin-top: 0.25rem;
+}
+
+.legal-content a {
+  color: rgb(103 232 249);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .card-image-frame::after {
   content: attr(data-watermark);
   position: absolute;
@@ -49,7 +92,10 @@ body {
   user-select: none;
 }
 
-/* === 카드 펼침 애니메이션 (하스스톤 풍) === */
+.hit-dex-set-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 560px;
+}/* === 카드 펼침 애니메이션 (하스스톤 풍) === */
 @keyframes card-flip-in {
   0% {
     transform: perspective(800px) rotateY(180deg) scale(0.85);
@@ -560,6 +606,47 @@ body {
   animation-duration: 1.65s;
 }
 
+/* The dex keeps chase cards recognizable without the simulator's full reveal effect. */
+.hit-dex-chase-card.premium-hit-card {
+  animation: none;
+  box-shadow:
+    0 0 0 1px rgba(165, 243, 252, 0.46) inset,
+    0 0 11px rgba(34, 211, 238, 0.28);
+}
+
+.hit-dex-chase-card.premium-hit-card.premium-hit-card--rare {
+  box-shadow:
+    0 0 0 1px rgba(253, 186, 116, 0.5) inset,
+    0 0 12px rgba(251, 113, 133, 0.3);
+}
+
+.hit-dex-chase-card.premium-hit-card.premium-hit-card--jackpot {
+  animation: none;
+  box-shadow:
+    0 0 0 1px rgba(254, 240, 138, 0.58) inset,
+    0 0 14px rgba(250, 204, 21, 0.38);
+}
+
+.hit-dex-chase-sparkle.premium-hit-sparkle {
+  opacity: 0.4;
+  animation-duration: 6.5s;
+}
+
+.hit-dex-chase-sparkle.premium-hit-sparkle::before {
+  opacity: 0.58;
+  animation-duration: 5.5s;
+}
+
+.hit-dex-chase-sparkle.premium-hit-sparkle::after {
+  display: block;
+  opacity: 0.22;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
+  animation-duration: 4.2s;
+}
+
+.hit-dex-chase-sparkle.premium-hit-sparkle .premium-hit-sparkle__dust {
+  display: none;
+}
 /* === 트랜지션 / 로딩 === */
 @keyframes pokeball-spin {
   to {
@@ -769,6 +856,7 @@ body {
   .loading-bounce {
     animation: none;
   }
+
   /* premium-hit-sparkle: 카드 등급을 표현하는 핵심 시각 정보(SAR/MUR/BWR 식별)라 유지.
      홀로 카드 효과(.holo-*)도 사용자 인터랙션 기반이라 유지. */
 }

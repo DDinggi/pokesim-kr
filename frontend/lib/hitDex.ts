@@ -6,12 +6,18 @@ import {
   raritySortRank,
 } from './rarity';
 import { getCardReferenceValueKrw } from './valueLuck';
+import { notifyHitDexLocalChange } from './hitDexEvents';
 
 export const HIT_DEX_STORAGE_KEY = 'pokesim-kr-hit-dex-v1';
 export const HIT_DEX_DEBUG_STORAGE_KEY = 'pokesim-kr-hit-dex-debug-v1';
+export const HIT_DEX_USER_STORAGE_PREFIX = `${HIT_DEX_STORAGE_KEY}:user:`;
 
 const HIT_DEX_VERSION = 1;
 const ALWAYS_DEX_DISPLAY_RARITIES = new Set(['SAR', 'MUR', 'BWR', 'CSR', 'MA', 'GRA', 'S8AP']);
+const FEATURED_HIT_DEX_CARD_NUMBERS: Readonly<Record<string, ReadonlySet<number>>> = {
+  's12a-vstar-universe': new Set([259, 260, 261, 262]),
+};
+let activeHitDexOwnerId: string | null = null;
 
 export interface HitDexEntry {
   key: string;
@@ -52,12 +58,13 @@ export const EMPTY_HIT_DEX_STATE: HitDexState = {
   entries: [],
 };
 
-function activeHitDexStorageKey(): string {
+function activeHitDexStorageKey(ownerId: string | null = activeHitDexOwnerId): string {
   if (typeof window === 'undefined') return HIT_DEX_STORAGE_KEY;
 
   const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   const isFullDebug = new URLSearchParams(window.location.search).get('debugHitDex') === 'full';
-  return isLocalhost && isFullDebug ? HIT_DEX_DEBUG_STORAGE_KEY : HIT_DEX_STORAGE_KEY;
+  if (isLocalhost && isFullDebug) return HIT_DEX_DEBUG_STORAGE_KEY;
+  return ownerId ? `${HIT_DEX_USER_STORAGE_PREFIX}${encodeURIComponent(ownerId)}` : HIT_DEX_STORAGE_KEY;
 }
 
 function isCardLike(value: unknown): value is Card {
@@ -111,11 +118,11 @@ export function normalizeHitDexState(value: unknown): HitDexState {
   };
 }
 
-export function loadHitDex(): HitDexState {
+function loadHitDexFromKey(storageKey: string): HitDexState {
   if (typeof window === 'undefined') return EMPTY_HIT_DEX_STATE;
 
   try {
-    const stored = window.localStorage.getItem(activeHitDexStorageKey());
+    const stored = window.localStorage.getItem(storageKey);
     if (!stored) return EMPTY_HIT_DEX_STATE;
     return normalizeHitDexState(JSON.parse(stored));
   } catch {
@@ -125,17 +132,114 @@ export function loadHitDex(): HitDexState {
   return EMPTY_HIT_DEX_STATE;
 }
 
-export function saveHitDex(state: HitDexState): void {
-  if (typeof window === 'undefined') return;
+function saveHitDexToKey(storageKey: string, state: HitDexState): boolean {
+  if (typeof window === 'undefined') return false;
 
   try {
-    window.localStorage.setItem(activeHitDexStorageKey(), JSON.stringify(state));
+    window.localStorage.setItem(storageKey, JSON.stringify(state));
+    return true;
   } catch {
     /* quota / private mode - ignore */
   }
+
+  return false;
+}
+
+export function mergeHitDexStates(
+  current: HitDexState,
+  pending: HitDexState,
+  countMode: 'sum' | 'max' = 'sum',
+): HitDexState {
+  const entriesByKey = new Map(current.entries.map((entry) => [entry.key, { ...entry }]));
+
+  for (const pendingEntry of pending.entries) {
+    const existing = entriesByKey.get(pendingEntry.key);
+    if (!existing) {
+      entriesByKey.set(pendingEntry.key, { ...pendingEntry });
+      continue;
+    }
+
+    const usePendingCard = !existing.card.image_url
+      || pendingEntry.bestPriceRefKrw > existing.bestPriceRefKrw;
+    entriesByKey.set(pendingEntry.key, {
+      ...existing,
+      firstPulledAt: existing.firstPulledAt < pendingEntry.firstPulledAt
+        ? existing.firstPulledAt
+        : pendingEntry.firstPulledAt,
+      lastPulledAt: existing.lastPulledAt > pendingEntry.lastPulledAt
+        ? existing.lastPulledAt
+        : pendingEntry.lastPulledAt,
+      pullCount: countMode === 'sum'
+        ? existing.pullCount + pendingEntry.pullCount
+        : Math.max(existing.pullCount, pendingEntry.pullCount),
+      bestPriceRefKrw: Math.max(existing.bestPriceRefKrw, pendingEntry.bestPriceRefKrw),
+      card: usePendingCard ? pendingEntry.card : existing.card,
+    });
+  }
+
+  const updatedAt = [current.updatedAt, pending.updatedAt]
+    .filter((value): value is string => typeof value === 'string')
+    .sort()
+    .at(-1) ?? null;
+
+  return {
+    version: HIT_DEX_VERSION,
+    updatedAt,
+    entries: Array.from(entriesByKey.values()),
+  };
+}
+
+export function setActiveHitDexOwner(ownerId: string | null): void {
+  activeHitDexOwnerId = ownerId;
+}
+
+export function loadHitDex(ownerId: string | null = activeHitDexOwnerId): HitDexState {
+  return loadHitDexFromKey(activeHitDexStorageKey(ownerId));
+}
+
+export function saveHitDex(
+  state: HitDexState,
+  ownerId: string | null = activeHitDexOwnerId,
+  options: { notify?: boolean } = {},
+): void {
+  if (saveHitDexToKey(activeHitDexStorageKey(ownerId), state) && options.notify !== false) {
+    notifyHitDexLocalChange();
+  }
+}
+
+export function getGuestHitDex(): HitDexState {
+  return loadHitDexFromKey(HIT_DEX_STORAGE_KEY);
+}
+
+export function clearGuestHitDex(): void {
+  if (typeof window === 'undefined') return;
+  window.localStorage.removeItem(HIT_DEX_STORAGE_KEY);
+}
+
+export function clearOwnerHitDex(ownerId: string): void {
+  if (typeof window === 'undefined') return;
+  window.localStorage.removeItem(HIT_DEX_USER_STORAGE_PREFIX + encodeURIComponent(ownerId));
+  notifyHitDexLocalChange();
+}
+
+export function mergeGuestHitDexIntoOwner(ownerId: string): HitDexState {
+  const guest = getGuestHitDex();
+  if (guest.entries.length === 0) return loadHitDex(ownerId);
+
+  const current = loadHitDex(ownerId);
+  const merged = mergeHitDexStates(current, guest);
+  saveHitDex(merged, ownerId);
+  return merged;
+}
+
+export function isFeaturedHitDexCard(card: Card, setCode?: string): boolean {
+  return Boolean(setCode && FEATURED_HIT_DEX_CARD_NUMBERS[setCode]?.has(card.number));
 }
 
 export function isHitDexCard(card: Card, setCode?: string): boolean {
+  if (card.card_type?.trim() === '에너지') return false;
+  if (isFeaturedHitDexCard(card, setCode)) return true;
+
   const displayRarity = card.rarity ? rarityLabel(card.rarity, card) : null;
   if (displayRarity && ALWAYS_DEX_DISPLAY_RARITIES.has(displayRarity)) return true;
   if (premiumSparkleVariant(card.rarity, card) !== null) return true;
