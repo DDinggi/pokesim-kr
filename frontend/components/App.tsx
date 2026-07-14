@@ -15,7 +15,6 @@ import { RecordBackupBar } from './RecordBackupBar';
 import { RecordMergeDialog } from './RecordMergeDialog';
 import { AccountScreen } from './AccountScreen';
 import { clearRecordBackupMarkers, useRecordBackup } from '../lib/useRecordBackup';
-import { buildRecordExport, downloadRecordExport } from '../lib/recordExport';
 
 type Mode = 'main' | 'box' | 'vending' | 'luck' | 'hit-dex' | 'account';
 type PokesimHistoryState = {
@@ -290,16 +289,6 @@ export function App({ sets }: { sets: SetMeta[] }) {
         authError={auth.error}
         onBackToMain={goMain}
         onSaveDisplayName={auth.updateDisplayName}
-        onDownloadRecords={() => {
-          downloadRecordExport(buildRecordExport({
-            account: {
-              email: auth.session?.user.email ?? '',
-              displayName: authNickname(auth.session),
-            },
-            session: records.session,
-            hitDex: records.hitDex,
-          }));
-        }}
         onDeleteAccount={async () => {
           const deletingUserId = authUserId;
           await auth.deleteAccount();

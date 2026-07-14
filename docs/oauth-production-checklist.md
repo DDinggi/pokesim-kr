@@ -26,6 +26,8 @@ Google 인증 플랫폼에서 웹 애플리케이션 클라이언트를 연다.
 
 ## 2. Supabase
 
+- 프로젝트 리전: ap-northeast-2 (Northeast Asia (Seoul))
+
 `Authentication -> Providers -> Google`에서 다음을 확인한다.
 
 - Google provider 활성화
@@ -54,10 +56,10 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<Supabase publishable key>
 ## 4. 공개 전 확인
 
 1. 로그아웃 상태에서 `/privacy`, `/terms`가 정상 표시된다.
-2. 메인 하단과 Google 로그인 버튼 아래에서 두 정책 페이지로 이동할 수 있다.
+2. 메인 하단에서 두 정책 페이지로 이동할 수 있다.
 3. `pokesim.kr`에서 Google 계정 선택 팝업이 열리고 `origin_mismatch`가 발생하지 않는다.
 4. 비로그인 기록을 계정으로 옮긴 뒤 새 브라우저에서 같은 기록이 복원된다.
-5. 마이페이지의 기록 내려받기 JSON에 다른 사용자의 정보나 일반 카드 전체 데이터가 없다.
+5. 개인정보처리방침에서 저장 기록 열람 요청 연락처를 확인할 수 있다.
 6. 계정 탈퇴 뒤 Supabase Auth 사용자와 `user_record_backups` 행이 함께 삭제된다.
 7. 탈퇴한 Google 계정으로 다시 로그인하면 새 PokéSim KR 계정으로 시작한다.
 

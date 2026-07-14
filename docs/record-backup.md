@@ -14,7 +14,7 @@ Google 계정에 보관해 다른 기기에서 이어본다.
 5. 로그아웃하면 계정 기록을 게스트 영역으로 복사하지 않고 비로그인 기록으로 전환한다.
 6. 같은 계정으로 다시 로그인하면 서버 기록을 불러온다.
 7. 모든 주요 화면의 계정 메뉴에서 마이페이지로 들어가 Google 아이디를 확인하고 닉네임을 변경할 수 있다.
-8. 마이페이지에서 현재 누적 운과 힛카드 도감 기록을 JSON으로 내려받을 수 있다.
+8. 개인정보처리방침의 연락처로 현재 계정의 저장 기록 열람을 요청할 수 있다.
 9. 계정 탈퇴를 선택하면 PokéSim KR 계정과 서버 보관 기록, 해당 계정의 로컬 캐시를 즉시 삭제한다. 게스트 기록은 유지한다.
 
 기능 도입 전에 만들어진 비로그인 기록도 같은 게스트 저장소에서 감지한다. 이미 Google
@@ -60,7 +60,6 @@ Supabase `user_record_backups`는 사용자당 한 행만 사용한다. `payload
 - `frontend/lib/openingHistory.ts`: 비로그인·계정별 로컬 개봉 기록
 - `frontend/lib/hitDex.ts`: 비로그인·계정별 로컬 도감
 - `frontend/lib/recordBackup.ts`: 압축, 복원, Supabase 읽기·쓰기
-- `frontend/lib/recordExport.ts`: 이용자용 기록 JSON 생성 및 내려받기
 - `frontend/lib/useRecordBackup.ts`: 동기화, 재시도, 병합, 초기화 흐름
 - `frontend/components/LuckScreen.tsx`: `내 기록`의 운 기록 탭
 - `frontend/components/HitDexScreen.tsx`: `내 기록`의 도감 탭
@@ -94,8 +93,8 @@ Supabase `user_record_backups`는 사용자당 한 행만 사용한다. `payload
    64KB 이하인지 확인한다.
 10. 테스트 계정으로 탈퇴한 뒤 `auth.users`와 `user_record_backups`에서 해당 행이 함께 삭제되고,
     게스트 기록은 남는지 확인한다.
-11. `/privacy`, `/terms`가 로그아웃 상태에서도 열리고, 메인과 로그인 버튼 아래에서 이동되는지 확인한다.
-12. 마이페이지의 기록 내려받기 JSON이 현재 계정의 누적 운·도감만 포함하는지 확인한다.
+11. `/privacy`, `/terms`가 로그아웃 상태에서도 열리고, 메인 하단에서 이동되는지 확인한다.
+12. 개인정보처리방침에 저장 기록 열람 요청 연락처가 안내되는지 확인한다.
 
 Google Cloud와 Cloudflare의 운영 값은
 [`docs/oauth-production-checklist.md`](oauth-production-checklist.md)를 따른다.

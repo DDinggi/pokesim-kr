@@ -9,7 +9,6 @@ export function AccountScreen({
   authError,
   onBackToMain,
   onSaveDisplayName,
-  onDownloadRecords,
   onDeleteAccount,
   accountBar,
 }: {
@@ -19,7 +18,6 @@ export function AccountScreen({
   authError: string | null;
   onBackToMain: () => void;
   onSaveDisplayName: (displayName: string) => Promise<void>;
-  onDownloadRecords: () => void;
   onDeleteAccount: () => Promise<void>;
   accountBar?: ReactNode;
 }) {
@@ -123,20 +121,6 @@ export function AccountScreen({
               {saveMessage}
             </p>
           ) : null}
-        </section>
-
-        <section className="border-b border-gray-800 py-8">
-          <h2 className="text-sm font-black text-gray-200">내 기록 내려받기</h2>
-          <p className="mt-2 text-xs leading-relaxed text-gray-500">
-            누적 운과 힛카드 도감 기록을 JSON 파일로 내려받습니다.
-          </p>
-          <button
-            type="button"
-            onClick={onDownloadRecords}
-            className="mt-4 rounded-md border border-gray-700 px-3 py-2 text-sm font-bold text-gray-200 transition hover:border-cyan-400/60 hover:bg-cyan-400/5"
-          >
-            기록 내려받기
-          </button>
         </section>
 
         <section className="pt-8">

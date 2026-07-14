@@ -1,12 +1,10 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import recordBackupDefault from '../frontend/lib/recordBackup.ts';
-import recordExportDefault from '../frontend/lib/recordExport.ts';
 import openingHistoryDefault from '../frontend/lib/openingHistory.ts';
 import type { CloudRecordBackup } from '../frontend/lib/recordBackup.ts';
 import type { OpeningEvent, OpeningSession } from '../frontend/lib/openingHistory.ts';
-import type { HitDexState } from '../frontend/lib/hitDex.ts';
-import type { Card, SetMeta } from '../frontend/lib/types.ts';
+import type { SetMeta } from '../frontend/lib/types.ts';
 
 const {
   assertRecordBackupPayload,
@@ -15,7 +13,6 @@ const {
   normalizeRecordBackupPayload,
   withCurrentRecordSource,
 } = recordBackupDefault as unknown as typeof import('../frontend/lib/recordBackup.ts');
-const { buildRecordExport } = recordExportDefault as unknown as typeof import('../frontend/lib/recordExport.ts');
 const {
   clearOwnerOpeningSession,
   loadOpeningSession,
@@ -156,42 +153,6 @@ assert.equal(loadOpeningSession(userA).boxes, 0, 'account deletion must clear th
 assert.equal(loadOpeningSession(userB).boxes, 2, 'account deletion must not clear another user cache');
 assert.equal(loadOpeningSession(null).boxes, 1, 'account deletion must preserve guest records');
 
-const exportCard = {
-  number: 101,
-  card_num: 'TEST-101',
-  name_ko: '내보내면 안 되는 카드 이름',
-  rarity: 'SAR',
-  image_url: 'https://example.com/private-card-image.jpg',
-  card_type: '포켓몬',
-} as Card;
-const exportSession = openingSession('export-1');
-exportSession.openingEvents[0].hitCards = [exportCard];
-const exportHitDex: HitDexState = {
-  version: 1,
-  updatedAt: '2026-07-14T00:00:00.000Z',
-  entries: [{
-    key: 'test-set:TEST-101',
-    setCode: 'test-set',
-    setNameKo: '내보내면 안 되는 세트 이름',
-    cardNum: 'TEST-101',
-    firstPulledAt: '2026-07-14T00:00:00.000Z',
-    lastPulledAt: '2026-07-14T00:00:00.000Z',
-    pullCount: 2,
-    bestPriceRefKrw: 999_999,
-    card: exportCard,
-  }],
-};
-const recordExport = buildRecordExport({
-  account: { email: 'owner@example.com', displayName: 'owner' },
-  session: exportSession,
-  hitDex: exportHitDex,
-});
-const serializedExport = JSON.stringify(recordExport);
-assert.equal(recordExport.account.email, 'owner@example.com');
-assert.deepEqual(recordExport.openingRecords[0].hitCardNumbers, ['TEST-101']);
-assert.equal(recordExport.hitDex[0].cardNumber, 'TEST-101');
-assert.doesNotMatch(serializedExport, /private-card-image|내보내면 안 되는 카드 이름|999999/);
-
 const deleteAccountMigration = readFileSync(
   new URL('../supabase/migrations/20260714000011_delete_user_account.sql', import.meta.url),
   'utf8',
@@ -206,4 +167,4 @@ assert.doesNotMatch(
   'the client must not be allowed to choose which account is deleted',
 );
 
-console.log('record backup validation passed: isolation, merge idempotency, source dedupe, source limit, export minimization, account deletion boundaries');
+console.log('record backup validation passed: isolation, merge idempotency, source dedupe, source limit, account deletion boundaries');
