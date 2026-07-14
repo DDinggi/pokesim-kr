@@ -1340,11 +1340,11 @@
       "image_url": "wmimages/SV/SV2D/SV2D_091.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023012091",
       "_fetched_at": "2026-05-20",
-      "price_ref_krw": 43100,
-      "price_ref_jpy": 6980,
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000025933/sv02d/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_source": "cardrush:sale:https://www.cardrush-pokemon.jp/product-group/280; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-07-14",
       "price_confidence": "source"
     },
     {
@@ -1435,11 +1435,11 @@
       "image_url": "wmimages/SV/SV2D/SV2D_096.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023012096",
       "_fetched_at": "2026-05-20",
-      "price_ref_krw": 338400,
-      "price_ref_jpy": 54800,
+      "price_ref_krw": 6700,
+      "price_ref_jpy": 1080,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000025938/sv02d/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_source": "cardrush:sale:https://www.cardrush-pokemon.jp/product-group/280; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-07-14",
       "price_confidence": "source"
     },
     {
@@ -1505,24 +1505,24 @@
   "_fetched_at": "2026-05-20",
   "_notes": "SV2D. 한국판 공식 봉입률은 비공개. 일본판 1,000BOX 실측을 한국판 확장팩 모델에 준용.",
   "luck_value_ref": {
-    "box_median_krw": 28500,
+    "box_median_krw": 26100,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
       12600,
       13800,
       15000,
       16200,
-      20600,
-      24900,
-      28500,
+      18600,
+      21800,
+      26100,
+      29100,
       32900,
-      36600,
-      45800,
-      61300,
-      78600,
-      357800,
-      367100,
-      412000
+      35400,
+      43400,
+      48300,
+      55700,
+      60500,
+      78600
     ],
     "pack_quantiles_krw": [
       0,
@@ -1537,9 +1537,9 @@
       0,
       3600,
       4200,
-      15900,
+      10400,
       21500,
-      338400
+      30800
     ],
     "quantile_points": [
       0,
@@ -1562,6 +1562,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-07-14"
   }
 }

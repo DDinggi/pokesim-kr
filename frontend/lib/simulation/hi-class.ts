@@ -28,6 +28,8 @@ import type { BuildContext, HiClassHitSlot } from './types';
 import { resolveUniqueHitSlots } from './unique';
 
 const HI_CLASS_BOX_SIZE = 10;
+const VSTAR_UNIVERSE_AR9_NUMBERS = [201, 202, 203, 204, 205, 206, 207, 208, 209] as const;
+const VSTAR_UNIVERSE_AR9_NUMBER_SET = new Set<number>(VSTAR_UNIVERSE_AR9_NUMBERS);
 
 export function simulateHiClassBox(
   boxSize: number,
@@ -305,7 +307,10 @@ export function simulateSingleHiClassPack(
     if (rng() < 5.5 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
     if (rng() < 3.5 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RRR')) hits.push({ rarity: 'RRR' });
     if (rng() < 1 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'K')) hits.push({ rarity: 'K' });
-    if (rng() < 3 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'AR')) hits.push({ rarity: 'AR' });
+    const regularArPool = getVstarUniverseRegularArPool(pools);
+    if (rng() < 3 / HI_CLASS_BOX_SIZE && regularArPool.length) {
+      hits.push({ rarity: 'AR', pool: regularArPool });
+    }
     if (rng() < 1 / HI_CLASS_BOX_SIZE && pools.sarPokemon.length) {
       hits.push({ rarity: 'SAR', pool: pools.sarPokemon });
     }
@@ -454,12 +459,15 @@ function buildVstarUniverseBoxHits(
   pools: ReturnType<typeof getRarityPools>,
 ): HiClassHitSlot[] {
   const hits: HiClassHitSlot[] = [];
+  const regularArPool = getVstarUniverseRegularArPool(pools);
   for (let i = 0; i < 5; i++) hits.push({ rarity: 'RR' });
   if (rng() < 0.5) hits.push({ rarity: 'RR' });
   for (let i = 0; i < 3; i++) hits.push({ rarity: 'RRR' });
   if (rng() < 0.5) hits.push({ rarity: 'RRR' });
   if (pools.kAll.length) hits.push({ rarity: 'K', pool: pools.kAll });
-  for (let i = 0; i < 3; i++) hits.push({ rarity: 'AR', pool: pools.arPool });
+  for (let i = 0; i < 3; i++) {
+    if (regularArPool.length) hits.push({ rarity: 'AR', pool: regularArPool });
+  }
   if (pools.sarPokemon.length) hits.push({ rarity: 'SAR', pool: pools.sarPokemon });
   if (pools.srEnergy.length) hits.push({ rarity: 'SR', pool: pools.srEnergy });
 
@@ -515,20 +523,35 @@ function buildVmaxClimaxChrCsrGodPackHits(pools: ReturnType<typeof getRarityPool
 }
 
 function buildVstarUniverseArGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
-  const ar9Numbers = [201, 202, 203, 204, 205, 206, 207, 208, 209];
-  return fixedNumberHits('AR', pools.arPool, ar9Numbers, pools.arPool, 's12a-ar9');
+  const ar9Pool = getVstarUniverseAr9Pool(pools);
+  return fixedNumberHits(
+    'AR',
+    ar9Pool,
+    [...VSTAR_UNIVERSE_AR9_NUMBERS],
+    ar9Pool,
+    's12a-ar9',
+  );
 }
 
 function buildVstarUniverseSarGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
   const pokemonSarPool = pools.sarPokemon.length ? pools.sarPokemon : pools.sarAll;
   const supporterSarPool = pools.sarTrainer.length ? pools.sarTrainer : pools.sarAll;
-  const arPool = pools.arPool.length ? pools.arPool : pokemonSarPool;
+  const regularArPool = getVstarUniverseRegularArPool(pools);
+  const arPool = regularArPool.length ? regularArPool : pokemonSarPool;
 
   return [
     ...repeatedUniqueHits('AR', arPool, 5, 's12a-sar10-ar'),
     ...repeatedUniqueHits('SAR', pokemonSarPool, 4, 's12a-sar10-pokemon-sar'),
     ...repeatedUniqueHits('SAR', supporterSarPool, 1, 's12a-sar10-supporter-sar'),
   ];
+}
+
+function getVstarUniverseRegularArPool(pools: ReturnType<typeof getRarityPools>): Card[] {
+  return pools.arPool.filter((card) => !VSTAR_UNIVERSE_AR9_NUMBER_SET.has(card.number));
+}
+
+function getVstarUniverseAr9Pool(pools: ReturnType<typeof getRarityPools>): Card[] {
+  return pools.arPool.filter((card) => VSTAR_UNIVERSE_AR9_NUMBER_SET.has(card.number));
 }
 
 function buildHiClassPacksFromHitsWithGodPack(
