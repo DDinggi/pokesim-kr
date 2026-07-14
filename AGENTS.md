@@ -585,7 +585,7 @@ ID 부여된 결정 한 줄 요약. 깊은 이유는 `docs/adr/` 폴더.
 - **D-151** 새 세트 추가 시 운 계산 모델도 같은 작업 단위로 갱신한다 — 시뮬 슬롯(`model.ts`/`expansion.ts`/`hi-class.ts`)과 운 기대값/분포(`frontend/lib/luck.ts`)는 항상 같이 맞춘다. 박스 고정 슬롯은 베이스라인으로 차감하고, 1팩/자판기는 같은 박스 모델의 기대값을 `1 / box_size`로 환산한다. 새 세트 PR에서는 `pnpm --dir scripts validate:luck -- --set <code> --strict`를 실행한다.
 - **D-152** 카드 구성 완전성 검증 — 한국판과 대응 일본판 세트의 카드 구성을 동일 기준으로 보고, `audit:coverage`로 일본판 전체 번호를 대조한다. 한국 공식 검색에서 누락된 HR/UR도 한국 정식 카드명으로 복원하고 일본판 이미지·시세 출처를 기록해 추가한다.
 - **D-153** V-UNION 이미지 처리 — 공식 DB가 4장 합본 이미지만 제공하면 공식 번호 순서(좌상·우상·좌하·우하)에 따라 정확히 2×2 분할하고 카드마다 버전된 R2 키를 사용한다. 합본 출처와 사분면을 카드 메타에 기록하며, 이미지 감사에서 V-UNION 중복을 예외 처리하지 않는다.
-- **D-154** 익명 분석 이벤트 보존 — `sim_events` 누적 박스·팩·세션 값은 `analytics_sim_archive`에 선집계하고 원본은 14일만 유지한다. `user_events` 원본은 퍼널·유입 분석을 위해 30일 유지한다. 전체 순방문자의 최초·최근 방문은 `analytics_visitors`, 장기 DAU·코호트 리텐션은 방문자별 하루 1행인 `analytics_user_daily_activity`, 일별 시뮬은 `analytics_sim_daily`와 세션별 하루 1행인 `analytics_sim_daily_sessions`에 영구 보존한다. 정리는 Supabase Cron으로 매일 실행하고 첫 대량 정리 뒤에만 `VACUUM FULL`로 물리 공간을 회수한다.
+- **D-154** 익명 분석 이벤트 보존 — `sim_events` 누적 박스·팩·세션 값은 `analytics_sim_archive`에 선집계하고 원본은 14일만 유지한다. `user_events` 원본은 퍼널·유입 분석을 위해 30일 유지한다. 전체 순방문자의 최초·최근 방문은 `analytics_visitors`, 장기 DAU·코호트 리텐션은 방문자별 하루 1행인 `analytics_user_daily_activity`, 일별 시뮬은 `analytics_sim_daily`와 세션별 하루 1행인 `analytics_sim_daily_sessions`에 영구 보존한다. 브라우저의 단일 Supabase 클라이언트가 로그인 후 `authenticated` 역할로 바뀌므로 두 원본 이벤트 테이블은 `anon`과 `authenticated` 모두 INSERT만 허용하고 SELECT·UPDATE·DELETE는 계속 차단한다. 정리는 Supabase Cron으로 매일 실행하고 첫 대량 정리 뒤에만 `VACUUM FULL`로 물리 공간을 회수한다.
 - **D-155** 힛카드 도감 선별·효과 — 에너지 카드는 도감에서 제외한다. 도감 CSS 효과는 세트별 도감 규모에 따른 상한 안에서 시세 7만원 이상 카드만 자동 선정하며, 해당 세트에 7만원 이상 카드가 없으면 효과 수를 억지로 채우지 않는다. 가격만으로 분리하면 대표 연작이 깨지는 경우에는 출처가 확인된 카드 번호를 예외 목록으로 관리한다. 첫 예외는 S12a VSTAR 유니버스의 금색 VSTAR 4종(259~262)이다.
 
 ---
@@ -901,6 +901,8 @@ main 직접 push 안 함 (실수 방지).
 ## 16. 변경 이력
 
 이 파일을 수정할 때마다 한 줄 추가.
+
+- 2026-07-15 — **로그인 상태 분석 이벤트 권한 정합(D-154).** Google 로그인 뒤 Supabase JWT 역할이 `authenticated`로 바뀌어 `user_events`·`sim_events` INSERT가 403으로 막히던 문제를 수정했다. 두 클라이언트 역할에는 INSERT만 허용하고 원본 이벤트의 직접 조회·수정·삭제 차단은 유지한다.
 
 - 2026-07-15 — **법적 안내 간소화(D-076).** 이용약관과 개인정보처리방침에서 반복되는 기능·구현 설명을 제거하고, 실제 서비스의 수집 정보·이용 목적·보관 기간·외부 처리·권리 행사·문의 절차만 간결하게 유지했다. 정책 링크는 로그인 영역의 중복 노출을 없애고 메인 하단에만 둔다.
 

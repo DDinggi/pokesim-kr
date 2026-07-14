@@ -94,6 +94,8 @@ pnpm --dir scripts debug:fill-hit-dex
 6. 로그아웃한 뒤 익명 로컬 도감으로 돌아오는지 확인한다.
 7. 다시 로그인했을 때 서버 도감이 그대로 복원되는지 확인한다.
 8. 테스트 계정을 탈퇴해 계정 기록은 삭제되고 게스트 기록은 유지되는지 확인한다.
+9. 로그인 상태에서 메인 진입과 박스·팩 개봉 후 Network 탭의 `user_events`,
+   `sim_events` POST가 2xx이고 401·403 응답이 없는지 확인한다.
 
 백업 RPC가 없다는 오류가 나오면 프론트 문제가 아니라 해당 환경에 최신
 `supabase/migrations/*user_record_backup.sql`을 아직 적용하지 않은 상태다.
