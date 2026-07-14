@@ -82,8 +82,15 @@ export default function PrivacyPage() {
       <p>
         Google에서 받은 계정 식별자, 이메일, 이름, 프로필 이미지는 로그인, 계정 표시, 기록
         보관 기능에만 사용합니다. 이 정보는 광고, 거래, 신용 평가에 사용하거나 판매하지
-        않습니다. Google 사용자 데이터의 이용과 공유에는 Google API Services User Data
-        Policy를 적용합니다.
+        않습니다. Google 사용자 데이터의 이용과 공유에는{' '}
+        <a
+          href="https://developers.google.com/terms/api-services-user-data-policy"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Google API Services User Data Policy
+        </a>
+        를 적용합니다.
       </p>
 
       <h2>6. 이용자의 권리</h2>
@@ -109,7 +116,7 @@ export default function PrivacyPage() {
       <h2>8. 방침 변경 및 문의</h2>
       <p>
         내용이 바뀌면 이 페이지의 변경일을 갱신하고 중요한 변경은 서비스 내에서 알립니다.
-        개인정보 관련 문의는{' '}
+        개인정보 보호 담당자는 PokéSim KR 운영자이며, 관련 문의는{' '}
         <a href="mailto:pokesimkr@gmail.com">pokesimkr@gmail.com</a>으로 보내주세요.
       </p>
     </LegalPage>
