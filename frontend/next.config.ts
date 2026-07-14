@@ -2,6 +2,16 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: process.cwd(),
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.pokesim.kr" }],
+        destination: "https://pokesim.kr/:path*",
+        permanent: true,
+      },
+    ];
+  },
   // Cloudflare Pages + @cloudflare/next-on-pages: next/image 자동 리사이즈/포맷 변환을 Workers에서 처리.
   // ESLint는 별도 명령(`pnpm lint`)으로 돌린다. Cloudflare Pages 빌드 안정성 우선.
   eslint: { ignoreDuringBuilds: true },

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
 import { simulateBox, simulatePack, PROBABILITY_META } from '../lib/simulator';
@@ -35,10 +35,11 @@ import {
 import {
   createOpeningEvent,
   EMPTY_OPENING_SESSION,
-  normalizeOpeningSession,
-  SESSION_STORAGE_KEY,
+  loadOpeningSession,
+  saveOpeningSession,
   type OpeningSession,
 } from '../lib/openingHistory';
+import { addCardsToHitDex } from '../lib/hitDex';
 
 const REVEAL_STAGGER_MS = 140;
 const REVEAL_BASE_MS = 600;
@@ -47,15 +48,7 @@ const NORMAL_HOLD_MS = 600;
 const BETWEEN_MS = 1800;
 
 function loadStoredSession(): Session {
-  if (typeof window === 'undefined') return EMPTY_SESSION;
-  try {
-    const stored = window.localStorage.getItem(SESSION_STORAGE_KEY);
-    if (!stored) return EMPTY_SESSION;
-    return normalizeOpeningSession(JSON.parse(stored));
-  } catch {
-    /* corrupt — fall through */
-  }
-  return EMPTY_SESSION;
+  return loadOpeningSession();
 }
 
 type Mode = 'box-auto' | 'box-manual' | 'box-instant' | 'pack';
@@ -711,6 +704,7 @@ function BoxDoneScreen({
   session,
   onRedo,
   onOpenLuck,
+  onOpenHitDex,
   onChangeSet,
   onCardClick,
   onResetSession,
@@ -720,6 +714,7 @@ function BoxDoneScreen({
   session: Session;
   onRedo: () => void;
   onOpenLuck: (mode: OpenLuckMode) => void;
+  onOpenHitDex: () => void;
   onChangeSet: () => void;
   onCardClick: (c: Card) => void;
   onResetSession: () => void;
@@ -767,7 +762,13 @@ function BoxDoneScreen({
           onClick={() => onOpenLuck('box')}
           className="px-6 py-3 bg-amber-500/90 text-gray-950 hover:bg-amber-400 active:scale-95 rounded-xl font-black transition shadow-lg shadow-amber-950/20"
         >
-          운 확인하러가기
+          내 운 보러가기
+        </button>
+        <button
+          onClick={onOpenHitDex}
+          className="rounded-xl bg-cyan-400/90 px-6 py-3 font-black text-gray-950 shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-300 active:scale-95"
+        >
+          힛카드 도감 보러가기
         </button>
         <button
           onClick={onChangeSet}
@@ -792,7 +793,7 @@ function BoxDoneScreen({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                if (window.confirm('지금까지 깐 카드 기록을 모두 초기화할까요?')) onResetSession();
+                if (window.confirm('지금까지 깐 카드 기록을 모두 초기화할까요?\n힛카드 도감은 유지됩니다.')) onResetSession();
               }}
               className="ml-4 shrink-0 normal-case font-normal text-gray-500 hover:text-red-400 transition-colors underline-offset-2 hover:underline tracking-normal"
             >
@@ -828,6 +829,7 @@ function PackDoneScreen({
   session,
   onRedo,
   onOpenLuck,
+  onOpenHitDex,
   onChangeSet,
   onCardClick,
 }: {
@@ -837,6 +839,7 @@ function PackDoneScreen({
   session: Session;
   onRedo: () => void;
   onOpenLuck: (mode: OpenLuckMode) => void;
+  onOpenHitDex: () => void;
   onChangeSet: () => void;
   onCardClick: (c: Card) => void;
 }) {
@@ -909,7 +912,13 @@ function PackDoneScreen({
           onClick={() => onOpenLuck('pack')}
           className="px-6 py-3 bg-amber-500/90 text-gray-950 hover:bg-amber-400 active:scale-95 rounded-xl font-black transition shadow-lg shadow-amber-950/20"
         >
-          운 확인하러가기
+          내 운 보러가기
+        </button>
+        <button
+          onClick={onOpenHitDex}
+          className="rounded-xl bg-cyan-400/90 px-6 py-3 font-black text-gray-950 shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-300 active:scale-95"
+        >
+          힛카드 도감 보러가기
         </button>
         <button
           onClick={onChangeSet}
@@ -931,10 +940,14 @@ export function BoxSimulator({
   setMeta,
   onChangeSet,
   onOpenLuck,
+  onOpenHitDex,
+  accountBar,
 }: {
   setMeta: SetMeta;
   onChangeSet: () => void;
   onOpenLuck: (mode: OpenLuckMode) => void;
+  onOpenHitDex: () => void;
+  accountBar?: ReactNode;
 }) {
   const [phase, setPhase] = useState<Phase>('idle');
   const [mode, setMode] = useState<Mode | null>(null);
@@ -961,11 +974,7 @@ export function BoxSimulator({
   // 세션 변경 → localStorage 저장 (hydrate 끝나기 전엔 덮어쓰지 않음)
   useEffect(() => {
     if (!hydrated) return;
-    try {
-      window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
-    } catch {
-      /* quota / 비공개 모드 — 무시 */
-    }
+    saveOpeningSession(session);
   }, [session, hydrated]);
 
   // 세트 변경 시 시뮬 상태만 리셋 (세션은 유지 — 사용자가 직접 리셋)
@@ -1060,6 +1069,7 @@ export function BoxSimulator({
           packCount: 1,
           krw: setMeta.pack_price_krw,
         });
+        addCardsToHitDex(packResult.pack.cards, setMeta);
         setSession((s) => ({
           ...s,
           packs: s.packs + 1,
@@ -1085,6 +1095,7 @@ export function BoxSimulator({
           krw: setMeta.box_price_krw,
         });
         boxResult.packs.forEach((_, i) => manualPacksRecorded.current.add(i));
+        addCardsToHitDex(skipped, setMeta);
         setSession((s) => ({
           ...s,
           boxes: s.boxes + 1,
@@ -1105,6 +1116,7 @@ export function BoxSimulator({
           packCount: setMeta.box_size,
           krw: setMeta.box_price_krw,
         });
+        addCardsToHitDex(all, setMeta);
         setSession((s) => ({
           ...s,
           boxes: s.boxes + 1,
@@ -1128,6 +1140,7 @@ export function BoxSimulator({
     if (mode === 'box-manual' && !manualPacksRecorded.current.has(packIdx)) {
       manualPacksRecorded.current.add(packIdx);
       const packCards = boxResult.packs[packIdx].cards;
+      addCardsToHitDex(packCards, setMeta);
       setSession((s) => ({ ...s, cards: [...s.cards, ...packCards] }));
     }
     if (packIdx + 1 >= boxResult.packs.length) {
@@ -1136,7 +1149,7 @@ export function BoxSimulator({
       setPackIdx(packIdx + 1);
       setFlippedSet(new Set());
     }
-  }, [boxResult, packIdx, mode]);
+  }, [boxResult, packIdx, mode, setMeta]);
 
   const flipCard = useCallback((i: number) => {
     setFlippedSet((s) => {
@@ -1151,63 +1164,6 @@ export function BoxSimulator({
     setPhase('done');
     setFlippedSet(new Set());
   }, []);
-
-  const goToIdle = useCallback(() => {
-    // reveal 도중 이탈 시 — 이미 시뮬레이션된 결과를 세션에 커밋
-    if (phase === 'reveal') {
-      if (mode === 'pack' && packResult) {
-        const opening = createLuckOpening(setMeta, { packs: 1 });
-        const event = createOpeningEvent({
-          setMeta,
-          unit: 'pack',
-          source: 'box-simulator',
-          cards: packResult.pack.cards,
-          boxCount: 0,
-          packCount: 1,
-          krw: setMeta.pack_price_krw,
-        });
-        setSession((s) => ({
-          ...s,
-          packs: s.packs + 1,
-          cost: s.cost + setMeta.pack_price_krw,
-          cards: [...s.cards, ...packResult.pack.cards],
-          openingEvents: [...s.openingEvents, event],
-        }));
-        trackSim({ setCode: setMeta.code, mode: 'pack', boxCount: 0, packCount: 1, krw: setMeta.pack_price_krw, luck: summarizeLuckEvent(packResult.pack.cards, opening, setMeta) });
-      } else if (boxResult) {
-        const all = boxResult.packs.flatMap((p) => p.cards);
-        // box-manual은 advancePack에서 팩별로 일부 이미 누적됐을 수 있으므로 미기록분만 추가
-        const unrecorded = mode === 'box-manual'
-          ? boxResult.packs.flatMap((p, i) => manualPacksRecorded.current.has(i) ? [] : p.cards)
-          : all;
-        const opening = createLuckOpening(setMeta, { boxes: 1 });
-        const event = createOpeningEvent({
-          setMeta,
-          unit: 'box',
-          source: 'box-simulator',
-          cards: all,
-          boxCount: 1,
-          packCount: setMeta.box_size,
-          krw: setMeta.box_price_krw,
-        });
-        setSession((s) => ({
-          ...s,
-          boxes: s.boxes + 1,
-          cost: s.cost + setMeta.box_price_krw,
-          cards: [...s.cards, ...unrecorded],
-          openingEvents: [...s.openingEvents, event],
-        }));
-        trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw, luck: summarizeLuckEvent(all, opening, setMeta) });
-      }
-    }
-    setPhase('idle');
-    setMode(null);
-    setBoxResult(null);
-    setPackResult(null);
-    setPackIdx(0);
-    setFlippedSet(new Set());
-    setPendingBoxRedo(null);
-  }, [phase, mode, packResult, boxResult, setMeta]);
 
   // 자동 모드 — stagger reveal 끝난 뒤 hold 후 다음 팩(또는 결과)
   useEffect(() => {
@@ -1253,7 +1209,8 @@ export function BoxSimulator({
 
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
-      <header className="px-6 py-5 border-b border-gray-800/80 flex items-center justify-between gap-4 shrink-0">
+      <header className="shrink-0 border-b border-gray-800/80 px-4 py-5 sm:px-6">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4 min-w-0">
           <button
             onClick={onChangeSet}
@@ -1266,14 +1223,10 @@ export function BoxSimulator({
             <p className="text-xs text-gray-400 mt-1 truncate">{setMeta.name_ko}</p>
           </div>
         </div>
-        {phase !== 'idle' && (
-          <button
-            onClick={goToIdle}
-            className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
-          >
-            처음으로
-          </button>
-        )}
+        <div className="flex w-full shrink-0 items-center justify-end gap-3 sm:ml-auto sm:w-auto">
+            {accountBar}
+          </div>
+        </div>
       </header>
 
       <main className="flex-1">
@@ -1324,6 +1277,7 @@ export function BoxSimulator({
                 session={session}
                 onRedo={() => triggerBoxRedo(mode)}
                 onOpenLuck={onOpenLuck}
+                onOpenHitDex={onOpenHitDex}
                 onChangeSet={onChangeSet}
                 onCardClick={openCardModal}
                 onResetSession={resetSession}
@@ -1341,6 +1295,7 @@ export function BoxSimulator({
                   startPack();
                 }}
                 onOpenLuck={onOpenLuck}
+                onOpenHitDex={onOpenHitDex}
                 onChangeSet={onChangeSet}
                 onCardClick={openCardModal}
               />

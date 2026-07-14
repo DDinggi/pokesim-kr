@@ -589,8 +589,8 @@ function getLuckScoreWeightsForSet(
   const type = 'type' in setOrOpening ? setOrOpening.type : undefined;
 
   if (isStarterSet(code)) {
-    // 스타트 덱 100: 대표 SR/SAR/MUR을 힛으로 본다.
-    return { UR: getScoreWeight('UR', mode), SAR: 2, SR: getScoreWeight('SR', mode) };
+    // 스타트 덱 100: 대표 AR/SR/SAR/MUR을 힛으로 본다.
+    return { AR: getScoreWeight('AR', mode), UR: getScoreWeight('UR', mode), SAR: 2, SR: getScoreWeight('SR', mode) };
   }
 
   if (isAnniversary25Set(code)) {
@@ -718,9 +718,9 @@ function getExpectedScoredRarityCounts(
   if (unitCount <= 0) return counts;
 
   if (isStarterSet(code)) {
-    // 가치 기반 운: 기대 가치 기준선을 '평범한 AR/SR 뽑기'로 잡는다.
-    // SAR(고가)·특수덱·골드(MUR) 잭팟은 기대치에서 빼야 평범한 AR 뽑기가 mid로 나오고
-    // 비싼 카드를 뽑았을 때만 서프라이즈로 등급이 올라간다.
+    // 일반 100개 덱을 같은 확률로 보고 그중 AR/SR 대표카드만 기대 히트에 반영한다.
+    // SAR(고가)·특수덱·골드(MUR)는 기대치에서 빼서 잭팟의 서프라이즈를 보존한다.
+    // RR 대표카드는 레어도 운 점수를 올리지 않지만, 카드 가격은 가치 운에 반영된다.
     addExpectedCount(counts, 'AR', unitCount * STARTER_AR_RATE);
     addExpectedCount(counts, 'SR', unitCount * STARTER_SR_RATE);
     return counts;
@@ -1052,12 +1052,13 @@ function bernoulliDistribution(score: number, probability: number): LuckScoreOut
 }
 
 function getStarterScoreDistribution(mode: LuckScoreMode): LuckScoreOutcome[] {
-  // 베이스라인 = '평범한 덱' 1개(표준 SR/SAR)만. 골드(MUR)·특수덱(SAR 3장) 잭팟은
+  // 일반 100개 덱의 RR/AR/SR/SAR 비율을 그대로 쓴다. 골드(MUR)·특수덱(SAR 3장) 잭팟은
   // 여기 넣지 않는다 — 넣으면 평균이 잭팟에 끌려올라가 평범한 뽑기가 항상 '평균 이하'가 된다.
   // 잭팟은 expectedScoreCounts 대비 서프라이즈로만 점수에 반영한다.
-  const zeroScoreRate = 1 - STARTER_SR_RATE - STARTER_STANDARD_SAR_RATE;
+  const zeroScoreRate = 1 - STARTER_AR_RATE - STARTER_SR_RATE - STARTER_STANDARD_SAR_RATE;
   return normalizeDistribution([
     { score: 0, probability: zeroScoreRate },
+    { score: getScoreWeight('AR', mode), probability: STARTER_AR_RATE },
     { score: getScoreWeight('SR', mode), probability: STARTER_SR_RATE },
     { score: getScoreWeight('SAR', mode), probability: STARTER_STANDARD_SAR_RATE },
   ]);

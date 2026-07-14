@@ -53,6 +53,13 @@ const START_DECK_100_REP_NUMBERS = [
 ];
 const START_DECK_100_SPECIAL_REP_NUMBERS = [761, 762, 763];
 const START_DECK_100_GOLD_REP_NUMBERS = [766];
+const START_DECK_100_AR_NUMBERS = Array.from({ length: 14 }, (_, index) => 743 + index);
+const START_DECK_100_NORMAL_RARITY_COUNTS: Record<string, number> = {
+  RR: 80,
+  AR: 14,
+  SR: 4,
+  SAR: 2,
+};
 
 interface CardEntry {
   card_num?: string;
@@ -395,6 +402,23 @@ function validateStartDeck(setCode: string, set: SetJson, cards: CardEntry[]) {
     }
   });
 
+  for (const expectedNumber of START_DECK_100_AR_NUMBERS) {
+    const card = byNumber.get(expectedNumber);
+    if (card && card.rarity !== "AR") {
+      add("error", setCode, `expected Start Deck 100 card #${expectedNumber} to be AR, got ${card.rarity ?? "missing"}.`);
+    }
+  }
+
+
+  const normalRarityCounts = countBy(
+    repCardNums,
+    (cardNum) => byCardNum.get(cardNum)?.rarity ?? "missing",
+  );
+  for (const [rarity, expectedCount] of Object.entries(START_DECK_100_NORMAL_RARITY_COUNTS)) {
+    if ((normalRarityCounts[rarity] ?? 0) !== expectedCount) {
+      add("error", setCode, `expected ${expectedCount} ${rarity} representatives, got ${normalRarityCounts[rarity] ?? 0}.`);
+    }
+  }
   const specialNumbers = specialRepCardNums.map((cardNum) => byCardNum.get(cardNum)?.number);
   if (specialNumbers.join(",") !== START_DECK_100_SPECIAL_REP_NUMBERS.join(",")) {
     add("error", setCode, `Deck No.101 representatives should be #${START_DECK_100_SPECIAL_REP_NUMBERS.join(",")}, got #${specialNumbers.join(",")}.`);

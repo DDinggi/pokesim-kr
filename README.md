@@ -21,8 +21,9 @@
 
 ### 공통
 
+- 내 기록 — 누적 운과 힛카드 도감을 로그인 없이 사용하고, 사용자가 선택하면 Google 계정에 보관해 다른 기기에서 이어보기.
 - 카드 클릭 → 모달 + 등급별 홀로그래픽 효과(CSS + mousemove 직접 구현).
-- 세션 누적(localStorage) — 새로고침해도 결과 유지, 메인 화면에서 통계 + 카드 목록 확인.
+- 세션 누적(localStorage 우선) — 새로고침해도 결과를 유지하고, Google 보관 시에는 압축된 운 요약만 계정에 동기화.
 - 글로벌 통계 — 누적 시뮬 횟수 · 박스 · 팩 · 사용 금액.
 - 모든 봉입률에 출처 · 표본 · "공식 비공개" 안내 명시.
 
@@ -130,6 +131,10 @@
 | DB | Supabase(sim_events 추적 + 글로벌 통계 RPC) |
 | 데이터 수집 | tsx 스크립트(pokemoncard.co.kr / yuyu-tei / PokeGuardian) |
 | 이미지 | Cloudflare R2 + WebP variant CDN |
+
+운영 설계 사례: [Supabase 분석 DB 비용 최적화](docs/supabase-analytics-cost-optimization.md) —
+대형 인덱스 진단, 일별 rollup, 원본 보존 기간과 Cron 자동화로 핵심 지표를 유지하면서
+DB 크기를 953MB에서 482MB로 줄였다.
 
 ---
 

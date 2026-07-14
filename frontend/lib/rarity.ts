@@ -192,7 +192,7 @@ export function isPremiumPriceHit(context?: RarityContext): boolean {
   return premiumPriceSparkleVariant(context) !== null;
 }
 
-function premiumPriceSparkleVariant(context?: RarityContext): 'value' | 'rare' | 'jackpot' | null {
+export function premiumPriceSparkleVariant(context?: RarityContext): 'value' | 'rare' | 'jackpot' | null {
   if (!context || typeof context === 'string' || 'code' in context) return null;
 
   if (

@@ -17,6 +17,16 @@
     }
   },
   "cards": {
+    "BS2023007104": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 105,
+      "note": "Violet ex Korean supporter-SAR order differs from Japanese SV1V: Mimosa maps to JP 105."
+    },
+    "BS2023007105": {
+      "provider": "fullahead_number_map",
+      "fullahead_number": 104,
+      "note": "Violet ex Korean supporter-SAR order differs from Japanese SV1V: Pepper maps to JP 104."
+    },
     "BS2019005045": {
       "provider": "fullahead_number_map",
       "fullahead_number": 46,

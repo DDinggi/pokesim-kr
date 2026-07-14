@@ -200,7 +200,6 @@ function findExactDuplicates(setCode: string, audits: ImageAudit[], findings: Fi
 
   for (const bucket of byHash.values()) {
     if (bucket.length < 2) continue;
-    if (isExpectedDuplicateGroup(bucket)) continue;
 
     findings.push({
       level: "warn",
@@ -216,7 +215,6 @@ function findNearDuplicates(setCode: string, audits: ImageAudit[], findings: Fin
       const a = audits[i]!;
       const b = audits[j]!;
       if (a.bytesHash === b.bytesHash) continue;
-      if (isExpectedDuplicatePair(a, b)) continue;
 
       const distance = hammingDistance(a.perceptualHash, b.perceptualHash);
       if (distance > nearThreshold) continue;
@@ -228,18 +226,6 @@ function findNearDuplicates(setCode: string, audits: ImageAudit[], findings: Fin
       });
     }
   }
-}
-
-function isExpectedDuplicateGroup(audits: ImageAudit[]): boolean {
-  return audits.length > 1 && audits.every((audit) => isVUnionCard(audit.card));
-}
-
-function isExpectedDuplicatePair(a: ImageAudit, b: ImageAudit): boolean {
-  return isVUnionCard(a.card) && isVUnionCard(b.card);
-}
-
-function isVUnionCard(card: CardEntry): boolean {
-  return (card.name_ko ?? "").toUpperCase().includes("V-UNION");
 }
 
 function hammingDistance(a: bigint, b: bigint): number {
