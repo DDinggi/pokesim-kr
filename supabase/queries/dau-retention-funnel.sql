@@ -71,18 +71,15 @@ from v;
 --   가입(최초 방문)일 기준으로 다음날(D1), 7일 뒤(D7) 다시 온 비율.
 with first_seen as (
   select
-    metadata->>'visitor_id' as visitor_id,
-    min(date_trunc('day', created_at))::date as cohort_day
-  from public.user_events
-  where coalesce(metadata->>'visitor_id', '') <> ''
-  group by 1
+    visitor_id,
+    (timezone('Asia/Seoul', first_seen))::date as cohort_day
+  from public.analytics_visitors
 ),
 activity as (
-  select distinct
-    metadata->>'visitor_id' as visitor_id,
-    date_trunc('day', created_at)::date as active_day
-  from public.user_events
-  where coalesce(metadata->>'visitor_id', '') <> ''
+  select
+    visitor_id,
+    day_kst as active_day
+  from public.analytics_user_daily_activity
 )
 select
   f.cohort_day,
@@ -104,18 +101,15 @@ order by f.cohort_day desc;
 --   그날 처음 본 visitor = 신규, 이전에 본 적 있으면 재방문.
 with first_seen as (
   select
-    metadata->>'visitor_id' as visitor_id,
-    min(date_trunc('day', created_at))::date as first_day
-  from public.user_events
-  where coalesce(metadata->>'visitor_id', '') <> ''
-  group by 1
+    visitor_id,
+    (timezone('Asia/Seoul', first_seen))::date as first_day
+  from public.analytics_visitors
 ),
 daily as (
-  select distinct
-    metadata->>'visitor_id' as visitor_id,
-    date_trunc('day', created_at)::date as day
-  from public.user_events
-  where coalesce(metadata->>'visitor_id', '') <> ''
+  select
+    visitor_id,
+    day_kst as day
+  from public.analytics_user_daily_activity
 )
 select
   d.day,

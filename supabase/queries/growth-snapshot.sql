@@ -134,11 +134,11 @@ month_unique as (
 ),
 all_time_unique as (
   select
-    count(distinct metadata->>'visitor_id') filter (
-      where coalesce(metadata->>'visitor_id', '') not in ('', 'unknown')
-    ) as cumulative_unique_visitors,
-    count(distinct session_id) as cumulative_sessions
-  from public.user_events
+    (select count(*) from public.analytics_visitors) as cumulative_unique_visitors,
+    archive.total_sessions
+      + (select count(distinct session_id) from public.user_events) as cumulative_sessions
+  from public.analytics_user_archive as archive
+  where archive.singleton
 )
 select
   (select start_day from params) as start_day_kst,
@@ -395,11 +395,9 @@ with daily as (
 ),
 first_seen as (
   select
-    metadata->>'visitor_id' as visitor_id,
-    min((timezone('Asia/Seoul', created_at))::date) as first_day
-  from public.user_events
-  where coalesce(metadata->>'visitor_id', '') not in ('', 'unknown')
-  group by 1
+    visitor_id,
+    (timezone('Asia/Seoul', first_seen))::date as first_day
+  from public.analytics_visitors
 ),
 daily_with_cumulative as (
   select
@@ -575,18 +573,15 @@ with params as (
 ),
 first_seen as (
   select
-    metadata->>'visitor_id' as visitor_id,
-    min((timezone('Asia/Seoul', created_at))::date) as cohort_day
-  from public.user_events
-  where coalesce(metadata->>'visitor_id', '') not in ('', 'unknown')
-  group by 1
+    visitor_id,
+    (timezone('Asia/Seoul', first_seen))::date as cohort_day
+  from public.analytics_visitors
 ),
 activity as (
-  select distinct
-    metadata->>'visitor_id' as visitor_id,
-    (timezone('Asia/Seoul', created_at))::date as active_day
-  from public.user_events
-  where coalesce(metadata->>'visitor_id', '') not in ('', 'unknown')
+  select
+    visitor_id,
+    day_kst as active_day
+  from public.analytics_user_daily_activity
 ),
 d1 as (
   select
@@ -622,18 +617,15 @@ from d1 cross join d7;
 -- 2-B) D1 / D7 리텐션 코호트별 상세
 with first_seen as (
   select
-    metadata->>'visitor_id' as visitor_id,
-    min((timezone('Asia/Seoul', created_at))::date) as cohort_day
-  from public.user_events
-  where coalesce(metadata->>'visitor_id', '') not in ('', 'unknown')
-  group by 1
+    visitor_id,
+    (timezone('Asia/Seoul', first_seen))::date as cohort_day
+  from public.analytics_visitors
 ),
 activity as (
-  select distinct
-    metadata->>'visitor_id' as visitor_id,
-    (timezone('Asia/Seoul', created_at))::date as active_day
-  from public.user_events
-  where coalesce(metadata->>'visitor_id', '') not in ('', 'unknown')
+  select
+    visitor_id,
+    day_kst as active_day
+  from public.analytics_user_daily_activity
 )
 select
   f.cohort_day,
@@ -731,23 +723,29 @@ order by provider, item;
 --   - 기존 "2,154 세션 / 146만 팩" 업데이트용.
 -- ============================================================
 select
-  count(distinct session_id) as total_sim_sessions,
-  count(*) as total_sim_events,
-  coalesce(sum(box_count), 0) as total_boxes,
-  coalesce(sum(pack_count), 0) as total_packs,
-  coalesce(sum(krw), 0) as total_krw,
-  min(created_at) as first_sim_at,
-  max(created_at) as last_sim_at
-from public.sim_events;
+  archive.total_sessions + count(distinct current.session_id) as total_sim_sessions,
+  archive.total_events + count(current.session_id) as total_sim_events,
+  archive.total_boxes + coalesce(sum(current.box_count), 0) as total_boxes,
+  archive.total_packs + coalesce(sum(current.pack_count), 0) as total_packs,
+  archive.total_krw + coalesce(sum(current.krw), 0) as total_krw,
+  archive.last_archived_at,
+  min(current.created_at) as first_retained_sim_at,
+  max(current.created_at) as last_sim_at
+from public.analytics_sim_archive as archive
+left join public.sim_events as current on true
+where archive.singleton
+group by archive.singleton;
 
 select
-  count(distinct session_id) as total_user_sessions,
-  count(distinct metadata->>'visitor_id') filter (
-    where coalesce(metadata->>'visitor_id', '') not in ('', 'unknown')
-  ) as total_visitors,
-  count(*) filter (where event_name = 'page_view') as total_page_views,
-  count(*) as total_user_events
-from public.user_events;
+  archive.total_sessions + count(distinct current.session_id) as total_user_sessions,
+  (select count(*) from public.analytics_visitors) as total_visitors,
+  archive.total_page_views
+    + count(*) filter (where current.event_name = 'page_view') as total_page_views,
+  archive.total_events + count(current.session_id) as total_user_events
+from public.analytics_user_archive as archive
+left join public.user_events as current on true
+where archive.singleton
+group by archive.singleton;
 
 -- ============================================================
 -- 6-A) 3일 주기 효과: cycle day별 평균 DAU/재방문/시뮬
@@ -763,19 +761,16 @@ with params as (
 ),
 first_seen as (
   select
-    metadata->>'visitor_id' as visitor_id,
-    min((timezone('Asia/Seoul', created_at))::date) as first_day
-  from public.user_events
-  where coalesce(metadata->>'visitor_id', '') not in ('', 'unknown')
-  group by 1
+    visitor_id,
+    (timezone('Asia/Seoul', first_seen))::date as first_day
+  from public.analytics_visitors
 ),
 daily_activity as (
-  select distinct
-    metadata->>'visitor_id' as visitor_id,
-    (timezone('Asia/Seoul', created_at))::date as day_kst
-  from public.user_events
-  where coalesce(metadata->>'visitor_id', '') not in ('', 'unknown')
-    and created_at >= (select first_update_day from params)
+  select
+    visitor_id,
+    day_kst
+  from public.analytics_user_daily_activity
+  where day_kst >= (select first_update_day from params)
 ),
 daily_user as (
   select
@@ -789,13 +784,14 @@ daily_user as (
 ),
 daily_sim as (
   select
-    (timezone('Asia/Seoul', created_at))::date as day_kst,
-    count(distinct session_id) as sim_sessions,
-    coalesce(sum(pack_count), 0) as packs,
-    coalesce(sum(box_count), 0) as boxes
-  from public.sim_events
-  where created_at >= (select first_update_day from params)
-  group by 1
+    d.day_kst,
+    count(s.session_id) as sim_sessions,
+    d.total_packs as packs,
+    d.total_boxes as boxes
+  from public.analytics_sim_daily d
+  left join public.analytics_sim_daily_sessions s using (day_kst)
+  where d.day_kst >= (select first_update_day from params)
+  group by d.day_kst, d.total_packs, d.total_boxes
 ),
 joined as (
   select
@@ -835,19 +831,16 @@ with params as (
 ),
 first_seen as (
   select
-    metadata->>'visitor_id' as visitor_id,
-    min((timezone('Asia/Seoul', created_at))::date) as first_day
-  from public.user_events
-  where coalesce(metadata->>'visitor_id', '') not in ('', 'unknown')
-  group by 1
+    visitor_id,
+    (timezone('Asia/Seoul', first_seen))::date as first_day
+  from public.analytics_visitors
 ),
 daily_activity as (
-  select distinct
-    metadata->>'visitor_id' as visitor_id,
-    (timezone('Asia/Seoul', created_at))::date as day_kst
-  from public.user_events
-  where coalesce(metadata->>'visitor_id', '') not in ('', 'unknown')
-    and created_at >= (select first_update_day from params)
+  select
+    visitor_id,
+    day_kst
+  from public.analytics_user_daily_activity
+  where day_kst >= (select first_update_day from params)
 ),
 daily_user as (
   select
@@ -860,12 +853,13 @@ daily_user as (
 ),
 daily_sim as (
   select
-    (timezone('Asia/Seoul', created_at))::date as day_kst,
-    count(distinct session_id) as sim_sessions,
-    coalesce(sum(pack_count), 0) as packs
-  from public.sim_events
-  where created_at >= (select first_update_day from params)
-  group by 1
+    d.day_kst,
+    count(s.session_id) as sim_sessions,
+    d.total_packs as packs
+  from public.analytics_sim_daily d
+  left join public.analytics_sim_daily_sessions s using (day_kst)
+  where d.day_kst >= (select first_update_day from params)
+  group by d.day_kst, d.total_packs
 ),
 joined as (
   select
