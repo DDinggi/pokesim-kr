@@ -243,17 +243,6 @@ export function StartDeckSimulator({
           </div>
         </div>
         <div className="flex w-full shrink-0 items-center justify-end gap-3 sm:ml-auto sm:w-auto">
-          {phase !== 'idle' && (
-            <button
-              onClick={() => {
-                setPhase('idle');
-                setResult(null);
-              }}
-              className="text-xs text-gray-500 transition-colors hover:text-gray-300"
-            >
-              처음으로
-            </button>
-          )}
             {accountBar}
           </div>
         </div>

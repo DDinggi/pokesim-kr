@@ -1165,65 +1165,6 @@ export function BoxSimulator({
     setFlippedSet(new Set());
   }, []);
 
-  const goToIdle = useCallback(() => {
-    // reveal 도중 이탈 시 — 이미 시뮬레이션된 결과를 세션에 커밋
-    if (phase === 'reveal') {
-      if (mode === 'pack' && packResult) {
-        const opening = createLuckOpening(setMeta, { packs: 1 });
-        const event = createOpeningEvent({
-          setMeta,
-          unit: 'pack',
-          source: 'box-simulator',
-          cards: packResult.pack.cards,
-          boxCount: 0,
-          packCount: 1,
-          krw: setMeta.pack_price_krw,
-        });
-        addCardsToHitDex(packResult.pack.cards, setMeta);
-        setSession((s) => ({
-          ...s,
-          packs: s.packs + 1,
-          cost: s.cost + setMeta.pack_price_krw,
-          cards: [...s.cards, ...packResult.pack.cards],
-          openingEvents: [...s.openingEvents, event],
-        }));
-        trackSim({ setCode: setMeta.code, mode: 'pack', boxCount: 0, packCount: 1, krw: setMeta.pack_price_krw, luck: summarizeLuckEvent(packResult.pack.cards, opening, setMeta) });
-      } else if (boxResult) {
-        const all = boxResult.packs.flatMap((p) => p.cards);
-        // box-manual은 advancePack에서 팩별로 일부 이미 누적됐을 수 있으므로 미기록분만 추가
-        const unrecorded = mode === 'box-manual'
-          ? boxResult.packs.flatMap((p, i) => manualPacksRecorded.current.has(i) ? [] : p.cards)
-          : all;
-        const opening = createLuckOpening(setMeta, { boxes: 1 });
-        const event = createOpeningEvent({
-          setMeta,
-          unit: 'box',
-          source: 'box-simulator',
-          cards: all,
-          boxCount: 1,
-          packCount: setMeta.box_size,
-          krw: setMeta.box_price_krw,
-        });
-        addCardsToHitDex(unrecorded, setMeta);
-        setSession((s) => ({
-          ...s,
-          boxes: s.boxes + 1,
-          cost: s.cost + setMeta.box_price_krw,
-          cards: [...s.cards, ...unrecorded],
-          openingEvents: [...s.openingEvents, event],
-        }));
-        trackSim({ setCode: setMeta.code, mode: 'box', boxCount: 1, packCount: setMeta.box_size, krw: setMeta.box_price_krw, luck: summarizeLuckEvent(all, opening, setMeta) });
-      }
-    }
-    setPhase('idle');
-    setMode(null);
-    setBoxResult(null);
-    setPackResult(null);
-    setPackIdx(0);
-    setFlippedSet(new Set());
-    setPendingBoxRedo(null);
-  }, [phase, mode, packResult, boxResult, setMeta]);
-
   // 자동 모드 — stagger reveal 끝난 뒤 hold 후 다음 팩(또는 결과)
   useEffect(() => {
     if (phase !== 'reveal' || mode !== 'box-auto' || !boxResult) return;
@@ -1283,14 +1224,6 @@ export function BoxSimulator({
           </div>
         </div>
         <div className="flex w-full shrink-0 items-center justify-end gap-3 sm:ml-auto sm:w-auto">
-          {phase !== 'idle' && (
-            <button
-              onClick={goToIdle}
-              className="text-xs text-gray-500 transition-colors hover:text-gray-300"
-            >
-              처음으로
-            </button>
-          )}
             {accountBar}
           </div>
         </div>

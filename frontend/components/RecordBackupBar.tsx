@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import type { RecordBackupStatus } from '../lib/useRecordBackup';
 import { GoogleSignInButton } from './GoogleSignInButton';
 
@@ -18,9 +17,14 @@ export interface RecordBackupBarProps {
 }
 
 export function RecordBackupBar(props: RecordBackupBarProps) {
+  const googleLoginConfigured = Boolean(
+    process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID?.trim(),
+  );
   const busy = props.authPending
     || props.status === 'loading'
     || props.status === 'syncing';
+
+  if (!props.authenticated && !googleLoginConfigured) return null;
 
   return (
     <section className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
@@ -65,11 +69,7 @@ export function RecordBackupBar(props: RecordBackupBarProps) {
             onCredential={props.onGoogleCredential}
           />
           <p className="mt-1.5 text-xs leading-relaxed text-gray-500">
-            계정에 카드깡 기록을 저장할 수 있어요.
-          </p>
-          <p className="mt-1 text-[10px] text-gray-600">
-            계속하면 <Link href="/terms" className="underline underline-offset-2 hover:text-gray-400">이용약관</Link>과{' '}
-            <Link href="/privacy" className="underline underline-offset-2 hover:text-gray-400">개인정보처리방침</Link>에 동의하게 됩니다.
+            Google 로그인은 카드깡 기록을 보관하는 데만 사용해요.
           </p>
           {props.error ? <p className="mt-1 text-[11px] text-red-300">{props.error}</p> : null}
         </div>
