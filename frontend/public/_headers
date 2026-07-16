@@ -1,0 +1,8 @@
+/sets/*
+  X-Robots-Tag: noindex, nofollow, noimageindex
+
+/boxes/*
+  X-Robots-Tag: noindex, nofollow, noimageindex
+
+/debug/*
+  X-Robots-Tag: noindex, nofollow, noimageindex
