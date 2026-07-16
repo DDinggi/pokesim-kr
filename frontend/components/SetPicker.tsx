@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { SetMeta } from '../lib/types';
-import { getBoxImageSrc } from '../lib/boxImages';
+import { getBoxThumbnailImageSrc } from '../lib/boxImages';
 import { NEW_SIM_SET_NAMES, isNewSimSet } from '../lib/newSets';
 import {
   getAvailableSetSeries,
@@ -385,7 +385,7 @@ function PopularityList({
                   </span>
                   <div className="relative h-11 w-9 shrink-0 overflow-hidden rounded bg-black/30">
                     <Image
-                      src={getBoxImageSrc(set.code)}
+                      src={getBoxThumbnailImageSrc(set.code)}
                       alt=""
                       fill
                       sizes="36px"
@@ -427,7 +427,7 @@ function SetCard({
       <div className="relative aspect-[4/5] w-full bg-black/30 overflow-hidden">
         {showImage ? (
           <Image
-            src={getBoxImageSrc(set.code)}
+            src={getBoxThumbnailImageSrc(set.code)}
             alt={set.name_ko}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
