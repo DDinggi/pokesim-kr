@@ -4,7 +4,7 @@ import { useState, useMemo, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, PackResult } from '../lib/types';
 import { simulatePack } from '../lib/simulator';
-import { getBoxImageSrc } from '../lib/boxImages';
+import { getBoxThumbnailImageSrc } from '../lib/boxImages';
 import {
   createLuckOpening,
   summarizeLuckEvent,
@@ -543,7 +543,7 @@ export function VendingMachine({
                     )}
                     <div className="relative aspect-[3/4] w-full bg-white/30 overflow-hidden">
                       <Image
-                        src={getBoxImageSrc(set.code)}
+                        src={getBoxThumbnailImageSrc(set.code)}
                         alt={set.name_ko}
                         fill
                         sizes="(max-width: 640px) 30vw, (max-width: 1024px) 22vw, 17vw"
@@ -601,7 +601,7 @@ export function VendingMachine({
                 <li key={set.code} className="flex items-center gap-3 text-sm">
                   <div className="relative w-10 h-12 shrink-0 rounded bg-gray-800 overflow-hidden">
                     <Image
-                      src={getBoxImageSrc(set.code)}
+                      src={getBoxThumbnailImageSrc(set.code)}
                       alt={set.name_ko}
                       fill
                       sizes="40px"
@@ -685,7 +685,7 @@ function QuantityModal({
         <div className="p-5 sm:p-6 flex items-center gap-4 bg-white/40">
           <div className="relative w-20 h-24 shrink-0 rounded-lg bg-white/60 overflow-hidden ring-1 ring-blue-200">
             <Image
-              src={getBoxImageSrc(set.code)}
+              src={getBoxThumbnailImageSrc(set.code)}
               alt={set.name_ko}
               fill
               sizes="80px"
