@@ -4,6 +4,7 @@ import { useState, useMemo, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, PackResult } from '../lib/types';
 import { simulatePack } from '../lib/simulator';
+import { simulateStartDeck } from '../lib/simulation/starter';
 import { getBoxThumbnailImageSrc } from '../lib/boxImages';
 import {
   createLuckOpening,
@@ -106,11 +107,9 @@ export function VendingMachine({
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
   const [query, setQuery] = useState('');
   const [activeSeries, setActiveSeries] = useState<SetSeriesKey>(
-    () => getAvailableSetSeries(sets.filter((set) => set.type !== 'starter'))[0]?.key ?? 'mega',
+    () => getAvailableSetSeries(sets)[0]?.key ?? 'mega',
   );
-
-  // 스타트 덱(starter)은 낱팩 제품이 아니라 자판기깡에서 제외한다.
-  const displaySets = useMemo(() => sets.filter((set) => set.type !== 'starter'), [sets]);
+  const displaySets = sets;
   const availableSeries = useMemo(() => getAvailableSetSeries(displaySets), [displaySets]);
   const selectedSeries = availableSeries.some((series) => series.key === activeSeries)
     ? activeSeries
@@ -188,7 +187,12 @@ export function VendingMachine({
       if (!set || n <= 0) continue;
       const setCards: Card[] = [];
       for (let i = 0; i < n; i++) {
-        const { pack, seed } = simulatePack(set.cards, set.type, set.pack_size, undefined, set.code);
+        const { pack, seed } = set.type === 'starter' && set.start_deck
+          ? (() => {
+            const drawn = simulateStartDeck(set.cards, set.start_deck);
+            return { pack: { cards: drawn.cards }, seed: drawn.seed };
+          })()
+          : simulatePack(set.cards, set.type, set.pack_size, undefined, set.code);
         setCards.push(...pack.cards);
         packs.push({ setCode: code, setMeta: set, pack, seed });
       }
@@ -443,9 +447,9 @@ export function VendingMachine({
 
       <main className="flex-1 px-4 sm:px-6 py-8 max-w-6xl mx-auto w-full">
         <div className="mb-4 rounded-lg bg-gray-900/80 ring-1 ring-yellow-300/30 px-4 py-3">
-          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 6/25</p>
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-07-11</p>
           <p className="text-sm font-bold text-white mt-0.5">
-            {NEW_SIM_SET_NAMES.join(' · ')} 자판기깡 시뮬 추가
+            {NEW_SIM_SET_NAMES.join(' · ')}
           </p>
         </div>
 
@@ -594,7 +598,7 @@ export function VendingMachine({
           <section className="mt-6 rounded-2xl bg-gray-900/80 ring-1 ring-white/10 p-4 sm:p-5">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-sm font-bold text-gray-300 tracking-wider">🛒 장바구니</h2>
-              <span className="text-xs text-gray-500">총 {totalPacks}팩 · {totalCost.toLocaleString()}원</span>
+              <span className="text-xs text-gray-500">총 {totalPacks}개 · {totalCost.toLocaleString()}원</span>
             </div>
             <ul className="space-y-2">
               {cartItems.map(({ set, qty }) => (
@@ -694,7 +698,7 @@ function QuantityModal({
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs text-blue-700/70 tracking-wider">
-              {set.type === 'hi-class' ? '하이클래스팩' : '확장팩'}
+              {set.type === 'hi-class' ? '하이클래스팩' : set.type === 'starter' ? '스타트덱' : '확장팩'}
             </p>
             <h2 className="text-lg font-black truncate">{set.name_ko}</h2>
             <p className="text-sm font-bold text-gray-700 tabular-nums">
