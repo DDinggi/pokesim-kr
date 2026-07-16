@@ -108,7 +108,7 @@ function SessionBar({ session, onReset }: { session: OpeningSession; onReset: ()
   if (session.packs === 0) return null;
   const specials = session.openingEvents.filter((event) => (event.rarityCounts.UR ?? 0) > 0 || event.cardCount > 1).length;
   const handleReset = () => {
-    if (window.confirm('지금까지 뽑은 기록을 모두 초기화할까요?\n힛카드 도감은 유지됩니다.')) onReset();
+    if (window.confirm('지금까지 뽑은 기록을 모두 초기화할까요?\n힛카드 기록은 유지됩니다.')) onReset();
   };
   return (
     <div className="mx-auto flex w-full max-w-2xl items-start justify-between gap-3 rounded-lg bg-gray-900/50 px-4 py-2.5 text-[11px] text-gray-400 ring-1 ring-white/5">
@@ -344,7 +344,7 @@ export function StartDeckSimulator({
                 onClick={onOpenHitDex}
                 className="rounded-xl bg-cyan-400/90 px-6 py-3 font-black text-gray-950 shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-300 active:scale-95"
               >
-                힛카드 도감 보러가기
+                힛카드 기록 보러가기
               </button>
               <button
                 onClick={onChangeSet}

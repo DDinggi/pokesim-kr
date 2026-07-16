@@ -396,7 +396,7 @@ export function VendingMachine({
               onClick={onOpenHitDex}
               className="rounded-xl bg-cyan-400/90 px-6 py-3 font-black text-gray-950 shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-300 active:scale-95"
             >
-              힛카드 도감 보러가기
+              힛카드 기록 보러가기
             </button>
             <button
               onClick={onBackToMain}

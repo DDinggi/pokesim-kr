@@ -768,7 +768,7 @@ function BoxDoneScreen({
           onClick={onOpenHitDex}
           className="rounded-xl bg-cyan-400/90 px-6 py-3 font-black text-gray-950 shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-300 active:scale-95"
         >
-          힛카드 도감 보러가기
+          힛카드 기록 보러가기
         </button>
         <button
           onClick={onChangeSet}
@@ -793,7 +793,7 @@ function BoxDoneScreen({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                if (window.confirm('지금까지 깐 카드 기록을 모두 초기화할까요?\n힛카드 도감은 유지됩니다.')) onResetSession();
+                if (window.confirm('지금까지 깐 카드 기록을 모두 초기화할까요?\n힛카드 기록은 유지됩니다.')) onResetSession();
               }}
               className="ml-4 shrink-0 normal-case font-normal text-gray-500 hover:text-red-400 transition-colors underline-offset-2 hover:underline tracking-normal"
             >
@@ -918,7 +918,7 @@ function PackDoneScreen({
           onClick={onOpenHitDex}
           className="rounded-xl bg-cyan-400/90 px-6 py-3 font-black text-gray-950 shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-300 active:scale-95"
         >
-          힛카드 도감 보러가기
+          힛카드 기록 보러가기
         </button>
         <button
           onClick={onChangeSet}
