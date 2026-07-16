@@ -2,12 +2,12 @@
 
 ## 목적
 
-박스깡은 로그인 없이 유지하면서, 사용자가 원할 때만 누적 운 기록과 힛카드 도감을
+박스깡은 로그인 없이 유지하면서, 사용자가 원할 때만 누적 운 기록과 힛카드 기록을
 Google 계정에 보관해 다른 기기에서 이어본다.
 
 ## 사용자 흐름
 
-1. 비로그인 사용자는 박스깡, 운 기록, 도감을 브라우저에 저장한다.
+1. 비로그인 사용자는 박스깡, 운 기록, 기록을 브라우저에 저장한다.
 2. `내 기록`의 Google 공식 버튼을 누른 경우에만 계정 선택 팝업을 연다.
 3. 로그인 전 기록이 있으면 계정으로 옮길지 확인한다.
 4. 옮기기를 선택하면 서버 저장 성공 뒤에만 비로그인 원본을 비운다.
@@ -26,7 +26,7 @@ Google 계정에 보관해 다른 기기에서 이어본다.
 - 비로그인 기록과 계정별 로컬 캐시는 서로 다른 `localStorage` 키를 사용한다.
 - 로그인 상태에서 만든 기록은 계정 전용 로컬 캐시에 즉시 반영한다.
 - 서버 동기화 실패 시 계정 로컬 캐시를 남겨 다음 로그인이나 재시도 때 다시 보낸다.
-- 운 기록 초기화는 도감 획득 기록을 삭제하지 않는다.
+- 운 기록 초기화는 힛카드 획득 기록을 삭제하지 않는다.
 
 ## 서버 저장 범위
 
@@ -39,7 +39,7 @@ Supabase `user_record_backups`는 사용자당 한 행만 사용한다. `payload
 - 세트별 박스·팩 수와 사용 금액 합계
 - 레어도별 획득 수
 - 운 계산에 필요한 힛카드 번호와 수량
-- 도감 카드 키와 획득 수
+- 기록 카드 키와 획득 수
 
 일반 카드, 이미지, 카드 이름, 정적 카드 메타와 가격은 저장하지 않는다. 화면 복원에는
 정적 세트 JSON을 사용한다. 최초 닉네임은 Google email의 `@` 앞부분을 사용한다. 사용자가 바꾼
@@ -58,11 +58,11 @@ Supabase `user_record_backups`는 사용자당 한 행만 사용한다. `payload
 ## 관련 파일
 
 - `frontend/lib/openingHistory.ts`: 비로그인·계정별 로컬 개봉 기록
-- `frontend/lib/hitDex.ts`: 비로그인·계정별 로컬 도감
+- `frontend/lib/hitDex.ts`: 비로그인·계정별 로컬 힛카드 기록
 - `frontend/lib/recordBackup.ts`: 압축, 복원, Supabase 읽기·쓰기
 - `frontend/lib/useRecordBackup.ts`: 동기화, 재시도, 병합, 초기화 흐름
 - `frontend/components/LuckScreen.tsx`: `내 기록`의 운 기록 탭
-- `frontend/components/HitDexScreen.tsx`: `내 기록`의 도감 탭
+- `frontend/components/HitDexScreen.tsx`: `내 기록`의 힛카드 기록 탭
 - `supabase/migrations/20260713000010_user_record_backup.sql`: 한 행 백업, RLS, 저장 RPC
 - `supabase/migrations/20260714000011_delete_user_account.sql`: 본인 계정 즉시 삭제 RPC
 - `frontend/app/privacy/page.tsx`: 개인정보처리방침
@@ -88,7 +88,7 @@ Supabase `user_record_backups`는 사용자당 한 행만 사용한다. `payload
    유지한다. 새 로그인은 Google Identity Services 팝업의 ID 토큰을 `signInWithIdToken`으로
    교환하므로 사용자가 `*.supabase.co` 화면으로 이동하지 않는다.
 7. 비로그인 기록이 있는 브라우저에서 Google 보관을 누르고 `계정 기록에 옮기기`를 선택한다.
-8. 다른 브라우저에서 같은 계정으로 로그인해 누적 운과 도감이 복원되는지 확인한다.
+8. 다른 브라우저에서 같은 계정으로 로그인해 누적 운과 기록이 복원되는지 확인한다.
 9. Supabase SQL Editor에서 한 사용자당 `user_record_backups` 한 행만 생기고 `payload`가
    64KB 이하인지 확인한다.
 10. 테스트 계정으로 탈퇴한 뒤 `auth.users`와 `user_record_backups`에서 해당 행이 함께 삭제되고,

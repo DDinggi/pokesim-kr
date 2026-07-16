@@ -99,10 +99,10 @@ export function MainScreen({
         <div className="mb-5 space-y-1.5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 px-4 py-3 ring-1 ring-white/10">
           <p className="text-sm font-bold text-white sm:text-base">
             <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 7/15</span>
-            힛카드 도감 · Google 기록 보관
+            내 힛카드 기록 · Google 기록 보관
           </p>
           <p className="text-[13px] font-semibold text-gray-200">
-            뽑은 힛카드를 도감에 모으고, 개봉 기록을 계정에 저장할 수 있어요.
+            뽑은 힛카드와 개봉 기록을 계정에 저장할 수 있어요.
           </p>
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-relaxed text-gray-400">
             <span>4일 주기 업데이트 예정입니다. 피드백과 문의는 언제든 환영합니다.</span>
@@ -176,12 +176,12 @@ export function MainScreen({
             onClick={onOpenLuck}
           />
           <RecordShortcut
-            title="힛카드 도감"
+            title="내 힛카드 기록"
             detail={!localRecordsReady
-              ? '도감 보기'
+              ? '기록 보기'
               : dexStats.uniqueCount > 0
                 ? `${dexStats.uniqueCount}종 등록`
-                : '등록 카드 없음'}
+                : '기록 없음'}
             label="HIT"
             tone="cyan"
             onClick={onOpenHitDex}
@@ -211,7 +211,7 @@ export function MainScreen({
             </button>
             <button
               onClick={() => {
-                const confirmed = window.confirm('지금까지 깐 전체 기록을 초기화할까요?\n힛카드 도감은 유지됩니다.');
+                const confirmed = window.confirm('지금까지 깐 전체 기록을 초기화할까요?\n힛카드 기록은 유지됩니다.');
                 if (!confirmed) return;
                 trackUserEvent({
                   eventName: 'reset_history',

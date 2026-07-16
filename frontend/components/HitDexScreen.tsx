@@ -187,8 +187,8 @@ export function HitDexScreen({
             ← 메인
           </button>
           <div className="min-w-0">
-            <h1 className="truncate text-2xl font-bold tracking-tight">힛카드 도감</h1>
-            <p className="mt-1 truncate text-xs text-gray-500">뽑은 힛카드 모아보기</p>
+            <h1 className="truncate text-2xl font-bold tracking-tight">내 힛카드 기록</h1>
+            <p className="mt-1 truncate text-xs text-gray-500">뽑은 힛카드 기록 보기</p>
           </div>
         </div>
           {backupBar ? <div className="w-full sm:ml-auto sm:w-auto">{backupBar}</div> : null}
@@ -210,13 +210,13 @@ export function HitDexScreen({
             <div className="rounded-[22px] border border-cyan-200/20 bg-gradient-to-br from-cyan-950/45 via-gray-950 to-slate-950 p-3 shadow-inner shadow-cyan-950/50 sm:p-5">
               <div className="mb-5 flex flex-wrap items-end justify-end gap-3 border-b border-cyan-200/10 pb-4">
                 <p className="text-[11px] font-bold text-cyan-100/45">
-                  {selectedEraSummary?.label ?? '도감'} {selectedEraSummary?.registeredCards ?? 0}/{selectedEraSummary?.totalCards ?? 0} · {selectedProgress}%
+                  {selectedEraSummary?.label ?? '기록'} {selectedEraSummary?.registeredCards ?? 0}/{selectedEraSummary?.totalCards ?? 0} · {selectedProgress}%
                 </p>
               </div>
 
               {visibleSections.length === 0 ? (
                 <div className="rounded-2xl border border-dashed border-cyan-200/20 px-4 py-12 text-center">
-                  <p className="text-sm font-black text-cyan-50">표시할 힛카드 도감 데이터가 없어요.</p>
+                  <p className="text-sm font-black text-cyan-50">표시할 힛카드 기록이 없어요.</p>
                 </div>
               ) : (
                 <div className="space-y-8">

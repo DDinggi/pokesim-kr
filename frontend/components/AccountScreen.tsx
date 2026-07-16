@@ -126,7 +126,7 @@ export function AccountScreen({
         <section className="pt-8">
           <h2 className="text-sm font-black text-gray-200">계정 탈퇴</h2>
           <p className="mt-2 text-xs leading-relaxed text-gray-500">
-            PokéSim KR 계정과 계정에 저장한 누적 운·힛카드 도감이 삭제됩니다.
+            PokéSim KR 계정과 계정에 저장한 누적 운·힛카드 기록이 삭제됩니다.
           </p>
           <button
             type="button"

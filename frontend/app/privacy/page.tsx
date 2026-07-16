@@ -12,7 +12,7 @@ export default function PrivacyPage() {
     <LegalPage title="개인정보처리방침" updatedAt="2026년 7월 15일">
       <p>
         PokéSim KR은 Google 로그인과 기록 보관에 필요한 정보만 처리합니다. 로그인하지 않아도
-        박스깡, 운 확인과 힛카드 도감을 이용할 수 있습니다.
+        박스깡, 운 확인과 힛카드 기록을 이용할 수 있습니다.
       </p>
 
       <h2>1. 수집 정보와 이용 목적</h2>
@@ -23,7 +23,7 @@ export default function PrivacyPage() {
         </li>
         <li>
           <strong>기록 보관:</strong> 세트별 개봉 수와 사용 금액, 레어도별 획득 수, 힛카드
-          번호·획득 횟수를 누적 운과 도감 복원에 사용합니다.
+          번호·획득 횟수를 누적 운과 기록 복원에 사용합니다.
         </li>
         <li>
           <strong>서비스 이용 기록:</strong> 임의 방문자·세션 식별자, 이용한 세트와 모드,
