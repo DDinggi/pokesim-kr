@@ -12,6 +12,37 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async headers() {
+    return [
+      {
+        source: "/sets/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow, noimageindex",
+          },
+        ],
+      },
+      {
+        source: "/boxes/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow, noimageindex",
+          },
+        ],
+      },
+      {
+        source: "/debug/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow, noimageindex",
+          },
+        ],
+      },
+    ];
+  },
   // Cloudflare Pages + @cloudflare/next-on-pages: next/image 자동 리사이즈/포맷 변환을 Workers에서 처리.
   // ESLint는 별도 명령(`pnpm lint`)으로 돌린다. Cloudflare Pages 빌드 안정성 우선.
   eslint: { ignoreDuringBuilds: true },

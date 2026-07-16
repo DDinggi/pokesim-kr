@@ -138,6 +138,16 @@ DB 크기를 953MB에서 482MB로 줄였다.
 
 ---
 
+## 문서 가이드
+
+- [포트폴리오 사례](docs/portfolio-case-study.md) — PM·개발자 관점의 문제, 의사결정,
+  성과, STAR 사례와 이력서 문장.
+- [아키텍처·설계 의도 학습 가이드](docs/architecture-study-guide.md) — 실제 코드 흐름,
+  인증·동기화·DB 비용 설계와 셀프 면접 질문.
+- [전체 문서](docs/README.md) — 구현·운영 문서 인덱스.
+
+---
+
 ## 로컬 개발
 
 ```bash

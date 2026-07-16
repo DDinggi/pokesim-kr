@@ -129,7 +129,7 @@ export interface SetPopularity {
 
 export async function fetchGlobalStats(): Promise<GlobalStats | null> {
   if (!supabase) return null;
-  // get_global_stats RPC: 서버에서 COUNT/SUM 집계. row 수와 무관하게 응답 ~100B.
+  // get_global_stats RPC: 쓰기 시 누적한 singleton 캐시 한 행만 조회한다.
   // RLS로 sim_events 직접 SELECT는 차단됨.
   const { data, error } = await supabase.rpc('get_global_stats');
   if (error || !data) return null;
