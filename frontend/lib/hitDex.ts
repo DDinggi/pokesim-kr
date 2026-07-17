@@ -7,6 +7,7 @@ import {
 } from './rarity';
 import { getCardReferenceValueKrw } from './valueLuck';
 import { notifyHitDexLocalChange } from './hitDexEvents';
+import { compactOpeningSessionStorageForQuota } from './openingHistory';
 
 export const HIT_DEX_STORAGE_KEY = 'pokesim-kr-hit-dex-v1';
 export const HIT_DEX_DEBUG_STORAGE_KEY = 'pokesim-kr-hit-dex-debug-v1';
@@ -139,7 +140,16 @@ function saveHitDexToKey(storageKey: string, state: HitDexState): boolean {
     window.localStorage.setItem(storageKey, JSON.stringify(state));
     return true;
   } catch {
-    /* quota / private mode - ignore */
+    /* quota / private mode - compact opening history and retry below */
+  }
+
+  if (compactOpeningSessionStorageForQuota()) {
+    try {
+      window.localStorage.setItem(storageKey, JSON.stringify(state));
+      return true;
+    } catch {
+      /* quota / private mode - ignore */
+    }
   }
 
   return false;

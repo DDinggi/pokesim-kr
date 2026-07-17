@@ -6,6 +6,9 @@ import Link from 'next/link';
 import type { Card } from '../lib/types';
 import { fetchGlobalStats, trackUserEvent, type GlobalStats } from '../lib/statsTracker';
 import {
+  getRecentOpeningDetailCards,
+  hasRecentOpeningDetailCards,
+  RECENT_OPENING_DETAIL_BOX_LIMIT,
   type OpeningSession,
 } from '../lib/openingHistory';
 import {
@@ -76,6 +79,9 @@ export function MainScreen({
     0,
   ) ?? 0;
   const hasFullCardHistory = Boolean(session && session.cards.length >= recordedCardCount);
+  const recentHistoryCards = session ? getRecentOpeningDetailCards(session) : [];
+  const hasRecentCardHistory = Boolean(session && hasRecentOpeningDetailCards(session));
+  const isCardHistoryLimited = recordedCardCount > recentHistoryCards.length;
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-950 text-white">
@@ -103,6 +109,9 @@ export function MainScreen({
           </p>
           <p className="text-[13px] font-semibold text-gray-200">
             뽑은 힛카드와 개봉 기록을 계정에 저장할 수 있어요.
+          </p>
+          <p className="text-[11px] font-semibold text-cyan-200/80">
+            2026-07-17 · 누적 기록 저장 안정화
           </p>
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-relaxed text-gray-400">
             <span>4일 주기 업데이트 예정입니다. 피드백과 문의는 언제든 환영합니다.</span>
@@ -206,7 +215,7 @@ export function MainScreen({
                 <span className="text-gray-500 tabular-nums">
                   {session.boxes}박스 · {session.packs}팩 · {session.cost.toLocaleString()}원
                 </span>
-                <HitBadges cards={session.cards} />
+                {hasFullCardHistory && <HitBadges cards={session.cards} />}
               </div>
             </button>
             <button
@@ -230,9 +239,10 @@ export function MainScreen({
           {historyOpen && (
             <div className="mx-auto w-full max-w-6xl px-4 pb-6 sm:px-6">
               <CardHistoryPanel
-                cards={session.cards}
+                cards={recentHistoryCards}
                 showAll={showAllHistoryCards}
-                hasFullHistory={hasFullCardHistory}
+                hasRecentHistory={hasRecentCardHistory}
+                isLimited={isCardHistoryLimited}
                 onToggleShowAll={() => setShowAllHistoryCards((showAll) => !showAll)}
                 onCardClick={setOpenedCard}
               />
@@ -341,29 +351,38 @@ function getHistoryHitCards(cards: Card[]): Card[] {
 function CardHistoryPanel({
   cards,
   showAll,
-  hasFullHistory,
+  hasRecentHistory,
+  isLimited,
   onToggleShowAll,
   onCardClick,
 }: {
   cards: Card[];
   showAll: boolean;
-  hasFullHistory: boolean;
+  hasRecentHistory: boolean;
+  isLimited: boolean;
   onToggleShowAll: () => void;
   onCardClick: (card: Card) => void;
 }) {
   const hitCards = getHistoryHitCards(cards);
-  const visibleCards = showAll && hasFullHistory ? cards : hitCards;
+  const visibleCards = showAll && hasRecentHistory ? cards : hitCards;
 
   return (
     <section className="rounded-2xl bg-gray-900/55 p-4 ring-1 ring-white/10 sm:p-5">
-      <div className="flex justify-end">
-        {hasFullHistory ? (
+      <div className="flex flex-wrap items-center justify-end gap-2">
+        {isLimited && hasRecentHistory && (
+          <span className="rounded-full bg-white/[0.05] px-3 py-1.5 text-xs font-bold text-gray-500">
+            최근 {RECENT_OPENING_DETAIL_BOX_LIMIT}박스 분량
+          </span>
+        )}
+        {hasRecentHistory ? (
           <button
             type="button"
             onClick={onToggleShowAll}
             className="w-fit rounded-full bg-white/10 px-3 py-1.5 text-xs font-black text-white transition hover:bg-white/15"
           >
-            {showAll ? `힛카드만 보기 (${hitCards.length}장)` : `전체 카드 보기 (${cards.length}장)`}
+            {showAll
+              ? `힛카드만 보기 (${hitCards.length}장)`
+              : `${isLimited ? '최근 카드 전체 보기' : '전체 카드 보기'} (${cards.length}장)`}
           </button>
         ) : (
           <span className="rounded-full bg-white/[0.06] px-3 py-1.5 text-xs font-bold text-gray-500">
