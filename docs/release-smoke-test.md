@@ -12,12 +12,14 @@ pnpm --dir frontend lint
 pnpm --dir frontend build
 pnpm --dir scripts validate:data -- --strict
 pnpm --dir scripts validate:records
+pnpm --dir scripts validate:opening-storage
 pnpm --dir scripts audit:hit-dex -- --trials=1000
 ```
 
 - `lint`, `build`: TypeScript·React·Next.js 오류와 프로덕션 빌드를 확인한다.
 - `validate:data`: 세트 JSON, 레어도, 이미지 키와 원본/프론트 사본 정합성을 확인한다.
 - `validate:records`: 비로그인·계정별 기록 분리, 병합 멱등성, 기기 중복 제거와 저장 한도 실패를 확인한다.
+- `validate:opening-storage`: 누적 요약을 보존하면서 상세 카드만 최근 20박스로 제한하는지, 계정 백업과 세트별 초기화가 정상인지 확인한다.
 - `audit:hit-dex`: 활성 세트마다 1,000박스를 열어 기록 대상 카드가 실제 시뮬에서
   전부 등장 가능한지 확인한다.
 - 시뮬 확률이나 슬롯을 수정했다면 해당 세트마다 아래 명령도 실행한다.

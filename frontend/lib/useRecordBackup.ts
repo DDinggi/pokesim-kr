@@ -325,7 +325,13 @@ export function useRecordBackup({
   const resetOpeningRecords = useCallback(async (setCode?: string) => {
     const set = setCode ? sets.find((candidate) => candidate.code === setCode) : null;
     const currentSession = loadOpeningSession(userId);
-    const nextSession = set ? removeOpeningSet(currentSession, set.code) : EMPTY_OPENING_SESSION;
+    const nextSession = set
+      ? removeOpeningSet(
+        currentSession,
+        set.code,
+        new Set(set.cards.map((card) => card.card_num)),
+      )
+      : EMPTY_OPENING_SESSION;
     saveOpeningSession(nextSession, userId);
     setLocalRevision((current) => current + 1);
 

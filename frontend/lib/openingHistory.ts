@@ -10,6 +10,9 @@ import { getCardReferenceValueKrw } from './valueLuck';
 export const SESSION_STORAGE_KEY = 'pokesim-kr-session-v1';
 export const OPENING_HISTORY_USER_STORAGE_PREFIX = `${SESSION_STORAGE_KEY}:user:`;
 export const OPENING_HISTORY_LOCAL_CHANGE_EVENT = 'pokesim:opening-history-change';
+export const RECENT_OPENING_DETAIL_BOX_LIMIT = 20;
+const MAX_OPENING_SESSION_STORAGE_BYTES = 1_500_000;
+const MAX_RECENT_OPENING_DETAIL_CARDS = 3_000;
 
 let activeOpeningOwnerId: string | null = null;
 
@@ -46,6 +49,89 @@ export const EMPTY_OPENING_SESSION: OpeningSession = {
   openingEvents: [],
 };
 
+function recentOpeningDetailCardCount(session: OpeningSession): number {
+  if (session.openingEvents.length === 0) {
+    return Math.min(session.cards.length, MAX_RECENT_OPENING_DETAIL_CARDS);
+  }
+
+  let boxCount = 0;
+  let cardCount = 0;
+  for (let index = session.openingEvents.length - 1; index >= 0; index -= 1) {
+    if (boxCount >= RECENT_OPENING_DETAIL_BOX_LIMIT) break;
+    const event = session.openingEvents[index];
+    boxCount += Math.max(0, event.boxCount);
+    cardCount += Math.max(0, event.cardCount);
+    if (cardCount >= MAX_RECENT_OPENING_DETAIL_CARDS) {
+      return MAX_RECENT_OPENING_DETAIL_CARDS;
+    }
+  }
+
+  return cardCount;
+}
+
+export function getRecentOpeningDetailCards(session: OpeningSession): Card[] {
+  const cardCount = recentOpeningDetailCardCount(session);
+  return cardCount > 0 ? session.cards.slice(-cardCount) : [];
+}
+
+export function hasRecentOpeningDetailCards(session: OpeningSession): boolean {
+  return session.cards.length >= recentOpeningDetailCardCount(session);
+}
+
+function openingSessionStorageBytes(session: OpeningSession): number {
+  const serialized = JSON.stringify(session);
+  if (typeof TextEncoder !== 'undefined') {
+    return new TextEncoder().encode(serialized).byteLength;
+  }
+  return serialized.length;
+}
+
+function compactCardForOpeningHistory(card: Card): Card {
+  return {
+    card_num: card.card_num,
+    number: card.number,
+    name_ko: card.name_ko,
+    rarity: card.rarity,
+    card_type: card.card_type,
+    subtype: null,
+    hp: null,
+    type: null,
+    image_url: card.image_url,
+    price_ref_krw: card.price_ref_krw ?? null,
+    price_ref_jpy: card.price_ref_jpy ?? null,
+    price_ref_usd: card.price_ref_usd ?? null,
+    price_source: card.price_source ?? null,
+    price_updated_at: card.price_updated_at ?? null,
+    price_confidence: card.price_confidence ?? null,
+  };
+}
+
+function compactOpeningEventForStorage(event: OpeningEvent): OpeningEvent {
+  return {
+    ...event,
+    hitCards: event.hitCards?.map(compactCardForOpeningHistory),
+  };
+}
+
+function compactOpeningSessionForStorage(
+  session: OpeningSession,
+  keepRecentCards = true,
+): OpeningSession {
+  return {
+    ...session,
+    cards: keepRecentCards
+      ? getRecentOpeningDetailCards(session).map(compactCardForOpeningHistory)
+      : [],
+    openingEvents: session.openingEvents.map(compactOpeningEventForStorage),
+  };
+}
+
+function shouldCompactOpeningSession(session: OpeningSession): boolean {
+  return session.cards.length > recentOpeningDetailCardCount(session)
+    || (session.cards.length > 0
+      && openingSessionStorageBytes(session) > MAX_OPENING_SESSION_STORAGE_BYTES);
+}
+
 function openingStorageKey(ownerId: string | null = activeOpeningOwnerId): string {
   return ownerId
     ? `${OPENING_HISTORY_USER_STORAGE_PREFIX}${encodeURIComponent(ownerId)}`
@@ -81,16 +167,46 @@ export function saveOpeningSession(
 
   try {
     const storageKey = openingStorageKey(ownerId);
-    if (session.cards.length === 0 && session.openingEvents.length === 0) {
+    const sessionToStore = shouldCompactOpeningSession(session)
+      ? compactOpeningSessionForStorage(session)
+      : session;
+
+    if (sessionToStore.cards.length === 0 && sessionToStore.openingEvents.length === 0) {
       window.localStorage.removeItem(storageKey);
     } else {
-      window.localStorage.setItem(storageKey, JSON.stringify(session));
+      window.localStorage.setItem(storageKey, JSON.stringify(sessionToStore));
     }
     if (options.notify !== false) notifyOpeningHistoryLocalChange();
     return true;
   } catch {
-    return false;
+    try {
+      const storageKey = openingStorageKey(ownerId);
+      const compactSession = compactOpeningSessionForStorage(session, false);
+      if (compactSession.cards.length === 0 && compactSession.openingEvents.length === 0) {
+        window.localStorage.removeItem(storageKey);
+      } else {
+        window.localStorage.setItem(storageKey, JSON.stringify(compactSession));
+      }
+      if (options.notify !== false) notifyOpeningHistoryLocalChange();
+      return true;
+    } catch {
+      return false;
+    }
   }
+}
+
+export function compactOpeningSessionStorageForQuota(
+  ownerId: string | null = activeOpeningOwnerId,
+): boolean {
+  if (typeof window === 'undefined') return false;
+
+  const current = loadOpeningSession(ownerId);
+  if (current.cards.length === 0) return false;
+  return saveOpeningSession(
+    compactOpeningSessionForStorage(current, false),
+    ownerId,
+    { notify: false },
+  );
 }
 
 export function getGuestOpeningSession(): OpeningSession {
@@ -147,6 +263,7 @@ function openingEventTotals(events: OpeningEvent[]) {
 export function removeOpeningSet(
   session: OpeningSession,
   setCode: string,
+  setCardNums?: ReadonlySet<string>,
 ): OpeningSession {
   const openingEvents = session.openingEvents.filter((event) => event.setCode !== setCode);
   const filteredCards = cardsForEvents(session, (event) => event.setCode !== setCode);
@@ -157,9 +274,12 @@ export function removeOpeningSet(
       0,
     ),
     cost: openingEvents.reduce((sum, event) => sum + event.krw, 0),
-    // Legacy sessions did not preserve a card-to-event boundary. Keep their card
-    // list intact instead of deleting same-numbered cards from unrelated sets.
-    cards: filteredCards ?? session.cards,
+    // Legacy and capped sessions may not preserve every card-to-event boundary.
+    // The caller supplies the selected set's card numbers for a safe fallback.
+    cards: filteredCards
+      ?? (setCardNums
+        ? session.cards.filter((card) => !setCardNums.has(card.card_num))
+        : session.cards),
     openingEvents,
   };
 }
