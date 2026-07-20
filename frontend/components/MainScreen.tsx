@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useSyncExternalStore, type ReactNode } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Card } from '../lib/types';
@@ -57,6 +57,8 @@ export function MainScreen({
   const [historyOpen, setHistoryOpen] = useState(false);
   const [showAllHistoryCards, setShowAllHistoryCards] = useState(false);
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
+  const [resetConfirmOpen, setResetConfirmOpen] = useState(false);
+  const [resetPending, setResetPending] = useState(false);
   const localRecordsReady = useSyncExternalStore(
     subscribeToClientReady,
     () => true,
@@ -79,9 +81,30 @@ export function MainScreen({
     0,
   ) ?? 0;
   const hasFullCardHistory = Boolean(session && session.cards.length >= recordedCardCount);
-  const recentHistoryCards = session ? getRecentOpeningDetailCards(session) : [];
+  const recentHistoryCards = useMemo(
+    () => (session ? getRecentOpeningDetailCards(session) : []),
+    [session],
+  );
   const hasRecentCardHistory = Boolean(session && hasRecentOpeningDetailCards(session));
   const isCardHistoryLimited = recordedCardCount > recentHistoryCards.length;
+  const toggleShowAllHistoryCards = useCallback(() => {
+    setShowAllHistoryCards((showAll) => !showAll);
+  }, []);
+  const confirmResetRecords = useCallback(async () => {
+    trackUserEvent({
+      eventName: 'reset_history',
+      metadata: { source: 'main_history', scope: 'all' },
+    });
+    setResetPending(true);
+    try {
+      await onResetRecords();
+      setHistoryOpen(false);
+      setShowAllHistoryCards(false);
+      setResetConfirmOpen(false);
+    } finally {
+      setResetPending(false);
+    }
+  }, [onResetRecords]);
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-950 text-white">
@@ -144,10 +167,11 @@ export function MainScreen({
             onClick={() => onSelectMode('box')}
             imageNode={
               <Image
-                src="/box.png"
+                src="/box.webp"
                 alt="Box"
                 fill
                 sizes="180px"
+                priority
                 className="object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]"
               />
             }
@@ -162,10 +186,11 @@ export function MainScreen({
             onClick={() => onSelectMode('vending')}
             imageNode={
               <Image
-                src="/pikachu.png"
+                src="/pikachu.webp"
                 alt="Vending Pikachu"
                 fill
                 sizes="180px"
+                priority
                 className="object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]"
               />
             }
@@ -219,17 +244,7 @@ export function MainScreen({
               </div>
             </button>
             <button
-              onClick={() => {
-                const confirmed = window.confirm('지금까지 깐 전체 기록을 초기화할까요?\n힛카드 기록은 유지됩니다.');
-                if (!confirmed) return;
-                trackUserEvent({
-                  eventName: 'reset_history',
-                  metadata: { source: 'main_history', scope: 'all' },
-                });
-                void onResetRecords();
-                setHistoryOpen(false);
-                setShowAllHistoryCards(false);
-              }}
+              onClick={() => setResetConfirmOpen(true)}
               className="mr-4 rounded-full px-3 py-1.5 text-xs font-bold text-red-300 ring-1 ring-red-400/25 transition-colors hover:bg-red-500/10 hover:ring-red-300/50"
             >
               전체 기록 초기화
@@ -243,7 +258,7 @@ export function MainScreen({
                 showAll={showAllHistoryCards}
                 hasRecentHistory={hasRecentCardHistory}
                 isLimited={isCardHistoryLimited}
-                onToggleShowAll={() => setShowAllHistoryCards((showAll) => !showAll)}
+                onToggleShowAll={toggleShowAllHistoryCards}
                 onCardClick={setOpenedCard}
               />
             </div>
@@ -252,6 +267,13 @@ export function MainScreen({
       )}
 
       {openedCard && <CardModal card={openedCard} onClose={() => setOpenedCard(null)} />}
+      {resetConfirmOpen && (
+        <ResetHistoryDialog
+          pending={resetPending}
+          onCancel={() => setResetConfirmOpen(false)}
+          onConfirm={() => void confirmResetRecords()}
+        />
+      )}
 
       <footer className="flex flex-col items-center gap-2 border-t border-gray-900 px-6 py-5">
         {stats && (
@@ -348,7 +370,7 @@ function getHistoryHitCards(cards: Card[]): Card[] {
   return cards.filter((card) => card.rarity && HIT_RARITIES.has(card.rarity));
 }
 
-function CardHistoryPanel({
+const CardHistoryPanel = memo(function CardHistoryPanel({
   cards,
   showAll,
   hasRecentHistory,
@@ -399,6 +421,66 @@ function CardHistoryPanel({
         </p>
       )}
     </section>
+  );
+});
+
+function ResetHistoryDialog({
+  pending,
+  onCancel,
+  onConfirm,
+}: {
+  pending: boolean;
+  onCancel: () => void;
+  onConfirm: () => void;
+}) {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && !pending) onCancel();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onCancel, pending]);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="reset-history-title"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
+      onClick={() => {
+        if (!pending) onCancel();
+      }}
+    >
+      <div
+        className="w-full max-w-sm rounded-2xl bg-gray-900 p-5 shadow-2xl ring-1 ring-white/10"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <h2 id="reset-history-title" className="text-lg font-black text-white">
+          전체 기록을 초기화할까요?
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-gray-400">
+          누적 운 기록만 삭제되며 힛카드 기록은 유지됩니다.
+        </p>
+        <div className="mt-5 grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={onCancel}
+            disabled={pending}
+            className="rounded-xl bg-white/5 px-4 py-2.5 text-sm font-bold text-gray-300 ring-1 ring-white/10 transition hover:bg-white/10 disabled:opacity-50"
+          >
+            취소
+          </button>
+          <button
+            type="button"
+            onClick={onConfirm}
+            disabled={pending}
+            className="rounded-xl bg-red-500/15 px-4 py-2.5 text-sm font-bold text-red-200 ring-1 ring-red-400/30 transition hover:bg-red-500/25 disabled:opacity-50"
+          >
+            {pending ? '초기화 중...' : '기록 초기화'}
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 

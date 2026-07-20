@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { memo, useEffect, useMemo, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta } from '../lib/types';
 import {
@@ -341,7 +341,9 @@ function DexFrameFace() {
       </svg>
     </div>
   );
-}function HitDexSetSectionView({
+}
+
+const HitDexSetSectionView = memo(function HitDexSetSectionView({
   section,
   effectVariants,
   onCardClick,
@@ -378,7 +380,7 @@ function DexFrameFace() {
       </div>
     </section>
   );
-}
+});
 
 function RegisteredHitTile({
   item,
