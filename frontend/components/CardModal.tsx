@@ -125,7 +125,7 @@ export function CardModal({ card, onClose }: { card: Card; onClose: () => void }
 
   return (
     <div
-      className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
