@@ -153,7 +153,6 @@ export function MainScreen({
           </p>
           <details className="text-[11px] text-gray-500">
             <summary className="w-fit cursor-pointer select-none transition-colors hover:text-gray-300">
-              운영자의 작은 메시지
             </summary>
             <p className="mt-1 max-w-3xl pl-4 leading-relaxed text-gray-400">
               여러분의 반응 덕분에 즐겁고 보람 있게 운영하고 있습니다. 피드백과 문의도 늘 감사히 보고 있어요.
