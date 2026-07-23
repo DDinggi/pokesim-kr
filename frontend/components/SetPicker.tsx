@@ -496,11 +496,15 @@ function SetCard({
 
 export function SetPicker({
   sets,
+  activeSeries,
+  onSeriesChange,
   onSelect,
   onBackToMain,
   accountBar,
 }: {
   sets: SetMeta[];
+  activeSeries: SetSeriesKey;
+  onSeriesChange: (series: SetSeriesKey) => void;
   onSelect: (set: SetMeta) => void;
   onBackToMain: () => void;
   accountBar?: ReactNode;
@@ -509,9 +513,6 @@ export function SetPicker({
   const [searchOpen, setSearchOpen] = useState(false);
   const [popularity, setPopularity] = useState<SetPopularity[]>([]);
   const [popularityLoaded, setPopularityLoaded] = useState(false);
-  const [activeSeries, setActiveSeries] = useState<SetSeriesKey>(
-    () => getAvailableSetSeries(sets)[0]?.key ?? 'mega',
-  );
 
   useEffect(() => {
     let cancelled = false;
@@ -642,7 +643,7 @@ export function SetPicker({
             sets={sets}
             active={selectedSeries}
             onChange={(series) => {
-              setActiveSeries(series);
+              onSeriesChange(series);
               setQuery('');
               setSearchOpen(false);
             }}

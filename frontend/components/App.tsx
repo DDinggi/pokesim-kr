@@ -15,6 +15,7 @@ import { RecordBackupBar } from './RecordBackupBar';
 import { RecordMergeDialog } from './RecordMergeDialog';
 import { AccountScreen } from './AccountScreen';
 import { clearRecordBackupMarkers, useRecordBackup } from '../lib/useRecordBackup';
+import { getSetSeriesKey, type SetSeriesKey } from '../lib/setSeries';
 
 type Mode = 'main' | 'box' | 'vending' | 'luck' | 'hit-dex' | 'account';
 type PokesimHistoryState = {
@@ -106,6 +107,7 @@ function authNickname(session: ReturnType<typeof useGoogleAuth>['session']): str
 export function App({ sets }: { sets: SetMeta[] }) {
   const [mode, setMode] = useState<Mode>('main');
   const [selectedSet, setSelectedSet] = useState<SetMeta | null>(null);
+  const [boxPickerSeries, setBoxPickerSeries] = useState<SetSeriesKey>('mega');
   const [localAuthPreview, setLocalAuthPreview] = useState(false);
   const initialModeRef = useRef<Mode | null>(null);
   const auth = useGoogleAuth();
@@ -128,7 +130,11 @@ export function App({ sets }: { sets: SetMeta[] }) {
 
       setMode(appState.mode);
       if ((appState.mode === 'box' || appState.mode === 'luck') && appState.selectedSetCode) {
-        setSelectedSet(sets.find((set) => set.code === appState.selectedSetCode) ?? null);
+        const nextSet = sets.find((set) => set.code === appState.selectedSetCode) ?? null;
+        setSelectedSet(nextSet);
+        if (appState.mode === 'box' && nextSet) {
+          setBoxPickerSeries(getSetSeriesKey(nextSet));
+        }
       } else {
         setSelectedSet(null);
       }
@@ -194,6 +200,9 @@ export function App({ sets }: { sets: SetMeta[] }) {
     );
     setMode(nextMode);
     setSelectedSet(nextSet);
+    if (nextMode === 'box' && nextSet) {
+      setBoxPickerSeries(getSetSeriesKey(nextSet));
+    }
   }, []);
 
   const goMain = () => {
@@ -350,6 +359,8 @@ export function App({ sets }: { sets: SetMeta[] }) {
     return renderScreen(
       <SetPicker
         sets={sets}
+        activeSeries={boxPickerSeries}
+        onSeriesChange={setBoxPickerSeries}
         onSelect={(set) => {
           trackUserEvent({ eventName: 'select_set', mode: 'box', setCode: set.code });
           pushHistoryState('box', set);
