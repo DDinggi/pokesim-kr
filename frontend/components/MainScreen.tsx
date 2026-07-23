@@ -127,11 +127,11 @@ export function MainScreen({
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6">
         <div className="mb-5 space-y-1.5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 px-4 py-3 ring-1 ring-white/10">
           <p className="text-sm font-bold text-white sm:text-base">
-            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 7/15</span>
-            내 힛카드 기록 · Google 기록 보관
+            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 7/23</span>
+            페어리라이즈 · 창공의 카리스마 · 챔피언로드 추가
           </p>
           <p className="text-[13px] font-semibold text-gray-200">
-            뽑은 힛카드와 개봉 기록을 계정에 저장할 수 있어요.
+            세 세트를 박스깡과 자판기깡에서 만나보세요.
           </p>
           <p className="text-[11px] font-semibold text-cyan-200/80">
             2026-07-17 · 누적 기록 저장 안정화

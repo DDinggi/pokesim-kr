@@ -67,7 +67,10 @@
     "sm11a-remix-bout",
     "sm11-miracle-twin",
     "sm8-burst-impact",
+    "sm7b-fairy-rise",
     "sm7a-plasma-spark",
+    "sm7-sky-charisma",
+    "sm6b-champion-road",
     "sm4plus-gx-battle-boost-remaster",
     "sm8a-dark-order",
     "sm9-tag-bolt",
@@ -82,5 +85,5 @@
     "smp2-detective-pikachu"
   ],
   "_notes": "MEGA 라인업 + SV 확장팩 라인업 추가 (sv1a~sv11B). active_sets는 데이터 작성 완료 후 이동. 신상 발매 시 planned_sets에 추가 → 데이터 작성 → active_sets로 이동.",
-  "_updated_at": "2026-07-11"
+  "_updated_at": "2026-07-23"
 }

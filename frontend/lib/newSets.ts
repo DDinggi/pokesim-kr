@@ -1,13 +1,13 @@
 export const NEW_SIM_SET_CODES = [
-  'sm7a-plasma-spark',
-  'sm4plus-gx-battle-boost-remaster',
-  'sm8-burst-impact',
+  'sm7b-fairy-rise',
+  'sm7-sky-charisma',
+  'sm6b-champion-road',
 ] as const;
 
 export const NEW_SIM_SET_NAMES = [
-  '플라스마 스파크',
-  'GX배틀부스트 REMASTER',
-  '버스트임팩트',
+  '페어리라이즈',
+  '창공의 카리스마',
+  '챔피언로드',
 ];
 
 const NEW_SIM_SET_CODE_SET = new Set<string>(NEW_SIM_SET_CODES);

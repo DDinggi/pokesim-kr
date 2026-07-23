@@ -642,6 +642,10 @@ const SM7A_PLASMA_SPARK: StandardSvSetRate = {
   ...SM_DARK_ORDER,
 };
 
+const SM7B_FAIRY_RISE: StandardSvSetRate = {
+  ...SM_DARK_ORDER,
+};
+
 const SM8_BURST_IMPACT: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
     SR_POKEMON: 43.75,
@@ -658,6 +662,31 @@ const SM8_BURST_IMPACT: StandardSvSetRate = {
   }),
   prCount: 1,
   arCount: 0,
+  rrBaseCount: 3,
+  rrExtraRate: 1 / 3,
+  fillerWeights: SM_FILLER_WEIGHTS,
+};
+
+const SM7_SKY_CHARISMA: StandardSvSetRate = {
+  ...SM8_BURST_IMPACT,
+};
+
+const SM6B_CHAMPION_ROAD: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights({
+    SR_POKEMON: 38.182,
+    SR_TRAINER: 31.818,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  extraHighRate: 1 / 12,
+  extraHighWeights: normalizeHighWeights({
+    SR_POKEMON: 38.182,
+    SR_TRAINER: 31.818,
+    HR_POKEMON: 20,
+    UR: 10,
+  }),
+  arCount: 0,
+  boxSize: 20,
   rrBaseCount: 3,
   rrExtraRate: 1 / 3,
   fillerWeights: SM_FILLER_WEIGHTS,
@@ -892,7 +921,10 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'sm11a-remix-bout': SM11A_REMIX_BOUT,
   'sm11-miracle-twin': SM11_MIRACLE_TWIN,
   'smp2-detective-pikachu': DETECTIVE_PIKACHU,
+  'sm6b-champion-road': SM6B_CHAMPION_ROAD,
+  'sm7-sky-charisma': SM7_SKY_CHARISMA,
   'sm7a-plasma-spark': SM7A_PLASMA_SPARK,
+  'sm7b-fairy-rise': SM7B_FAIRY_RISE,
   'sm4plus-gx-battle-boost-remaster': SM4PLUS_GX_BATTLE_BOOST_REMASTER,
   'sm8-burst-impact': SM8_BURST_IMPACT,
   'sm9-tag-bolt': SM_TAG_BOLT,

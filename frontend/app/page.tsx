@@ -63,7 +63,10 @@ import sm11bDreamLeague from '../public/sets/sm11b-dream-league.json';
 import sm11aRemixBout from '../public/sets/sm11a-remix-bout.json';
 import sm11MiracleTwin from '../public/sets/sm11-miracle-twin.json';
 import sm8BurstImpact from '../public/sets/sm8-burst-impact.json';
+import sm7bFairyRise from '../public/sets/sm7b-fairy-rise.json';
 import sm7aPlasmaSpark from '../public/sets/sm7a-plasma-spark.json';
+import sm7SkyCharisma from '../public/sets/sm7-sky-charisma.json';
+import sm6bChampionRoad from '../public/sets/sm6b-champion-road.json';
 import sm4plusGxBattleBoostRemaster from '../public/sets/sm4plus-gx-battle-boost-remaster.json';
 import sm9TagBolt from '../public/sets/sm9-tag-bolt.json';
 import sm8aDarkOrder from '../public/sets/sm8a-dark-order.json';
@@ -109,7 +112,8 @@ const sets: SetMeta[] = [
   s1aVmaxRising, s1wSword, s1hShield,
   sm12aTagTeamGxTagAllStars, sm12AlterGenesis, sm11bDreamLeague,
   sm11aRemixBout, sm11MiracleTwin,
-  sm8BurstImpact, sm7aPlasmaSpark, sm4plusGxBattleBoostRemaster,
+  sm8BurstImpact, sm7bFairyRise, sm7aPlasmaSpark, sm7SkyCharisma, sm6bChampionRoad,
+  sm4plusGxBattleBoostRemaster,
   sm9TagBolt, sm8aDarkOrder, sm9bFullMetalWall, sm9aNightUnison, sm10bSkyLegend, sm10aGgEnd,
   sm10DoubleBlaze, sm8bGxUltraShiny,
 ] as SetMeta[];

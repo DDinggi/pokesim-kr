@@ -262,9 +262,21 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
     gradient: 'from-rose-700 via-violet-800 to-slate-950',
     accent: 'text-rose-200',
   },
+  'sm7b-fairy-rise': {
+    gradient: 'from-pink-500 via-violet-700 to-slate-950',
+    accent: 'text-pink-100',
+  },
   'sm7a-plasma-spark': {
     gradient: 'from-yellow-500 via-sky-700 to-zinc-950',
     accent: 'text-yellow-200',
+  },
+  'sm7-sky-charisma': {
+    gradient: 'from-emerald-600 via-cyan-800 to-slate-950',
+    accent: 'text-emerald-100',
+  },
+  'sm6b-champion-road': {
+    gradient: 'from-red-700 via-violet-800 to-slate-950',
+    accent: 'text-red-100',
   },
   'sm4plus-gx-battle-boost-remaster': {
     gradient: 'from-emerald-700 via-amber-800 to-slate-950',
@@ -573,7 +585,7 @@ export function SetPicker({
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-6xl mx-auto w-full">
         <div className="mb-5 rounded-lg bg-gray-900/80 ring-1 ring-white/10 px-4 py-3">
-          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-07-11</p>
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-07-23</p>
           <p className="text-sm font-bold text-white mt-0.5">
             신규 세트 박스깡 · 박스 업데이트
           </p>
