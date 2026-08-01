@@ -53,9 +53,13 @@ export function simulateExpansionBox(
   return shuffle(slots, rng).map((pool) => (
     setCode === 'smp2-detective-pikachu'
       ? buildDetectivePikachuPack(ctx, pool, packSize)
-      : setCode === 'sm9a-night-unison' || setCode === 'sm8a-dark-order'
-        ? buildNightUnisonPack(ctx, pool, packSize)
-        : buildExpansionPack(ctx, pool, packSize)
+      : setCode === 'sm5plus-ultra-force'
+        ? buildUltraForcePack(ctx, pool, packSize)
+        : setCode === 'sm6a-dragon-storm'
+          ? buildDragonStormPack(ctx, pool, packSize)
+          : setCode === 'sm9a-night-unison' || setCode === 'sm8a-dark-order'
+            ? buildNightUnisonPack(ctx, pool, packSize)
+            : buildExpansionPack(ctx, pool, packSize)
   ));
 }
 
@@ -177,6 +181,61 @@ export function buildNightUnisonPack(
 
   return { cards };
 }
+function isBasicEnergyCard(card: Card): boolean {
+  return card.card_type === '\uC5D0\uB108\uC9C0' && card.number == null;
+}
+
+export function buildDragonStormPack(
+  ctx: BuildContext,
+  hitPool: Card[],
+  packSize = 8,
+): PackResult {
+  const { byRarity, pick } = ctx;
+  const cards: Card[] = [];
+  const regularC = (byRarity.C ?? []).filter((card) => card.subtype !== '\uBBF8\uB7EC');
+  const regularU = (byRarity.U ?? []).filter((card) => card.subtype !== '\uBBF8\uB7EC');
+  const mirrorPool = [
+    ...(byRarity.C ?? []).filter((card) => card.subtype === '\uBBF8\uB7EC'),
+    ...(byRarity.U ?? []).filter((card) => card.subtype === '\uBBF8\uB7EC'),
+  ];
+  const energyPool = (byRarity.__null__ ?? []).filter(isBasicEnergyCard);
+
+  for (let i = 0; i < Math.max(0, packSize - 4); i++) {
+    if (regularC.length) cards.push(pick(regularC));
+  }
+  if (regularU.length) cards.push(pick(regularU));
+  if (mirrorPool.length) cards.push(pick(mirrorPool));
+  if (energyPool.length) cards.push(pick(energyPool));
+  if (hitPool.length) cards.push(pick(hitPool));
+
+  return { cards };
+}
+
+export function buildUltraForcePack(
+  ctx: BuildContext,
+  hitPool: Card[],
+  packSize = 8,
+): PackResult {
+  const { byRarity, pick } = ctx;
+  const cards: Card[] = [];
+  const unmarked = byRarity.__null__ ?? [];
+  const regularPool = unmarked.filter((card) => (
+    card.subtype !== '\uBBF8\uB7EC' && !isBasicEnergyCard(card)
+  ));
+  const mirrorPool = unmarked.filter((card) => (
+    card.subtype === '\uBBF8\uB7EC' && !isBasicEnergyCard(card)
+  ));
+  const energyPool = unmarked.filter(isBasicEnergyCard);
+
+  for (let i = 0; i < Math.max(0, packSize - 3); i++) {
+    if (regularPool.length) cards.push(pick(regularPool));
+  }
+  if (mirrorPool.length) cards.push(pick(mirrorPool));
+  if (energyPool.length) cards.push(pick(energyPool));
+  if (hitPool.length) cards.push(pick(hitPool));
+
+  return { cards };
+}
 
 function buildDetectivePikachuSlots(
   boxSize: number,
@@ -198,6 +257,19 @@ function buildDetectivePikachuSlots(
   }
 
   return slots;
+}
+
+function getStandardFillerPool(
+  byRarity: Record<string, Card[]>,
+  setCode?: string,
+): Card[] {
+  if (byRarity.R?.length) return byRarity.R;
+  if (setCode === 'sm5plus-ultra-force') {
+    return (byRarity.__null__ ?? []).filter((card) => (
+      card.subtype !== '\uBBF8\uB7EC' && !isBasicEnergyCard(card)
+    ));
+  }
+  return byRarity.RR ?? [];
 }
 
 function buildStandardSvSlots(
@@ -260,7 +332,7 @@ function buildStandardSvSlots(
     }
   }
 
-  const rPool = byRarity.R ?? byRarity.RR ?? [];
+  const rPool = getStandardFillerPool(byRarity, setCode);
   while (slots.length < boxSize) slots.push(rPool);
 
   return slots;
@@ -408,8 +480,9 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   const rrExpected = standardSetRate.rrBaseCount + standardSetRate.rrExtraRate;
   const rrrExpected = (standardSetRate.rrrBaseCount ?? 0) + (standardSetRate.rrrExtraRate ?? 0);
   const rSlots = boxSize - 1 - aceCount - kCount - chrCount - trCount - prCount - aCount - arCount - extraSrRate - rrExpected - rrrExpected;
+  const fillerPool = getStandardFillerPool(byRarity, setCode);
 
-  entries.push({ weight: rSlots * 100, pool: byRarity.R ?? [] });
+  entries.push({ weight: rSlots * 100, pool: fillerPool });
   entries.push({ weight: rrExpected * 100, pool: byRarity.RR ?? [] });
   if (rrrExpected > 0) entries.push({ weight: rrrExpected * 100, pool: byRarity.RRR ?? [] });
   if (prCount > 0) entries.push({ weight: prCount * 100, pool: byRarity.PR ?? [] });
@@ -429,7 +502,7 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
     entries.push({ weight, pool: standardHighPools[key] ?? [] });
   }
 
-  return pickWeightedHitPool(ctx, entries, byRarity.R ?? []);
+  return pickWeightedHitPool(ctx, entries, fillerPool);
 }
 
 function buildFallbackExpansionSlots(

@@ -278,6 +278,18 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
     gradient: 'from-red-700 via-violet-800 to-slate-950',
     accent: 'text-red-100',
   },
+  'sm6a-dragon-storm': {
+    gradient: 'from-rose-700 via-orange-800 to-slate-950',
+    accent: 'text-orange-100',
+  },
+  'sm6-forbidden-light': {
+    gradient: 'from-indigo-700 via-fuchsia-800 to-slate-950',
+    accent: 'text-fuchsia-100',
+  },
+  'sm5plus-ultra-force': {
+    gradient: 'from-cyan-700 via-indigo-900 to-slate-950',
+    accent: 'text-cyan-100',
+  },
   'sm4plus-gx-battle-boost-remaster': {
     gradient: 'from-emerald-700 via-amber-800 to-slate-950',
     accent: 'text-emerald-200',
@@ -586,7 +598,7 @@ export function SetPicker({
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-6xl mx-auto w-full">
         <div className="mb-5 rounded-lg bg-gray-900/80 ring-1 ring-white/10 px-4 py-3">
-          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-07-23</p>
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-08-01</p>
           <p className="text-sm font-bold text-white mt-0.5">
             신규 세트 박스깡 · 박스 업데이트
           </p>
