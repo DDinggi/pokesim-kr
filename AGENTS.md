@@ -588,6 +588,7 @@ ID 부여된 결정 한 줄 요약. 깊은 이유는 `docs/adr/` 폴더.
 - **D-153** V-UNION 이미지 처리 — 공식 DB가 4장 합본 이미지만 제공하면 공식 번호 순서(좌상·우상·좌하·우하)에 따라 정확히 2×2 분할하고 카드마다 버전된 R2 키를 사용한다. 합본 출처와 사분면을 카드 메타에 기록하며, 이미지 감사에서 V-UNION 중복을 예외 처리하지 않는다.
 - **D-154** 익명 분석 이벤트 보존 — `sim_events` 누적 박스·팩·세션 값은 `analytics_sim_archive`에 선집계하고 원본은 14일만 유지한다. `user_events` 원본은 퍼널·유입 분석을 위해 30일 유지한다. 전체 순방문자의 최초·최근 방문은 `analytics_visitors`, 장기 DAU·코호트 리텐션은 방문자별 하루 1행인 `analytics_user_daily_activity`, 일별 시뮬은 `analytics_sim_daily`와 세션별 하루 1행인 `analytics_sim_daily_sessions`에 영구 보존한다. 공개 글로벌 통계는 `analytics_global_stats` singleton을 INSERT 트리거로 증가시켜 원본 전체 집계 없이 조회한다. 브라우저의 단일 Supabase 클라이언트가 로그인 후 `authenticated` 역할로 바뀌므로 두 원본 이벤트 테이블은 `anon`과 `authenticated` 모두 INSERT만 허용하고 SELECT·UPDATE·DELETE는 계속 차단한다. 정리는 Supabase Cron으로 매일 실행하고 첫 대량 정리 뒤에만 `VACUUM FULL`로 물리 공간을 회수한다.
 - **D-155** 힛카드 기록 선별·효과 — 에너지 카드는 기록에서 제외한다. 기록 CSS 효과는 세트별 기록 규모에 따른 상한 안에서 시세 7만원 이상 카드만 자동 선정하며, 해당 세트에 7만원 이상 카드가 없으면 효과 수를 억지로 채우지 않는다. 가격만으로 분리하면 대표 연작이 깨지는 경우에는 출처가 확인된 카드 번호를 예외 목록으로 관리한다. 첫 예외는 S12a VSTAR 유니버스의 금색 VSTAR 4종(259~262)이다.
+- **D-156** 썬&문 강화 확장팩 구성 — 드래곤스톰은 `C 4 + U 1 + 미러 1 + 기본 에너지 1 + 히트 1`, 울트라포스는 `일반 5 + 미러 1 + 기본 에너지 1 + 히트 1`의 8장 팩으로 모델링한다. 기본 에너지는 번호 없는 에너지 카드만 사용해 번호가 있는 특수 에너지가 전용 슬롯으로 잘못 빠지지 않게 한다. 금단의 빛은 일반 썬&문 5장 팩 모델을 사용하며 실제 1박스 개봉 결과와 공개 추정치가 함께 가리키는 RR 4~5장·PR 1장·SR 이상 1장 모델을 적용한다. 한국판 공식 봉입률은 비공개이므로 나머지 고레어 슬롯과 두 강화팩의 변동치는 일본판 상품 구성·실제 개봉 사례·기존 썬&문 추정 모델을 근거로 두고 실데이터 확보 시 갱신한다.
 
 ---
 
@@ -605,7 +606,7 @@ ID 부여된 결정 한 줄 요약. 깊은 이유는 `docs/adr/` 폴더.
 - 인프라: GitHub(branch protection) + Cloudflare Workers(OpenNext) + R2 + Node 22 + pnpm
 - 카드 데이터 수집 파이프라인 (`scripts/` — discover/collect/manual-add/sync/검증). 자세히는
   [docs/card-set-pipeline.md](docs/card-set-pipeline.md)
-- 다중 세트 (현재 **active 77종**, MEGA + SV + 소드실드 + 썬&문 라인업)
+- 다중 세트 (현재 **active 83종**, MEGA + SV + 소드실드 + 썬&문 라인업)
 - 박스/팩 시뮬 (`frontend/lib/simulator.ts`, 시드 기반) — 자동/수동/즉시/1팩 모드
 - 럭 점수 + 백분위 (`frontend/lib/luck.ts`) — 등장 운 + **시세 운(가치 운)** 2종
 - 로그인 없이 쓰는 `내 기록` + 선택형 Google 보관 (`frontend/lib/useRecordBackup.ts`, `frontend/lib/recordBackup.ts`) — 누적 운 기록과 힛카드 기록을 한 화면에서 사용하고, 사용자가 보관을 누른 경우에만 로그인한다. 기존 비로그인 기록 이동 선택·기기별 병합·RLS·탈퇴 연쇄 삭제를 적용한다. 상세는 [docs/record-backup.md](docs/record-backup.md)
@@ -863,7 +864,7 @@ main 직접 push 안 함 (실수 방지).
   - 운 점수: 등장 운 + 시세 운(가치 운) 2종
   - 홀로그래픽 효과 (CSS), 세션 누적(localStorage), 박스→박스 트랜지션
   - 카드 이미지 R2 CDN(img.pokesim.kr) + 256/512 WebP variant
-  - active 77종 (MEGA + SV + 소드실드 + 썬&문 라인업, data/sets-index.json)
+  - active 83종 (MEGA + SV + 소드실드 + 썬&문 라인업, data/sets-index.json)
   - 데이터 수집/검증 파이프라인 (docs/card-set-pipeline.md)
 
 데이터 보강 메모:
@@ -902,6 +903,10 @@ main 직접 push 안 함 (실수 방지).
 ## 16. 변경 이력
 
 이 파일을 수정할 때마다 한 줄 추가.
+
+- 2026-08-02 — **썬&문 세트 이미지·봉입 모델 재검증(D-156).** 교체된 박스 원본 3장을 투명 512 PNG와 256 WebP로 정규화하고 카드 이미지의 R2 256/512 WebP 670개를 재검증했다. 금단의 빛은 실제 개봉 사례와 공개 봉입률 자료에 맞춰 RR 범위를 3~4장에서 4~5장으로 교정했다.
+
+- 2026-08-01 — **썬&문 세트 3종 추가(D-156).** 드래곤스톰·금단의 빛·울트라포스를 한국 공식 카드 목록과 일본판 전체 번호로 대조해 등록하고, 누락 고레어·시세·운 분포·박스 이미지·R2 256/512 WebP를 함께 보강했다. 강화 확장팩의 미러·기본 에너지 슬롯을 분리하고 1,000박스 회귀 검증으로 특수 에너지와 고레어 도달성을 확인했다.
 
 - 2026-07-15 — **글로벌 통계 RPC 상수 시간화(D-154).** 최근 `sim_events` 전체의 `COUNT(DISTINCT)`·`SUM` 때문에 간헐적으로 statement timeout이 발생하던 `get_global_stats()`를 singleton 누적 캐시 조회로 교체했다. 기존 누적값과 트리거 전환 경계를 트랜잭션 잠금으로 보호하고, 캐시 테이블은 RLS·권한 회수 상태로 유지했다.
 

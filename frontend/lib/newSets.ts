@@ -1,13 +1,13 @@
 export const NEW_SIM_SET_CODES = [
-  'sm7b-fairy-rise',
-  'sm7-sky-charisma',
-  'sm6b-champion-road',
+  'sm6a-dragon-storm',
+  'sm6-forbidden-light',
+  'sm5plus-ultra-force',
 ] as const;
 
 export const NEW_SIM_SET_NAMES = [
-  '페어리라이즈',
-  '창공의 카리스마',
-  '챔피언로드',
+  '드래곤스톰',
+  '금단의 빛',
+  '울트라포스',
 ];
 
 const NEW_SIM_SET_CODE_SET = new Set<string>(NEW_SIM_SET_CODES);

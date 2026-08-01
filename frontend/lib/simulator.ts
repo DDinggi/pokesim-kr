@@ -3,7 +3,9 @@ import type { Card, PackResult, BoxResult } from './types';
 import {
   buildAnniversary25Pack,
   buildDetectivePikachuPack,
+  buildDragonStormPack,
   buildNightUnisonPack,
+  buildUltraForcePack,
   expansionPackHitPool,
   maybeAppendAnniversary25Promo,
   simulateExpansionBox,
@@ -52,11 +54,15 @@ export function simulatePack(
             rng,
             1 / ANNIVERSARY_25_PROMO_INTERVAL,
           )
-      : setCode === 'smp2-detective-pikachu'
-        ? buildDetectivePikachuPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
-        : setCode === 'sm9a-night-unison' || setCode === 'sm8a-dark-order'
-          ? buildNightUnisonPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
-          : buildExpansionPack(ctx, expansionPackHitPool(ctx, setCode), packSize);
+        : setCode === 'smp2-detective-pikachu'
+          ? buildDetectivePikachuPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
+          : setCode === 'sm5plus-ultra-force'
+            ? buildUltraForcePack(ctx, expansionPackHitPool(ctx, setCode), packSize)
+            : setCode === 'sm6a-dragon-storm'
+              ? buildDragonStormPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
+              : setCode === 'sm9a-night-unison' || setCode === 'sm8a-dark-order'
+                ? buildNightUnisonPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
+                : buildExpansionPack(ctx, expansionPackHitPool(ctx, setCode), packSize);
 
   return { pack, seed };
 }
