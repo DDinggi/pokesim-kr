@@ -70,6 +70,9 @@ import sm6bChampionRoad from '../public/sets/sm6b-champion-road.json';
 import sm6aDragonStorm from '../public/sets/sm6a-dragon-storm.json';
 import sm6ForbiddenLight from '../public/sets/sm6-forbidden-light.json';
 import sm5plusUltraForce from '../public/sets/sm5plus-ultra-force.json';
+import sm5sUltraSun from '../public/sets/sm5s-ultra-sun.json';
+import sm5mUltraMoon from '../public/sets/sm5m-ultra-moon.json';
+import sm4plusGxBattleBoost from '../public/sets/sm4plus-gx-battle-boost.json';
 import sm4plusGxBattleBoostRemaster from '../public/sets/sm4plus-gx-battle-boost-remaster.json';
 import sm9TagBolt from '../public/sets/sm9-tag-bolt.json';
 import sm8aDarkOrder from '../public/sets/sm8a-dark-order.json';
@@ -117,6 +120,7 @@ const sets: SetMeta[] = [
   sm11aRemixBout, sm11MiracleTwin,
   sm8BurstImpact, sm7bFairyRise, sm7aPlasmaSpark, sm7SkyCharisma, sm6bChampionRoad,
   sm6aDragonStorm, sm6ForbiddenLight, sm5plusUltraForce,
+  sm5sUltraSun, sm5mUltraMoon, sm4plusGxBattleBoost,
   sm4plusGxBattleBoostRemaster,
   sm9TagBolt, sm8aDarkOrder, sm9bFullMetalWall, sm9aNightUnison, sm10bSkyLegend, sm10aGgEnd,
   sm10DoubleBlaze, sm8bGxUltraShiny,

@@ -7,13 +7,20 @@ const { simulateBox, simulatePack } = simulatorDefault as unknown as typeof impo
 
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
-const SETS = [
+const DEFAULT_SETS = [
   's10b-pokemon-go',
   's9a-battle-region',
   's9-star-birth',
   's8b-vmax-climax',
   's8-fusion-arts',
 ];
+const argv = process.argv.slice(2);
+const getArg = (name: string): string | undefined => {
+  const index = argv.indexOf('--' + name);
+  return index >= 0 ? argv[index + 1] : undefined;
+};
+const requestedSet = getArg('set');
+const SETS = requestedSet ? [requestedSet] : DEFAULT_SETS;
 
 const HIT_RARITIES = ['S', 'CHR', 'CSR', 'AR', 'K', '25TH', 'S8AP', 'PR', 'SR', 'SSR', 'HR', 'SAR', 'MA', 'UR', 'GRA', 'BWR', 'ACE'];
 
@@ -50,8 +57,8 @@ function simulatePacks(set: SetMeta, n: number) {
   return perPack;
 }
 
-const BOX_TRIALS = 5000;
-const PACK_TRIALS = 50000;
+const BOX_TRIALS = Number(getArg('box-trials') ?? 5000);
+const PACK_TRIALS = Number(getArg('pack-trials') ?? 50000);
 
 for (const code of SETS) {
   const set = loadSet(code);

@@ -4,6 +4,7 @@
  *   pnpm fetch -- --set m4-ninja-spinner
  *   pnpm fetch -- --set m4-ninja-spinner --dry-run
  *   pnpm fetch -- --set m4-ninja-spinner --merge
+ *   pnpm fetch -- --set sm4plus-gx-battle-boost --search-text "GX 배틀부스트" --card-num-prefix BS2017013
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
@@ -29,6 +30,8 @@ const hasFlag = (name: string) => argv.includes(`--${name}`);
 
 const setCode = getArg("set");
 const searchTextOverride = getArg("search-text");
+const cardNumPrefix = getArg("card-num-prefix");
+const defaultRarity = getArg("default-rarity");
 const dryRun = hasFlag("dry-run");
 const merge = hasFlag("merge");
 const delayMsArg = Number(getArg("delay-ms"));
@@ -127,7 +130,8 @@ function getFilePrefix(imageUrl: string): string | null {
 async function fetchAllRefs(
   setName: string,
   folderPrefix: string,
-  filePrefix: string | null
+  filePrefix: string | null,
+  cardNumberPrefix?: string
 ): Promise<SearchResult[]> {
   const all: SearchResult[] = [];
   // 첫 호출은 limit=0 (사이트 JS의 "start fresh" 규약)
@@ -136,9 +140,12 @@ async function fetchAllRefs(
   while (true) {
     process.stdout.write(`  cursor=${cursor}…`);
     const page = await searchPage(setName, cursor);
-    const filtered = filePrefix
+    const assetFiltered = filePrefix
       ? page.results.filter((r) => getFilePrefix(r.feature_image) === filePrefix)
       : (folderPrefix ? page.results.filter((r) => r.feature_image.includes(folderPrefix)) : page.results);
+    const filtered = cardNumberPrefix
+      ? assetFiltered.filter((r) => r.CardNum.trim().startsWith(cardNumberPrefix))
+      : assetFiltered;
 
     all.push(...filtered);
     console.log(` count=${page.count} +${filtered.length} (${all.length} total)`);
@@ -176,7 +183,7 @@ function parseCardDetail(
   const rarity = knownRarities.find((r) => {
     const escaped = r.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     return new RegExp(`(^|[^A-Z0-9])${escaped}([^A-Z0-9]|$)`).test(rarityRaw);
-  }) ?? null;
+  }) ?? defaultRarity ?? null;
 
   // 세트 내 번호 — "001/083" 중 앞 부분
   const pNumText = root.querySelector(".p_num")?.text ?? "";
@@ -222,6 +229,8 @@ async function main() {
   console.log(`\nSet : ${setData.name_ko}`);
   console.log(`Code: ${setCode}`);
   if (searchTextOverride) console.log(`Search text override: ${searchTextOverride}`);
+  if (cardNumPrefix) console.log(`Card number prefix: ${cardNumPrefix}`);
+  if (defaultRarity) console.log(`Default rarity: ${defaultRarity}`);
 
   // 이미지 폴더 prefix 추출 (기존 sample 카드에서)
   const sampleImg = setData.cards[0]?.image_url ?? "";
@@ -232,7 +241,12 @@ async function main() {
 
   // Step 1: 카드 목록 수집
   console.log("\n[1/2] Collecting card list from search API…");
-  const refs = await fetchAllRefs(searchTextOverride ?? setData.name_ko, folderPrefix, filePrefix);
+  const refs = await fetchAllRefs(
+    searchTextOverride ?? setData.name_ko,
+    folderPrefix,
+    filePrefix,
+    cardNumPrefix
+  );
 
   if (refs.length === 0) {
     console.error("No cards found. Check set name and network.");

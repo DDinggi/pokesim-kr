@@ -2,6 +2,7 @@ import type { Card, PackResult } from '../types';
 import type { RNG } from './random';
 import { shuffle } from './random';
 import {
+  GX_BATTLE_BOOST_HIGH_WEIGHTS,
   GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS,
   GX_ULTRA_SHINY_SECOND_PR_RATE,
   MEGA_DREAM_EXTRA_SLOT_WEIGHTS,
@@ -23,11 +24,13 @@ import { buildHiClassPack, buildHiClassPacksFromHits } from './pack-builders';
 import {
   getRarityPools,
   hasRarity,
+  pickWeightedPool,
 } from './pools';
 import type { BuildContext, HiClassHitSlot } from './types';
 import { resolveUniqueHitSlots } from './unique';
 
 const HI_CLASS_BOX_SIZE = 10;
+const GX_BATTLE_BOOST_BOX_SIZE = 15;
 const VSTAR_UNIVERSE_AR9_NUMBERS = [201, 202, 203, 204, 205, 206, 207, 208, 209] as const;
 const VSTAR_UNIVERSE_AR9_NUMBER_SET = new Set<number>(VSTAR_UNIVERSE_AR9_NUMBERS);
 
@@ -40,6 +43,18 @@ export function simulateHiClassBox(
 ): PackResult[] {
   const { byRarity } = ctx;
   const pools = getRarityPools(byRarity);
+
+  if (setCode === 'sm4plus-gx-battle-boost') {
+    const packHits: HiClassHitSlot[][] = Array.from(
+      { length: boxSize },
+      () => [{ rarity: 'RR' }],
+    );
+    packHits[Math.floor(rng() * boxSize)].push(getGxBattleBoostHighHit(ctx, pools));
+
+    return shuffle(packHits, rng).map((slots) => (
+      buildHiClassPack(ctx, slots, packSize, { defaultHitRarity: null })
+    ));
+  }
 
   if (setCode === 'sv8a-terastal-festa') {
     const pokemonSar = pools.sarAll.filter((card) => card.card_type === '\uD3EC\uCF13\uBAAC');
@@ -207,6 +222,14 @@ export function simulateSingleHiClassPack(
 ): PackResult {
   const { byRarity } = ctx;
   const pools = getRarityPools(byRarity);
+
+  if (setCode === 'sm4plus-gx-battle-boost') {
+    const hits: HiClassHitSlot[] = [{ rarity: 'RR' }];
+    if (rng() < 1 / GX_BATTLE_BOOST_BOX_SIZE) {
+      hits.push(getGxBattleBoostHighHit(ctx, pools));
+    }
+    return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
+  }
 
   if (setCode === 'sv8a-terastal-festa') {
     const pokemonSar = pools.sarAll.filter((card) => card.card_type === '\uD3EC\uCF13\uBAAC');
@@ -418,6 +441,33 @@ function pickBoxSlotForSinglePack(ctx: BuildContext, boxWeights: Record<string, 
   }
 
   return ctx.weightedPick(packWeights);
+}
+
+function getGxBattleBoostHighHit(
+  ctx: BuildContext,
+  pools: ReturnType<typeof getRarityPools>,
+): HiClassHitSlot {
+  const fallback = [
+    ...pools.srAll,
+    ...pools.hrAll,
+    ...pools.urAll,
+  ];
+  const pool = pickWeightedPool(
+    ctx,
+    GX_BATTLE_BOOST_HIGH_WEIGHTS,
+    {
+      SR_POKEMON: pools.srPokemon,
+      SR_TRAINER: pools.srTrainer,
+      HR_POKEMON: pools.hrPokemon,
+      UR: pools.urAll,
+    },
+    fallback,
+  );
+
+  return {
+    rarity: pool[0]?.rarity ?? 'SR',
+    pool,
+  };
 }
 
 function buildTagAllStarsGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {

@@ -81,6 +81,10 @@
    pnpm --dir scripts collect -- --set <code>
    # 검색어가 세트명과 다르면(예: "일격마스터") 오버라이드
    pnpm --dir scripts collect -- --set <code> --search-text "일격마스터"
+   # 검색 결과에 재판 상품이 섞이면 카드 번호 prefix로 원본만 제한
+   pnpm --dir scripts collect -- --set <code> --card-num-prefix BS2017013
+   # 공식 상세에 레어도 표기가 없는 균일 등급 상품에서만 기본값 사용
+   pnpm --dir scripts collect -- --set <code> --default-rarity R
    ```
 
 3. 자동 수집 누락은 TSV로 보강:
@@ -145,6 +149,7 @@
     ```powershell
     pnpm --dir scripts validate:data -- --set <code> --strict
     pnpm --dir scripts validate:luck -- --set <code> --strict
+    pnpm --dir scripts validate:box-guarantees -- --set <code> --trials 1000
     pnpm --dir scripts validate:value-luck -- --set <code>
     ```
 
@@ -248,6 +253,7 @@ prefix만 보려면 `--prefix S5I`를 붙인다. 아래는 그 스크립트의 �
 ```powershell
 pnpm --dir scripts fetch:fullahead-prices -- --set <code> --force
 pnpm --dir scripts build:luck-dist -- --set <code>
+pnpm --dir scripts validate:box-guarantees -- --set <code> --trials 1000
 pnpm --dir scripts validate:value-luck -- --set <code>
 ```
 
