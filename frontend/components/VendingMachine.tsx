@@ -447,8 +447,11 @@ export function VendingMachine({
 
       <main className="flex-1 px-4 sm:px-6 py-8 max-w-6xl mx-auto w-full">
         <div className="mb-4 rounded-lg bg-gray-900/80 ring-1 ring-yellow-300/30 px-4 py-3">
-          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-08-01</p>
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-08-08</p>
           <p className="text-sm font-bold text-white mt-0.5">
+            썬&amp;문 신규 세트 자판기깡 업데이트
+          </p>
+          <p className="mt-1 text-xs leading-relaxed text-gray-400">
             {NEW_SIM_SET_NAMES.join(' · ')}
           </p>
         </div>

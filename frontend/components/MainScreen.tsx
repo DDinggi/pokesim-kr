@@ -128,14 +128,14 @@ export function MainScreen({
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6">
         <div className="mb-5 space-y-1.5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 px-4 py-3 ring-1 ring-white/10">
           <p className="text-sm font-bold text-white sm:text-base">
-            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 8/1</span>
+            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 8/8</span>
             썬&amp;문 {NEW_SIM_SET_NAMES.join(' · ')} 추가
           </p>
           <p className="text-[11px] font-semibold text-cyan-200/80">
             &apos;내 힛카드 기록&apos;에서 뽑은 힛카드를 확인할 수 있습니다.
           </p>
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-relaxed text-gray-400">
-            <span>4일 주기 업데이트 예정입니다. 피드백과 문의는 언제든 환영합니다.</span>
+            <span>검증을 마친 새 세트부터 차례로 추가합니다. 피드백과 문의는 언제든 환영합니다.</span>
             <a
               href="https://open.kakao.com/o/sqFZE7ti"
               target="_blank"

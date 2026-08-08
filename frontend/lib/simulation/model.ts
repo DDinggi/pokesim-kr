@@ -654,6 +654,24 @@ const SM5PLUS_ULTRA_FORCE: StandardSvSetRate = {
   ...SM_DARK_ORDER,
 };
 
+export const GX_BATTLE_BOOST_HIGH_WEIGHTS: Record<string, number> = {
+  SR_POKEMON: 35,
+  SR_TRAINER: 35,
+  HR_POKEMON: 20,
+  UR: 10,
+};
+
+const SM5_ULTRA_SUN_MOON: StandardSvSetRate = {
+  mandatoryHighWeights: normalizeHighWeights(GX_BATTLE_BOOST_HIGH_WEIGHTS),
+  extraHighRate: 1 / 12,
+  extraHighWeights: normalizeHighWeights(GX_BATTLE_BOOST_HIGH_WEIGHTS),
+  prCount: 1,
+  arCount: 0,
+  rrBaseCount: 4,
+  rrExtraRate: 1 / 3,
+  fillerWeights: SM_FILLER_WEIGHTS,
+};
+
 const SM8_BURST_IMPACT: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
     SR_POKEMON: 43.75,
@@ -707,19 +725,9 @@ const SM6B_CHAMPION_ROAD: StandardSvSetRate = {
 };
 
 const SM4PLUS_GX_BATTLE_BOOST_REMASTER: StandardSvSetRate = {
-  mandatoryHighWeights: normalizeHighWeights({
-    SR_POKEMON: 35,
-    SR_TRAINER: 35,
-    HR_POKEMON: 20,
-    UR: 10,
-  }),
+  mandatoryHighWeights: normalizeHighWeights(GX_BATTLE_BOOST_HIGH_WEIGHTS),
   extraHighRate: 1 / 12,
-  extraHighWeights: normalizeHighWeights({
-    SR_POKEMON: 35,
-    SR_TRAINER: 35,
-    HR_POKEMON: 20,
-    UR: 10,
-  }),
+  extraHighWeights: normalizeHighWeights(GX_BATTLE_BOOST_HIGH_WEIGHTS),
   arCount: 0,
   boxSize: 20,
   rrBaseCount: 18,
@@ -935,6 +943,8 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'sm11a-remix-bout': SM11A_REMIX_BOUT,
   'sm11-miracle-twin': SM11_MIRACLE_TWIN,
   'smp2-detective-pikachu': DETECTIVE_PIKACHU,
+  'sm5s-ultra-sun': SM5_ULTRA_SUN_MOON,
+  'sm5m-ultra-moon': SM5_ULTRA_SUN_MOON,
   'sm5plus-ultra-force': SM5PLUS_ULTRA_FORCE,
   'sm6-forbidden-light': SM6_FORBIDDEN_LIGHT,
   'sm6a-dragon-storm': SM6A_DRAGON_STORM,

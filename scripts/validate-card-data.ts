@@ -278,34 +278,20 @@ function getAllowedMissingNumbers(setCode: string): Set<number> {
 }
 
 function getAllowedImageNumberMismatchCardNums(setCode: string): Set<string> {
-  if (setCode === "sm4plus-gx-battle-boost-remaster") {
+  if (
+    setCode === "sm4plus-gx-battle-boost"
+    || setCode === "sm4plus-gx-battle-boost-remaster"
+  ) {
     // Pokemon Korea's SM4+ image filenames preserve the original DB asset ids for these cards.
+    const prefix = setCode === "sm4plus-gx-battle-boost"
+      ? "BS2017013"
+      : "BS2018011";
     return new Set([
-      "BS2018011038",
-      "BS2018011088",
-      "BS2018011089",
-      "BS2018011090",
-      "BS2018011091",
-      "BS2018011092",
-      "BS2018011093",
-      "BS2018011094",
-      "BS2018011095",
-      "BS2018011096",
-      "BS2018011097",
-      "BS2018011098",
-      "BS2018011099",
-      "BS2018011100",
-      "BS2018011101",
-      "BS2018011103",
-      "BS2018011104",
-      "BS2018011105",
-      "BS2018011106",
-      "BS2018011107",
-      "BS2018011108",
-      "BS2018011109",
-      "BS2018011112",
-      "BS2018011113",
-    ]);
+      38,
+      88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101,
+      103, 104, 105, 106, 107, 108, 109,
+      112, 113,
+    ].map((number) => `${prefix}${String(number).padStart(3, "0")}`));
   }
 
   return new Set();

@@ -13,6 +13,7 @@ import {
   ANNIVERSARY_25_LUCK_SCORE_WEIGHTS,
   ANNIVERSARY_25_PROMO_INTERVAL,
   EXPANSION_MONSTER_WEIGHTS,
+  GX_BATTLE_BOOST_HIGH_WEIGHTS,
   GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS,
   GX_ULTRA_SHINY_SECOND_PR_RATE,
   EXPANSION_MONSTER_WEIGHTS_DEFAULT,
@@ -639,6 +640,7 @@ function getLuckScoreWeightsForSet(
       CSR: getScoreWeight('CSR', mode),
       SSR: getScoreWeight('SSR', mode),
       SR: getScoreWeight('SR', mode),
+      HR: getScoreWeight('HR', mode),
       SAR: 2,
       UR: 3,
       GRA: 3,
@@ -734,6 +736,17 @@ function getExpectedScoredRarityCounts(
   }
 
   if (set?.type === 'hi-class') {
+    if (code === 'sm4plus-gx-battle-boost') {
+      addExpectedCountsFromWeights(
+        counts,
+        GX_BATTLE_BOOST_HIGH_WEIGHTS,
+        unitCount,
+        1,
+        opening,
+      );
+      return counts;
+    }
+
     if (code === 'sv8a-terastal-festa') {
       addLoosePackBaselineCount('SAR');
       addExpectedCountsFromWeights(counts, TERASTAL_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
@@ -1078,6 +1091,10 @@ function getBoxScoreDistribution(
   }
 
   if (set?.type === 'hi-class') {
+    if (code === 'sm4plus-gx-battle-boost') {
+      return distributionFromWeights(GX_BATTLE_BOOST_HIGH_WEIGHTS, 'box');
+    }
+
     if (code === 'sv8a-terastal-festa') {
       return distributionFromWeights(TERASTAL_EXTRA_SLOT_WEIGHTS, 'box');
     }
@@ -1234,6 +1251,14 @@ function getPackScoreDistribution(
   }
 
   if (set?.type === 'hi-class') {
+    if (code === 'sm4plus-gx-battle-boost') {
+      return weightedSlotDistribution(
+        GX_BATTLE_BOOST_HIGH_WEIGHTS,
+        1 / boxSize,
+        'pack',
+      );
+    }
+
     if (code === 'sv8a-terastal-festa') {
       distribution = convolveDistributions(
         distribution,
@@ -1616,6 +1641,14 @@ export function getLuckRatesForSet(
   }
 
   if (set.type === 'hi-class') {
+    if (set.code === 'sm4plus-gx-battle-boost') {
+      return {
+        boxSize,
+        topPerBox: weightChance(GX_BATTLE_BOOST_HIGH_WEIGHTS, 'UR'),
+        sarPerBox: 0,
+      };
+    }
+
     if (set.code === 'sv8a-terastal-festa') {
       return {
         boxSize,
