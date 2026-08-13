@@ -3,9 +3,9 @@
 import { memo, useCallback, useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { Card } from '../lib/types';
-import { NEW_SIM_SET_NAMES } from '../lib/newSets';
+import type { Card, SetMeta } from '../lib/types';
 import { fetchGlobalStats, trackUserEvent, type GlobalStats } from '../lib/statsTracker';
+import { shortSetName } from '../lib/dailyLuck';
 import {
   getRecentOpeningDetailCards,
   hasRecentOpeningDetailCards,
@@ -40,6 +40,8 @@ const subscribeToClientReady = () => () => {};
 export function MainScreen({
   onSelectMode,
   onOpenLuck,
+  onOpenDailyLuck,
+  dailyLuckSet,
   onOpenHitDex,
   recordSession,
   recordHitDex,
@@ -48,6 +50,8 @@ export function MainScreen({
 }: {
   onSelectMode: (mode: Mode) => void;
   onOpenLuck: () => void;
+  onOpenDailyLuck: () => void;
+  dailyLuckSet: SetMeta | null;
   onOpenHitDex: () => void;
   recordSession: OpeningSession;
   recordHitDex: HitDexState;
@@ -128,14 +132,14 @@ export function MainScreen({
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6">
         <div className="mb-5 space-y-1.5 rounded-lg bg-gradient-to-r from-sky-500/15 via-pink-500/15 to-yellow-400/15 px-4 py-3 ring-1 ring-white/10">
           <p className="text-sm font-bold text-white sm:text-base">
-            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 8/8</span>
-            썬&amp;문 {NEW_SIM_SET_NAMES.join(' · ')} 추가
+            <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">NEW · 8/13</span>
+            오늘의 운세 &amp; 랭킹 추가
           </p>
           <p className="text-[11px] font-semibold text-cyan-200/80">
-            &apos;내 힛카드 기록&apos;에서 뽑은 힛카드를 확인할 수 있습니다.
+            정정당당. 단 한 박스로 오늘의 운을 시험해봅시다.
           </p>
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-relaxed text-gray-400">
-            <span>검증을 마친 새 세트부터 차례로 추가합니다. 피드백과 문의는 언제든 환영합니다.</span>
+            <span>피드백과 문의는 언제든 환영합니다.</span>
             <a
               href="https://open.kakao.com/o/sqFZE7ti"
               target="_blank"
@@ -152,14 +156,6 @@ export function MainScreen({
               pokesimkr@gmail.com
             </a>
           </p>
-          <details className="text-[11px] text-gray-500">
-            <summary className="w-fit cursor-pointer select-none transition-colors hover:text-gray-300">
-            </summary>
-            <p className="mt-1 max-w-3xl pl-4 leading-relaxed text-gray-400">
-              여러분의 반응 덕분에 즐겁고 보람 있게 운영하고 있습니다. 피드백과 문의도 늘 감사히 보고 있어요.
-              시뮬레이터 밖에서도 좋은 카드와 행운이 함께하길 바랍니다.
-            </p>
-          </details>
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
@@ -211,7 +207,6 @@ export function MainScreen({
               : session
                 ? `${session.boxes}박스 · ${session.packs}팩`
                 : '개봉 기록 없음'}
-            label="LUCK"
             tone="amber"
             onClick={onOpenLuck}
           />
@@ -222,9 +217,17 @@ export function MainScreen({
               : dexStats.uniqueCount > 0
                 ? `${dexStats.uniqueCount}종 등록`
                 : '기록 없음'}
-            label="HIT"
             tone="cyan"
             onClick={onOpenHitDex}
+          />
+          <RecordShortcut
+            title="오늘의 운세 & 랭킹"
+            detail={dailyLuckSet
+              ? shortSetName(dailyLuckSet.name_ko)
+              : '오늘의 세트'}
+            tone="yellow"
+            isNew
+            onClick={onOpenDailyLuck}
           />
         </div>
       </main>
@@ -556,35 +559,41 @@ function CardTile({ card, onClick }: { card: Card; onClick?: () => void }) {
 function RecordShortcut({
   title,
   detail,
-  label,
   tone,
+  isNew = false,
   onClick,
 }: {
   title: string;
   detail: string;
-  label: string;
-  tone: 'amber' | 'cyan';
+  tone: 'amber' | 'yellow' | 'cyan';
+  isNew?: boolean;
   onClick: () => void;
 }) {
-  const labelClass = tone === 'amber' ? 'text-amber-200' : 'text-cyan-200';
   const hoverClass = tone === 'amber'
     ? 'hover:border-amber-300/35'
-    : 'hover:border-cyan-300/35';
+    : tone === 'yellow' ? 'hover:border-yellow-300/35' : 'hover:border-cyan-300/35';
 
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`min-w-0 w-full overflow-hidden rounded-md border border-gray-800 bg-gray-900/70 px-3 py-2.5 text-left transition hover:bg-gray-900 active:scale-[0.99] ${hoverClass}`}
+      className={`min-w-0 w-full overflow-hidden rounded-md border px-3 py-2.5 text-left transition active:scale-[0.99] ${isNew ? 'border-yellow-300/25 bg-gray-900/70 hover:border-yellow-300/40 hover:bg-gray-900' : `border-gray-800 bg-gray-900/70 hover:bg-gray-900 ${hoverClass}`}`}
     >
-      <span className="flex items-center justify-between gap-2">
-        <span className="truncate text-xs font-black text-white sm:text-sm">{title}</span>
-        <span className={`shrink-0 text-[10px] font-black ${labelClass}`}>{label}</span>
+      <span className="flex items-center gap-2">
+        <span className="flex min-w-0 items-center gap-2">
+          {isNew ? (
+            <span className="shrink-0 rounded-sm border border-yellow-300/35 bg-yellow-300/[0.06] px-1.5 py-0.5 text-[9px] font-black tracking-wider text-yellow-200">
+              NEW
+            </span>
+          ) : null}
+          <span className="truncate text-xs font-black text-white sm:text-sm">{title}</span>
+        </span>
       </span>
       <span className="mt-1 block truncate text-[11px] font-bold text-gray-500">{detail}</span>
     </button>
   );
 }
+
 function ModeCard({
   title,
   subtitle,

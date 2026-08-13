@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalPage title="개인정보처리방침" updatedAt="2026년 7월 15일">
+    <LegalPage title="개인정보처리방침" updatedAt="2026년 8월 13일">
       <p>
         PokéSim KR은 Google 로그인과 기록 보관에 필요한 정보만 처리합니다. 로그인하지 않아도
         박스깡, 운 확인과 힛카드 기록을 이용할 수 있습니다.
@@ -26,6 +26,10 @@ export default function PrivacyPage() {
           번호·획득 횟수를 누적 운과 기록 복원에 사용합니다.
         </li>
         <li>
+          <strong>오늘의 운:</strong> 참여 날짜, 세트, 결과 요약과 공개를 선택한 닉네임을
+          하루 한 번 참여 확인과 일간 순위 제공에 사용합니다.
+        </li>
+        <li>
           <strong>서비스 이용 기록:</strong> 임의 방문자·세션 식별자, 이용한 세트와 모드,
           유입 경로 및 접속 정보를 이용 현황 파악과 보안에 사용합니다.
         </li>
@@ -38,6 +42,8 @@ export default function PrivacyPage() {
       <h2>2. 보관 및 삭제</h2>
       <ul>
         <li>Google 계정 정보와 계정 기록: 회원 탈퇴 시까지</li>
+        <li>오늘의 운 참여 원본: 30일</li>
+        <li>날짜별 TOP 10 입상 기록: 회원 탈퇴 또는 서비스 종료 시까지</li>
         <li>시뮬레이션 원본 이벤트: 14일</li>
         <li>페이지·기능 이용 원본 이벤트: 30일</li>
         <li>개인을 직접 식별하지 않는 일별 이용 집계: 서비스 운영 기간</li>

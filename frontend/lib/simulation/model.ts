@@ -4,16 +4,16 @@ export const PROBABILITY_META = {
   source: 'pokemon-infomation.com / altema.jp / snkrdunk',
   disclaimer:
     '봉입률은 커뮤니티 추정치입니다. 포켓몬코리아는 어떤 박스도 확정 봉입을 안내하지 않으며, 봉입 오류로 더 좋게/나쁘게 변동 가능합니다.',
-  estimatedAt: '2026-05',
+  estimatedAt: '2026-08',
 };
 
 export const EXPANSION_MONSTER_WEIGHTS: Record<string, Record<string, number>> = {
-  'm4-ninja-spinner': { SR: 70, SAR: 28, UR: 2 },
-  'm5-abyss-eye': { SR: 71, SAR: 28, UR: 1 },
-  'm-nihil-zero': { SR: 70, SAR: 28, UR: 2 },
-  'm-inferno-x': { SR: 70, SAR: 28, UR: 2 },
-  'm-mega-brave': { SR: 70, SAR: 28, UR: 2 },
-  'm-mega-symphonia': { SR: 70, SAR: 28, UR: 2 },
+  'm4-ninja-spinner': { SR: 70.7, SAR: 28, UR: 1.3 },
+  'm5-abyss-eye': { SR: 71.1, SAR: 28, UR: 0.9 },
+  'm-nihil-zero': { SR: 70.7, SAR: 28, UR: 1.3 },
+  'm-inferno-x': { SR: 70.4, SAR: 28, UR: 1.6 },
+  'm-mega-brave': { SR: 70.1, SAR: 28, UR: 1.9 },
+  'm-mega-symphonia': { SR: 70.1, SAR: 28, UR: 1.9 },
 };
 
 export const EXPANSION_MONSTER_WEIGHTS_DEFAULT: Record<string, number> = {
@@ -1064,10 +1064,10 @@ export const VSTAR_UNIVERSE_AR_GOD_PACK_RATE = 0.015;
 export const VSTAR_UNIVERSE_SAR_GOD_PACK_RATE = 0.0225;
 
 export const MEGA_DREAM_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
-  NONE: 48,
+  NONE: 48.25,
   SR: 10,
   SAR: 40,
-  UR: 2,
+  UR: 1.75,
 };
 
 

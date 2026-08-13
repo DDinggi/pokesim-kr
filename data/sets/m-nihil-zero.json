@@ -1792,23 +1792,23 @@
   "_fetched_at": "2026-05-01",
   "_notes": "자동 수집 전 skeleton. cards[]는 scripts/fetch-pokemoncard.ts로 채움.",
   "luck_value_ref": {
-    "box_median_krw": 21100,
+    "box_median_krw": 21000,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
       14000,
       14600,
       14900,
       15800,
-      16700,
+      16400,
       19500,
-      21100,
-      26400,
-      31800,
-      41800,
-      114700,
+      21000,
+      25400,
+      31600,
+      40800,
+      61300,
       145600,
-      164000,
-      227100,
+      150800,
+      225900,
       253900
     ],
     "pack_quantiles_krw": [
@@ -1849,6 +1849,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-08-13"
   }
 }
