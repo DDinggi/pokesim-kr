@@ -4,6 +4,17 @@ PokéSim KR uses `price_ref_krw` as a reference value for value-based luck scori
 Prices are not Korean real-time market prices. They are reference prices from
 allowed external APIs or manually verified sources.
 
+The daily box fortune uses a separate Korean reference-price snapshot at
+`frontend/lib/dailyLuckPrices.generated.json`. Refresh its ten eligible sets with
+`pnpm --dir scripts sync:daily-luck-prices`. The command reads GGValue's public set
+pages, stores the source URLs, and only imports cards shown with a confirmed
+estimated price. Cards are matched by normalized Korean name and rarity instead of
+assuming that both datasets use the same secret-card number order. Only AR-or-higher
+cards contribute to the daily result: a matched card uses the Korean snapshot price,
+while an unmatched card uses its local reference value capped at 1,000 KRW (or
+1,000 KRW when no local value exists). The UI presents the total as a reference value,
+not as a guaranteed sale price.
+
 ## Source Policy
 
 1. `fullahead`: default bulk source for Japanese raw-card shop prices. The

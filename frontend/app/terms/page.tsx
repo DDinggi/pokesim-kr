@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <LegalPage title="이용약관" updatedAt="2026년 7월 15일">
+    <LegalPage title="이용약관" updatedAt="2026년 8월 13일">
       <p>PokéSim KR을 이용할 때 필요한 내용만 정리했습니다.</p>
 
       <h2>1. 서비스 안내</h2>
@@ -27,8 +27,9 @@ export default function TermsPage() {
 
       <h2>3. 계정과 기록</h2>
       <p>
-        시뮬레이션은 로그인 없이 이용할 수 있습니다. Google 로그인은 누적 운과 힛카드 기록을
-        계정에 보관할 때만 사용하며, 마이페이지에서 언제든 계정을 삭제할 수 있습니다.
+        일반 시뮬레이션은 로그인 없이 이용할 수 있습니다. Google 로그인은 기록을 계정에
+        보관하거나 오늘의 운에 하루 한 번 참여할 때 사용합니다. 순위에는 공개를 선택한
+        닉네임 또는 임의 별칭만 표시하며, 마이페이지에서 언제든 계정을 삭제할 수 있습니다.
       </p>
 
       <h2>4. 이용 규칙</h2>

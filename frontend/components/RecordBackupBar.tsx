@@ -69,7 +69,7 @@ export function RecordBackupBar(props: RecordBackupBarProps) {
             onCredential={props.onGoogleCredential}
           />
           <p className="mt-1.5 text-xs leading-relaxed text-gray-500">
-            Google 로그인은 카드깡 기록을 보관하는 데만 사용해요.
+            Google 로그인은 기록 보관과 오늘의 운 참여에만 사용해요.
           </p>
           {props.error ? <p className="mt-1 text-[11px] text-red-300">{props.error}</p> : null}
         </div>

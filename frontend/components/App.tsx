@@ -16,8 +16,10 @@ import { RecordMergeDialog } from './RecordMergeDialog';
 import { AccountScreen } from './AccountScreen';
 import { clearRecordBackupMarkers, useRecordBackup } from '../lib/useRecordBackup';
 import { getSetSeriesKey, type SetSeriesKey } from '../lib/setSeries';
+import { getDailyLuckSet } from '../lib/dailyLuck';
+import { DailyLuckScreen } from './DailyLuckScreen';
 
-type Mode = 'main' | 'box' | 'vending' | 'luck' | 'hit-dex' | 'account';
+type Mode = 'main' | 'box' | 'vending' | 'luck' | 'hit-dex' | 'daily-luck' | 'account';
 type PokesimHistoryState = {
   mode: Mode;
   selectedSetCode: string | null;
@@ -26,7 +28,13 @@ type PokesimHistoryState = {
 const HISTORY_STATE_KEY = 'pokesimApp';
 
 function isMode(value: unknown): value is Mode {
-  return value === 'main' || value === 'box' || value === 'vending' || value === 'luck' || value === 'hit-dex' || value === 'account';
+  return value === 'main'
+    || value === 'box'
+    || value === 'vending'
+    || value === 'luck'
+    || value === 'hit-dex'
+    || value === 'daily-luck'
+    || value === 'account';
 }
 
 function readPokesimHistoryState(state: unknown): PokesimHistoryState | null {
@@ -68,6 +76,15 @@ function isLocalAuthPreviewRequest(): boolean {
   return new URLSearchParams(window.location.search).get('debugAuth') === '1';
 }
 
+function isLocalDailyLuckPreviewRequest(): boolean {
+  if (typeof window === 'undefined') return false;
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  if (!isLocalhost) return false;
+  return ['empty', 'result'].includes(
+    new URLSearchParams(window.location.search).get('debugDailyLuck') ?? '',
+  );
+}
+
 function pendingRecordAuthReturn(): 'luck' | 'hit-dex' | null {
   if (typeof window === 'undefined') return null;
   const value = window.sessionStorage.getItem(AUTH_RETURN_MODE_KEY);
@@ -79,6 +96,7 @@ function currentHistoryUrlWithoutHitDexDebug() {
   const params = new URLSearchParams(window.location.search);
   params.delete('debugHitDex');
   params.delete('debugAuth');
+  params.delete('debugDailyLuck');
   const search = params.toString();
   return `${window.location.pathname}${search ? `?${search}` : ''}${window.location.hash}`;
 }
@@ -159,7 +177,9 @@ export function App({ sets }: { sets: SetMeta[] }) {
   useEffect(() => {
     if (initialModeRef.current === null) {
       const returningFromAuth = pendingRecordAuthReturn();
-      initialModeRef.current = isLocalDebugHitDexRequest() ? 'hit-dex' : (returningFromAuth ?? 'main');
+      initialModeRef.current = isLocalDebugHitDexRequest()
+        ? 'hit-dex'
+        : isLocalDailyLuckPreviewRequest() ? 'daily-luck' : (returningFromAuth ?? 'main');
     }
 
     const initialMode = initialModeRef.current;
@@ -211,7 +231,9 @@ export function App({ sets }: { sets: SetMeta[] }) {
     window.history.replaceState(
       withPokesimHistoryState(window.history.state, { mode: 'main', selectedSetCode: null }),
       '',
-      isLocalDebugHitDexRequest() || isLocalAuthPreviewRequest()
+      isLocalDebugHitDexRequest()
+        || isLocalAuthPreviewRequest()
+        || isLocalDailyLuckPreviewRequest()
         ? currentHistoryUrlWithoutHitDexDebug()
         : currentHistoryUrl(),
     );
@@ -276,6 +298,11 @@ export function App({ sets }: { sets: SetMeta[] }) {
           trackUserEvent({ eventName: 'open_luck', metadata: { source: 'main_cta' } });
           pushHistoryState('luck');
         }}
+        onOpenDailyLuck={() => {
+          trackUserEvent({ eventName: 'open_daily_luck', metadata: { source: 'main_cta' } });
+          pushHistoryState('daily-luck');
+        }}
+        dailyLuckSet={getDailyLuckSet(sets)}
         onOpenHitDex={() => pushHistoryState('hit-dex')}
         onSelectMode={(m) => {
           trackUserEvent({ eventName: 'select_mode', mode: m });
@@ -304,6 +331,19 @@ export function App({ sets }: { sets: SetMeta[] }) {
           if (deletingUserId) clearRecordBackupMarkers(deletingUserId);
           goMain();
         }}
+        accountBar={recordBackupBar()}
+      />,
+    );
+  }
+
+  if (mode === 'daily-luck') {
+    return renderScreen(
+      <DailyLuckScreen
+        sets={sets}
+        accessToken={auth.session?.access_token ?? null}
+        authenticated={Boolean(authUserId)}
+        displayName={authDisplayName(auth.session)}
+        onBackToMain={goMain}
         accountBar={recordBackupBar()}
       />,
     );
