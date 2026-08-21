@@ -44,6 +44,7 @@ R2_BUCKET=pokesim-kr-cards
 NEXT_PUBLIC_CARD_IMAGES_ENABLED=1
 NEXT_PUBLIC_CARD_IMAGE_CDN_BASE=https://img.pokesim.kr/
 NEXT_PUBLIC_CARD_IMAGE_ORIGINAL_FALLBACK=0
+NEXT_PUBLIC_CARD_IMAGE_CACHE_VERSION=m6-ko-20260821
 ```
 
 Emergency kill switch:
@@ -62,6 +63,11 @@ Behavior:
   and the set JSON is rewritten to the internal key.
 - Uploaded objects use `Cache-Control: public, max-age=31536000, immutable`.
 - `--verify-only` checks the public CDN URL for every referenced object.
+- When an existing image key is replaced, bump the build-time
+  `NEXT_PUBLIC_CARD_IMAGE_CACHE_VERSION` value (for example `m6-ko-20260821`).
+  The frontend adds it as a query parameter, so browsers with an immutable old
+  WebP request the replacement without discarding the long cache TTL for
+  unchanged builds.
 
 ## WebP Variants
 
@@ -75,10 +81,25 @@ pnpm optimize:images -- --set m4-ninja-spinner
 pnpm optimize:images -- --set m4-ninja-spinner --verify-only
 ```
 
+When replacing immutable objects, pass the same revision used by the frontend
+so verification bypasses stale browser/edge entries:
+
+```bash
+pnpm optimize:images -- --set m6-storm-emerald --sizes 256,512 --force --cache-version m6-ko-20260821
+pnpm optimize:images -- --set m6-storm-emerald --sizes 256,512 --verify-only --cache-version m6-ko-20260821
+```
+
 For official `wmimages/...` keys, the optimizer downloads the source from
 `https://cards.image.pokemonkorea.co.kr/data/` and uploads only the optimized
 variant to R2. For `external/...` keys, make sure the source image is available
 before running the optimizer.
+
+If the official database exposes multiple physical cards as one composite,
+record the source in `_image_composite_source` and the exact pixel rectangle in
+`_image_crop` (`left`, `top`, `width`, `height`). Both `migrate-to-r2` and
+`optimize:images` crop that source before uploading the original or generating
+256/512 variants. M6 Storm Emeralda uses this for its three 1739×1212 two-card
+stadium images; each half is cropped to 868×1212.
 
 For all sets, omit `--set` after the single-set smoke test passes:
 

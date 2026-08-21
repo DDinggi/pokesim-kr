@@ -11,6 +11,7 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 import dotenv from "dotenv";
+import sharp from "sharp";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(__dirname, "..");
@@ -58,7 +59,19 @@ interface CardEntry {
   card_num?: string;
   image_url?: string;
   _image_source_url?: string;
+  _image_composite_source?: string;
+  _image_crop_position?: CropPosition;
+  _image_crop?: CropBox;
   [key: string]: unknown;
+}
+
+type CropPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+
+interface CropBox {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
 }
 
 interface SetJson {
@@ -122,6 +135,10 @@ function objectKeyFor(setCode: string, card: CardEntry): string | null {
 }
 
 function sourceUrlFor(card: CardEntry): string | null {
+  if (card._image_composite_source && /^https?:\/\//.test(card._image_composite_source)) {
+    return card._image_composite_source;
+  }
+
   if (card._image_source_url && /^https?:\/\//.test(card._image_source_url)) {
     return card._image_source_url;
   }
@@ -147,7 +164,10 @@ async function verifyObjects(tasks: VerifyTask[], stats: Stats): Promise<void> {
       if (!task) return;
 
       try {
-        if (await publicObjectExists(task.key)) stats.verified++;
+        const exists = s3
+          ? await r2ObjectExists(task.key)
+          : await publicObjectExists(task.key);
+        if (exists) stats.verified++;
         else {
           stats.missing++;
           console.error(
@@ -177,7 +197,7 @@ async function r2ObjectExists(key: string): Promise<boolean> {
   }
 }
 
-async function uploadObject(key: string, sourceUrl: string): Promise<void> {
+async function uploadObject(key: string, sourceUrl: string, card: CardEntry): Promise<void> {
   if (!s3) throw new Error("R2 client is not configured.");
 
   const response = await fetch(sourceUrl, {
@@ -186,7 +206,8 @@ async function uploadObject(key: string, sourceUrl: string): Promise<void> {
   if (!response.ok) throw new Error(`download failed: HTTP ${response.status}`);
 
   const ext = extensionFromUrl(sourceUrl);
-  const body = Buffer.from(await response.arrayBuffer());
+  const source = Buffer.from(await response.arrayBuffer());
+  const body = await cropSource(source, card._image_crop, card._image_crop_position);
   await s3.send(
     new PutObjectCommand({
       Bucket: bucket,
@@ -196,6 +217,35 @@ async function uploadObject(key: string, sourceUrl: string): Promise<void> {
       CacheControl: CACHE_CONTROL,
     }),
   );
+}
+
+async function cropSource(
+  source: Buffer,
+  crop?: CropBox,
+  cropPosition?: CropPosition,
+): Promise<Buffer> {
+  if (crop) {
+    return sharp(source).extract(crop).toBuffer();
+  }
+  if (!cropPosition) return source;
+
+  const metadata = await sharp(source).metadata();
+  const width = metadata.width ?? 0;
+  const height = metadata.height ?? 0;
+  if (width < 2 || height < 2) throw new Error("composite image dimensions are invalid");
+
+  const leftWidth = Math.floor(width / 2);
+  const topHeight = Math.floor(height / 2);
+  const isRight = cropPosition.endsWith("right");
+  const isBottom = cropPosition.startsWith("bottom");
+  return sharp(source)
+    .extract({
+      left: isRight ? leftWidth : 0,
+      top: isBottom ? topHeight : 0,
+      width: isRight ? width - leftWidth : leftWidth,
+      height: isBottom ? height - topHeight : topHeight,
+    })
+    .toBuffer();
 }
 
 function downloadHeadersFor(url: string): Record<string, string> {
@@ -281,7 +331,7 @@ async function main() {
           console.log(`[dry-upload] ${sourceUrl} -> ${key}`);
         } else {
           try {
-            await uploadObject(key, sourceUrl);
+            await uploadObject(key, sourceUrl, card);
             console.log(`[uploaded] ${key}`);
           } catch (error) {
             stats.failed++;
@@ -293,6 +343,7 @@ async function main() {
       }
 
       if (card.image_url && /^https?:\/\//.test(card.image_url)) {
+        card._image_source_url ??= card.image_url;
         card.image_url = key;
         changed = true;
         stats.rewritten++;

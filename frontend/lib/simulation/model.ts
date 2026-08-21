@@ -10,6 +10,7 @@ export const PROBABILITY_META = {
 export const EXPANSION_MONSTER_WEIGHTS: Record<string, Record<string, number>> = {
   'm4-ninja-spinner': { SR: 70.7, SAR: 28, UR: 1.3 },
   'm5-abyss-eye': { SR: 71.1, SAR: 28, UR: 0.9 },
+  'm6-storm-emerald': { SR: 72.6, SAR: 26, UR: 1.4 },
   'm-nihil-zero': { SR: 70.7, SAR: 28, UR: 1.3 },
   'm-inferno-x': { SR: 70.4, SAR: 28, UR: 1.6 },
   'm-mega-brave': { SR: 70.1, SAR: 28, UR: 1.9 },
@@ -977,9 +978,19 @@ export const MEGA_RR_BASE_COUNT = 4;
 export const MEGA_RR_EXTRA_RATE = 0.1;
 export const MEGA_AR_COUNT = 3;
 
+const MEGA_RR_EXTRA_RATES: Record<string, number> = {
+  'm6-storm-emerald': 0,
+};
+
+export function getMegaRrExtraRate(setCode?: string): number {
+  if (!setCode) return MEGA_RR_EXTRA_RATE;
+  return MEGA_RR_EXTRA_RATES[setCode] ?? MEGA_RR_EXTRA_RATE;
+}
+
 export const MEGA_MAIN_SR_NUMBER_RANGES: Record<string, Array<[number, number]>> = {
   'm4-ninja-spinner': [[96, 103], [108, 111]],
   'm5-abyss-eye': [[94, 101], [108, 111]],
+  'm6-storm-emerald': [[89, 96], [100, 103]],
   'm-nihil-zero': [[93, 100], [105, 108]],
   'm-inferno-x': [[93, 100], [105, 107]],
   'm-mega-brave': [[76, 80], [85, 86]],

@@ -85,6 +85,7 @@ import sm8bGxUltraShiny from '../public/sets/sm8b-gx-ultra-shiny.json';
 import mStartDeck100 from '../public/sets/m-start-deck-100.json';
 import m4NinjaSpinner from '../public/sets/m4-ninja-spinner.json';
 import m5AbyssEye from '../public/sets/m5-abyss-eye.json';
+import m6StormEmerald from '../public/sets/m6-storm-emerald.json';
 import mNihilZero from '../public/sets/m-nihil-zero.json';
 import mDreamEx from '../public/sets/m-dream-ex.json';
 import mInfernoX from '../public/sets/m-inferno-x.json';
@@ -93,7 +94,7 @@ import mMegaSymphonia from '../public/sets/m-mega-symphonia.json';
 
 const sets: SetMeta[] = [
   // MEGA 시리즈
-  m4NinjaSpinner, m5AbyssEye, mNihilZero, mDreamEx, mInfernoX, mMegaBrave, mMegaSymphonia,
+  m4NinjaSpinner, m5AbyssEye, m6StormEmerald, mNihilZero, mDreamEx, mInfernoX, mMegaBrave, mMegaSymphonia,
   mStartDeck100,
   // SV 시리즈
   sv11bBlackBolt, sv11aWhiteFlare, sv10Glory, sv9aBlazingArena,

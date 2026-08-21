@@ -24,6 +24,7 @@ interface CardEntry {
 
 interface SetJson {
   code: string;
+  fullahead_shop_code?: string;
   cards: CardEntry[];
 }
 
@@ -315,6 +316,7 @@ function getPageNumbers(html: string, categoryCode: string): number[] {
 }
 
 function getShopCodeForSet(set: SetJson): string | null {
+  if (set.fullahead_shop_code) return set.fullahead_shop_code.toLowerCase();
   for (const card of set.cards) {
     const code = extractSetCodeFromImage(card.image_url);
     if (code) return code.toLowerCase();

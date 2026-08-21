@@ -37,6 +37,7 @@ const setCode = arg("set");
 const jpCode = arg("jp-code");
 const pokeguardianSlug = arg("pokeguardian");
 const onlyRaritiesArg = arg("only-rarities");
+const maxNumberArg = arg("max-number");
 if (!setCode || !jpCode || !pokeguardianSlug) {
   console.error(
     "Usage: pnpm fetch-jp-images -- --set <code> --jp-code <m04> --pokeguardian <slug> [--only-rarities CSV]",
@@ -50,6 +51,10 @@ const allowedRarities = new Set(
     .map((s) => s.trim())
     .map((r) => RARITY_NORMALIZE[r] ?? r),
 );
+const maxNumber = maxNumberArg ? Number(maxNumberArg) : null;
+if (maxNumberArg && (!Number.isInteger(maxNumber) || maxNumber! < 1)) {
+  throw new Error(`Invalid --max-number: ${maxNumberArg}`);
+}
 
 const UA = "Mozilla/5.0 (compatible; pokesim-kr-bot/1.0)";
 
@@ -83,7 +88,7 @@ function parseYuyuTei(html: string): JpCard[] {
       number: num,
       rarity,
       jpName: name.trim(),
-      yuyuteiImageUrl: src,
+      yuyuteiImageUrl: src.replace('/100_140/', '/200_280/'),
     });
   }
   return cards;
@@ -116,7 +121,9 @@ async function main() {
   const pgImageByNum = parsePokeGuardian(pgHtml);
   console.log(`PokeGuardian: ${pgImageByNum.size} high-res images parsed`);
 
-  const irregular = jpCards.filter((c) => allowedRarities.has(c.rarity));
+  const irregular = jpCards.filter(
+    (c) => allowedRarities.has(c.rarity) && (maxNumber == null || c.number <= maxNumber),
+  );
   console.log(
     `Filtered cards (${[...allowedRarities].join("/")}): ${irregular.length}`,
   );
