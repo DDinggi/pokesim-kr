@@ -93,6 +93,10 @@
             "required": ["rarity", "min"],
             "properties": {
               "rarity": { "type": "string" },
+              "kind": {
+                "type": "string",
+                "enum": ["mega-fixed-sr", "mega-main-high"]
+              },
               "min": { "type": "integer", "minimum": 0, "description": "박스당 최소 보장 슬롯 수" },
               "max": { "type": ["integer", "null"], "minimum": 0 }
             }
@@ -191,6 +195,18 @@
             "type": "string",
             "enum": ["top-left", "top-right", "bottom-left", "bottom-right"],
             "description": "공식 2x2 합본에서 이 카드가 차지하는 사분면."
+          },
+          "_image_crop": {
+            "type": "object",
+            "required": ["left", "top", "width", "height"],
+            "additionalProperties": false,
+            "properties": {
+              "left": { "type": "integer", "minimum": 0 },
+              "top": { "type": "integer", "minimum": 0 },
+              "width": { "type": "integer", "minimum": 1 },
+              "height": { "type": "integer", "minimum": 1 }
+            },
+            "description": "공식 합본 이미지에서 실물 카드 한 장을 추출할 정확한 픽셀 영역."
           },
           "_fetched_at": { "type": "string", "format": "date" }
         }

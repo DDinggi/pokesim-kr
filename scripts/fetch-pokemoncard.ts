@@ -4,6 +4,7 @@
  *   pnpm fetch -- --set m4-ninja-spinner
  *   pnpm fetch -- --set m4-ninja-spinner --dry-run
  *   pnpm fetch -- --set m4-ninja-spinner --merge
+ *   pnpm fetch -- --set m6-storm-emerald --search-text "스톰에메랄다" --asset-prefix M6 --merge --merge-by-number
  *   pnpm fetch -- --set sm4plus-gx-battle-boost --search-text "GX 배틀부스트" --card-num-prefix BS2017013
  */
 
@@ -31,14 +32,18 @@ const hasFlag = (name: string) => argv.includes(`--${name}`);
 const setCode = getArg("set");
 const searchTextOverride = getArg("search-text");
 const cardNumPrefix = getArg("card-num-prefix");
+const assetPrefix = getArg("asset-prefix")?.toUpperCase();
 const defaultRarity = getArg("default-rarity");
 const dryRun = hasFlag("dry-run");
 const merge = hasFlag("merge");
+const mergeByNumber = hasFlag("merge-by-number");
 const delayMsArg = Number(getArg("delay-ms"));
 const delayMs = Number.isFinite(delayMsArg) && delayMsArg >= 0 ? delayMsArg : DEFAULT_DELAY_MS;
 
 if (!setCode) {
-  console.error("Usage: pnpm fetch -- --set <set-code> [--dry-run] [--merge]");
+  console.error(
+    "Usage: pnpm fetch -- --set <set-code> [--dry-run] [--merge] [--merge-by-number] [--asset-prefix M6]",
+  );
   process.exit(1);
 }
 
@@ -69,6 +74,17 @@ interface CardEntry {
   _source: string;
   _fetched_at: string;
   [key: string]: unknown;
+}
+
+interface ParsedCardDetail {
+  number: number | null;
+  name_ko: string | null;
+  rarity: string | null;
+  card_type: CardEntry["card_type"];
+  subtype: string | null;
+  hp: number | null;
+  type: string | null;
+  image_url: string;
 }
 
 // ── Utilities ─────────────────────────────────────────────────────────────────
@@ -164,7 +180,7 @@ function parseCardDetail(
   cardNum: string,
   rarities: string[],
   fallbackImageUrl: string
-): Omit<CardEntry, "card_num" | "_source" | "_fetched_at"> {
+): ParsedCardDetail {
   const root = parseHtml(html);
 
   // 카드 이름
@@ -193,16 +209,17 @@ function parseCardDetail(
   // 카드 종류 (.pokemon-info)
   const infoText = root.querySelector(".pokemon-info")?.text ?? "";
   let card_type: CardEntry["card_type"] = null;
-  if (infoText.includes("포켓몬")) card_type = "포켓몬";
-  else if (infoText.includes("에너지")) card_type = "에너지";
-  else if (
+  if (
     infoText.includes("지지자") ||
+    infoText.includes("서포트") ||
     infoText.includes("도구") ||
     infoText.includes("스타디움") ||
     infoText.includes("트레이너") ||
-    infoText.includes("카드 종류")
+    infoText.includes("아이템")
   )
     card_type = "트레이너";
+  else if (infoText.includes("에너지")) card_type = "에너지";
+  else if (infoText.includes("포켓몬")) card_type = "포켓몬";
 
   // 포켓몬 타입 — header 영역 첫 번째 .type_b[title]
   const typeImg = root
@@ -230,12 +247,13 @@ async function main() {
   console.log(`Code: ${setCode}`);
   if (searchTextOverride) console.log(`Search text override: ${searchTextOverride}`);
   if (cardNumPrefix) console.log(`Card number prefix: ${cardNumPrefix}`);
+  if (assetPrefix) console.log(`Asset prefix: ${assetPrefix}`);
   if (defaultRarity) console.log(`Default rarity: ${defaultRarity}`);
 
   // 이미지 폴더 prefix 추출 (기존 sample 카드에서)
   const sampleImg = setData.cards[0]?.image_url ?? "";
   const folderPrefix = sampleImg ? sampleImg.replace(/\/[^/]+$/, "/") : "";
-  const filePrefix = getFilePrefix(sampleImg);
+  const filePrefix = assetPrefix ?? getFilePrefix(sampleImg);
   console.log(`CDN folder prefix: ${folderPrefix || "(not set)"}`);
   if (filePrefix) console.log(`CDN file prefix: ${filePrefix}`);
 
@@ -310,7 +328,9 @@ async function main() {
     console.log(`\nTotal cards fetched: ${cards.length}`);
   }
 
-  const outputCards = merge ? mergeOfficialCards(setData.cards, cards) : cards;
+  const outputCards = merge
+    ? mergeOfficialCards(setData.cards, cards, mergeByNumber)
+    : cards;
 
   if (dryRun) {
     console.log("\n[dry-run] First 3 cards:");
@@ -323,11 +343,29 @@ async function main() {
   console.log(`\nSaved → ${dataPath}`);
 }
 
-function mergeOfficialCards(existingCards: CardEntry[], officialCards: CardEntry[]): CardEntry[] {
+function mergeOfficialCards(
+  existingCards: CardEntry[],
+  officialCards: CardEntry[],
+  matchByNumber: boolean,
+): CardEntry[] {
   const existingByCardNum = new Map(existingCards.map((card) => [card.card_num, card]));
+  const existingByNumber = new Map(
+    existingCards
+      .filter((card) => card.number !== null)
+      .map((card) => [card.number, card]),
+  );
   const officialCardNums = new Set(officialCards.map((card) => card.card_num));
+  const officialNumbers = new Set(
+    officialCards
+      .map((card) => card.number)
+      .filter((number): number is number => number !== null),
+  );
   const mergedCards = officialCards.map((officialCard) => {
-    const existingCard = existingByCardNum.get(officialCard.card_num);
+    const existingCard =
+      existingByCardNum.get(officialCard.card_num)
+      ?? (matchByNumber && officialCard.number !== null
+        ? existingByNumber.get(officialCard.number)
+        : undefined);
     const validOfficialFields = Object.fromEntries(
       Object.entries(officialCard).filter(([, value]) => value !== null && value !== ""),
     );
@@ -341,7 +379,11 @@ function mergeOfficialCards(existingCards: CardEntry[], officialCards: CardEntry
     return mergedCard;
   });
 
-  const preservedCards = existingCards.filter((card) => !officialCardNums.has(card.card_num));
+  const preservedCards = existingCards.filter(
+    (card) =>
+      !officialCardNums.has(card.card_num)
+      && !(matchByNumber && card.number !== null && officialNumbers.has(card.number)),
+  );
   const outputCards = [...mergedCards, ...preservedCards];
   outputCards.sort((a, b) => (a.number ?? 9999) - (b.number ?? 9999));
   console.log(

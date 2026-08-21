@@ -201,6 +201,7 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
 
   validateDuplicates(setCode, cards);
   validateNumberContinuity(setCode, cards);
+  validateKoreanNames(setCode, cards);
   validateImages(setCode, cards);
   validateImageNumberAlignment(setCode, cards);
   validateStartDeck(setCode, set, cards);
@@ -208,6 +209,20 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
 
   if (!isActive && !isPlanned && cards.length > 0 && set.type !== "promo") {
     add("info", setCode, "카드 데이터는 있지만 sets-index의 active/planned 어디에도 없습니다.");
+  }
+}
+
+function validateKoreanNames(setCode: string, cards: CardEntry[]) {
+  const japaneseCharacters = /[\u3040-\u30ff\uff66-\uff9f]/;
+  for (const card of cards) {
+    const name = card.name_ko?.trim();
+    if (!name) continue;
+    if (/\?{2,}|\uFFFD/.test(name)) {
+      add("error", setCode, `${card.card_num ?? card.number ?? "unknown"} name_ko is masked or corrupted: ${name}`);
+    }
+    if (japaneseCharacters.test(name)) {
+      add("error", setCode, `${card.card_num ?? card.number ?? "unknown"} name_ko contains Japanese text: ${name}`);
+    }
   }
 }
 

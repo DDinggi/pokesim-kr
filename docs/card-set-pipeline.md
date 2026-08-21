@@ -59,6 +59,12 @@
 공식 등록 카드는 한국 이름·이미지·메타로 갱신하되 기존 시세 필드는 보존하고, 아직 공식 DB에 없는
 일본판 보강 카드(MUR 등)는 삭제하지 않는다. 전체 교체가 필요한 최초 수집에서만 `--merge`를 생략한다.
 
+일본판 폴백의 `card_num`이 가상 ID라 공식 ID와 직접 일치하지 않는 세트는 `--merge-by-number`를
+명시한다. 이 옵션은 동일한 세트 내 번호를 공식 카드로 교체하고, 공식 검색에 없는 번호만 그대로
+보존한다. 기존 첫 카드 이미지에서 공식 파일 prefix를 추론할 수 없으면 `--asset-prefix M6`처럼
+검색 결과의 공식 이미지 prefix도 함께 지정한다. 미러처럼 동일 번호가 여러 장인 세트에는 번호 병합을
+쓰지 않는다.
+
 ## 전체 작업 순서
 
 0. **디스커버리** — 검색어로 세트를 식별한다(상세는 아래 "디스커버리" 섹션).
@@ -83,6 +89,8 @@
    pnpm --dir scripts collect -- --set <code> --search-text "일격마스터"
    # 검색 결과에 재판 상품이 섞이면 카드 번호 prefix로 원본만 제한
    pnpm --dir scripts collect -- --set <code> --card-num-prefix BS2017013
+   # 일본판 가상 ID를 쓰던 세트를 한국 공식 번호로 승격할 때 번호 기준 병합
+   pnpm --dir scripts collect -- --set <code> --search-text "스톰에메랄다" --asset-prefix M6 --merge --merge-by-number
    # 공식 상세에 레어도 표기가 없는 균일 등급 상품에서만 기본값 사용
    pnpm --dir scripts collect -- --set <code> --default-rarity R
    ```
@@ -125,6 +133,13 @@
    - `frontend/components/MainScreen.tsx` — 첫 화면 공지 문구.
    - 박스 이미지: 파일명을 `frontend/public/boxes/<code>.png`로 두면 기본 리졸버가 자동 처리
      (`boxImages.ts` 매핑 불필요). 다른 이름일 때만 `boxImages.ts`에 매핑.
+   - 흰 배경 원본은 `frontend/public/boxes/original/<code>.png`에 보존한 뒤 아래 명령으로
+      외곽 연결 배경만 제거한다. 출력은 투명 768 PNG와 768 WebP 썸네일이다.
+      선택 화면은 고해상도 디스플레이에서 썸네일을 크게 렌더하므로 256px로 낮추지 않는다.
+
+     ```powershell
+     pnpm --dir scripts process:box-image -- --input frontend/public/boxes/original/<code>.png --set <code>
+     ```
 9. **시세 수집**(아래 "시세 + 시세 운" 섹션):
 
    ```powershell

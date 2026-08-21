@@ -1,4 +1,5 @@
 const DEFAULT_CARD_IMAGE_CDN_BASE = 'https://img.pokesim.kr/';
+const DEFAULT_CARD_IMAGE_CACHE_VERSION = 'm6-ko-20260821';
 
 export const CARD_IMAGE_CDN_BASE =
   process.env.NEXT_PUBLIC_CARD_IMAGE_CDN_BASE ?? DEFAULT_CARD_IMAGE_CDN_BASE;
@@ -9,6 +10,10 @@ export const CARD_IMAGE_VARIANTS_ENABLED =
   process.env.NEXT_PUBLIC_CARD_IMAGE_VARIANTS === '1';
 export const CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED =
   process.env.NEXT_PUBLIC_CARD_IMAGE_ORIGINAL_FALLBACK === '1';
+// R2 variants are immutable. Bump this at build time whenever an existing
+// variant key is regenerated so returning browsers do not keep the old WebP.
+export const CARD_IMAGE_CACHE_VERSION =
+  process.env.NEXT_PUBLIC_CARD_IMAGE_CACHE_VERSION?.trim() || DEFAULT_CARD_IMAGE_CACHE_VERSION;
 
 export type CardImageVariantSize = 256 | 512;
 
@@ -18,6 +23,12 @@ function joinUrl(base: string, path: string): string {
 
 function stripExtension(path: string): string {
   return path.replace(/\.[a-zA-Z0-9]+$/, '');
+}
+
+function withCacheVersion(url: string): string {
+  if (!CARD_IMAGE_CACHE_VERSION) return url;
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}v=${encodeURIComponent(CARD_IMAGE_CACHE_VERSION)}`;
 }
 
 export function cardImageVariantKey(
@@ -39,7 +50,7 @@ export function resolveCardImageUrl(
     CARD_IMAGE_VARIANTS_ENABLED && options.size
       ? cardImageVariantKey(imageUrl, options.size)
       : null;
-  return joinUrl(CARD_IMAGE_CDN_BASE, key ?? imageUrl);
+  return withCacheVersion(joinUrl(CARD_IMAGE_CDN_BASE, key ?? imageUrl));
 }
 
 export function preloadCardImages(

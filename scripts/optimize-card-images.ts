@@ -35,6 +35,10 @@ const targetKey = readArg("--key");
 const sizes = parseSizes(readArg("--sizes") ?? "256,512");
 const concurrency = readPositiveInt("--concurrency", 4);
 const quality = readPositiveInt("--quality", 76);
+const cacheVersion =
+  readArg("--cache-version")?.trim()
+  ?? process.env.NEXT_PUBLIC_CARD_IMAGE_CACHE_VERSION?.trim()
+  ?? "";
 
 const accountId = process.env.R2_ACCOUNT_ID;
 const accessKeyId = process.env.R2_ACCESS_KEY_ID;
@@ -63,6 +67,18 @@ interface CardEntry {
   number?: number;
   image_url?: string;
   _image_source_url?: string;
+  _image_composite_source?: string;
+  _image_crop_position?: CropPosition;
+  _image_crop?: CropBox;
+}
+
+type CropPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+
+interface CropBox {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
 }
 
 interface SetJson {
@@ -75,6 +91,8 @@ interface ImageTask {
   cardNum?: string;
   originalKey: string;
   sourceUrl: string;
+  cropPosition?: CropPosition;
+  crop?: CropBox;
 }
 
 interface Stats {
@@ -83,6 +101,7 @@ interface Stats {
   skipped: number;
   verified: number;
   missing: number;
+  invalid: number;
   failed: number;
   downloadedBytes: number;
   uploadedBytes: number;
@@ -101,6 +120,7 @@ async function main() {
     skipped: 0,
     verified: 0,
     missing: 0,
+    invalid: 0,
     failed: 0,
     downloadedBytes: 0,
     uploadedBytes: 0,
@@ -121,13 +141,14 @@ async function main() {
       `skipped=${stats.skipped}`,
       `verified=${stats.verified}`,
       `missing=${stats.missing}`,
+      `invalid=${stats.invalid}`,
       `failed=${stats.failed}`,
       `downloaded=${formatBytes(stats.downloadedBytes)}`,
       `uploadedBytes=${formatBytes(stats.uploadedBytes)}`,
     ].join(" "),
   );
 
-  if (stats.failed > 0 || stats.missing > 0) process.exitCode = 1;
+  if (stats.failed > 0 || stats.missing > 0 || stats.invalid > 0) process.exitCode = 1;
 }
 
 function collectTasks(): ImageTask[] {
@@ -158,6 +179,8 @@ function collectTasks(): ImageTask[] {
         cardNum: card.card_num,
         originalKey,
         sourceUrl: sourceUrlFor(card, originalKey),
+        cropPosition: card._image_crop_position,
+        crop: card._image_crop,
       });
     }
   }
@@ -177,13 +200,9 @@ async function processImage(task: ImageTask, stats: Stats) {
   const variantKeys = sizes.map((size) => variantKeyFor(task.originalKey, size));
 
   if (verifyOnly) {
-    for (const key of variantKeys) {
+    for (const [index, key] of variantKeys.entries()) {
       try {
-        if (await publicObjectExists(key)) stats.verified++;
-        else {
-          stats.missing++;
-          console.error(`[missing] ${task.setCode} ${task.cardNum ?? ""} ${publicUrlFor(key)}`);
-        }
+        await verifyVariant(key, sizes[index]!, task, stats);
       } catch (error) {
         stats.failed++;
         console.error(`[verify-failed] ${task.setCode} ${task.cardNum ?? ""}: ${formatError(error)}`);
@@ -211,13 +230,14 @@ async function processImage(task: ImageTask, stats: Stats) {
 
   try {
     const source = await downloadSource(task.sourceUrl);
+    const preparedSource = await cropSource(source, task.crop, task.cropPosition);
     stats.downloadedBytes += source.length;
 
     for (const size of sizes) {
       const key = variantKeyFor(task.originalKey, size);
       if (!missingKeys.includes(key)) continue;
 
-      const optimized = await sharp(source)
+      const optimized = await sharp(preparedSource)
         .rotate()
         .resize({ width: size, withoutEnlargement: true })
         .webp({ quality, effort: 4 })
@@ -234,6 +254,35 @@ async function processImage(task: ImageTask, stats: Stats) {
   }
 }
 
+async function verifyVariant(
+  key: string,
+  expectedWidth: number,
+  task: ImageTask,
+  stats: Stats,
+) {
+  const url = publicUrlFor(key);
+  const response = await fetch(url, { headers: downloadHeadersFor(url) });
+  if (!response.ok) {
+    stats.missing++;
+    console.error(`[missing] ${task.setCode} ${task.cardNum ?? ""} ${url}`);
+    return;
+  }
+
+  const metadata = await sharp(Buffer.from(await response.arrayBuffer())).metadata();
+  const width = metadata.width ?? 0;
+  const height = metadata.height ?? 0;
+  const aspect = height > 0 ? width / height : 0;
+  if (metadata.format !== "webp" || width !== expectedWidth || aspect < 0.68 || aspect > 0.75) {
+    stats.invalid++;
+    console.error(
+      `[invalid] ${task.setCode} ${task.cardNum ?? ""} ${url} expected=${expectedWidth}px-webp-card actual=${width}x${height} ${metadata.format ?? "unknown"}`,
+    );
+    return;
+  }
+
+  stats.verified++;
+}
+
 function originalKeyFor(setCode: string, card: CardEntry): string | null {
   const imageUrl = card.image_url;
   if (!imageUrl) return null;
@@ -247,6 +296,10 @@ function originalKeyFor(setCode: string, card: CardEntry): string | null {
 }
 
 function sourceUrlFor(card: CardEntry, originalKey: string): string {
+  if (card._image_composite_source && /^https?:\/\//.test(card._image_composite_source)) {
+    return card._image_composite_source;
+  }
+
   if (card._image_source_url && /^https?:\/\//.test(card._image_source_url)) {
     return card._image_source_url;
   }
@@ -260,6 +313,35 @@ function sourceUrlFor(card: CardEntry, originalKey: string): string {
   }
 
   return publicUrlFor(originalKey);
+}
+
+async function cropSource(
+  source: Buffer,
+  crop?: CropBox,
+  cropPosition?: CropPosition,
+): Promise<Buffer> {
+  if (crop) {
+    return sharp(source).extract(crop).toBuffer();
+  }
+  if (!cropPosition) return source;
+
+  const metadata = await sharp(source).metadata();
+  const width = metadata.width ?? 0;
+  const height = metadata.height ?? 0;
+  if (width < 2 || height < 2) throw new Error("composite image dimensions are invalid");
+
+  const leftWidth = Math.floor(width / 2);
+  const topHeight = Math.floor(height / 2);
+  const isRight = cropPosition.endsWith("right");
+  const isBottom = cropPosition.startsWith("bottom");
+  return sharp(source)
+    .extract({
+      left: isRight ? leftWidth : 0,
+      top: isBottom ? topHeight : 0,
+      width: isRight ? width - leftWidth : leftWidth,
+      height: isBottom ? height - topHeight : topHeight,
+    })
+    .toBuffer();
 }
 
 function variantKeyFor(originalKey: string, size: number): string {
@@ -357,7 +439,8 @@ async function runLimited<T>(
 }
 
 function publicUrlFor(key: string): string {
-  return `${cdnBase.replace(/\/+$/, "")}/${key.replace(/^\/+/, "")}`;
+  const url = `${cdnBase.replace(/\/+$/, "")}/${key.replace(/^\/+/, "")}`;
+  return cacheVersion ? `${url}?v=${encodeURIComponent(cacheVersion)}` : url;
 }
 
 function formatError(error: unknown): string {

@@ -12,11 +12,11 @@ import {
   MEGA_EXTRA_SR_RATE,
   MEGA_MAIN_SR_NUMBER_RANGES,
   MEGA_RR_BASE_COUNT,
-  MEGA_RR_EXTRA_RATE,
   SV11_AR_COUNT,
   SV11_EXTRA_SR_RATE,
   SV11_OPTIONAL_TOP_WEIGHTS,
   SV11_RR_COUNT,
+  getMegaRrExtraRate,
   getStandardSvSetRate,
   hasAceSpecSlot,
   isAnniversary25Set,
@@ -397,7 +397,7 @@ function buildMegaExpansionSlots(
   if (rng() < MEGA_EXTRA_SR_RATE && mainSrPool.length) slots.push(mainSrPool);
 
   const rrPool = byRarity.RR ?? byRarity.R ?? [];
-  const rrCount = MEGA_RR_BASE_COUNT + (rng() < MEGA_RR_EXTRA_RATE ? 1 : 0);
+  const rrCount = MEGA_RR_BASE_COUNT + (rng() < getMegaRrExtraRate(setCode) ? 1 : 0);
   for (let i = 0; i < rrCount; i++) slots.push(rrPool);
 
   const rPool = byRarity.R ?? byRarity.RR ?? [];
@@ -436,7 +436,7 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
     const highWeights = (setCode ? EXPANSION_MONSTER_WEIGHTS[setCode] : null) ?? EXPANSION_MONSTER_WEIGHTS_DEFAULT;
     const mainSrPool = getMegaMainSrPool(setCode, pools.srAll);
     const fixedSrPool = getMegaFixedSrPool(setCode, pools.srAll);
-    const rrExpected = MEGA_RR_BASE_COUNT + MEGA_RR_EXTRA_RATE;
+    const rrExpected = MEGA_RR_BASE_COUNT + getMegaRrExtraRate(setCode);
     const rSlots = 30 - 1 - 1 - 3 - MEGA_EXTRA_SR_RATE - rrExpected;
     entries.push({ weight: rSlots * 100, pool: byRarity.R ?? [] });
     entries.push({ weight: rrExpected * 100, pool: byRarity.RR ?? [] });
