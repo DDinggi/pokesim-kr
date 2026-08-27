@@ -194,7 +194,10 @@ function weightChance(weights: Record<string, number>, key: string): number {
 }
 
 type LuckScoreMode = 'box' | 'pack';
-type LuckSetContext = Pick<SetMeta, 'code' | 'type' | 'cards' | 'luck_value_ref'>;
+type LuckSetContext = Pick<
+  SetMeta,
+  'code' | 'type' | 'cards' | 'luck_value_ref' | 'resolved_bundle_components'
+>;
 type LuckUrContext = Pick<SetMeta, 'code'> & Partial<Pick<SetMeta, 'cards'>>;
 
 function getScoreWeight(rarity: string, mode: LuckScoreMode): number {
@@ -598,6 +601,16 @@ function getLuckScoreWeightsForSet(
     return ANNIVERSARY_25_LUCK_SCORE_WEIGHTS;
   }
 
+  if (type === 'bundle') {
+    // 상품 1개로 기록되지만 구성은 모두 loose pack이므로 팩 점수 가중치를 사용한다.
+    return {
+      SAR: 2,
+      UR: 3,
+      MA: getScoreWeight('MA', 'pack'),
+      SR: getScoreWeight('SR', 'pack'),
+    };
+  }
+
   if (isOldExpansionSet(code, type)) {
     return {
       A: getScoreWeight('A', mode),
@@ -718,6 +731,20 @@ function getExpectedScoredRarityCounts(
   };
 
   if (unitCount <= 0) return counts;
+
+  if (set?.type === 'bundle' && set.resolved_bundle_components?.length) {
+    const bundleCount = opening.boxes + opening.packs;
+    for (const component of set.resolved_bundle_components) {
+      const sourceOpening = createLuckOpening(component.set, {
+        packs: component.pack_count * bundleCount,
+      });
+      const sourceCounts = getExpectedScoredRarityCounts(sourceOpening, component.set);
+      for (const [rarity, count] of Object.entries(sourceCounts)) {
+        addExpectedCount(counts, rarity, count);
+      }
+    }
+    return counts;
+  }
 
   if (isStarterSet(code)) {
     // 일반 100개 덱을 같은 확률로 보고 그중 AR/SR 대표카드만 기대 히트에 반영한다.
@@ -887,6 +914,8 @@ function subtractBaselineCounts(
 ): Record<string, number> {
   const counts = { ...rarityCounts };
   const code = set?.code ?? opening.setCode;
+  // 혼합 상품은 모두 낱팩이므로 원본 부스터 박스의 확정 슬롯을 차감하지 않는다.
+  if (set?.type === 'bundle') return counts;
   const isHiClassSet =
     set?.type === 'hi-class'
     || ['sv8a-terastal-festa', 'sv4a-shiny-treasure-ex', 's4a-shiny-star-v', 'sm8b-gx-ultra-shiny', 's12a-vstar-universe', 's8b-vmax-climax', 'sm12a-tag-team-gx-tag-all-stars', 'm-dream-ex'].includes(code);
@@ -1090,6 +1119,20 @@ function getBoxScoreDistribution(
     return getAnniversary25BoxScoreDistribution(ANNIVERSARY_25_BOX_SIZE);
   }
 
+  if (set?.type === 'bundle' && set.resolved_bundle_components?.length) {
+    let distribution: LuckScoreOutcome[] = [{ score: 0, probability: 1 }];
+    for (const component of set.resolved_bundle_components) {
+      distribution = convolveDistributions(
+        distribution,
+        repeatDistribution(
+          getPackScoreDistribution(component.set, component.set.box_size),
+          component.pack_count,
+        ),
+      );
+    }
+    return distribution;
+  }
+
   if (set?.type === 'hi-class') {
     if (code === 'sm4plus-gx-battle-boost') {
       return distributionFromWeights(GX_BATTLE_BOOST_HIGH_WEIGHTS, 'box');
@@ -1249,6 +1292,9 @@ function getPackScoreDistribution(
       ),
     );
   }
+
+  // 스페셜 세트 자체는 낱팩으로 판매하지 않는다.
+  if (set?.type === 'bundle') return distribution;
 
   if (set?.type === 'hi-class') {
     if (code === 'sm4plus-gx-battle-boost') {
@@ -1628,9 +1674,20 @@ const DEFAULT_STANDARD_EXTRA_HIGH_WEIGHTS = {
 };
 
 export function getLuckRatesForSet(
-  set: Pick<SetMeta, 'code' | 'type' | 'box_size'>,
+  set: Pick<SetMeta, 'code' | 'type' | 'box_size' | 'resolved_bundle_components'>,
 ): Pick<LuckOpening, 'boxSize' | 'topPerBox' | 'sarPerBox'> {
   const boxSize = Math.max(1, set.box_size || DEFAULT_BOX_SIZE);
+
+  if (set.type === 'bundle' && set.resolved_bundle_components?.length) {
+    let topPerBox = 0;
+    let sarPerBox = 0;
+    for (const component of set.resolved_bundle_components) {
+      const sourceRates = getLuckRatesForSet(component.set);
+      topPerBox += (sourceRates.topPerBox / sourceRates.boxSize) * component.pack_count;
+      sarPerBox += (sourceRates.sarPerBox / sourceRates.boxSize) * component.pack_count;
+    }
+    return { boxSize, topPerBox, sarPerBox };
+  }
 
   if (isStarterSet(set.code)) {
     return { boxSize, topPerBox: STARTER_UR_RATE, sarPerBox: STARTER_STANDARD_SAR_RATE };
@@ -1754,7 +1811,7 @@ export function getLuckRatesForSet(
 }
 
 export function createLuckOpening(
-  set: Pick<SetMeta, 'code' | 'type' | 'box_size'>,
+  set: Pick<SetMeta, 'code' | 'type' | 'box_size' | 'resolved_bundle_components'>,
   counts: { boxes?: number; packs?: number },
 ): LuckOpening {
   const rates = getLuckRatesForSet(set);

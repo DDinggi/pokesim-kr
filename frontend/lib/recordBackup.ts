@@ -203,14 +203,20 @@ function buildCardLookups(sets: SetMeta[]) {
   return { cardsBySet, dexCards };
 }
 
-function cardsFromCounts(counts: CountMap, cardsByNumber: Map<string, Card> | undefined): Card[] {
+function cardsFromCounts(
+  counts: CountMap,
+  cardsByNumber: Map<string, Card> | undefined,
+  openingSetCode?: string,
+): Card[] {
   if (!cardsByNumber) return [];
   const cards: Card[] = [];
   for (const [cardNum, rawCount] of Object.entries(counts)) {
     const card = cardsByNumber.get(cardNum);
     if (!card) continue;
     const count = finiteCount(rawCount, 10_000);
-    for (let index = 0; index < count; index += 1) cards.push(card);
+    for (let index = 0; index < count; index += 1) {
+      cards.push(openingSetCode ? { ...card, opening_set_code: openingSetCode } : card);
+    }
   }
   return cards;
 }
@@ -228,7 +234,7 @@ function buildSessionFromSources(
       for (const [unitKey, bucket] of [['b', opening.b], ['p', opening.p]] as const) {
         if (!bucket) continue;
         const unit = unitKey === 'p' ? 'pack' : 'box';
-        const hitCards = cardsFromCounts(bucket.h, cardsBySet.get(setCode));
+        const hitCards = cardsFromCounts(bucket.h, cardsBySet.get(setCode), setCode);
         cards.push(...hitCards);
         events.push({
           id: `backup:${sourceId}:${setCode}:${unit}`,

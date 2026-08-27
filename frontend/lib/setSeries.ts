@@ -17,8 +17,12 @@ export interface AvailableSetSeries {
   count: number;
 }
 
-export function getSetSeriesKey(setOrCode: Pick<SetMeta, 'code'> | string): SetSeriesKey {
+export function getSetSeriesKey(setOrCode: Pick<SetMeta, 'code' | 'series'> | string): SetSeriesKey {
   const code = typeof setOrCode === 'string' ? setOrCode : setOrCode.code;
+  const series = typeof setOrCode === 'string' ? undefined : setOrCode.series;
+  if (series === 'MEGA') return 'mega';
+  if (series === 'SV') return 'sv';
+  if (series === 'SM') return 'sm';
   if (code.startsWith('m')) return 'mega';
   if (code.startsWith('sv')) return 'sv';
   if (code.startsWith('sm')) return 'sm';
@@ -26,7 +30,7 @@ export function getSetSeriesKey(setOrCode: Pick<SetMeta, 'code'> | string): SetS
   return 'other';
 }
 
-export function getAvailableSetSeries(sets: Array<Pick<SetMeta, 'code'>>): AvailableSetSeries[] {
+export function getAvailableSetSeries(sets: Array<Pick<SetMeta, 'code' | 'series'>>): AvailableSetSeries[] {
   const counts = new Map<SetSeriesKey, number>();
   for (const set of sets) {
     const key = getSetSeriesKey(set);

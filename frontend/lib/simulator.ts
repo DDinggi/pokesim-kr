@@ -1,5 +1,6 @@
 import seedrandom from 'seedrandom';
-import type { Card, PackResult, BoxResult } from './types';
+import type { Card, PackResult, BoxResult, SetMeta } from './types';
+import { isBundleSet } from './bundle';
 import {
   buildAnniversary25Pack,
   buildDetectivePikachuPack,
@@ -65,6 +66,48 @@ export function simulatePack(
                 : buildExpansionPack(ctx, expansionPackHitPool(ctx, setCode), packSize);
 
   return { pack, seed };
+}
+
+export function simulateBundle(
+  bundle: SetMeta,
+  seedInput?: string,
+): BoxResult {
+  if (!isBundleSet(bundle) || !bundle.resolved_bundle_components?.length) {
+    throw new Error(`${bundle.code}: 해석된 혼합 상품 구성이 없습니다.`);
+  }
+
+  const seed = seedInput ?? `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  const packs: PackResult[] = [];
+  const summary: Record<string, number> = {};
+
+  for (const component of bundle.resolved_bundle_components) {
+    for (let index = 0; index < component.pack_count; index += 1) {
+      const sourceSet = component.set;
+      const { pack } = simulatePack(
+        sourceSet.cards,
+        sourceSet.type,
+        sourceSet.pack_size,
+        `${seed}:${sourceSet.code}:${index}`,
+        sourceSet.code,
+      );
+      const cards = pack.cards.map((card) => ({
+        ...card,
+        source_set_code: sourceSet.code,
+        opening_set_code: bundle.code,
+      }));
+      for (const card of cards) {
+        if (!card.rarity) continue;
+        summary[card.rarity] = (summary[card.rarity] ?? 0) + 1;
+      }
+      packs.push({
+        cards,
+        source_set_code: sourceSet.code,
+        source_set_name_ko: sourceSet.name_ko,
+      });
+    }
+  }
+
+  return { packs, summary, seed };
 }
 
 export function simulateBox(

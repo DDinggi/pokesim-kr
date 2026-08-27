@@ -12,15 +12,17 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import simulatorDefault from '../frontend/lib/simulator.ts';
+import bundleDefault from '../frontend/lib/bundle.ts';
 import openingHistoryDefault from '../frontend/lib/openingHistory.ts';
 import starterDefault from '../frontend/lib/simulation/starter.ts';
 import valueLuckDefault from '../frontend/lib/valueLuck.ts';
-import type { StartDeckMeta } from '../frontend/lib/types.ts';
+import type { SetMeta, StartDeckMeta } from '../frontend/lib/types.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = join(ROOT, 'data', 'sets');
 const PUBLIC_DIR = join(ROOT, 'frontend', 'public', 'sets');
-const { simulateBox, simulatePack } = simulatorDefault as unknown as typeof import('../frontend/lib/simulator.ts');
+const { simulateBox, simulateBundle, simulatePack } = simulatorDefault as unknown as typeof import('../frontend/lib/simulator.ts');
+const { resolveBundleSet } = bundleDefault as unknown as typeof import('../frontend/lib/bundle.ts');
 const { getOpeningHitCards } = openingHistoryDefault as unknown as typeof import('../frontend/lib/openingHistory.ts');
 const { simulateStartDeck } = starterDefault as unknown as typeof import('../frontend/lib/simulation/starter.ts');
 const { getObservedReferenceValueKrw } = valueLuckDefault as unknown as typeof import('../frontend/lib/valueLuck.ts');
@@ -57,13 +59,21 @@ function build(setCode: string): boolean {
     pack_size?: number;
     cards?: unknown[];
     start_deck?: StartDeckMeta;
+    bundle_components?: Array<{ set_code: string; pack_count: number }>;
   };
   try {
     set = JSON.parse(readFileSync(path, 'utf8'));
   } catch {
     return false;
   }
-  const cards = (set.cards ?? []) as never[];
+  let runtimeSet = set as unknown as SetMeta;
+  if (set.type === 'bundle') {
+    const sourceSets = (set.bundle_components ?? []).map((component) =>
+      JSON.parse(readFileSync(join(DATA_DIR, `${component.set_code}.json`), 'utf8')) as SetMeta,
+    );
+    runtimeSet = resolveBundleSet(runtimeSet, sourceSets);
+  }
+  const cards = (runtimeSet.cards ?? []) as never[];
   if (cards.length === 0) return false;
 
   const boxSize = (set.box_size as number) || 30;
@@ -76,13 +86,16 @@ function build(setCode: string): boolean {
       if (!set.start_deck) return false;
       const deck = simulateStartDeck(cards, set.start_deck, `lb${i}`);
       boxVals.push(openingValue(deck.cards as never, setCode, type));
+    } else if (type === 'bundle') {
+      const bundle = simulateBundle(runtimeSet, `lb${i}`);
+      boxVals.push(openingValue(bundle.packs.flatMap((p) => p.cards) as never, setCode, type));
     } else {
       const box = simulateBox(cards, boxSize, type, packSize, `lb${i}`, setCode);
       boxVals.push(openingValue(box.packs.flatMap((p) => p.cards) as never, setCode, type));
     }
   }
-  const packVals: number[] = [];
-  for (let i = 0; i < PACK_ITER; i++) {
+  const packVals: number[] = type === 'bundle' ? [...boxVals] : [];
+  for (let i = 0; type !== 'bundle' && i < PACK_ITER; i++) {
     if (type === 'starter') {
       if (!set.start_deck) return false;
       const deck = simulateStartDeck(cards, set.start_deck, `lp${i}`);
@@ -102,7 +115,7 @@ function build(setCode: string): boolean {
     box_quantiles_krw: quantilesOf(boxVals),
     pack_quantiles_krw: quantilesOf(packVals),
     quantile_points: QUANTILES,
-    _iterations: { box: BOX_ITER, pack: PACK_ITER },
+    _iterations: { box: BOX_ITER, pack: type === 'bundle' ? 0 : PACK_ITER },
     _built_at: new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date()),
   };
 

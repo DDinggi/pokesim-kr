@@ -2,9 +2,11 @@ import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import simulatorDefault from '../frontend/lib/simulator.ts';
+import bundleDefault from '../frontend/lib/bundle.ts';
 import type { SetMeta } from '../frontend/lib/types.ts';
 
-const { simulateBox } = simulatorDefault as unknown as typeof import('../frontend/lib/simulator.ts');
+const { simulateBox, simulateBundle } = simulatorDefault as unknown as typeof import('../frontend/lib/simulator.ts');
+const { resolveBundleSet } = bundleDefault as unknown as typeof import('../frontend/lib/bundle.ts');
 
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -38,7 +40,10 @@ type Report = {
 
 function loadSet(code: string): SetMeta {
   const path = resolve(ROOT_DIR, 'frontend', 'public', 'sets', `${code}.json`);
-  return JSON.parse(readFileSync(path, 'utf8')) as SetMeta;
+  const set = JSON.parse(readFileSync(path, 'utf8')) as SetMeta;
+  if (set.type !== 'bundle') return set;
+  const sources = (set.bundle_components ?? []).map((component) => loadSet(component.set_code));
+  return resolveBundleSet(set, sources);
 }
 
 function countRarities(set: SetMeta): { counts: Record<string, number>; nullCount: number } {
@@ -57,7 +62,9 @@ function countRarities(set: SetMeta): { counts: Record<string, number>; nullCoun
 function simulateBoxes(set: SetMeta, n: number): Record<string, number> {
   const totals: Record<string, number> = {};
   for (let i = 0; i < n; i++) {
-    const res = simulateBox(set.cards, set.box_size!, set.type, set.pack_size!, undefined, set.code);
+    const res = set.type === 'bundle'
+      ? simulateBundle(set, `verify-all:${set.code}:${i}`)
+      : simulateBox(set.cards, set.box_size!, set.type, set.pack_size!, undefined, set.code);
     for (const [r, c] of Object.entries(res.summary)) totals[r] = (totals[r] ?? 0) + c;
   }
   const perBox: Record<string, number> = {};
@@ -80,7 +87,7 @@ for (const code of INDEX.active_sets) {
     const warnings: string[] = [];
 
     if (nullCount > 0 && code !== ANNIVERSARY_25_SET_CODE) warnings.push(`${nullCount} cards with null rarity`);
-    if (set.cards.length < 30) warnings.push('very few cards in data');
+    if (set.cards.length < 30 && set.type !== 'bundle') warnings.push('very few cards in data');
 
     // High rarity expected by typical hi-class but missing in data
     if (set.type === 'hi-class') {

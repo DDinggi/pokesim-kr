@@ -192,6 +192,19 @@
 15. 박스 이미지는 직접 넣고(`{code}.png`), 브랜치/PR로 올린다(커밋은 Conventional Commits,
     한국어 설명, AI 흔적 라인 금지). main 직접 push 금지(D-134).
 
+### 기존 팩 혼합 상품 (`type: bundle`)
+
+- 새 카드풀을 복제하지 않고 `bundle_components`에 원본 `set_code`와 `pack_count`만 기록한다.
+- 구성별 `simulatePack`을 독립 실행한다. 합친 카드풀로 `simulateBox`를 호출하거나 원본 박스 보장
+  슬롯을 적용하지 않는다.
+- 서로 다른 팩 장수(예: 일반 5장, 하이클래스 10장)는 각 원본 세트의 `pack_size`를 따른다.
+- 상품은 자판기 낱팩 목록에서 제외하고, 힛덱 카드는 원본 세트로 귀속한다.
+- 일반 검증에 더해 아래 전용 검증을 실행한다.
+
+  ```powershell
+  pnpm --dir scripts validate:bundle -- --set <code> --trials 1000
+  ```
+
 ## 디스커버리 (pokemoncard.co.kr 검색 API)
 
 `pnpm --dir scripts discover -- "<검색어>"`로 폴더/파일 prefix/card_num prefix/번호 범위/

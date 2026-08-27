@@ -103,6 +103,8 @@ function compactCardForOpeningHistory(card: Card): Card {
     price_source: card.price_source ?? null,
     price_updated_at: card.price_updated_at ?? null,
     price_confidence: card.price_confidence ?? null,
+    source_set_code: card.source_set_code,
+    opening_set_code: card.opening_set_code,
   };
 }
 
@@ -278,7 +280,9 @@ export function removeOpeningSet(
     // The caller supplies the selected set's card numbers for a safe fallback.
     cards: filteredCards
       ?? (setCardNums
-        ? session.cards.filter((card) => !setCardNums.has(card.card_num))
+        ? session.cards.filter((card) => card.opening_set_code
+          ? card.opening_set_code !== setCode
+          : !setCardNums.has(card.card_num))
         : session.cards),
     openingEvents,
   };

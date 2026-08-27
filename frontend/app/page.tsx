@@ -1,5 +1,6 @@
 import { App } from '../components/App';
 import type { SetMeta } from '../lib/types';
+import { resolveBundleSet } from '../lib/bundle';
 
 // 세트 JSON을 정적 import — 빌드 타임에 RSC payload로 인라인되어
 // Cloudflare Workers 런타임에 fs 의존성이 남지 않도록 한다.
@@ -91,9 +92,25 @@ import mDreamEx from '../public/sets/m-dream-ex.json';
 import mInfernoX from '../public/sets/m-inferno-x.json';
 import mMegaBrave from '../public/sets/m-mega-brave.json';
 import mMegaSymphonia from '../public/sets/m-mega-symphonia.json';
+import mMagikarpSpecialSetRaw from '../public/sets/m-magikarp-special-set.json';
+
+const magikarpBundleSources = [
+  mMegaBrave,
+  mMegaSymphonia,
+  mInfernoX,
+  mNihilZero,
+  m4NinjaSpinner,
+  m5AbyssEye,
+  mDreamEx,
+] as SetMeta[];
+const mMagikarpSpecialSet = resolveBundleSet(
+  mMagikarpSpecialSetRaw as SetMeta,
+  magikarpBundleSources,
+);
 
 const sets: SetMeta[] = [
   // MEGA 시리즈
+  mMagikarpSpecialSet,
   m4NinjaSpinner, m5AbyssEye, m6StormEmerald, mNihilZero, mDreamEx, mInfernoX, mMegaBrave, mMegaSymphonia,
   mStartDeck100,
   // SV 시리즈

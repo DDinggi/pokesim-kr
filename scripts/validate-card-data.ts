@@ -79,6 +79,8 @@ interface SetJson {
   rarities?: string[];
   cards?: CardEntry[];
   start_deck?: StartDeckMeta;
+  box_size?: number;
+  bundle_components?: Array<{ set_code?: string; pack_count?: number }>;
 }
 
 interface StartDeckMeta {
@@ -161,26 +163,27 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
   const isPlanned = plannedSets.has(setCode);
   const rarityCounts = countBy(cards, (card) => card.rarity ?? "__null__");
   const highCount = cards.filter((card) => card.rarity && HIGH_RARITIES.has(card.rarity)).length;
+  const isBundle = set.type === "bundle";
 
   if (set.code !== setCode) {
     add("error", setCode, `code 필드(${set.code ?? "없음"})가 파일명과 다릅니다.`);
   }
 
-  if (isActive && cards.length === 0) {
+  if (isActive && cards.length === 0 && !isBundle) {
     add("error", setCode, "active_sets에 있는데 cards가 비어 있습니다.");
-  } else if (!isActive && cards.length === 0) {
+  } else if (!isActive && cards.length === 0 && !isBundle) {
     add("info", setCode, "placeholder 세트입니다. active_sets에 넣기 전 카드 수집이 필요합니다.");
   }
 
   // 스타트 덱(starter)은 카드에 rarity 표기가 없는 구축 덱 제품이라 고레어/UR 검사를 건너뛴다.
   const isStarter = set.type === "starter";
 
-  if (!isStarter && cards.length > 0 && highCount === 0) {
+  if (!isStarter && !isBundle && cards.length > 0 && highCount === 0) {
     const level: Level = isActive ? "warn" : "info";
     add(level, setCode, "AR/SR/SAR/UR/BWR 등 고레어 카드가 하나도 없습니다.");
   }
 
-  if (!isStarter && isMegaSet(set, setCode) && cards.length > 0 && !rarityCounts.UR) {
+  if (!isStarter && !isBundle && isMegaSet(set, setCode) && cards.length > 0 && !rarityCounts.UR) {
     add("warn", setCode, "MEGA 세트인데 UR(MUR 정규화) 카드가 없습니다. MUR 누락 가능성이 큽니다.");
   }
 
@@ -205,10 +208,45 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
   validateImages(setCode, cards);
   validateImageNumberAlignment(setCode, cards);
   validateStartDeck(setCode, set, cards);
+  validateBundle(setCode, set);
   validatePublicCopy(setCode, filePath);
 
   if (!isActive && !isPlanned && cards.length > 0 && set.type !== "promo") {
     add("info", setCode, "카드 데이터는 있지만 sets-index의 active/planned 어디에도 없습니다.");
+  }
+}
+
+function validateBundle(setCode: string, set: SetJson) {
+  if (set.type !== "bundle") return;
+  const components = set.bundle_components ?? [];
+  if (components.length === 0) {
+    add("error", setCode, "bundle 상품인데 bundle_components가 없습니다.");
+    return;
+  }
+
+  const seen = new Set<string>();
+  let totalPacks = 0;
+  for (const component of components) {
+    const sourceCode = component.set_code?.trim();
+    const packCount = component.pack_count;
+    if (!sourceCode) {
+      add("error", setCode, "bundle component의 set_code가 비어 있습니다.");
+      continue;
+    }
+    if (seen.has(sourceCode)) add("error", setCode, `bundle component 중복: ${sourceCode}`);
+    seen.add(sourceCode);
+    if (!Number.isInteger(packCount) || (packCount ?? 0) <= 0) {
+      add("error", setCode, `${sourceCode} pack_count가 올바르지 않습니다.`);
+      continue;
+    }
+    totalPacks += packCount as number;
+    if (!existsSync(join(DATA_SETS_DIR, `${sourceCode}.json`))) {
+      add("error", setCode, `구성 세트 파일이 없습니다: ${sourceCode}`);
+    }
+  }
+
+  if (totalPacks !== set.box_size) {
+    add("error", setCode, `bundle 팩 합계 ${totalPacks}가 box_size ${set.box_size ?? "없음"}와 다릅니다.`);
   }
 }
 

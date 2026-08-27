@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import simulatorDefault from "../frontend/lib/simulator.ts";
+import bundleDefault from "../frontend/lib/bundle.ts";
 import luckDefault from "../frontend/lib/luck.ts";
 import type { Card, SetMeta } from "../frontend/lib/types.ts";
 import type { WeightedLuckScore } from "../frontend/lib/luck.ts";
@@ -33,8 +34,10 @@ type AuditResult = {
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const {
   simulateBox,
+  simulateBundle,
   simulatePack,
 } = simulatorDefault as unknown as typeof import("../frontend/lib/simulator.ts");
+const { resolveBundleSet } = bundleDefault as unknown as typeof import("../frontend/lib/bundle.ts");
 const {
   createLuckOpening,
   summarizeWeightedLuckEvent,
@@ -80,7 +83,12 @@ function readJson<T>(path: string): T {
 }
 
 function loadSet(setCode: string): SetMeta {
-  return readJson<SetMeta>(resolve(ROOT_DIR, "data", "sets", `${setCode}.json`));
+  const set = readJson<SetMeta>(resolve(ROOT_DIR, "data", "sets", `${setCode}.json`));
+  if (set.type !== "bundle") return set;
+  const sources = (set.bundle_components ?? []).map((component) =>
+    readJson<SetMeta>(resolve(ROOT_DIR, "data", "sets", `${component.set_code}.json`)),
+  );
+  return resolveBundleSet(set, sources);
 }
 
 function getTargetSetCodes(args: Args): string[] {
@@ -107,6 +115,12 @@ function formatPercent(value: number, total: number): string {
 }
 
 function sampleOpening(set: SetMeta, mode: Args["mode"], units: number, seed: string): Card[] {
+  if (set.type === "bundle") {
+    if (mode === "pack") throw new Error(`${set.code}: bundle 상품은 pack 모드를 지원하지 않습니다.`);
+    return Array.from({ length: units }, (_, index) =>
+      simulateBundle(set, `${seed}:bundle:${index}`).packs.flatMap((pack) => pack.cards),
+    ).flat();
+  }
   if (mode === "pack" || set.type === "starter") {
     return Array.from({ length: units }, (_, index) =>
       simulatePack(set.cards, set.type, set.pack_size, `${seed}:pack:${index}`, set.code).pack.cards,
