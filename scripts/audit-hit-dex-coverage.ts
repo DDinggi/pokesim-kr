@@ -311,6 +311,10 @@ mkdirSync(outDir, { recursive: true });
 const reports: SetReport[] = [];
 for (const [i, code] of setCodes.entries()) {
   const set = loadSet(code);
+  if (set.type === 'bundle') {
+    console.log(`[${i + 1}/${setCodes.length}] ${set.code} ${set.name_ko} - 혼합 상품은 원본 7세트 도감으로 귀속되어 건너뜀`);
+    continue;
+  }
   console.log(`[${i + 1}/${setCodes.length}] ${set.code} ${set.name_ko} - ${trials}회 검사`);
   reports.push(auditSet(set, trials));
 }

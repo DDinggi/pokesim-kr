@@ -3,7 +3,8 @@
 import { useState, useCallback, useEffect, useRef, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
-import { simulateBox, simulatePack, PROBABILITY_META } from '../lib/simulator';
+import { simulateBox, simulateBundle, simulatePack, PROBABILITY_META } from '../lib/simulator';
+import { getBundleCardCount, isBundleSet } from '../lib/bundle';
 import { getBoxImageSrc } from '../lib/boxImages';
 import {
   createLuckOpening,
@@ -49,6 +50,18 @@ const BETWEEN_MS = 1800;
 
 function loadStoredSession(): Session {
   return loadOpeningSession();
+}
+
+function addOpeningCardsToHitDex(cards: Card[], setMeta: SetMeta): void {
+  if (!isBundleSet(setMeta)) {
+    addCardsToHitDex(cards, setMeta);
+    return;
+  }
+
+  for (const component of setMeta.resolved_bundle_components ?? []) {
+    const sourceCards = cards.filter((card) => card.source_set_code === component.set.code);
+    if (sourceCards.length > 0) addCardsToHitDex(sourceCards, component.set);
+  }
 }
 
 type Mode = 'box-auto' | 'box-manual' | 'box-instant' | 'pack';
@@ -307,8 +320,9 @@ function IdleScreen({
         )}
         <p className="text-2xl sm:text-3xl font-black mb-1 tracking-tight">{meta.name_ko}</p>
         <p className="text-gray-500 text-xs">
-          {meta.cards.length}종 · {meta.box_size}팩 · {meta.pack_size}장/팩 ·{' '}
-          {meta.type === 'hi-class' ? '하이클래스' : '확장팩'}
+          {isBundleSet(meta)
+            ? `7종 각 4팩 · 총 ${meta.box_size}팩 · ${getBundleCardCount(meta)}장 · 스페셜 세트`
+            : `${meta.cards.length}종 · ${meta.box_size}팩 · ${meta.pack_size}장/팩 · ${meta.type === 'hi-class' ? '하이클래스' : '확장팩'}`}
         </p>
       </div>
 
@@ -316,7 +330,7 @@ function IdleScreen({
 
       <section className="w-full max-w-2xl">
         <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3 px-1">
-          박스깡 · ₩{meta.box_price_krw.toLocaleString()}
+          {isBundleSet(meta) ? '스페셜 세트 개봉' : '박스깡'} · ₩{meta.box_price_krw.toLocaleString()}
         </h3>
         <div className="grid grid-cols-1 gap-3">
           <button
@@ -324,7 +338,7 @@ function IdleScreen({
             className="py-8 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-700 hover:from-orange-400 hover:to-orange-600 active:scale-95 transition font-bold text-lg shadow-xl shadow-orange-900/40 flex flex-col gap-1"
           >
             즉시 개봉
-            <span className="text-[11px] font-normal text-orange-100/90">30팩 전체 결과 한 번에 보기</span>
+            <span className="text-[11px] font-normal text-orange-100/90">{meta.box_size}팩 전체 결과 한 번에 보기</span>
           </button>
         </div>
       </section>
@@ -365,6 +379,9 @@ function AutoBoxReveal({
           <p className="text-2xl font-bold tabular-nums">
             {packIdx + 1} / {total} 팩
           </p>
+          {pack.source_set_name_ko && (
+            <p className="mt-1 text-xs font-bold text-cyan-300">{pack.source_set_name_ko}</p>
+          )}
           <div className="mt-2 w-64 h-2 bg-gray-800 rounded-full overflow-hidden mx-auto">
             <div className="h-full bg-red-500 rounded-full" style={{ width: `${progress}%` }} />
           </div>
@@ -473,6 +490,9 @@ function ManualBoxReveal({
         <p className="text-2xl font-bold tabular-nums">
           {packIdx + 1} / {total} 팩
         </p>
+        {pack.source_set_name_ko && (
+          <p className="mt-1 text-xs font-bold text-cyan-300">{pack.source_set_name_ko}</p>
+        )}
         <div className="mt-2 w-64 h-2 bg-gray-800 rounded-full overflow-hidden mx-auto">
           <div className="h-full bg-red-500 rounded-full" style={{ width: `${progress}%` }} />
         </div>
@@ -725,9 +745,9 @@ function BoxDoneScreen({
   return (
     <div className="px-4 py-6 max-w-6xl mx-auto">
       <div className="mb-6">
-        <h2 className="text-3xl font-black tracking-tight">박스깡 결과</h2>
+        <h2 className="text-3xl font-black tracking-tight">{isBundleSet(meta) ? '스페셜 세트 결과' : '박스깡 결과'}</h2>
         <p className="text-gray-400 text-sm mt-1">
-          {meta.name_ko} · ₩{meta.box_price_krw.toLocaleString()} · {allCards.length}장
+          {meta.name_ko} · ₩{meta.box_price_krw.toLocaleString()} · {isBundleSet(meta) ? `${result.packs.length}팩 · ` : ''}{allCards.length}장
         </p>
       </div>
 
@@ -756,7 +776,7 @@ function BoxDoneScreen({
           onClick={onRedo}
           className="px-10 py-3 bg-gradient-to-br from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 active:scale-95 rounded-xl font-bold transition shadow-lg shadow-red-900/40"
         >
-          한 박스 더 깡!
+          {isBundleSet(meta) ? '한 세트 더 깡!' : '한 박스 더 깡!'}
         </button>
         <button
           onClick={() => onOpenLuck('box')}
@@ -1011,7 +1031,9 @@ export function BoxSimulator({
   const startBox = useCallback(
     (m: 'box-auto' | 'box-manual' | 'box-instant') => {
       manualPacksRecorded.current = new Set();
-      const result = simulateBox(setMeta.cards, setMeta.box_size, setMeta.type, setMeta.pack_size, undefined, setMeta.code);
+      const result = isBundleSet(setMeta)
+        ? simulateBundle(setMeta)
+        : simulateBox(setMeta.cards, setMeta.box_size, setMeta.type, setMeta.pack_size, undefined, setMeta.code);
       setBoxResult(result);
       setMode(m);
       setPackIdx(0);
@@ -1046,6 +1068,7 @@ export function BoxSimulator({
   }, [pendingBoxRedo, startBox]);
 
   const startPack = useCallback(() => {
+    if (isBundleSet(setMeta)) return;
     const result = simulatePack(setMeta.cards, setMeta.type, setMeta.pack_size, undefined, setMeta.code);
     setPackResult(result);
     setMode('pack');
@@ -1069,7 +1092,7 @@ export function BoxSimulator({
           packCount: 1,
           krw: setMeta.pack_price_krw,
         });
-        addCardsToHitDex(packResult.pack.cards, setMeta);
+        addOpeningCardsToHitDex(packResult.pack.cards, setMeta);
         setSession((s) => ({
           ...s,
           packs: s.packs + 1,
@@ -1095,7 +1118,7 @@ export function BoxSimulator({
           krw: setMeta.box_price_krw,
         });
         boxResult.packs.forEach((_, i) => manualPacksRecorded.current.add(i));
-        addCardsToHitDex(skipped, setMeta);
+        addOpeningCardsToHitDex(skipped, setMeta);
         setSession((s) => ({
           ...s,
           boxes: s.boxes + 1,
@@ -1116,7 +1139,7 @@ export function BoxSimulator({
           packCount: setMeta.box_size,
           krw: setMeta.box_price_krw,
         });
-        addCardsToHitDex(all, setMeta);
+        addOpeningCardsToHitDex(all, setMeta);
         setSession((s) => ({
           ...s,
           boxes: s.boxes + 1,
@@ -1140,7 +1163,7 @@ export function BoxSimulator({
     if (mode === 'box-manual' && !manualPacksRecorded.current.has(packIdx)) {
       manualPacksRecorded.current.add(packIdx);
       const packCards = boxResult.packs[packIdx].cards;
-      addCardsToHitDex(packCards, setMeta);
+      addOpeningCardsToHitDex(packCards, setMeta);
       setSession((s) => ({ ...s, cards: [...s.cards, ...packCards] }));
     }
     if (packIdx + 1 >= boxResult.packs.length) {

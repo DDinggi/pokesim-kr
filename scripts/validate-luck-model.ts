@@ -15,6 +15,7 @@ type SetJson = {
   rarities?: string[];
   cards?: Array<{ rarity?: string | null }>;
   start_deck?: unknown;
+  bundle_components?: Array<{ set_code?: string; pack_count?: number }>;
 };
 
 type Args = {
@@ -99,11 +100,20 @@ function validateSet(setCode: string): { warnings: string[]; errors: string[] } 
   const warnings: string[] = [];
   const errors: string[] = [];
 
-  if (!set.cards || set.cards.length === 0) {
+  if ((!set.cards || set.cards.length === 0) && set.type !== 'bundle') {
     warnings.push('카드 목록이 비어 있어 운/시뮬 검증을 건너뜁니다.');
   }
 
-  if (set.type === 'starter') {
+  if (set.type === 'bundle') {
+    const components = set.bundle_components ?? [];
+    if (components.length === 0) errors.push('bundle_components가 없습니다.');
+    if (!luckSource.includes("set?.type === 'bundle'")) {
+      errors.push('luck.ts에 bundle 낱팩 합성 분기가 없습니다.');
+    }
+    if (!readFileSync(resolve(ROOT_DIR, 'frontend', 'lib', 'simulator.ts'), 'utf8').includes('simulateBundle')) {
+      errors.push('simulator.ts에 simulateBundle 구현이 없습니다.');
+    }
+  } else if (set.type === 'starter') {
     if (!set.start_deck) {
       errors.push('starter 세트인데 start_deck 메타(대표카드 풀)가 없습니다.');
     }
@@ -153,7 +163,7 @@ function validateSet(setCode: string): { warnings: string[]; errors: string[] } 
     warnings.push('BWR 카드가 있지만 SV11 특수 운 모델이 아닙니다. luck.ts top rarity 처리 확인이 필요합니다.');
   }
 
-  if (set.code.startsWith('m') && set.type !== 'starter' && !hasRarity(set, 'UR')) {
+  if (set.code.startsWith('m') && set.type !== 'starter' && set.type !== 'bundle' && !hasRarity(set, 'UR')) {
     warnings.push('MEGA 세트인데 UR(MUR 정규화) 카드가 없습니다. MUR 누락 가능성이 큽니다.');
   }
 

@@ -14,6 +14,10 @@ export interface Card {
   price_source?: string | null;
   price_updated_at?: string | null;
   price_confidence?: 'source' | 'proxy' | 'manual' | null;
+  /** 혼합 상품에서 이 카드가 실제로 나온 원본 확장팩 코드. 런타임 기록용. */
+  source_set_code?: string;
+  /** 혼합 상품 단위 기록을 안전하게 지우기 위한 런타임 상품 코드. */
+  opening_set_code?: string;
 }
 
 export interface LuckValueRef {
@@ -40,9 +44,21 @@ export interface StartDeckMeta {
   gold_rep_card_nums?: string[];
 }
 
+export interface BundleComponentMeta {
+  set_code: string;
+  pack_count: number;
+}
+
+export interface ResolvedBundleComponent {
+  set: SetMeta;
+  pack_count: number;
+}
+
 export interface SetMeta {
   code: string;
   name_ko: string;
+  aliases?: string[];
+  series?: string;
   type: string;
   box_size: number;
   pack_size: number;
@@ -52,10 +68,16 @@ export interface SetMeta {
   luck_value_ref?: LuckValueRef | null;
   /** type === 'starter' (스타트 덱 100) 전용 메타. 덱 뽑기 시뮬에서만 사용. */
   start_deck?: StartDeckMeta;
+  /** type === 'bundle' 혼합 상품의 원본 팩 구성. */
+  bundle_components?: BundleComponentMeta[];
+  /** 정적 구성 코드를 실제 세트 메타로 연결한 런타임 전용 값. */
+  resolved_bundle_components?: ResolvedBundleComponent[];
 }
 
 export interface PackResult {
   cards: Card[];
+  source_set_code?: string;
+  source_set_name_ko?: string;
 }
 
 export interface BoxResult {

@@ -109,7 +109,8 @@ export function VendingMachine({
   const [activeSeries, setActiveSeries] = useState<SetSeriesKey>(
     () => getAvailableSetSeries(sets)[0]?.key ?? 'mega',
   );
-  const displaySets = sets;
+  // 혼합 스페셜 상품은 낱팩 SKU가 아니므로 자판기에서 판매하지 않는다.
+  const displaySets = useMemo(() => sets.filter((set) => set.type !== 'bundle'), [sets]);
   const availableSeries = useMemo(() => getAvailableSetSeries(displaySets), [displaySets]);
   const selectedSeries = availableSeries.some((series) => series.key === activeSeries)
     ? activeSeries

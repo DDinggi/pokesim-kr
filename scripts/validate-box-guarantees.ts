@@ -2,10 +2,12 @@ import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import simulatorDefault from '../frontend/lib/simulator.ts';
+import bundleDefault from '../frontend/lib/bundle.ts';
 import modelDefault from '../frontend/lib/simulation/model.ts';
 import type { Card, SetMeta } from '../frontend/lib/types.ts';
 
-const { simulateBox } = simulatorDefault as unknown as typeof import('../frontend/lib/simulator.ts');
+const { simulateBox, simulateBundle } = simulatorDefault as unknown as typeof import('../frontend/lib/simulator.ts');
+const { getBundleCardCount, resolveBundleSet } = bundleDefault as unknown as typeof import('../frontend/lib/bundle.ts');
 const { MEGA_MAIN_SR_NUMBER_RANGES } = modelDefault as unknown as typeof import('../frontend/lib/simulation/model.ts');
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const argv = process.argv.slice(2);
@@ -50,6 +52,10 @@ function parseRarities(spec: string): string[] | null {
 
 const setPath = resolve(ROOT_DIR, 'data', 'sets', setCode + '.json');
 const set = JSON.parse(readFileSync(setPath, 'utf8')) as SetWithGuarantees;
+const sourceSets = (set.bundle_components ?? []).map((component) =>
+  JSON.parse(readFileSync(resolve(ROOT_DIR, 'data', 'sets', `${component.set_code}.json`), 'utf8')) as SetMeta,
+);
+const runtimeSet = set.type === 'bundle' ? resolveBundleSet(set, sourceSets) : set;
 const configuredRules = (set.box_guarantees?.rules ?? []).map((rule) => ({
   rule,
   rarities: rule.kind ? null : parseRarities(rule.rarity),
@@ -92,25 +98,45 @@ const ranges = new Map<string, { min: number; max: number }>();
 const errors: string[] = [];
 
 for (let index = 0; index < trials; index++) {
-  const result = simulateBox(
-    set.cards,
-    set.box_size ?? 0,
-    set.type,
-    set.pack_size ?? 0,
-    'guarantee-' + index,
-    set.code,
-  );
+  const result = set.type === 'bundle'
+    ? simulateBundle(runtimeSet, 'guarantee-' + index)
+    : simulateBox(
+        set.cards,
+        set.box_size ?? 0,
+        set.type,
+        set.pack_size ?? 0,
+        'guarantee-' + index,
+        set.code,
+      );
 
   if (result.packs.length !== set.box_size) {
     errors.push('box ' + index + ': expected ' + set.box_size + ' packs, got ' + result.packs.length);
   }
 
-  const malformedPack = result.packs.findIndex((pack) => pack.cards.length !== set.pack_size);
+  const malformedPack = result.packs.findIndex((pack) => {
+    if (set.type !== 'bundle') return pack.cards.length !== set.pack_size;
+    const source = sourceSets.find((candidate) => candidate.code === pack.source_set_code);
+    return !source || pack.cards.length !== source.pack_size;
+  });
   if (malformedPack >= 0) {
     errors.push(
       'box ' + index + ', pack ' + malformedPack + ': expected '
-      + set.pack_size + ' cards, got ' + result.packs[malformedPack].cards.length,
+      + (set.type === 'bundle' ? 'source pack size' : `${set.pack_size} cards`)
+      + ', got ' + result.packs[malformedPack].cards.length,
     );
+  }
+
+  if (set.type === 'bundle') {
+    const cards = result.packs.flatMap((pack) => pack.cards);
+    if (cards.length !== getBundleCardCount(runtimeSet)) {
+      errors.push('box ' + index + ': expected ' + getBundleCardCount(runtimeSet) + ' total cards, got ' + cards.length);
+    }
+    for (const component of runtimeSet.resolved_bundle_components ?? []) {
+      const count = result.packs.filter((pack) => pack.source_set_code === component.set.code).length;
+      if (count !== component.pack_count) {
+        errors.push('box ' + index + ': expected ' + component.set.code + ' x' + component.pack_count + ', got x' + count);
+      }
+    }
   }
 
   const cards = result.packs.flatMap((pack) => pack.cards);
@@ -134,7 +160,11 @@ for (let index = 0; index < trials; index++) {
 }
 
 console.log(set.code + ' | ' + set.name_ko);
-console.log('  shape: ' + set.box_size + ' packs x ' + set.pack_size + ' cards');
+console.log(
+  set.type === 'bundle'
+    ? '  shape: ' + set.box_size + ' mixed packs / ' + getBundleCardCount(runtimeSet) + ' total cards'
+    : '  shape: ' + set.box_size + ' packs x ' + set.pack_size + ' cards',
+);
 for (const { rule } of rules) {
   const range = ranges.get(rule.rarity);
   console.log(
@@ -148,5 +178,5 @@ if (errors.length > 0) {
   for (const error of errors) console.error('  ERROR: ' + error);
   process.exitCode = 1;
 } else {
-  console.log('  OK: ' + trials + ' boxes matched all validated guarantees');
+  console.log('  OK: ' + trials + (set.type === 'bundle' ? ' bundles matched the exact loose-pack composition' : ' boxes matched all validated guarantees'));
 }

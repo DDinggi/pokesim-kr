@@ -14,6 +14,10 @@ import { fetchSetPopularity, type SetPopularity } from '../lib/statsTracker';
 import { SetSeriesTabs } from './SetSeriesTabs';
 
 const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
+  'm-magikarp-special-set': {
+    gradient: 'from-slate-800 via-indigo-950 to-violet-950',
+    accent: 'text-slate-200',
+  },
   'm6-storm-emerald': {
     gradient: 'from-emerald-600 via-sky-700 to-slate-950',
     accent: 'text-emerald-200',
@@ -355,6 +359,7 @@ function matchSet(set: SetMeta, query: string): boolean {
   if (!q) return true;
   return (
     normalizeSearchText(set.name_ko).includes(q)
+    || (set.aliases ?? []).some((alias) => normalizeSearchText(alias).includes(q))
     || normalizeSearchText(set.code).includes(q)
     || normalizeSearchText(set.type).includes(q)
   );
@@ -485,7 +490,7 @@ function SetCard({
         )}
         <div className="absolute top-3 left-3">
           <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded bg-black/40 backdrop-blur text-white/90">
-            {set.type === 'hi-class' ? '하이클래스팩' : set.type === 'starter' ? '스타트덱' : '확장팩'}
+            {set.type === 'bundle' ? '스페셜 세트' : set.type === 'hi-class' ? '하이클래스팩' : set.type === 'starter' ? '스타트덱' : '확장팩'}
           </span>
         </div>
         {isNew && (
@@ -497,7 +502,7 @@ function SetCard({
         )}
         <div className="absolute top-3 right-3">
           <span className={`text-[10px] font-bold px-2 py-1 rounded bg-black/40 backdrop-blur ${theme.accent}`}>
-            {set.type === 'starter' ? '100덱 중 1개' : `${set.box_size}팩 × ${set.pack_size}장`}
+            {set.type === 'bundle' ? '7종 · 28팩' : set.type === 'starter' ? '100덱 중 1개' : `${set.box_size}팩 × ${set.pack_size}장`}
           </span>
         </div>
       </div>
@@ -507,14 +512,14 @@ function SetCard({
         <h2 className="text-lg font-black leading-tight">{set.name_ko}</h2>
         <div className="flex items-end justify-between mt-3 pt-3 border-t border-white/5">
           <div>
-            <p className="text-[9px] uppercase text-white/40 tracking-wider">박스 가격</p>
+            <p className="text-[9px] uppercase text-white/40 tracking-wider">{set.type === 'bundle' ? '세트 가격' : '박스 가격'}</p>
             <p className="text-xl font-bold tabular-nums">
               ₩{set.box_price_krw.toLocaleString()}
             </p>
           </div>
           <div className="text-right">
-            <p className="text-[9px] uppercase text-white/40 tracking-wider">카드 풀</p>
-            <p className="text-sm font-bold tabular-nums">{set.cards.length}종</p>
+            <p className="text-[9px] uppercase text-white/40 tracking-wider">{set.type === 'bundle' ? '동봉 팩' : '카드 풀'}</p>
+            <p className="text-sm font-bold tabular-nums">{set.type === 'bundle' ? '7종 × 4팩' : `${set.cards.length}종`}</p>
           </div>
         </div>
       </div>
