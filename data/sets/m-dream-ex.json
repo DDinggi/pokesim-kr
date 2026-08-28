@@ -39,9 +39,24 @@
         "min": 1
       }
     ],
-    "_source": "pokemon-infomation.com/pull-rates-megadreamex/ 2,000BOX - MA 1, trainer SR/SAR 1, AR 3, optional Pokemon SR 10% / Pokemon SAR 40% / MUR 2%. No separate god-pack model is applied until a measured rate/source is available. Korean official pull rates are private.",
+    "_source": "pokemon-infomation.com/pull-rates-megadreamex/ (updated 2026-01-02), Japanese 2,000BOX aggregate - MA 1, trainer SR/SAR 1, AR 3, optional Pokemon SR 10% / Pokemon SAR 40% / MUR 2%. Korean official pull rates are private.",
     "_sample_size": 2000,
-    "_estimated_at": "2026-06-25"
+    "_estimated_at": "2026-08-28",
+    "special_pack_evidence": {
+      "kind": "AR1+MA5+SAR4 god pack",
+      "composition": {
+        "AR": 1,
+        "MA": 5,
+        "SAR": 4
+      },
+      "observed_count": 14,
+      "sample_boxes": 1000,
+      "sample_packs": 10000,
+      "box_rate": 0.014,
+      "pack_rate": 0.0014,
+      "_source": "PokéGet 1,000BOX aggregate video published 2025-11-28: https://www.youtube.com/watch?v=40DZLMBqG8w (transcript: https://mag.moe/2321614/)",
+      "_estimated_at": "2026-08-28"
+    }
   },
   "pack_slots": [],
   "cards": [
@@ -3642,9 +3657,9 @@
   "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
   "_source": "pokemoncard.co.kr",
   "_fetched_at": "2026-05-01",
-  "_notes": "하이클래스팩 — box_size/pack_size/price는 커뮤니티 확인 후 갱신 필요. 자동 수집 전 skeleton.",
+  "_notes": "한국판 카드 메타. 일반 봉입률은 일본판 2,000BOX 실측(2026-01-02 갱신)을 준용. 갓팩은 일본판 PokéGet 1,000BOX(50카톤) 집계의 14팩을 박스 14/1,000(1.4%), 낱팩 14/10,000(0.14%)으로 각각 모델링. 구성은 AR 1장+MA 5장+SAR 4장이며, 개별 카드 패턴 분포는 공개 표본이 부족해 각 레어도 풀에서 비복원 균등 선택. 한국판 공식 봉입률은 비공개. 근거 확인일 2026-08-28.",
   "luck_value_ref": {
-    "box_median_krw": 33900,
+    "box_median_krw": 34500,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
       15800,
@@ -3652,16 +3667,16 @@
       16400,
       18800,
       23200,
-      29900,
-      33900,
-      42100,
-      56500,
-      78000,
-      252900,
-      380200,
-      496800,
-      504800,
-      574700
+      30600,
+      34500,
+      44000,
+      57600,
+      78900,
+      280100,
+      405800,
+      500800,
+      540800,
+      1659600
     ],
     "pack_quantiles_krw": [
       0,
@@ -3678,7 +3693,7 @@
       20400,
       66700,
       236400,
-      550100
+      1171300
     ],
     "quantile_points": [
       0,
@@ -3701,6 +3716,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-08-13"
+    "_built_at": "2026-08-28"
   }
 }

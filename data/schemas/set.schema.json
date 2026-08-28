@@ -112,7 +112,27 @@
           "description": "출처 (예: '커뮤니티 합의 (디시 포카게갤 / X 종합)'). D-034·D-103 필수."
         },
         "_sample_size": { "type": ["integer", "null"], "description": "표본 크기 (있으면)." },
-        "_estimated_at": { "type": "string", "format": "date" }
+        "_estimated_at": { "type": "string", "format": "date" },
+        "special_pack_evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "composition", "observed_count", "sample_boxes", "sample_packs", "box_rate", "pack_rate", "_source", "_estimated_at"],
+          "properties": {
+            "kind": { "type": "string" },
+            "composition": {
+              "type": "object",
+              "additionalProperties": { "type": "integer", "minimum": 1 }
+            },
+            "observed_count": { "type": "integer", "minimum": 1 },
+            "sample_boxes": { "type": "integer", "minimum": 1 },
+            "sample_packs": { "type": "integer", "minimum": 1 },
+            "box_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+            "pack_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+            "_source": { "type": "string" },
+            "_estimated_at": { "type": "string", "format": "date" }
+          },
+          "description": "발생 건수와 분모가 함께 확인된 세트별 특수팩 근거. 일반 봉입률 표본과 분리한다."
+        }
       },
       "description": "박스 보장 룰 + 출처 메타 (D-103). 단일 인증글 메타로 박지 말 것."
     },

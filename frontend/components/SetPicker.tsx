@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { SetMeta } from '../lib/types';
+import { getBundleSummary, isBundleSet } from '../lib/bundle';
 import { getBoxThumbnailImageSrc } from '../lib/boxImages';
 import { isNewSimSet } from '../lib/newSets';
 import {
@@ -462,6 +463,7 @@ function SetCard({
   const [imgError, setImgError] = useState(false);
   const showImage = !imgError;
   const isNew = isNewSimSet(set.code);
+  const bundleSummary = isBundleSet(set) ? getBundleSummary(set) : null;
 
   return (
     <button
@@ -490,7 +492,7 @@ function SetCard({
         )}
         <div className="absolute top-3 left-3">
           <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded bg-black/40 backdrop-blur text-white/90">
-            {set.type === 'bundle' ? '스페셜 세트' : set.type === 'hi-class' ? '하이클래스팩' : set.type === 'starter' ? '스타트덱' : '확장팩'}
+            {bundleSummary ? '스페셜 세트' : set.type === 'hi-class' ? '하이클래스팩' : set.type === 'starter' ? '스타트덱' : '확장팩'}
           </span>
         </div>
         {isNew && (
@@ -502,7 +504,7 @@ function SetCard({
         )}
         <div className="absolute top-3 right-3">
           <span className={`text-[10px] font-bold px-2 py-1 rounded bg-black/40 backdrop-blur ${theme.accent}`}>
-            {set.type === 'bundle' ? '7종 · 28팩' : set.type === 'starter' ? '100덱 중 1개' : `${set.box_size}팩 × ${set.pack_size}장`}
+            {bundleSummary ? `${bundleSummary.componentCount}종 · ${bundleSummary.totalPacks}팩` : set.type === 'starter' ? '100덱 중 1개' : `${set.box_size}팩 × ${set.pack_size}장`}
           </span>
         </div>
       </div>
@@ -512,14 +514,20 @@ function SetCard({
         <h2 className="text-lg font-black leading-tight">{set.name_ko}</h2>
         <div className="flex items-end justify-between mt-3 pt-3 border-t border-white/5">
           <div>
-            <p className="text-[9px] uppercase text-white/40 tracking-wider">{set.type === 'bundle' ? '세트 가격' : '박스 가격'}</p>
+            <p className="text-[9px] uppercase text-white/40 tracking-wider">{bundleSummary ? '세트 가격' : '박스 가격'}</p>
             <p className="text-xl font-bold tabular-nums">
               ₩{set.box_price_krw.toLocaleString()}
             </p>
           </div>
           <div className="text-right">
-            <p className="text-[9px] uppercase text-white/40 tracking-wider">{set.type === 'bundle' ? '동봉 팩' : '카드 풀'}</p>
-            <p className="text-sm font-bold tabular-nums">{set.type === 'bundle' ? '7종 × 4팩' : `${set.cards.length}종`}</p>
+            <p className="text-[9px] uppercase text-white/40 tracking-wider">{bundleSummary ? '동봉 팩' : '카드 풀'}</p>
+            <p className="text-sm font-bold tabular-nums">
+              {bundleSummary
+                ? bundleSummary.uniformPackCount === null
+                  ? `총 ${bundleSummary.totalPacks}팩`
+                  : `${bundleSummary.componentCount}종 × ${bundleSummary.uniformPackCount}팩`
+                : `${set.cards.length}종`}
+            </p>
           </div>
         </div>
       </div>

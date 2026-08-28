@@ -1081,6 +1081,12 @@ export const MEGA_DREAM_EXTRA_SLOT_WEIGHTS: Record<string, number> = {
   UR: 1.75,
 };
 
+// PokéGet 1,000BOX(10,000 packs) opening aggregate: 14 AR1+MA5+SAR4 packs.
+// Keep the observed box frequency and the exposed-pack frequency separate.
+// Japanese observed estimate; official Japanese/Korean pull rates are unpublished.
+export const MEGA_DREAM_GOD_PACK_PACK_RATE = 14 / 10_000;
+export const MEGA_DREAM_GOD_PACK_RATE = 14 / 1_000;
+
 
 /**
  * 스타트 덱 100 (배틀 컬렉션). 코드가 'm'으로 시작하지만 MEGA 확장팩 봉입률 모델이

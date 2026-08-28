@@ -20,6 +20,8 @@ import {
   hasAceSpecSlot,
   MEGA_AR_COUNT,
   MEGA_DREAM_EXTRA_SLOT_WEIGHTS,
+  MEGA_DREAM_GOD_PACK_PACK_RATE,
+  MEGA_DREAM_GOD_PACK_RATE,
   MEGA_EXTRA_SR_RATE,
   SHINY_STAR_V_EXTRA_SLOT_WEIGHTS,
   SHINY_TREASURE_EXTRA_SLOT_WEIGHTS,
@@ -831,7 +833,25 @@ function getExpectedScoredRarityCounts(
       return counts;
     }
 
-    // 기본 하이클래스(MEGA 드림 ex 등): 확정 AR 3장
+    if (code === 'm-dream-ex') {
+      const ordinaryUnitCount =
+        opening.boxes
+        + (opening.packs / opening.boxSize) * (1 - MEGA_DREAM_GOD_PACK_PACK_RATE);
+      const godPackCount =
+        opening.boxes * MEGA_DREAM_GOD_PACK_RATE
+        + opening.packs * MEGA_DREAM_GOD_PACK_PACK_RATE;
+
+      addExpectedCount(counts, 'SR', ordinaryUnitCount);
+      addExpectedCount(counts, 'MA', ordinaryUnitCount);
+      addExpectedCount(counts, 'AR', ordinaryUnitCount * 3);
+      addExpectedCountsFromWeights(counts, MEGA_DREAM_EXTRA_SLOT_WEIGHTS, ordinaryUnitCount, 1, opening);
+      addExpectedCount(counts, 'AR', godPackCount);
+      addExpectedCount(counts, 'MA', godPackCount * 5);
+      addExpectedCount(counts, 'SAR', godPackCount * 4);
+      return counts;
+    }
+
+    // 기본 하이클래스: 확정 AR 3장
     addLoosePackBaselineCount('SR');
     addLoosePackBaselineCount('MA');
     addExpectedCount(counts, 'AR', unitCount * 3);
@@ -1197,6 +1217,18 @@ function getBoxScoreDistribution(
       ]);
     }
 
+    if (code === 'm-dream-ex') {
+      return convolveDistributions(
+        distributionFromWeights(MEGA_DREAM_EXTRA_SLOT_WEIGHTS, 'box'),
+        bernoulliDistribution(
+          getScoreWeight('AR', 'box')
+            + getScoreWeight('MA', 'box') * 5
+            + getScoreWeight('SAR', 'box') * 4,
+          MEGA_DREAM_GOD_PACK_RATE,
+        ),
+      );
+    }
+
     return distributionFromWeights(MEGA_DREAM_EXTRA_SLOT_WEIGHTS, 'box');
   }
 
@@ -1415,6 +1447,33 @@ function getPackScoreDistribution(
           probability: outcome.probability * (1 - godPackRate),
         })),
         { score: getScoreWeight('SR', 'pack') * 10, probability: godPackRate },
+      ]);
+    }
+
+    if (code === 'm-dream-ex') {
+      let ordinary = convolveDistributions(
+        distribution,
+        bernoulliDistribution(getScoreWeight('SR', 'pack'), 1 / boxSize),
+      );
+      ordinary = convolveDistributions(
+        ordinary,
+        bernoulliDistribution(getScoreWeight('MA', 'pack'), 1 / boxSize),
+      );
+      ordinary = convolveDistributions(
+        ordinary,
+        optionalPackDistributionFromBoxWeights(MEGA_DREAM_EXTRA_SLOT_WEIGHTS, boxSize, 'pack'),
+      );
+      const godPackScore =
+        getScoreWeight('AR', 'pack')
+        + getScoreWeight('MA', 'pack') * 5
+        + getScoreWeight('SAR', 'pack') * 4;
+
+      return normalizeDistribution([
+        ...ordinary.map((outcome) => ({
+          ...outcome,
+          probability: outcome.probability * (1 - MEGA_DREAM_GOD_PACK_PACK_RATE),
+        })),
+        { score: godPackScore, probability: MEGA_DREAM_GOD_PACK_PACK_RATE },
       ]);
     }
 
@@ -1766,6 +1825,16 @@ export function getLuckRatesForSet(
           (1 - TAG_ALL_STARS_GOD_PACK_RATE)
           * weightChance(TAG_ALL_STARS_MAIN_SLOT_WEIGHTS, 'UR'),
         sarPerBox: 0,
+      };
+    }
+
+    if (set.code === 'm-dream-ex') {
+      return {
+        boxSize,
+        topPerBox: weightChance(MEGA_DREAM_EXTRA_SLOT_WEIGHTS, 'UR'),
+        sarPerBox:
+          weightChance(MEGA_DREAM_EXTRA_SLOT_WEIGHTS, 'SAR')
+          + MEGA_DREAM_GOD_PACK_RATE * 4,
       };
     }
 

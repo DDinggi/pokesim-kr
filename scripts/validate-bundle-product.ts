@@ -11,7 +11,12 @@ import type { SetMeta } from '../frontend/lib/types.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = join(ROOT, 'data', 'sets');
-const { resolveBundleSet, getBundleCardCount } = bundleDefault as unknown as typeof import('../frontend/lib/bundle.ts');
+const {
+  resolveBundleSet,
+  getBundleCardCount,
+  getBundleComponentDisplayName,
+  getBundleSummary,
+} = bundleDefault as unknown as typeof import('../frontend/lib/bundle.ts');
 const { simulateBundle } = simulatorDefault as unknown as typeof import('../frontend/lib/simulator.ts');
 
 const setCodeArg = process.argv.indexOf('--set');
@@ -27,11 +32,39 @@ const rawBundle = loadSet(setCode);
 assert.equal(rawBundle.type, 'bundle');
 const sourceSets = (rawBundle.bundle_components ?? []).map((component) => loadSet(component.set_code));
 const bundle = resolveBundleSet(rawBundle, sourceSets);
+const expectedComposition = [
+  { set_code: 'm-mega-brave', pack_count: 4 },
+  { set_code: 'm-mega-symphonia', pack_count: 4 },
+  { set_code: 'm-inferno-x', pack_count: 4 },
+  { set_code: 'm-nihil-zero', pack_count: 4 },
+  { set_code: 'm4-ninja-spinner', pack_count: 4 },
+  { set_code: 'm5-abyss-eye', pack_count: 4 },
+  { set_code: 'm-dream-ex', pack_count: 4 },
+];
 
 assert.equal(bundle.box_size, 28, '상품은 28팩이어야 합니다.');
 assert.equal(getBundleCardCount(bundle), 160, '상품은 총 160장이어야 합니다.');
 assert.equal(bundle.resolved_bundle_components?.length, 7, '구성 확장팩은 7종이어야 합니다.');
 assert.ok(bundle.resolved_bundle_components?.every((component) => component.pack_count === 4));
+assert.deepEqual(
+  bundle.resolved_bundle_components?.map((component) => ({
+    set_code: component.set.code,
+    pack_count: component.pack_count,
+  })),
+  expectedComposition,
+  '공식 동봉 팩 코드·순서·수량이 다릅니다.',
+);
+assert.deepEqual(getBundleSummary(bundle), {
+  componentCount: 7,
+  totalPacks: 28,
+  totalCards: 160,
+  uniformPackCount: 4,
+});
+assert.deepEqual(
+  bundle.resolved_bundle_components?.map((component) => getBundleComponentDisplayName(component.set)),
+  ['메가브레이브', '메가심포니아', '인페르노X', '니힐제로', '닌자스피너', '어비스아이', 'MEGA 드림 ex'],
+  'UI용 동봉 팩 이름이 공식 구성과 다릅니다.',
+);
 
 for (let trial = 0; trial < trials; trial += 1) {
   const seed = `bundle-validation-${trial}`;

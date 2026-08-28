@@ -48,3 +48,28 @@ export function getBundleCardCount(bundle: SetMeta): number {
     0,
   );
 }
+
+export function getBundleComponentDisplayName(set: Pick<SetMeta, 'name_ko'>): string {
+  return set.name_ko.match(/「([^」]+)」/u)?.[1]?.trim() || set.name_ko;
+}
+
+export function getBundleSummary(bundle: SetMeta): {
+  componentCount: number;
+  totalPacks: number;
+  totalCards: number;
+  uniformPackCount: number | null;
+} {
+  const components = bundle.resolved_bundle_components ?? [];
+  const firstPackCount = components[0]?.pack_count ?? null;
+  const uniformPackCount = firstPackCount !== null
+    && components.every((component) => component.pack_count === firstPackCount)
+    ? firstPackCount
+    : null;
+
+  return {
+    componentCount: components.length,
+    totalPacks: components.reduce((total, component) => total + component.pack_count, 0),
+    totalCards: getBundleCardCount(bundle),
+    uniformPackCount,
+  };
+}

@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useRef, type ReactNode } from 'react'
 import Image from 'next/image';
 import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
 import { simulateBox, simulateBundle, simulatePack, PROBABILITY_META } from '../lib/simulator';
-import { getBundleCardCount, isBundleSet } from '../lib/bundle';
+import { getBundleSummary, isBundleSet } from '../lib/bundle';
 import { getBoxImageSrc } from '../lib/boxImages';
 import {
   createLuckOpening,
@@ -41,6 +41,7 @@ import {
   type OpeningSession,
 } from '../lib/openingHistory';
 import { addCardsToHitDex } from '../lib/hitDex';
+import { BundlePackList } from './BundlePackList';
 
 const REVEAL_STAGGER_MS = 140;
 const REVEAL_BASE_MS = 600;
@@ -302,6 +303,7 @@ function IdleScreen({
   onResetSession: () => void;
 }) {
   const [imgErr, setImgErr] = useState(false);
+  const bundleSummary = isBundleSet(meta) ? getBundleSummary(meta) : null;
   return (
     <div className="flex flex-col items-center min-h-[calc(100vh-72px)] px-4 py-8 gap-6">
       <div className="text-center max-w-xl flex flex-col items-center">
@@ -318,12 +320,18 @@ function IdleScreen({
             />
           </div>
         )}
-        <p className="text-2xl sm:text-3xl font-black mb-1 tracking-tight">{meta.name_ko}</p>
+        <p className="text-2xl sm:text-3xl font-black mb-1 tracking-tight break-keep">{meta.name_ko}</p>
         <p className="text-gray-500 text-xs">
-          {isBundleSet(meta)
-            ? `7종 각 4팩 · 총 ${meta.box_size}팩 · ${getBundleCardCount(meta)}장 · 스페셜 세트`
+          {bundleSummary
+            ? `${bundleSummary.componentCount}종${bundleSummary.uniformPackCount === null ? '' : ` 각 ${bundleSummary.uniformPackCount}팩`} · 총 ${bundleSummary.totalPacks}팩 · ${bundleSummary.totalCards}장 · 스페셜 세트`
             : `${meta.cards.length}종 · ${meta.box_size}팩 · ${meta.pack_size}장/팩 · ${meta.type === 'hi-class' ? '하이클래스' : '확장팩'}`}
         </p>
+        {bundleSummary && (
+          <BundlePackList
+            set={meta}
+            className="mt-2 max-w-lg justify-center gap-x-3 gap-y-0.5 text-[11px] leading-5 text-gray-500"
+          />
+        )}
       </div>
 
       <SessionBar session={session} onReset={onResetSession} />
