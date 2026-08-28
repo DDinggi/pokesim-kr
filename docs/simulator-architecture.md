@@ -87,8 +87,11 @@ MEGA 일반 확장팩은 일반 SV와 다르게 슬롯이 2개로 갈라진다.
 | 테라스탈 페스타 ex | RR 9장, 포켓몬 SAR 1장 | SR 20%, 서포트 SAR 10%, UR 6% | 미러 |
 | MEGA 드림 ex | RR 9장, AR 3장, 비서포트 트레이너즈 SR 1장, MA 1장 | SR 10%, SAR 40%, MUR 2% | 미러 |
 
-MEGA 드림 ex의 갓팩은 낮은 확률로 한 팩에 AR 1장, MA 5장, SAR 4장을
-별도 배치한다. 일반 박스 고정 슬롯을 통째로 없애지 않는다.
+MEGA 드림 ex의 갓팩은 일본판 1,000BOX(50카톤) 집계에서 14팩이
+관측됐다. 박스 모드는 관측 빈도 14/1,000(1.4%), 1팩 모드는 전체 노출
+10,000팩 기준 14/10,000(0.14%)으로 각각 모델링한다. 발생 시 한 팩에 AR 1장, MA 5장,
+SAR 4장을 별도 배치하고 일반 박스 고정 슬롯은 유지한다. 한국판 공식 수치가
+없어 일본판 실측을 준용한 추정치다.
 
 출처:
 
@@ -110,6 +113,9 @@ MEGA 드림 ex의 갓팩은 낮은 확률로 한 팩에 AR 1장, MA 5장, SAR 4�
 - https://altema.jp/pokemoncard/whiteflare
 - https://pokemon-infomation.com/pull-rates-ninjaspiner/
 - https://pokemon-infomation.com/pull-rates-megadreamex/
+- https://www.youtube.com/watch?v=40DZLMBqG8w
+- https://mag.moe/2321614/
+- https://www.pokemoncenter-online.com/9900000006808.html
 
 ## 1팩 / 자판기 모델
 

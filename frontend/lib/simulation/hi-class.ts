@@ -6,6 +6,8 @@ import {
   GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS,
   GX_ULTRA_SHINY_SECOND_PR_RATE,
   MEGA_DREAM_EXTRA_SLOT_WEIGHTS,
+  MEGA_DREAM_GOD_PACK_PACK_RATE,
+  MEGA_DREAM_GOD_PACK_RATE,
   MEGA_MAIN_SR_NUMBER_RANGES,
   SHINY_STAR_V_EXTRA_SLOT_WEIGHTS,
   SHINY_TREASURE_EXTRA_SLOT_WEIGHTS,
@@ -191,6 +193,14 @@ export function simulateHiClassBox(
   }
 
   const hits: HiClassHitSlot[] = [];
+  const godPackHits =
+    setCode === 'm-dream-ex'
+    && rng() < MEGA_DREAM_GOD_PACK_RATE
+    && hasRarity(byRarity, 'AR')
+    && hasRarity(byRarity, 'MA')
+    && hasRarity(byRarity, 'SAR')
+      ? buildMegaDreamGodPackHits(pools)
+      : null;
 
   for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
   if (hasRarity(byRarity, 'AR')) hits.push({ rarity: 'AR' }, { rarity: 'AR' }, { rarity: 'AR' });
@@ -211,7 +221,7 @@ export function simulateHiClassBox(
     if (pokemonPool.length) hits.push({ rarity: extraRarity, pool: pokemonPool });
   }
 
-  return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, hits);
+  return buildHiClassPacksFromHitsWithGodPack(ctx, rng, boxSize, packSize, hits, godPackHits);
 }
 
 export function simulateSingleHiClassPack(
@@ -408,6 +418,16 @@ export function simulateSingleHiClassPack(
     return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
   }
 
+  if (
+    setCode === 'm-dream-ex'
+    && rng() < MEGA_DREAM_GOD_PACK_PACK_RATE
+    && hasRarity(byRarity, 'AR')
+    && hasRarity(byRarity, 'MA')
+    && hasRarity(byRarity, 'SAR')
+  ) {
+    return buildHiClassPack(ctx, buildMegaDreamGodPackHits(pools), packSize, { defaultHitRarity: null });
+  }
+
 
   const fixedSrPool = getMegaFixedSrPool(setCode, pools.srAll);
   const mainSrPool = getMegaMainSrPool(setCode, pools.srAll);
@@ -472,6 +492,14 @@ function getGxBattleBoostHighHit(
 
 function buildTagAllStarsGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
   return repeatedUniqueHits('SR', pools.srAll, 10, 'sm12a-sr10');
+}
+
+function buildMegaDreamGodPackHits(pools: ReturnType<typeof getRarityPools>): HiClassHitSlot[] {
+  return [
+    ...repeatedUniqueHits('AR', pools.arPool, 1, 'm2a-ar1-ma5-sar4-ar'),
+    ...repeatedUniqueHits('MA', pools.maAll, 5, 'm2a-ar1-ma5-sar4-ma'),
+    ...repeatedUniqueHits('SAR', pools.sarAll, 4, 'm2a-ar1-ma5-sar4-sar'),
+  ];
 }
 
 function fixedNumberHits(

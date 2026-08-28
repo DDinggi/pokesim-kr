@@ -114,6 +114,8 @@
 5. `data/sets-index.json`의 `active_sets`에 코드 추가.
 6. **봉입률 모델 연결**(`frontend/lib/simulation/model.ts`). 공식 봉입률은 비공개이므로
    `box_guarantees._source/_sample_size/_estimated_at`도 같이 남긴다.
+   - 갓팩/특수팩은 실제 구성과 `발생 건수 / 전체 표본`이 함께 확인된 경우에만
+     `box_guarantees.special_pack_evidence`에 일반 봉입률 표본과 분리해 기록한다.
    - 일반 SV / SWSH 확장팩: `STANDARD_SV_SET_RATES`에 코드 추가(SWSH 공통은 `SWSH_BASE_EXPANSION`).
    - 캐릭터 SR 등 알트아트가 있으면 `ALT_SR_NUMBER_RANGES`에 번호 범위 추가.
    - ACE SPEC 세트: `ACE_SPEC_SET_CODES`에도 추가.
