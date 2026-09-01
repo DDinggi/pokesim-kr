@@ -26,6 +26,7 @@ import {
   type HitDexEntry,
   type HitDexState,
 } from '../lib/hitDex';
+import { isBundleSet } from '../lib/bundle';
 import { CardModal } from './CardModal';
 
 const HIT_DEX_EFFECT_MIN_PRICE_KRW = 70_000;
@@ -82,6 +83,10 @@ function buildCatalog(sets: SetMeta[], hitDex: HitDexState): HitDexSetSection[] 
   const entriesByKey = new Map(hitDex.entries.map((entry) => [entry.key, entry]));
 
   return sets
+    // Bundles reuse cards from their component expansions. Those cards are
+    // registered under the source expansion when opened, so showing the bundle
+    // here would create a duplicate collection section.
+    .filter((set) => !isBundleSet(set))
     .map((set) => {
       const cards = sortCatalogCards(set.cards.filter((card) => isHitDexCard(card, set.code))).map((card) => {
         const key = getHitDexCardKey(card, set.code);
