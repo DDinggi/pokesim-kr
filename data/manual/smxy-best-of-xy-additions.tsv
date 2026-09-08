@@ -1,0 +1,5 @@
+# 일본판 전체 목록 보강: 한국 공식 DB에 없는 187·188번 UR.
+# 출처: yuyu-tei UR仕様 목록/500×700 원본, 한국 공식 기본 카드명. 적용 후 fetch:prices → build:luck-dist → audit:legacy-sources.
+number	name_ko	rarity	card_type	subtype	hp	type	image_url	_source	_image_source_url	_name_source	_rarity_source	_jp_number
+187	이벨타르 EX	UR	포켓몬				external/smxy-best-of-xy/BS201707187-review-20260908.jpg	https://yuyu-tei.jp/sell/poc/card/hp/10315	https://card.yuyu-tei.jp/poc/front/hp/10315.jpg	https://pokemoncard.co.kr/cards/detail/BS201707079	https://yuyu-tei.jp/sell/poc/card/hp/10315	187
+188	쉐이미 EX	UR	포켓몬				external/smxy-best-of-xy/BS201707188-review-20260908.jpg	https://yuyu-tei.jp/sell/poc/card/hp/10316	https://card.yuyu-tei.jp/poc/front/hp/10316.jpg	https://pokemoncard.co.kr/cards/detail/BS201707106	https://yuyu-tei.jp/sell/poc/card/hp/10316	188

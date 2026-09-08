@@ -31,9 +31,24 @@
         "max": 1
       }
     ],
-    "_source": "https://pokemoncard.co.kr/card/120 (Korean 15-pack, 10-card product configuration); https://www.pokemon-card.com/products/sm/sm4p.html (Japanese source: every card is holographic, one Pokemon-GX per pack, and one SR-or-higher per box). Korean official pull rates are unpublished; the Korean simulation applies the matching product rules conservatively and does not add an unsupported second high-rarity slot.",
+    "_source": "재판 구분 없는 자료 / 발매 당시 개봉 기록. 팩당 GX와 박스 고레어 구성 참고. HR 20%·UR 10% 공개 추정에 맞는 기존 고레어 배분 유지. 한국 15팩×10장과 일본 10팩×7장의 차이는 박스 단위 적응 모델이며 동일 봉입률 확인 아님. 한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다. 출처: https://www.pokemon-card.com/products/sm/sm4p.html ; https://mba-international.jp/article/gxbattleboost_osusume/",
     "_sample_size": null,
-    "_estimated_at": "2026-08-08"
+    "_estimated_at": "2026-09-08",
+    "_superseded_source": "https://pokemoncard.co.kr/card/120 (Korean 15-pack, 10-card product configuration); https://www.pokemon-card.com/products/sm/sm4p.html (Japanese source: every card is holographic, one Pokemon-GX per pack, and one SR-or-higher per box). Korean official pull rates are unpublished; the Korean simulation applies the matching product rules conservatively and does not add an unsupported second high-rarity slot.",
+    "pull_rate_review": {
+      "reviewed_at": "2026-09-08",
+      "status": "estimated",
+      "print_basis": "재판 구분 없는 자료 / 발매 당시 개봉 기록",
+      "confidence": "낮음: 한국 박스 구성 차이",
+      "sources": [
+        "https://www.pokemon-card.com/products/sm/sm4p.html",
+        "https://mba-international.jp/article/gxbattleboost_osusume/"
+      ],
+      "notes": "팩당 GX와 박스 고레어 구성 참고. HR 20%·UR 10% 공개 추정에 맞는 기존 고레어 배분 유지. 한국 15팩×10장과 일본 10팩×7장의 차이는 박스 단위 적응 모델이며 동일 봉입률 확인 아님.",
+      "assumptions": "한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다.",
+      "model_snapshot": null,
+      "report": "docs/sm-pull-rate-review.md"
+    }
   },
   "pack_slots": [],
   "cards": [

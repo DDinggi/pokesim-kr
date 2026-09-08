@@ -32,13 +32,14 @@ const KNOWN_RARITIES = new Set([
   "SSR",
   "CSR",
   "HR",
+  "H",
   "SAR",
   "MA",
   "UR",
   "GRA",
   "BWR",
 ]);
-const HIGH_RARITIES = new Set(["RRR", "S", "A", "25TH", "S8AP", "K", "PR", "CHR", "TR", "ACE", "AR", "SR", "SSR", "CSR", "HR", "SAR", "MA", "UR", "GRA", "BWR"]);
+const HIGH_RARITIES = new Set(["RRR", "S", "A", "25TH", "S8AP", "K", "PR", "CHR", "TR", "ACE", "AR", "SR", "SSR", "CSR", "HR", "H", "SAR", "MA", "UR", "GRA", "BWR"]);
 const START_DECK_100_REP_NUMBERS = [
   85, 204, 437, 146, 68, 18, 151, 94, 185, 204,
   3, 470, 380, 374, 169, 192, 746, 208, 750, 68,
@@ -375,6 +376,13 @@ function validateImageNumberAlignment(setCode: string, cards: CardEntry[]) {
 
     const imageNumber = card.image_url.match(/_(\d+)(?:_\d+)?(?:_m)?\.[a-z0-9]+$/i)?.[1];
     if (imageNumber && Number(imageNumber) !== card.number) {
+      // Korean SM3+ prints swap Super Scoop Up / Great Ball relative to the
+      // official asset/DB identifiers. Verified detail pages and card scans:
+      // pokemoncard.co.kr/cards/detail/BS2017010062 (061), ...0061 (062).
+      if (setCode === 'sm3plus-shining-legends' && (
+        (card.card_num === 'BS2017010062' && card.number === 61 && card.name_ko === '수퍼 포켓몬 회수' && Number(imageNumber) === 62)
+        || (card.card_num === 'BS2017010061' && card.number === 62 && card.name_ko === '수퍼볼' && Number(imageNumber) === 61)
+      )) continue;
       if (card.card_num && allowedMismatchCardNums.has(card.card_num)) continue;
 
       add(

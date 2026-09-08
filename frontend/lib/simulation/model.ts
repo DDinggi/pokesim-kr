@@ -673,6 +673,57 @@ const SM5_ULTRA_SUN_MOON: StandardSvSetRate = {
   fillerWeights: SM_FILLER_WEIGHTS,
 };
 
+// 2026-09-08 review: JP published estimate SR/HR/UR = 70/20/10.
+// https://altema.jp/pokemoncard/kakuseinoyusha
+// https://pokecanews.com/archives/3758 (5 boxes per set: one high + three RR).
+// First-print fallback: reprint zero-hit boxes exist, but their frequency is unknown.
+// Checklist counts split the SR category only; they do NOT set rarity odds.
+const SM4_AWAKENED_ULTRADIMENSIONAL: StandardSvSetRate = {
+  mandatoryHighWeights: { SR_POKEMON: 56, SR_TRAINER: 14, HR_POKEMON: 20, UR: 10 },
+  extraHighRate: 0,
+  extraHighWeights: {},
+  arCount: 0,
+  rrBaseCount: 3,
+  rrExtraRate: 0,
+  fillerWeights: { R: 90, RR: 10 },
+};
+
+// SM3H/SM3N use the same 30-pack, one SR-or-higher Japanese first-print
+// configuration. Use the adjacent SM4 70/20/10 estimate (not reprint measurements).
+// The SR pool has four Pokemon and two trainers. See docs/sm-pull-rate-review.md.
+const SM3_RAINBOW_DARKNESS: StandardSvSetRate = {
+  mandatoryHighWeights: { SR_POKEMON: 70 * 4 / 6, SR_TRAINER: 70 * 2 / 6, HR_POKEMON: 20, UR: 10 },
+  extraHighRate: 0,
+  extraHighWeights: {},
+  arCount: 0,
+  rrBaseCount: 3,
+  rrExtraRate: 0,
+  fillerWeights: { R: 90, RR: 10 },
+};
+
+// Japanese community estimate: one SR-or-higher per 10-pack box. All 17
+// secret cards are weighted by checklist count (15 SR, 2 UR).
+export const BEST_OF_XY_HIGH_WEIGHTS: Record<string, number> = { SR: 15, UR: 2 };
+
+// Contemporary JP opening summaries: two Shining cards, 2-3 RR, and one
+// SR+ per 1-2 boxes. Use the reciprocal interval midpoint (1/1.5), with uniform selection among
+// the ten secret cards (4 Pokemon SR, 1 Trainer SR, 4 HR, 1 unmarked secret).
+// RR 2/3 split is an explicit 50/50 range approximation, not a measured frequency.
+// Secret-card equality remains a low-confidence assumption; HR expectation 0.267/box
+// is within the contemporary estimate of one HR per 3-5 boxes.
+const SM3PLUS_SHINING_LEGENDS: StandardSvSetRate = {
+  mandatoryHighRate: 0,
+  mandatoryHighWeights: {},
+  extraHighRate: 2 / 3,
+  extraHighWeights: { SR_POKEMON: 40, SR_TRAINER: 10, HR_POKEMON: 40, H_SECRET: 10 },
+  hCount: 2,
+  arCount: 0,
+  boxSize: 20,
+  rrBaseCount: 2,
+  rrExtraRate: 0.5,
+  fillerWeights: { R: 90, RR: 10 },
+};
+
 const SM8_BURST_IMPACT: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
     SR_POKEMON: 43.75,
@@ -760,17 +811,17 @@ const SM10_TR_SERIES: StandardSvSetRate = {
 
 const SM11_MIRACLE_TWIN: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
-    SR_POKEMON: 9,
-    SR_TRAINER: 3,
-    HR_POKEMON: 6,
-    UR: 3,
+    SR_POKEMON: 52.5,
+    SR_TRAINER: 17.5,
+    HR_POKEMON: 20,
+    UR: 10,
   }),
   extraHighRate: 1 / 12,
   extraHighWeights: normalizeHighWeights({
-    SR_POKEMON: 9,
-    SR_TRAINER: 3,
-    HR_POKEMON: 6,
-    UR: 3,
+    SR_POKEMON: 52.5,
+    SR_TRAINER: 17.5,
+    HR_POKEMON: 20,
+    UR: 10,
   }),
   trCount: 1,
   trExtraRate: 1 / 12,
@@ -782,17 +833,17 @@ const SM11_MIRACLE_TWIN: StandardSvSetRate = {
 
 const SM11A_REMIX_BOUT: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
-    SR_POKEMON: 7,
-    SR_TRAINER: 2,
-    HR_POKEMON: 4,
-    UR: 3,
+    SR_POKEMON: 70 * 7 / 9,
+    SR_TRAINER: 70 * 2 / 9,
+    HR_POKEMON: 20,
+    UR: 10,
   }),
   extraHighRate: 1 / 12,
   extraHighWeights: normalizeHighWeights({
-    SR_POKEMON: 7,
-    SR_TRAINER: 2,
-    HR_POKEMON: 4,
-    UR: 3,
+    SR_POKEMON: 70 * 7 / 9,
+    SR_TRAINER: 70 * 2 / 9,
+    HR_POKEMON: 20,
+    UR: 10,
   }),
   trCount: 1,
   trExtraRate: 1 / 12,
@@ -945,6 +996,11 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'sm11-miracle-twin': SM11_MIRACLE_TWIN,
   'smp2-detective-pikachu': DETECTIVE_PIKACHU,
   'sm5s-ultra-sun': SM5_ULTRA_SUN_MOON,
+  'sm3plus-shining-legends': SM3PLUS_SHINING_LEGENDS,
+  'sm3h-rainbow-in-darkness': SM3_RAINBOW_DARKNESS,
+  'sm3n-darkness-devours-light': SM3_RAINBOW_DARKNESS,
+  'sm4s-awakened-heroes': SM4_AWAKENED_ULTRADIMENSIONAL,
+  'sm4a-ultradimensional-beasts': SM4_AWAKENED_ULTRADIMENSIONAL,
   'sm5m-ultra-moon': SM5_ULTRA_SUN_MOON,
   'sm5plus-ultra-force': SM5PLUS_ULTRA_FORCE,
   'sm6-forbidden-light': SM6_FORBIDDEN_LIGHT,

@@ -113,12 +113,13 @@ Variant keys:
 
 ```txt
 cards/256/{original-key-without-extension}.webp  # pack/grid card tiles
-cards/512/{original-key-without-extension}.webp  # modal/detail image
+cards/512/{original-key-without-extension}.webp  # detail fallback / large card tile
 ```
 
 The original image remains at its existing key, for example
-`wmimages/MEGA/M4/M4_001.png`. The frontend falls back to that original URL if a
-variant is missing or fails to load.
+`wmimages/MEGA/M4/M4_001.png`. Card detail modals request this R2 original first
+and use the 512 WebP only if the original fails. Landscape BREAK cards keep their
+original aspect ratio. Grids and pack animations continue to use variants.
 
 Only enable variants after `--verify-only` passes for the target sets:
 
@@ -162,21 +163,10 @@ apps omit the referer header, and blocking those would hurt legitimate users.
 
 Do not include card images in share images, Open Graph images, or generated
 social previews. Use text-only summaries or generic non-card artwork instead.
-Card images should stay inside the interactive app surface, where the CDN can
-serve only the optimized WebP variants and the emergency kill switch can hide
-them.
-
-Optional original-file block after all WebP variants are verified:
-
-```txt
-hostname eq "img.pokesim.kr"
-and not starts_with(http.request.uri.path, "/cards/256/")
-and not starts_with(http.request.uri.path, "/cards/512/")
-```
-
-Action: block. This makes the public CDN serve optimized WebP variants only;
-the app will show metadata-only placeholders for any missing variant instead of
-falling back to the original file.
+Card images should stay inside the interactive app surface. The CDN serves
+optimized WebP for grids and opening animations, and originals for card detail.
+The emergency kill switch can hide both. Do not enable the former blanket
+original-file block: it conflicts with original-first card detail rendering.
 
 ## Next Step
 

@@ -29,19 +29,60 @@
         "max": 4
       },
       {
-        "rarity": "TR",
+        "rarity": "SR/HR/UR",
         "min": 1,
         "max": 2
       },
       {
-        "rarity": "SR/HR/UR",
+        "rarity": "TR",
         "min": 1,
         "max": 2
       }
     ],
-    "_source": "https://pokemoncard.co.kr/card/169 (Korean product configuration); https://shop.japan-toreca.com/blogs/blog/fullmetalwall_atari and https://altema.jp/pokemoncard/gacha/40 (community estimates: SR-or-higher 1+, TR 1-2, RR 3-4). Korean official rates are private.",
+    "_source": "재판 구분 없는 자료 / 발매 당시 개봉 기록. 동시대 나이트유니즌·더블블레이즈의 RR 3~4·TR 1~2·고레어 1~2 공통 모델 유지. 풀메탈월 자체 대량 빈도는 확보하지 못함. 한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다. 출처: https://pokecardlab.com/2019/02/01/9455/ ; https://www.houhou-news.com/pokemon-card-night-unison-kaihuu ; https://altema.jp/pokemoncard/kakuseinoyusha ; https://altema.jp/pokemoncard/miracletwin ; https://pokemon-infomation.com/pull-rates-nimaibako/",
     "_sample_size": null,
-    "_estimated_at": "2026-07-02"
+    "_estimated_at": "2026-09-08",
+    "_superseded_source": "https://pokemoncard.co.kr/card/169 (Korean product configuration); https://shop.japan-toreca.com/blogs/blog/fullmetalwall_atari and https://altema.jp/pokemoncard/gacha/40 (community estimates: SR-or-higher 1+, TR 1-2, RR 3-4). Korean official rates are private.",
+    "pull_rate_review": {
+      "reviewed_at": "2026-09-08",
+      "status": "estimated",
+      "print_basis": "재판 구분 없는 자료 / 발매 당시 개봉 기록",
+      "confidence": "낮음: 인접 강화팩 모델 차용",
+      "sources": [
+        "https://pokecardlab.com/2019/02/01/9455/",
+        "https://www.houhou-news.com/pokemon-card-night-unison-kaihuu",
+        "https://altema.jp/pokemoncard/kakuseinoyusha",
+        "https://altema.jp/pokemoncard/miracletwin",
+        "https://pokemon-infomation.com/pull-rates-nimaibako/"
+      ],
+      "notes": "동시대 나이트유니즌·더블블레이즈의 RR 3~4·TR 1~2·고레어 1~2 공통 모델 유지. 풀메탈월 자체 대량 빈도는 확보하지 못함.",
+      "assumptions": "한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다.",
+      "model_snapshot": {
+        "mandatoryHighWeights": {
+          "SR_POKEMON": 52.5,
+          "SR_TRAINER": 17.5,
+          "HR_POKEMON": 20,
+          "UR": 10
+        },
+        "extraHighRate": 0.08333333333333333,
+        "extraHighWeights": {
+          "SR_POKEMON": 52.5,
+          "SR_TRAINER": 17.5,
+          "HR_POKEMON": 20,
+          "UR": 10
+        },
+        "trCount": 1,
+        "trExtraRate": 0.08333333333333333,
+        "arCount": 0,
+        "rrBaseCount": 3,
+        "rrExtraRate": 0.3333333333333333,
+        "fillerWeights": {
+          "R": 86.67,
+          "RR": 13.33
+        }
+      },
+      "report": "docs/sm-pull-rate-review.md"
+    }
   },
   "pack_slots": [],
   "cards": [

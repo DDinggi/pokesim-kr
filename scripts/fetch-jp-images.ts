@@ -30,7 +30,6 @@ function arg(name: string): string | null {
 // 일본 출처에서도 동일하게 'UR'로 정규화 (시뮬/UI 일관성 유지).
 const RARITY_NORMALIZE: Record<string, string> = {
   MUR: "UR",
-  HR: "UR", // 단종 등급도 UR로 흡수 (사용 빈도 0)
 };
 
 const setCode = arg("set");
@@ -88,7 +87,7 @@ function parseYuyuTei(html: string): JpCard[] {
       number: num,
       rarity,
       jpName: name.trim(),
-      yuyuteiImageUrl: src.replace('/100_140/', '/200_280/'),
+      yuyuteiImageUrl: src.replace('/100_140/', '/front/'),
     });
   }
   return cards;
@@ -153,10 +152,10 @@ async function main() {
   );
   for (const c of sorted) {
     const img = pgImageByNum.get(c.number) ?? c.yuyuteiImageUrl;
-    // AR/MUR은 항상 포켓몬, ex 접미는 포켓몬, 그 외 SR/SAR은 트레이너로 추정
+    // Legacy GX/EX and energy names must not be silently classified as trainers.
     const isPokemon =
-      c.rarity === "AR" || c.rarity === "MUR" || c.jpName.endsWith("ex");
-    const cardType = isPokemon ? "포켓몬" : "트레이너";
+      c.rarity === "AR" || /(?:GX|EX|ex|VMAX|VSTAR|V)(?:\(.*\))?$/.test(c.jpName);
+    const cardType = /エネルギー/.test(c.jpName) ? "에너지" : isPokemon ? "포켓몬" : "트레이너";
     const sourceHint = pgImageByNum.has(c.number) ? "PokeGuardian" : "yuyu-tei";
     lines.push(
       [

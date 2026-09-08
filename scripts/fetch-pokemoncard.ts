@@ -196,7 +196,9 @@ function parseCardDetail(
   const rarityRaw = root.querySelector("#no_wrap_by_admin")?.text ?? "";
   // 긴 코드 먼저 매칭 (SAR > SR > R 등 순서 중요)
   const knownRarities = [...rarities].sort((a, b) => b.length - a.length);
-  const rarity = knownRarities.find((r) => {
+  const rarity = root.querySelector('#no_wrap_by_admin img[title="빛"]') && rarities.includes('H')
+    ? 'H'
+    : knownRarities.find((r) => {
     const escaped = r.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     return new RegExp(`(^|[^A-Z0-9])${escaped}([^A-Z0-9]|$)`).test(rarityRaw);
   }) ?? defaultRarity ?? null;

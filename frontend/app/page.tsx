@@ -74,6 +74,12 @@ import sm5plusUltraForce from '../public/sets/sm5plus-ultra-force.json';
 import sm5sUltraSun from '../public/sets/sm5s-ultra-sun.json';
 import sm5mUltraMoon from '../public/sets/sm5m-ultra-moon.json';
 import sm4plusGxBattleBoost from '../public/sets/sm4plus-gx-battle-boost.json';
+import sm3plusShiningLegends from '../public/sets/sm3plus-shining-legends.json';
+import sm4sAwakenedHeroes from '../public/sets/sm4s-awakened-heroes.json';
+import sm4aUltradimensionalBeasts from '../public/sets/sm4a-ultradimensional-beasts.json';
+import smxyBestOfXy from '../public/sets/smxy-best-of-xy.json';
+import sm3hRainbowInDarkness from '../public/sets/sm3h-rainbow-in-darkness.json';
+import sm3nDarknessDevoursLight from '../public/sets/sm3n-darkness-devours-light.json';
 import sm4plusGxBattleBoostRemaster from '../public/sets/sm4plus-gx-battle-boost-remaster.json';
 import sm9TagBolt from '../public/sets/sm9-tag-bolt.json';
 import sm8aDarkOrder from '../public/sets/sm8a-dark-order.json';
@@ -139,6 +145,8 @@ const sets: SetMeta[] = [
   sm8BurstImpact, sm7bFairyRise, sm7aPlasmaSpark, sm7SkyCharisma, sm6bChampionRoad,
   sm6aDragonStorm, sm6ForbiddenLight, sm5plusUltraForce,
   sm5sUltraSun, sm5mUltraMoon, sm4plusGxBattleBoost,
+  sm3plusShiningLegends, sm4sAwakenedHeroes, sm4aUltradimensionalBeasts,
+  smxyBestOfXy, sm3hRainbowInDarkness, sm3nDarknessDevoursLight,
   sm4plusGxBattleBoostRemaster,
   sm9TagBolt, sm8aDarkOrder, sm9bFullMetalWall, sm9aNightUnison, sm10bSkyLegend, sm10aGgEnd,
   sm10DoubleBlaze, sm8bGxUltraShiny,

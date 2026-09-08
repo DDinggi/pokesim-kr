@@ -2,6 +2,7 @@ import type { Card, PackResult } from '../types';
 import type { RNG } from './random';
 import { shuffle } from './random';
 import {
+  BEST_OF_XY_HIGH_WEIGHTS,
   GX_BATTLE_BOOST_HIGH_WEIGHTS,
   GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS,
   GX_ULTRA_SHINY_SECOND_PR_RATE,
@@ -56,6 +57,11 @@ export function simulateHiClassBox(
     return shuffle(packHits, rng).map((slots) => (
       buildHiClassPack(ctx, slots, packSize, { defaultHitRarity: null })
     ));
+  }
+
+  if (setCode === 'smxy-best-of-xy') {
+    const rarity = ctx.weightedPick(BEST_OF_XY_HIGH_WEIGHTS);
+    return buildHiClassPacksFromHits(ctx, rng, boxSize, packSize, [{ rarity }]);
   }
 
   if (setCode === 'sv8a-terastal-festa') {
@@ -237,6 +243,14 @@ export function simulateSingleHiClassPack(
     const hits: HiClassHitSlot[] = [{ rarity: 'RR' }];
     if (rng() < 1 / GX_BATTLE_BOOST_BOX_SIZE) {
       hits.push(getGxBattleBoostHighHit(ctx, pools));
+    }
+    return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
+  }
+
+  if (setCode === 'smxy-best-of-xy') {
+    const hits: HiClassHitSlot[] = [];
+    if (rng() < 1 / HI_CLASS_BOX_SIZE) {
+      hits.push({ rarity: ctx.weightedPick(BEST_OF_XY_HIGH_WEIGHTS) });
     }
     return buildHiClassPack(ctx, hits, packSize, { defaultHitRarity: null });
   }

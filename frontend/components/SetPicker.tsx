@@ -5,7 +5,7 @@ import Image from 'next/image';
 import type { SetMeta } from '../lib/types';
 import { getBundleSummary, isBundleSet } from '../lib/bundle';
 import { getBoxThumbnailImageSrc } from '../lib/boxImages';
-import { isNewSimSet } from '../lib/newSets';
+import { isNewSimSet, LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_SETS, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
 import {
   getAvailableSetSeries,
   getSetSeriesKey,
@@ -18,6 +18,22 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
   'm-magikarp-special-set': {
     gradient: 'from-slate-800 via-indigo-950 to-violet-950',
     accent: 'text-slate-200',
+  },
+  'smxy-best-of-xy': {
+    gradient: 'from-amber-500 via-red-700 to-slate-900',
+    accent: 'text-amber-100',
+  },
+  'sm3plus-shining-legends': {
+    gradient: 'from-slate-800 via-indigo-800 to-fuchsia-950',
+    accent: 'text-cyan-100',
+  },
+  'sm3h-rainbow-in-darkness': {
+    gradient: 'from-rose-700 via-violet-800 to-slate-950',
+    accent: 'text-rose-100',
+  },
+  'sm3n-darkness-devours-light': {
+    gradient: 'from-amber-600 via-orange-800 to-slate-950',
+    accent: 'text-amber-100',
   },
   'm6-storm-emerald': {
     gradient: 'from-emerald-600 via-sky-700 to-slate-950',
@@ -627,10 +643,11 @@ export function SetPicker({
 
       <main className="flex-1 px-4 sm:px-6 py-10 max-w-6xl mx-auto w-full">
         <div className="mb-5 rounded-lg bg-gray-900/80 ring-1 ring-white/10 px-4 py-3">
-          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-08-21</p>
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">{LATEST_SET_UPDATE_LABEL}</p>
           <p className="text-sm font-bold text-white mt-0.5">
-            MEGA 확장팩 「스톰에메랄다」 박스깡 업데이트
+            {LATEST_SET_UPDATE_TITLE}
           </p>
+          <p className="mt-1 text-[11px] leading-relaxed text-gray-400">{LATEST_SET_UPDATE_SETS}</p>
         </div>
 
         <div className="relative mb-5">

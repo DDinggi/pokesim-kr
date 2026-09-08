@@ -24,10 +24,11 @@ function positiveInt(name: string, fallback: number): number {
 
 const inputArg = argValue('--input');
 const setCode = argValue('--set');
+const flipHorizontal = process.argv.includes('--flip-horizontal');
 
 if (!inputArg || !setCode) {
   throw new Error(
-    'Usage: pnpm process:box-image -- --input <source.png> --set <set-code>',
+    'Usage: pnpm process:box-image -- --input <source.png> --set <set-code> [--flip-horizontal]',
   );
 }
 
@@ -53,8 +54,10 @@ const boxesDir = join(ROOT, 'frontend', 'public', 'boxes');
 const outputPath = join(boxesDir, `${setCode}.png`);
 const thumbnailPath = join(boxesDir, 'thumbs', `${setCode}.webp`);
 
-const { data, info } = await sharp(inputPath)
-  .ensureAlpha()
+const source = sharp(inputPath).ensureAlpha();
+if (flipHorizontal) source.flop();
+
+const { data, info } = await source
   .raw()
   .toBuffer({ resolveWithObject: true });
 
@@ -185,6 +188,7 @@ console.log(
   JSON.stringify(
     {
       input: inputPath,
+      flipHorizontal,
       backgroundPixelsRemoved: queueTail,
       sourceForeground: {
         left: minX,

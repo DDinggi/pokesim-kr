@@ -7,6 +7,7 @@ import {
   buildDragonStormPack,
   buildNightUnisonPack,
   buildUltraForcePack,
+  buildShiningLegendsPack,
   expansionPackHitPool,
   maybeAppendAnniversary25Promo,
   simulateExpansionBox,
@@ -63,7 +64,9 @@ export function simulatePack(
               ? buildDragonStormPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
               : setCode === 'sm9a-night-unison' || setCode === 'sm8a-dark-order'
                 ? buildNightUnisonPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
-                : buildExpansionPack(ctx, expansionPackHitPool(ctx, setCode), packSize);
+                : setCode === 'sm3plus-shining-legends'
+                  ? buildShiningLegendsPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
+                  : buildExpansionPack(ctx, expansionPackHitPool(ctx, setCode), packSize);
 
   return { pack, seed };
 }

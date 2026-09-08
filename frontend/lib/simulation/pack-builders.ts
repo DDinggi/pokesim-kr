@@ -7,8 +7,12 @@ import { resolveUniqueHitSlots } from './unique';
 export function buildExpansionPack(ctx: BuildContext, hitPool: Card[], packSize = 5): PackResult {
   const { byRarity, pick } = ctx;
   const cards: Card[] = [];
-  const cPool = byRarity.C ?? [];
-  const uPool = byRarity.U ?? [];
+  // Most expansion packs are C/C/C/U/hit. Older all-holo products such as
+  // GX Battle Boost REMASTER have no C/U entries, so use their R pool for the
+  // four base slots rather than silently returning a one-card pack.
+  const basePool = byRarity.C?.length ? byRarity.C : (byRarity.U?.length ? byRarity.U : (byRarity.R ?? []));
+  const cPool = byRarity.C?.length ? byRarity.C : basePool;
+  const uPool = byRarity.U?.length ? byRarity.U : basePool;
 
   for (let i = 0; i < packSize - 2; i++) {
     if (cPool.length) cards.push(pick(cPool));

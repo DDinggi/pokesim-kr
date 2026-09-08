@@ -30,9 +30,39 @@
         "max": 1
       }
     ],
-    "_source": "https://pokemoncard.co.kr/card/178 (Korean product: one holo per 5-card pack); https://www.inside-games.jp/article/2019/04/15/121750.html (Japanese product: one Yoshida SR per box). Korean SR rate is estimated from the corresponding Japanese product.",
+    "_source": "재판 구분 없는 자료 / 발매 당시 개봉 기록. 직접 개봉은 일본 20팩×4장, SR 1장·RR 4장. 한국 20팩×5장 all-holo 모델의 SR 1장 유지. RR 기대값 2.375는 기존 균등 홀로 풀 가정으로 사례와 다르며 빈도 미검증; 단일 박스로 고정 4장을 만들지 않는다. 한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다. 출처: https://www.houhou-news.com/pokemon-card-movie-special-pack-meitantei-pikachu-kaihuu",
     "_sample_size": null,
-    "_estimated_at": "2026-07-02"
+    "_estimated_at": "2026-09-08",
+    "_superseded_source": "https://pokemoncard.co.kr/card/178 (Korean product: one holo per 5-card pack); https://www.inside-games.jp/article/2019/04/15/121750.html (Japanese product: one Yoshida SR per box). Korean SR rate is estimated from the corresponding Japanese product.",
+    "pull_rate_review": {
+      "reviewed_at": "2026-09-08",
+      "status": "estimated",
+      "print_basis": "재판 구분 없는 자료 / 발매 당시 개봉 기록",
+      "confidence": "낮음: RR 빈도 및 한일 팩 구성 차이",
+      "sources": [
+        "https://www.houhou-news.com/pokemon-card-movie-special-pack-meitantei-pikachu-kaihuu"
+      ],
+      "notes": "직접 개봉은 일본 20팩×4장, SR 1장·RR 4장. 한국 20팩×5장 all-holo 모델의 SR 1장 유지. RR 기대값 2.375는 기존 균등 홀로 풀 가정으로 사례와 다르며 빈도 미검증; 단일 박스로 고정 4장을 만들지 않는다.",
+      "assumptions": "한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다.",
+      "model_snapshot": {
+        "mandatoryHighWeights": {
+          "SR_TRAINER": 100
+        },
+        "extraHighRate": 0,
+        "extraHighWeights": {
+          "SR_TRAINER": 100
+        },
+        "arCount": 0,
+        "boxSize": 20,
+        "rrBaseCount": 2,
+        "rrExtraRate": 0.375,
+        "fillerWeights": {
+          "C": 75,
+          "U": 25
+        }
+      },
+      "report": "docs/sm-pull-rate-review.md"
+    }
   },
   "pack_slots": [],
   "cards": [
