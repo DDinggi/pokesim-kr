@@ -29,19 +29,60 @@
         "max": 4
       },
       {
-        "rarity": "TR",
-        "min": 1,
-        "max": 1
-      },
-      {
         "rarity": "SR/HR/UR",
         "min": 1,
         "max": 2
+      },
+      {
+        "rarity": "TR",
+        "min": 1,
+        "max": 1
       }
     ],
-    "_source": "https://pokemoncard.co.kr/card/156 (Korean 30-pack, 5-card product configuration); https://www.houhou-news.com/pokemon-card-tag-bolt-kaihuu (historical opening summary: RR 3-4, TR 1, SR-or-higher 1-2). Korean official pull rates are private.",
+    "_source": "재판 구분 없는 자료 / 발매 당시 개봉 기록. RR 3~4장·고레어 1~2장 구성 참고. SA 25% 및 TR 고정 1장은 기존 근사이며 별도 빈도 검증 아님. 한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다. 출처: https://www.houhou-news.com/pokemon-card-tag-bolt-kaihuu ; https://altema.jp/pokemoncard/kakuseinoyusha ; https://altema.jp/pokemoncard/miracletwin ; https://pokemon-infomation.com/pull-rates-nimaibako/",
     "_sample_size": null,
-    "_estimated_at": "2026-07-05"
+    "_estimated_at": "2026-09-08",
+    "_superseded_source": "https://pokemoncard.co.kr/card/156 (Korean 30-pack, 5-card product configuration); https://www.houhou-news.com/pokemon-card-tag-bolt-kaihuu (historical opening summary: RR 3-4, TR 1, SR-or-higher 1-2). Korean official pull rates are private.",
+    "pull_rate_review": {
+      "reviewed_at": "2026-09-08",
+      "status": "estimated",
+      "print_basis": "재판 구분 없는 자료 / 발매 당시 개봉 기록",
+      "confidence": "중간: 구성 근거, 빈도는 추정",
+      "sources": [
+        "https://www.houhou-news.com/pokemon-card-tag-bolt-kaihuu",
+        "https://altema.jp/pokemoncard/kakuseinoyusha",
+        "https://altema.jp/pokemoncard/miracletwin",
+        "https://pokemon-infomation.com/pull-rates-nimaibako/"
+      ],
+      "notes": "RR 3~4장·고레어 1~2장 구성 참고. SA 25% 및 TR 고정 1장은 기존 근사이며 별도 빈도 검증 아님.",
+      "assumptions": "한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다.",
+      "model_snapshot": {
+        "mandatoryHighWeights": {
+          "SR_POKEMON": 30,
+          "SR_ALT": 25,
+          "SR_TRAINER": 15,
+          "HR_POKEMON": 20,
+          "UR": 10
+        },
+        "extraHighRate": 0.08333333333333333,
+        "extraHighWeights": {
+          "SR_POKEMON": 30,
+          "SR_ALT": 25,
+          "SR_TRAINER": 15,
+          "HR_POKEMON": 20,
+          "UR": 10
+        },
+        "trCount": 1,
+        "arCount": 0,
+        "rrBaseCount": 3,
+        "rrExtraRate": 0.3333333333333333,
+        "fillerWeights": {
+          "R": 86.67,
+          "RR": 13.33
+        }
+      },
+      "report": "docs/sm-pull-rate-review.md"
+    }
   },
   "pack_slots": [],
   "cards": [

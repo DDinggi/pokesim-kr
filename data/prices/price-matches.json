@@ -278,6 +278,125 @@
       "provider": "fullahead_number_map",
       "fullahead_number": 109,
       "note": "Ninja Spinner Korean supporter-SR order differs from Japanese M4: Jip maps to JP 109."
+    },
+    "BS201707172": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 14800,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10300",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 172 M폭타 EX ↔ 日本版 172 MバクーダEX(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707173": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 29800,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10301",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 173 쥬피썬더 EX ↔ 日本版 173 サンダースEX(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707174": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 17800,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10302",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 174 M썬더볼트 EX ↔ 日本版 174 MライボルトEX(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707175": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 9980,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10303",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 175 레지락 EX ↔ 日本版 175 レジロックEX(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707176": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 99800,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10304",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 176 M루카리오 EX ↔ 日本版 176 MルカリオEX(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707177": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 49800,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10305",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 177 지가르데 EX ↔ 日本版 177 ジガルデEX(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707178": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 19800,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10306",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 178 M샤크니아 EX ↔ 日本版 178 MサメハダーEX(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707179": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 7980,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10307",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 179 킬가르도 EX ↔ 日本版 179 ギルガルドEX(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707180": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 248000,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10308",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 180 N ↔ 日本版 180 N(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707181": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 7980,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10310",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 181 대장장이 ↔ 日本版 182 鍛冶屋(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707182": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 158000,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10312",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 182 무서운 아가씨 ↔ 日本版 184 こわいおねえさん(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707183": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 248000,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10313",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 183 사나 ↔ 日本版 185 サナ(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707184": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 498000,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10309",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 184 오컬트마니아 ↔ 日本版 181 オカルトマニア(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707185": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 178000,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10311",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 185 카렌 ↔ 日本版 183 カリン(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707186": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 12800,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10314",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 186 플레어단의 조무래기 ↔ 日本版 186 フレア団のしたっぱ(SR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707187": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 148000,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10315",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 187 이벨타르 EX ↔ 日本版 187 イベルタルEX(UR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
+    },
+    "BS201707188": {
+      "provider": "manual_jpy",
+      "price_ref_jpy": 128000,
+      "price_source": "yuyu-tei:sale:https://yuyu-tei.jp/sell/poc/card/hp/10316",
+      "price_updated_at": "2026-09-08",
+      "note": "韓版 188 쉐이미 EX ↔ 日本版 188 シェイミEX(UR仕様). 販売表示価格（売切を含む）、実売成約ではない。"
     }
   }
 }

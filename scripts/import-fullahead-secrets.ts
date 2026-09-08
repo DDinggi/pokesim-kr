@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'node-html-parser';
@@ -10,6 +10,11 @@ interface ManifestCard {
   name_ko: string;
   rarity: string;
   card_type: string;
+  name_jp?: string;
+  name_source_card_num?: string;
+  image_source_url?: string;
+  image_key?: string;
+  rarity_source?: string;
 }
 
 interface ManifestSet {
@@ -23,6 +28,7 @@ interface FullaheadItem {
   rarity: string | null;
   priceJpy: number;
   url: string;
+  title: string;
 }
 
 interface SetCard {
@@ -66,6 +72,7 @@ const UA = 'Mozilla/5.0 (compatible; PokeSimKR/1.0; +https://pokesim.kr)';
 const argv = process.argv.slice(2);
 const manifestArg = readArg('--manifest');
 const targetSet = readArg('--set');
+const dryRun = argv.includes('--dry-run');
 
 if (!manifestArg) {
   console.error('Usage: pnpm import:fullahead-secrets -- --manifest <path> [--set <code>]');
@@ -115,11 +122,26 @@ async function importSet(
   const imported = await mapLimit(manifestSet.cards, 6, async (manifestCard) => {
     const item = byNumber.get(manifestCard.number);
     if (!item) throw new Error(`${manifestSet.set_code} #${manifestCard.number}: FullAhead item missing`);
-    if (item.rarity !== manifestCard.rarity) {
+    if (manifestCard.name_jp && !item.title.includes(manifestCard.name_jp)) {
+      throw new Error(`${manifestSet.set_code} #${manifestCard.number}: Japanese name mismatch: ${item.title}`);
+    }
+    if (manifestCard.name_source_card_num) {
+      const reference = koreanNameReferences().get(manifestCard.name_source_card_num);
+      if (!reference || reference.name_ko !== manifestCard.name_ko) {
+        throw new Error(`${manifestSet.set_code} #${manifestCard.number}: Korean name evidence mismatch`);
+      }
+    }
+    // The secret Mewtwo has a printed star, not a literal H. Require reviewed
+    // classification evidence when a shop omits the rarity token.
+    const isLegacyHWithoutToken = manifestCard.rarity === 'H' && item.rarity === null && Boolean(manifestCard.rarity_source);
+    if (item.rarity !== manifestCard.rarity && !isLegacyHWithoutToken) {
       throw new Error(`${manifestSet.set_code} #${manifestCard.number}: rarity ${item.rarity} != ${manifestCard.rarity}`);
     }
 
-    const imageSourceUrl = await fetchItemImage(item.url);
+    const imageSourceUrl = manifestCard.image_source_url ?? await fetchItemImage(item.url);
+    if (manifestCard.image_key && (!manifestCard.image_key.startsWith(`external/${manifestSet.set_code}/`) || manifestCard.image_key.includes('..'))) {
+      throw new Error(`Invalid reviewed image key: ${manifestCard.image_key}`);
+    }
     const baseCardNum = `${prefix}${String(manifestCard.number).padStart(3, '0')}`;
     const hasCardNumCollision = set.cards.some(
       (card) => card.card_num === baseCardNum && card.number !== manifestCard.number,
@@ -139,11 +161,14 @@ async function importSet(
       subtype: null,
       hp: null,
       type: null,
-      image_url: `external/${manifestSet.set_code}/${cardNum}.${extensionFromUrl(imageSourceUrl)}`,
+      image_url: manifestCard.image_key ?? `external/${manifestSet.set_code}/${cardNum}.${extensionFromUrl(imageSourceUrl)}`,
       _source: item.url,
       _image_source_url: imageSourceUrl,
       _fetched_at: today(),
       _manual: true,
+      ...(manifestCard.name_jp ? { _jp_number: manifestCard.number } : {}),
+      ...(manifestCard.name_source_card_num ? { _name_source: `https://pokemoncard.co.kr/cards/detail/${manifestCard.name_source_card_num}` } : {}),
+      ...(manifestCard.rarity_source ? { _rarity_source: manifestCard.rarity_source } : {}),
       price_ref_krw: priceKrw,
       price_ref_jpy: item.priceJpy,
       price_ref_usd: null,
@@ -152,6 +177,11 @@ async function importSet(
       price_confidence: 'source',
     } satisfies SetCard;
   });
+
+  if (dryRun) {
+    console.log(`${manifestSet.set_code}: verified ${imported.length} FullAhead number/name/rarity matches (dry-run)`);
+    return;
+  }
 
   const importedNumbers = new Set(imported.map((card) => card.number));
   set.cards = set.cards.filter((card) => card.number === null || !importedNumbers.has(card.number));
@@ -211,7 +241,7 @@ function parseFullaheadItems(html: string, shopCode: string): FullaheadItem[] {
     const number = Number(codeMatch[1]);
     const priceJpy = Number(priceText.replace(/[^\d]/g, ''));
     if (!Number.isFinite(number) || !Number.isFinite(priceJpy) || priceJpy <= 0) continue;
-    items.push({ number, rarity: extractRarity(title), priceJpy, url: normalizeFullaheadUrl(href) });
+    items.push({ number, rarity: extractRarity(title), priceJpy, url: normalizeFullaheadUrl(href), title });
   }
 
   return items;
@@ -252,7 +282,9 @@ function normalizeFullaheadUrl(href: string): string {
 }
 
 function extractRarity(title: string): string | null {
-  return title.toUpperCase().match(/\b(BWR|MUR|GRA|SAR|CSR|CHR|SSR|AR|SR|HR|UR|ACE|TR|PR|K)\b/)?.[1] ?? null;
+  const explicit = title.toUpperCase().match(/\b(BWR|MUR|GRA|SAR|CSR|CHR|SSR|AR|SR|HR|UR|ACE|TR|PR|K)\b/)?.[1];
+  // FullAhead calls SM3+ #082's star-marked secret variant "パーフェクト".
+  return explicit ?? (title.includes('パーフェクト') ? 'H' : null);
 }
 
 function extensionFromUrl(url: string): string {
@@ -277,6 +309,20 @@ function escapeRegExp(value: string): string {
 
 function readJson<T>(path: string): T {
   return JSON.parse(readFileSync(path, 'utf8')) as T;
+}
+
+let nameReferences: Map<string, SetCard> | undefined;
+function koreanNameReferences(): Map<string, SetCard> {
+  if (!nameReferences) {
+    nameReferences = new Map();
+    const directory = join(REPO_ROOT, 'data', 'sets');
+    for (const file of readdirSync(directory).filter(name => name.endsWith('.json'))) {
+      for (const card of readJson<SetJson>(join(directory, file)).cards) {
+        if (card._source?.startsWith('https://pokemoncard.co.kr/cards/detail/')) nameReferences.set(card.card_num, card);
+      }
+    }
+  }
+  return nameReferences;
 }
 
 function readArg(name: string): string | undefined {

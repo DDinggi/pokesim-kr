@@ -40,6 +40,7 @@ const KNOWN_HI_CLASS_MODELS = new Set([
   'sm12a-tag-team-gx-tag-all-stars',
   'sm8b-gx-ultra-shiny',
   'sm4plus-gx-battle-boost',
+  'smxy-best-of-xy',
   'm-dream-ex',
 ]);
 

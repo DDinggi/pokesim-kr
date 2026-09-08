@@ -68,6 +68,7 @@ const HIGH_RARITIES = new Set([
   "SSR",
   "CSR",
   "HR",
+  "H",
   "SAR",
   "MA",
   "UR",

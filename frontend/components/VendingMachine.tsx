@@ -10,7 +10,7 @@ import {
   createLuckOpening,
   summarizeLuckEvent,
 } from '../lib/luck';
-import { isNewSimSet } from '../lib/newSets';
+import { isNewSimSet, LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_SETS, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
 import { trackSim, trackUserEvent } from '../lib/statsTracker';
 import { CardModal } from './CardModal';
 import {
@@ -448,10 +448,11 @@ export function VendingMachine({
 
       <main className="flex-1 px-4 sm:px-6 py-8 max-w-6xl mx-auto w-full">
         <div className="mb-4 rounded-lg bg-gray-900/80 ring-1 ring-yellow-300/30 px-4 py-3">
-          <p className="text-[11px] font-black tracking-widest text-yellow-300">NEW · 2026-08-21</p>
+          <p className="text-[11px] font-black tracking-widest text-yellow-300">{LATEST_SET_UPDATE_LABEL}</p>
           <p className="text-sm font-bold text-white mt-0.5">
-            MEGA 확장팩 「스톰에메랄다」 자판기깡 업데이트
+            {LATEST_SET_UPDATE_TITLE}
           </p>
+          <p className="mt-1 text-[11px] leading-relaxed text-gray-400">{LATEST_SET_UPDATE_SETS}</p>
         </div>
 
         <div className="mb-4">

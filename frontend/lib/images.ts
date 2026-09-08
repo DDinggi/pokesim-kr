@@ -1,5 +1,7 @@
 const DEFAULT_CARD_IMAGE_CDN_BASE = 'https://img.pokesim.kr/';
-const DEFAULT_CARD_IMAGE_CACHE_VERSION = 'm6-ko-20260821';
+// Legacy originals were missing and fallback sources were replaced on 2026-09-08.
+// Invalidate prior missing-original responses as well as old undersized variants.
+const DEFAULT_CARD_IMAGE_CACHE_VERSION = 'sm-legacy-reviewed-20260908';
 
 export const CARD_IMAGE_CDN_BASE =
   process.env.NEXT_PUBLIC_CARD_IMAGE_CDN_BASE ?? DEFAULT_CARD_IMAGE_CDN_BASE;

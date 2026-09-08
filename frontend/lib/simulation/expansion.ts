@@ -59,7 +59,9 @@ export function simulateExpansionBox(
           ? buildDragonStormPack(ctx, pool, packSize)
           : setCode === 'sm9a-night-unison' || setCode === 'sm8a-dark-order'
             ? buildNightUnisonPack(ctx, pool, packSize)
-            : buildExpansionPack(ctx, pool, packSize)
+            : setCode === 'sm3plus-shining-legends'
+              ? buildShiningLegendsPack(ctx, pool, packSize)
+              : buildExpansionPack(ctx, pool, packSize)
   ));
 }
 
@@ -185,6 +187,20 @@ function isBasicEnergyCard(card: Card): boolean {
   return card.card_type === '\uC5D0\uB108\uC9C0' && card.number == null;
 }
 
+export function buildShiningLegendsPack(ctx: BuildContext, hitPool: Card[], packSize = 8): PackResult {
+  const { byRarity, pick } = ctx;
+  const cards: Card[] = [];
+  const uncommonPokemon = (byRarity.U ?? []).filter((card) => card.card_type === '포켓몬');
+  const trainersAndSpecialEnergy = (byRarity.U ?? []).filter((card) => card.card_type !== '포켓몬');
+  const basicEnergy = (byRarity.__null__ ?? []).filter(isBasicEnergyCard);
+  // Korean product: the six-card JP structure plus two basic energies.
+  for (let i = 0; i < packSize - 5; i++) cards.push(pick(byRarity.C ?? []));
+  cards.push(pick(uncommonPokemon), pick(trainersAndSpecialEnergy));
+  for (let i = 0; i < 2; i++) cards.push(pick(basicEnergy));
+  cards.push(pick(hitPool));
+  return { cards };
+}
+
 export function buildDragonStormPack(
   ctx: BuildContext,
   hitPool: Card[],
@@ -284,7 +300,7 @@ function buildStandardSvSlots(
   const standardHighPools = getStandardHighPools(pools, setCode);
   const slots: Card[][] = [];
 
-  slots.push(pickWeightedPool(
+  if (rate.mandatoryHighRate === undefined || rng() < rate.mandatoryHighRate) slots.push(pickWeightedPool(
     ctx,
     rate.mandatoryHighWeights,
     standardHighPools,
@@ -292,6 +308,12 @@ function buildStandardSvSlots(
   ));
 
   if (hasAceSpecSlot(setCode) && byRarity.ACE?.length) slots.push(byRarity.ACE);
+  const hPool = setCode === 'sm3plus-shining-legends'
+    ? pools.hAll.filter((card) => card.number !== 82)
+    : pools.hAll;
+  for (let i = 0; i < (rate.hCount ?? 0); i++) {
+    if (hPool.length) slots.push(hPool);
+  }
   for (let i = 0; i < (rate.kCount ?? 0); i++) {
     if (pools.kAll.length) slots.push(pools.kAll);
   }
@@ -476,16 +498,24 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   const chrCount = standardSetRate.chrCount ?? 0;
   const trCount = (standardSetRate.trCount ?? 0) + (standardSetRate.trExtraRate ?? 0);
   const prCount = standardSetRate.prCount ?? 0;
+  const hCount = standardSetRate.hCount ?? 0;
+  const mandatoryHighRate = standardSetRate.mandatoryHighRate ?? 1;
   const extraSrRate = standardSetRate.extraHighRate;
   const rrExpected = standardSetRate.rrBaseCount + standardSetRate.rrExtraRate;
   const rrrExpected = (standardSetRate.rrrBaseCount ?? 0) + (standardSetRate.rrrExtraRate ?? 0);
-  const rSlots = boxSize - 1 - aceCount - kCount - chrCount - trCount - prCount - aCount - arCount - extraSrRate - rrExpected - rrrExpected;
+  const rSlots = boxSize - mandatoryHighRate - hCount - aceCount - kCount - chrCount - trCount - prCount - aCount - arCount - extraSrRate - rrExpected - rrrExpected;
   const fillerPool = getStandardFillerPool(byRarity, setCode);
 
   entries.push({ weight: rSlots * 100, pool: fillerPool });
   entries.push({ weight: rrExpected * 100, pool: byRarity.RR ?? [] });
   if (rrrExpected > 0) entries.push({ weight: rrrExpected * 100, pool: byRarity.RRR ?? [] });
   if (prCount > 0) entries.push({ weight: prCount * 100, pool: byRarity.PR ?? [] });
+  if (hCount > 0) entries.push({
+    weight: hCount * 100,
+    pool: setCode === 'sm3plus-shining-legends'
+      ? pools.hAll.filter((card) => card.number !== 82)
+      : pools.hAll,
+  });
   if (aceCount > 0) entries.push({ weight: aceCount * 100, pool: byRarity.ACE ?? [] });
   if (kCount > 0) entries.push({ weight: kCount * 100, pool: pools.kAll });
   if (chrCount > 0) entries.push({ weight: chrCount * 100, pool: pools.chrAll });
@@ -494,7 +524,9 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   if (arCount > 0) entries.push({ weight: arCount * 100, pool: pools.arPool });
 
   const standardHighPools = getStandardHighPools(pools, setCode);
-  const combinedHighWeights: Partial<Record<StandardHighKey, number>> = { ...standardSetRate.mandatoryHighWeights };
+  const combinedHighWeights: Partial<Record<StandardHighKey, number>> = Object.fromEntries(
+    Object.entries(standardSetRate.mandatoryHighWeights).map(([key, weight]) => [key, weight * mandatoryHighRate]),
+  );
   for (const [key, weight] of Object.entries(standardSetRate.extraHighWeights) as [StandardHighKey, number][]) {
     combinedHighWeights[key] = (combinedHighWeights[key] ?? 0) + extraSrRate * weight;
   }
@@ -592,6 +624,9 @@ function getStandardHighPools(pools: RarityPools, setCode?: string): Record<Stan
 
   return {
     SR_POKEMON: srPokemon.length ? srPokemon : pools.srAll,
+    H_SECRET: setCode === 'sm3plus-shining-legends'
+      ? pools.hAll.filter((card) => card.number === 82)
+      : [],
     SR_ALT: srAlt,
     SR_TRAINER: pools.srTrainer.length ? pools.srTrainer : pools.srAll,
     HR_POKEMON: pools.hrPokemon.length ? pools.hrPokemon : pools.hrAll,

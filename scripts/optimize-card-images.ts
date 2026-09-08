@@ -65,6 +65,7 @@ const s3 =
 interface CardEntry {
   card_num?: string;
   number?: number;
+  name_ko?: string | null;
   image_url?: string;
   _image_source_url?: string;
   _image_composite_source?: string;
@@ -93,6 +94,7 @@ interface ImageTask {
   sourceUrl: string;
   cropPosition?: CropPosition;
   crop?: CropBox;
+  allowLandscape?: boolean;
 }
 
 interface Stats {
@@ -181,6 +183,9 @@ function collectTasks(): ImageTask[] {
         sourceUrl: sourceUrlFor(card, originalKey),
         cropPosition: card._image_crop_position,
         crop: card._image_crop,
+        // XY BREAK cards are intentionally printed landscape; do not crop or
+        // stretch them into a vertical card just to satisfy the normal check.
+        allowLandscape: Boolean(card.name_ko?.includes("BREAK")),
       });
     }
   }
@@ -239,7 +244,7 @@ async function processImage(task: ImageTask, stats: Stats) {
 
       const optimized = await sharp(preparedSource)
         .rotate()
-        .resize({ width: size, withoutEnlargement: true })
+        .resize({ width: size })
         .webp({ quality, effort: 4 })
         .toBuffer();
 
@@ -272,7 +277,9 @@ async function verifyVariant(
   const width = metadata.width ?? 0;
   const height = metadata.height ?? 0;
   const aspect = height > 0 ? width / height : 0;
-  if (metadata.format !== "webp" || width !== expectedWidth || aspect < 0.68 || aspect > 0.75) {
+  const hasExpectedAspect = (aspect >= 0.68 && aspect <= 0.75)
+    || (task.allowLandscape && aspect >= 1.3 && aspect <= 1.5);
+  if (metadata.format !== "webp" || width !== expectedWidth || !hasExpectedAspect) {
     stats.invalid++;
     console.error(
       `[invalid] ${task.setCode} ${task.cardNum ?? ""} ${url} expected=${expectedWidth}px-webp-card actual=${width}x${height} ${metadata.format ?? "unknown"}`,

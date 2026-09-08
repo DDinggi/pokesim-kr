@@ -12,6 +12,7 @@ import {
   ANNIVERSARY_25_HIT_WEIGHTS,
   ANNIVERSARY_25_LUCK_SCORE_WEIGHTS,
   ANNIVERSARY_25_PROMO_INTERVAL,
+  BEST_OF_XY_HIGH_WEIGHTS,
   EXPANSION_MONSTER_WEIGHTS,
   GX_BATTLE_BOOST_HIGH_WEIGHTS,
   GX_ULTRA_SHINY_EXTRA_SLOT_WEIGHTS,
@@ -107,7 +108,7 @@ export interface WeightedLuckScore extends LuckEventSummary {
 export type LuckBand = 'lucky' | 'average' | 'unlucky';
 
 const TOP_RARITY_WEIGHT = 3;
-const OLD_HIGH_RARITIES = ['A', 'K', 'PR', 'CHR', 'TR', 'SR_ALT', 'SR', 'CSR', 'HR', 'SAR', 'UR', 'UR_LOW', 'GRA'] as const;
+const OLD_HIGH_RARITIES = ['A', 'K', 'PR', 'CHR', 'TR', 'SR_ALT', 'SR', 'CSR', 'HR', 'H', 'H_SECRET', 'SAR', 'UR', 'UR_LOW', 'GRA'] as const;
 const SCORE_EPSILON = 1e-9;
 const SCORE_WEIGHTS: Record<string, number> = {
   S: 0.08,
@@ -122,6 +123,8 @@ const SCORE_WEIGHTS: Record<string, number> = {
   CSR: 1,
   MA: 0.5,
   HR: 1,
+  H: 1,
+  H_SECRET: 2,
   SAR: 2,
   UR: 3,
   UR_LOW: 0,
@@ -141,6 +144,8 @@ const PACK_SCORE_WEIGHTS: Record<string, number> = {
   SSR: 1,
   MA: 1,
   HR: 2,
+  H: 2,
+  H_SECRET: 3,
   SAR: 2,
   UR: 3,
   UR_LOW: 0,
@@ -148,7 +153,7 @@ const PACK_SCORE_WEIGHTS: Record<string, number> = {
   BWR: 3,
 };
 const LUCK_COMBINATION_RULES = {
-  primaryHitKeys: ['MUR', 'BWR', 'UR', 'GRA', 'SAR', 'HR', 'SR_ALT'],
+  primaryHitKeys: ['MUR', 'BWR', 'UR', 'GRA', 'SAR', 'H_SECRET', 'HR', 'SR_ALT'],
   secondaryHitKeys: ['MA', 'SSR', 'CSR', 'SR', 'A', 'K', 'PR', 'CHR', 'TR'],
   rarityMultiplier: {
     MUR: 1.2,
@@ -157,6 +162,7 @@ const LUCK_COMBINATION_RULES = {
     GRA: 0.95,
     SAR: 1,
     HR: 0.75,
+    H_SECRET: 1,
     SR_ALT: 0.55,
     CSR: 0.4,
     A: 0.25,
@@ -223,6 +229,9 @@ function isLowScoreUrCard(card: Card, setCode?: string): boolean {
 
 function getLuckCountKeyForCard(card: Card, setCode?: string): string | null {
   if (!card.rarity) return null;
+  if (setCode === 'sm3plus-shining-legends' && card.rarity === 'H' && card.number === 82) {
+    return 'H_SECRET';
+  }
   if (isLowScoreUrCard(card, setCode)) return 'UR_LOW';
   if (
     card.rarity === 'SR'
@@ -708,6 +717,7 @@ function addExpectedCountsFromWeights(
     if (key === 'NONE' || weight <= 0) continue;
     const rarity =
       key === 'SR_ALT' ? 'SR_ALT'
+      : key === 'H_SECRET' ? 'H_SECRET'
       : key.startsWith('SR') ? 'SR'
       : key.startsWith('HR') ? 'HR'
       : key;
@@ -765,6 +775,11 @@ function getExpectedScoredRarityCounts(
   }
 
   if (set?.type === 'hi-class') {
+    if (code === 'smxy-best-of-xy') {
+      addExpectedCountsFromWeights(counts, BEST_OF_XY_HIGH_WEIGHTS, unitCount, 1, opening);
+      return counts;
+    }
+
     if (code === 'sm4plus-gx-battle-boost') {
       addExpectedCountsFromWeights(
         counts,
@@ -911,6 +926,7 @@ function addStandardFixedSlotCounts(
   if (rate.kCount) addExpectedCount(counts, 'K', unitCount * rate.kCount);
   if (rate.chrCount) addExpectedCount(counts, 'CHR', unitCount * rate.chrCount);
   if (rate.prCount) addExpectedCount(counts, 'PR', unitCount * rate.prCount);
+  if (rate.hCount) addExpectedCount(counts, 'H', unitCount * rate.hCount);
   if (rate.trCount || rate.trExtraRate) {
     addExpectedCount(counts, 'TR', unitCount * ((rate.trCount ?? 0) + (rate.trExtraRate ?? 0)));
   }
@@ -1030,6 +1046,8 @@ function scoreFromRarityWeightKey(key: string, mode: LuckScoreMode): number {
   if (key === 'SR_ALT') return getScoreWeight('SR_ALT', mode);
   if (key.startsWith('SR')) return getScoreWeight('SR', mode);
   if (key === 'CSR') return getScoreWeight('CSR', mode);
+  if (key === 'H_SECRET') return getScoreWeight('H_SECRET', mode);
+  if (key === 'H') return getScoreWeight('H', mode);
   if (key === 'SSR') return getScoreWeight('SSR', mode);
   if (key === 'MA') return getScoreWeight('MA', mode);
   if (key === 'CSR') return getScoreWeight('CSR', mode);
@@ -1154,6 +1172,10 @@ function getBoxScoreDistribution(
   }
 
   if (set?.type === 'hi-class') {
+    if (code === 'smxy-best-of-xy') {
+      return distributionFromWeights(BEST_OF_XY_HIGH_WEIGHTS, 'box');
+    }
+
     if (code === 'sm4plus-gx-battle-boost') {
       return distributionFromWeights(GX_BATTLE_BOOST_HIGH_WEIGHTS, 'box');
     }
@@ -1282,6 +1304,12 @@ function getBoxScoreDistribution(
         [{ score: getScoreWeight('PR', 'box') * standardRate.prCount, probability: 1 }],
       );
     }
+    if (standardRate.hCount) {
+      standardDistribution = convolveDistributions(
+        standardDistribution,
+        [{ score: getScoreWeight('H', 'box') * standardRate.hCount, probability: 1 }],
+      );
+    }
     if (standardRate.trCount) {
       standardDistribution = convolveDistributions(
         standardDistribution,
@@ -1329,6 +1357,10 @@ function getPackScoreDistribution(
   if (set?.type === 'bundle') return distribution;
 
   if (set?.type === 'hi-class') {
+    if (code === 'smxy-best-of-xy') {
+      return weightedSlotDistribution(BEST_OF_XY_HIGH_WEIGHTS, 1 / boxSize, 'pack');
+    }
+
     if (code === 'sm4plus-gx-battle-boost') {
       return weightedSlotDistribution(
         GX_BATTLE_BOOST_HIGH_WEIGHTS,
@@ -1563,6 +1595,15 @@ function getPackScoreDistribution(
         repeatDistribution(
           bernoulliDistribution(getScoreWeight('PR', 'pack'), 1 / boxSize),
           standardRate.prCount,
+        ),
+      );
+    }
+    if (standardRate.hCount) {
+      distribution = convolveDistributions(
+        distribution,
+        repeatDistribution(
+          bernoulliDistribution(getScoreWeight('H', 'pack'), 1 / boxSize),
+          standardRate.hCount,
         ),
       );
     }

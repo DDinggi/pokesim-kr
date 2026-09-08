@@ -14,7 +14,9 @@ export const HIT_DEX_DEBUG_STORAGE_KEY = 'pokesim-kr-hit-dex-debug-v1';
 export const HIT_DEX_USER_STORAGE_PREFIX = `${HIT_DEX_STORAGE_KEY}:user:`;
 
 const HIT_DEX_VERSION = 1;
-const ALWAYS_DEX_DISPLAY_RARITIES = new Set(['SAR', 'MUR', 'BWR', 'CSR', 'MA', 'GRA', 'S8AP']);
+// 힛카드 도감은 최신 고레어뿐 아니라 구세대 SR/HR/UR도 수집한다.
+// 단, 특수 상품은 세트 데이터의 독립 풀 여부로 이미 걸러진다.
+const ALWAYS_DEX_DISPLAY_RARITIES = new Set(['SAR', 'MUR', 'BWR', 'CSR', 'MA', 'GRA', 'S8AP', 'H', 'SR', 'HR', 'UR']);
 const FEATURED_HIT_DEX_CARD_NUMBERS: Readonly<Record<string, ReadonlySet<number>>> = {
   's12a-vstar-universe': new Set([259, 260, 261, 262]),
 };

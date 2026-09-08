@@ -294,6 +294,9 @@ pnpm --dir scripts validate:value-luck -- --set <code>
 
 ## 봉입률 기록 원칙
 
+- 고전팩은 일본 **재판 근거 우선**. 재판 수치를 확보하지 못하면 발매 당시 자료나 인접 세트의 공개 추정치를 사용할 수 있다(2026-09-08 사용자 결정). 완전 동일한 실측은 필수 아님. 초판 폴백·판본 불명·범위 근사·차용한 항목을 구분하고, 미확인 표본은 `null`로 남긴다.
+- 썬&문 검토 근거는 [세트별 검토표](sm-pull-rate-review.md)와 `scripts/review-sm-pull-rates.ts`에 관리한다. 모델 변경 뒤 `pnpm --dir scripts review:sm-rates -- --write`로 출처·규칙·모델 스냅샷을 반영하고 `--check`로 일치 여부를 확인한다. 숫자가 바뀐 세트는 가치 운 분포 재생성 및 공개 JSON 동기화까지 수행한다. 이 검사는 코드 정합성 검사이지 실물 봉입률 실측 검증이 아니다.
+
 - 한국판 공식 봉입률은 비공개다.
 - `box_guarantees`는 표시용 메타이고, 실제 시뮬 모델은
   `frontend/lib/simulation/model.ts`와 `expansion.ts`가 사용한다.
@@ -308,6 +311,28 @@ pnpm --dir scripts validate:value-luck -- --set <code>
 - 출처, 표본 수, 추정일을 같이 남긴다.
 
 ## 자주 나는 실수
+
+### 이름·등급·이미지 완료 기준 (2026-09-08 보강)
+
+- 파일 존재/HTTP 200/256·512 너비 검사만으로 완료 처리하지 않는다. 공식 이름과 실제 인쇄 번호,
+  일본판 번호·등급·일러스트를 함께 대조하고 고레어 전체를 이미지 시트로 육안 검수한다.
+- 일본어를 임의 번역하지 않는다. 보강 manifest에 `name_jp`, `name_source_card_num`,
+  `rarity_source`, `image_source_url`을 남긴다. 한국 공식 DB의 동일 카드명을 사용한다.
+  예: `소원의 바통`, `동굴탈출로프`, `레스큐탱크`; SM3+ #082는 `뮤츠 GX`이며 `빛나는`을 붙이지 않는다.
+- 한국판 번호와 일본판 번호가 다르면 `_jp_number`를 별도 보존한다. THE BEST OF XY의
+  한국 181/182/183/184/185는 일본 182/184/185/181/183이다. 가격·일러스트를 같은 번호로 붙이지 않는다.
+- SM3+의 한국 공식 자산 ID 061/062는 실제 카드 인쇄 번호 062/061이다. 파일명보다 인쇄 번호를 우선한다.
+- HR을 UR로 바꾸지 않는다. THE BEST OF XY의 SR/UR은 일본 샵의 `SR仕様`/`UR仕様` 분류이고,
+  SM3+ #082의 H는 별표 시크릿 분류다. 카드에 해당 영문 등급이 인쇄됐다고 설명하지 않는다.
+- 상세 모달은 R2 원본을 우선 표시하고 실패할 때 512 WebP로 폴백한다. 목록/개봉용 256·512도
+  별도 생성한다. 작은 소스를 512로 확대했다고 고해상도 원본을 확보한 것으로 보고하지 않는다.
+- 박스는 해당 한국 제품의 **닫힌 한 박스**를 사용한다. 팩/여러 상자/일본판/펼친 진열상자를 혼용하지 않는다.
+  `boxes/original/`에 출처 원본을 보존하고 PNG·WebP를 가공한 뒤 실제 결과를 육안 확인한다.
+- 이 6세트는 `pnpm --dir scripts audit:legacy-sources`로 공식 정보 496장과 고레어 85장의
+  검수 manifest를 대조한다. 근거는 `data/manual/sm-legacy-reviewed-cards.json`.
+- FullAhead에서 세트를 찾지 못할 경우, 검증한 yuyu-tei 판매 표시 가격을 `price-matches.json`의
+  `manual_jpy`로 기록하고 `fetch:prices` → `build:luck-dist`를 실행할 수 있다.
+  품절 상품의 표시 가격도 참고 호가일 뿐 실제 거래가/한국판 실거래가가 아님을 남긴다.
 
 - `data/sets`만 고치고 `frontend/public/sets`를 동기화하지 않음
 - `page.tsx`/`SetPicker`/`newSets`에 등록을 빠뜨려 화면에 안 뜸
@@ -326,7 +351,7 @@ pnpm --dir scripts validate:value-luck -- --set <code>
 
 ## 신규 rarity 발견 시 (D-150)
 
-자동 수집 스크립트는 `rarityRaw.includes(r)` substring 매칭을 길이 내림차순으로 시도한다.
+자동 수집 스크립트는 영문/숫자 토큰 경계로 등급을 매칭한다(과거 `includes` 방식은 폐기).
 새 등급이 기존 등급에 흡수되는 사일런트 손실을 막으려면 **데이터를 다시 받기 전에** 다음을
 한 번에 갱신한다.
 

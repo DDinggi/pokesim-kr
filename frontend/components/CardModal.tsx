@@ -5,7 +5,6 @@ import Image from 'next/image';
 import type { Card } from '../lib/types';
 import {
   CARD_IMAGES_ENABLED,
-  CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
   resolveCardImageUrl,
 } from '../lib/images';
 import { HOLO_RARITIES, RARITY_TIER, rarityFullLabel, rarityLabel } from '../lib/rarity';
@@ -20,7 +19,8 @@ function HoloCardImage({ card }: { card: Card }) {
   const rotatorRef = useRef<HTMLDivElement>(null);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
-  const [useOriginal, setUseOriginal] = useState(false);
+  const [useVariantFallback, setUseVariantFallback] = useState(false);
+  const isLandscape = /BREAK/i.test(card.name_ko ?? '');
 
   const isHolo = card.rarity ? HOLO_RARITIES.has(card.rarity) && imgLoaded && !imgError : false;
   const rarityClass = isHolo ? `holo-${card.rarity!.toLowerCase()}` : '';
@@ -69,24 +69,24 @@ function HoloCardImage({ card }: { card: Card }) {
     <div className="holo-wrapper">
       <div
         ref={rotatorRef}
-        className={`card-image-frame holo-card relative aspect-[5/7] rounded-xl overflow-hidden shadow-2xl ${rarityClass}`}
+        className={`card-image-frame holo-card relative ${isLandscape ? 'aspect-[7/5]' : 'aspect-[5/7]'} rounded-xl overflow-hidden shadow-2xl ${rarityClass}`}
         data-watermark="pokesim.kr"
         onContextMenu={(e) => e.preventDefault()}
       >
         <Image
-          src={resolveCardImageUrl(card.image_url, useOriginal ? {} : { size: 512 })}
+          src={resolveCardImageUrl(card.image_url, useVariantFallback ? { size: 512 } : {})}
           alt={card.name_ko ?? card.card_num}
           fill
           sizes="(max-width: 640px) 90vw, 400px"
-          className="object-cover select-none pointer-events-none"
+          className="object-contain select-none pointer-events-none"
           priority
           unoptimized
           draggable={false}
           onContextMenu={(e) => e.preventDefault()}
           onLoad={() => setImgLoaded(true)}
           onError={() => {
-            if (!useOriginal && CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED) {
-              setUseOriginal(true);
+            if (!useVariantFallback) {
+              setUseVariantFallback(true);
               setImgLoaded(false);
             } else {
               setImgError(true);
@@ -132,7 +132,7 @@ export function CardModal({ card, onClose }: { card: Card; onClose: () => void }
         className="bg-gradient-to-b from-gray-900 to-gray-950 rounded-2xl p-6 max-w-md w-full ring-1 ring-white/10 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <HoloCardImage card={card} />
+        <HoloCardImage key={`${card.card_num}:${card.image_url}`} card={card} />
 
         <div className="mt-5 space-y-2">
           <h2 className="text-xl font-bold leading-snug">{card.name_ko ?? card.card_num}</h2>

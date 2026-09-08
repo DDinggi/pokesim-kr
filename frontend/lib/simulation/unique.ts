@@ -2,6 +2,7 @@ import type { Card } from '../types';
 import type { BuildContext, HiClassHitSlot } from './types';
 
 export const UNIQUE_BOX_HIT_RARITIES = new Set([
+  'H',
   'A',
   'AR',
   'CHR',

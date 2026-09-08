@@ -14,6 +14,7 @@ export interface HiClassHitSlot {
 }
 
 export type StandardHighKey =
+  | 'H_SECRET'
   | 'SR_POKEMON'
   | 'SR_ALT'
   | 'SR_TRAINER'
@@ -27,6 +28,9 @@ export type StandardHighKey =
   | 'BWR';
 
 export interface StandardSvSetRate {
+  /** Defaults to one guaranteed high slot; older enhanced sets can omit it. */
+  mandatoryHighRate?: number;
+  hCount?: number;
   mandatoryHighWeights: Partial<Record<StandardHighKey, number>>;
   extraHighRate: number;
   extraHighWeights: Partial<Record<StandardHighKey, number>>;

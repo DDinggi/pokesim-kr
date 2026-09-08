@@ -8,7 +8,8 @@
  *   number  name_ko  rarity  card_type  subtype  hp  type  image_url  _source
  *
  * 빈 칼럼은 null. card_num은 기존 카드의 prefix를 따와 자동 생성.
- * image_url이 https://로 시작하면 외부 hotlink, 아니면 pokemonkorea CDN 상대경로로 간주.
+ * image_url은 R2 상대 키를 권장. 원본 다운로드 주소는 _image_source_url에 별도 보존.
+ * 선택 근거 칼럼: _image_source_url, _name_source, _rarity_source, _jp_number.
  *
  * 같은 number의 카드가 이미 있으면 덮어쓰기 (중복 방지). _manual: true 플래그 부여.
  */
@@ -30,6 +31,10 @@ interface Card {
   type: string | null;
   image_url: string;
   _source?: string;
+  _image_source_url?: string;
+  _name_source?: string;
+  _rarity_source?: string;
+  _jp_number?: number;
   _fetched_at?: string;
   _manual?: boolean;
 }
@@ -104,6 +109,10 @@ const newCards: Card[] = rows.map((r) => {
     type: nullable(r.type ?? ""),
     image_url: r.image_url ?? "",
     _source: nullable(r._source ?? "") ?? undefined,
+    ...(r._image_source_url ? { _image_source_url: r._image_source_url } : {}),
+    ...(r._name_source ? { _name_source: r._name_source } : {}),
+    ...(r._rarity_source ? { _rarity_source: r._rarity_source } : {}),
+    ...(r._jp_number ? { _jp_number: Number(r._jp_number) } : {}),
     _fetched_at: today,
     _manual: true,
   };
