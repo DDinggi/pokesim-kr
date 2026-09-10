@@ -855,13 +855,17 @@
       "number": 63,
       "name_ko": "굉장한 글라스",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S10/S10P_063.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022008063",
-      "_fetched_at": "2026-05-23"
+      "_fetched_at": "2026-05-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022008063"
+      }
     },
     {
       "card_num": "BS2022008064",
@@ -975,12 +979,12 @@
     {
       "card_num": "BS2022008071",
       "number": 71,
-      "name_ko": "히드런 V",
+      "name_ko": "오리진 펄기아 V",
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 220,
-      "type": "불꽃",
+      "type": "물",
       "image_url": "wmimages/S/S10/S10P_071.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022008071",
       "_fetched_at": "2026-05-23",
@@ -989,17 +993,22 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000020894/s10p/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022008071",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2022008072",
       "number": 72,
-      "name_ko": "오리진 펄기아 V",
+      "name_ko": "히드런 V",
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 220,
-      "type": "물",
+      "type": "불꽃",
       "image_url": "wmimages/S/S10/S10P_072.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022008072",
       "_fetched_at": "2026-05-23",
@@ -1008,7 +1017,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000020895/s10p/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022008072",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2022008073",
@@ -1377,6 +1391,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

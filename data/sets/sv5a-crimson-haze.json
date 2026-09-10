@@ -820,13 +820,17 @@
       "number": 59,
       "name_ko": "럭키멧",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV5a/SV5a_059.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024007059",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024007059"
+      }
     },
     {
       "card_num": "BS2024007060",
@@ -1462,7 +1466,7 @@
       "number": 95,
       "name_ko": "긴급 보드",
       "rarity": "UR",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
@@ -1474,7 +1478,11 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000050133/sv05a/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024007095"
+      }
     },
     {
       "card_num": "BS2024007096",
@@ -1557,6 +1565,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

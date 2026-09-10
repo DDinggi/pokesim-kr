@@ -869,13 +869,17 @@
       "number": 64,
       "name_ko": "불타는 스카프",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S1a/S1a_064.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020004064",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020004064"
+      }
     },
     {
       "card_num": "BS2020004065",
@@ -1335,6 +1339,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

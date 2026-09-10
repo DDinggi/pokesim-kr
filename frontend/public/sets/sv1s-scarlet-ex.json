@@ -959,39 +959,51 @@
       "number": 71,
       "name_ko": "바위 가슴보호대",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV1S/SV1S_071.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023006071",
-      "_fetched_at": "2026-05-20"
+      "_fetched_at": "2026-05-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023006071"
+      }
     },
     {
       "card_num": "BS2023006072",
       "number": 72,
       "name_ko": "오기머리띠",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV1S/SV1S_072.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023006072",
-      "_fetched_at": "2026-05-20"
+      "_fetched_at": "2026-05-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023006072"
+      }
     },
     {
       "card_num": "BS2023006073",
       "number": 73,
       "name_ko": "학습장치",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV1S/SV1S_073.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023006073",
-      "_fetched_at": "2026-05-20"
+      "_fetched_at": "2026-05-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023006073"
+      }
     },
     {
       "card_num": "BS2023006074",
@@ -1691,6 +1703,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

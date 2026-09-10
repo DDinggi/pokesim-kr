@@ -688,13 +688,17 @@
       "number": 47,
       "name_ko": "검은띠",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM10a/SM10a_047.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019010047",
-      "_fetched_at": "2026-06-27"
+      "_fetched_at": "2026-06-27",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019010047"
+      }
     },
     {
       "card_num": "BS2019010048",
@@ -1172,6 +1176,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-27"
+    "_built_at": "2026-09-10"
   }
 }

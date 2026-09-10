@@ -817,39 +817,51 @@
       "number": 60,
       "name_ko": "고무글러브",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S7/S7R_060.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021012060",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021012060"
+      }
     },
     {
       "card_num": "BS2021012061",
       "number": 61,
       "name_ko": "연격의 두루마리 비룡의 권",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S7/S7R_061.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021012061",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021012061"
+      }
     },
     {
       "card_num": "BS2021012062",
       "number": 62,
       "name_ko": "영계의 가면",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S7/S7R_062.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021012062",
-      "_fetched_at": "2026-06-03"
+      "_fetched_at": "2026-06-03",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021012062"
+      }
     },
     {
       "card_num": "BS2021012063",
@@ -1427,6 +1439,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

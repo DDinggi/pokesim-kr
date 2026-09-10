@@ -807,26 +807,34 @@
       "number": 58,
       "name_ko": "꼬시개열매",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV7a/SV7a_058.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024016058",
-      "_fetched_at": "2026-05-12"
+      "_fetched_at": "2026-05-12",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024016058"
+      }
     },
     {
       "card_num": "BS2024016059",
       "number": 59,
       "name_ko": "카운터 게인",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV7a/SV7a_059.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024016059",
-      "_fetched_at": "2026-05-12"
+      "_fetched_at": "2026-05-12",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024016059"
+      }
     },
     {
       "card_num": "BS2024016060",
@@ -1436,7 +1444,7 @@
       "number": 93,
       "name_ko": "카운터 게인",
       "rarity": "UR",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
@@ -1448,7 +1456,11 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000051491/sv07a/page2/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024016093"
+      }
     },
     {
       "card_num": "BS2024016094",
@@ -1532,6 +1544,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

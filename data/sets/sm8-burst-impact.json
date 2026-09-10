@@ -1174,39 +1174,51 @@
       "number": 84,
       "name_ko": "구애머리띠",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM8/SM8_0084.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018010084",
-      "_fetched_at": "2026-07-11"
+      "_fetched_at": "2026-07-11",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018010084"
+      }
     },
     {
       "card_num": "BS2018010085",
       "number": 85,
       "name_ko": "구애멧",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM8/SM8_0085.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018010085",
-      "_fetched_at": "2026-07-11"
+      "_fetched_at": "2026-07-11",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018010085"
+      }
     },
     {
       "card_num": "BS2018010086",
       "number": 86,
       "name_ko": "페어리참(풀)",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM8/SM8_0086.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018010086",
-      "_fetched_at": "2026-07-11"
+      "_fetched_at": "2026-07-11",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018010086"
+      }
     },
     {
       "card_num": "BS2018010087",
@@ -1719,6 +1731,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-07-11"
+    "_built_at": "2026-09-10"
   }
 }

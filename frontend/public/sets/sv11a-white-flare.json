@@ -1101,13 +1101,17 @@
       "number": 82,
       "name_ko": "브레이브뱅글",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV11W/SV11W_082.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025008082",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025008082"
+      }
     },
     {
       "card_num": "BS2025008083",
@@ -2896,6 +2900,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

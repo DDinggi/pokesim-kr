@@ -1207,39 +1207,51 @@
       "number": 90,
       "name_ko": "드론로토무",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S4/S4_090.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020014090",
-      "_fetched_at": "2026-06-13"
+      "_fetched_at": "2026-06-13",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020014090"
+      }
     },
     {
       "card_num": "BS2020014091",
       "number": 91,
       "name_ko": "망원스코프",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S4/S4_091.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020014091",
-      "_fetched_at": "2026-06-13"
+      "_fetched_at": "2026-06-13",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020014091"
+      }
     },
     {
       "card_num": "BS2020014092",
       "number": 92,
       "name_ko": "메모리캡슐",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S4/S4_092.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020014092",
-      "_fetched_at": "2026-06-13"
+      "_fetched_at": "2026-06-13",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020014092"
+      }
     },
     {
       "card_num": "BS2020014093",
@@ -1827,6 +1839,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

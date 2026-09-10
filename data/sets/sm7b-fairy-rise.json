@@ -1071,104 +1071,136 @@
       "number": 44,
       "name_ko": "저주의부적",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM7B/SM7B_089.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018009089",
-      "_fetched_at": "2026-07-23"
+      "_fetched_at": "2026-07-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018009089"
+      }
     },
     {
       "card_num": "BS2018009044",
       "number": 44,
       "name_ko": "저주의부적",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM7B/SM7B_044.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018009044",
-      "_fetched_at": "2026-07-23"
+      "_fetched_at": "2026-07-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018009044"
+      }
     },
     {
       "card_num": "BS2018009090",
       "number": 45,
       "name_ko": "페어리참(초)",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM7B/SM7B_090.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018009090",
-      "_fetched_at": "2026-07-23"
+      "_fetched_at": "2026-07-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018009090"
+      }
     },
     {
       "card_num": "BS2018009045",
       "number": 45,
       "name_ko": "페어리참(초)",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM7B/SM7B_045.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018009045",
-      "_fetched_at": "2026-07-23"
+      "_fetched_at": "2026-07-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018009045"
+      }
     },
     {
       "card_num": "BS2018009091",
       "number": 46,
       "name_ko": "페어리참(격투)",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM7B/SM7B_091.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018009091",
-      "_fetched_at": "2026-07-23"
+      "_fetched_at": "2026-07-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018009091"
+      }
     },
     {
       "card_num": "BS2018009046",
       "number": 46,
       "name_ko": "페어리참(페어리)",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM7B/SM7B_046.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018009046",
-      "_fetched_at": "2026-07-23"
+      "_fetched_at": "2026-07-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018009046"
+      }
     },
     {
       "card_num": "BS2018009092",
       "number": 47,
       "name_ko": "페어리참(드래곤)",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM7B/SM7B_092.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018009092",
-      "_fetched_at": "2026-07-23"
+      "_fetched_at": "2026-07-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018009092"
+      }
     },
     {
       "card_num": "BS2018009047",
       "number": 47,
       "name_ko": "페어리참(드래곤)",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM7B/SM7B_047.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018009047",
-      "_fetched_at": "2026-07-23"
+      "_fetched_at": "2026-07-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018009047"
+      }
     },
     {
       "card_num": "BS2018009093",
@@ -1564,6 +1596,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-07-23"
+    "_built_at": "2026-09-10"
   }
 }

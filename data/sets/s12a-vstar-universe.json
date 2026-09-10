@@ -2827,65 +2827,85 @@
       "number": 145,
       "name_ko": "구애벨트",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S12a/S12a_145_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023001145m",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023001145m"
+      }
     },
     {
       "card_num": "BS2023001145",
       "number": 145,
       "name_ko": "구애벨트",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S12a/S12a_145.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023001145",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023001145"
+      }
     },
     {
       "card_num": "BS2023001146m",
       "number": 146,
       "name_ko": "잎새숨기 판초",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S12a/S12a_146_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023001146m",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023001146m"
+      }
     },
     {
       "card_num": "BS2023001146",
       "number": 146,
       "name_ko": "잎새숨기 판초",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S12a/S12a_146.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023001146",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023001146"
+      }
     },
     {
       "card_num": "BS2023001147",
       "number": 147,
       "name_ko": "하늘의 봉인석",
       "rarity": "R",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S12a/S12a_147.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023001147",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023001147"
+      }
     },
     {
       "card_num": "BS2023001148m",
@@ -5201,24 +5221,24 @@
   "_fetched_at": "2026-05-17",
   "_notes": "pokemoncard.co.kr 검색 API의 BS2023001173 상세 응답이 비어 있어 173번 히스이 찌리리공 AR만 공식 이미지 경로와 일본판 S12a 번호 기준으로 수동 보정.",
   "luck_value_ref": {
-    "box_median_krw": 65300,
+    "box_median_krw": 59600,
     "pack_median_krw": 700,
     "box_quantiles_krw": [
-      18500,
-      30900,
-      35600,
-      43100,
-      49900,
-      56700,
-      65300,
-      80800,
-      106300,
-      164300,
-      345200,
-      384000,
-      469600,
-      529300,
-      1078300
+      18200,
+      28200,
+      32100,
+      39400,
+      45700,
+      52000,
+      59600,
+      71400,
+      88800,
+      122400,
+      173500,
+      245000,
+      349800,
+      445300,
+      696200
     ],
     "pack_quantiles_krw": [
       0,
@@ -5229,13 +5249,13 @@
       0,
       700,
       3000,
-      4800,
-      9100,
-      20300,
-      46200,
-      125300,
-      319900,
-      639500
+      4200,
+      6700,
+      18400,
+      39000,
+      79000,
+      127100,
+      398500
     ],
     "quantile_points": [
       0,
@@ -5258,6 +5278,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-25"
+    "_built_at": "2026-09-10"
   }
 }

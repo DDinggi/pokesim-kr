@@ -970,13 +970,17 @@
       "number": 72,
       "name_ko": "코어 메모리",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/M3/M3_072.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026002072",
-      "_fetched_at": "2026-05-01"
+      "_fetched_at": "2026-05-01",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026002072"
+      }
     },
     {
       "card_num": "BS2026002073",
@@ -1849,6 +1853,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-08-13"
+    "_built_at": "2026-09-10"
   }
 }

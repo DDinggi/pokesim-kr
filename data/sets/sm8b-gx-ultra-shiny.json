@@ -1774,91 +1774,119 @@
       "number": 121,
       "name_ko": "강철 프라이팬",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM8B/SM8b_121.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019002121",
-      "_fetched_at": "2026-06-24"
+      "_fetched_at": "2026-06-24",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019002121"
+      }
     },
     {
       "card_num": "BS2019002122",
       "number": 122,
       "name_ko": "그래스메모리",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM8B/SM8b_122.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019002122",
-      "_fetched_at": "2026-06-24"
+      "_fetched_at": "2026-06-24",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019002122"
+      }
     },
     {
       "card_num": "BS2019002123",
       "number": 123,
       "name_ko": "불끈불끈덤벨",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM8B/SM8b_123.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019002123",
-      "_fetched_at": "2026-06-24"
+      "_fetched_at": "2026-06-24",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019002123"
+      }
     },
     {
       "card_num": "BS2019002124",
       "number": 124,
       "name_ko": "소원의 바통",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM8B/SM8b_124.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019002124",
-      "_fetched_at": "2026-06-24"
+      "_fetched_at": "2026-06-24",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019002124"
+      }
     },
     {
       "card_num": "BS2019002125",
       "number": 125,
       "name_ko": "워터메모리",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM8B/SM8b_125.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019002125",
-      "_fetched_at": "2026-06-24"
+      "_fetched_at": "2026-06-24",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019002125"
+      }
     },
     {
       "card_num": "BS2019002126",
       "number": 126,
       "name_ko": "이스케이프 보드",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM8B/SM8b_126.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019002126",
-      "_fetched_at": "2026-06-24"
+      "_fetched_at": "2026-06-24",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019002126"
+      }
     },
     {
       "card_num": "BS2019002127",
       "number": 127,
       "name_ko": "페어리참 UB",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM8B/SM8b_127.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019002127",
-      "_fetched_at": "2026-06-24"
+      "_fetched_at": "2026-06-24",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019002127"
+      }
     },
     {
       "card_num": "BS2019002128",
@@ -4147,6 +4175,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-07-05"
+    "_built_at": "2026-09-10"
   }
 }

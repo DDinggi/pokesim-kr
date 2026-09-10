@@ -1920,78 +1920,102 @@
       "number": 142,
       "name_ko": "내치기글러브",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S8b/S8b_142.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022001142",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022001142"
+      }
     },
     {
       "card_num": "BS2022001143",
       "number": 143,
       "name_ko": "망원스코프",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S8b/S8b_143.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022001143",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022001143"
+      }
     },
     {
       "card_num": "BS2022001144",
       "number": 144,
       "name_ko": "메모리캡슐",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S8b/S8b_144.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022001144",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022001144"
+      }
     },
     {
       "card_num": "BS2022001145",
       "number": 145,
       "name_ko": "터프니스 망토",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S8b/S8b_145.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022001145",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022001145"
+      }
     },
     {
       "card_num": "BS2022001146",
       "number": 146,
       "name_ko": "풍선",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S8b/S8b_146.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022001146",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022001146"
+      }
     },
     {
       "card_num": "BS2022001147",
       "number": 147,
       "name_ko": "헌터글러브",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S8b/S8b_147.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022001147",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022001147"
+      }
     },
     {
       "card_num": "BS2022001148",
@@ -4464,6 +4488,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-25"
+    "_built_at": "2026-09-10"
   }
 }

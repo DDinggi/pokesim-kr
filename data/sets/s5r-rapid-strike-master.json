@@ -869,13 +869,17 @@
       "number": 64,
       "name_ko": "연격의 두루마리 소용돌이의 권",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S5/S5R_064.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021002064",
-      "_fetched_at": "2026-06-10"
+      "_fetched_at": "2026-06-10",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021002064"
+      }
     },
     {
       "card_num": "BS2021002065",
@@ -1437,6 +1441,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

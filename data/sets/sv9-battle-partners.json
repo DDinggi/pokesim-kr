@@ -1232,26 +1232,34 @@
       "number": 92,
       "name_ko": "릴리에의 진주",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV9/SV9_092.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025001092",
-      "_fetched_at": "2026-05-12"
+      "_fetched_at": "2026-05-12",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025001092"
+      }
     },
     {
       "card_num": "BS2025001093",
       "number": 93,
       "name_ko": "호브의 구애머리띠",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV9/SV9_093.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025001093",
-      "_fetched_at": "2026-05-12"
+      "_fetched_at": "2026-05-12",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025001093"
+      }
     },
     {
       "card_num": "BS2025001094",
@@ -2015,6 +2023,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

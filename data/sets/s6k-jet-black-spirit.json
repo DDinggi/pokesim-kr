@@ -830,39 +830,51 @@
       "number": 61,
       "name_ko": "연격의 두루마리 하늘의 권",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S6/S6K_061.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021005061",
-      "_fetched_at": "2026-06-10"
+      "_fetched_at": "2026-06-10",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021005061"
+      }
     },
     {
       "card_num": "BS2021005062",
       "number": 62,
       "name_ko": "정의글러브",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S6/S6K_062.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021005062",
-      "_fetched_at": "2026-06-10"
+      "_fetched_at": "2026-06-10",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021005062"
+      }
     },
     {
       "card_num": "BS2021005063",
       "number": 63,
       "name_ko": "제초글러브",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S6/S6K_063.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021005063",
-      "_fetched_at": "2026-06-10"
+      "_fetched_at": "2026-06-10",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021005063"
+      }
     },
     {
       "card_num": "BS2021005064",
@@ -1517,6 +1529,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

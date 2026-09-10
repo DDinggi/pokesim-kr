@@ -20,13 +20,14 @@
     "S",
     "SSR",
     "SR",
-    "UR"
+    "UR",
+    "A"
   ],
   "box_guarantees": {
     "rules": [
       {
         "rarity": "RR",
-        "min": 9
+        "min": 6
       },
       {
         "rarity": "RRR",
@@ -44,11 +45,24 @@
         "rarity": "SR/UR",
         "min": 0,
         "max": 1
+      },
+      {
+        "rarity": "A",
+        "min": 1,
+        "max": 2
       }
     ],
-    "_source": "pokemoncard.co.kr Korean official card list + Japanese Shiny Star V community-style hi-class box model. Korean official pull rates are unpublished.",
+    "_source": "pokemoncard.co.kr Korean official card list + Japanese Shiny Star V community-style hi-class box model. Korean official pull rates are unpublished. 2026-09-10 분류 복구: 일본판 A 1~2장 범위의 중간값: 1장+50% 추가. 50%는 실측치가 아니라 근사. 재판 구분 불명. 한국판 공식 봉입률은 비공개. 출처: https://shark-tcg.com/s4a-box-kaihu/",
     "_sample_size": null,
-    "_estimated_at": "2026-06-13"
+    "_estimated_at": "2026-06-13",
+    "classification_review": {
+      "rrr_source": "https://cuberoomblog.com/shinystar-pokemon-3box-sr/",
+      "rrr_note": "일본 발매 시점 3BOX 개봉 기록 및 공개 추정의 RR 약 6장·RRR 약 3장을 준용. 기존 RRR 풀 미사용 오류를 복구. 한국판 공식 확률 아님.",
+      "reviewed_at": "2026-09-10",
+      "source": "https://shark-tcg.com/s4a-box-kaihu/",
+      "note": "일본판 A 1~2장 범위의 중간값: 1장+50% 추가. 50%는 실측치가 아니라 근사. 재판 구분 불명.",
+      "_sample_size": null
+    }
   },
   "pack_slots": [],
   "cards": [
@@ -316,14 +330,18 @@
       "card_num": "BS2020016021",
       "number": 21,
       "name_ko": "레시라무",
-      "rarity": null,
+      "rarity": "A",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 120,
       "type": "불꽃",
       "image_url": "wmimages/S/S4a/S4a_021.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020016021",
-      "_fetched_at": "2026-06-13"
+      "_fetched_at": "2026-06-13",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016021"
+      }
     },
     {
       "card_num": "BS2020016022",
@@ -511,14 +529,18 @@
       "card_num": "BS2020016036",
       "number": 36,
       "name_ko": "가이오가",
-      "rarity": null,
+      "rarity": "A",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 120,
       "type": "물",
       "image_url": "wmimages/S/S4a/S4a_036.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020016036",
-      "_fetched_at": "2026-06-13"
+      "_fetched_at": "2026-06-13",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016036"
+      }
     },
     {
       "card_num": "BS2020016037",
@@ -1564,14 +1586,18 @@
       "card_num": "BS2020016117",
       "number": 117,
       "name_ko": "이벨타르",
-      "rarity": null,
+      "rarity": "A",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 110,
       "type": "악",
       "image_url": "wmimages/S/S4a/S4a_117.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020016117",
-      "_fetched_at": "2026-06-13"
+      "_fetched_at": "2026-06-13",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016117"
+      }
     },
     {
       "card_num": "BS2020016118",
@@ -2228,52 +2254,68 @@
       "number": 168,
       "name_ko": "녹슨검",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S4a/S4a_168.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020016168",
-      "_fetched_at": "2026-06-13"
+      "_fetched_at": "2026-06-13",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016168"
+      }
     },
     {
       "card_num": "BS2020016169",
       "number": 169,
       "name_ko": "녹슨방패",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S4a/S4a_169.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020016169",
-      "_fetched_at": "2026-06-13"
+      "_fetched_at": "2026-06-13",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016169"
+      }
     },
     {
       "card_num": "BS2020016170",
       "number": 170,
       "name_ko": "터프니스 망토",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S4a/S4a_170.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020016170",
-      "_fetched_at": "2026-06-13"
+      "_fetched_at": "2026-06-13",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016170"
+      }
     },
     {
       "card_num": "BS2020016171",
       "number": 171,
       "name_ko": "풍선",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S4a/S4a_171.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020016171",
-      "_fetched_at": "2026-06-13"
+      "_fetched_at": "2026-06-13",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016171"
+      }
     },
     {
       "card_num": "BS2020016172",
@@ -2525,7 +2567,7 @@
     {
       "card_num": "BS2020016191",
       "number": 191,
-      "name_ko": "모젤란",
+      "name_ko": "두송",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
@@ -2537,14 +2579,20 @@
       "price_ref_krw": 3000,
       "price_ref_jpy": 480,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011589/s04a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011592/s04a/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-17",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 194,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016191",
+        "jp_number": 194
+      }
     },
     {
       "card_num": "BS2020016192",
       "number": 192,
-      "name_ko": "체육관 트레이너",
+      "name_ko": "로즈",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
@@ -2556,14 +2604,20 @@
       "price_ref_krw": 3000,
       "price_ref_jpy": 480,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011590/s04a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011597/s04a/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-17",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 199,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016192",
+        "jp_number": 199
+      }
     },
     {
       "card_num": "BS2020016193",
       "number": 193,
-      "name_ko": "새 조련사",
+      "name_ko": "마리",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
@@ -2572,17 +2626,23 @@
       "image_url": "wmimages/S/S4a/S4a_193.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020016193",
       "_fetched_at": "2026-06-13",
-      "price_ref_krw": 4200,
-      "price_ref_jpy": 680,
+      "price_ref_krw": 122300,
+      "price_ref_jpy": 19800,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011591/s04a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011596/s04a/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-17",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 198,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016193",
+        "jp_number": 198
+      }
     },
     {
       "card_num": "BS2020016194",
       "number": 194,
-      "name_ko": "두송",
+      "name_ko": "모젤란",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
@@ -2594,14 +2654,20 @@
       "price_ref_krw": 3000,
       "price_ref_jpy": 480,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011592/s04a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011589/s04a/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-17",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 191,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016194",
+        "jp_number": 191
+      }
     },
     {
       "card_num": "BS2020016195",
       "number": 195,
-      "name_ko": "풍란",
+      "name_ko": "볼가이",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
@@ -2610,17 +2676,23 @@
       "image_url": "wmimages/S/S4a/S4a_195.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020016195",
       "_fetched_at": "2026-06-13",
-      "price_ref_krw": 29500,
-      "price_ref_jpy": 4780,
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011593/s04a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011594/s04a/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-17",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 196,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016195",
+        "jp_number": 196
+      }
     },
     {
       "card_num": "BS2020016196",
       "number": 196,
-      "name_ko": "볼가이",
+      "name_ko": "새 조련사",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
@@ -2629,17 +2701,23 @@
       "image_url": "wmimages/S/S4a/S4a_196.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020016196",
       "_fetched_at": "2026-06-13",
-      "price_ref_krw": 3600,
-      "price_ref_jpy": 580,
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011594/s04a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011591/s04a/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-17",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 193,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016196",
+        "jp_number": 193
+      }
     },
     {
       "card_num": "BS2020016197",
       "number": 197,
-      "name_ko": "포켓몬놀이",
+      "name_ko": "체육관 트레이너",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
@@ -2648,17 +2726,23 @@
       "image_url": "wmimages/S/S4a/S4a_197.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020016197",
       "_fetched_at": "2026-06-13",
-      "price_ref_krw": 21500,
-      "price_ref_jpy": 3480,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011595/s04a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011590/s04a/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-17",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 192,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016197",
+        "jp_number": 192
+      }
     },
     {
       "card_num": "BS2020016198",
       "number": 198,
-      "name_ko": "마리",
+      "name_ko": "포켓몬놀이",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
@@ -2667,17 +2751,23 @@
       "image_url": "wmimages/S/S4a/S4a_198.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020016198",
       "_fetched_at": "2026-06-13",
-      "price_ref_krw": 122300,
-      "price_ref_jpy": 19800,
+      "price_ref_krw": 21500,
+      "price_ref_jpy": 3480,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011596/s04a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011595/s04a/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-17",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 197,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016198",
+        "jp_number": 197
+      }
     },
     {
       "card_num": "BS2020016199",
       "number": 199,
-      "name_ko": "로즈",
+      "name_ko": "풍란",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
@@ -2686,12 +2776,18 @@
       "image_url": "wmimages/S/S4a/S4a_199.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020016199",
       "_fetched_at": "2026-06-13",
-      "price_ref_krw": 3000,
-      "price_ref_jpy": 480,
+      "price_ref_krw": 29500,
+      "price_ref_jpy": 4780,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011597/s04a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000011593/s04a/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-17",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 195,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020016199",
+        "jp_number": 195
+      }
     },
     {
       "card_num": "BS2020016200",
@@ -5208,12 +5304,12 @@
       13600,
       16000,
       19700,
-      30200,
-      126100,
-      142100,
-      223700,
-      231000,
-      347400
+      30800,
+      128600,
+      218200,
+      224200,
+      232300,
+      351600
     ],
     "pack_quantiles_krw": [
       0,
@@ -5227,10 +5323,10 @@
       1700,
       2300,
       4200,
-      7300,
+      7800,
       21500,
-      116100,
-      244400
+      117200,
+      341400
     ],
     "quantile_points": [
       0,
@@ -5253,6 +5349,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

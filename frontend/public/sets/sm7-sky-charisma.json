@@ -1212,26 +1212,34 @@
       "number": 86,
       "name_ko": "구애머리띠",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM7/SM7_086.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018007086",
-      "_fetched_at": "2026-07-23"
+      "_fetched_at": "2026-07-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018007086"
+      }
     },
     {
       "card_num": "BS2018007087",
       "number": 87,
       "name_ko": "허슬벨트",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM7/SM7_087.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018007087",
-      "_fetched_at": "2026-07-23"
+      "_fetched_at": "2026-07-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018007087"
+      }
     },
     {
       "card_num": "BS2018007088",
@@ -1732,6 +1740,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-07-23"
+    "_built_at": "2026-09-10"
   }
 }

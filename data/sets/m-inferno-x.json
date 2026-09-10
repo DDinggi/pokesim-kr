@@ -1009,13 +1009,17 @@
       "number": 75,
       "name_ko": "성스러운 부적",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/M2/M2_075.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025014075",
-      "_fetched_at": "2026-05-05"
+      "_fetched_at": "2026-05-05",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025014075"
+      }
     },
     {
       "card_num": "BS2025014076",
@@ -1505,7 +1509,7 @@
       "number": 103,
       "name_ko": "성스러운 부적",
       "rarity": "SR",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
@@ -1517,14 +1521,18 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000056194/m02/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025014103"
+      }
     },
     {
       "card_num": "BS2025014104",
       "number": 104,
       "name_ko": "펑크멧",
       "rarity": "SR",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
@@ -1536,7 +1544,11 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000056195/m02/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025014104"
+      }
     },
     {
       "card_num": "BS2025014105",
@@ -1826,6 +1838,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-08-13"
+    "_built_at": "2026-09-10"
   }
 }

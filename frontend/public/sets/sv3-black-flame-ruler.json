@@ -1349,26 +1349,34 @@
       "number": 101,
       "name_ko": "리벤지펀치",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV3/SV3_101.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023015101",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023015101"
+      }
     },
     {
       "card_num": "BS2023015102",
       "number": 102,
       "name_ko": "패트롤캡",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV3/SV3_102.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023015102",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023015102"
+      }
     },
     {
       "card_num": "BS2023015103",
@@ -2138,6 +2146,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

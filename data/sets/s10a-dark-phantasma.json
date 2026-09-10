@@ -1469,52 +1469,68 @@
       "number": 65,
       "name_ko": "기계장치암",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S10a/S10a_065_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022011109",
-      "_fetched_at": "2026-05-23"
+      "_fetched_at": "2026-05-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022011109"
+      }
     },
     {
       "card_num": "BS2022011108",
       "number": 65,
       "name_ko": "기계장치암",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S10a/S10a_065.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022011108",
-      "_fetched_at": "2026-05-23"
+      "_fetched_at": "2026-05-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022011108"
+      }
     },
     {
       "card_num": "BS2022011111",
       "number": 66,
       "name_ko": "재앙의 상자",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S10a/S10a_066_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022011111",
-      "_fetched_at": "2026-05-23"
+      "_fetched_at": "2026-05-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022011111"
+      }
     },
     {
       "card_num": "BS2022011110",
       "number": 66,
       "name_ko": "재앙의 상자",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S10a/S10a_066.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022011110",
-      "_fetched_at": "2026-05-23"
+      "_fetched_at": "2026-05-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022011110"
+      }
     },
     {
       "card_num": "BS2022011113",
@@ -2151,7 +2167,7 @@
       "number": 99,
       "name_ko": "재앙의 상자",
       "rarity": "UR",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
@@ -2163,7 +2179,11 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000021194/s10a/page3/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022011148"
+      }
     }
   ],
   "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
@@ -2228,6 +2248,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

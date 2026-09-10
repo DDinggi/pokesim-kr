@@ -1220,26 +1220,34 @@
       "number": 91,
       "name_ko": "대지의 봉인석",
       "rarity": "R",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S12/S12_091.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022017091",
-      "_fetched_at": "2026-05-20"
+      "_fetched_at": "2026-05-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022017091"
+      }
     },
     {
       "card_num": "BS2022017092",
       "number": 92,
       "name_ko": "숲의 봉인석",
       "rarity": "R",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S12/S12_092.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022017092",
-      "_fetched_at": "2026-05-20"
+      "_fetched_at": "2026-05-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022017092"
+      }
     },
     {
       "card_num": "BS2022017093",
@@ -1799,7 +1807,7 @@
       "number": 124,
       "name_ko": "잎새숨기 판초",
       "rarity": "UR",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
@@ -1811,7 +1819,11 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022660/s12/page3/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022017124"
+      }
     },
     {
       "card_num": "BS2022017125",
@@ -1895,6 +1907,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

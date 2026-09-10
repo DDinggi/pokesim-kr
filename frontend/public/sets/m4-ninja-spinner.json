@@ -1812,8 +1812,8 @@
       "rarity": "UR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 350,
+      "type": "물",
       "image_url": "external/m4-ninja-spinner/BS2026003120.jpg",
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m04)",
       "_fetched_at": "2026-05-02",
@@ -1823,7 +1823,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059426/m04/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026003120",
+        "jp_number": null
+      }
     }
   ],
   "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
@@ -1888,6 +1893,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-08-13"
+    "_built_at": "2026-09-10"
   }
 }

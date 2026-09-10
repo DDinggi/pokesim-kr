@@ -11,6 +11,7 @@ import {
   MEGA_DREAM_GOD_PACK_RATE,
   MEGA_MAIN_SR_NUMBER_RANGES,
   SHINY_STAR_V_EXTRA_SLOT_WEIGHTS,
+  SHINY_STAR_V_SECOND_A_RATE,
   SHINY_TREASURE_EXTRA_SLOT_WEIGHTS,
   TAG_ALL_STARS_GOD_PACK_PACK_RATE,
   TAG_ALL_STARS_GOD_PACK_RATE,
@@ -71,6 +72,7 @@ export function simulateHiClassBox(
 
     for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
     hits.push({ rarity: 'SAR', pool: pokemonSar.length ? pokemonSar : pools.sarAll });
+    if (hasRarity(byRarity, 'ACE')) hits.push({ rarity: 'ACE' });
 
     const extraRarity = ctx.weightedPick(TERASTAL_EXTRA_SLOT_WEIGHTS);
     if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
@@ -91,6 +93,10 @@ export function simulateHiClassBox(
     for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
     if (ssrPool.length) hits.push({ rarity: 'SSR', pool: ssrPool });
 
+    for (let i = 0; i < 3; i++) {
+      if (hasRarity(byRarity, 'S')) hits.push({ rarity: 'S' });
+    }
+
     const extraRarity = ctx.weightedPick(SHINY_TREASURE_EXTRA_SLOT_WEIGHTS);
     if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
       hits.push({
@@ -107,13 +113,20 @@ export function simulateHiClassBox(
     const ssrPool = pools.ssrPokemon.length ? pools.ssrPokemon : pools.ssrAll;
     const hits: HiClassHitSlot[] = [];
 
-    for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
+    for (let i = 0; i < 6; i++) hits.push({ rarity: 'RR' });
+    for (let i = 0; i < 3; i++) {
+      if (hasRarity(byRarity, 'RRR')) hits.push({ rarity: 'RRR' });
+    }
     for (let i = 0; i < 3; i++) {
       if (sPool.length) hits.push({ rarity: 'S', pool: sPool });
     }
     if (ssrPool.length) hits.push({ rarity: 'SSR', pool: ssrPool });
 
     const extraRarity = ctx.weightedPick(SHINY_STAR_V_EXTRA_SLOT_WEIGHTS);
+    if (hasRarity(byRarity, 'A')) {
+      hits.push({ rarity: 'A' });
+      if (rng() < SHINY_STAR_V_SECOND_A_RATE) hits.push({ rarity: 'A' });
+    }
     if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
       hits.push({ rarity: extraRarity });
     }
@@ -184,6 +197,7 @@ export function simulateHiClassBox(
     for (let i = 0; i < 9; i++) hits.push({ rarity: 'RR' });
 
     if (!isGodPack) {
+      if (hasRarity(byRarity, 'PR')) hits.push({ rarity: 'PR' });
       const mainRarity = ctx.weightedPick(TAG_ALL_STARS_MAIN_SLOT_WEIGHTS);
       if (hasRarity(byRarity, mainRarity)) {
         hits.push({
@@ -266,6 +280,7 @@ export function simulateSingleHiClassPack(
     }
 
     const extraRarity = pickBoxSlotForSinglePack(ctx, TERASTAL_EXTRA_SLOT_WEIGHTS);
+    if (rng() < 1 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'ACE')) hits.push({ rarity: 'ACE' });
     if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
       hits.push({
         rarity: extraRarity,
@@ -287,6 +302,7 @@ export function simulateSingleHiClassPack(
     }
 
     const extraRarity = pickBoxSlotForSinglePack(ctx, SHINY_TREASURE_EXTRA_SLOT_WEIGHTS);
+    if (rng() < 3 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'S')) hits.push({ rarity: 'S' });
     if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
       hits.push({
         rarity: extraRarity,
@@ -302,13 +318,15 @@ export function simulateSingleHiClassPack(
     const ssrPool = pools.ssrPokemon.length ? pools.ssrPokemon : pools.ssrAll;
     const hits: HiClassHitSlot[] = [];
 
-    if (rng() < 9 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
+    if (rng() < 6 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
+    if (rng() < 3 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RRR')) hits.push({ rarity: 'RRR' });
     if (rng() < 3 / HI_CLASS_BOX_SIZE && sPool.length) hits.push({ rarity: 'S', pool: sPool });
     if (rng() < 1 / HI_CLASS_BOX_SIZE && ssrPool.length) {
       hits.push({ rarity: 'SSR', pool: ssrPool });
     }
 
     const extraRarity = pickBoxSlotForSinglePack(ctx, SHINY_STAR_V_EXTRA_SLOT_WEIGHTS);
+    if (rng() < (1 + SHINY_STAR_V_SECOND_A_RATE) / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'A')) hits.push({ rarity: 'A' });
     if (extraRarity !== 'NONE' && hasRarity(byRarity, extraRarity)) {
       hits.push({ rarity: extraRarity });
     }
@@ -419,6 +437,7 @@ export function simulateSingleHiClassPack(
     if (rng() < 9 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'RR')) hits.push({ rarity: 'RR' });
 
     const mainRarity = pickBoxSlotForSinglePack(ctx, TAG_ALL_STARS_MAIN_SLOT_WEIGHTS);
+    if (rng() < 1 / HI_CLASS_BOX_SIZE && hasRarity(byRarity, 'PR')) hits.push({ rarity: 'PR' });
     if (mainRarity !== 'NONE' && hasRarity(byRarity, mainRarity)) {
       hits.push({
         rarity: mainRarity,
