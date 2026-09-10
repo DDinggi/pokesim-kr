@@ -204,7 +204,7 @@ function parseCardDetail(
   }) ?? defaultRarity ?? null;
 
   // 세트 내 번호 — "001/083" 중 앞 부분
-  const pNumText = root.querySelector(".p_num")?.text ?? "";
+  const pNumText = (root.querySelector(".p_num")?.text ?? "").replace(/\s+/g, "");
   const numMatch = pNumText.match(/(\d+)\//);
   const number = numMatch ? parseInt(numMatch[1], 10) : null;
 

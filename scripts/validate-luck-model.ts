@@ -156,7 +156,9 @@ function validateSet(setCode: string): { warnings: string[]; errors: string[] } 
     warnings.push('STANDARD_SV_SET_RATES에 세트별 모델이 없습니다. 기본 SV 모델 사용 의도인지 확인하세요.');
   }
 
-  if (hasRarity(set, 'ACE') && !sourceHasSetCode(modelSource.slice(modelSource.indexOf('ACE_SPEC_SET_CODES')), set.code)) {
+  const dedicatedHiClassAce = set.type === 'hi-class' && set.code === 'sv8a-terastal-festa'
+    && /if \(setCode === 'sv8a-terastal-festa'\) \{[\s\S]*?rarity: 'ACE'[\s\S]*?\n  \}/.test(hiClassSource);
+  if (hasRarity(set, 'ACE') && !dedicatedHiClassAce && !sourceHasSetCode(modelSource.slice(modelSource.indexOf('ACE_SPEC_SET_CODES')), set.code)) {
     warnings.push('ACE 카드가 있는데 ACE_SPEC_SET_CODES에 세트 코드가 없습니다.');
   }
 

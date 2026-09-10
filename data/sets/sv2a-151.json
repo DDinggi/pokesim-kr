@@ -3943,104 +3943,136 @@
       "number": 157,
       "name_ko": "먹다남은음식",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV2a/SV2a_157.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023014157",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023014157"
+      }
     },
     {
       "card_num": "BS2023014157m",
       "number": 157,
       "name_ko": "먹다남은음식",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV2a/SV2a_157_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023014157m",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023014157m"
+      }
     },
     {
       "card_num": "BS2023014158",
       "number": 158,
       "name_ko": "안전고글",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV2a/SV2a_158.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023014158",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023014158"
+      }
     },
     {
       "card_num": "BS2023014158m",
       "number": 158,
       "name_ko": "안전고글",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV2a/SV2a_158_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023014158m",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023014158m"
+      }
     },
     {
       "card_num": "BS2023014159",
       "number": 159,
       "name_ko": "커다란풍선",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV2a/SV2a_159.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023014159",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023014159"
+      }
     },
     {
       "card_num": "BS2023014159m",
       "number": 159,
       "name_ko": "커다란풍선",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV2a/SV2a_159_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023014159m",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023014159m"
+      }
     },
     {
       "card_num": "BS2023014160",
       "number": 160,
       "name_ko": "타이트밴드",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV2a/SV2a_160.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023014160",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023014160"
+      }
     },
     {
       "card_num": "BS2023014160m",
       "number": 160,
       "name_ko": "타이트밴드",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV2a/SV2a_160_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023014160m",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023014160m"
+      }
     },
     {
       "card_num": "BS2023014161",
@@ -5090,6 +5122,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

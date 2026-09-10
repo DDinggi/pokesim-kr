@@ -15,7 +15,8 @@
     "RR",
     "SR",
     "HR",
-    "UR"
+    "UR",
+    "PR"
   ],
   "box_guarantees": {
     "rules": [
@@ -33,9 +34,14 @@
         "rarity": "SR/HR/UR",
         "min": 1,
         "max": 10
+      },
+      {
+        "rarity": "PR",
+        "min": 0,
+        "max": 1
       }
     ],
-    "_source": "재판 구분 없는 자료 / 발매 당시 개봉 기록. 일반 박스 고레어 1장 이상·에너지 SR 1장 구성 확인. 기존 SR10 갓팩 1/250팩 모델과 특수팩 출처는 보존; 이번 개봉 기사만으로 갓팩 빈도를 새로 검증한 것은 아니다. 한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다. 출처: https://pokecanews.com/archives/12186",
+    "_source": "재판 구분 없는 자료 / 발매 당시 개봉 기록. 일반 박스 고레어 1장 이상·에너지 SR 1장 구성 확인. 기존 SR10 갓팩 1/250팩 모델과 특수팩 출처는 보존; 이번 개봉 기사만으로 갓팩 빈도를 새로 검증한 것은 아니다. 한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다. 출처: https://pokecanews.com/archives/12186 2026-09-10 분류 복구: 일본 발매 시점 개봉 종합: 일반 박스 PR 1장. SR10 특수팩 박스는 제외한다. 한국판 공식 봉입률은 비공개. 출처: https://castle-gaming.com/pokeca-tagall-kaihu/",
     "_sample_size": null,
     "_estimated_at": "2026-09-08",
     "_superseded_source": "pokemoncard.co.kr Korean official card list + FullAhead Japanese secret-card supplement + Bulbapedia SM12a product notes. Japanese product model guarantees at least one SR-or-higher card per box; community model: RR 9-10, basic-energy SR 1, main high slot SR 70% / HR 20% / UR 10%, and SR10 god pack about 1 per 250 packs (box-level about 3.9%). Korean official pull rates are unpublished.",
@@ -51,6 +57,12 @@
       "assumptions": "한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다.",
       "model_snapshot": null,
       "report": "docs/sm-pull-rate-review.md"
+    },
+    "classification_review": {
+      "reviewed_at": "2026-09-10",
+      "source": "https://castle-gaming.com/pokeca-tagall-kaihu/",
+      "note": "일본 발매 시점 개봉 종합: 일반 박스 PR 1장. SR10 특수팩 박스는 제외한다.",
+      "_sample_size": null
     }
   },
   "pack_slots": [],
@@ -189,14 +201,18 @@
       "card_num": "BS2019017011",
       "number": 11,
       "name_ko": "쉐이미(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 80,
       "type": "풀",
       "image_url": "wmimages/SM/SM12a/SM12a_011.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017011",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017011"
+      }
     },
     {
       "card_num": "BS2019017012",
@@ -319,14 +335,18 @@
       "card_num": "BS2019017021",
       "number": 21,
       "name_ko": "비크티니(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "불꽃",
       "image_url": "wmimages/SM/SM12a/SM12a_021.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017021",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017021"
+      }
     },
     {
       "card_num": "BS2019017022",
@@ -527,14 +547,18 @@
       "card_num": "BS2019017037",
       "number": 37,
       "name_ko": "볼케니온(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 160,
       "type": "물",
       "image_url": "wmimages/SM/SM12a/SM12a_037.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017037",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017037"
+      }
     },
     {
       "card_num": "BS2019017038",
@@ -683,14 +707,18 @@
       "card_num": "BS2019017049",
       "number": 49,
       "name_ko": "카푸꼬꼬꼭(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 130,
       "type": "번개",
       "image_url": "wmimages/SM/SM12a/SM12a_049.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017049",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017049"
+      }
     },
     {
       "card_num": "BS2019017050",
@@ -800,14 +828,18 @@
       "card_num": "BS2019017058",
       "number": 58,
       "name_ko": "기라티나(프리즘스타) \n[오리진폼]",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 160,
       "type": "초",
       "image_url": "wmimages/SM/SM12a/SM12a_058.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017058",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017058"
+      }
     },
     {
       "card_num": "BS2019017059",
@@ -956,14 +988,18 @@
       "card_num": "BS2019017070",
       "number": 70,
       "name_ko": "디안시(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 120,
       "type": "격투",
       "image_url": "wmimages/SM/SM12a/SM12a_070.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017070",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017070"
+      }
     },
     {
       "card_num": "BS2019017071",
@@ -1047,14 +1083,18 @@
       "card_num": "BS2019017077",
       "number": 77,
       "name_ko": "다크라이(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 160,
       "type": "악",
       "image_url": "wmimages/SM/SM12a/SM12a_077.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017077",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017077"
+      }
     },
     {
       "card_num": "BS2019017078",
@@ -1229,14 +1269,18 @@
       "card_num": "BS2019017091",
       "number": 91,
       "name_ko": "지라치(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 80,
       "type": "강철",
       "image_url": "wmimages/SM/SM12a/SM12a_091.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017091",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017091"
+      }
     },
     {
       "card_num": "BS2019017092",
@@ -1450,14 +1494,18 @@
       "card_num": "BS2019017108",
       "number": 108,
       "name_ko": "메타몽(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 40,
       "type": "무색",
       "image_url": "wmimages/SM/SM12a/SM12a_108.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017108",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017108"
+      }
     },
     {
       "card_num": "BS2019017109",
@@ -1854,52 +1902,68 @@
       "number": 139,
       "name_ko": "U턴 보드",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM12a/SM12a_139.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017139",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017139"
+      }
     },
     {
       "card_num": "BS2019017140",
       "number": 140,
       "name_ko": "검은띠",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM12a/SM12a_140.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017140",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017140"
+      }
     },
     {
       "card_num": "BS2019017141",
       "number": 141,
       "name_ko": "메탈코어 배리어",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM12a/SM12a_141.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017141",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017141"
+      }
     },
     {
       "card_num": "BS2019017142",
       "number": 142,
       "name_ko": "저주의부적",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM12a/SM12a_142.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017142",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017142"
+      }
     },
     {
       "card_num": "BS2019017143",
@@ -2113,14 +2177,18 @@
       "card_num": "BS2019017159",
       "number": 159,
       "name_ko": "태홍(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM12a/SM12a_159.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017159",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017159"
+      }
     },
     {
       "card_num": "BS2019017160",
@@ -2165,27 +2233,35 @@
       "card_num": "BS2019017163",
       "number": 163,
       "name_ko": "라이프 포레스트(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM12a/SM12a_163.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017163",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017163"
+      }
     },
     {
       "card_num": "BS2019017164",
       "number": 164,
       "name_ko": "블랙마켓(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM12a/SM12a_164.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017164",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017164"
+      }
     },
     {
       "card_num": "BS2019017165",
@@ -2204,27 +2280,35 @@
       "card_num": "BS2019017166",
       "number": 166,
       "name_ko": "썬더마운틴(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM12a/SM12a_166.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017166",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017166"
+      }
     },
     {
       "card_num": "BS2019017167",
       "number": 167,
       "name_ko": "원더래버린스(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM12a/SM12a_167.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017167",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017167"
+      }
     },
     {
       "card_num": "BS2019017168",
@@ -2243,14 +2327,18 @@
       "card_num": "BS2019017169",
       "number": 169,
       "name_ko": "히트팩토리(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM12a/SM12a_169.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017169",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017169"
+      }
     },
     {
       "card_num": "BS2019017170",
@@ -2269,27 +2357,35 @@
       "card_num": "BS2019017171",
       "number": 171,
       "name_ko": "비스트에너지(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "에너지",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM12a/SM12a_171.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017171",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017171"
+      }
     },
     {
       "card_num": "BS2019017172",
       "number": 172,
       "name_ko": "초 부스트 에너지(프리즘스타)",
-      "rarity": null,
+      "rarity": "PR",
       "card_type": "에너지",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM12a/SM12a_172.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019017172",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019017172"
+      }
     },
     {
       "card_num": "BS2019017173",
@@ -3469,15 +3565,15 @@
       6600,
       10300,
       12100,
-      17100,
+      16400,
       25700,
-      62800,
+      62700,
       94300,
-      175300,
-      253100,
+      154300,
+      251900,
       373500,
       671100,
-      1161800,
+      1291500,
       1578500,
       2167800,
       4098000
@@ -3494,9 +3590,9 @@
       0,
       0,
       7300,
-      79000,
-      361100,
-      529400,
+      82600,
+      369300,
+      666900,
       3994300
     ],
     "quantile_points": [
@@ -3520,6 +3616,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-25"
+    "_built_at": "2026-09-10"
   }
 }

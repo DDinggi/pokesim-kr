@@ -1686,7 +1686,7 @@
       "number": 49,
       "name_ko": "메탈고글",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": "미러",
       "hp": null,
       "type": null,
@@ -1698,14 +1698,18 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000002084/sm08a/page2/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-05",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018013095"
+      }
     },
     {
       "card_num": "BS2018013049",
       "number": 49,
       "name_ko": "메탈고글",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
@@ -1717,7 +1721,11 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000002084/sm08a/page2/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-05",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018013049"
+      }
     },
     {
       "card_num": "BS2018013096",
@@ -2137,6 +2145,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-07-05"
+    "_built_at": "2026-09-10"
   }
 }

@@ -810,13 +810,17 @@
       "number": 60,
       "name_ko": "난천의 파워웨이트",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV9a/SV9a_060.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025005060",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025005060"
+      }
     },
     {
       "card_num": "BS2025005061",
@@ -1471,6 +1475,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

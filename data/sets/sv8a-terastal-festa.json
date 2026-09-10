@@ -19,7 +19,8 @@
     "AR",
     "SR",
     "SAR",
-    "UR"
+    "UR",
+    "ACE"
   ],
   "box_guarantees": {
     "rules": [
@@ -30,11 +31,22 @@
       {
         "rarity": "Pokemon SAR",
         "min": 1
+      },
+      {
+        "rarity": "ACE",
+        "min": 1,
+        "max": 1
       }
     ],
-    "_source": "pokemoncard.co.kr/card/708 product check + pokemon-infomation.com/pull-rates-terafesex/ 2,000BOX - Pokemon SAR 1 guaranteed, RR about 9, optional supporter SR/SAR/UR slot about 40%. Bulbapedia notes Eevee/Eeveelution SAR god packs exist, but no measured rate is available, so they are not separately modeled. Korean official pull rates are private.",
+    "_source": "pokemoncard.co.kr/card/708 product check + pokemon-infomation.com/pull-rates-terafesex/ 2,000BOX - Pokemon SAR 1 guaranteed, RR about 9, optional supporter SR/SAR/UR slot about 40%. Bulbapedia notes Eevee/Eeveelution SAR god packs exist, but no measured rate is available, so they are not separately modeled. Korean official pull rates are private. 2026-09-10 분류 복구: 일본 발매 시점 개봉 종합 및 2BOX 기록: ACE 1장. 한국판 공식 봉입률은 비공개. 출처: https://cuberoomblog.com/pokeca-terafes-boxopen/",
     "_sample_size": 2000,
-    "_estimated_at": "2026-06-25"
+    "_estimated_at": "2026-06-25",
+    "classification_review": {
+      "reviewed_at": "2026-09-10",
+      "source": "https://cuberoomblog.com/pokeca-terafes-boxopen/",
+      "note": "일본 발매 시점 개봉 종합 및 2BOX 기록: ACE 1장.",
+      "_sample_size": null
+    }
   },
   "pack_slots": [],
   "cards": [
@@ -3175,14 +3187,18 @@
       "card_num": "BS2024019139",
       "number": 139,
       "name_ko": "낚싯대MAX",
-      "rarity": "C",
+      "rarity": "ACE",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_139.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019139",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019139"
+      }
     },
     {
       "card_num": "BS2024019140",
@@ -3422,274 +3438,358 @@
       "card_num": "BS2024019149",
       "number": 149,
       "name_ko": "트레져 가젯",
-      "rarity": "C",
+      "rarity": "ACE",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_149.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019149",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019149"
+      }
     },
     {
       "card_num": "BS2024019150",
       "number": 150,
       "name_ko": "포켓몬 회수 사이클론",
-      "rarity": "C",
+      "rarity": "ACE",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_150.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019150",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019150"
+      }
     },
     {
       "card_num": "BS2024019151",
       "number": 151,
       "name_ko": "프라임 캐처",
-      "rarity": "C",
+      "rarity": "ACE",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_151.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019151",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019151"
+      }
     },
     {
       "card_num": "BS2024019152",
       "number": 152,
       "name_ko": "기술머신 데볼루션",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_152.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019152",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019152"
+      }
     },
     {
       "card_num": "BS2024019152m",
       "number": 152,
       "name_ko": "기술머신 데볼루션",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_152_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019152m",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019152m"
+      }
     },
     {
       "card_num": "BS2024019153",
       "number": 153,
       "name_ko": "기술머신 에볼루션",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_153.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019153",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019153"
+      }
     },
     {
       "card_num": "BS2024019153m",
       "number": 153,
       "name_ko": "기술머신 에볼루션",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_153_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019153m",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019153m"
+      }
     },
     {
       "card_num": "BS2024019154",
       "number": 154,
       "name_ko": "긴급 보드",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_154.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019154",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019154"
+      }
     },
     {
       "card_num": "BS2024019154m",
       "number": 154,
       "name_ko": "긴급 보드",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_154_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019154m",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019154m"
+      }
     },
     {
       "card_num": "BS2024019155",
       "number": 155,
       "name_ko": "럭셔리망토",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_155.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019155",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019155"
+      }
     },
     {
       "card_num": "BS2024019155m",
       "number": 155,
       "name_ko": "럭셔리망토",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_155_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019155m",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019155m"
+      }
     },
     {
       "card_num": "BS2024019156",
       "number": 156,
       "name_ko": "맥시멈 벨트",
-      "rarity": "C",
-      "card_type": "포켓몬",
+      "rarity": "ACE",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_156.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019156",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019156"
+      }
     },
     {
       "card_num": "BS2024019157",
       "number": 157,
       "name_ko": "반짝이는 결정",
-      "rarity": "C",
-      "card_type": "포켓몬",
+      "rarity": "ACE",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_157.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019157",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019157"
+      }
     },
     {
       "card_num": "BS2024019158",
       "number": 158,
       "name_ko": "부스트에너지 고대",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_158.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019158",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019158"
+      }
     },
     {
       "card_num": "BS2024019158m",
       "number": 158,
       "name_ko": "부스트에너지 고대",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_158_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019158m",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019158m"
+      }
     },
     {
       "card_num": "BS2024019159",
       "number": 159,
       "name_ko": "부스트에너지 미래",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_159.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019159",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019159"
+      }
     },
     {
       "card_num": "BS2024019159m",
       "number": 159,
       "name_ko": "부스트에너지 미래",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_159_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019159m",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019159m"
+      }
     },
     {
       "card_num": "BS2024019160",
       "number": 160,
       "name_ko": "사슬떡",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_160.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019160",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019160"
+      }
     },
     {
       "card_num": "BS2024019160m",
       "number": 160,
       "name_ko": "사슬떡",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_160_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019160m",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019160m"
+      }
     },
     {
       "card_num": "BS2024019161",
       "number": 161,
       "name_ko": "하반열매",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_161.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019161",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019161"
+      }
     },
     {
       "card_num": "BS2024019161m",
       "number": 161,
       "name_ko": "하반열매",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_161_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019161m",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019161m"
+      }
     },
     {
       "card_num": "BS2024019162",
@@ -4163,14 +4263,18 @@
       "card_num": "BS2024019180",
       "number": 180,
       "name_ko": "뉴트럴센터",
-      "rarity": "C",
+      "rarity": "ACE",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_180.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019180",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019180"
+      }
     },
     {
       "card_num": "BS2024019181",
@@ -4280,14 +4384,18 @@
       "card_num": "BS2024019185",
       "number": 185,
       "name_ko": "레거시 에너지",
-      "rarity": "C",
+      "rarity": "ACE",
       "card_type": "에너지",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV8a/SV8a_185.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024019185",
-      "_fetched_at": "2026-05-08"
+      "_fetched_at": "2026-05-08",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024019185"
+      }
     },
     {
       "card_num": "BS2024019186",
@@ -5297,7 +5405,7 @@
   "_fetched_at": "2026-05-08",
   "_notes": "sv8a. 하이클래스팩. 1상자 10팩×10장=100장. 5,000원/팩. 선행발매 2025-01-18, 정식 2025-01-22.",
   "luck_value_ref": {
-    "box_median_krw": 17100,
+    "box_median_krw": 16500,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
       5400,
@@ -5305,15 +5413,15 @@
       6700,
       7900,
       10300,
-      14600,
-      17100,
+      14000,
+      16500,
       30800,
       55500,
       64200,
       75900,
-      145000,
+      145600,
       431000,
-      435200,
+      434000,
       534700
     ],
     "pack_quantiles_krw": [
@@ -5329,9 +5437,9 @@
       0,
       6700,
       15900,
-      60400,
+      64200,
       72900,
-      438900
+      437700
     ],
     "quantile_points": [
       0,
@@ -5354,6 +5462,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

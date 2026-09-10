@@ -2145,91 +2145,119 @@
       "number": 161,
       "name_ko": "난천의 파워웨이트",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/M2a/M2a_161.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025015161",
-      "_fetched_at": "2026-05-01"
+      "_fetched_at": "2026-05-01",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025015161"
+      }
     },
     {
       "card_num": "BS2025015162",
       "number": 162,
       "name_ko": "두꺼운비늘",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/M2a/M2a_162.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025015162",
-      "_fetched_at": "2026-05-01"
+      "_fetched_at": "2026-05-01",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025015162"
+      }
     },
     {
       "card_num": "BS2025015163",
       "number": 163,
       "name_ko": "브레이브뱅글",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/M2a/M2a_163.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025015163",
-      "_fetched_at": "2026-05-01"
+      "_fetched_at": "2026-05-01",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025015163"
+      }
     },
     {
       "card_num": "BS2025015164",
       "number": 164,
       "name_ko": "전기구슬",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/M2a/M2a_164.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025015164",
-      "_fetched_at": "2026-05-01"
+      "_fetched_at": "2026-05-01",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025015164"
+      }
     },
     {
       "card_num": "BS2025015165",
       "number": 165,
       "name_ko": "카운터 게인",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/M2a/M2a_165.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025015165",
-      "_fetched_at": "2026-05-01"
+      "_fetched_at": "2026-05-01",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025015165"
+      }
     },
     {
       "card_num": "BS2025015166",
       "number": 166,
       "name_ko": "풍선",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/M2a/M2a_166.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025015166",
-      "_fetched_at": "2026-05-01"
+      "_fetched_at": "2026-05-01",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025015166"
+      }
     },
     {
       "card_num": "BS2025015167",
       "number": 167,
       "name_ko": "호브의 구애머리띠",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/M2a/M2a_167.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2025015167",
-      "_fetched_at": "2026-05-01"
+      "_fetched_at": "2026-05-01",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025015167"
+      }
     },
     {
       "card_num": "BS2025015168",
@@ -3030,7 +3058,7 @@
       "number": 218,
       "name_ko": "카운터 게인",
       "rarity": "SR",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
@@ -3042,7 +3070,11 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000056497/m02a/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2025015218"
+      }
     },
     {
       "card_num": "BS2025015219",
@@ -3675,7 +3707,7 @@
       280100,
       405800,
       500800,
-      540800,
+      541300,
       1659600
     ],
     "pack_quantiles_krw": [
@@ -3716,6 +3748,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-08-28"
+    "_built_at": "2026-09-10"
   }
 }

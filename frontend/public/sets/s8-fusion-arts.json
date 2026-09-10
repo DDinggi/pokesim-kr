@@ -102,39 +102,51 @@
       "number": 5,
       "name_ko": "버섯모",
       "rarity": "C",
-      "card_type": null,
+      "card_type": "포켓몬",
       "subtype": null,
       "hp": 120,
       "type": "풀",
       "image_url": "wmimages/S/S8/S8_005.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021018005",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021018005"
+      }
     },
     {
       "card_num": "BS2021018006",
       "number": 6,
       "name_ko": "마라카치",
       "rarity": "U",
-      "card_type": null,
+      "card_type": "포켓몬",
       "subtype": null,
       "hp": 110,
       "type": "풀",
       "image_url": "wmimages/S/S8/S8_006.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021018006",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021018006"
+      }
     },
     {
       "card_num": "BS2021018007",
       "number": 7,
       "name_ko": "쪼마리",
       "rarity": "C",
-      "card_type": null,
+      "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "풀",
       "image_url": "wmimages/S/S8/S8_007.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021018007",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021018007"
+      }
     },
     {
       "card_num": "BS2021018008",
@@ -1246,26 +1258,34 @@
       "number": 93,
       "name_ko": "스펀지글러브",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S8/S8_093.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021018093",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021018093"
+      }
     },
     {
       "card_num": "BS2021018094",
       "number": 94,
       "name_ko": "흔적의 큰방울",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S8/S8_094.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021018094",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021018094"
+      }
     },
     {
       "card_num": "BS2021018095",
@@ -1979,6 +1999,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

@@ -1590,8 +1590,8 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 70,
+      "type": "풀",
       "image_url": "external/m5-abyss-eye/BS2026004082.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059584/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/082-high-f1yry6.jpg",
@@ -1602,7 +1602,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059584/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004082",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004083",
@@ -1611,8 +1616,8 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 140,
+      "type": "불꽃",
       "image_url": "external/m5-abyss-eye/BS2026004083.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059585/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/083-high-6bnqv7.jpg",
@@ -1623,7 +1628,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059585/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004083",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004084",
@@ -1632,8 +1642,8 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 70,
+      "type": "물",
       "image_url": "external/m5-abyss-eye/BS2026004084.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059586/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/084-high-1fvovu.jpg",
@@ -1644,7 +1654,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059586/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004084",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004085",
@@ -1653,8 +1668,8 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 150,
+      "type": "물",
       "image_url": "external/m5-abyss-eye/BS2026004085.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059587/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/085-high-eba0sz.jpg",
@@ -1665,7 +1680,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059587/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004085",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004086",
@@ -1674,8 +1694,8 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 120,
+      "type": "번개",
       "image_url": "external/m5-abyss-eye/BS2026004086.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059588/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/086-high-dfpl9l.jpg",
@@ -1686,7 +1706,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059588/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004086",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004087",
@@ -1695,8 +1720,8 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 130,
+      "type": "초",
       "image_url": "external/m5-abyss-eye/BS2026004087.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059589/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/087-high-mnjlha.jpg",
@@ -1707,7 +1732,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059589/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004087",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004088",
@@ -1716,8 +1746,8 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 140,
+      "type": "초",
       "image_url": "external/m5-abyss-eye/BS2026004088.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059590/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/088-high-yngu9u.jpg",
@@ -1728,7 +1758,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059590/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004088",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004089",
@@ -1737,8 +1772,8 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 100,
+      "type": "악",
       "image_url": "external/m5-abyss-eye/BS2026004089.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059591/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/089-high-domtow.jpg",
@@ -1749,7 +1784,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059591/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004089",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004090",
@@ -1758,8 +1798,8 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 130,
+      "type": "악",
       "image_url": "external/m5-abyss-eye/BS2026004090.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059592/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/090-high-ypmyrz.jpg",
@@ -1770,7 +1810,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059592/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004090",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004091",
@@ -1779,8 +1824,8 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 160,
+      "type": "강철",
       "image_url": "external/m5-abyss-eye/BS2026004091.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059593/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/091-high-6k8nax.jpg",
@@ -1791,7 +1836,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059593/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004091",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004092",
@@ -1800,8 +1850,8 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 150,
+      "type": "무색",
       "image_url": "external/m5-abyss-eye/BS2026004092.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059594/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/092-high-48egg8.jpg",
@@ -1812,7 +1862,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059594/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004092",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004093",
@@ -1821,8 +1876,8 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 140,
+      "type": "무색",
       "image_url": "external/m5-abyss-eye/BS2026004093.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059595/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/093-high-bybjfp.jpg",
@@ -1833,7 +1888,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059595/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004093",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004094",
@@ -1842,8 +1902,8 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 260,
+      "type": "풀",
       "image_url": "external/m5-abyss-eye/BS2026004094.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059596/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/094-high-xl1amj.jpg",
@@ -1854,7 +1914,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059596/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004094",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004095",
@@ -1863,8 +1928,8 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 380,
+      "type": "물",
       "image_url": "external/m5-abyss-eye/BS2026004095.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059597/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/095-high-61rx84.jpg",
@@ -1875,7 +1940,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059597/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004095",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004096",
@@ -1884,8 +1954,8 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 270,
+      "type": "번개",
       "image_url": "external/m5-abyss-eye/BS2026004096.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059598/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/096-high-u99ttc.jpg",
@@ -1896,7 +1966,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059598/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004096",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004097",
@@ -1905,8 +1980,8 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 350,
+      "type": "초",
       "image_url": "external/m5-abyss-eye/BS2026004097.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059599/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/097-high-yabwzv.jpg",
@@ -1917,7 +1992,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059599/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004097",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004098",
@@ -1926,8 +2006,8 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 330,
+      "type": "격투",
       "image_url": "external/m5-abyss-eye/BS2026004098.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059600/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/098-high-l4ri8l.jpg",
@@ -1938,7 +2018,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059600/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004098",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004099",
@@ -1947,8 +2032,8 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 280,
+      "type": "악",
       "image_url": "external/m5-abyss-eye/BS2026004099.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059601/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/099-high-ok0w8p.jpg",
@@ -1959,7 +2044,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059601/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004099",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004100",
@@ -1968,8 +2058,8 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 180,
+      "type": "악",
       "image_url": "external/m5-abyss-eye/BS2026004100.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059602/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/100-high-y8c52i.jpg",
@@ -1980,7 +2070,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059602/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004100",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004101",
@@ -1989,8 +2084,8 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 340,
+      "type": "강철",
       "image_url": "external/m5-abyss-eye/BS2026004101.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059603/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/101-high-8u6e0t.jpg",
@@ -2001,74 +2096,16 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059603/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004101",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004102",
       "number": 102,
-      "name_ko": "아이언 디펜더",
-      "rarity": "SR",
-      "card_type": "트레이너",
-      "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004102.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059604/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/102-high-8af4v4.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
-      "price_ref_krw": 2000,
-      "price_ref_jpy": 280,
-      "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059604/m05/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
-      "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
-    },
-    {
-      "card_num": "BS2026004103",
-      "number": 103,
-      "name_ko": "에너지 전환",
-      "rarity": "SR",
-      "card_type": "트레이너",
-      "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004103.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059605/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/103-high-zy2k86.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
-      "price_ref_krw": 2000,
-      "price_ref_jpy": 280,
-      "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059605/m05/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
-      "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
-    },
-    {
-      "card_num": "BS2026004104",
-      "number": 104,
-      "name_ko": "크러시해머",
-      "rarity": "SR",
-      "card_type": "트레이너",
-      "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004104.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059606/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/104-high-xetvii.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
-      "price_ref_krw": 2000,
-      "price_ref_jpy": 280,
-      "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059606/m05/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
-      "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
-    },
-    {
-      "card_num": "BS2026004105",
-      "number": 105,
       "name_ko": "다크벨",
       "rarity": "SR",
       "card_type": "트레이너",
@@ -2076,7 +2113,7 @@
       "hp": null,
       "type": null,
       "image_url": "external/m5-abyss-eye/BS2026004105.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059607/m05/page1/recommend/",
+      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059604/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/105-high-fv2ngw.jpg",
       "_fetched_at": "2026-07-01",
       "_manual": true,
@@ -2085,32 +2122,98 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059607/m05/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 105,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004102",
+        "jp_number": 105
+      }
     },
     {
-      "card_num": "BS2026004106",
-      "number": 106,
-      "name_ko": "호쾌봄",
+      "card_num": "BS2026004103",
+      "number": 103,
+      "name_ko": "아이언 디펜드업",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004106.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059608/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/106-high-upit5m.jpg",
+      "image_url": "external/m5-abyss-eye/BS2026004102.jpg",
+      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059605/m05/page1/recommend/",
+      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/102-high-8af4v4.jpg",
       "_fetched_at": "2026-07-01",
       "_manual": true,
       "price_ref_krw": 2000,
       "price_ref_jpy": 280,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059608/m05/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059604/m05/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 102,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004103",
+        "jp_number": 102
+      }
     },
     {
-      "card_num": "BS2026004107",
-      "number": 107,
+      "card_num": "BS2026004104",
+      "number": 104,
+      "name_ko": "에너지 갈아 달기",
+      "rarity": "SR",
+      "card_type": "트레이너",
+      "subtype": null,
+      "hp": null,
+      "type": null,
+      "image_url": "external/m5-abyss-eye/BS2026004103.jpg",
+      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059606/m05/page1/recommend/",
+      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/103-high-zy2k86.jpg",
+      "_fetched_at": "2026-07-01",
+      "_manual": true,
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059605/m05/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_updated_at": "2026-07-07",
+      "price_confidence": "source",
+      "_jp_number": 103,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004104",
+        "jp_number": 103
+      }
+    },
+    {
+      "card_num": "BS2026004105",
+      "number": 105,
+      "name_ko": "크래시 해머",
+      "rarity": "SR",
+      "card_type": "트레이너",
+      "subtype": null,
+      "hp": null,
+      "type": null,
+      "image_url": "external/m5-abyss-eye/BS2026004104.jpg",
+      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059607/m05/page1/recommend/",
+      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/104-high-xetvii.jpg",
+      "_fetched_at": "2026-07-01",
+      "_manual": true,
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059606/m05/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_updated_at": "2026-07-07",
+      "price_confidence": "source",
+      "_jp_number": 104,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004105",
+        "jp_number": 104
+      }
+    },
+    {
+      "card_num": "BS2026004106",
+      "number": 106,
       "name_ko": "브레이브뱅글",
       "rarity": "SR",
       "card_type": "트레이너",
@@ -2118,7 +2221,7 @@
       "hp": null,
       "type": null,
       "image_url": "external/m5-abyss-eye/BS2026004107.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059609/m05/page1/recommend/",
+      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059608/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/107-high-j0wjro.jpg",
       "_fetched_at": "2026-07-01",
       "_manual": true,
@@ -2127,32 +2230,44 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059609/m05/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 107,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004106",
+        "jp_number": 107
+      }
     },
     {
-      "card_num": "BS2026004108",
-      "number": 108,
-      "name_ko": "이슬의 기력",
+      "card_num": "BS2026004107",
+      "number": 107,
+      "name_ko": "호쾌봄",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004108.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059610/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/108-high-e7m0bo.jpg",
+      "image_url": "external/m5-abyss-eye/BS2026004106.jpg",
+      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059609/m05/page1/recommend/",
+      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/106-high-upit5m.jpg",
       "_fetched_at": "2026-07-01",
       "_manual": true,
-      "price_ref_krw": 17200,
-      "price_ref_jpy": 2780,
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059610/m05/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059608/m05/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 106,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004107",
+        "jp_number": 106
+      }
     },
     {
-      "card_num": "BS2026004109",
-      "number": 109,
+      "card_num": "BS2026004108",
+      "number": 108,
       "name_ko": "글라디오의 결전",
       "rarity": "SR",
       "card_type": "트레이너",
@@ -2160,7 +2275,7 @@
       "hp": null,
       "type": null,
       "image_url": "external/m5-abyss-eye/BS2026004109.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059611/m05/page1/recommend/",
+      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059610/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/109-high-6yxoet.jpg",
       "_fetched_at": "2026-07-01",
       "_manual": true,
@@ -2169,11 +2284,17 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059611/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 109,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004108",
+        "jp_number": 109
+      }
     },
     {
-      "card_num": "BS2026004110",
-      "number": 110,
+      "card_num": "BS2026004109",
+      "number": 109,
       "name_ko": "녹청파의 조무래기",
       "rarity": "SR",
       "card_type": "트레이너",
@@ -2181,7 +2302,7 @@
       "hp": null,
       "type": null,
       "image_url": "external/m5-abyss-eye/BS2026004110.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059612/m05/page1/recommend/",
+      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059611/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/110-high-hx8zft.jpg",
       "_fetched_at": "2026-07-01",
       "_manual": true,
@@ -2190,11 +2311,17 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059612/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 110,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004109",
+        "jp_number": 110
+      }
     },
     {
-      "card_num": "BS2026004111",
-      "number": 111,
+      "card_num": "BS2026004110",
+      "number": 110,
       "name_ko": "무쿠",
       "rarity": "SR",
       "card_type": "트레이너",
@@ -2202,7 +2329,7 @@
       "hp": null,
       "type": null,
       "image_url": "external/m5-abyss-eye/BS2026004111.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059613/m05/page1/recommend/",
+      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059612/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/111-high-kap4pe.jpg",
       "_fetched_at": "2026-07-01",
       "_manual": true,
@@ -2211,7 +2338,40 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059613/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_jp_number": 111,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004110",
+        "jp_number": 111
+      }
+    },
+    {
+      "card_num": "BS2026004111",
+      "number": 111,
+      "name_ko": "이슬의 기력",
+      "rarity": "SR",
+      "card_type": "트레이너",
+      "subtype": null,
+      "hp": null,
+      "type": null,
+      "image_url": "external/m5-abyss-eye/BS2026004108.jpg",
+      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059613/m05/page1/recommend/",
+      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/108-high-e7m0bo.jpg",
+      "_fetched_at": "2026-07-01",
+      "_manual": true,
+      "price_ref_krw": 17200,
+      "price_ref_jpy": 2780,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059610/m05/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-07-07",
+      "price_confidence": "source",
+      "_jp_number": 108,
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004111",
+        "jp_number": 108
+      }
     },
     {
       "card_num": "BS2026004112",
@@ -2220,8 +2380,8 @@
       "rarity": "SAR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 270,
+      "type": "번개",
       "image_url": "external/m5-abyss-eye/BS2026004112.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059614/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/112-high-crlvyz.jpg",
@@ -2232,7 +2392,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059614/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004112",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004113",
@@ -2241,8 +2406,8 @@
       "rarity": "SAR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 350,
+      "type": "초",
       "image_url": "external/m5-abyss-eye/BS2026004113.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059615/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/m5-113ezf2c-high.jpg",
@@ -2253,7 +2418,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059615/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004113",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004114",
@@ -2262,8 +2432,8 @@
       "rarity": "SAR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 280,
+      "type": "악",
       "image_url": "external/m5-abyss-eye/BS2026004114.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059616/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/114-high-b3ii58.jpg",
@@ -2274,7 +2444,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059616/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004114",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004115",
@@ -2283,8 +2458,8 @@
       "rarity": "SAR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 180,
+      "type": "악",
       "image_url": "external/m5-abyss-eye/BS2026004115.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059617/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/115-high-zt4df0.jpg",
@@ -2295,7 +2470,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059617/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004115",
+        "jp_number": null
+      }
     },
     {
       "card_num": "BS2026004116",
@@ -2346,8 +2526,8 @@
       "rarity": "UR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
+      "hp": 280,
+      "type": "악",
       "image_url": "external/m5-abyss-eye/BS2026004118.jpg",
       "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059620/m05/page1/recommend/",
       "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/118-high-i56zqs.jpg",
@@ -2358,7 +2538,12 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059620/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_identity_review": {
+        "date": "2026-09-09",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004118",
+        "jp_number": null
+      }
     }
   ],
   "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
@@ -2371,18 +2556,18 @@
       59800,
       64400,
       65300,
-      66800,
+      66700,
       68300,
       70600,
       73800,
-      76100,
-      79500,
+      76200,
+      79600,
       85200,
-      99900,
+      100000,
       307100,
-      315200,
+      315000,
       322100,
-      514000
+      511300
     ],
     "pack_quantiles_krw": [
       1300,
@@ -2397,7 +2582,7 @@
       2600,
       3800,
       4600,
-      12400,
+      10200,
       13300,
       433000
     ],
@@ -2422,6 +2607,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-08-13"
+    "_built_at": "2026-09-10"
   }
 }

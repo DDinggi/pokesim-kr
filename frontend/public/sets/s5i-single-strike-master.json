@@ -869,26 +869,34 @@
       "number": 64,
       "name_ko": "일격의 두루마리 분노의 권",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S5/S5I_064.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021001064",
-      "_fetched_at": "2026-06-10"
+      "_fetched_at": "2026-06-10",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021001064"
+      }
     },
     {
       "card_num": "BS2021001065",
       "number": 65,
       "name_ko": "학습장치",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S5/S5I_065.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021001065",
-      "_fetched_at": "2026-06-10"
+      "_fetched_at": "2026-06-10",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021001065"
+      }
     },
     {
       "card_num": "BS2021001066",
@@ -1437,6 +1445,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

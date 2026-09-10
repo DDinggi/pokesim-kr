@@ -20,7 +20,8 @@
     "SR",
     "SSR",
     "SAR",
-    "UR"
+    "UR",
+    "S"
   ],
   "box_guarantees": {
     "rules": [
@@ -31,11 +32,22 @@
       {
         "rarity": "SSR",
         "min": 1
+      },
+      {
+        "rarity": "S",
+        "min": 3,
+        "max": 3
       }
     ],
-    "_source": "pokemon-infomation.com 1,000BOX 실측 + torecamap/uridoki/cuberoom cross-check - SSR 1장 확정 + RR 9장 + 추가 슬롯 60%(SR 30% / SAR 10% / UR 10% / AR 10% / 없음 40%). S(샤이니 일반)는 박스당 평균 약 3장이지만 pokemoncard.co.kr에 rarity null로 들어와 시뮬에서 일반 슬롯과 같이 취급된다. 한국판 공식 봉입률은 비공개.",
+    "_source": "pokemon-infomation.com 1,000BOX 실측 + torecamap/uridoki/cuberoom cross-check - SSR 1장 확정 + RR 9장 + 추가 슬롯 60%(SR 30% / SAR 10% / UR 10% / AR 10% / 없음 40%). co.kr에 rarity null로 들어와 시뮬에서 일반 슬롯과 같이 취급된다. 한국판 공식 봉입률은 비공개. 2026-09-10 분류 복구: 일본판 공개 개봉 정리의 S 약 3장을 고정 3장으로 근사. 재판 구분 불명. 한국판 공식 봉입률은 비공개. 출처: https://pokemon-infomation.com/pull-rates-shinytreasure/; https://ameblo.jp/schweizer04/entry-12831011143.html",
     "_sample_size": 1000,
-    "_estimated_at": "2026-05-16"
+    "_estimated_at": "2026-05-16",
+    "classification_review": {
+      "reviewed_at": "2026-09-10",
+      "source": "https://pokemon-infomation.com/pull-rates-shinytreasure/; https://ameblo.jp/schweizer04/entry-12831011143.html",
+      "note": "일본판 공개 개봉 정리의 S 약 3장을 고정 3장으로 근사. 재판 구분 불명.",
+      "_sample_size": null
+    }
   },
   "pack_slots": [],
   "cards": [
@@ -3476,182 +3488,238 @@
       "number": 164,
       "name_ko": "기술머신 위기극복한방",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_164.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001164",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001164"
+      }
     },
     {
       "card_num": "BS2024001164m",
       "number": 164,
       "name_ko": "기술머신 위기극복한방",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_164m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001164m",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001164m"
+      }
     },
     {
       "card_num": "BS2024001165",
       "number": 165,
       "name_ko": "먹다남은음식",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_165.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001165",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001165"
+      }
     },
     {
       "card_num": "BS2024001165m",
       "number": 165,
       "name_ko": "먹다남은음식",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_165m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001165m",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001165m"
+      }
     },
     {
       "card_num": "BS2024001166",
       "number": 166,
       "name_ko": "바위 가슴보호대",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_166.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001166",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001166"
+      }
     },
     {
       "card_num": "BS2024001166m",
       "number": 166,
       "name_ko": "바위 가슴보호대",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_166m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001166m",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001166m"
+      }
     },
     {
       "card_num": "BS2024001167",
       "number": 167,
       "name_ko": "오기머리띠",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_167.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001167",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001167"
+      }
     },
     {
       "card_num": "BS2024001167m",
       "number": 167,
       "name_ko": "오기머리띠",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_167m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001167m",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001167m"
+      }
     },
     {
       "card_num": "BS2024001168",
       "number": 168,
       "name_ko": "용기의부적",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_168.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001168",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001168"
+      }
     },
     {
       "card_num": "BS2024001168m",
       "number": 168,
       "name_ko": "용기의부적",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_168m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001168m",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001168m"
+      }
     },
     {
       "card_num": "BS2024001169",
       "number": 169,
       "name_ko": "커다란풍선",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_169.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001169",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001169"
+      }
     },
     {
       "card_num": "BS2024001169m",
       "number": 169,
       "name_ko": "커다란풍선",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_169m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001169m",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001169m"
+      }
     },
     {
       "card_num": "BS2024001170",
       "number": 170,
       "name_ko": "타이트밴드",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_170.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001170",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001170"
+      }
     },
     {
       "card_num": "BS2024001170m",
       "number": 170,
       "name_ko": "타이트밴드",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4a/SV4a_170m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001170m",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001170m"
+      }
     },
     {
       "card_num": "BS2024001171",
@@ -4125,1678 +4193,2194 @@
       "card_num": "BS2024001191",
       "number": 191,
       "name_ko": "뚜벅쵸",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_191.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001191",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001191"
+      }
     },
     {
       "card_num": "BS2024001192",
       "number": 192,
       "name_ko": "냄새꼬",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_192.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001192",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001192"
+      }
     },
     {
       "card_num": "BS2024001193",
       "number": 193,
       "name_ko": "라플레시아",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 140,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_193.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001193",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001193"
+      }
     },
     {
       "card_num": "BS2024001194",
       "number": 194,
       "name_ko": "스라크",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 80,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_194.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001194",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001194"
+      }
     },
     {
       "card_num": "BS2024001195",
       "number": 195,
       "name_ko": "통통코",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 50,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_195.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001195",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001195"
+      }
     },
     {
       "card_num": "BS2024001196",
       "number": 196,
       "name_ko": "두코",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_196.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001196",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001196"
+      }
     },
     {
       "card_num": "BS2024001197",
       "number": 197,
       "name_ko": "솜솜코",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_197.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001197",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001197"
+      }
     },
     {
       "card_num": "BS2024001198",
       "number": 198,
       "name_ko": "피콘",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_198.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001198",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001198"
+      }
     },
     {
       "card_num": "BS2024001199",
       "number": 199,
       "name_ko": "눈쓰개",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_199.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001199",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001199"
+      }
     },
     {
       "card_num": "BS2024001200",
       "number": 200,
       "name_ko": "눈설왕",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 150,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_200.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001200",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001200"
+      }
     },
     {
       "card_num": "BS2024001201",
       "number": 201,
       "name_ko": "나오하",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_201.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001201",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001201"
+      }
     },
     {
       "card_num": "BS2024001202",
       "number": 202,
       "name_ko": "나로테",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_202.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001202",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001202"
+      }
     },
     {
       "card_num": "BS2024001203",
       "number": 203,
       "name_ko": "미니브",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_203.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001203",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001203"
+      }
     },
     {
       "card_num": "BS2024001204",
       "number": 204,
       "name_ko": "올리뇨",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_204.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001204",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001204"
+      }
     },
     {
       "card_num": "BS2024001205",
       "number": 205,
       "name_ko": "올리르바",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 150,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_205.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001205",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001205"
+      }
     },
     {
       "card_num": "BS2024001206",
       "number": 206,
       "name_ko": "들눈해",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 50,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_206.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001206",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001206"
+      }
     },
     {
       "card_num": "BS2024001207",
       "number": 207,
       "name_ko": "캡싸이",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_207.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001207",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001207"
+      }
     },
     {
       "card_num": "BS2024001208",
       "number": 208,
       "name_ko": "스코빌런",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 110,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_208.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001208",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001208"
+      }
     },
     {
       "card_num": "BS2024001209",
       "number": 209,
       "name_ko": "구르데",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 50,
       "type": "풀",
       "image_url": "wmimages/SV/SV4a/SV4a_209.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001209",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001209"
+      }
     },
     {
       "card_num": "BS2024001210",
       "number": 210,
       "name_ko": "파이리",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "불꽃",
       "image_url": "wmimages/SV/SV4a/SV4a_210.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001210",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001210"
+      }
     },
     {
       "card_num": "BS2024001211",
       "number": 211,
       "name_ko": "리자드",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "불꽃",
       "image_url": "wmimages/SV/SV4a/SV4a_211.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001211",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001211"
+      }
     },
     {
       "card_num": "BS2024001212",
       "number": 212,
       "name_ko": "팔데아 켄타로스",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 130,
       "type": "불꽃",
       "image_url": "wmimages/SV/SV4a/SV4a_212.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001212",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001212"
+      }
     },
     {
       "card_num": "BS2024001213",
       "number": 213,
       "name_ko": "앤테이",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 130,
       "type": "불꽃",
       "image_url": "wmimages/SV/SV4a/SV4a_213.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001213",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001213"
+      }
     },
     {
       "card_num": "BS2024001214",
       "number": 214,
       "name_ko": "춤추새",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "불꽃",
       "image_url": "wmimages/SV/SV4a/SV4a_214.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001214",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001214"
+      }
     },
     {
       "card_num": "BS2024001215",
       "number": 215,
       "name_ko": "뜨아거",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 80,
       "type": "불꽃",
       "image_url": "wmimages/SV/SV4a/SV4a_215.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001215",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001215"
+      }
     },
     {
       "card_num": "BS2024001216",
       "number": 216,
       "name_ko": "악뜨거",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 110,
       "type": "불꽃",
       "image_url": "wmimages/SV/SV4a/SV4a_216.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001216",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001216"
+      }
     },
     {
       "card_num": "BS2024001217",
       "number": 217,
       "name_ko": "카르본",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "불꽃",
       "image_url": "wmimages/SV/SV4a/SV4a_217.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001217",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001217"
+      }
     },
     {
       "card_num": "BS2024001218",
       "number": 218,
       "name_ko": "카디나르마",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 130,
       "type": "불꽃",
       "image_url": "wmimages/SV/SV4a/SV4a_218.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001218",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001218"
+      }
     },
     {
       "card_num": "BS2024001219",
       "number": 219,
       "name_ko": "야돈",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_219.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001219",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001219"
+      }
     },
     {
       "card_num": "BS2024001220",
       "number": 220,
       "name_ko": "야도란",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 100,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_220.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001220",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001220"
+      }
     },
     {
       "card_num": "BS2024001221",
       "number": 221,
       "name_ko": "별가사리",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_221.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001221",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001221"
+      }
     },
     {
       "card_num": "BS2024001222",
       "number": 222,
       "name_ko": "아쿠스타",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_222.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001222",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001222"
+      }
     },
     {
       "card_num": "BS2024001223",
       "number": 223,
       "name_ko": "팔데아 켄타로스",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 130,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_223.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001223",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001223"
+      }
     },
     {
       "card_num": "BS2024001224",
       "number": 224,
       "name_ko": "꾸왁스",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_224.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001224",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001224"
+      }
     },
     {
       "card_num": "BS2024001225",
       "number": 225,
       "name_ko": "아꾸왁",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_225.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001225",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001225"
+      }
     },
     {
       "card_num": "BS2024001226",
       "number": 226,
       "name_ko": "바다그다",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 50,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_226.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001226",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001226"
+      }
     },
     {
       "card_num": "BS2024001227",
       "number": 227,
       "name_ko": "바닥트리오",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_227.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001227",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001227"
+      }
     },
     {
       "card_num": "BS2024001228",
       "number": 228,
       "name_ko": "맨돌핀",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 50,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_228.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001228",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001228"
+      }
     },
     {
       "card_num": "BS2024001229",
       "number": 229,
       "name_ko": "돌핀맨",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 150,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_229.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001229",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001229"
+      }
     },
     {
       "card_num": "BS2024001230",
       "number": 230,
       "name_ko": "가비루사",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 130,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_230.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001230",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001230"
+      }
     },
     {
       "card_num": "BS2024001231",
       "number": 231,
       "name_ko": "어써러셔",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 160,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_231.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001231",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001231"
+      }
     },
     {
       "card_num": "BS2024001232",
       "number": 232,
       "name_ko": "싸리용",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_232.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001232",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001232"
+      }
     },
     {
       "card_num": "BS2024001233",
       "number": 233,
       "name_ko": "드니차",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_233.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001233",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001233"
+      }
     },
     {
       "card_num": "BS2024001234",
       "number": 234,
       "name_ko": "드니꽁",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_234.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001234",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001234"
+      }
     },
     {
       "card_num": "BS2024001235",
       "number": 235,
       "name_ko": "드닐레이브",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 160,
       "type": "물",
       "image_url": "wmimages/SV/SV4a/SV4a_235.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001235",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001235"
+      }
     },
     {
       "card_num": "BS2024001236",
       "number": 236,
       "name_ko": "피카츄",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_236.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001236",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001236"
+      }
     },
     {
       "card_num": "BS2024001237",
       "number": 237,
       "name_ko": "라이츄",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 120,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_237.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001237",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001237"
+      }
     },
     {
       "card_num": "BS2024001238",
       "number": 238,
       "name_ko": "찌리리공",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_238.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001238",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001238"
+      }
     },
     {
       "card_num": "BS2024001239",
       "number": 239,
       "name_ko": "붐볼",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_239.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001239",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001239"
+      }
     },
     {
       "card_num": "BS2024001240",
       "number": 240,
       "name_ko": "꼬링크",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_240.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001240",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001240"
+      }
     },
     {
       "card_num": "BS2024001241",
       "number": 241,
       "name_ko": "럭시오",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_241.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001241",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001241"
+      }
     },
     {
       "card_num": "BS2024001242",
       "number": 242,
       "name_ko": "렌트라",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 150,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_242.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001242",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001242"
+      }
     },
     {
       "card_num": "BS2024001243",
       "number": 243,
       "name_ko": "파치리스",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_243.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001243",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001243"
+      }
     },
     {
       "card_num": "BS2024001244",
       "number": 244,
       "name_ko": "볼트로스",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 110,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_244.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001244",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001244"
+      }
     },
     {
       "card_num": "BS2024001245",
       "number": 245,
       "name_ko": "일레즌",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_245.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001245",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001245"
+      }
     },
     {
       "card_num": "BS2024001246",
       "number": 246,
       "name_ko": "스트린더",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 140,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_246.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001246",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001246"
+      }
     },
     {
       "card_num": "BS2024001247",
       "number": 247,
       "name_ko": "빠모",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_247.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001247",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001247"
+      }
     },
     {
       "card_num": "BS2024001248",
       "number": 248,
       "name_ko": "빠모트",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_248.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001248",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001248"
+      }
     },
     {
       "card_num": "BS2024001249",
       "number": 249,
       "name_ko": "빠르모트",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 130,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_249.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001249",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001249"
+      }
     },
     {
       "card_num": "BS2024001250",
       "number": 250,
       "name_ko": "찌리비",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_250.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001250",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001250"
+      }
     },
     {
       "card_num": "BS2024001251",
       "number": 251,
       "name_ko": "찌리비크",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 120,
       "type": "번개",
       "image_url": "wmimages/SV/SV4a/SV4a_251.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001251",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001251"
+      }
     },
     {
       "card_num": "BS2024001252",
       "number": 252,
       "name_ko": "푸크린",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 110,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_252.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001252",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001252"
+      }
     },
     {
       "card_num": "BS2024001253",
       "number": 253,
       "name_ko": "캐이시",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 50,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_253.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001253",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001253"
+      }
     },
     {
       "card_num": "BS2024001254",
       "number": 254,
       "name_ko": "윤겔라",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 80,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_254.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001254",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001254"
+      }
     },
     {
       "card_num": "BS2024001255",
       "number": 255,
       "name_ko": "삐",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 30,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_255.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001255",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001255"
+      }
     },
     {
       "card_num": "BS2024001256",
       "number": 256,
       "name_ko": "네이티",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 50,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_256.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001256",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001256"
+      }
     },
     {
       "card_num": "BS2024001257",
       "number": 257,
       "name_ko": "네이티오",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 100,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_257.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001257",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001257"
+      }
     },
     {
       "card_num": "BS2024001258",
       "number": 258,
       "name_ko": "랄토스",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_258.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001258",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001258"
+      }
     },
     {
       "card_num": "BS2024001259",
       "number": 259,
       "name_ko": "킬리아",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_259.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001259",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001259"
+      }
     },
     {
       "card_num": "BS2024001260",
       "number": 260,
       "name_ko": "흔들풍손",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_260.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001260",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001260"
+      }
     },
     {
       "card_num": "BS2024001261",
       "number": 261,
       "name_ko": "둥실라이드",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 110,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_261.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001261",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001261"
+      }
     },
     {
       "card_num": "BS2024001262",
       "number": 262,
       "name_ko": "흉내내",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 30,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_262.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001262",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001262"
+      }
     },
     {
       "card_num": "BS2024001263",
       "number": 263,
       "name_ko": "화강돌",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_263.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001263",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001263"
+      }
     },
     {
       "card_num": "BS2024001264",
       "number": 264,
       "name_ko": "클레피",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_264.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001264",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001264"
+      }
     },
     {
       "card_num": "BS2024001265",
       "number": 265,
       "name_ko": "따라큐",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_265.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001265",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001265"
+      }
     },
     {
       "card_num": "BS2024001266",
       "number": 266,
       "name_ko": "쫀도기",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 50,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_266.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001266",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001266"
+      }
     },
     {
       "card_num": "BS2024001267",
       "number": 267,
       "name_ko": "바우첼",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_267.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001267",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001267"
+      }
     },
     {
       "card_num": "BS2024001268",
       "number": 268,
       "name_ko": "파라블레이즈",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 140,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_268.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001268",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001268"
+      }
     },
     {
       "card_num": "BS2024001269",
       "number": 269,
       "name_ko": "베라카스",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_269.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001269",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001269"
+      }
     },
     {
       "card_num": "BS2024001270",
       "number": 270,
       "name_ko": "하느라기",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 30,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_270.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001270",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001270"
+      }
     },
     {
       "card_num": "BS2024001271",
       "number": 271,
       "name_ko": "어리짱",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_271.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001271",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001271"
+      }
     },
     {
       "card_num": "BS2024001272",
       "number": 272,
       "name_ko": "벼리짱",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_272.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001272",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001272"
+      }
     },
     {
       "card_num": "BS2024001273",
       "number": 273,
       "name_ko": "두드리짱",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 140,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_273.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001273",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001273"
+      }
     },
     {
       "card_num": "BS2024001274",
       "number": 274,
       "name_ko": "망망이",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_274.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001274",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001274"
+      }
     },
     {
       "card_num": "BS2024001275",
       "number": 275,
       "name_ko": "묘두기",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 140,
       "type": "초",
       "image_url": "wmimages/SV/SV4a/SV4a_275.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001275",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001275"
+      }
     },
     {
       "card_num": "BS2024001276",
       "number": 276,
       "name_ko": "망키",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "격투",
       "image_url": "wmimages/SV/SV4a/SV4a_276.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001276",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001276"
+      }
     },
     {
       "card_num": "BS2024001277",
       "number": 277,
       "name_ko": "성원숭",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "격투",
       "image_url": "wmimages/SV/SV4a/SV4a_277.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001277",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001277"
+      }
     },
     {
       "card_num": "BS2024001278",
       "number": 278,
       "name_ko": "저승갓숭",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 140,
       "type": "격투",
       "image_url": "wmimages/SV/SV4a/SV4a_278.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001278",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001278"
+      }
     },
     {
       "card_num": "BS2024001279",
       "number": 279,
       "name_ko": "팔데아 켄타로스",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 130,
       "type": "격투",
       "image_url": "wmimages/SV/SV4a/SV4a_279.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001279",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001279"
+      }
     },
     {
       "card_num": "BS2024001280",
       "number": 280,
       "name_ko": "리오르",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "격투",
       "image_url": "wmimages/SV/SV4a/SV4a_280.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001280",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001280"
+      }
     },
     {
       "card_num": "BS2024001281",
       "number": 281,
       "name_ko": "루카리오",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 130,
       "type": "격투",
       "image_url": "wmimages/SV/SV4a/SV4a_281.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001281",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001281"
+      }
     },
     {
       "card_num": "BS2024001282",
       "number": 282,
       "name_ko": "루차불",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "격투",
       "image_url": "wmimages/SV/SV4a/SV4a_282.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001282",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001282"
+      }
     },
     {
       "card_num": "BS2024001283",
       "number": 283,
       "name_ko": "베베솔트",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "격투",
       "image_url": "wmimages/SV/SV4a/SV4a_283.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001283",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001283"
+      }
     },
     {
       "card_num": "BS2024001284",
       "number": 284,
       "name_ko": "스태솔트",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 100,
       "type": "격투",
       "image_url": "wmimages/SV/SV4a/SV4a_284.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001284",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001284"
+      }
     },
     {
       "card_num": "BS2024001285",
       "number": 285,
       "name_ko": "콜로솔트",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 180,
       "type": "격투",
       "image_url": "wmimages/SV/SV4a/SV4a_285.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001285",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001285"
+      }
     },
     {
       "card_num": "BS2024001286",
       "number": 286,
       "name_ko": "초롱순",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 40,
       "type": "격투",
       "image_url": "wmimages/SV/SV4a/SV4a_286.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001286",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001286"
+      }
     },
     {
       "card_num": "BS2024001287",
       "number": 287,
       "name_ko": "팔데아 우파",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "악",
       "image_url": "wmimages/SV/SV4a/SV4a_287.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001287",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001287"
+      }
     },
     {
       "card_num": "BS2024001288",
       "number": 288,
       "name_ko": "니로우",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "악",
       "image_url": "wmimages/SV/SV4a/SV4a_288.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001288",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001288"
+      }
     },
     {
       "card_num": "BS2024001289",
       "number": 289,
       "name_ko": "포푸니",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "악",
       "image_url": "wmimages/SV/SV4a/SV4a_289.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001289",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001289"
+      }
     },
     {
       "card_num": "BS2024001290",
       "number": 290,
       "name_ko": "포푸니라",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 110,
       "type": "악",
       "image_url": "wmimages/SV/SV4a/SV4a_290.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001290",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001290"
+      }
     },
     {
       "card_num": "BS2024001291",
       "number": 291,
       "name_ko": "깜까미",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "악",
       "image_url": "wmimages/SV/SV4a/SV4a_291.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001291",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001291"
+      }
     },
     {
       "card_num": "BS2024001292",
       "number": 292,
       "name_ko": "자망칼",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "악",
       "image_url": "wmimages/SV/SV4a/SV4a_292.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001292",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001292"
+      }
     },
     {
       "card_num": "BS2024001293",
       "number": 293,
       "name_ko": "절각참",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 120,
       "type": "악",
       "image_url": "wmimages/SV/SV4a/SV4a_293.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001293",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001293"
+      }
     },
     {
       "card_num": "BS2024001294",
       "number": 294,
       "name_ko": "대도각참",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 170,
       "type": "악",
       "image_url": "wmimages/SV/SV4a/SV4a_294.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001294",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001294"
+      }
     },
     {
       "card_num": "BS2024001295",
       "number": 295,
       "name_ko": "오라티프",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "악",
       "image_url": "wmimages/SV/SV4a/SV4a_295.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001295",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001295"
+      }
     },
     {
       "card_num": "BS2024001296",
       "number": 296,
       "name_ko": "마피티프",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 130,
       "type": "악",
       "image_url": "wmimages/SV/SV4a/SV4a_296.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001296",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001296"
+      }
     },
     {
       "card_num": "BS2024001297",
       "number": 297,
       "name_ko": "땃쭈르",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 50,
       "type": "악",
       "image_url": "wmimages/SV/SV4a/SV4a_297.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001297",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001297"
+      }
     },
     {
       "card_num": "BS2024001298",
       "number": 298,
       "name_ko": "태깅구르",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 90,
       "type": "악",
       "image_url": "wmimages/SV/SV4a/SV4a_298.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001298",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001298"
+      }
     },
     {
       "card_num": "BS2024001299",
       "number": 299,
       "name_ko": "핫삼",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 140,
       "type": "강철",
       "image_url": "wmimages/SV/SV4a/SV4a_299.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001299",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001299"
+      }
     },
     {
       "card_num": "BS2024001300",
       "number": 300,
       "name_ko": "부르롱",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "강철",
       "image_url": "wmimages/SV/SV4a/SV4a_300.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001300",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001300"
+      }
     },
     {
       "card_num": "BS2024001301",
       "number": 301,
       "name_ko": "부르르룸",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 140,
       "type": "강철",
       "image_url": "wmimages/SV/SV4a/SV4a_301.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001301",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001301"
+      }
     },
     {
       "card_num": "BS2024001302",
       "number": 302,
       "name_ko": "음뱃",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "드래곤",
       "image_url": "wmimages/SV/SV4a/SV4a_302.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001302",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001302"
+      }
     },
     {
       "card_num": "BS2024001303",
       "number": 303,
       "name_ko": "모토마",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 120,
       "type": "드래곤",
       "image_url": "wmimages/SV/SV4a/SV4a_303.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001303",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001303"
+      }
     },
     {
       "card_num": "BS2024001304",
       "number": 304,
       "name_ko": "구구",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 50,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_304.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001304",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001304"
+      }
     },
     {
       "card_num": "BS2024001305",
       "number": 305,
       "name_ko": "피죤",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 80,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_305.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001305",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001305"
+      }
     },
     {
       "card_num": "BS2024001306",
       "number": 306,
       "name_ko": "푸린",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_306.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001306",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001306"
+      }
     },
     {
       "card_num": "BS2024001307",
       "number": 307,
       "name_ko": "두두",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_307.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001307",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001307"
+      }
     },
     {
       "card_num": "BS2024001308",
       "number": 308,
       "name_ko": "두트리오",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 100,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_308.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001308",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001308"
+      }
     },
     {
       "card_num": "BS2024001309",
       "number": 309,
       "name_ko": "메타몽",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_309.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001309",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001309"
+      }
     },
     {
       "card_num": "BS2024001310",
       "number": 310,
       "name_ko": "잠만보",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 150,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_310.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001310",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001310"
+      }
     },
     {
       "card_num": "BS2024001311",
       "number": 311,
       "name_ko": "갈모매",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_311.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001311",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001311"
+      }
     },
     {
       "card_num": "BS2024001312",
       "number": 312,
       "name_ko": "패리퍼",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 120,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_312.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001312",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001312"
+      }
     },
     {
       "card_num": "BS2024001313",
       "number": 313,
       "name_ko": "탐리스",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 60,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_313.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001313",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001313"
+      }
     },
     {
       "card_num": "BS2024001314",
       "number": 314,
       "name_ko": "요씽리스",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 120,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_314.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001314",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001314"
+      }
     },
     {
       "card_num": "BS2024001315",
       "number": 315,
       "name_ko": "맛보돈",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_315.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001315",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001315"
+      }
     },
     {
       "card_num": "BS2024001316",
       "number": 316,
       "name_ko": "퍼퓨돈",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 130,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_316.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001316",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001316"
+      }
     },
     {
       "card_num": "BS2024001317",
       "number": 317,
       "name_ko": "두리쥐",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 30,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_317.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001317",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001317"
+      }
     },
     {
       "card_num": "BS2024001318",
       "number": 318,
       "name_ko": "파밀리쥐",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 70,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_318.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001318",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001318"
+      }
     },
     {
       "card_num": "BS2024001319",
       "number": 319,
       "name_ko": "꼬이밍고",
-      "rarity": null,
+      "rarity": "S",
       "card_type": "포켓몬",
       "subtype": null,
       "hp": 110,
       "type": "무색",
       "image_url": "wmimages/SV/SV4a/SV4a_319.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2024001319",
-      "_fetched_at": "2026-05-15"
+      "_fetched_at": "2026-05-15",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001319"
+      }
     },
     {
       "card_num": "BS2024001320",
@@ -6594,9 +7178,9 @@
       6600,
       7200,
       9100,
-      15800,
+      14600,
       33100,
-      51600,
+      51100,
       359900,
       556800,
       585300
@@ -6616,7 +7200,7 @@
       4800,
       13500,
       30800,
-      585300
+      563600
     ],
     "quantile_points": [
       0,
@@ -6639,6 +7223,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

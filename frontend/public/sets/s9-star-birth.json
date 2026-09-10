@@ -1207,26 +1207,34 @@
       "number": 90,
       "name_ko": "구애벨트",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S9/S9_090.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022002090",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022002090"
+      }
     },
     {
       "card_num": "BS2022002091",
       "number": 91,
       "name_ko": "냄비멧",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S9/S9_091.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022002091",
-      "_fetched_at": "2026-05-26"
+      "_fetched_at": "2026-05-26",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022002091"
+      }
     },
     {
       "card_num": "BS2022002092",
@@ -1921,6 +1929,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

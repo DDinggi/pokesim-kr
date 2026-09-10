@@ -1,0 +1,7172 @@
+{
+  "reviewed_at": "2026-09-10",
+  "scope": "active_sets; card entries include mirrors and repeated products",
+  "method": "Official Korean detail metadata + source/CDN 32x44 RGB mean difference (threshold 12); not OCR or exhaustive visual proof.",
+  "summary": {
+    "products": 94,
+    "cards": 12493,
+    "official_metadata_available": 12028,
+    "cdn_256_decoded": 12481,
+    "cdn_512_decoded": 12481,
+    "source_compared": 12357,
+    "findings": {
+      "image_identity_needs_review": 36,
+      "variant_256_difference": 1,
+      "variant_512_difference": 1,
+      "official_unavailable": 369,
+      "non_official_id": 96,
+      "external_image_url": 12,
+      "image_source_unavailable": 100
+    }
+  },
+  "manually_reviewed": [
+    {
+      "card_num": "BS2026004112",
+      "result": "Same Japanese Mega Zeraora ex 112/081 SAR art; photographed versus scanned border/colour difference, not wrong identity."
+    }
+  ],
+  "limitations": [
+    "Missing official details and non-official IDs are unverified, not passed.",
+    "Source 404 prevents independent pixel comparison even when CDN variants decode.",
+    "Direct external image URLs have no CDN variants and are listed for migration.",
+    "CDN original URLs returned HTTP 403 in sampled checks; this run checks variants, not CDN originals.",
+    "No global Japanese product-name/price correctness certification; only reviewed KR/JP numbering maps were repaired."
+  ],
+  "sets": [
+    {
+      "code": "m-magikarp-special-set",
+      "cards": 0,
+      "sha256": "a534f3e89e47c49c30e035554bc459ee5704086d4b1e6d59870e8d5cc5f6b0c6"
+    },
+    {
+      "code": "m4-ninja-spinner",
+      "cards": 120,
+      "sha256": "7553b9d43997374519578d009da8167e258a14bea454d91d3493e9e2a9aab1d6"
+    },
+    {
+      "code": "m5-abyss-eye",
+      "cards": 118,
+      "sha256": "c6487191f1e481345f106548fcc198879129fbb52499103384ae4f6f55386d3d"
+    },
+    {
+      "code": "m6-storm-emerald",
+      "cards": 113,
+      "sha256": "456c427ba18236010089fa20259956188386bc32dd874ace9fd8ea7249201550"
+    },
+    {
+      "code": "m-nihil-zero",
+      "cards": 117,
+      "sha256": "218dd18d6c4ed74d7860215d961abf5212cc16f660eec56f936bd197152c3ba4"
+    },
+    {
+      "code": "m-dream-ex",
+      "cards": 250,
+      "sha256": "261a059642f2a44fa3c871b6d522bb648815d34574dadc47adf41bd032221bfd"
+    },
+    {
+      "code": "m-inferno-x",
+      "cards": 116,
+      "sha256": "96ace0e1efc8acd0417f3e2510010f82c6ad69b44997d8360ddc5f2dac7647b9"
+    },
+    {
+      "code": "m-mega-brave",
+      "cards": 92,
+      "sha256": "7339599e78e31af05b9b8569fe794a86ff911747744a6b5da05b39bc3bb12d39"
+    },
+    {
+      "code": "m-mega-symphonia",
+      "cards": 92,
+      "sha256": "45eb4c9acc14228b8c8e82b22ad51fdc002ae679228e492173309e04f71de231"
+    },
+    {
+      "code": "m-start-deck-100",
+      "cards": 774,
+      "sha256": "837b758d4584a6d07a37fec29aa5de4040bcf8587c40489e8cf4edab6c104f5d"
+    },
+    {
+      "code": "sv11b-black-bolt",
+      "cards": 174,
+      "sha256": "07709ab91c26c6f7e0b16529e3b1c29cd1654e9e7f16062be56d7ada0aec7f4d"
+    },
+    {
+      "code": "sv11a-white-flare",
+      "cards": 174,
+      "sha256": "bdaa6c9a5418634f0591162fc71309c3a09fd9a6e654299de27755ea9b2bde12"
+    },
+    {
+      "code": "sv10-glory",
+      "cards": 132,
+      "sha256": "6cc7901abd2c04e058eb1cc78fa0997df2181d9ea4707030aae0a969e5496615"
+    },
+    {
+      "code": "sv9a-blazing-arena",
+      "cards": 92,
+      "sha256": "156a32a09710e174cb6a18d1797c6a5853369f4b4cb45078e9f77d9f69f9c8e5"
+    },
+    {
+      "code": "sv9-battle-partners",
+      "cards": 132,
+      "sha256": "be3454e4d08fbb95e5363d7609183ebbd5380bba4f1598519f70aa2eac407cba"
+    },
+    {
+      "code": "sv8a-terastal-festa",
+      "cards": 381,
+      "sha256": "467709c7e48cedca75e7cbcc9238b2396465d15be710c3569e017ebbde1fa8c0"
+    },
+    {
+      "code": "sv8-super-electric",
+      "cards": 138,
+      "sha256": "631c8d6c6351f3e1336acbc69a97d9b00540d6b1e36f79004292728e9d47b98c"
+    },
+    {
+      "code": "sv7a-paradise-dragona",
+      "cards": 94,
+      "sha256": "687de202a1bfc842a76a6aa49974bc2e9fc6148d943116263210c3218dbe6cfd"
+    },
+    {
+      "code": "sv7-stellar-miracle",
+      "cards": 135,
+      "sha256": "b35decb86b5f55caf55eadaf049e67b9299d745cfeb6a20ed3189e6e1bea67be"
+    },
+    {
+      "code": "sv6a-night-wanderer",
+      "cards": 94,
+      "sha256": "c95d53ef4060e3b72a485959ab91248d2ef85825fb4a323b4551c8da0d336c53"
+    },
+    {
+      "code": "sv6-mask",
+      "cards": 133,
+      "sha256": "4a596d1d70b66f1b666f9ab44c8b58a6337c7fa765d4a8b3966dda3e0c96b9de"
+    },
+    {
+      "code": "sv5a-crimson-haze",
+      "cards": 96,
+      "sha256": "4d146b100bc57b121f158a1b4c4539024341ba9f989ba8cbcde23f13db937a5c"
+    },
+    {
+      "code": "sv5m-cyber-judge",
+      "cards": 100,
+      "sha256": "eaac6371a4ae00d61dad8bfb3fbcbcd65e15e71c7712c26d1fcba2fcc1b88ad7"
+    },
+    {
+      "code": "sv5k-wild-force",
+      "cards": 100,
+      "sha256": "c307b72cd3e53726778ae30dfa1fd699294e5717f9df0096516c5bd424595f4c"
+    },
+    {
+      "code": "sv4a-shiny-treasure-ex",
+      "cards": 484,
+      "sha256": "1bdb42ba1c2e987d2c7c9c1b5e6e40dba7de62c68f37ed150a123c5d6c455e5a"
+    },
+    {
+      "code": "sv4m-future-flash",
+      "cards": 95,
+      "sha256": "0cf8301c01ff0da158983cdf03846aac1ad6ac70fd135d3cd3330589ca88316f"
+    },
+    {
+      "code": "sv4k-ancient-roar",
+      "cards": 95,
+      "sha256": "cf0e32305203c28b14fa50791f6812e0492c13df32e96db4e630a903a2723ac0"
+    },
+    {
+      "code": "sv3a-raging-surf",
+      "cards": 92,
+      "sha256": "f6527dc034ca8efc14d480f2b1644e7aa2d686a88d5e5b5b4ad3b9a2ba268843"
+    },
+    {
+      "code": "sv3-black-flame-ruler",
+      "cards": 141,
+      "sha256": "17d213f11f2faa412b84935974c1f76165c76b13641a650c75482e994a8bb1cd"
+    },
+    {
+      "code": "sv2a-151",
+      "cards": 363,
+      "sha256": "6e09d083291af98361179e8c96a7f416b480e35f2a4d7cd53a56ded48e7ee19b"
+    },
+    {
+      "code": "sv2p-snow-hazard",
+      "cards": 99,
+      "sha256": "056b9c90f2a47a52cadaed43056ee2282816cfc492c6c638f4bd017ef7f19162"
+    },
+    {
+      "code": "sv2d-clay-burst",
+      "cards": 99,
+      "sha256": "d952568a36909fa4e277227983694353d52e886d9c1d54849f825fc273cb6d3f"
+    },
+    {
+      "code": "sv1a-triplet",
+      "cards": 103,
+      "sha256": "723c73dd77b3762d2a21fc6445df219831b5fd458ec5c07bc2ae9b956a5f3ec7"
+    },
+    {
+      "code": "sv1v-violet-ex",
+      "cards": 108,
+      "sha256": "0b2ee119a6910b21eb6adb6fbe38e6a0422df9ac18cbddafb99da72b70fb7b79"
+    },
+    {
+      "code": "sv1s-scarlet-ex",
+      "cards": 108,
+      "sha256": "4155ce5651901e07df0da991f97f2ecd8fc5df042aac21de9d6ac882460feac5"
+    },
+    {
+      "code": "s12a-vstar-universe",
+      "cards": 351,
+      "sha256": "ae43bcdaa07d235df9c146419d9380f11f93fa279e17fe1fb8544b14b43a9966"
+    },
+    {
+      "code": "s12-paradigm-trigger",
+      "cards": 125,
+      "sha256": "d03c5d1521d612d8ce17c68e1b3476f37b7dbff9f3c66ee1334a96d8cdc47f9c"
+    },
+    {
+      "code": "s11a-incandescent-arcana",
+      "cards": 140,
+      "sha256": "bdba09864fbc3468079a16fddf8aa33b12e390bfc8edccb23ba00ecf48b503f8"
+    },
+    {
+      "code": "s11-lost-abyss",
+      "cards": 127,
+      "sha256": "9e60607cbd35957c3a025de4339fafb97220e102549eb228dc669a74f635c655"
+    },
+    {
+      "code": "s10b-pokemon-go",
+      "cards": 101,
+      "sha256": "977f2074459d0b9129ac63fbfaa1bc032bf3d4e44e847df2896c0b11b3fd0b26"
+    },
+    {
+      "code": "s10a-dark-phantasma",
+      "cards": 148,
+      "sha256": "551fa731758c3ac8b096406d04878b1176fbdb560c4293e3cb3b9d709e2a064c"
+    },
+    {
+      "code": "s10d-time-gazer",
+      "cards": 88,
+      "sha256": "0ab65605d0ccc7fe9911202b8163a82d649d7b401281faca8f8aaad3e3a6d40b"
+    },
+    {
+      "code": "s10p-space-juggler",
+      "cards": 88,
+      "sha256": "90db1b9a6459b26645113e389d63ba35a8bd82549df9bcd32b6c84a621853657"
+    },
+    {
+      "code": "s9a-battle-region",
+      "cards": 138,
+      "sha256": "2f0838d05f4fdf55f3805cd7969b9e3e1074837bdd98819aba4c34da2f37b796"
+    },
+    {
+      "code": "s9-star-birth",
+      "cards": 127,
+      "sha256": "5370627c4d8c8391e729865d23257b2d2121a380022c0efca74d2ab262ea295c"
+    },
+    {
+      "code": "s8b-vmax-climax",
+      "cards": 285,
+      "sha256": "9ebdd8d5e15cc5ca1a79c596c582f929e0f624f9d525f28a6f0f8b6bc9173993"
+    },
+    {
+      "code": "s8-fusion-arts",
+      "cards": 129,
+      "sha256": "6d194067a025d1bc2520565a12dd5f56a908fdc0e6450ba57390f328aea5afa3"
+    },
+    {
+      "code": "s7r-sky-stream",
+      "cards": 90,
+      "sha256": "f4c030c987388ad6b1b9d52289848a48688eb980c60718db9265cc3d08a9224f"
+    },
+    {
+      "code": "s6a-eevee-heroes",
+      "cards": 101,
+      "sha256": "c412ad6f547770aebcba774b43b824377ddff420aba3fbc687a67122a480dccc"
+    },
+    {
+      "code": "s6h-silver-lance",
+      "cards": 95,
+      "sha256": "f914d25dcd918d6234c976f792d963f579c0e460a3d8de1b73901fdfb32d8720"
+    },
+    {
+      "code": "s6k-jet-black-spirit",
+      "cards": 95,
+      "sha256": "4b79dde784ae0c2bfb0ba1a946d41b1e592780e0c201c0d30e491ebd38aed5f9"
+    },
+    {
+      "code": "s5a-matchless-fighters",
+      "cards": 96,
+      "sha256": "f25f24ec4e65633b7ad07e78751c96bb359af951e28ce7901a02c43fd49ae1bb"
+    },
+    {
+      "code": "s5i-single-strike-master",
+      "cards": 91,
+      "sha256": "666ef7123b5e53308a3b7b2e1336a3ddb243248ffa6f445bf4a5f24496e4f1a5"
+    },
+    {
+      "code": "s5r-rapid-strike-master",
+      "cards": 91,
+      "sha256": "5301d165c415afd39fb497b7fcb31e2a34df4b2465a25f9473f90fd0fa5b3fb8"
+    },
+    {
+      "code": "s4a-shiny-star-v",
+      "cards": 330,
+      "sha256": "665a087b23f0b54f6653380e76a03e0f8018a805e320db327f23dfedb489674b"
+    },
+    {
+      "code": "s4-amazing-volt-tackle",
+      "cards": 121,
+      "sha256": "9d2840409ad1ea4e346e10e9adb3d3ada8d3f6bd58c44725feaa76e61029cee5"
+    },
+    {
+      "code": "s3a-legendary-heartbeat",
+      "cards": 94,
+      "sha256": "6a3dcf7aa80e4ebe9227bf9a382674ceffa4908985e629241befe5a712471bd3"
+    },
+    {
+      "code": "s3-infinity-zone",
+      "cards": 119,
+      "sha256": "4ad0627f8b6236b6e725ca821ed5c775f2c5210881ebf7b8469acbb73b56a29e"
+    },
+    {
+      "code": "s2a-explosive-walker",
+      "cards": 86,
+      "sha256": "b15d16c038dcc4ca95baea8d4c76d1fd79832c471d4b902bc3b79d50ccb30e1c"
+    },
+    {
+      "code": "s2-rebellion-crash",
+      "cards": 115,
+      "sha256": "e5d9a853aa0b462f1cb865534b7d8a02d4bdd942b455998a6886c7bd9393b3d9"
+    },
+    {
+      "code": "s1a-vmax-rising",
+      "cards": 86,
+      "sha256": "d3b7c16c2e40cb47d3eacc143451bd8f09b276430fdbfcebec26d6d21e168324"
+    },
+    {
+      "code": "s1w-sword",
+      "cards": 75,
+      "sha256": "6ad22ec2d9f2d20abb9dac1ad931fa6d5f8b726f3ba1cd19338b917841587c84"
+    },
+    {
+      "code": "s1h-shield",
+      "cards": 75,
+      "sha256": "4870c5949fc8d32c566a16c721ac131fd3c36dfc09e57c6a11e8921a79e9f9fe"
+    },
+    {
+      "code": "sm12a-tag-team-gx-tag-all-stars",
+      "cards": 235,
+      "sha256": "c69a4f374610e19584cf1679eccca8f81010f62c144d98eba71ca5269a387eb0"
+    },
+    {
+      "code": "sm12-alter-genesis",
+      "cards": 117,
+      "sha256": "0092317edb1625ddeb59fa50e229fbb4db789459a958f458e82fdb60782c7923"
+    },
+    {
+      "code": "sm11b-dream-league",
+      "cards": 75,
+      "sha256": "36bb95d2a71d3b52f127783f171ea44540066cc5430616a610df8694b60f9481"
+    },
+    {
+      "code": "sm11a-remix-bout",
+      "cards": 80,
+      "sha256": "ac9bc30a39561d3af3a0d60bf21c2461ac89e9cd1c6ec06f6f49680f4d5476c8"
+    },
+    {
+      "code": "sm11-miracle-twin",
+      "cards": 115,
+      "sha256": "534fe570a83f5d01f52e2291d26ff7cdf0ca70380a45225b2c950894a59b9204"
+    },
+    {
+      "code": "sm8-burst-impact",
+      "cards": 111,
+      "sha256": "38ec4341d1e5735a8802ab68abc9ccad551cf3af0ba22553438f08df05206fe5"
+    },
+    {
+      "code": "sm7b-fairy-rise",
+      "cards": 101,
+      "sha256": "d4e2c3d1c658082da582be5daec17e476e4311b0f6da2d7c500fc7b6b2e6a24c"
+    },
+    {
+      "code": "sm7a-plasma-spark",
+      "cards": 73,
+      "sha256": "e536c9b69fafc4064aa1ee08559c022db834b699c8ddf358c43a993a6124b885"
+    },
+    {
+      "code": "sm7-sky-charisma",
+      "cards": 112,
+      "sha256": "5f9e856716cf733e509c6aa053fb705b2fadf56fd55344ef5a3ca2bfb143d433"
+    },
+    {
+      "code": "sm6b-champion-road",
+      "cards": 136,
+      "sha256": "8547ceb749e0fbbd2c73a3854fb4e75f729e42ab4e8a6d6b9e390552a9582d50"
+    },
+    {
+      "code": "sm6a-dragon-storm",
+      "cards": 115,
+      "sha256": "9b944b19a13a9aef23c7285f7382a9f1180cf33b1cf93de24e3d805b07a460f0"
+    },
+    {
+      "code": "sm6-forbidden-light",
+      "cards": 110,
+      "sha256": "e06a049c19bb809d16a295caf957b6ece3d6bb4df4b965a524ce355f6e96b522"
+    },
+    {
+      "code": "sm5plus-ultra-force",
+      "cards": 110,
+      "sha256": "103ae5eb5c689a97036d5e200aa86347d5d122f412c07ea22f361928f8312b3e"
+    },
+    {
+      "code": "sm5s-ultra-sun",
+      "cards": 78,
+      "sha256": "8dc274b6de894c2725ffbf41d3640993c77a0e68236235023ed546c232b9b066"
+    },
+    {
+      "code": "sm5m-ultra-moon",
+      "cards": 78,
+      "sha256": "18cafb3330515cfe28a57e07e77446e17a368f374d6cda7d6644290d1fd3b9e6"
+    },
+    {
+      "code": "sm4plus-gx-battle-boost",
+      "cards": 125,
+      "sha256": "fb93d8ee1f3dbc7e0096dff941a6322ea9343a05f660c3c4234ede43cfc79400"
+    },
+    {
+      "code": "sm3plus-shining-legends",
+      "cards": 91,
+      "sha256": "ae97f4490d515cdce9173435bc3ac03cc961497c08f78ecac316cacd85003b3c"
+    },
+    {
+      "code": "sm4s-awakened-heroes",
+      "cards": 62,
+      "sha256": "e974a15b796d2ce2a1b3d0f55b4c24391896eeed4952740e6231431f33970605"
+    },
+    {
+      "code": "sm4a-ultradimensional-beasts",
+      "cards": 62,
+      "sha256": "d34e45e5665afad2beba15ef91047c753ba8e82d7bcc9ef5b13e549dc9bda713"
+    },
+    {
+      "code": "smxy-best-of-xy",
+      "cards": 188,
+      "sha256": "c3790fc924d3f2abc2a4fb327520210a10d46744319f322ea2326d985a6ac1ae"
+    },
+    {
+      "code": "sm3h-rainbow-in-darkness",
+      "cards": 64,
+      "sha256": "23aa268daccefb6b8dd2bb024acfaa86bdc45d39d67c12ff37826224841aa0d9"
+    },
+    {
+      "code": "sm3n-darkness-devours-light",
+      "cards": 64,
+      "sha256": "be20ac76a11f74f493d1677b48eff18dbe51ce65a5a59a4de7536f63e931a645"
+    },
+    {
+      "code": "sm4plus-gx-battle-boost-remaster",
+      "cards": 125,
+      "sha256": "fc319d59b7cea638dedced0459ecb79c1cdc0ba66f4051427371418026b4d779"
+    },
+    {
+      "code": "sm8a-dark-order",
+      "cards": 104,
+      "sha256": "f4f4772ae573a7bf442a8697940e20657ffa88368ede4a8350534a182150071c"
+    },
+    {
+      "code": "sm9-tag-bolt",
+      "cards": 118,
+      "sha256": "85e3fd46059ef42f9b4ecf4d7a3855604932a7d1ff9d9cb3abd419a8496256c4"
+    },
+    {
+      "code": "sm9b-full-metal-wall",
+      "cards": 69,
+      "sha256": "e00938a35541df8c761710b34650494fdc8da149c53ee68dedfaf829d9302bc1"
+    },
+    {
+      "code": "sm9a-night-unison",
+      "cards": 110,
+      "sha256": "eec90b6a97c165273ff570953ff99285789a5d6fd88dbf552929042ab5d1be96"
+    },
+    {
+      "code": "sm10b-sky-legend",
+      "cards": 69,
+      "sha256": "b8bf9891c480c9ba9e11e0b45f8d14e4710e57ce7f939a6fa2592d1c68187ea7"
+    },
+    {
+      "code": "sm10a-gg-end",
+      "cards": 69,
+      "sha256": "290db5510ed8f616150a3857d98974d96bd8f802fdbf961f4388104d46ca3060"
+    },
+    {
+      "code": "sm10-double-blaze",
+      "cards": 116,
+      "sha256": "6f2a0803b0695034ce654e4be79569eb1e2be5f58404fceb6d569465ae16e954"
+    },
+    {
+      "code": "sm8b-gx-ultra-shiny",
+      "cards": 250,
+      "sha256": "0491990aeb16402e8c73b557f07f02857f615cb64439111662c60b2943168fcb"
+    }
+  ],
+  "exceptions": [
+    {
+      "set": "m4-ninja-spinner",
+      "card_num": "BS2026003120",
+      "number": 120,
+      "name": "메가개굴닌자 ex",
+      "source": "https://pokemoncard.co.kr/cards/detail/BS2026003120",
+      "findings": [
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "m5-abyss-eye",
+      "card_num": "BS2026004112",
+      "number": 112,
+      "name": "메가제라오라 ex",
+      "source": "https://pokemoncard.co.kr/cards/detail/BS2026004112",
+      "findings": [
+        {
+          "field": "variant_256_difference",
+          "difference": 12.791429924242424
+        },
+        {
+          "field": "variant_512_difference",
+          "difference": 12.022964015151516
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "BS2026005071",
+      "number": 71,
+      "name": "전설의 산정",
+      "source": "https://pokemoncard.co.kr/cards/detail/BS2026005071",
+      "findings": [
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "BS2026005072",
+      "number": 72,
+      "name": "전설의 산정",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "BS2026005073",
+      "number": 73,
+      "name": "전설의 용암동굴",
+      "source": "https://pokemoncard.co.kr/cards/detail/BS2026005073",
+      "findings": [
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "BS2026005074",
+      "number": 74,
+      "name": "전설의 용암동굴",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "BS2026005075",
+      "number": 75,
+      "name": "전설의 해구",
+      "source": "https://pokemoncard.co.kr/cards/detail/BS2026005075",
+      "findings": [
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "BS2026005076",
+      "number": 76,
+      "name": "전설의 해구",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6077",
+      "number": 77,
+      "name": "비나방",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6078",
+      "number": 78,
+      "name": "가디",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6079",
+      "number": 79,
+      "name": "마그마번",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6080",
+      "number": 80,
+      "name": "가이오가",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6081",
+      "number": 81,
+      "name": "에레키블",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6082",
+      "number": 82,
+      "name": "찌르성게",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6083",
+      "number": 83,
+      "name": "러브로스",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6084",
+      "number": 84,
+      "name": "그란돈",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6085",
+      "number": 85,
+      "name": "오케이징",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6086",
+      "number": 86,
+      "name": "루리리",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6087",
+      "number": 87,
+      "name": "파비코리",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6088",
+      "number": 88,
+      "name": "켈리몬",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6089",
+      "number": 89,
+      "name": "메가갑주무사 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6090",
+      "number": 90,
+      "name": "히트로토무 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6091",
+      "number": 91,
+      "name": "약어리 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6092",
+      "number": 92,
+      "name": "라이코 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6093",
+      "number": 93,
+      "name": "메가골루그 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6094",
+      "number": 94,
+      "name": "메가칼라마네로 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6095",
+      "number": 95,
+      "name": "메가레쿠쟈 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6096",
+      "number": 96,
+      "name": "파이어로 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6097",
+      "number": 97,
+      "name": "모험 랜턴",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6098",
+      "number": 98,
+      "name": "텔레코 포켓몬 캐처",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6099",
+      "number": 99,
+      "name": "텔레코 특별주문조끼",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6100",
+      "number": 100,
+      "name": "MC의 호응유도",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6101",
+      "number": 101,
+      "name": "성한",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6102",
+      "number": 102,
+      "name": "피아나의 신뢰",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6103",
+      "number": 103,
+      "name": "풍&란의 수행",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6104",
+      "number": 104,
+      "name": "그로우 풀   에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6105",
+      "number": 105,
+      "name": "니트로 불꽃   에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6106",
+      "number": 106,
+      "name": "버블 물   에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6107",
+      "number": 107,
+      "name": "메가갑주무사 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6108",
+      "number": 108,
+      "name": "라이코 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6109",
+      "number": 109,
+      "name": "메가골루그 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6110",
+      "number": 110,
+      "name": "메가레쿠쟈 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6111",
+      "number": 111,
+      "name": "성한",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6112",
+      "number": 112,
+      "name": "피아나의 신뢰",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m6-storm-emerald",
+      "card_num": "JP2026M6113",
+      "number": 113,
+      "name": "메가레쿠쟈 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)"
+        }
+      ]
+    },
+    {
+      "set": "m-nihil-zero",
+      "card_num": "BS2026002117",
+      "number": 117,
+      "name": "메가지가르데 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "m-dream-ex",
+      "card_num": "BS2025015250",
+      "number": 250,
+      "name": "메가망나뇽 ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "m-inferno-x",
+      "card_num": "BS2025014116",
+      "number": 116,
+      "name": "메가리자몽X ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "m-start-deck-100",
+      "card_num": "BS2026001766",
+      "number": 766,
+      "name": "메가리자몽Y ex",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "external_image_url",
+          "url": "https://www.pokemon-card.com/assets/images/card_images/large/MC/050034_P_MRIZADONYEX.jpg"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s12a-vstar-universe",
+      "card_num": "BS2023001173",
+      "number": 173,
+      "name": "히스이 찌리리공",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s11-lost-abyss",
+      "card_num": "BS2022014100-S11_101",
+      "number": 101,
+      "name": "마폭시 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2022014100"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s8b-vmax-climax",
+      "card_num": "BS2022001056",
+      "number": 56,
+      "name": "모르페코 V-UNION",
+      "source": "https://pokemoncard.co.kr/cards/detail/BS2022001056",
+      "findings": [
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s8b-vmax-climax",
+      "card_num": "BS2022001057",
+      "number": 57,
+      "name": "모르페코 V-UNION",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s8b-vmax-climax",
+      "card_num": "BS2022001058",
+      "number": 58,
+      "name": "모르페코 V-UNION",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s8b-vmax-climax",
+      "card_num": "BS2022001059",
+      "number": 59,
+      "name": "모르페코 V-UNION",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s8b-vmax-climax",
+      "card_num": "BS2022001226",
+      "number": 226,
+      "name": "모르페코 V-UNION",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s8b-vmax-climax",
+      "card_num": "BS2022001227",
+      "number": 227,
+      "name": "모르페코 V-UNION",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s8b-vmax-climax",
+      "card_num": "BS2022001228",
+      "number": 228,
+      "name": "모르페코 V-UNION",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s8b-vmax-climax",
+      "card_num": "BS2022001229",
+      "number": 229,
+      "name": "모르페코 V-UNION",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018110",
+      "number": 110,
+      "name": "요씽리스 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-110-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018111",
+      "number": 111,
+      "name": "요씽리스 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-111-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018112",
+      "number": 112,
+      "name": "혁진",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-112-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018113",
+      "number": 113,
+      "name": "카밀레의 반짝임",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-113-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018114",
+      "number": 114,
+      "name": "댄서",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-114-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018115",
+      "number": 115,
+      "name": "팟과 덴트와 콘",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-115-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018116",
+      "number": 116,
+      "name": "샹델라 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-116-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018117",
+      "number": 117,
+      "name": "펄스멍 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-117-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018118",
+      "number": 118,
+      "name": "뮤 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018119",
+      "number": 119,
+      "name": "뮤 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018120",
+      "number": 120,
+      "name": "요씽리스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-120-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018121",
+      "number": 121,
+      "name": "혁진",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-121-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018122",
+      "number": 122,
+      "name": "카밀레의 반짝임",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-122-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018123",
+      "number": 123,
+      "name": "댄서",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-123-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018124",
+      "number": 124,
+      "name": "팟과 덴트와 콘",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-124-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018125",
+      "number": 125,
+      "name": "보송송",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-125-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018126",
+      "number": 126,
+      "name": "파워태블릿",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-126-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018127",
+      "number": 127,
+      "name": "트레이닝 코트",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-127-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018128",
+      "number": 128,
+      "name": "기본 풀 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-128-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s8-fusion-arts",
+      "card_num": "BS2021018129",
+      "number": 129,
+      "name": "기본 불꽃 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S8/S8-129-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s7r-sky-stream",
+      "card_num": "BS2021009080",
+      "number": 80,
+      "name": "대로트 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "external_image_url",
+          "url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/3s7s97/18-17.jpg"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s7r-sky-stream",
+      "card_num": "BS2021009081",
+      "number": 81,
+      "name": "갸라도스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "external_image_url",
+          "url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/tb5nwh/10-20.jpg"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s7r-sky-stream",
+      "card_num": "BS2021009082",
+      "number": 82,
+      "name": "레쿠쟈 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "external_image_url",
+          "url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/nowf70/5-30.jpg"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s7r-sky-stream",
+      "card_num": "BS2021009083",
+      "number": 83,
+      "name": "레쿠쟈 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "external_image_url",
+          "url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/9jsmmt/20-13.jpg"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s7r-sky-stream",
+      "card_num": "BS2021009084",
+      "number": 84,
+      "name": "사나",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "external_image_url",
+          "url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/z953dy/4-35.jpg"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s7r-sky-stream",
+      "card_num": "BS2021009085",
+      "number": 85,
+      "name": "스쿨보이",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "external_image_url",
+          "url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/yg95x1/17-14.jpg"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s7r-sky-stream",
+      "card_num": "BS2021009086",
+      "number": 86,
+      "name": "피아나의 결의",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "external_image_url",
+          "url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/tju53j/6-31.jpg"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s7r-sky-stream",
+      "card_num": "BS2021009087",
+      "number": 87,
+      "name": "눈여아",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "external_image_url",
+          "url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/9glcfy/9-27.jpg"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s7r-sky-stream",
+      "card_num": "BS2021009088",
+      "number": 88,
+      "name": "토이캐처",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "external_image_url",
+          "url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/8gyuem/13-19.jpg"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s7r-sky-stream",
+      "card_num": "BS2021009089",
+      "number": 89,
+      "name": "폭풍산맥",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "external_image_url",
+          "url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/rjm8il/11-21.jpg"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s7r-sky-stream",
+      "card_num": "BS2021009090",
+      "number": 90,
+      "name": "기본 번개 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "external_image_url",
+          "url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/ce0fey/5-33.jpg"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007088",
+      "number": 88,
+      "name": "리피아 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007089",
+      "number": 89,
+      "name": "리피아 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007090",
+      "number": 90,
+      "name": "글레이시아 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007091",
+      "number": 91,
+      "name": "글레이시아 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007092",
+      "number": 92,
+      "name": "님피아 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007093",
+      "number": 93,
+      "name": "님피아 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007094",
+      "number": 94,
+      "name": "블래키 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007095",
+      "number": 95,
+      "name": "블래키 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007096",
+      "number": 96,
+      "name": "아로마 아가씨",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007097",
+      "number": 97,
+      "name": "마쿠와",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007098",
+      "number": 98,
+      "name": "인텔리레온",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007099",
+      "number": 99,
+      "name": "부쩍부쩍 셰이크",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007100",
+      "number": 100,
+      "name": "터프스타디움",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s6a-eevee-heroes",
+      "card_num": "BS2021007101",
+      "number": 101,
+      "name": "기본 악 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_identity_needs_review"
+        }
+      ]
+    },
+    {
+      "set": "s6h-silver-lance",
+      "card_num": "BS2021004084",
+      "number": 84,
+      "name": "백마 버드렉스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cdn.shopify.com/s/files/1/0763/0536/7360/products/IuW14Md9z6vU2tiHC6mXjvBeZzAOShBHKtrk6z8s.jpg?v=1705496872"
+        }
+      ]
+    },
+    {
+      "set": "s6h-silver-lance",
+      "card_num": "BS2021004085",
+      "number": 85,
+      "name": "백마 버드렉스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cdn.shopify.com/s/files/1/0763/0536/7360/products/b04neYh7S9BFcEv3Z0vv4pbB0lVUurcQl9tiacD2.jpg?v=1705496920"
+        }
+      ]
+    },
+    {
+      "set": "s6h-silver-lance",
+      "card_num": "BS2021004086",
+      "number": 86,
+      "name": "사다이사 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cdn.shopify.com/s/files/1/0763/0536/7360/products/edCmebU7c1ZxzMgSjkRxjQgbn5MpZbDQ6ROdqo2n.jpg?v=1705496978"
+        }
+      ]
+    },
+    {
+      "set": "s6h-silver-lance",
+      "card_num": "BS2021004087",
+      "number": 87,
+      "name": "토네로스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cdn.shopify.com/s/files/1/0763/0536/7360/products/i9o5m9MRfaqzghwj8PyJRiBwXfa7peRnrRMNlvRB.jpg?v=1705497047"
+        }
+      ]
+    },
+    {
+      "set": "s6h-silver-lance",
+      "card_num": "BS2021004088",
+      "number": 88,
+      "name": "민지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cdn.shopify.com/s/files/1/0763/0536/7360/products/XVmziCu8UGMq06M0NIUdt37hS4dLqYGn2tTFo16i.jpg?v=1705497109"
+        }
+      ]
+    },
+    {
+      "set": "s6h-silver-lance",
+      "card_num": "BS2021004089",
+      "number": 89,
+      "name": "의사",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cdn.shopify.com/s/files/1/0763/0536/7360/products/oxZhMec7pF70UhxrjNpmAcxG9BSBTlHcBydWsCMZ.jpg?v=1705497171"
+        }
+      ]
+    },
+    {
+      "set": "s6h-silver-lance",
+      "card_num": "BS2021004090",
+      "number": 90,
+      "name": "피오니",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cdn.shopify.com/s/files/1/0763/0536/7360/products/dI2FSB1brf5qCZq0YbODvpOG1q4ZbS3n3vnpp1li.jpg?v=1705497239"
+        }
+      ]
+    },
+    {
+      "set": "s6h-silver-lance",
+      "card_num": "BS2021004091",
+      "number": 91,
+      "name": "멜론",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cdn.shopify.com/s/files/1/0763/0536/7360/products/fhaYZlPhFsqU4ebFzVPjMiefytDtz8xWOEAWye59.jpg?v=1705502176"
+        }
+      ]
+    },
+    {
+      "set": "s6h-silver-lance",
+      "card_num": "BS2021004092",
+      "number": 92,
+      "name": "동탁군",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s6h-silver-lance",
+      "card_num": "BS2021004093",
+      "number": 93,
+      "name": "환영랜턴",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s6h-silver-lance",
+      "card_num": "BS2021004094",
+      "number": 94,
+      "name": "우락부락멧",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cdn.shopify.com/s/files/1/0763/0536/7360/products/gIVBo31LuP3wOABtnd0SeyZlf8Pt1mNw9WUpb6YN.jpg?v=1705502323"
+        }
+      ]
+    },
+    {
+      "set": "s6h-silver-lance",
+      "card_num": "BS2021004095",
+      "number": 95,
+      "name": "기본 물 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cdn.shopify.com/s/files/1/0763/0536/7360/products/avZfY5MBIppBtMBQbeXwfLUcxYMUbiQZxkkYpwp4.jpg?v=1705502363"
+        }
+      ]
+    },
+    {
+      "set": "s6k-jet-black-spirit",
+      "card_num": "BS2021005084",
+      "number": 84,
+      "name": "세레비 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S6K/S6K-084-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s6k-jet-black-spirit",
+      "card_num": "BS2021005085",
+      "number": 85,
+      "name": "흑마 버드렉스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S6K/S6K-085-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s6k-jet-black-spirit",
+      "card_num": "BS2021005086",
+      "number": 86,
+      "name": "흑마 버드렉스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S6K/S6K-086-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s6k-jet-black-spirit",
+      "card_num": "BS2021005087",
+      "number": 87,
+      "name": "메타그로스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S6K/S6K-087-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s6k-jet-black-spirit",
+      "card_num": "BS2021005088",
+      "number": 88,
+      "name": "카틀레야",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S6K/S6K-088-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s6k-jet-black-spirit",
+      "card_num": "BS2021005089",
+      "number": 89,
+      "name": "국화",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S6K/S6K-089-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s6k-jet-black-spirit",
+      "card_num": "BS2021005090",
+      "number": 90,
+      "name": "니아",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S6K/S6K-090-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s6k-jet-black-spirit",
+      "card_num": "BS2021005091",
+      "number": 91,
+      "name": "즈미",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S6K/S6K-091-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s6k-jet-black-spirit",
+      "card_num": "BS2021005092",
+      "number": 92,
+      "name": "붐볼",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S6K/S6K-092-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s6k-jet-black-spirit",
+      "card_num": "BS2021005093",
+      "number": 93,
+      "name": "안개의 수정",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S6K/S6K-093-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s6k-jet-black-spirit",
+      "card_num": "BS2021005094",
+      "number": 94,
+      "name": "메아리호른",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S6K/S6K-094-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s6k-jet-black-spirit",
+      "card_num": "BS2021005095",
+      "number": 95,
+      "name": "기본 초 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S6K/S6K-095-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003071",
+      "number": 71,
+      "name": "번치코 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-071-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003072",
+      "number": 72,
+      "name": "파치래곤 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-072-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003073",
+      "number": 73,
+      "name": "가라르 프리져 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-073-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003074",
+      "number": 74,
+      "name": "가라르 프리져 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-074-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003075",
+      "number": 75,
+      "name": "가라르 썬더 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-075-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003076",
+      "number": 76,
+      "name": "가라르 썬더 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-076-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003077",
+      "number": 77,
+      "name": "가라르 파이어 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-077-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003078",
+      "number": 78,
+      "name": "가라르 파이어 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-078-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003079",
+      "number": 79,
+      "name": "가라르 야도킹 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-079-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003080",
+      "number": 80,
+      "name": "가라르 야도킹 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-080-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003081",
+      "number": 81,
+      "name": "카렌의 신념",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-081-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003082",
+      "number": 82,
+      "name": "클라라",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-082-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003083",
+      "number": 83,
+      "name": "세이버리",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-083-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003084",
+      "number": 84,
+      "name": "도정",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-084-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003085",
+      "number": 85,
+      "name": "번치코 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-085-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003086",
+      "number": 86,
+      "name": "번치코 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-086-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003087",
+      "number": 87,
+      "name": "파치래곤 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-087-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003088",
+      "number": 88,
+      "name": "가라르 야도킹 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-088-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003089",
+      "number": 89,
+      "name": "카렌의 신념",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-089-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003090",
+      "number": 90,
+      "name": "클라라",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-090-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003091",
+      "number": 91,
+      "name": "세이버리",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-091-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003092",
+      "number": 92,
+      "name": "도정",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-092-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003093",
+      "number": 93,
+      "name": "잠만보",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-093-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003094",
+      "number": 94,
+      "name": "너울의 부채",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-094-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003095",
+      "number": 95,
+      "name": "활력의 항아리",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-095-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5a-matchless-fighters",
+      "card_num": "BS2021003096",
+      "number": 96,
+      "name": "기본 격투 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5A/S5A-096-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5i-single-strike-master",
+      "card_num": "BS2021001082",
+      "number": 82,
+      "name": "애프룡 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5I/S5I-082-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5i-single-strike-master",
+      "card_num": "BS2021001083",
+      "number": 83,
+      "name": "카푸꼬꼬꼭 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5I/S5I-083-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5i-single-strike-master",
+      "card_num": "BS2021001084",
+      "number": 84,
+      "name": "일격 우라오스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5I/S5I-084-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5i-single-strike-master",
+      "card_num": "BS2021001085",
+      "number": 85,
+      "name": "일격 우라오스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5I/S5I-085-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5i-single-strike-master",
+      "card_num": "BS2021001086",
+      "number": 86,
+      "name": "시바",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5I/S5I-086-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5i-single-strike-master",
+      "card_num": "BS2021001087",
+      "number": 87,
+      "name": "회연",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5I/S5I-087-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5i-single-strike-master",
+      "card_num": "BS2021001088",
+      "number": 88,
+      "name": "마스터드 일격의 태세",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5I/S5I-088-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5i-single-strike-master",
+      "card_num": "BS2021001089",
+      "number": 89,
+      "name": "헬가",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5I/S5I-089-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5i-single-strike-master",
+      "card_num": "BS2021001090",
+      "number": 90,
+      "name": "학습장치",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5I/S5I-090-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5i-single-strike-master",
+      "card_num": "BS2021001091",
+      "number": 91,
+      "name": "일격 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5I/S5I-091-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5r-rapid-strike-master",
+      "card_num": "BS2021002082",
+      "number": 82,
+      "name": "비크티니 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5R/S5R-082-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5r-rapid-strike-master",
+      "card_num": "BS2021002083",
+      "number": 83,
+      "name": "연격 우라오스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5R/S5R-083-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5r-rapid-strike-master",
+      "card_num": "BS2021002084",
+      "number": 84,
+      "name": "연격 우라오스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5R/S5R-084-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5r-rapid-strike-master",
+      "card_num": "BS2021002085",
+      "number": 85,
+      "name": "아머까오 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5R/S5R-085-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5r-rapid-strike-master",
+      "card_num": "BS2021002086",
+      "number": 86,
+      "name": "코르니의 기합",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5R/S5R-086-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5r-rapid-strike-master",
+      "card_num": "BS2021002087",
+      "number": 87,
+      "name": "마스터드 연격의 태세",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5R/S5R-087-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5r-rapid-strike-master",
+      "card_num": "BS2021002088",
+      "number": 88,
+      "name": "모미",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5R/S5R-088-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5r-rapid-strike-master",
+      "card_num": "BS2021002089",
+      "number": 89,
+      "name": "대포무노",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5R/S5R-089-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5r-rapid-strike-master",
+      "card_num": "BS2021002090",
+      "number": 90,
+      "name": "레벨볼",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5R/S5R-090-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s5r-rapid-strike-master",
+      "card_num": "BS2021002091",
+      "number": 91,
+      "name": "연격 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S5R/S5R-091-070.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4a-shiny-star-v",
+      "card_num": "BS2020016327",
+      "number": 327,
+      "name": "무한다이노 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4A/S4A-327-190.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4a-shiny-star-v",
+      "card_num": "BS2020016328",
+      "number": 328,
+      "name": "무한다이노 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4A/S4A-328-190.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4a-shiny-star-v",
+      "card_num": "BS2020016329",
+      "number": 329,
+      "name": "자시안 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4A/S4A-329-190.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4a-shiny-star-v",
+      "card_num": "BS2020016330",
+      "number": 330,
+      "name": "자마젠타 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4A/S4A-330-190.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4-amazing-volt-tackle",
+      "card_num": "BS2020014112",
+      "number": 112,
+      "name": "이올브 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4/S4-112-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4-amazing-volt-tackle",
+      "card_num": "BS2020014113",
+      "number": 113,
+      "name": "가라르 불비달마 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4/S4-113-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4-amazing-volt-tackle",
+      "card_num": "BS2020014114",
+      "number": 114,
+      "name": "피카츄 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4/S4-114-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4-amazing-volt-tackle",
+      "card_num": "BS2020014115",
+      "number": 115,
+      "name": "킬가르도 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4/S4-115-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4-amazing-volt-tackle",
+      "card_num": "BS2020014116",
+      "number": 116,
+      "name": "채두",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4/S4-116-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4-amazing-volt-tackle",
+      "card_num": "BS2020014117",
+      "number": 117,
+      "name": "단델",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4/S4-117-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4-amazing-volt-tackle",
+      "card_num": "BS2020014118",
+      "number": 118,
+      "name": "야청",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4/S4-118-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4-amazing-volt-tackle",
+      "card_num": "BS2020014119",
+      "number": 119,
+      "name": "가라르 가로막구리",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4/S4-119-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4-amazing-volt-tackle",
+      "card_num": "BS2020014120",
+      "number": 120,
+      "name": "망원스코프",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4/S4-120-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s4-amazing-volt-tackle",
+      "card_num": "BS2020014121",
+      "number": 121,
+      "name": "메모리캡슐",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        },
+        {
+          "field": "image_source_unavailable",
+          "error": "Error: HTTP 404: https://cardshop-serra.com/html/upload/save_image/Pokemon/S4/S4-121-100.jpg"
+        }
+      ]
+    },
+    {
+      "set": "s3a-legendary-heartbeat",
+      "card_num": "BS2020012086",
+      "number": 86,
+      "name": "마휘핑 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3a-legendary-heartbeat",
+      "card_num": "BS2020012087",
+      "number": 87,
+      "name": "석탄산 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3a-legendary-heartbeat",
+      "card_num": "BS2020012088",
+      "number": 88,
+      "name": "토게키스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3a-legendary-heartbeat",
+      "card_num": "BS2020012089",
+      "number": 89,
+      "name": "아가씨",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3a-legendary-heartbeat",
+      "card_num": "BS2020012090",
+      "number": 90,
+      "name": "어니언",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3a-legendary-heartbeat",
+      "card_num": "BS2020012091",
+      "number": 91,
+      "name": "포플러",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3a-legendary-heartbeat",
+      "card_num": "BS2020012092",
+      "number": 92,
+      "name": "하랑우탄",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3a-legendary-heartbeat",
+      "card_num": "BS2020012093",
+      "number": 93,
+      "name": "영웅의 메달",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3a-legendary-heartbeat",
+      "card_num": "BS2020012094",
+      "number": 94,
+      "name": "터프니스 망토",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3-infinity-zone",
+      "card_num": "BS2020011111",
+      "number": 111,
+      "name": "갈가부기 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3-infinity-zone",
+      "card_num": "BS2020011112",
+      "number": 112,
+      "name": "무한다이노 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3-infinity-zone",
+      "card_num": "BS2020011113",
+      "number": 113,
+      "name": "핫삼 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3-infinity-zone",
+      "card_num": "BS2020011114",
+      "number": 114,
+      "name": "보만다 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3-infinity-zone",
+      "card_num": "BS2020011115",
+      "number": 115,
+      "name": "두송",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3-infinity-zone",
+      "card_num": "BS2020011116",
+      "number": 116,
+      "name": "로즈",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3-infinity-zone",
+      "card_num": "BS2020011117",
+      "number": 117,
+      "name": "석탄산",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3-infinity-zone",
+      "card_num": "BS2020011118",
+      "number": 118,
+      "name": "터보패치",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s3-infinity-zone",
+      "card_num": "BS2020011119",
+      "number": 119,
+      "name": "캡쳐 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2a-explosive-walker",
+      "card_num": "BS2020010079",
+      "number": 79,
+      "name": "버터플 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2a-explosive-walker",
+      "card_num": "BS2020010080",
+      "number": 80,
+      "name": "다태우지네 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2a-explosive-walker",
+      "card_num": "BS2020010081",
+      "number": 81,
+      "name": "가디안 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2a-explosive-walker",
+      "card_num": "BS2020010082",
+      "number": 82,
+      "name": "순무",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2a-explosive-walker",
+      "card_num": "BS2020010083",
+      "number": 83,
+      "name": "포켓몬 브리더의 육성",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2a-explosive-walker",
+      "card_num": "BS2020010084",
+      "number": 84,
+      "name": "고릴타",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2a-explosive-walker",
+      "card_num": "BS2020010085",
+      "number": 85,
+      "name": "알쏭달쏭 통조림",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2a-explosive-walker",
+      "card_num": "BS2020010086",
+      "number": 86,
+      "name": "빅파라솔",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2-rebellion-crash",
+      "card_num": "BS2020005107",
+      "number": 107,
+      "name": "스트린더 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2-rebellion-crash",
+      "card_num": "BS2020005108",
+      "number": 108,
+      "name": "드래펄트 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2-rebellion-crash",
+      "card_num": "BS2020005109",
+      "number": 109,
+      "name": "칼라마네로 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2-rebellion-crash",
+      "card_num": "BS2020005110",
+      "number": 110,
+      "name": "대왕끼리동 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2-rebellion-crash",
+      "card_num": "BS2020005111",
+      "number": 111,
+      "name": "올리브",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2-rebellion-crash",
+      "card_num": "BS2020005112",
+      "number": 112,
+      "name": "보스의 지령(비주기)",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2-rebellion-crash",
+      "card_num": "BS2020005113",
+      "number": 113,
+      "name": "가라르 나이킹",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2-rebellion-crash",
+      "card_num": "BS2020005114",
+      "number": 114,
+      "name": "회수네트",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s2-rebellion-crash",
+      "card_num": "BS2020005115",
+      "number": 115,
+      "name": "툴스크래퍼",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1a-vmax-rising",
+      "card_num": "BS2020004079",
+      "number": 79,
+      "name": "고릴타 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1a-vmax-rising",
+      "card_num": "BS2020004080",
+      "number": 80,
+      "name": "에이스번 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1a-vmax-rising",
+      "card_num": "BS2020004081",
+      "number": 81,
+      "name": "인텔리레온 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1a-vmax-rising",
+      "card_num": "BS2020004082",
+      "number": 82,
+      "name": "소니아",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1a-vmax-rising",
+      "card_num": "BS2020004083",
+      "number": 83,
+      "name": "아킬",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1a-vmax-rising",
+      "card_num": "BS2020004084",
+      "number": 84,
+      "name": "모스노우",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1a-vmax-rising",
+      "card_num": "BS2020004085",
+      "number": 85,
+      "name": "커다란부적",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1a-vmax-rising",
+      "card_num": "BS2020004086",
+      "number": 86,
+      "name": "트윈 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1w-sword",
+      "card_num": "BS2020002069",
+      "number": 69,
+      "name": "라프라스 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1w-sword",
+      "card_num": "BS2020002070",
+      "number": 70,
+      "name": "돌헨진 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1w-sword",
+      "card_num": "BS2020002071",
+      "number": 71,
+      "name": "박사의 연구(매그놀리아박사)",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1w-sword",
+      "card_num": "BS2020002072",
+      "number": 72,
+      "name": "비트",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1w-sword",
+      "card_num": "BS2020002073",
+      "number": 73,
+      "name": "자시안 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1w-sword",
+      "card_num": "BS2020002074",
+      "number": 74,
+      "name": "보통낚싯대",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1w-sword",
+      "card_num": "BS2020002075",
+      "number": 75,
+      "name": "풍선",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1h-shield",
+      "card_num": "BS2020003069",
+      "number": 69,
+      "name": "모르페코 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1h-shield",
+      "card_num": "BS2020003070",
+      "number": 70,
+      "name": "잠만보 VMAX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1h-shield",
+      "card_num": "BS2020003071",
+      "number": 71,
+      "name": "옐단의 조무래기",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1h-shield",
+      "card_num": "BS2020003072",
+      "number": 72,
+      "name": "마리",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1h-shield",
+      "card_num": "BS2020003073",
+      "number": 73,
+      "name": "자마젠타 V",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1h-shield",
+      "card_num": "BS2020003074",
+      "number": 74,
+      "name": "퀵볼",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "s1h-shield",
+      "card_num": "BS2020003075",
+      "number": 75,
+      "name": "메탈소서",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017J211",
+      "number": 211,
+      "name": "약어리 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://www.cardrush-pokemon.jp/product/6051"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017J212",
+      "number": 212,
+      "name": "에브이&테오키스 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://www.cardrush-pokemon.jp/product/6052"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017J213",
+      "number": 213,
+      "name": "대로트&야느와르몽 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://www.cardrush-pokemon.jp/product/6053"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017J214",
+      "number": 214,
+      "name": "지라치 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://www.cardrush-pokemon.jp/product/6054"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017J215",
+      "number": 215,
+      "name": "블래키&다크라이 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://www.cardrush-pokemon.jp/product/6055"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017J216",
+      "number": 216,
+      "name": "포푸니라 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://www.cardrush-pokemon.jp/product/6056"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017J217",
+      "number": 217,
+      "name": "멜메탈 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://www.cardrush-pokemon.jp/product/6057"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017J218",
+      "number": 218,
+      "name": "토게피&삐&푸푸린 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://www.cardrush-pokemon.jp/product/6058"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017J219",
+      "number": 219,
+      "name": "이브이 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://www.cardrush-pokemon.jp/product/6059"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017220",
+      "number": 220,
+      "name": "레시라무&리자몽 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017221",
+      "number": 221,
+      "name": "피카츄&제크로무 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017222",
+      "number": 222,
+      "name": "뮤츠&뮤 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017223",
+      "number": 223,
+      "name": "개굴닌자&조로아크 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017224",
+      "number": 224,
+      "name": "루카리오&멜메탈 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017225",
+      "number": 225,
+      "name": "한카리아스&기라티나 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12a-tag-team-gx-tag-all-stars",
+      "card_num": "BS2019017226",
+      "number": 226,
+      "name": "파이어&썬더&프리져 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12-alter-genesis",
+      "card_num": "BS2019016109",
+      "number": 109,
+      "name": "불카모스 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12-alter-genesis",
+      "card_num": "BS2019016110",
+      "number": 110,
+      "name": "춤추새 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12-alter-genesis",
+      "card_num": "BS2019016111",
+      "number": 111,
+      "name": "플라이곤 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12-alter-genesis",
+      "card_num": "BS2019016112",
+      "number": 112,
+      "name": "아르세우스&디아루가&펄기아 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12-alter-genesis",
+      "card_num": "BS2019016113",
+      "number": 113,
+      "name": "아고용&악식킹 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12-alter-genesis",
+      "card_num": "BS2019016114",
+      "number": 114,
+      "name": "메가이어롭&푸린 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12-alter-genesis",
+      "card_num": "BS2019016115",
+      "number": 115,
+      "name": "태그콜",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12-alter-genesis",
+      "card_num": "BS2019016116",
+      "number": 116,
+      "name": "섬 순례 증표",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm12-alter-genesis",
+      "card_num": "BS2019016117",
+      "number": 117,
+      "name": "거대한 화덕",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11b-dream-league",
+      "card_num": "BS2019015069",
+      "number": 69,
+      "name": "라플레시아 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11b-dream-league",
+      "card_num": "BS2019015070",
+      "number": 70,
+      "name": "솔가레오&루나아라 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11b-dream-league",
+      "card_num": "BS2019015071",
+      "number": 71,
+      "name": "레시라무&제크로무 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11b-dream-league",
+      "card_num": "BS2019015072",
+      "number": 72,
+      "name": "실버디 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11b-dream-league",
+      "card_num": "BS2019015073",
+      "number": 73,
+      "name": "수련의 낚싯대",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11b-dream-league",
+      "card_num": "BS2019015074",
+      "number": 74,
+      "name": "릴리에의 삐삐인형",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11b-dream-league",
+      "card_num": "BS2019015075",
+      "number": 75,
+      "name": "무인발전소",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11a-remix-bout",
+      "card_num": "BS2019014074",
+      "number": 74,
+      "name": "이상해꽃&주리비얀 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11a-remix-bout",
+      "card_num": "BS2019014075",
+      "number": 75,
+      "name": "리자몽&테르나 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11a-remix-bout",
+      "card_num": "BS2019014076",
+      "number": 76,
+      "name": "거북왕&팽도리 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11a-remix-bout",
+      "card_num": "BS2019014077",
+      "number": 77,
+      "name": "알로라페르시온 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11a-remix-bout",
+      "card_num": "BS2019014078",
+      "number": 78,
+      "name": "그레이트 캐처",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11a-remix-bout",
+      "card_num": "BS2019014079",
+      "number": 79,
+      "name": "격투도장",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11a-remix-bout",
+      "card_num": "BS2019014080",
+      "number": 80,
+      "name": "드로 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11-miracle-twin",
+      "card_num": "BS2019013107",
+      "number": 107,
+      "name": "야돈&고라파덕 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11-miracle-twin",
+      "card_num": "BS2019013108",
+      "number": 108,
+      "name": "뮤츠&뮤 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11-miracle-twin",
+      "card_num": "BS2019013109",
+      "number": 109,
+      "name": "라티오스 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11-miracle-twin",
+      "card_num": "BS2019013110",
+      "number": 110,
+      "name": "프테라 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11-miracle-twin",
+      "card_num": "BS2019013111",
+      "number": 111,
+      "name": "메가깜까미&마기라스 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11-miracle-twin",
+      "card_num": "BS2019013112",
+      "number": 112,
+      "name": "망나뇽 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11-miracle-twin",
+      "card_num": "BS2019013113",
+      "number": 113,
+      "name": "프레셔스볼",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11-miracle-twin",
+      "card_num": "BS2019013114",
+      "number": 114,
+      "name": "자이언트봄",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm11-miracle-twin",
+      "card_num": "BS2019013115",
+      "number": 115,
+      "name": "위크가드 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8-burst-impact",
+      "card_num": "BS2018010104",
+      "number": 104,
+      "name": "단단지 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8-burst-impact",
+      "card_num": "BS2018010105",
+      "number": 105,
+      "name": "두파팡 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8-burst-impact",
+      "card_num": "BS2018010106",
+      "number": 106,
+      "name": "스이쿤 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8-burst-impact",
+      "card_num": "BS2018010107",
+      "number": 107,
+      "name": "마기라스 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8-burst-impact",
+      "card_num": "BS2018010108",
+      "number": 108,
+      "name": "루기아 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8-burst-impact",
+      "card_num": "BS2018010109",
+      "number": 109,
+      "name": "시간벌기해머",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8-burst-impact",
+      "card_num": "BS2018010110",
+      "number": 110,
+      "name": "로스트믹서",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8-burst-impact",
+      "card_num": "BS2018010111",
+      "number": 111,
+      "name": "구애멧",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7b-fairy-rise",
+      "card_num": "BS2018009J057",
+      "number": 57,
+      "name": "나무킹 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001985/sm07b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm7b-fairy-rise",
+      "card_num": "BS2018009J058",
+      "number": 58,
+      "name": "심보러 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001986/sm07b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm7b-fairy-rise",
+      "card_num": "BS2018009J059",
+      "number": 59,
+      "name": "알로라나인테일 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001987/sm07b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm7b-fairy-rise",
+      "card_num": "BS2018009J060",
+      "number": 60,
+      "name": "따라큐 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001988/sm07b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm7b-fairy-rise",
+      "card_num": "BS2018009J061",
+      "number": 61,
+      "name": "네트볼",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001982/sm07b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm7b-fairy-rise",
+      "card_num": "BS2018009J062",
+      "number": 62,
+      "name": "모험가방",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001983/sm07b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm7b-fairy-rise",
+      "card_num": "BS2018009J063",
+      "number": 63,
+      "name": "저주의부적",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001984/sm07b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm7a-plasma-spark",
+      "card_num": "BS2018012067",
+      "number": 67,
+      "name": "비리디온 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7a-plasma-spark",
+      "card_num": "BS2018012068",
+      "number": 68,
+      "name": "마그카르고 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7a-plasma-spark",
+      "card_num": "BS2018012069",
+      "number": 69,
+      "name": "제라오라 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7a-plasma-spark",
+      "card_num": "BS2018012070",
+      "number": 70,
+      "name": "게노세크트 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7a-plasma-spark",
+      "card_num": "BS2018012071",
+      "number": 71,
+      "name": "일렉트릭파워",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7a-plasma-spark",
+      "card_num": "BS2018012072",
+      "number": 72,
+      "name": "커스텀 캐처",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7a-plasma-spark",
+      "card_num": "BS2018012073",
+      "number": 73,
+      "name": "카운터 게인",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7-sky-charisma",
+      "card_num": "BS2018007105",
+      "number": 105,
+      "name": "다탱구 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7-sky-charisma",
+      "card_num": "BS2018007106",
+      "number": 106,
+      "name": "번치코 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7-sky-charisma",
+      "card_num": "BS2018007107",
+      "number": 107,
+      "name": "차곡차곡 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7-sky-charisma",
+      "card_num": "BS2018007108",
+      "number": 108,
+      "name": "파비코리 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7-sky-charisma",
+      "card_num": "BS2018007109",
+      "number": 109,
+      "name": "레쿠쟈 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7-sky-charisma",
+      "card_num": "BS2018007110",
+      "number": 110,
+      "name": "더트자전거",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7-sky-charisma",
+      "card_num": "BS2018007111",
+      "number": 111,
+      "name": "레인보우브러시",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm7-sky-charisma",
+      "card_num": "BS2018007112",
+      "number": 112,
+      "name": "허슬벨트",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm6b-champion-road",
+      "card_num": "BS2018006J078",
+      "number": 78,
+      "name": "프리져 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001826/sm06b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6b-champion-road",
+      "card_num": "BS2018006J079",
+      "number": 79,
+      "name": "붐볼 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001827/sm06b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6b-champion-road",
+      "card_num": "BS2018006J080",
+      "number": 80,
+      "name": "마임맨 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001828/sm06b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6b-champion-road",
+      "card_num": "BS2018006J081",
+      "number": 81,
+      "name": "다크펫 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001829/sm06b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6b-champion-road",
+      "card_num": "BS2018006J082",
+      "number": 82,
+      "name": "핫삼 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001830/sm06b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6b-champion-road",
+      "card_num": "BS2018006J083",
+      "number": 83,
+      "name": "보만다 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001831/sm06b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6b-champion-road",
+      "card_num": "BS2018006J084",
+      "number": 84,
+      "name": "부활초",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001823/sm06b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6b-champion-road",
+      "card_num": "BS2018006J085",
+      "number": 85,
+      "name": "포켓 내비",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001824/sm06b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6b-champion-road",
+      "card_num": "BS2018006J086",
+      "number": 86,
+      "name": "레인보우 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001825/sm06b/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6a-dragon-storm",
+      "card_num": "BS2018005J060",
+      "number": 60,
+      "name": "레시라무 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001760/sm06a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6a-dragon-storm",
+      "card_num": "BS2018005J061",
+      "number": 61,
+      "name": "킹드라 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001761/sm06a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6a-dragon-storm",
+      "card_num": "BS2018005J062",
+      "number": 62,
+      "name": "망나뇽 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001762/sm06a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6a-dragon-storm",
+      "card_num": "BS2018005J063",
+      "number": 63,
+      "name": "화이트큐레무 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001763/sm06a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6a-dragon-storm",
+      "card_num": "BS2018005J064",
+      "number": 64,
+      "name": "교체플로트",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001757/sm06a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6a-dragon-storm",
+      "card_num": "BS2018005J065",
+      "number": 65,
+      "name": "부싯돌",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001758/sm06a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6a-dragon-storm",
+      "card_num": "BS2018005J066",
+      "number": 66,
+      "name": "용의 갈고리발톱",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001759/sm06a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm6-forbidden-light",
+      "card_num": "BS2018004103",
+      "number": 103,
+      "name": "개굴닌자 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm6-forbidden-light",
+      "card_num": "BS2018004104",
+      "number": 104,
+      "name": "지가르데 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm6-forbidden-light",
+      "card_num": "BS2018004105",
+      "number": 105,
+      "name": "이벨타르 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm6-forbidden-light",
+      "card_num": "BS2018004106",
+      "number": 106,
+      "name": "제르네아스 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm6-forbidden-light",
+      "card_num": "BS2018004107",
+      "number": 107,
+      "name": "울트라네크로즈마 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm6-forbidden-light",
+      "card_num": "BS2018004108",
+      "number": 108,
+      "name": "에너지 포터",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm6-forbidden-light",
+      "card_num": "BS2018004109",
+      "number": 109,
+      "name": "미스터리 트레져",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm6-forbidden-light",
+      "card_num": "BS2018004110",
+      "number": 110,
+      "name": "유닛 에너지 (격투) (악) (페어리)",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm5plus-ultra-force",
+      "card_num": "BS2018003J057",
+      "number": 57,
+      "name": "펄기아 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001697/sm05plus/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm5plus-ultra-force",
+      "card_num": "BS2018003J058",
+      "number": 58,
+      "name": "아고용 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001698/sm05plus/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm5plus-ultra-force",
+      "card_num": "BS2018003J059",
+      "number": 59,
+      "name": "루카리오 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001699/sm05plus/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm5plus-ultra-force",
+      "card_num": "BS2018003J060",
+      "number": 60,
+      "name": "디아루가 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001700/sm05plus/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm5plus-ultra-force",
+      "card_num": "BS2018003J061",
+      "number": 61,
+      "name": "에너지 리사이클",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001694/sm05plus/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm5plus-ultra-force",
+      "card_num": "BS2018003J062",
+      "number": 62,
+      "name": "비스트링",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001695/sm05plus/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm5plus-ultra-force",
+      "card_num": "BS2018003J063",
+      "number": 63,
+      "name": "강철 프라이팬",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001696/sm05plus/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm5s-ultra-sun",
+      "card_num": "BS2018001073",
+      "number": 73,
+      "name": "리피아 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm5s-ultra-sun",
+      "card_num": "BS2018001074",
+      "number": 74,
+      "name": "네크로즈마 황혼의 갈기 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm5s-ultra-sun",
+      "card_num": "BS2018001075",
+      "number": 75,
+      "name": "디아루가 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm5s-ultra-sun",
+      "card_num": "BS2018001076",
+      "number": 76,
+      "name": "엿보기 레드카드",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm5s-ultra-sun",
+      "card_num": "BS2018001077",
+      "number": 77,
+      "name": "미싱클로버",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm5s-ultra-sun",
+      "card_num": "BS2018001078",
+      "number": 78,
+      "name": "유닛 에너지 (풀) (불꽃) (물)",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm5m-ultra-moon",
+      "card_num": "BS2018002073",
+      "number": 73,
+      "name": "글레이시아 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm5m-ultra-moon",
+      "card_num": "BS2018002074",
+      "number": 74,
+      "name": "네크로즈마 새벽의 날개 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm5m-ultra-moon",
+      "card_num": "BS2018002075",
+      "number": 75,
+      "name": "펄기아 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm5m-ultra-moon",
+      "card_num": "BS2018002076",
+      "number": 76,
+      "name": "크래시 해머",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm5m-ultra-moon",
+      "card_num": "BS2018002077",
+      "number": 77,
+      "name": "이스케이프 보드",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm5m-ultra-moon",
+      "card_num": "BS2018002078",
+      "number": 78,
+      "name": "유닛 에너지 (번개) (초) (강철)",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4plus-gx-battle-boost",
+      "card_num": "BS2017013121",
+      "number": 121,
+      "name": "페로코체 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4plus-gx-battle-boost",
+      "card_num": "BS2017013122",
+      "number": 122,
+      "name": "전수목 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4plus-gx-battle-boost",
+      "card_num": "BS2017013123",
+      "number": 123,
+      "name": "철화구야 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4plus-gx-battle-boost",
+      "card_num": "BS2017013124",
+      "number": 124,
+      "name": "루나아라 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4plus-gx-battle-boost",
+      "card_num": "BS2017013125",
+      "number": 125,
+      "name": "솔가레오 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3plus-shining-legends",
+      "card_num": "BS2017010J078",
+      "number": 78,
+      "name": "앤테이 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001612/sm03plus/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm3plus-shining-legends",
+      "card_num": "BS2017010J079",
+      "number": 79,
+      "name": "라이츄 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001613/sm03plus/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm3plus-shining-legends",
+      "card_num": "BS2017010J080",
+      "number": 80,
+      "name": "뮤츠 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001614/sm03plus/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm3plus-shining-legends",
+      "card_num": "BS2017010J081",
+      "number": 81,
+      "name": "조로아크 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001615/sm03plus/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm3plus-shining-legends",
+      "card_num": "BS2017010J082",
+      "number": 82,
+      "name": "뮤츠 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000001633/sm03plus/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm4s-awakened-heroes",
+      "card_num": "BS2017011056",
+      "number": 56,
+      "name": "알로라딱구리 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4s-awakened-heroes",
+      "card_num": "BS2017011057",
+      "number": 57,
+      "name": "매시붕 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4s-awakened-heroes",
+      "card_num": "BS2017011058",
+      "number": 58,
+      "name": "종이신도 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4s-awakened-heroes",
+      "card_num": "BS2017011059",
+      "number": 59,
+      "name": "실버디 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4s-awakened-heroes",
+      "card_num": "BS2017011060",
+      "number": 60,
+      "name": "카운터 캐처",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4s-awakened-heroes",
+      "card_num": "BS2017011061",
+      "number": 61,
+      "name": "워프 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4s-awakened-heroes",
+      "card_num": "BS2017011062",
+      "number": 62,
+      "name": "기본 강철 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4a-ultradimensional-beasts",
+      "card_num": "BS2017012056",
+      "number": 56,
+      "name": "갸라도스 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4a-ultradimensional-beasts",
+      "card_num": "BS2017012057",
+      "number": 57,
+      "name": "텅비드 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4a-ultradimensional-beasts",
+      "card_num": "BS2017012058",
+      "number": 58,
+      "name": "악식킹 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4a-ultradimensional-beasts",
+      "card_num": "BS2017012059",
+      "number": 59,
+      "name": "알로라나시 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4a-ultradimensional-beasts",
+      "card_num": "BS2017012060",
+      "number": 60,
+      "name": "소원의 바통",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4a-ultradimensional-beasts",
+      "card_num": "BS2017012061",
+      "number": 61,
+      "name": "카운터 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4a-ultradimensional-beasts",
+      "card_num": "BS2017012062",
+      "number": 62,
+      "name": "기본 물 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "smxy-best-of-xy",
+      "card_num": "BS201707187",
+      "number": 187,
+      "name": "이벨타르 EX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "smxy-best-of-xy",
+      "card_num": "BS201707188",
+      "number": 188,
+      "name": "쉐이미 EX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3h-rainbow-in-darkness",
+      "card_num": "BS2017008058",
+      "number": 58,
+      "name": "리자몽 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3h-rainbow-in-darkness",
+      "card_num": "BS2017008059",
+      "number": 59,
+      "name": "칠색조 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3h-rainbow-in-darkness",
+      "card_num": "BS2017008060",
+      "number": 60,
+      "name": "알로라질뻐기 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3h-rainbow-in-darkness",
+      "card_num": "BS2017008061",
+      "number": 61,
+      "name": "음번 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3h-rainbow-in-darkness",
+      "card_num": "BS2017008062",
+      "number": 62,
+      "name": "동굴탈출로프",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3h-rainbow-in-darkness",
+      "card_num": "BS2017008063",
+      "number": 63,
+      "name": "불끈불끈덤벨",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3h-rainbow-in-darkness",
+      "card_num": "BS2017008064",
+      "number": 64,
+      "name": "기본 불꽃 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3n-darkness-devours-light",
+      "card_num": "BS2017009058",
+      "number": 58,
+      "name": "갑주무사 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3n-darkness-devours-light",
+      "card_num": "BS2017009059",
+      "number": 59,
+      "name": "네크로즈마 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3n-darkness-devours-light",
+      "card_num": "BS2017009060",
+      "number": 60,
+      "name": "마샤도 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3n-darkness-devours-light",
+      "card_num": "BS2017009061",
+      "number": 61,
+      "name": "가디안 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3n-darkness-devours-light",
+      "card_num": "BS2017009062",
+      "number": 62,
+      "name": "수퍼 포켓몬 회수",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3n-darkness-devours-light",
+      "card_num": "BS2017009063",
+      "number": 63,
+      "name": "레스큐탱크",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm3n-darkness-devours-light",
+      "card_num": "BS2017009064",
+      "number": 64,
+      "name": "기본 페어리 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4plus-gx-battle-boost-remaster",
+      "card_num": "BS2018011121",
+      "number": 121,
+      "name": "페로코체 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4plus-gx-battle-boost-remaster",
+      "card_num": "BS2018011122",
+      "number": 122,
+      "name": "전수목 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4plus-gx-battle-boost-remaster",
+      "card_num": "BS2018011123",
+      "number": 123,
+      "name": "철화구야 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4plus-gx-battle-boost-remaster",
+      "card_num": "BS2018011124",
+      "number": 124,
+      "name": "루나아라 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm4plus-gx-battle-boost-remaster",
+      "card_num": "BS2018011125",
+      "number": 125,
+      "name": "솔가레오 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8a-dark-order",
+      "card_num": "BS2018013J059",
+      "number": 59,
+      "name": "전룡 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002048/sm08a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm8a-dark-order",
+      "card_num": "BS2018013J060",
+      "number": 60,
+      "name": "후파 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002049/sm08a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm8a-dark-order",
+      "card_num": "BS2018013J061",
+      "number": 61,
+      "name": "어흥염 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002050/sm08a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm8a-dark-order",
+      "card_num": "BS2018013J062",
+      "number": 62,
+      "name": "코바르온 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002051/sm08a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm8a-dark-order",
+      "card_num": "BS2018013J063",
+      "number": 63,
+      "name": "일렉차저",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002045/sm08a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm8a-dark-order",
+      "card_num": "BS2018013J064",
+      "number": 64,
+      "name": "데인저러스 드릴",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002046/sm08a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm8a-dark-order",
+      "card_num": "BS2018013J065",
+      "number": 65,
+      "name": "메탈고글",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002047/sm08a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm9-tag-bolt",
+      "card_num": "BS2019001110",
+      "number": 110,
+      "name": "세레비&이상해꽃 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9-tag-bolt",
+      "card_num": "BS2019001111",
+      "number": 111,
+      "name": "잉어킹&고래왕 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9-tag-bolt",
+      "card_num": "BS2019001112",
+      "number": 112,
+      "name": "피카츄&제크로무 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9-tag-bolt",
+      "card_num": "BS2019001113",
+      "number": 113,
+      "name": "팬텀&따라큐 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9-tag-bolt",
+      "card_num": "BS2019001114",
+      "number": 114,
+      "name": "라티아스&라티오스 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9-tag-bolt",
+      "card_num": "BS2019001115",
+      "number": 115,
+      "name": "이브이&잠만보 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9-tag-bolt",
+      "card_num": "BS2019001116",
+      "number": 116,
+      "name": "포켓몬통신",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9-tag-bolt",
+      "card_num": "BS2019001117",
+      "number": 117,
+      "name": "저지맨휘슬",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9-tag-bolt",
+      "card_num": "BS2019001118",
+      "number": 118,
+      "name": "잔잔한물가언덕",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9b-full-metal-wall",
+      "card_num": "BS2019005063",
+      "number": 63,
+      "name": "페로코체&매시붕 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9b-full-metal-wall",
+      "card_num": "BS2019005064",
+      "number": 64,
+      "name": "거북왕 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9b-full-metal-wall",
+      "card_num": "BS2019005065",
+      "number": 65,
+      "name": "루카리오&멜메탈 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9b-full-metal-wall",
+      "card_num": "BS2019005066",
+      "number": 66,
+      "name": "철화구야 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9b-full-metal-wall",
+      "card_num": "BS2019005067",
+      "number": 67,
+      "name": "비스트브링거",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9b-full-metal-wall",
+      "card_num": "BS2019005068",
+      "number": 68,
+      "name": "메탈코어 배리어",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9b-full-metal-wall",
+      "card_num": "BS2019005069",
+      "number": 69,
+      "name": "천관산",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm9a-night-unison",
+      "card_num": "BS2019003J064",
+      "number": 64,
+      "name": "도나리 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002113/sm09a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm9a-night-unison",
+      "card_num": "BS2019003J065",
+      "number": 65,
+      "name": "데덴네 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002114/sm09a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm9a-night-unison",
+      "card_num": "BS2019003J066",
+      "number": 66,
+      "name": "개굴닌자&조로아크 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002115/sm09a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm9a-night-unison",
+      "card_num": "BS2019003J067",
+      "number": 67,
+      "name": "가디안&님피아 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002116/sm09a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm9a-night-unison",
+      "card_num": "BS2019003J068",
+      "number": 68,
+      "name": "전자레이더",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002110/sm09a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm9a-night-unison",
+      "card_num": "BS2019003J069",
+      "number": 69,
+      "name": "포켓기어3.0",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002111/sm09a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm9a-night-unison",
+      "card_num": "BS2019003J070",
+      "number": 70,
+      "name": "에테르파라다이스 보호구",
+      "source": null,
+      "findings": [
+        {
+          "field": "non_official_id",
+          "source": "https://pokemon-card-fullahead.com/shopdetail/000000002112/sm09a/page1/recommend/"
+        }
+      ]
+    },
+    {
+      "set": "sm10b-sky-legend",
+      "card_num": "BS2019011063",
+      "number": 63,
+      "name": "나몰빼미&알로라나시 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10b-sky-legend",
+      "card_num": "BS2019011064",
+      "number": 64,
+      "name": "케르디오 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10b-sky-legend",
+      "card_num": "BS2019011065",
+      "number": 65,
+      "name": "아고용 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10b-sky-legend",
+      "card_num": "BS2019011066",
+      "number": 66,
+      "name": "파이어&썬더&프리져 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10b-sky-legend",
+      "card_num": "BS2019011067",
+      "number": 67,
+      "name": "U턴 보드",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10b-sky-legend",
+      "card_num": "BS2019011068",
+      "number": 68,
+      "name": "상록숲",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10b-sky-legend",
+      "card_num": "BS2019011069",
+      "number": 69,
+      "name": "리사이클 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10a-gg-end",
+      "card_num": "BS2019010063",
+      "number": 63,
+      "name": "히드런 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10a-gg-end",
+      "card_num": "BS2019010064",
+      "number": 64,
+      "name": "라이츄&알로라라이츄 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10a-gg-end",
+      "card_num": "BS2019010065",
+      "number": 65,
+      "name": "입치트 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10a-gg-end",
+      "card_num": "BS2019010066",
+      "number": 66,
+      "name": "한카리아스&기라티나 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10a-gg-end",
+      "card_num": "BS2019010067",
+      "number": 67,
+      "name": "태그 스위치",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10a-gg-end",
+      "card_num": "BS2019010068",
+      "number": 68,
+      "name": "리셋 스탬프",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10a-gg-end",
+      "card_num": "BS2019010069",
+      "number": 69,
+      "name": "검은띠",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10-double-blaze",
+      "card_num": "BS2019007108",
+      "number": 108,
+      "name": "레시라무&리자몽 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10-double-blaze",
+      "card_num": "BS2019007109",
+      "number": 109,
+      "name": "질뻐기&알로라질뻐기 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10-double-blaze",
+      "card_num": "BS2019007110",
+      "number": 110,
+      "name": "마샤도&괴력몬 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10-double-blaze",
+      "card_num": "BS2019007111",
+      "number": 111,
+      "name": "돈크로우 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10-double-blaze",
+      "card_num": "BS2019007112",
+      "number": 112,
+      "name": "엘풍 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10-double-blaze",
+      "card_num": "BS2019007113",
+      "number": 113,
+      "name": "페르시온 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10-double-blaze",
+      "card_num": "BS2019007114",
+      "number": 114,
+      "name": "불꽃결정",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10-double-blaze",
+      "card_num": "BS2019007115",
+      "number": 115,
+      "name": "징벌의 사당",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm10-double-blaze",
+      "card_num": "BS2019007116",
+      "number": 116,
+      "name": "트리플 가속 에너지",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8b-gx-ultra-shiny",
+      "card_num": "BS2019002244",
+      "number": 244,
+      "name": "카푸브루루 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8b-gx-ultra-shiny",
+      "card_num": "BS2019002245",
+      "number": 245,
+      "name": "카푸느지느 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8b-gx-ultra-shiny",
+      "card_num": "BS2019002246",
+      "number": 246,
+      "name": "카푸꼬꼬꼭 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8b-gx-ultra-shiny",
+      "card_num": "BS2019002247",
+      "number": 247,
+      "name": "카푸나비나 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8b-gx-ultra-shiny",
+      "card_num": "BS2019002248",
+      "number": 248,
+      "name": "루나아라 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8b-gx-ultra-shiny",
+      "card_num": "BS2019002249",
+      "number": 249,
+      "name": "솔가레오 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    },
+    {
+      "set": "sm8b-gx-ultra-shiny",
+      "card_num": "BS2019002250",
+      "number": 250,
+      "name": "울트라네크로즈마 GX",
+      "source": null,
+      "findings": [
+        {
+          "field": "official_unavailable",
+          "error": "Error: Official detail missing name/image"
+        }
+      ]
+    }
+  ]
+}

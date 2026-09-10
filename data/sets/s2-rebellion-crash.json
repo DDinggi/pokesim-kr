@@ -1194,13 +1194,17 @@
       "number": 89,
       "name_ko": "저주의삽",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S2/S2_089.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020005089",
-      "_fetched_at": "2026-06-17"
+      "_fetched_at": "2026-06-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020005089"
+      }
     },
     {
       "card_num": "BS2020005090",
@@ -1734,6 +1738,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

@@ -1,5 +1,9 @@
 import type { StandardHighKey, StandardSvSetRate } from './types';
 
+// Japanese public opening summary: A 1–2/box. Midpoint approximation, not measured 50%.
+// https://shark-tcg.com/s4a-box-kaihu/ (edition unspecified; Korean rates unpublished)
+export const SHINY_STAR_V_SECOND_A_RATE = 0.5;
+
 export const PROBABILITY_META = {
   source: 'pokemon-infomation.com / altema.jp / snkrdunk',
   disclaimer:

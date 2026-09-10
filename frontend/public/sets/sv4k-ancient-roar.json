@@ -829,39 +829,51 @@
       "number": 61,
       "name_ko": "기술머신 데볼루션",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4K/SV4K_061.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021061",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023021061"
+      }
     },
     {
       "card_num": "BS2023021062",
       "number": 62,
       "name_ko": "부스트에너지 고대",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4K/SV4K_062.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021062",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023021062"
+      }
     },
     {
       "card_num": "BS2023021063",
       "number": 63,
       "name_ko": "오기조끼",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4K/SV4K_063.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023021063",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023021063"
+      }
     },
     {
       "card_num": "BS2023021064",
@@ -1420,7 +1432,7 @@
       "number": 94,
       "name_ko": "럭셔리망토",
       "rarity": "UR",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
@@ -1432,7 +1444,11 @@
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000042469/sv04k/page2/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023021094"
+      }
     },
     {
       "card_num": "BS2023021095",
@@ -1516,6 +1532,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

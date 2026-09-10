@@ -25,6 +25,7 @@ import {
   MEGA_DREAM_GOD_PACK_RATE,
   MEGA_EXTRA_SR_RATE,
   SHINY_STAR_V_EXTRA_SLOT_WEIGHTS,
+  SHINY_STAR_V_SECOND_A_RATE,
   SHINY_TREASURE_EXTRA_SLOT_WEIGHTS,
   SV11_AR_COUNT,
   SV11_EXTRA_SR_RATE,
@@ -793,18 +794,21 @@ function getExpectedScoredRarityCounts(
 
     if (code === 'sv8a-terastal-festa') {
       addLoosePackBaselineCount('SAR');
+      addLoosePackBaselineCount('ACE');
       addExpectedCountsFromWeights(counts, TERASTAL_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
       return counts;
     }
 
     if (code === 'sv4a-shiny-treasure-ex') {
       addLoosePackBaselineCount('SSR');
+      addLoosePackBaselineCount('S', 3);
       addExpectedCountsFromWeights(counts, SHINY_TREASURE_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
       return counts;
     }
 
     if (code === 's4a-shiny-star-v') {
       addExpectedCount(counts, 'S', unitCount * 3);
+      addLoosePackBaselineCount('A', 1 + SHINY_STAR_V_SECOND_A_RATE);
       addLoosePackBaselineCount('SSR');
       addExpectedCountsFromWeights(counts, SHINY_STAR_V_EXTRA_SLOT_WEIGHTS, unitCount, 1, opening);
       return counts;
@@ -841,10 +845,13 @@ function getExpectedScoredRarityCounts(
     }
 
     if (code === 'sm12a-tag-team-gx-tag-all-stars') {
-      const ordinaryUnitCount = unitCount * (1 - TAG_ALL_STARS_GOD_PACK_RATE);
+      const ordinaryUnitCount = opening.boxes * (1 - TAG_ALL_STARS_GOD_PACK_RATE)
+        + opening.packs / opening.boxSize * (1 - TAG_ALL_STARS_GOD_PACK_PACK_RATE);
+      addExpectedCount(counts, 'PR', ordinaryUnitCount);
       addExpectedCount(counts, 'SR', ordinaryUnitCount); // 기본 에너지 SR 1장
       addExpectedCountsFromWeights(counts, TAG_ALL_STARS_MAIN_SLOT_WEIGHTS, ordinaryUnitCount, 1, opening);
-      addExpectedCount(counts, 'SR', unitCount * TAG_ALL_STARS_GOD_PACK_RATE * 10);
+      addExpectedCount(counts, 'SR', (opening.boxes * TAG_ALL_STARS_GOD_PACK_RATE
+        + opening.packs * TAG_ALL_STARS_GOD_PACK_PACK_RATE) * 10);
       return counts;
     }
 
@@ -960,9 +967,11 @@ function subtractBaselineCounts(
   }
   if (code === 'sv4a-shiny-treasure-ex') {
     counts.SSR = Math.max(0, (counts.SSR ?? 0) - opening.boxes);
+    counts.S = Math.max(0, (counts.S ?? 0) - opening.boxes * 3);
   }
   if (code === 's4a-shiny-star-v') {
-    counts.S = Math.max(0, (counts.S ?? 0) - opening.boxes);
+    counts.S = Math.max(0, (counts.S ?? 0) - opening.boxes * 3);
+    counts.A = Math.max(0, (counts.A ?? 0) - opening.boxes);
     counts.SSR = Math.max(0, (counts.SSR ?? 0) - opening.boxes);
   }
   if (code === 'sm8b-gx-ultra-shiny') {
@@ -1189,7 +1198,10 @@ function getBoxScoreDistribution(
     }
 
     if (code === 's4a-shiny-star-v') {
-      return distributionFromWeights(SHINY_STAR_V_EXTRA_SLOT_WEIGHTS, 'box');
+      return convolveDistributions(
+        distributionFromWeights(SHINY_STAR_V_EXTRA_SLOT_WEIGHTS, 'box'),
+        bernoulliDistribution(getScoreWeight('A', 'box'), SHINY_STAR_V_SECOND_A_RATE),
+      );
     }
 
     if (code === 'sm8b-gx-ultra-shiny') {
@@ -1226,7 +1238,8 @@ function getBoxScoreDistribution(
     }
 
     if (code === 'sm12a-tag-team-gx-tag-all-stars') {
-      const ordinary = distributionFromWeights(TAG_ALL_STARS_MAIN_SLOT_WEIGHTS, 'box');
+      const ordinary = distributionFromWeights(TAG_ALL_STARS_MAIN_SLOT_WEIGHTS, 'box')
+        .map((outcome) => ({ ...outcome, score: outcome.score + getScoreWeight('PR', 'box') }));
       return normalizeDistribution([
         ...ordinary.map((outcome) => ({
           ...outcome,
@@ -1381,6 +1394,7 @@ function getPackScoreDistribution(
     }
 
     if (code === 'sv4a-shiny-treasure-ex') {
+      distribution = convolveDistributions(distribution, bernoulliDistribution(getScoreWeight('S', 'pack'), 3 / boxSize));
       distribution = convolveDistributions(
         distribution,
         bernoulliDistribution(getScoreWeight('SSR', 'pack'), 1 / boxSize),
@@ -1392,9 +1406,10 @@ function getPackScoreDistribution(
     }
 
     if (code === 's4a-shiny-star-v') {
+      distribution = convolveDistributions(distribution, bernoulliDistribution(getScoreWeight('A', 'pack'), (1 + SHINY_STAR_V_SECOND_A_RATE) / boxSize));
       distribution = convolveDistributions(
         distribution,
-        bernoulliDistribution(getScoreWeight('S', 'pack'), 1.5 / boxSize),
+        bernoulliDistribution(getScoreWeight('S', 'pack'), 3 / boxSize),
       );
       distribution = convolveDistributions(
         distribution,
@@ -1468,11 +1483,12 @@ function getPackScoreDistribution(
     }
 
     if (code === 'sm12a-tag-team-gx-tag-all-stars') {
-      const ordinary = convolveDistributions(
+      let ordinary = convolveDistributions(
         bernoulliDistribution(getScoreWeight('SR', 'pack'), 1 / boxSize),
         optionalPackDistributionFromBoxWeights(TAG_ALL_STARS_MAIN_SLOT_WEIGHTS, boxSize, 'pack'),
       );
       const godPackRate = TAG_ALL_STARS_GOD_PACK_PACK_RATE;
+      ordinary = convolveDistributions(ordinary, bernoulliDistribution(getScoreWeight('PR', 'pack'), 1 / boxSize));
       return normalizeDistribution([
         ...ordinary.map((outcome) => ({
           ...outcome,

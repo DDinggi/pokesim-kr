@@ -1123,26 +1123,34 @@
       "number": 46,
       "name_ko": "용의 갈고리발톱",
       "rarity": "C",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": "미러",
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM6A/SM6A_103.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018005103",
-      "_fetched_at": "2026-07-28"
+      "_fetched_at": "2026-07-28",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018005103"
+      }
     },
     {
       "card_num": "BS2018005046",
       "number": 46,
       "name_ko": "용의 갈고리발톱",
       "rarity": "C",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM6A/SM6A_046.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018005046",
-      "_fetched_at": "2026-07-28"
+      "_fetched_at": "2026-07-28",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018005046"
+      }
     },
     {
       "card_num": "BS2018005047",
@@ -1744,6 +1752,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-08-02"
+    "_built_at": "2026-09-10"
   }
 }

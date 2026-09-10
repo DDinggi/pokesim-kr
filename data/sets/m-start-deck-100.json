@@ -9157,234 +9157,306 @@
       "number": 676,
       "name_ko": "꼬시개열매",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_676.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001676",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001676"
+      }
     },
     {
       "card_num": "BS2026001677",
       "number": 677,
       "name_ko": "난천의 파워웨이트",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_677.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001677",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001677"
+      }
     },
     {
       "card_num": "BS2026001678",
       "number": 678,
       "name_ko": "디럭스봄",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_678.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001678",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001678"
+      }
     },
     {
       "card_num": "BS2026001679",
       "number": 679,
       "name_ko": "릴리에의 진주",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_679.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001679",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001679"
+      }
     },
     {
       "card_num": "BS2026001680",
       "number": 680,
       "name_ko": "마코열매",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_680.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001680",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001680"
+      }
     },
     {
       "card_num": "BS2026001681",
       "number": 681,
       "name_ko": "맥시멈 벨트",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_681.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001681",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001681"
+      }
     },
     {
       "card_num": "BS2026001682",
       "number": 682,
       "name_ko": "바리비열매",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_682.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001682",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001682"
+      }
     },
     {
       "card_num": "BS2026001683",
       "number": 683,
       "name_ko": "반짝이는 결정",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_683.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001683",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001683"
+      }
     },
     {
       "card_num": "BS2026001684",
       "number": 684,
       "name_ko": "브레이브뱅글",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_684.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001684",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001684"
+      }
     },
     {
       "card_num": "BS2026001685",
       "number": 685,
       "name_ko": "사슬떡",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_685.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001685",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001685"
+      }
     },
     {
       "card_num": "BS2026001686",
       "number": 686,
       "name_ko": "야파열매",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_686.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001686",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001686"
+      }
     },
     {
       "card_num": "BS2026001687",
       "number": 687,
       "name_ko": "오카열매",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_687.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001687",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001687"
+      }
     },
     {
       "card_num": "BS2026001688",
       "number": 688,
       "name_ko": "카운터 게인",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_688.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001688",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001688"
+      }
     },
     {
       "card_num": "BS2026001689",
       "number": 689,
       "name_ko": "풍선",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_689.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001689",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001689"
+      }
     },
     {
       "card_num": "BS2026001690",
       "number": 690,
       "name_ko": "하반열매",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_690.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001690",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001690"
+      }
     },
     {
       "card_num": "BS2026001691",
       "number": 691,
       "name_ko": "호브의 구애머리띠",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_691.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001691",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001691"
+      }
     },
     {
       "card_num": "BS2026001692",
       "number": 692,
       "name_ko": "히어로 망토",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_692.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001692",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001692"
+      }
     },
     {
       "card_num": "BS2026001693",
       "number": 693,
       "name_ko": "힘의 모래시계",
       "rarity": null,
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/MEGA/MC/MC_693.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026001693",
-      "_fetched_at": "2026-06-02"
+      "_fetched_at": "2026-06-02",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026001693"
+      }
     },
     {
       "card_num": "BS2026001694",
@@ -10766,6 +10838,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

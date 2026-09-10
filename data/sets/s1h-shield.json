@@ -713,13 +713,17 @@
       "number": 52,
       "name_ko": "메탈소서",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S1H/S1H_052.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020003052",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020003052"
+      }
     },
     {
       "card_num": "BS2020003053",
@@ -752,39 +756,51 @@
       "number": 55,
       "name_ko": "기력의머리띠",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S1H/S1H_055.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020003055",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020003055"
+      }
     },
     {
       "card_num": "BS2020003056",
       "number": 56,
       "name_ko": "자뭉열매",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S1H/S1H_056.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020003056",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020003056"
+      }
     },
     {
       "card_num": "BS2020003057",
       "number": 57,
       "name_ko": "행복의알",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S1H/S1H_057.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020003057",
-      "_fetched_at": "2026-06-20"
+      "_fetched_at": "2026-06-20",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020003057"
+      }
     },
     {
       "card_num": "BS2020003058",
@@ -1184,6 +1200,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

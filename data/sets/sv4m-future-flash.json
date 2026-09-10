@@ -829,39 +829,51 @@
       "number": 61,
       "name_ko": "기술머신 에볼루션",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4M/SV4M_061.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023022061",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023022061"
+      }
     },
     {
       "card_num": "BS2023022062",
       "number": 62,
       "name_ko": "부스트에너지 미래",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4M/SV4M_062.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023022062",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023022062"
+      }
     },
     {
       "card_num": "BS2023022063",
       "number": 63,
       "name_ko": "저주의 먼지떨이",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SV/SV4M/SV4M_063.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2023022063",
-      "_fetched_at": "2026-05-17"
+      "_fetched_at": "2026-05-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2023022063"
+      }
     },
     {
       "card_num": "BS2023022064",
@@ -1516,6 +1528,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

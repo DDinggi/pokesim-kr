@@ -957,26 +957,34 @@
       "number": 68,
       "name_ko": "영웅의 메달",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S3a/S3a_068.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020012068",
-      "_fetched_at": "2026-06-17"
+      "_fetched_at": "2026-06-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020012068"
+      }
     },
     {
       "card_num": "BS2020012069",
       "number": 69,
       "name_ko": "울퉁불퉁멧",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S3a/S3a_069.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020012069",
-      "_fetched_at": "2026-06-17"
+      "_fetched_at": "2026-06-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020012069"
+      }
     },
     {
       "card_num": "BS2020012070",
@@ -1491,6 +1499,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

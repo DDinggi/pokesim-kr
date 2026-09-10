@@ -649,39 +649,51 @@
       "number": 44,
       "name_ko": "노말Z 몸통박치기",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM10b/SM10b_044.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019011044",
-      "_fetched_at": "2026-06-27"
+      "_fetched_at": "2026-06-27",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019011044"
+      }
     },
     {
       "card_num": "BS2019011045",
       "number": 45,
       "name_ko": "비행Z 에어슬래시",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM10b/SM10b_045.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019011045",
-      "_fetched_at": "2026-06-27"
+      "_fetched_at": "2026-06-27",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019011045"
+      }
     },
     {
       "card_num": "BS2019011046",
       "number": 46,
       "name_ko": "U턴 보드",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM10b/SM10b_046.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2019011046",
-      "_fetched_at": "2026-06-27"
+      "_fetched_at": "2026-06-27",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2019011046"
+      }
     },
     {
       "card_num": "BS2019011047",
@@ -1172,6 +1184,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-27"
+    "_built_at": "2026-09-10"
   }
 }

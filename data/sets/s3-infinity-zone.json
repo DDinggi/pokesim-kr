@@ -1233,26 +1233,34 @@
       "number": 92,
       "name_ko": "뭉게뭉게 스모크",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S3/S3_092.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020011092",
-      "_fetched_at": "2026-06-17"
+      "_fetched_at": "2026-06-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020011092"
+      }
     },
     {
       "card_num": "BS2020011093",
       "number": 93,
       "name_ko": "터프니스 망토",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S3/S3_093.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2020011093",
-      "_fetched_at": "2026-06-17"
+      "_fetched_at": "2026-06-17",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2020011093"
+      }
     },
     {
       "card_num": "BS2020011094",
@@ -1786,6 +1794,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }

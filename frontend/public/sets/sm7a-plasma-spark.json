@@ -772,26 +772,34 @@
       "number": 53,
       "name_ko": "구애머리띠",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM7A/SM7A_053.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018012053",
-      "_fetched_at": "2026-07-11"
+      "_fetched_at": "2026-07-11",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018012053"
+      }
     },
     {
       "card_num": "BS2018012054",
       "number": 54,
       "name_ko": "카운터 게인",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/SM/SM7A/SM7A_054.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2018012054",
-      "_fetched_at": "2026-07-11"
+      "_fetched_at": "2026-07-11",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2018012054"
+      }
     },
     {
       "card_num": "BS2018012055",
@@ -1200,6 +1208,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-07-11"
+    "_built_at": "2026-09-10"
   }
 }

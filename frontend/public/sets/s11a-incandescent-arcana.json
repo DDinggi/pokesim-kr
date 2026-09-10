@@ -1378,26 +1378,34 @@
       "number": 62,
       "name_ko": "긴급젤리",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S11a/S11a_062_m.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016062m",
-      "_fetched_at": "2026-05-23"
+      "_fetched_at": "2026-05-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022016062m"
+      }
     },
     {
       "card_num": "BS2022016062",
       "number": 62,
       "name_ko": "긴급젤리",
       "rarity": "U",
-      "card_type": "포켓몬",
+      "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
       "image_url": "wmimages/S/S11a/S11a_062.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016062",
-      "_fetched_at": "2026-05-23"
+      "_fetched_at": "2026-05-23",
+      "_classification_review": {
+        "date": "2026-09-10",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022016062"
+      }
     },
     {
       "card_num": "BS2022016063m",
@@ -2112,6 +2120,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-06-24"
+    "_built_at": "2026-09-10"
   }
 }
