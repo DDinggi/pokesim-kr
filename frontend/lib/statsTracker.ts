@@ -122,6 +122,26 @@ export interface GlobalStats {
   totalKrw: number;
 }
 
+export interface VisitorStats {
+  cumulativeUniqueVisitors: number;
+  firstObservedAt: string | null;
+  measuredAt: string;
+}
+
+export async function fetchVisitorStats(): Promise<VisitorStats | null> {
+  try {
+    const response = await fetch('/api/visitor-stats');
+    if (!response.ok) return null;
+    const stats = await response.json() as VisitorStats;
+    return Number.isSafeInteger(stats.cumulativeUniqueVisitors)
+      && stats.cumulativeUniqueVisitors >= 0
+      ? stats
+      : null;
+  } catch {
+    return null;
+  }
+}
+
 export interface SetPopularity {
   setCode: string;
   totalBoxes: number;

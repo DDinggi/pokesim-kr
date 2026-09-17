@@ -14,6 +14,7 @@
     "process:box-image": "tsx process-box-image.ts",
     "benchmark:images": "tsx benchmark-image-delivery.ts",
     "audit:images": "tsx audit-card-images.ts",
+    "audit:visitors": "tsx audit-visitor-count.ts",
     "audit:identity": "tsx audit-card-identity.ts",
     "validate:identity-review": "tsx validate-card-identity-review.ts",
     "fetch:prices": "tsx fetch-reference-prices.ts",
