@@ -4,7 +4,7 @@ import { memo, useCallback, useEffect, useMemo, useState, useSyncExternalStore, 
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Card, SetMeta } from '../lib/types';
-import { fetchGlobalStats, trackUserEvent, type GlobalStats } from '../lib/statsTracker';
+import { fetchGlobalStats, fetchVisitorStats, trackUserEvent, type GlobalStats, type VisitorStats } from '../lib/statsTracker';
 import { shortSetName } from '../lib/dailyLuck';
 import {
   getRecentOpeningDetailCards,
@@ -60,6 +60,7 @@ export function MainScreen({
   accountBar?: ReactNode;
 }) {
   const [stats, setStats] = useState<GlobalStats | null>(null);
+  const [visitorStats, setVisitorStats] = useState<VisitorStats | null>(null);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [showAllHistoryCards, setShowAllHistoryCards] = useState(false);
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
@@ -74,6 +75,9 @@ export function MainScreen({
   useEffect(() => {
     fetchGlobalStats().then((nextStats) => {
       if (nextStats) setStats(nextStats);
+    });
+    fetchVisitorStats().then((nextStats) => {
+      if (nextStats) setVisitorStats(nextStats);
     });
   }, []);
 
@@ -284,9 +288,17 @@ export function MainScreen({
       )}
 
       <footer className="flex flex-col items-center gap-2 border-t border-gray-900 px-6 py-5">
+        {visitorStats && (
+          <p className="text-center text-xs text-gray-400">
+            누적 방문 브라우저 <span className="font-bold text-white">{visitorStats.cumulativeUniqueVisitors.toLocaleString()}개</span>
+            <span className="text-gray-500"> (익명 ID 기준 · 집계 시작 {visitorStats.firstObservedAt
+              ? new Date(visitorStats.firstObservedAt).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' })
+              : '확인 중'})</span>
+          </p>
+        )}
         {stats && (
           <p className="text-center text-xs text-gray-400">
-            지금까지 <span className="font-bold text-white">{stats.totalSessions.toLocaleString()}명</span>이{' '}
+            개봉 참여 일일 세션 <span className="font-bold text-white">{stats.totalSessions.toLocaleString()}회</span>에서{' '}
             <span className="font-bold text-white">{stats.totalPacks.toLocaleString()}팩</span> ·{' '}
             <span className="font-bold text-white">{stats.totalBoxes.toLocaleString()}박스</span> ·{' '}
             <span className="font-bold text-pink-400">{stats.totalKrw.toLocaleString()}원</span>어치
