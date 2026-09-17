@@ -25,6 +25,10 @@ function positiveInt(name: string, fallback: number): number {
 const inputArg = argValue('--input');
 const setCode = argValue('--set');
 const flipHorizontal = process.argv.includes('--flip-horizontal');
+const cropLeft = Number.parseInt(argValue('--crop-left') ?? '0', 10);
+const cropTop = Number.parseInt(argValue('--crop-top') ?? '0', 10);
+const cropWidthRaw = argValue('--crop-width');
+const cropHeightRaw = argValue('--crop-height');
 
 if (!inputArg || !setCode) {
   throw new Error(
@@ -54,7 +58,17 @@ const boxesDir = join(ROOT, 'frontend', 'public', 'boxes');
 const outputPath = join(boxesDir, `${setCode}.png`);
 const thumbnailPath = join(boxesDir, 'thumbs', `${setCode}.webp`);
 
-const source = sharp(inputPath).ensureAlpha();
+let source = sharp(inputPath);
+if (cropWidthRaw || cropHeightRaw) {
+  const metadata = await source.metadata();
+  const cropWidth = Number.parseInt(cropWidthRaw ?? `${(metadata.width ?? 0) - cropLeft}`, 10);
+  const cropHeight = Number.parseInt(cropHeightRaw ?? `${(metadata.height ?? 0) - cropTop}`, 10);
+  if (cropLeft < 0 || cropTop < 0 || cropWidth <= 0 || cropHeight <= 0) {
+    throw new Error('Crop coordinates and dimensions must describe a positive rectangle');
+  }
+  source = source.extract({ left: cropLeft, top: cropTop, width: cropWidth, height: cropHeight });
+}
+source = source.ensureAlpha();
 if (flipHorizontal) source.flop();
 
 const { data, info } = await source
@@ -189,6 +203,9 @@ console.log(
     {
       input: inputPath,
       flipHorizontal,
+      crop: cropWidthRaw || cropHeightRaw
+        ? { left: cropLeft, top: cropTop, width: cropWidthRaw ?? 'auto', height: cropHeightRaw ?? 'auto' }
+        : null,
       backgroundPixelsRemoved: queueTail,
       sourceForeground: {
         left: minX,

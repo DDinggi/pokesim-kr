@@ -10,6 +10,7 @@ type PriceConfidence = "source" | "manual";
 
 interface CardEntry {
   card_num?: string;
+  collector_number?: string;
   number?: number;
   rarity?: string | null;
   subtype?: string | null;
@@ -51,7 +52,7 @@ interface PriceConfig {
 
 interface FullaheadItem {
   code: string;
-  number: number;
+  number: number | string;
   title: string;
   rarity: string | null;
   priceJpy: number;
@@ -115,7 +116,7 @@ async function main() {
     }
 
     const shopItems = await fetchFullaheadSetItems(shopCode);
-    const byNumber = new Map<number, FullaheadItem>();
+    const byNumber = new Map<number | string, FullaheadItem>();
     for (const item of shopItems) {
       const previous = byNumber.get(item.number);
       if (!previous || item.priceJpy > previous.priceJpy) {
@@ -132,7 +133,10 @@ async function main() {
       if (!shouldPriceCard(set.code, card)) continue;
 
       const priceMatch = card.card_num ? priceConfig.cards?.[card.card_num] : undefined;
-      const fullaheadNumber = priceMatch?.fullahead_number ?? card.number;
+      // RGB collector IDs are letters, not the internal 166–168 sorting numbers.
+      const fullaheadNumber = card.rarity === 'RGB' && /^[RGB]\/RGB$/.test(card.collector_number ?? '')
+        ? card.collector_number
+        : priceMatch?.fullahead_number ?? card.number;
       const item = fullaheadNumber ? byNumber.get(fullaheadNumber) : undefined;
       if (!item || !isCompatibleRarity(card.rarity, item.rarity)) {
         unmatchedHigh++;
@@ -271,7 +275,7 @@ async function fetchEucJp(url: string): Promise<string> {
 
 function parseFullaheadItems(html: string, shopCode: string): FullaheadItem[] {
   const items: FullaheadItem[] = [];
-  const codeRegex = new RegExp(`PK-${fullaheadCodePattern(shopCode)}-([0-9]{1,3})`, "i");
+  const codeRegex = new RegExp(`PK-${fullaheadCodePattern(shopCode)}-([RGB]/RGB|[0-9]{1,3})(?![0-9])`, "i");
   const root = parse(html);
 
   for (const nameNode of root.querySelectorAll("span.itemName")) {
@@ -283,9 +287,10 @@ function parseFullaheadItems(html: string, shopCode: string): FullaheadItem[] {
     const itemBlock = anchor?.parentNode;
     const priceText = itemBlock?.querySelector("span.itemPrice strong")?.text ?? "";
     const href = anchor?.getAttribute("href") ?? "";
-    const number = Number(codeMatch[1]);
+    const collectorNumber = codeMatch[1].toUpperCase();
+    const number = /^[RGB]\/RGB$/.test(collectorNumber) ? collectorNumber : Number(collectorNumber);
     const priceJpy = Number(priceText.replace(/[^\d]/g, ""));
-    if (!Number.isFinite(number) || !Number.isFinite(priceJpy) || priceJpy <= 0) continue;
+    if ((typeof number === 'number' && !Number.isFinite(number)) || !Number.isFinite(priceJpy) || priceJpy <= 0) continue;
 
     items.push({
       code: shopCode.toUpperCase(),
@@ -381,7 +386,7 @@ function getTargetSetCodes(): string[] {
 
 function extractRarity(title: string): string | null {
   const normalized = title.toUpperCase();
-  const match = normalized.match(/\b(BWR|MUR|GRA|SAR|CSR|CHR|SSR|AR|SR|HR|UR|ACE|TR|PR|K)\b/);
+  const match = normalized.match(/\b(REPRINT|RGB|FUR|BWR|MUR|GRA|SAR|CSR|CHR|SSR|AR|SR|HR|UR|ACE|TR|PR|K)\b/);
   return match?.[1] ?? null;
 }
 

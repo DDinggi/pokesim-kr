@@ -38,8 +38,11 @@ const KNOWN_RARITIES = new Set([
   "UR",
   "GRA",
   "BWR",
+  "FUR",
+  "RGB",
+  "REPRINT",
 ]);
-const HIGH_RARITIES = new Set(["RRR", "S", "A", "25TH", "S8AP", "K", "PR", "CHR", "TR", "ACE", "AR", "SR", "SSR", "CSR", "HR", "H", "SAR", "MA", "UR", "GRA", "BWR"]);
+const HIGH_RARITIES = new Set(["RGB", "RRR", "S", "A", "25TH", "S8AP", "K", "PR", "CHR", "TR", "ACE", "AR", "REPRINT", "SR", "SSR", "CSR", "HR", "H", "SAR", "MA", "UR", "GRA", "BWR", "FUR"]);
 const START_DECK_100_REP_NUMBERS = [
   85, 204, 437, 146, 68, 18, 151, 94, 185, 204,
   3, 470, 380, 374, 169, 192, 746, 208, 750, 68,
@@ -184,7 +187,7 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
     add(level, setCode, "AR/SR/SAR/UR/BWR 등 고레어 카드가 하나도 없습니다.");
   }
 
-  if (!isStarter && !isBundle && isMegaSet(set, setCode) && cards.length > 0 && !rarityCounts.UR) {
+  if (!isStarter && !isBundle && isMegaSet(set, setCode) && setCode !== "m6a-30th-celebration" && cards.length > 0 && !rarityCounts.UR) {
     add("warn", setCode, "MEGA 세트인데 UR(MUR 정규화) 카드가 없습니다. MUR 누락 가능성이 큽니다.");
   }
 
@@ -199,7 +202,7 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
   }
 
   const nullCount = rarityCounts.__null__ ?? 0;
-  if (cards.length > 0 && nullCount / cards.length > 0.5 && set.type !== "hi-class" && !isStarter && setCode !== "s8a-25th-anniversary") {
+  if (cards.length > 0 && nullCount / cards.length > 0.5 && set.type !== "hi-class" && !isStarter && setCode !== "s8a-25th-anniversary" && setCode !== "m6a-30th-celebration") {
     add("warn", setCode, `rarity null이 ${nullCount}/${cards.length}장입니다. 의도된 병렬/리버스 카드인지 확인이 필요합니다.`);
   }
 

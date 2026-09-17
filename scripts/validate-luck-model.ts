@@ -137,6 +137,12 @@ function validateSet(setCode: string): { warnings: string[]; errors: string[] } 
     if (!sourceHasSetCode(luckSource, set.code) && set.code !== 'm-dream-ex') {
       warnings.push('luck.ts에 세트 코드가 직접 등장하지 않습니다. 고정 슬롯/베이스라인 차감이 맞는지 확인하세요.');
     }
+  } else if (set.code === 'm6a-30th-celebration') {
+    if (!sourceHasSetCode(modelSource, set.code)
+      || !expansionSource.includes('CELEBRATION_30_SET_CODE')
+      || !luckSource.includes('CELEBRATION_30_SET_CODE')) {
+      errors.push('30th CELEBRATION 전용 시뮬레이션·운 모델 연결이 누락되었습니다.');
+    }
   } else if (set.code.startsWith('m')) {
     if (!hasMegaMonsterWeights(set.code)) {
       warnings.push('MEGA 확장팩인데 EXPANSION_MONSTER_WEIGHTS에 세트별 SAR/MUR 가중치가 없습니다. 기본값 사용 여부를 확인하세요.');
@@ -166,7 +172,7 @@ function validateSet(setCode: string): { warnings: string[]; errors: string[] } 
     warnings.push('BWR 카드가 있지만 SV11 특수 운 모델이 아닙니다. luck.ts top rarity 처리 확인이 필요합니다.');
   }
 
-  if (set.code.startsWith('m') && set.type !== 'starter' && set.type !== 'bundle' && !hasRarity(set, 'UR')) {
+  if (set.code.startsWith('m') && set.code !== 'm6a-30th-celebration' && set.type !== 'starter' && set.type !== 'bundle' && !hasRarity(set, 'UR')) {
     warnings.push('MEGA 세트인데 UR(MUR 정규화) 카드가 없습니다. MUR 누락 가능성이 큽니다.');
   }
 

@@ -1,6 +1,7 @@
 export interface Card {
   card_num: string;
   number: number;
+  collector_number?: string;
   name_ko: string | null;
   rarity: string | null;
   card_type: string | null;

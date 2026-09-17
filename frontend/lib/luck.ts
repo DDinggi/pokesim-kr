@@ -12,6 +12,11 @@ import {
   ANNIVERSARY_25_HIT_WEIGHTS,
   ANNIVERSARY_25_LUCK_SCORE_WEIGHTS,
   ANNIVERSARY_25_PROMO_INTERVAL,
+  CELEBRATION_30_FUR_BOX_RATE,
+  CELEBRATION_30_BOX_COUNTS,
+  CELEBRATION_30_PACK_PATTERNS,
+  CELEBRATION_30_RGB_BOX_RATE,
+  CELEBRATION_30_SET_CODE,
   BEST_OF_XY_HIGH_WEIGHTS,
   EXPANSION_MONSTER_WEIGHTS,
   GX_BATTLE_BOOST_HIGH_WEIGHTS,
@@ -112,6 +117,7 @@ const TOP_RARITY_WEIGHT = 3;
 const OLD_HIGH_RARITIES = ['A', 'K', 'PR', 'CHR', 'TR', 'SR_ALT', 'SR', 'CSR', 'HR', 'H', 'H_SECRET', 'SAR', 'UR', 'UR_LOW', 'GRA'] as const;
 const SCORE_EPSILON = 1e-9;
 const SCORE_WEIGHTS: Record<string, number> = {
+  AR: 0.12,
   S: 0.08,
   A: 0.5,
   K: 0.12,
@@ -131,8 +137,12 @@ const SCORE_WEIGHTS: Record<string, number> = {
   UR_LOW: 0,
   GRA: 3,
   BWR: 3,
+  FUR: 3,
+  RGB: 5,
+  REPRINT: 0.5,
 };
 const PACK_SCORE_WEIGHTS: Record<string, number> = {
+  AR: 0.35,
   S: 0.25,
   A: 1,
   K: 0.35,
@@ -152,12 +162,17 @@ const PACK_SCORE_WEIGHTS: Record<string, number> = {
   UR_LOW: 0,
   GRA: 3,
   BWR: 3,
+  FUR: 3,
+  RGB: 5,
+  REPRINT: 1,
 };
 const LUCK_COMBINATION_RULES = {
-  primaryHitKeys: ['MUR', 'BWR', 'UR', 'GRA', 'SAR', 'H_SECRET', 'HR', 'SR_ALT'],
-  secondaryHitKeys: ['MA', 'SSR', 'CSR', 'SR', 'A', 'K', 'PR', 'CHR', 'TR'],
+  primaryHitKeys: ['RGB', 'FUR', 'MUR', 'BWR', 'UR', 'GRA', 'SAR', 'H_SECRET', 'HR', 'SR_ALT'],
+  secondaryHitKeys: ['REPRINT', 'AR', 'MA', 'SSR', 'CSR', 'SR', 'A', 'K', 'PR', 'CHR', 'TR'],
   rarityMultiplier: {
     MUR: 1.2,
+    FUR: 1.2,
+    RGB: 1.5,
     BWR: 1.2,
     UR: 0.95,
     GRA: 0.95,
@@ -174,6 +189,8 @@ const LUCK_COMBINATION_RULES = {
     MA: 0.25,
     SSR: 0.25,
     SR: 0.18,
+    REPRINT: 0.25,
+    AR: 0.12,
   },
   primaryScoreCap: 2.75,
   primaryActivationScore: 0.15,
@@ -286,7 +303,8 @@ function normalizeDistribution(outcomes: LuckScoreOutcome[]): LuckScoreOutcome[]
   const byScore = new Map<number, number>();
   for (const outcome of outcomes) {
     if (outcome.probability <= 0) continue;
-    byScore.set(outcome.score, (byScore.get(outcome.score) ?? 0) + outcome.probability);
+    const score = Math.round(outcome.score / SCORE_EPSILON) * SCORE_EPSILON;
+    byScore.set(score, (byScore.get(score) ?? 0) + outcome.probability);
   }
 
   const total = Array.from(byScore.values()).reduce((sum, probability) => sum + probability, 0);
@@ -301,16 +319,18 @@ function convolveDistributions(
   a: LuckScoreOutcome[],
   b: LuckScoreOutcome[],
 ): LuckScoreOutcome[] {
-  const outcomes: LuckScoreOutcome[] = [];
+  // Merge equivalent scores as we go. Floating point sums such as
+  // 0.12 + 0.12 + 0.5 used to create thousands of distinct near-equal keys.
+  const byScore = new Map<number, number>();
   for (const left of a) {
     for (const right of b) {
-      outcomes.push({
-        score: left.score + right.score,
-        probability: left.probability * right.probability,
-      });
+      const probability = left.probability * right.probability;
+      if (probability <= 0) continue;
+      const score = Math.round((left.score + right.score) / SCORE_EPSILON) * SCORE_EPSILON;
+      byScore.set(score, (byScore.get(score) ?? 0) + probability);
     }
   }
-  return normalizeDistribution(outcomes);
+  return normalizeDistribution(Array.from(byScore, ([score, probability]) => ({ score, probability })));
 }
 
 function repeatDistribution(base: LuckScoreOutcome[], count: number): LuckScoreOutcome[] {
@@ -613,6 +633,16 @@ function getLuckScoreWeightsForSet(
     return ANNIVERSARY_25_LUCK_SCORE_WEIGHTS;
   }
 
+  if (code === CELEBRATION_30_SET_CODE) {
+    return {
+      AR: getScoreWeight('AR', mode),
+      REPRINT: getScoreWeight('REPRINT', mode),
+      SAR: getScoreWeight('SAR', mode),
+      FUR: getScoreWeight('FUR', mode),
+      RGB: getScoreWeight('RGB', mode),
+    };
+  }
+
   if (type === 'bundle') {
     // 상품 1개로 기록되지만 구성은 모두 loose pack이므로 팩 점수 가중치를 사용한다.
     return {
@@ -772,6 +802,16 @@ function getExpectedScoredRarityCounts(
     addExpectedCount(counts, '25TH', unitCount * opening.boxSize);
     addExpectedCount(counts, 'S8AP', (unitCount * opening.boxSize) / ANNIVERSARY_25_PROMO_INTERVAL);
     addExpectedCountsFromWeights(counts, ANNIVERSARY_25_HIT_WEIGHTS, unitCount * opening.boxSize * 4, 1, opening);
+    return counts;
+  }
+
+  if (code === CELEBRATION_30_SET_CODE) {
+    const loosePackBoxUnits = opening.packs / opening.boxSize;
+    addExpectedCount(counts, 'AR', opening.boxes * (12 / 17) + loosePackBoxUnits * (63 / 17));
+    addExpectedCount(counts, 'REPRINT', opening.boxes * (1 / 17) + loosePackBoxUnits * (35 / 17));
+    addExpectedCount(counts, 'SAR', loosePackBoxUnits);
+    addExpectedCount(counts, 'FUR', unitCount * CELEBRATION_30_FUR_BOX_RATE);
+    addExpectedCount(counts, 'RGB', unitCount * CELEBRATION_30_RGB_BOX_RATE);
     return counts;
   }
 
@@ -988,6 +1028,11 @@ function subtractBaselineCounts(
   if (code === 'sm12a-tag-team-gx-tag-all-stars') {
     counts.SR = Math.max(0, (counts.SR ?? 0) - opening.boxes);
   }
+  if (code === CELEBRATION_30_SET_CODE) {
+    counts.AR = Math.max(0, (counts.AR ?? 0) - opening.boxes * 3);
+    counts.SAR = Math.max(0, (counts.SAR ?? 0) - opening.boxes);
+    counts.REPRINT = Math.max(0, (counts.REPRINT ?? 0) - opening.boxes * 2);
+  }
   if (isMegaExpansionSet(code)) {
     counts.SR = Math.max(0, (counts.SR ?? 0) - opening.boxes);
     if (isHiClassSet) {
@@ -1047,6 +1092,7 @@ function scoreFromRarityWeightKey(key: string, mode: LuckScoreMode): number {
   if (key === '25TH') return ANNIVERSARY_25_LUCK_SCORE_WEIGHTS[key] ?? 0;
   if (key === 'S8AP') return ANNIVERSARY_25_LUCK_SCORE_WEIGHTS[key] ?? 0;
   if (key === 'S') return getScoreWeight('S', mode);
+  if (key === 'AR') return getScoreWeight('AR', mode);
   if (key === 'A') return getScoreWeight('A', mode);
   if (key === 'K') return getScoreWeight('K', mode);
   if (key === 'CHR') return getScoreWeight('CHR', mode);
@@ -1062,6 +1108,9 @@ function scoreFromRarityWeightKey(key: string, mode: LuckScoreMode): number {
   if (key === 'CSR') return getScoreWeight('CSR', mode);
   if (key.startsWith('HR')) return getScoreWeight('HR', mode);
   if (key === 'SAR') return getScoreWeight('SAR', mode);
+  if (key === 'FUR') return getScoreWeight('FUR', mode);
+  if (key === 'RGB') return getScoreWeight('RGB', mode);
+  if (key === 'REPRINT') return getScoreWeight('REPRINT', mode);
   if (key === 'UR_LOW') return 0;
   if (key === 'UR' || key === 'GRA' || key === 'BWR') return getScoreWeight(key, mode);
   if (key === 'RR' || key === 'RRR') return ANNIVERSARY_25_LUCK_SCORE_WEIGHTS[key] ?? 0;
@@ -1164,6 +1213,19 @@ function getBoxScoreDistribution(
 
   if (code && isAnniversary25Set(code)) {
     return getAnniversary25BoxScoreDistribution(ANNIVERSARY_25_BOX_SIZE);
+  }
+
+  if (code === CELEBRATION_30_SET_CODE) {
+    return convolveDistributions(
+      convolveDistributions(
+        normalizeDistribution(CELEBRATION_30_BOX_COUNTS.map(([, ar, reprint]) => ({
+          score: (ar - 3) * getScoreWeight('AR', 'box') + (reprint - 2) * getScoreWeight('REPRINT', 'box'),
+          probability: 1 / CELEBRATION_30_BOX_COUNTS.length,
+        }))),
+        bernoulliDistribution(getScoreWeight('FUR', 'box'), CELEBRATION_30_FUR_BOX_RATE),
+      ),
+      bernoulliDistribution(getScoreWeight('RGB', 'box'), CELEBRATION_30_RGB_BOX_RATE),
+    );
   }
 
   if (set?.type === 'bundle' && set.resolved_bundle_components?.length) {
@@ -1363,6 +1425,16 @@ function getPackScoreDistribution(
         ANNIVERSARY_25_LUCK_SCORE_WEIGHTS.S8AP ?? 0,
         1 / ANNIVERSARY_25_PROMO_INTERVAL,
       ),
+    );
+  }
+
+  if (code === CELEBRATION_30_SET_CODE) {
+    return convolveDistributions(
+      normalizeDistribution(CELEBRATION_30_PACK_PATTERNS.map((pattern) => ({
+        score: pattern.rarities.reduce((sum, rarity) => sum + getScoreWeight(rarity, 'pack'), 0),
+        probability: pattern.weight / 340,
+      }))),
+      bernoulliDistribution(getScoreWeight('RGB', 'pack'), CELEBRATION_30_RGB_BOX_RATE / boxSize),
     );
   }
 
@@ -1746,7 +1818,9 @@ export function summarizeLuckRarityCounts(
 
   return {
     topCount:
-      (rarityCounts.BWR ?? 0)
+      (rarityCounts.RGB ?? 0)
+      + (rarityCounts.FUR ?? 0)
+      + (rarityCounts.BWR ?? 0)
       + (rarityCounts.MUR ?? 0)
       + (rarityCounts.GRA ?? 0)
       + (treatsUrAsTop ? rarityCounts.UR ?? 0 : 0),
@@ -1811,6 +1885,10 @@ export function getLuckRatesForSet(
 
   if (isAnniversary25Set(set.code)) {
     return { boxSize, topPerBox: 0, sarPerBox: 0 };
+  }
+
+  if (set.code === CELEBRATION_30_SET_CODE) {
+    return { boxSize, topPerBox: CELEBRATION_30_FUR_BOX_RATE + CELEBRATION_30_RGB_BOX_RATE, sarPerBox: 1 };
   }
 
   if (set.type === 'hi-class') {

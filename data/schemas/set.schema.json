@@ -192,6 +192,10 @@
             "minimum": 1,
             "description": "세트 내 번호 (1부터)."
           },
+          "collector_number": {
+            "type": "string",
+            "description": "카드 실물의 번호 표기가 내부 정렬 번호와 다른 경우의 실제 표기."
+          },
           "name_ko": {
             "type": ["string", "null"],
             "description": "카드 한국어 이름 (자동 수집 후 채움)."
