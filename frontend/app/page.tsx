@@ -93,6 +93,7 @@ import mStartDeck100 from '../public/sets/m-start-deck-100.json';
 import m4NinjaSpinner from '../public/sets/m4-ninja-spinner.json';
 import m5AbyssEye from '../public/sets/m5-abyss-eye.json';
 import m6StormEmerald from '../public/sets/m6-storm-emerald.json';
+import m6a30thCelebration from '../public/sets/m6a-30th-celebration.json';
 import mNihilZero from '../public/sets/m-nihil-zero.json';
 import mDreamEx from '../public/sets/m-dream-ex.json';
 import mInfernoX from '../public/sets/m-inferno-x.json';
@@ -116,6 +117,7 @@ const mMagikarpSpecialSet = resolveBundleSet(
 
 const sets: SetMeta[] = [
   // MEGA 시리즈
+  m6a30thCelebration,
   mMagikarpSpecialSet,
   m4NinjaSpinner, m5AbyssEye, m6StormEmerald, mNihilZero, mDreamEx, mInfernoX, mMegaBrave, mMegaSymphonia,
   mStartDeck100,

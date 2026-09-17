@@ -1,9 +1,9 @@
 import type { Card, SetMeta } from './types';
 
-export const DISPLAY_RARITY_ORDER = ['MUR', 'BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'H', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'AR', 'A', 'CHR', 'TR', 'PR', 'K', 'S', 'RRR', '25TH', 'RR', 'R', 'U', 'C'];
-export const RARITY_ORDER = ['BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'H', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'AR', 'A', 'CHR', 'TR', 'PR', 'K', 'S', 'RRR', '25TH', 'RR', 'R', 'U', 'C'];
-export const FILTER_RARITY_ORDER = ['BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'H', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'AR', 'A', 'CHR', 'TR', 'PR', 'K', 'S', 'RRR', '25TH', 'RR'];
-export const HIT_RARITY_ORDER = ['BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'H', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'AR', 'A', 'CHR', 'TR', 'PR', 'K', 'S', 'RRR', '25TH'] as const;
+export const DISPLAY_RARITY_ORDER = ['RGB', 'FUR', 'MUR', 'BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'H', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'REPRINT', 'AR', 'A', 'CHR', 'TR', 'PR', 'K', 'S', 'RRR', '25TH', 'RR', 'R', 'U', 'C'];
+export const RARITY_ORDER = ['RGB', 'FUR', 'BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'H', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'REPRINT', 'AR', 'A', 'CHR', 'TR', 'PR', 'K', 'S', 'RRR', '25TH', 'RR', 'R', 'U', 'C'];
+export const FILTER_RARITY_ORDER = ['RGB', 'FUR', 'BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'H', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'REPRINT', 'AR', 'A', 'CHR', 'TR', 'PR', 'K', 'S', 'RRR', '25TH', 'RR'];
+export const HIT_RARITY_ORDER = ['RGB', 'FUR', 'BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'H', 'HR', 'CSR', 'MA', 'SSR', 'SR', 'ACE', 'REPRINT', 'AR', 'A', 'CHR', 'TR', 'PR', 'K', 'S', 'RRR', '25TH'] as const;
 
 export const RARITY_BADGE: Record<string, string> = {
   C: 'bg-gray-500 text-white',
@@ -32,6 +32,9 @@ export const RARITY_BADGE: Record<string, string> = {
   GRA: 'bg-gradient-to-r from-yellow-200 to-amber-400 text-gray-900',
   S8AP: 'bg-gradient-to-r from-red-300 to-yellow-200 text-gray-950',
   BWR: 'bg-gradient-to-r from-gray-100 to-white text-gray-900',
+  FUR: 'bg-gradient-to-r from-red-400 via-green-300 to-blue-400 text-gray-950',
+  RGB: 'bg-gradient-to-r from-red-500 via-green-400 to-blue-500 text-white',
+  REPRINT: 'bg-gradient-to-r from-amber-200 to-yellow-400 text-gray-950',
 };
 
 export const CARD_GLOW: Record<string, string> = {
@@ -57,11 +60,17 @@ export const CARD_GLOW: Record<string, string> = {
   GRA: 'ring-[3px] ring-amber-200 shadow-xl shadow-amber-300/60',
   S8AP: 'ring-[3px] ring-red-300 shadow-xl shadow-yellow-300/50',
   BWR: 'ring-[3px] ring-white shadow-xl shadow-white/40',
+  FUR: 'ring-[3px] ring-cyan-200 shadow-xl shadow-fuchsia-400/60',
+  RGB: 'ring-[3px] ring-white shadow-xl shadow-cyan-300/70',
+  REPRINT: 'ring-2 ring-amber-300/80 shadow-md shadow-yellow-400/35',
 };
 
 export const RARITY_TEXT_COLOR: Record<string, string> = {
+  RGB: 'text-white',
   MUR: 'text-yellow-300',
   BWR: 'text-slate-100',
+  FUR: 'text-cyan-200',
+  REPRINT: 'text-amber-200',
   GRA: 'text-amber-200',
   SAR: 'text-pink-300',
   UR: 'text-yellow-300',
@@ -93,6 +102,7 @@ export const PREMIUM_HIT_PRICE_TIERS_KRW = {
 export const PREMIUM_HIT_PRICE_THRESHOLD_KRW = PREMIUM_HIT_PRICE_TIERS_KRW.value;
 
 export const RARITY_TIER: Record<string, string> = {
+  RGB: 'text-white',
   C: 'text-gray-400',
   U: 'text-blue-400',
   R: 'text-purple-400',
@@ -119,9 +129,12 @@ export const RARITY_TIER: Record<string, string> = {
   GRA: 'text-amber-200',
   S8AP: 'text-red-200',
   BWR: 'text-slate-100',
+  FUR: 'text-cyan-200',
+  REPRINT: 'text-amber-200',
 };
 
 export const RARITY_FULL_LABEL: Record<string, string> = {
+  RGB: 'RGB 레어',
   C: '커먼',
   U: '언커먼',
   R: '레어',
@@ -148,11 +161,13 @@ export const RARITY_FULL_LABEL: Record<string, string> = {
   GRA: '골드레어',
   S8AP: '25주년 프로모',
   BWR: '블랙 화이트 레어',
+  FUR: '퓨처리스틱 레어',
+  REPRINT: '30주년 복각',
 };
 
-export const RARE_RARITIES = new Set(['RR', 'RRR', 'S', 'A', '25TH', 'S8AP', 'K', 'PR', 'CHR', 'TR', 'ACE', 'AR', 'SR', 'SSR', 'CSR', 'HR', 'H', 'SAR', 'MA', 'UR', 'GRA', 'BWR']);
-export const HIT_RARITIES = new Set(['RRR', 'S', 'A', '25TH', 'S8AP', 'K', 'PR', 'CHR', 'TR', 'AR', 'SR', 'SSR', 'CSR', 'HR', 'H', 'SAR', 'MA', 'UR', 'GRA', 'BWR', 'ACE']);
-export const HOLO_RARITIES = new Set(['RR', 'RRR', 'S', 'A', '25TH', 'S8AP', 'K', 'PR', 'CHR', 'TR', 'ACE', 'AR', 'SR', 'SSR', 'CSR', 'HR', 'H', 'SAR', 'MA', 'UR', 'GRA', 'BWR']);
+export const RARE_RARITIES = new Set(['RGB', 'RR', 'RRR', 'S', 'A', '25TH', 'S8AP', 'K', 'PR', 'CHR', 'TR', 'ACE', 'AR', 'REPRINT', 'SR', 'SSR', 'CSR', 'HR', 'H', 'SAR', 'MA', 'UR', 'GRA', 'BWR', 'FUR']);
+export const HIT_RARITIES = new Set(['RGB', 'RRR', 'S', 'A', '25TH', 'S8AP', 'K', 'PR', 'CHR', 'TR', 'AR', 'REPRINT', 'SR', 'SSR', 'CSR', 'HR', 'H', 'SAR', 'MA', 'UR', 'GRA', 'BWR', 'FUR', 'ACE']);
+export const HOLO_RARITIES = new Set(['RGB', 'RR', 'RRR', 'S', 'A', '25TH', 'S8AP', 'K', 'PR', 'CHR', 'TR', 'ACE', 'AR', 'REPRINT', 'SR', 'SSR', 'CSR', 'HR', 'H', 'SAR', 'MA', 'UR', 'GRA', 'BWR', 'FUR']);
 
 type RarityContext =
   | Partial<Pick<Card, 'card_num' | 'image_url' | 'price_ref_krw' | 'price_confidence'>>

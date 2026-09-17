@@ -41,6 +41,7 @@ interface HitDexCatalogItem {
 interface HitDexSetSection {
   set: SetMeta;
   cards: HitDexCatalogItem[];
+  pikachuCards: HitDexCatalogItem[];
   registeredCount: number;
 }
 
@@ -60,7 +61,7 @@ function buildEraSummaries(sections: HitDexSetSection[]): HitDexEraSummary[] {
     const eraSections = sections.filter((section) => getSetSeriesKey(section.set) === era.key);
     return {
       ...era,
-      totalCards: eraSections.reduce((sum, section) => sum + section.cards.length, 0),
+      totalCards: eraSections.reduce((sum, section) => sum + section.cards.length + section.pikachuCards.length, 0),
       registeredCards: eraSections.reduce((sum, section) => sum + section.registeredCount, 0),
       setCount: eraSections.length,
     };
@@ -88,7 +89,7 @@ function buildCatalog(sets: SetMeta[], hitDex: HitDexState): HitDexSetSection[] 
     // here would create a duplicate collection section.
     .filter((set) => !isBundleSet(set))
     .map((set) => {
-      const cards = sortCatalogCards(set.cards.filter((card) => isHitDexCard(card, set.code))).map((card) => {
+      const allCards = sortCatalogCards(set.cards.filter((card) => isHitDexCard(card, set.code))).map((card) => {
         const key = getHitDexCardKey(card, set.code);
         return {
           key,
@@ -98,13 +99,19 @@ function buildCatalog(sets: SetMeta[], hitDex: HitDexState): HitDexSetSection[] 
         };
       });
 
+      const pikachuCards = set.code === 'm6a-30th-celebration'
+        ? allCards.filter((item) => item.card.number >= 17 && item.card.number <= 46)
+        : [];
+      const cards = allCards.filter((item) => !pikachuCards.includes(item));
+
       return {
         set,
         cards,
-        registeredCount: cards.filter((item) => item.entry).length,
+        pikachuCards,
+        registeredCount: allCards.filter((item) => item.entry).length,
       };
     })
-    .filter((section) => section.cards.length > 0);
+    .filter((section) => section.cards.length + section.pikachuCards.length > 0);
 }
 
 function hitDexEffectVariant(priceKrw: number): HitDexEffectVariant {
@@ -359,6 +366,10 @@ const HitDexSetSectionView = memo(function HitDexSetSectionView({
   onCardClick: (card: Card) => void;
   onUnknownClick: (item: HitDexCatalogItem) => void;
 }) {
+  const [pikachuFilter, setPikachuFilter] = useState<'all' | 'owned' | 'missing'>('all');
+  const visiblePikachu = section.pikachuCards.filter((item) => (
+    pikachuFilter === 'all' || (pikachuFilter === 'owned' ? Boolean(item.entry) : !item.entry)
+  ));
   return (
     <section className="hit-dex-set-section">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
@@ -366,23 +377,75 @@ const HitDexSetSectionView = memo(function HitDexSetSectionView({
           <h2 className="truncate text-sm font-black text-cyan-50 sm:text-base">{section.set.name_ko}</h2>
         </div>
         <span className="rounded-full bg-cyan-300/10 px-3 py-1.5 text-[11px] font-black text-cyan-100 ring-1 ring-cyan-200/15">
-          {section.registeredCount}/{section.cards.length}
+          {section.registeredCount}/{section.cards.length + section.pikachuCards.length}
         </span>
       </div>
-      <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12">
-        {section.cards.map((item) => (
-          item.entry ? (
-            <RegisteredHitTile
-              key={item.key}
-              item={item}
-              effectVariant={effectVariants.get(item.key) ?? null}
-              onClick={() => onCardClick(item.card)}
-            />
-          ) : (
-            <UnknownHitTile key={item.key} item={item} onClick={() => onUnknownClick(item)} />
-          )
-        ))}
-      </div>
+      {section.cards.length > 0 && (
+        <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12">
+          {section.cards.map((item) => (
+            item.entry ? (
+              <RegisteredHitTile
+                key={item.key}
+                item={item}
+                effectVariant={effectVariants.get(item.key) ?? null}
+                onClick={() => onCardClick(item.card)}
+              />
+            ) : (
+              <UnknownHitTile key={item.key} item={item} onClick={() => onUnknownClick(item)} />
+            )
+          ))}
+        </div>
+      )}
+      {section.pikachuCards.length > 0 && (
+        <div className="mt-8 border-t border-amber-200/20 pt-7">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+            <h3 className="text-sm font-black text-amber-100">30주년 피카츄 · 01–30</h3>
+            <span className="rounded-full bg-amber-300/10 px-3 py-1.5 text-[11px] font-black text-amber-100 ring-1 ring-amber-200/20">
+              {section.pikachuCards.filter((item) => item.entry).length}/30
+            </span>
+          </div>
+          <div className="mb-4 flex gap-2" role="group" aria-label="30주년 피카츄 획득 필터">
+            {([
+              ['all', '전체'], ['owned', '획득'], ['missing', '미획득'],
+            ] as const).map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                aria-pressed={pikachuFilter === value}
+                onClick={() => setPikachuFilter(value)}
+                className={`rounded-lg px-3 py-1.5 text-xs font-bold transition ${pikachuFilter === value ? 'bg-amber-300 text-gray-950' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12">
+            {visiblePikachu.map((item) => (
+              item.entry ? (
+                <RegisteredHitTile
+                  key={item.key}
+                  item={item}
+                  effectVariant={null}
+                  collectionNumber={item.card.number - 16}
+                  onClick={() => onCardClick(item.card)}
+                />
+              ) : (
+                <UnknownHitTile
+                  key={item.key}
+                  item={item}
+                  collectionNumber={item.card.number - 16}
+                  onClick={() => onUnknownClick(item)}
+                />
+              )
+            ))}
+          </div>
+          {visiblePikachu.length === 0 && (
+            <p className="py-5 text-center text-xs text-amber-100/60">
+              {pikachuFilter === 'owned' ? '아직 획득한 피카츄가 없어요.' : '피카츄 30종을 모두 모았어요!'}
+            </p>
+          )}
+        </div>
+      )}
     </section>
   );
 });
@@ -390,10 +453,12 @@ const HitDexSetSectionView = memo(function HitDexSetSectionView({
 function RegisteredHitTile({
   item,
   effectVariant,
+  collectionNumber,
   onClick,
 }: {
   item: HitDexCatalogItem;
   effectVariant: HitDexEffectVariant | null;
+  collectionNumber?: number;
   onClick: () => void;
 }) {
   const { card } = item;
@@ -457,13 +522,20 @@ function RegisteredHitTile({
             {displayRarity}
           </span>
         )}
+        {collectionNumber && (
+          <span className="absolute left-1 top-1 z-10 rounded bg-black/65 px-1.5 py-0.5 text-[10px] font-black text-amber-100">
+            {String(collectionNumber).padStart(2, '0')}
+          </span>
+        )}
       </div>
-      <p className="mt-1 truncate text-[10px] font-bold text-cyan-50/80">{displayName}</p>
+      <p className="mt-1 truncate text-[10px] font-bold text-cyan-50/80">
+        {collectionNumber ? `${String(collectionNumber).padStart(2, '0')} · ` : ''}{displayName}
+      </p>
     </button>
   );
 }
 
-function UnknownHitTile({ item, onClick }: { item: HitDexCatalogItem; onClick: () => void }) {
+function UnknownHitTile({ item, collectionNumber, onClick }: { item: HitDexCatalogItem; collectionNumber?: number; onClick: () => void }) {
   const rarity = item.card.rarity ? rarityLabel(item.card.rarity, item.card) : 'HIT';
 
   return (
@@ -473,11 +545,11 @@ function UnknownHitTile({ item, onClick }: { item: HitDexCatalogItem; onClick: (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 text-center">
           <span className="text-4xl font-black text-cyan-100/35 sm:text-5xl">?</span>
           <span className="rounded bg-cyan-300/10 px-1.5 py-0.5 text-[9px] font-black text-cyan-100/60 ring-1 ring-cyan-200/10">
-            {rarity}
+            {collectionNumber ? '피카츄' : rarity}
           </span>
         </div>
         <span className="absolute left-1 top-1 rounded bg-black/35 px-1.5 py-0.5 text-[9px] text-cyan-100/35">
-          #{item.card.number}
+          {collectionNumber ? String(collectionNumber).padStart(2, '0') : `#${item.card.collector_number ?? item.card.number}`}
         </span>
       </div>
       <p className="mt-1 truncate text-[10px] font-bold text-cyan-100/35">미등록</p>

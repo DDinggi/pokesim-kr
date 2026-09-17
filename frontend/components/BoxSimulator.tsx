@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef, type ReactNode } from 'react';
+import { memo, useState, useCallback, useEffect, useRef, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
 import { simulateBox, simulateBundle, simulatePack, PROBABILITY_META } from '../lib/simulator';
@@ -73,7 +73,7 @@ type Session = OpeningSession;
 
 const EMPTY_SESSION: Session = EMPTY_OPENING_SESSION;
 
-function CardTile({
+const CardTile = memo(function CardTile({
   card,
   size = 'md',
   onClick,
@@ -92,7 +92,7 @@ function CardTile({
   const [useOriginal, setUseOriginal] = useState(false);
   const Wrapper = onClick ? 'button' : 'div';
   const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
-  const premiumSparkleRarity = premiumSparkle && showImage ? premiumSparkleVariant(card.rarity, card) : null;
+  const premiumSparkleRarity = premiumSparkle && showImage && loaded ? premiumSparkleVariant(card.rarity, card) : null;
   const sizesAttr =
     size === 'sm'
       ? '(max-width: 640px) 12vw, (max-width: 1024px) 8vw, 100px'
@@ -155,6 +155,22 @@ function CardTile({
         </span>
       )}
     </Wrapper>
+  );
+});
+
+// Closed galleries must not create thousands of images/effect layers in React.
+function LazyGallery({ children, summary, className, defaultOpen = false }: {
+  children: ReactNode;
+  summary: ReactNode;
+  className?: string;
+  defaultOpen?: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <details className={className} open={open} onToggle={(event) => setOpen(event.currentTarget.open)}>
+      {summary}
+      {open ? children : null}
+    </details>
   );
 }
 
@@ -377,8 +393,8 @@ function AutoBoxReveal({
   const total = result.packs.length;
   const progress = ((packIdx + 1) / total) * 100;
   const isLast = packIdx + 1 >= total;
-  const hitIdx = pack.cards.length - 1;
-  const hitCard = pack.cards[hitIdx];
+  const hitCard = sortByRarity(pack.cards)[0];
+  const hitIdx = pack.cards.indexOf(hitCard);
   const isRareHit = hitCard?.rarity ? HIT_RARITIES.has(hitCard.rarity) : false;
 
   return (
@@ -412,7 +428,7 @@ function AutoBoxReveal({
           onClick={onAdvance}
         >
           {pack.cards.map((card, i) => {
-            const isHit = i === hitIdx && isRareHit;
+            const isHit = !!card.rarity && HIT_RARITIES.has(card.rarity);
             const isPremiumHit = isHit && isPremiumSparkleRarity(card.rarity, card);
             // 프리미엄(SAR/MUR/BWR/CSR)은 카드 본체를 정적으로 두고 sparkle 오버레이로만 표현
             const useHitBurst = isHit && !isPremiumHit;
@@ -590,19 +606,57 @@ function CollectionGrid({
   cards: Card[];
   onCardClick: (c: Card) => void;
 }) {
+  const [visibleCount, setVisibleCount] = useState(100);
   const sorted = sortByRarity(cards);
   return (
-    <div className="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-11 gap-1.5">
-      {sorted.map((card, i) => (
-        <CardTile
-          key={i}
-          card={card}
-          size="sm"
-          onClick={() => onCardClick(card)}
-          premiumSparkle={isPremiumSparkleRarity(card.rarity, card)}
-        />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-11 gap-1.5">
+        {sorted.slice(0, visibleCount).map((card, i) => (
+          <CardTile
+            key={`${card.card_num}-${i}`}
+            card={card}
+            size="sm"
+            onClick={() => onCardClick(card)}
+            premiumSparkle={isPremiumSparkleRarity(card.rarity, card)}
+          />
+        ))}
+      </div>
+      {visibleCount < sorted.length && (
+        <button className="mt-3 rounded-lg bg-gray-800 px-4 py-2 text-sm" onClick={() => setVisibleCount((count) => count + 100)}>
+          카드 더 보기 ({visibleCount}/{sorted.length})
+        </button>
+      )}
+    </>
+  );
+}
+
+function CelebrationPikachuResult({ cards, onCardClick }: { cards: Card[]; onCardClick: (card: Card) => void }) {
+  const collected = new Map<number, { card: Card; count: number }>();
+  for (const card of cards) {
+    if (card.number < 17 || card.number > 46) continue;
+    const current = collected.get(card.number);
+    collected.set(card.number, { card, count: (current?.count ?? 0) + 1 });
+  }
+  const entries = [...collected.values()].sort((a, b) => a.card.number - b.card.number);
+  if (entries.length === 0) return null;
+
+  return (
+    <LazyGallery className="mt-5 rounded-xl bg-amber-300/5 p-4 ring-1 ring-amber-200/20" summary={
+      <summary className="cursor-pointer text-sm font-bold text-amber-100">
+        이번 박스 피카츄 보기 · {entries.length}종 / {entries.reduce((sum, item) => sum + item.count, 0)}장
+      </summary>
+      }>
+      <div className="mt-4 grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10">
+        {entries.map(({ card, count }) => (
+          <div key={card.card_num}>
+            <CardTile card={card} size="sm" onClick={() => onCardClick(card)} />
+            <p className="mt-1 text-center text-xs font-bold text-amber-100">
+              {String(card.number - 16).padStart(2, '0')} · ×{count}
+            </p>
+          </div>
+        ))}
+      </div>
+    </LazyGallery>
   );
 }
 
@@ -681,6 +735,7 @@ function SessionByBox({
   session: Session;
   onCardClick: (c: Card) => void;
 }) {
+  const [visibleCount, setVisibleCount] = useState(5);
   // 박스 단위 개봉 이벤트를 박스별로(최신 박스가 위) 나눠서 보여준다.
   const boxRows = session.openingEvents
     .filter((event) => event.unit === 'box')
@@ -691,7 +746,7 @@ function SessionByBox({
 
   return (
     <div className="space-y-3">
-      {boxRows.map(({ event, boxNo }) => {
+      {boxRows.slice(0, visibleCount).map(({ event, boxNo }) => {
         const hitCards = event.hitCards ?? [];
         const rares = sortByRarity(hitCards.filter((c) => c.rarity && RARE_RARITIES.has(c.rarity)));
         return (
@@ -722,6 +777,11 @@ function SessionByBox({
           </div>
         );
       })}
+      {visibleCount < boxRows.length && (
+        <button className="rounded-lg bg-gray-800 px-4 py-2 text-sm" onClick={() => setVisibleCount((count) => count + 5)}>
+          이전 박스 더 보기 ({visibleCount}/{boxRows.length})
+        </button>
+      )}
     </div>
   );
 }
@@ -768,14 +828,18 @@ function BoxDoneScreen({
           ✨ 이번 박스 레어 ({rares.length}장) — 등급 토글로 필터
         </h3>
         <RarityFilteredGrid key={result.seed} cards={allCards} onCardClick={onCardClick} />
-        <details className="mt-3">
+        {meta.code === 'm6a-30th-celebration' && (
+          <CelebrationPikachuResult key={result.seed} cards={allCards} onCardClick={onCardClick} />
+        )}
+        <LazyGallery className="mt-3" summary={
           <summary className="cursor-pointer text-[10px] text-gray-700 hover:text-gray-500 select-none w-fit">
             전체 {allCards.length}장 보기 (커먼/언커먼 포함)
           </summary>
+          }>
           <div className="mt-3">
             <CollectionGrid cards={allCards} onCardClick={onCardClick} />
           </div>
-        </details>
+        </LazyGallery>
       </section>
 
       {/* 액션 버튼 */}
@@ -807,7 +871,7 @@ function BoxDoneScreen({
       </div>
 
       {(session.boxes > 0 || session.packs > 0) && (
-        <details className="mb-8 pt-6 border-t border-white/5" open={session.boxes <= 1}>
+        <LazyGallery className="mb-8 pt-6 border-t border-white/5" defaultOpen={session.boxes <= 1} summary={
           <summary className="cursor-pointer list-none flex items-start justify-between gap-3 text-xs font-bold text-gray-400 tracking-wider hover:text-gray-200">
             <span>
               🗂 지금까지 깐 카드 — 박스 {session.boxes} · 팩 {session.packs} ·{' '}
@@ -828,18 +892,20 @@ function BoxDoneScreen({
               초기화
             </button>
           </summary>
+          }>
           <div className="mt-3">
             <SessionByBox session={session} onCardClick={onCardClick} />
-            <details className="text-xs text-gray-500 mt-4">
+            <LazyGallery className="text-xs text-gray-500 mt-4" summary={
               <summary className="cursor-pointer hover:text-gray-300">
                 누적 전체 {session.cards.length}장 보기 (박스 합산)
               </summary>
+              }>
               <div className="mt-3">
                 <CollectionGrid cards={session.cards} onCardClick={onCardClick} />
               </div>
-            </details>
+            </LazyGallery>
           </div>
-        </details>
+        </LazyGallery>
       )}
 
       <p className="text-[11px] text-gray-600 text-center mt-6">ⓘ {PROBABILITY_META.disclaimer}</p>
@@ -871,7 +937,7 @@ function PackDoneScreen({
   onChangeSet: () => void;
   onCardClick: (c: Card) => void;
 }) {
-  const hitCard = pack.cards[pack.cards.length - 1];
+  const hitCard = sortByRarity(pack.cards)[0];
   const isRareHit = hitCard?.rarity ? HIT_RARITIES.has(hitCard.rarity) : false;
   const sessionRares = sortByRarity(session.cards.filter((c) => c.rarity && RARE_RARITIES.has(c.rarity)));
 
@@ -897,7 +963,7 @@ function PackDoneScreen({
             card={card}
             size="lg"
             onClick={() => onCardClick(card)}
-            premiumSparkle={i === pack.cards.length - 1 && isPremiumSparkleRarity(card.rarity, card)}
+            premiumSparkle={isPremiumSparkleRarity(card.rarity, card)}
           />
         ))}
       </div>
@@ -914,17 +980,7 @@ function PackDoneScreen({
             ))}
           </h3>
           {sessionRares.length > 0 && (
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
-              {sessionRares.map((c, i) => (
-                <CardTile
-                  key={i}
-                  card={c}
-                  size="lg"
-                  onClick={() => onCardClick(c)}
-                  premiumSparkle={isPremiumSparkleRarity(c.rarity, c)}
-                />
-              ))}
-            </div>
+            <CollectionGrid cards={sessionRares} onCardClick={onCardClick} />
           )}
         </section>
       )}
@@ -1203,7 +1259,7 @@ export function BoxSimulator({
     const pack = boxResult.packs[packIdx];
     if (!pack) return;
     const hitIdx = pack.cards.length - 1;
-    const hitCard = pack.cards[hitIdx];
+    const hitCard = sortByRarity(pack.cards)[0];
     const isRareHit = hitCard?.rarity ? HIT_RARITIES.has(hitCard.rarity) : false;
     const revealEnd = hitIdx * REVEAL_STAGGER_MS + (isRareHit ? 200 : 0) + REVEAL_BASE_MS;
     const hold = isRareHit ? HIT_HOLD_MS : NORMAL_HOLD_MS;

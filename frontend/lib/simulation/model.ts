@@ -11,6 +11,42 @@ export const PROBABILITY_META = {
   estimatedAt: '2026-08',
 };
 
+export const CELEBRATION_30_SET_CODE = 'm6a-30th-celebration';
+// tcgTalk's 17 fully logged boxes, in source order: [RR, AR, REPRINT].
+// Sample whole rows: independent marginals invent unobserved 5 RR + 5 AR boxes.
+export const CELEBRATION_30_BOX_COUNTS = [
+  [5, 4, 2], [4, 5, 2], [5, 3, 2], [5, 4, 2], [4, 3, 2],
+  [4, 4, 2], [5, 3, 2], [4, 3, 2], [5, 3, 2], [5, 4, 2],
+  [5, 3, 3], [5, 4, 2], [4, 5, 2], [5, 3, 2], [5, 4, 2],
+  [4, 4, 2], [3, 4, 2],
+] as const;
+export const CELEBRATION_30_SAR_COUNT = 1;
+// PokéGet, 2026-09-16: approximately 720 boxes, published rounded rate.
+// https://pokemon-infomation.com/pull-rates-30th/ (not an exact 120/720 count)
+export const CELEBRATION_30_FUR_BOX_RATE = 1 / 6;
+// One RGB Mew was observed in one Japanese 120-box / 2,400-pack opening.
+// Provisional estimate; no measured split between the three colors.
+export const CELEBRATION_30_RGB_BOX_RATE = 1 / 120;
+export const CELEBRATION_30_BASE_HIT_PACKS = 9;
+
+// 340 recorded pack compositions. Updating FUR must not change other marginals:
+// removing FUR converts FUR-only to blank, and FUR+REPRINT to REPRINT-only.
+const celebrationFurRetention = (CELEBRATION_30_FUR_BOX_RATE / 20) / (6 / 340);
+export const CELEBRATION_30_PACK_PATTERNS: ReadonlyArray<{ rarities: readonly string[]; weight: number }> = [
+  { rarities: [], weight: 185 + 5 * (1 - celebrationFurRetention) },
+  { rarities: ['RR'], weight: 40 },
+  { rarities: ['AR'], weight: 31 },
+  { rarities: ['AR', 'RR'], weight: 29 },
+  { rarities: ['REPRINT'], weight: 23 + (1 - celebrationFurRetention) },
+  { rarities: ['SAR'], weight: 13 },
+  { rarities: ['RR', 'REPRINT'], weight: 8 },
+  { rarities: ['FUR'], weight: 5 * celebrationFurRetention },
+  { rarities: ['SAR', 'AR'], weight: 2 },
+  { rarities: ['SAR', 'REPRINT'], weight: 2 },
+  { rarities: ['AR', 'REPRINT'], weight: 1 },
+  { rarities: ['FUR', 'REPRINT'], weight: celebrationFurRetention },
+];
+
 export const EXPANSION_MONSTER_WEIGHTS: Record<string, Record<string, number>> = {
   'm4-ninja-spinner': { SR: 70.7, SAR: 28, UR: 1.3 },
   'm5-abyss-eye': { SR: 71.1, SAR: 28, UR: 0.9 },

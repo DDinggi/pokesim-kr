@@ -27,10 +27,13 @@ function stripExtension(path: string): string {
   return path.replace(/\.[a-zA-Z0-9]+$/, '');
 }
 
-function withCacheVersion(url: string): string {
-  if (!CARD_IMAGE_CACHE_VERSION) return url;
+function withCacheVersion(url: string, imageUrl: string): string {
+  const version = imageUrl.startsWith('external/m6a-30th-celebration/')
+    ? `${CARD_IMAGE_CACHE_VERSION}-m6a-jp-20260917-v2`
+    : CARD_IMAGE_CACHE_VERSION;
+  if (!version) return url;
   const separator = url.includes('?') ? '&' : '?';
-  return `${url}${separator}v=${encodeURIComponent(CARD_IMAGE_CACHE_VERSION)}`;
+  return `${url}${separator}v=${encodeURIComponent(version)}`;
 }
 
 export function cardImageVariantKey(
@@ -48,11 +51,17 @@ export function resolveCardImageUrl(
 ): string {
   if (!CARD_IMAGES_ENABLED) return '';
   if (/^https?:\/\//.test(imageUrl)) return imageUrl;
+  // Older opening-history snapshots still contain the original 180px GIF keys.
+  // All 104–165 Japanese supplements now have verified higher-resolution JPEGs.
+  const legacyM6a = imageUrl.match(/^external\/m6a-30th-celebration\/JP2026M6A(\d{3})\.gif$/);
+  if (legacyM6a && Number(legacyM6a[1]) >= 104 && Number(legacyM6a[1]) <= 165) {
+    imageUrl = imageUrl.replace(/\.gif$/, '.jpg');
+  }
   const key =
     CARD_IMAGE_VARIANTS_ENABLED && options.size
       ? cardImageVariantKey(imageUrl, options.size)
       : null;
-  return withCacheVersion(joinUrl(CARD_IMAGE_CDN_BASE, key ?? imageUrl));
+  return withCacheVersion(joinUrl(CARD_IMAGE_CDN_BASE, key ?? imageUrl), imageUrl);
 }
 
 export function preloadCardImages(

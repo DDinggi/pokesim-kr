@@ -6,6 +6,13 @@ import {
   ANNIVERSARY_25_HIT_WEIGHTS,
   ANNIVERSARY_25_PROMO_INTERVAL,
   ANNIVERSARY_25_PROMO_RARITY,
+  CELEBRATION_30_BOX_COUNTS,
+  CELEBRATION_30_PACK_PATTERNS,
+  CELEBRATION_30_BASE_HIT_PACKS,
+  CELEBRATION_30_FUR_BOX_RATE,
+  CELEBRATION_30_RGB_BOX_RATE,
+  CELEBRATION_30_SAR_COUNT,
+  CELEBRATION_30_SET_CODE,
   EXPANSION_MONSTER_WEIGHTS,
   EXPANSION_MONSTER_WEIGHTS_DEFAULT,
   ALT_SR_NUMBER_RANGES,
@@ -41,6 +48,10 @@ export function simulateExpansionBox(
   setCode?: string,
   packSize = 5,
 ): PackResult[] {
+  if (setCode === CELEBRATION_30_SET_CODE) {
+    return simulate30thCelebrationBox(boxSize, ctx, rng, packSize);
+  }
+
   if (isAnniversary25Set(setCode)) {
     const packs = Array.from({ length: boxSize }, () => buildAnniversary25Pack(ctx, rng, packSize));
     for (let index = ANNIVERSARY_25_PROMO_INTERVAL - 1; index < packs.length; index += ANNIVERSARY_25_PROMO_INTERVAL) {
@@ -63,6 +74,101 @@ export function simulateExpansionBox(
               ? buildShiningLegendsPack(ctx, pool, packSize)
               : buildExpansionPack(ctx, pool, packSize)
   ));
+}
+
+function pickCelebrationPattern<T extends { weight: number }>(patterns: readonly T[], rng: RNG): T {
+  let roll = rng() * patterns.reduce((sum, pattern) => sum + pattern.weight, 0);
+  return patterns.find((pattern) => (roll -= pattern.weight) < 0) ?? patterns[patterns.length - 1];
+}
+
+function celebration30Pools(ctx: BuildContext) {
+  const base = ctx.byRarity.__null__ ?? [];
+  return {
+    pikachu: base.filter((card) => card.number != null && card.number >= 17 && card.number <= 46),
+    energy: base.filter((card) => card.card_type === '에너지'),
+    filler: base.filter((card) => (
+      card.card_type !== '에너지'
+      && !(card.number != null && card.number >= 17 && card.number <= 46)
+    )),
+  };
+}
+
+function build30thCelebrationPack(
+  ctx: BuildContext,
+  rng: RNG,
+  hitPools: Card[][],
+  packSize: number,
+  usedCardNums?: Set<string>,
+): PackResult {
+  const { pikachu, energy, filler } = celebration30Pools(ctx);
+  const cards: Card[] = [];
+  if (pikachu.length) cards.push(ctx.pick(pikachu));
+  if (energy.length) cards.push(ctx.pick(energy));
+  for (const pool of hitPools.slice(0, Math.max(0, packSize - cards.length))) {
+    const rarity = pool[0]?.rarity ?? '';
+    const shouldAvoidBoxDuplicates = usedCardNums && ['AR', 'REPRINT', 'SAR', 'FUR', 'RGB'].includes(rarity);
+    const card = shouldAvoidBoxDuplicates
+      ? pickUniqueCard(ctx, pool, usedCardNums)
+      : (pool.length ? ctx.pick(pool) : null);
+    if (card) cards.push(card);
+  }
+  while (cards.length < packSize && filler.length) cards.push(ctx.pick(filler));
+  return { cards: shuffle(cards, rng) };
+}
+
+export function simulate30thCelebrationBox(
+  boxSize: number,
+  ctx: BuildContext,
+  rng: RNG,
+  packSize = 6,
+): PackResult[] {
+  const hitPools: Card[][] = [];
+  const add = (rarity: string, count: number) => {
+    const pool = ctx.byRarity[rarity] ?? [];
+    for (let index = 0; index < count; index++) hitPools.push(pool);
+  };
+  const [rr, ar, reprint] = CELEBRATION_30_BOX_COUNTS[Math.floor(rng() * CELEBRATION_30_BOX_COUNTS.length)];
+  add('RR', rr);
+  add('AR', ar);
+  add('REPRINT', reprint);
+  add('SAR', CELEBRATION_30_SAR_COUNT);
+  const hasFur = rng() < CELEBRATION_30_FUR_BOX_RATE && !!ctx.byRarity.FUR?.length;
+  if (hasFur) add('FUR', 1);
+  const targetHitPacks = CELEBRATION_30_BASE_HIT_PACKS + Number(hasFur && rng() < 1 / 3);
+  const packHits: Card[][][] = [];
+  // Pair placement is an approximation constrained by observed combinations;
+  // unlike loose packs, box counts and 9/10 hit-pack structure take priority.
+  while (hitPools.length + packHits.length > targetHitPacks) {
+    const available = CELEBRATION_30_PACK_PATTERNS.filter((pattern) => (
+      pattern.rarities.length === 2 && pattern.rarities.every((rarity) => hitPools.some((pool) => pool[0]?.rarity === rarity))
+    ));
+    if (!available.length) throw new Error('M6a hit counts cannot be paired');
+    const pair = pickCelebrationPattern(available, rng);
+    packHits.push(pair.rarities.map((rarity) => hitPools.splice(hitPools.findIndex((pool) => pool[0]?.rarity === rarity), 1)[0]));
+  }
+  packHits.push(...hitPools.map((pool) => [pool]));
+  while (packHits.length < boxSize) packHits.push([]);
+
+  if (rng() < CELEBRATION_30_RGB_BOX_RATE && ctx.byRarity.RGB?.length) {
+    const eligible = Array.from({ length: boxSize }, (_, index) => index)
+      .filter((index) => packHits[index].length < packSize - 2);
+    if (eligible.length) packHits[ctx.pick(eligible)].push(ctx.byRarity.RGB);
+  }
+
+  const usedCardNums = new Set<string>();
+  return shuffle(packHits, rng).map((pools) => build30thCelebrationPack(ctx, rng, pools, packSize, usedCardNums));
+}
+
+export function buildSingle30thCelebrationPack(
+  ctx: BuildContext,
+  rng: RNG,
+  packSize = 6,
+): PackResult {
+  const pattern = pickCelebrationPattern(CELEBRATION_30_PACK_PATTERNS, rng);
+  const hitPools = pattern.rarities.map((rarity) => ctx.byRarity[rarity] ?? []);
+  // RGB pack partners are unknown. Independent addition is explicitly provisional.
+  if (rng() < CELEBRATION_30_RGB_BOX_RATE / 20 && ctx.byRarity.RGB?.length) hitPools.push(ctx.byRarity.RGB);
+  return build30thCelebrationPack(ctx, rng, hitPools, packSize);
 }
 
 export function buildAnniversary25Pack(ctx: BuildContext, rng: RNG, packSize = 5): PackResult {

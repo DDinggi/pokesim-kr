@@ -16,8 +16,9 @@ export const HIT_DEX_USER_STORAGE_PREFIX = `${HIT_DEX_STORAGE_KEY}:user:`;
 const HIT_DEX_VERSION = 1;
 // 힛카드 도감은 최신 고레어뿐 아니라 구세대 SR/HR/UR도 수집한다.
 // 단, 특수 상품은 세트 데이터의 독립 풀 여부로 이미 걸러진다.
-const ALWAYS_DEX_DISPLAY_RARITIES = new Set(['SAR', 'MUR', 'BWR', 'CSR', 'MA', 'GRA', 'S8AP', 'H', 'SR', 'HR', 'UR']);
+const ALWAYS_DEX_DISPLAY_RARITIES = new Set(['RGB', 'SAR', 'MUR', 'BWR', 'CSR', 'MA', 'GRA', 'S8AP', 'H', 'SR', 'HR', 'UR']);
 const FEATURED_HIT_DEX_CARD_NUMBERS: Readonly<Record<string, ReadonlySet<number>>> = {
+  'm6a-30th-celebration': new Set([165]),
   's12a-vstar-universe': new Set([259, 260, 261, 262]),
 };
 let activeHitDexOwnerId: string | null = null;
@@ -250,6 +251,7 @@ export function isFeaturedHitDexCard(card: Card, setCode?: string): boolean {
 
 export function isHitDexCard(card: Card, setCode?: string): boolean {
   if (card.card_type?.trim() === '에너지') return false;
+  if (setCode === 'm6a-30th-celebration' && card.number >= 17 && card.number <= 46) return true;
   if (isFeaturedHitDexCard(card, setCode)) return true;
 
   const displayRarity = card.rarity ? rarityLabel(card.rarity, card) : null;

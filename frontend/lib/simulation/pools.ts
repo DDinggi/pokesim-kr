@@ -2,6 +2,8 @@ import type { Card } from '../types';
 import type { BuildContext } from './types';
 
 export interface RarityPools {
+  furAll: Card[];
+  reprintAll: Card[];
   hAll: Card[];
   srAll: Card[];
   rrrAll: Card[];
@@ -68,6 +70,8 @@ export function getRarityPools(byRarity: Record<string, Card[]>): RarityPools {
   const bwrAll = byRarity.BWR ?? [];
 
   return {
+    furAll: byRarity.FUR ?? [],
+    reprintAll: byRarity.REPRINT ?? [],
     hAll: byRarity.H ?? [],
     srAll,
     rrrAll,

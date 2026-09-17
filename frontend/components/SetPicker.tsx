@@ -39,6 +39,10 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
     gradient: 'from-emerald-600 via-sky-700 to-slate-950',
     accent: 'text-emerald-200',
   },
+  'm6a-30th-celebration': {
+    gradient: 'from-red-600 via-emerald-600 to-blue-800',
+    accent: 'text-yellow-200',
+  },
   'm-start-deck-100': {
     gradient: 'from-sky-500 via-blue-600 to-indigo-800',
     accent: 'text-sky-200',

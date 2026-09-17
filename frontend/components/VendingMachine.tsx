@@ -835,7 +835,7 @@ function CardTile({
   const [useOriginal, setUseOriginal] = useState(false);
   const Wrapper = onClick ? 'button' : 'div';
   const showImage = CARD_IMAGES_ENABLED && !!card.image_url && !errored;
-  const premiumSparkleRarity = premiumSparkle && showImage ? premiumSparkleVariant(card.rarity, card) : null;
+  const premiumSparkleRarity = premiumSparkle && showImage && loaded ? premiumSparkleVariant(card.rarity, card) : null;
   return (
     <Wrapper
       onClick={onClick}

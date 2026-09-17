@@ -143,6 +143,9 @@ export function CardModal({ card, onClose }: { card: Card; onClose: () => void }
             </p>
           )}
           <div className="text-xs text-gray-400 space-y-1 pt-2 border-t border-white/5">
+            {card.collector_number && (
+              <p><span className="text-gray-500">카드 번호:</span> {card.collector_number}</p>
+            )}
             {card.card_type && (
               <p>
                 <span className="text-gray-500">유형:</span> {card.card_type}

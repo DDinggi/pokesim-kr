@@ -5,11 +5,11 @@
  *   pnpm manual-add -- --set m4-ninja-spinner --tsv ../data/manual/m4-ninja-spinner-additions.tsv
  *
  * TSV 형식 (탭 구분, 첫 줄은 헤더):
- *   number  name_ko  rarity  card_type  subtype  hp  type  image_url  _source
+ *   card_num  number  name_ko  rarity  card_type  subtype  hp  type  image_url  _source
  *
- * 빈 칼럼은 null. card_num은 기존 카드의 prefix를 따와 자동 생성.
+ * 빈 칼럼은 null. card_num을 비우면 기존 카드의 prefix를 따와 자동 생성.
  * image_url은 R2 상대 키를 권장. 원본 다운로드 주소는 _image_source_url에 별도 보존.
- * 선택 근거 칼럼: _image_source_url, _name_source, _rarity_source, _jp_number.
+ * 선택 근거 칼럼: collector_number, _image_source_url, _image_language, _name_source, _rarity_source, _jp_number.
  *
  * 같은 number의 카드가 이미 있으면 덮어쓰기 (중복 방지). _manual: true 플래그 부여.
  */
@@ -23,6 +23,7 @@ const REPO_ROOT = join(__dirname, "..");
 interface Card {
   card_num: string;
   number: number;
+  collector_number?: string;
   name_ko: string | null;
   rarity: string | null;
   card_type: string | null;
@@ -32,6 +33,7 @@ interface Card {
   image_url: string;
   _source?: string;
   _image_source_url?: string;
+  _image_language?: string;
   _name_source?: string;
   _rarity_source?: string;
   _jp_number?: number;
@@ -93,14 +95,17 @@ if (!prefix) {
 }
 
 const today = new Date().toISOString().slice(0, 10);
+const existingByNumber = new Map(setData.cards.map((card) => [card.number, card]));
 const newCards: Card[] = rows.map((r) => {
   const number = Number(r.number);
   if (!Number.isFinite(number)) {
     throw new Error(`Invalid number: ${JSON.stringify(r)}`);
   }
   return {
-    card_num: `${prefix}${String(number).padStart(3, "0")}`,
+    ...(existingByNumber.get(number) ?? {}),
+    card_num: r.card_num || `${prefix}${String(number).padStart(3, "0")}`,
     number,
+    ...(r.collector_number ? { collector_number: r.collector_number } : {}),
     name_ko: nullable(r.name_ko ?? ""),
     rarity: nullable(r.rarity ?? ""),
     card_type: nullable(r.card_type ?? ""),
@@ -110,6 +115,7 @@ const newCards: Card[] = rows.map((r) => {
     image_url: r.image_url ?? "",
     _source: nullable(r._source ?? "") ?? undefined,
     ...(r._image_source_url ? { _image_source_url: r._image_source_url } : {}),
+    ...(r._image_language ? { _image_language: r._image_language } : {}),
     ...(r._name_source ? { _name_source: r._name_source } : {}),
     ...(r._rarity_source ? { _rarity_source: r._rarity_source } : {}),
     ...(r._jp_number ? { _jp_number: Number(r._jp_number) } : {}),
