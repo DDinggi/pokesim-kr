@@ -140,7 +140,7 @@ export function MainScreen({
             <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">{LATEST_SET_UPDATE_LABEL}</span>
             {LATEST_SET_UPDATE_TITLE}
           </p>
-          <p className="text-[11px] leading-relaxed text-gray-400">{LATEST_SET_UPDATE_SETS}</p>
+          {LATEST_SET_UPDATE_SETS && <p className="text-[11px] leading-relaxed text-gray-400">{LATEST_SET_UPDATE_SETS}</p>}
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-relaxed text-gray-400">
             <span>피드백과 문의는 언제든 환영합니다.</span>
             <a
@@ -290,19 +290,16 @@ export function MainScreen({
       <footer className="flex flex-col items-center gap-2 border-t border-gray-900 px-6 py-5">
         {visitorStats && (
           <p className="text-center text-xs text-gray-400">
-            누적 방문 브라우저 <span className="font-bold text-white">{visitorStats.cumulativeUniqueVisitors.toLocaleString()}개</span>
-            <span className="text-gray-500"> (익명 ID 기준 · 집계 시작 {visitorStats.firstObservedAt
+            누적 방문 <span className="font-bold text-white">{visitorStats.cumulativeUniqueVisitors.toLocaleString()}명</span>
+            <span className="text-gray-500"> (브라우저 기준 · {visitorStats.firstObservedAt
               ? new Date(visitorStats.firstObservedAt).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' })
-              : '확인 중'})</span>
+              : '확인 중'}부터)</span>
           </p>
         )}
         {stats && (
           <p className="text-center text-xs text-gray-400">
-            개봉 참여 일일 세션 <span className="font-bold text-white">{stats.totalSessions.toLocaleString()}회</span>에서{' '}
-            <span className="font-bold text-white">{stats.totalPacks.toLocaleString()}팩</span> ·{' '}
-            <span className="font-bold text-white">{stats.totalBoxes.toLocaleString()}박스</span> ·{' '}
-            <span className="font-bold text-pink-400">{stats.totalKrw.toLocaleString()}원</span>어치
-            시뮬레이션했습니다.
+            누적 개봉 <span className="font-bold text-white">{stats.totalBoxes.toLocaleString()}박스</span>
+            <span className="text-gray-500"> · {stats.totalPacks.toLocaleString()}팩</span>
           </p>
         )}
         <p className="text-center text-[10px] text-gray-600">
