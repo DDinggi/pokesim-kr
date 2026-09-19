@@ -25,7 +25,7 @@ const seenCards = new Set<string>();
 const boxTuples = new Set(CELEBRATION_30_BOX_COUNTS.map((row) => row.join(',')));
 const packPatterns = new Set(CELEBRATION_30_PACK_PATTERNS.map((pattern) => [...pattern.rarities].sort().join(',')));
 assert.ok(Math.abs(CELEBRATION_30_PACK_PATTERNS.reduce((sum, p) => sum + p.weight, 0) - 340) < 1e-9);
-for (const [rarity, perBox] of [['RR', 77 / 17], ['AR', 63 / 17], ['REPRINT', 35 / 17], ['SAR', 1], ['FUR', 1 / 6]] as const) {
+for (const [rarity, perBox] of [['RR', 5], ['AR', 4], ['REPRINT', 2], ['SAR', 5 / 6], ['FUR', 1 / 6]] as const) {
   const perPack = CELEBRATION_30_PACK_PATTERNS.reduce((sum, p) => sum + (p.rarities.includes(rarity) ? p.weight : 0), 0) / 340;
   assert.ok(Math.abs(perPack * 20 - perBox) < 1e-10, `${rarity}: pack/box marginal mismatch`);
 }
@@ -40,11 +40,11 @@ for (let i = 0; i < trials; i++) {
     assert.equal(new Set(cards.filter((card) => card.rarity === rarity).map((card) => card.card_num)).size, counts(rarity));
   }
   const hitPackCount = result.packs.filter((pack) => pack.cards.some((card) => card.rarity && card.rarity !== 'RGB')).length;
-  assert.ok(hitPackCount === 9 || (counts('FUR') === 1 && hitPackCount === 10));
-  assert.equal(cards.filter((card) => card.rarity === 'SAR').length, 1);
+  assert.equal(hitPackCount, 9);
+  assert.equal(counts('SAR') + counts('FUR'), 1, 'Every box must have one SAR-or-FUR high slot');
   if (counts('FUR') === 1) {
-    assert.equal(cards.filter((card) => card.rarity === 'SAR').length, 1, 'FUR must not replace the SAR slot');
-    assert.ok([2, 3].includes(counts('REPRINT')), 'FUR must preserve the observed reprint count');
+    assert.equal(counts('SAR'), 0, 'FUR must replace the SAR slot');
+    assert.equal(counts('REPRINT'), 2, 'FUR must preserve the observed reprint count');
   }
   for (const pack of result.packs) {
     assert.equal(pack.cards.length, 6);
@@ -76,7 +76,7 @@ for (let i = 0; i < 40_000; i++) {
   assert.ok(packPatterns.has(pack.cards.flatMap((card) => card.rarity && card.rarity !== 'RGB' ? [card.rarity] : []).sort().join(',')));
   for (const card of pack.cards) if (card.rarity) looseCounts[card.rarity] = (looseCounts[card.rarity] ?? 0) + 1;
 }
-for (const [rarity, expected] of [['RR', 77 / 340], ['AR', 63 / 340], ['REPRINT', 35 / 340], ['SAR', 1 / 20], ['FUR', 1 / 120], ['RGB', 1 / 2400]] as const) {
+for (const [rarity, expected] of [['RR', 5 / 20], ['AR', 4 / 20], ['REPRINT', 2 / 20], ['SAR', (5 / 6) / 20], ['FUR', 1 / 120], ['RGB', 1 / 2400]] as const) {
   assert.ok(Math.abs((looseCounts[rarity] ?? 0) / 40_000 - expected) < 5 * Math.sqrt(expected * (1 - expected) / 40_000), `${rarity}: loose-pack rate regression`);
 }
 for (const card of set.cards.filter((card) => card.number >= 104 && card.number <= 168)) {

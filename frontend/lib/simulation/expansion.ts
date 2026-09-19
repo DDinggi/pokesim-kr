@@ -11,7 +11,7 @@ import {
   CELEBRATION_30_BASE_HIT_PACKS,
   CELEBRATION_30_FUR_BOX_RATE,
   CELEBRATION_30_RGB_BOX_RATE,
-  CELEBRATION_30_SAR_COUNT,
+  CELEBRATION_30_HIGH_SLOT_COUNT,
   CELEBRATION_30_SET_CODE,
   EXPANSION_MONSTER_WEIGHTS,
   EXPANSION_MONSTER_WEIGHTS_DEFAULT,
@@ -131,10 +131,9 @@ export function simulate30thCelebrationBox(
   add('RR', rr);
   add('AR', ar);
   add('REPRINT', reprint);
-  add('SAR', CELEBRATION_30_SAR_COUNT);
   const hasFur = rng() < CELEBRATION_30_FUR_BOX_RATE && !!ctx.byRarity.FUR?.length;
-  if (hasFur) add('FUR', 1);
-  const targetHitPacks = CELEBRATION_30_BASE_HIT_PACKS + Number(hasFur && rng() < 1 / 3);
+  add(hasFur ? 'FUR' : 'SAR', CELEBRATION_30_HIGH_SLOT_COUNT);
+  const targetHitPacks = CELEBRATION_30_BASE_HIT_PACKS;
   const packHits: Card[][][] = [];
   // Pair placement is an approximation constrained by observed combinations;
   // unlike loose packs, box counts and 9/10 hit-pack structure take priority.

@@ -14,13 +14,11 @@ export const PROBABILITY_META = {
 export const CELEBRATION_30_SET_CODE = 'm6a-30th-celebration';
 // tcgTalk's 17 fully logged boxes, in source order: [RR, AR, REPRINT].
 // Sample whole rows: independent marginals invent unobserved 5 RR + 5 AR boxes.
-export const CELEBRATION_30_BOX_COUNTS = [
-  [5, 4, 2], [4, 5, 2], [5, 3, 2], [5, 4, 2], [4, 3, 2],
-  [4, 4, 2], [5, 3, 2], [4, 3, 2], [5, 3, 2], [5, 4, 2],
-  [5, 3, 3], [5, 4, 2], [4, 5, 2], [5, 3, 2], [5, 4, 2],
-  [4, 4, 2], [3, 4, 2],
-] as const;
-export const CELEBRATION_30_SAR_COUNT = 1;
+// Korean community opening reports: every one of three boxes had five RR, four
+// AR, and two reprints. This is a provisional Korean-box model, not an official
+// guarantee. https://cafe.naver.com/ca-fe/cafes/30418914/articles/832813
+export const CELEBRATION_30_BOX_COUNTS = [[5, 4, 2]] as const;
+export const CELEBRATION_30_HIGH_SLOT_COUNT = 1;
 // TCGPro's 120-box opening summary, checked 2026-09-20: approximately 1 FUR per 6 boxes.
 // https://www.tcgpro.co.jp/media/pokeka-30th-atari/30th-card-list/
 // The source publishes a rounded rate, not the underlying FUR count.
@@ -30,20 +28,22 @@ export const CELEBRATION_30_FUR_BOX_RATE = 1 / 6;
 export const CELEBRATION_30_RGB_BOX_RATE = 1 / 120;
 export const CELEBRATION_30_BASE_HIT_PACKS = 9;
 
-// 340 recorded pack compositions. Updating FUR must not change other marginals:
-// removing FUR converts FUR-only to blank, and FUR+REPRINT to REPRINT-only.
+// Korean reports place exactly one SAR-or-FUR high slot in a box. Loose-pack
+// patterns retain the Japanese composition as a shape-only fallback, while the
+// SAR marginal is reduced by the FUR replacement rate.
 const celebrationFurRetention = (CELEBRATION_30_FUR_BOX_RATE / 20) / (6 / 340);
+const celebrationSarRetention = 1 - CELEBRATION_30_FUR_BOX_RATE;
 export const CELEBRATION_30_PACK_PATTERNS: ReadonlyArray<{ rarities: readonly string[]; weight: number }> = [
-  { rarities: [], weight: 185 + 5 * (1 - celebrationFurRetention) },
-  { rarities: ['RR'], weight: 40 },
-  { rarities: ['AR'], weight: 31 },
+  { rarities: [], weight: 185 + 5 * (1 - celebrationFurRetention) + 17 * (1 - celebrationSarRetention) - 8 - 16 / 3 + 2 / 3 },
+  { rarities: ['RR'], weight: 48 },
+  { rarities: ['AR'], weight: 31 + 16 / 3 },
   { rarities: ['AR', 'RR'], weight: 29 },
-  { rarities: ['REPRINT'], weight: 23 + (1 - celebrationFurRetention) },
-  { rarities: ['SAR'], weight: 13 },
+  { rarities: ['REPRINT'], weight: 23 + (1 - celebrationFurRetention) - 2 / 3 },
+  { rarities: ['SAR'], weight: 13 * celebrationSarRetention },
   { rarities: ['RR', 'REPRINT'], weight: 8 },
   { rarities: ['FUR'], weight: 5 * celebrationFurRetention },
-  { rarities: ['SAR', 'AR'], weight: 2 },
-  { rarities: ['SAR', 'REPRINT'], weight: 2 },
+  { rarities: ['SAR', 'AR'], weight: 2 * celebrationSarRetention },
+  { rarities: ['SAR', 'REPRINT'], weight: 2 * celebrationSarRetention },
   { rarities: ['AR', 'REPRINT'], weight: 1 },
   { rarities: ['FUR', 'REPRINT'], weight: celebrationFurRetention },
 ];
