@@ -651,7 +651,7 @@ export function SetPicker({
           <p className="text-sm font-bold text-white mt-0.5">
             {LATEST_SET_UPDATE_TITLE}
           </p>
-          <p className="mt-1 text-[11px] leading-relaxed text-gray-400">{LATEST_SET_UPDATE_SETS}</p>
+          {LATEST_SET_UPDATE_SETS && <p className="mt-1 text-[11px] leading-relaxed text-gray-400">{LATEST_SET_UPDATE_SETS}</p>}
         </div>
 
         <div className="relative mb-5">

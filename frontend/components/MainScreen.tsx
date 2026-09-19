@@ -140,7 +140,7 @@ export function MainScreen({
             <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">{LATEST_SET_UPDATE_LABEL}</span>
             {LATEST_SET_UPDATE_TITLE}
           </p>
-          <p className="text-[11px] leading-relaxed text-gray-400">{LATEST_SET_UPDATE_SETS}</p>
+          {LATEST_SET_UPDATE_SETS && <p className="text-[11px] leading-relaxed text-gray-400">{LATEST_SET_UPDATE_SETS}</p>}
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-relaxed text-gray-400">
             <span>피드백과 문의는 언제든 환영합니다.</span>
             <a
