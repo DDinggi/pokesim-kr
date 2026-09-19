@@ -42,6 +42,10 @@ for (let i = 0; i < trials; i++) {
   const hitPackCount = result.packs.filter((pack) => pack.cards.some((card) => card.rarity && card.rarity !== 'RGB')).length;
   assert.ok(hitPackCount === 9 || (counts('FUR') === 1 && hitPackCount === 10));
   assert.equal(cards.filter((card) => card.rarity === 'SAR').length, 1);
+  if (counts('FUR') === 1) {
+    assert.equal(cards.filter((card) => card.rarity === 'SAR').length, 1, 'FUR must not replace the SAR slot');
+    assert.ok([2, 3].includes(counts('REPRINT')), 'FUR must preserve the observed reprint count');
+  }
   for (const pack of result.packs) {
     assert.equal(pack.cards.length, 6);
     const rarities = pack.cards.flatMap((card) => card.rarity && card.rarity !== 'RGB' ? [card.rarity] : []).sort();

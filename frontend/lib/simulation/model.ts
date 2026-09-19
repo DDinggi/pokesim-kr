@@ -21,8 +21,9 @@ export const CELEBRATION_30_BOX_COUNTS = [
   [4, 4, 2], [3, 4, 2],
 ] as const;
 export const CELEBRATION_30_SAR_COUNT = 1;
-// PokéGet, 2026-09-16: approximately 720 boxes, published rounded rate.
-// https://pokemon-infomation.com/pull-rates-30th/ (not an exact 120/720 count)
+// TCGPro's 120-box opening summary, checked 2026-09-20: approximately 1 FUR per 6 boxes.
+// https://www.tcgpro.co.jp/media/pokeka-30th-atari/30th-card-list/
+// The source publishes a rounded rate, not the underlying FUR count.
 export const CELEBRATION_30_FUR_BOX_RATE = 1 / 6;
 // One RGB Mew was observed in one Japanese 120-box / 2,400-pack opening.
 // Provisional estimate; no measured split between the three colors.

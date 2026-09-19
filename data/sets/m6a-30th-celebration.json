@@ -53,10 +53,10 @@
         "max": 1
       }
     ],
-    "_source": "한국 공식 상품 안내: 1팩에 피카츄 1장과 기본 에너지 1장(https://m.pokemonstore.co.kr/pages/pokemoncardgame30th/product/m6a/index.html). FUR는 PokéGet 2026-09-16 약 720박스 조사에서 공개한 약 6박스당 1장으로 갱신했다(https://pokemon-infomation.com/pull-rates-30th/). 약 720은 보고된 전체 조사 규모이며 FUR 실제 관측 건수는 공개되지 않아 120/720 실측으로 해석하지 않는다. SAR 1장 및 FUR와 동시 봉입은 tcgTalk 57박스 기록으로 교차 확인. RR 3~5장(77장), AR 3~5장(63장), 복각 2~3장(35장)의 변동 분포는 17박스 상세 기록을 유지한다(https://tcgtalk.com/guides/30th-celebrations-japanese-pull-rates-box-opening). 한국판 공식 봉입률은 비공개이며 일본판 공개 추정치를 잠정 준용한다.",
-    "_sample_size": 720,
-    "_composition_model": "RR·AR·복각은 tcgTalk의 17박스 장수 행을 함께 추첨한다. 낱팩은 340팩의 공개 조합표를 사용하며 FUR 관련 두 조합의 가중치만 1/120팩에 맞추고 제거된 질량은 동일한 비-FUR 조합으로 옮긴다. 박스 내 팩 배치는 관측된 9/10 히트 팩 수와 두 장 조합을 제약으로 사용하는 근사이며, 낱팩 조합별 빈도와 완전히 같다고 주장하지 않는다. RGB 동봉 조합은 미확인이라 추가 슬롯으로 가정한다. 모든 카드의 등급 내 선택과 RGB 색상 선택은 균등 가정이다. _sample_size=720은 FUR 참고 조사 규모이고 RR·AR·복각은 17박스/340팩, SAR는 57박스, RGB는 별도 120박스다.",
-    "_estimated_at": "2026-09-17",
+    "_source": "한국 공식 상품 안내: 1팩에 피카츄 1장과 기본 에너지 1장(https://m.pokemonstore.co.kr/pages/pokemoncardgame30th/product/m6a/index.html). FUR는 TCGPro의 120박스 개봉 요약이 공개한 약 6박스당 1장을 사용한다(https://www.tcgpro.co.jp/media/pokeka-30th-atari/30th-card-list/). 원문은 반올림한 비율만 공개하므로 실제 FUR 관측 건수를 역산하지 않는다. SAR 1장 및 FUR와 동시 봉입은 tcgTalk 57박스 기록으로 교차 확인한다. RR 3~5장(77장), AR 3~5장(63장), 복각 2~3장(35장)의 변동 분포는 17박스 상세 기록을 유지한다(https://tcgtalk.com/guides/30th-celebrations-japanese-pull-rates-box-opening). 한국판 공식 봉입률은 비공개이며 일본판 공개 추정치를 잠정 준용한다.",
+    "_sample_size": 120,
+    "_composition_model": "RR·AR·복각은 tcgTalk의 17박스 장수 행을 함께 추첨한다. 낱팩은 340팩의 공개 조합표를 사용하며 FUR 관련 두 조합의 가중치만 1/120팩에 맞추고 제거된 질량은 동일한 비-FUR 조합으로 옮긴다. 박스 내 팩 배치는 관측된 9/10 히트 팩 수와 두 장 조합을 제약으로 사용하는 근사이며, 낱팩 조합별 빈도와 완전히 같다고 주장하지 않는다. RGB 동봉 조합은 미확인이라 추가 슬롯으로 가정한다. 모든 카드의 등급 내 선택과 RGB 색상 선택은 균등 가정이다. _sample_size=120은 FUR 참고 조사 규모이고 RR·AR·복각은 17박스/340팩, SAR는 57박스, RGB는 별도 120박스다.",
+    "_estimated_at": "2026-09-20",
     "special_pack_evidence": {
       "kind": "rgb_mew_hidden_card",
       "composition": {
