@@ -290,19 +290,17 @@ export function MainScreen({
       <footer className="flex flex-col items-center gap-2 border-t border-gray-900 px-6 py-5">
         {visitorStats && (
           <p className="text-center text-xs text-gray-400">
-            누적 방문 브라우저 <span className="font-bold text-white">{visitorStats.cumulativeUniqueVisitors.toLocaleString()}개</span>
-            <span className="text-gray-500"> (익명 ID 기준 · 집계 시작 {visitorStats.firstObservedAt
+            지금까지 <span className="font-bold text-white">{visitorStats.cumulativeUniqueVisitors.toLocaleString()}개</span>의 브라우저가 놀러왔어요
+            <span className="text-gray-500"> (익명 ID 기준 · {visitorStats.firstObservedAt
               ? new Date(visitorStats.firstObservedAt).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' })
-              : '확인 중'})</span>
+              : '확인 중'}부터)</span>
           </p>
         )}
         {stats && (
           <p className="text-center text-xs text-gray-400">
-            개봉 참여 일일 세션 <span className="font-bold text-white">{stats.totalSessions.toLocaleString()}회</span>에서{' '}
-            <span className="font-bold text-white">{stats.totalPacks.toLocaleString()}팩</span> ·{' '}
-            <span className="font-bold text-white">{stats.totalBoxes.toLocaleString()}박스</span> ·{' '}
-            <span className="font-bold text-pink-400">{stats.totalKrw.toLocaleString()}원</span>어치
-            시뮬레이션했습니다.
+            다 같이 <span className="font-bold text-white">{stats.totalPacks.toLocaleString()}팩</span>을 열고{' '}
+            <span className="font-bold text-white">{stats.totalBoxes.toLocaleString()}박스</span>를 깠어요
+            <span className="text-gray-500"> · 개봉 {stats.totalSessions.toLocaleString()}회</span>
           </p>
         )}
         <p className="text-center text-[10px] text-gray-600">
