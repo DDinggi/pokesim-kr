@@ -30,6 +30,7 @@ const force = argv.includes("--force");
 const verifyOnly = argv.includes("--verify-only");
 const targetSet = readArg("--set");
 const targetCard = readArg("--card");
+const targetCards = new Set((readArg("--cards") ?? "").split(",").filter(Boolean));
 const targetKey = readArg("--key");
 const verifyConcurrency = Number(readArg("--concurrency") ?? "16");
 
@@ -301,6 +302,7 @@ async function main() {
     let changed = false;
 
     for (const card of cards) {
+      if (targetCards.size && !targetCards.has(card.card_num ?? "")) continue;
       if (targetCard && card.card_num !== targetCard && String(card.number ?? "") !== targetCard) {
         continue;
       }

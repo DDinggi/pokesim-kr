@@ -1,3 +1,6 @@
+import reviewedImageReplacements from './card-image-replacements.json';
+
+const imageReplacements: Record<string, string> = reviewedImageReplacements;
 const DEFAULT_CARD_IMAGE_CDN_BASE = 'https://img.pokesim.kr/';
 // Legacy originals were missing and fallback sources were replaced on 2026-09-08.
 // Invalidate prior missing-original responses as well as old undersized variants.
@@ -51,6 +54,8 @@ export function resolveCardImageUrl(
 ): string {
   if (!CARD_IMAGES_ENABLED) return '';
   if (/^https?:\/\//.test(imageUrl)) return imageUrl;
+  // Previously saved opening results contain image keys, not just card IDs.
+  imageUrl = imageReplacements[imageUrl] ?? imageUrl;
   // Older opening-history snapshots still contain the original 180px GIF keys.
   // All 104–165 Japanese supplements now have verified higher-resolution JPEGs.
   const legacyM6a = imageUrl.match(/^external\/m6a-30th-celebration\/JP2026M6A(\d{3})\.gif$/);

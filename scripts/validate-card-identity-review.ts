@@ -8,12 +8,14 @@ const { simulateBox, simulatePack } = simulatorDefault as unknown as typeof impo
 const root = resolve(import.meta.dirname, '..');
 const read = (p: string) => JSON.parse(readFileSync(join(root, p), 'utf8'));
 const priceMap = read('data/prices/price-matches.json').cards;
+const koreanReview = read('data/manual/korean-image-review-20260926.json').cards;
 for (const filename of ['card-identity-review-20260909.json', 'card-classification-review-20260910.json']) {
   for (const row of read(`data/manual/${filename}`)) {
     const set = read(`data/sets/${row.set}.json`);
     const card = set.cards.find((c: any) => c.card_num === row.card_num);
     for (const key of ['name_ko', 'rarity', 'number', 'hp', 'type', 'card_type', 'image_url', 'price_ref_krw', 'price_source']) {
-      assert.deepEqual(card[key], row.after[key], `${row.card_num}: ${key}`);
+      const newer = koreanReview.find((entry: any) => entry.set === row.set && entry.id === row.card_num);
+      assert.deepEqual(card[key], (newer?.after ?? row.after)[key], `${row.card_num}: ${key}`);
     }
     if (row.after._jp_number) assert.equal(priceMap[card.card_num].fullahead_number, row.after._jp_number);
     assert.deepEqual(set, read(`frontend/public/sets/${row.set}.json`));

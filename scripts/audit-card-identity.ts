@@ -9,11 +9,13 @@ import { parse } from 'node-html-parser';
 import sharp from 'sharp';
 
 const root = resolve(import.meta.dirname, '..');
-const out = join(root, '.tmp/card-identity-audit');
+const cacheIndex = process.argv.indexOf('--cache-dir');
+const out = cacheIndex < 0 ? join(root, '.tmp/card-identity-audit') : resolve(root, process.argv[cacheIndex + 1]);
 mkdirSync(out, { recursive: true });
 const argv = process.argv.slice(2);
 const arg = (key: string) => argv.includes(key) ? argv[argv.indexOf(key) + 1] : undefined;
 const selected = arg('--set');
+const selectedCards = new Set((arg('--cards') ?? '').split(',').filter(Boolean));
 const imageMode = argv.includes('--images');
 const variantsOnly = argv.includes('--variants-only');
 const concurrency = Number(arg('--concurrency') ?? 6);
@@ -57,7 +59,8 @@ async function pixels(bytes: Buffer) {
 const distance = (a: Buffer, b: Buffer) => a.reduce((sum, v, i) => sum + Math.abs(v - b[i]), 0) / a.length;
 async function audit(set: any, card: any) {
   const result: any = { set: set.code, id: card.card_num, number: card.number, name: card.name_ko, findings: [] };
-  const officialUrl = /^BS\d+m?$/.test(card.card_num) ? `https://pokemoncard.co.kr/cards/detail/${card.card_num}` : null;
+  const officialId = card._official_card_num ?? card.card_num;
+  const officialUrl = /^BS\d+m?$/.test(officialId) ? `https://pokemoncard.co.kr/cards/detail/${officialId}` : null;
   let officialImage: string | undefined;
   if (officialUrl) {
     try {
@@ -122,6 +125,7 @@ async function audit(set: any, card: any) {
 let total = 0;
 for (const code of codes) {
   const set = JSON.parse(readFileSync(join(root, `data/sets/${code}.json`), 'utf8'));
+  if (selectedCards.size) set.cards = set.cards.filter((card: any) => selectedCards.has(card.card_num));
   const results: any[] = [];
   let cursor = 0;
   await Promise.all(Array.from({ length: concurrency }, async () => {

@@ -1592,11 +1592,10 @@
       "subtype": null,
       "hp": 70,
       "type": "풀",
-      "image_url": "external/m5-abyss-eye/BS2026004082.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059584/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/082-high-f1yry6.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/082.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004082",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_082.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2600,
       "price_ref_jpy": 420,
       "price_ref_usd": null,
@@ -1607,6 +1606,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004082",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004082",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004082",
+        "previous_image": "external/m5-abyss-eye/BS2026004082.jpg"
       }
     },
     {
@@ -1618,11 +1624,10 @@
       "subtype": null,
       "hp": 140,
       "type": "불꽃",
-      "image_url": "external/m5-abyss-eye/BS2026004083.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059585/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/083-high-6bnqv7.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/083.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004083",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_083.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2600,
       "price_ref_jpy": 420,
       "price_ref_usd": null,
@@ -1633,6 +1638,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004083",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004083",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004083",
+        "previous_image": "external/m5-abyss-eye/BS2026004083.jpg"
       }
     },
     {
@@ -1644,11 +1656,10 @@
       "subtype": null,
       "hp": 70,
       "type": "물",
-      "image_url": "external/m5-abyss-eye/BS2026004084.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059586/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/084-high-1fvovu.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/084.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004084",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_084.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 4200,
       "price_ref_jpy": 680,
       "price_ref_usd": null,
@@ -1659,6 +1670,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004084",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004084",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004084",
+        "previous_image": "external/m5-abyss-eye/BS2026004084.jpg"
       }
     },
     {
@@ -1670,11 +1688,10 @@
       "subtype": null,
       "hp": 150,
       "type": "물",
-      "image_url": "external/m5-abyss-eye/BS2026004085.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059587/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/085-high-eba0sz.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/085.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004085",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_085.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 3000,
       "price_ref_jpy": 480,
       "price_ref_usd": null,
@@ -1685,6 +1702,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004085",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004085",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004085",
+        "previous_image": "external/m5-abyss-eye/BS2026004085.jpg"
       }
     },
     {
@@ -1696,11 +1720,10 @@
       "subtype": null,
       "hp": 120,
       "type": "번개",
-      "image_url": "external/m5-abyss-eye/BS2026004086.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059588/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/086-high-dfpl9l.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/086.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004086",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_086.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2600,
       "price_ref_jpy": 420,
       "price_ref_usd": null,
@@ -1711,6 +1734,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004086",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004086",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004086",
+        "previous_image": "external/m5-abyss-eye/BS2026004086.jpg"
       }
     },
     {
@@ -1722,11 +1752,10 @@
       "subtype": null,
       "hp": 130,
       "type": "초",
-      "image_url": "external/m5-abyss-eye/BS2026004087.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059589/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/087-high-mnjlha.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/087.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004087",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_087.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 11600,
       "price_ref_jpy": 1880,
       "price_ref_usd": null,
@@ -1737,6 +1766,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004087",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004087",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004087",
+        "previous_image": "external/m5-abyss-eye/BS2026004087.jpg"
       }
     },
     {
@@ -1748,11 +1784,10 @@
       "subtype": null,
       "hp": 140,
       "type": "초",
-      "image_url": "external/m5-abyss-eye/BS2026004088.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059590/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/088-high-yngu9u.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/088.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004088",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_088.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 3600,
       "price_ref_jpy": 580,
       "price_ref_usd": null,
@@ -1763,6 +1798,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004088",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004088",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004088",
+        "previous_image": "external/m5-abyss-eye/BS2026004088.jpg"
       }
     },
     {
@@ -1774,11 +1816,10 @@
       "subtype": null,
       "hp": 100,
       "type": "악",
-      "image_url": "external/m5-abyss-eye/BS2026004089.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059591/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/089-high-domtow.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/089.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004089",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_089.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2600,
       "price_ref_jpy": 420,
       "price_ref_usd": null,
@@ -1789,6 +1830,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004089",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004089",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004089",
+        "previous_image": "external/m5-abyss-eye/BS2026004089.jpg"
       }
     },
     {
@@ -1800,11 +1848,10 @@
       "subtype": null,
       "hp": 130,
       "type": "악",
-      "image_url": "external/m5-abyss-eye/BS2026004090.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059592/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/090-high-ypmyrz.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/090.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004090",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_090.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2600,
       "price_ref_jpy": 420,
       "price_ref_usd": null,
@@ -1815,6 +1862,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004090",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004090",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004090",
+        "previous_image": "external/m5-abyss-eye/BS2026004090.jpg"
       }
     },
     {
@@ -1826,11 +1880,10 @@
       "subtype": null,
       "hp": 160,
       "type": "강철",
-      "image_url": "external/m5-abyss-eye/BS2026004091.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059593/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/091-high-6k8nax.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/091.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004091",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_091.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2600,
       "price_ref_jpy": 420,
       "price_ref_usd": null,
@@ -1841,6 +1894,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004091",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004091",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004091",
+        "previous_image": "external/m5-abyss-eye/BS2026004091.jpg"
       }
     },
     {
@@ -1852,11 +1912,10 @@
       "subtype": null,
       "hp": 150,
       "type": "무색",
-      "image_url": "external/m5-abyss-eye/BS2026004092.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059594/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/092-high-48egg8.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/092.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004092",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_092.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2600,
       "price_ref_jpy": 420,
       "price_ref_usd": null,
@@ -1867,6 +1926,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004092",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004092",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004092",
+        "previous_image": "external/m5-abyss-eye/BS2026004092.jpg"
       }
     },
     {
@@ -1878,11 +1944,10 @@
       "subtype": null,
       "hp": 140,
       "type": "무색",
-      "image_url": "external/m5-abyss-eye/BS2026004093.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059595/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/093-high-bybjfp.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/093.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004093",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_093.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2600,
       "price_ref_jpy": 420,
       "price_ref_usd": null,
@@ -1893,6 +1958,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004093",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004093",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004093",
+        "previous_image": "external/m5-abyss-eye/BS2026004093.jpg"
       }
     },
     {
@@ -1904,11 +1976,10 @@
       "subtype": null,
       "hp": 260,
       "type": "풀",
-      "image_url": "external/m5-abyss-eye/BS2026004094.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059596/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/094-high-xl1amj.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/094.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004094",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_094.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 3000,
       "price_ref_jpy": 480,
       "price_ref_usd": null,
@@ -1919,6 +1990,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004094",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004094",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004094",
+        "previous_image": "external/m5-abyss-eye/BS2026004094.jpg"
       }
     },
     {
@@ -1930,11 +2008,10 @@
       "subtype": null,
       "hp": 380,
       "type": "물",
-      "image_url": "external/m5-abyss-eye/BS2026004095.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059597/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/095-high-61rx84.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/095.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004095",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_095.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 3000,
       "price_ref_jpy": 480,
       "price_ref_usd": null,
@@ -1945,6 +2022,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004095",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004095",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004095",
+        "previous_image": "external/m5-abyss-eye/BS2026004095.jpg"
       }
     },
     {
@@ -1956,11 +2040,10 @@
       "subtype": null,
       "hp": 270,
       "type": "번개",
-      "image_url": "external/m5-abyss-eye/BS2026004096.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059598/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/096-high-u99ttc.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/096.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004096",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_096.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 3600,
       "price_ref_jpy": 580,
       "price_ref_usd": null,
@@ -1971,6 +2054,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004096",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004096",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004096",
+        "previous_image": "external/m5-abyss-eye/BS2026004096.jpg"
       }
     },
     {
@@ -1982,11 +2072,10 @@
       "subtype": null,
       "hp": 350,
       "type": "초",
-      "image_url": "external/m5-abyss-eye/BS2026004097.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059599/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/097-high-yabwzv.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/097.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004097",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_097.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 3600,
       "price_ref_jpy": 580,
       "price_ref_usd": null,
@@ -1997,6 +2086,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004097",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004097",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004097",
+        "previous_image": "external/m5-abyss-eye/BS2026004097.jpg"
       }
     },
     {
@@ -2008,11 +2104,10 @@
       "subtype": null,
       "hp": 330,
       "type": "격투",
-      "image_url": "external/m5-abyss-eye/BS2026004098.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059600/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/098-high-l4ri8l.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/098.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004098",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_098.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 3600,
       "price_ref_jpy": 580,
       "price_ref_usd": null,
@@ -2023,6 +2118,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004098",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004098",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004098",
+        "previous_image": "external/m5-abyss-eye/BS2026004098.jpg"
       }
     },
     {
@@ -2034,11 +2136,10 @@
       "subtype": null,
       "hp": 280,
       "type": "악",
-      "image_url": "external/m5-abyss-eye/BS2026004099.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059601/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/099-high-ok0w8p.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/099.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004099",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_099.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 8500,
       "price_ref_jpy": 1380,
       "price_ref_usd": null,
@@ -2049,6 +2150,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004099",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004099",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004099",
+        "previous_image": "external/m5-abyss-eye/BS2026004099.jpg"
       }
     },
     {
@@ -2060,11 +2168,10 @@
       "subtype": null,
       "hp": 180,
       "type": "악",
-      "image_url": "external/m5-abyss-eye/BS2026004100.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059602/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/100-high-y8c52i.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/100.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004100",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_100.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 3600,
       "price_ref_jpy": 580,
       "price_ref_usd": null,
@@ -2075,6 +2182,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004100",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004100",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004100",
+        "previous_image": "external/m5-abyss-eye/BS2026004100.jpg"
       }
     },
     {
@@ -2086,11 +2200,10 @@
       "subtype": null,
       "hp": 340,
       "type": "강철",
-      "image_url": "external/m5-abyss-eye/BS2026004101.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059603/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/101-high-8u6e0t.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/101.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004101",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_101.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 3600,
       "price_ref_jpy": 580,
       "price_ref_usd": null,
@@ -2101,6 +2214,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004101",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004101",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004101",
+        "previous_image": "external/m5-abyss-eye/BS2026004101.jpg"
       }
     },
     {
@@ -2112,11 +2232,10 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004105.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059604/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/105-high-fv2ngw.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/102.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004102",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_102.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2000,
       "price_ref_jpy": 280,
       "price_ref_usd": null,
@@ -2128,6 +2247,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004102",
         "jp_number": 105
+      },
+      "_official_card_num": "BS2026004102",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004102",
+        "previous_image": "external/m5-abyss-eye/BS2026004105.jpg"
       }
     },
     {
@@ -2139,11 +2265,10 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004102.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059605/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/102-high-8af4v4.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/103.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004103",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_103.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2000,
       "price_ref_jpy": 280,
       "price_ref_usd": null,
@@ -2155,6 +2280,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004103",
         "jp_number": 102
+      },
+      "_official_card_num": "BS2026004103",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004103",
+        "previous_image": "external/m5-abyss-eye/BS2026004102.jpg"
       }
     },
     {
@@ -2166,11 +2298,10 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004103.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059606/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/103-high-zy2k86.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/104.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004104",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_104.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2000,
       "price_ref_jpy": 280,
       "price_ref_usd": null,
@@ -2182,6 +2313,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004104",
         "jp_number": 103
+      },
+      "_official_card_num": "BS2026004104",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004104",
+        "previous_image": "external/m5-abyss-eye/BS2026004103.jpg"
       }
     },
     {
@@ -2193,11 +2331,10 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004104.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059607/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/104-high-xetvii.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/105.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004105",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_105.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2000,
       "price_ref_jpy": 280,
       "price_ref_usd": null,
@@ -2209,6 +2346,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004105",
         "jp_number": 104
+      },
+      "_official_card_num": "BS2026004105",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004105",
+        "previous_image": "external/m5-abyss-eye/BS2026004104.jpg"
       }
     },
     {
@@ -2220,11 +2364,10 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004107.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059608/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/107-high-j0wjro.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/106.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004106",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_106.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2000,
       "price_ref_jpy": 280,
       "price_ref_usd": null,
@@ -2236,6 +2379,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004106",
         "jp_number": 107
+      },
+      "_official_card_num": "BS2026004106",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004106",
+        "previous_image": "external/m5-abyss-eye/BS2026004107.jpg"
       }
     },
     {
@@ -2247,11 +2397,10 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004106.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059609/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/106-high-upit5m.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/107.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004107",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_107.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 2000,
       "price_ref_jpy": 280,
       "price_ref_usd": null,
@@ -2263,6 +2412,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004107",
         "jp_number": 106
+      },
+      "_official_card_num": "BS2026004107",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004107",
+        "previous_image": "external/m5-abyss-eye/BS2026004106.jpg"
       }
     },
     {
@@ -2274,11 +2430,10 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004109.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059610/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/109-high-6yxoet.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/108.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004108",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_108.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 3000,
       "price_ref_jpy": 480,
       "price_ref_usd": null,
@@ -2290,6 +2445,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004108",
         "jp_number": 109
+      },
+      "_official_card_num": "BS2026004108",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004108",
+        "previous_image": "external/m5-abyss-eye/BS2026004109.jpg"
       }
     },
     {
@@ -2301,11 +2463,10 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004110.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059611/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/110-high-hx8zft.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/109.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004109",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_109.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 3000,
       "price_ref_jpy": 480,
       "price_ref_usd": null,
@@ -2317,6 +2478,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004109",
         "jp_number": 110
+      },
+      "_official_card_num": "BS2026004109",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004109",
+        "previous_image": "external/m5-abyss-eye/BS2026004110.jpg"
       }
     },
     {
@@ -2328,11 +2496,10 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004111.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059612/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/111-high-kap4pe.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/110.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004110",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_110.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 11600,
       "price_ref_jpy": 1880,
       "price_ref_usd": null,
@@ -2344,6 +2511,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004110",
         "jp_number": 111
+      },
+      "_official_card_num": "BS2026004110",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004110",
+        "previous_image": "external/m5-abyss-eye/BS2026004111.jpg"
       }
     },
     {
@@ -2355,11 +2529,10 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004108.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059613/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/108-high-e7m0bo.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/111.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004111",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_111.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 17200,
       "price_ref_jpy": 2780,
       "price_ref_usd": null,
@@ -2371,6 +2544,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004111",
         "jp_number": 108
+      },
+      "_official_card_num": "BS2026004111",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004111",
+        "previous_image": "external/m5-abyss-eye/BS2026004108.jpg"
       }
     },
     {
@@ -2382,11 +2562,10 @@
       "subtype": null,
       "hp": 270,
       "type": "번개",
-      "image_url": "external/m5-abyss-eye/BS2026004112.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059614/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/112-high-crlvyz.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/112.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004112",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_112.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 20300,
       "price_ref_jpy": 3280,
       "price_ref_usd": null,
@@ -2397,6 +2576,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004112",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004112",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004112",
+        "previous_image": "external/m5-abyss-eye/BS2026004112.jpg"
       }
     },
     {
@@ -2408,11 +2594,10 @@
       "subtype": null,
       "hp": 350,
       "type": "초",
-      "image_url": "external/m5-abyss-eye/BS2026004113.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059615/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/m5-113ezf2c-high.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/113.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004113",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_113.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 12200,
       "price_ref_jpy": 1980,
       "price_ref_usd": null,
@@ -2423,6 +2608,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004113",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004113",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004113",
+        "previous_image": "external/m5-abyss-eye/BS2026004113.jpg"
       }
     },
     {
@@ -2434,11 +2626,10 @@
       "subtype": null,
       "hp": 280,
       "type": "악",
-      "image_url": "external/m5-abyss-eye/BS2026004114.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059616/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/114-high-b3ii58.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/114.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004114",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_114.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 245800,
       "price_ref_jpy": 39800,
       "price_ref_usd": null,
@@ -2449,6 +2640,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004114",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004114",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004114",
+        "previous_image": "external/m5-abyss-eye/BS2026004114.jpg"
       }
     },
     {
@@ -2460,11 +2658,10 @@
       "subtype": null,
       "hp": 180,
       "type": "악",
-      "image_url": "external/m5-abyss-eye/BS2026004115.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059617/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/115-high-zt4df0.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/115.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004115",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_115.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 29500,
       "price_ref_jpy": 4780,
       "price_ref_usd": null,
@@ -2475,6 +2672,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004115",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004115",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004115",
+        "previous_image": "external/m5-abyss-eye/BS2026004115.jpg"
       }
     },
     {
@@ -2486,17 +2690,23 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004116.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059618/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/116-high-7uahvq.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/116.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004116",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_116.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 7300,
       "price_ref_jpy": 1180,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059618/m05/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2026004116",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004116",
+        "previous_image": "external/m5-abyss-eye/BS2026004116.jpg"
+      }
     },
     {
       "card_num": "BS2026004117",
@@ -2507,17 +2717,23 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m5-abyss-eye/BS2026004117.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059619/m05/page3/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/m5-117sgpzd-high-friwij.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/117.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004117",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_117.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 36900,
       "price_ref_jpy": 5980,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000059619/m05/page3/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-07",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2026004117",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004117",
+        "previous_image": "external/m5-abyss-eye/BS2026004117.jpg"
+      }
     },
     {
       "card_num": "BS2026004118",
@@ -2528,11 +2744,10 @@
       "subtype": null,
       "hp": 280,
       "type": "악",
-      "image_url": "external/m5-abyss-eye/BS2026004118.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000059620/m05/page1/recommend/",
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/118-high-i56zqs.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
+      "image_url": "external/m5-abyss-eye/ko-20260926/118.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026004118",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_118.png",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 431000,
       "price_ref_jpy": 69800,
       "price_ref_usd": null,
@@ -2543,6 +2758,13 @@
         "date": "2026-09-09",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026004118",
         "jp_number": null
+      },
+      "_official_card_num": "BS2026004118",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026004118",
+        "previous_image": "external/m5-abyss-eye/BS2026004118.jpg"
       }
     }
   ],
@@ -2607,6 +2829,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-09-10"
+    "_built_at": "2026-09-26"
   }
 }

@@ -969,16 +969,23 @@
       "subtype": null,
       "hp": 220,
       "type": "불꽃",
-      "image_url": "external/s6h-silver-lance/BS2021004071.jpg",
-      "_source": "https://www.pokemon-card.com/card-search/details.php/card/39525/regu/all",
-      "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039525_P_BORUKENIONV.jpg",
+      "image_url": "external/s6h-silver-lance/ko-20260926/071.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2021004071",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_071.png",
       "price_ref_krw": 3000,
       "price_ref_jpy": 480,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013494/s06h/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2021004071",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021004071",
+        "previous_image": "external/s6h-silver-lance/BS2021004071.jpg"
+      }
     },
     {
       "card_num": "BS2021004072",
@@ -989,16 +996,23 @@
       "subtype": null,
       "hp": 210,
       "type": "물",
-      "image_url": "external/s6h-silver-lance/BS2021004072.jpg",
-      "_source": "https://www.pokemon-card.com/card-search/details.php/card/39526/regu/all",
-      "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039526_P_HAKUBABADOREKKUSUV.jpg",
+      "image_url": "external/s6h-silver-lance/ko-20260926/072.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2021004072",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_072.png",
       "price_ref_krw": 4200,
       "price_ref_jpy": 680,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013495/s06h/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2021004072",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021004072",
+        "previous_image": "external/s6h-silver-lance/BS2021004072.jpg"
+      }
     },
     {
       "card_num": "BS2021004073",
@@ -1009,16 +1023,23 @@
       "subtype": null,
       "hp": 210,
       "type": "물",
-      "image_url": "external/s6h-silver-lance/BS2021004073.jpg",
-      "_source": "https://www.pokemon-card.com/card-search/details.php/card/39527/regu/all",
-      "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039527_P_HAKUBABADOREKKUSUV.jpg",
+      "image_url": "external/s6h-silver-lance/ko-20260926/073.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2021004073",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_073.png",
       "price_ref_krw": 23300,
       "price_ref_jpy": 3780,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013496/s06h/page2/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2021004073",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021004073",
+        "previous_image": "external/s6h-silver-lance/BS2021004073.jpg"
+      }
     },
     {
       "card_num": "BS2021004074",
@@ -1029,16 +1050,23 @@
       "subtype": null,
       "hp": 210,
       "type": "초",
-      "image_url": "external/s6h-silver-lance/BS2021004074.jpg",
-      "_source": "https://www.pokemon-card.com/card-search/details.php/card/39528/regu/all",
-      "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039528_P_GARARUGYAROPPUV.jpg",
+      "image_url": "external/s6h-silver-lance/ko-20260926/074.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2021004074",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_074.png",
       "price_ref_krw": 5400,
       "price_ref_jpy": 880,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013497/s06h/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2021004074",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021004074",
+        "previous_image": "external/s6h-silver-lance/BS2021004074.jpg"
+      }
     },
     {
       "card_num": "BS2021004075",
@@ -1049,16 +1077,23 @@
       "subtype": null,
       "hp": 210,
       "type": "초",
-      "image_url": "external/s6h-silver-lance/BS2021004075.jpg",
-      "_source": "https://www.pokemon-card.com/card-search/details.php/card/39529/regu/all",
-      "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039529_P_GARARUGYAROPPUV.jpg",
+      "image_url": "external/s6h-silver-lance/ko-20260926/075.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2021004075",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_075.png",
       "price_ref_krw": 40000,
       "price_ref_jpy": 6480,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013498/s06h/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2021004075",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021004075",
+        "previous_image": "external/s6h-silver-lance/BS2021004075.jpg"
+      }
     },
     {
       "card_num": "BS2021004076",
@@ -1069,16 +1104,23 @@
       "subtype": null,
       "hp": 220,
       "type": "격투",
-      "image_url": "external/s6h-silver-lance/BS2021004076.jpg",
-      "_source": "https://www.pokemon-card.com/card-search/details.php/card/39530/regu/all",
-      "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039530_P_SADAIJAV.jpg",
+      "image_url": "external/s6h-silver-lance/ko-20260926/076.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2021004076",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_076.png",
       "price_ref_krw": 3000,
       "price_ref_jpy": 480,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013499/s06h/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2021004076",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021004076",
+        "previous_image": "external/s6h-silver-lance/BS2021004076.jpg"
+      }
     },
     {
       "card_num": "BS2021004077",
@@ -1089,16 +1131,23 @@
       "subtype": null,
       "hp": 190,
       "type": "악",
-      "image_url": "external/s6h-silver-lance/BS2021004077.jpg",
-      "_source": "https://www.pokemon-card.com/card-search/details.php/card/39531/regu/all",
-      "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039531_P_REPARUDASUV.jpg",
+      "image_url": "external/s6h-silver-lance/ko-20260926/077.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2021004077",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_077.png",
       "price_ref_krw": 4800,
       "price_ref_jpy": 780,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013500/s06h/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2021004077",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021004077",
+        "previous_image": "external/s6h-silver-lance/BS2021004077.jpg"
+      }
     },
     {
       "card_num": "BS2021004078",
@@ -1109,16 +1158,23 @@
       "subtype": null,
       "hp": 210,
       "type": "무색",
-      "image_url": "external/s6h-silver-lance/BS2021004078.jpg",
-      "_source": "https://www.pokemon-card.com/card-search/details.php/card/39532/regu/all",
-      "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039532_P_TORUNEROSUV.jpg",
+      "image_url": "external/s6h-silver-lance/ko-20260926/078.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2021004078",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_078.png",
       "price_ref_krw": 3600,
       "price_ref_jpy": 580,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013501/s06h/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2021004078",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021004078",
+        "previous_image": "external/s6h-silver-lance/BS2021004078.jpg"
+      }
     },
     {
       "card_num": "BS2021004079",
@@ -1129,16 +1185,23 @@
       "subtype": null,
       "hp": 210,
       "type": "무색",
-      "image_url": "external/s6h-silver-lance/BS2021004079.jpg",
-      "_source": "https://www.pokemon-card.com/card-search/details.php/card/39533/regu/all",
-      "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039533_P_TORUNEROSUV.jpg",
+      "image_url": "external/s6h-silver-lance/ko-20260926/079.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2021004079",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_079.png",
       "price_ref_krw": 26400,
       "price_ref_jpy": 4280,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013502/s06h/page2/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2021004079",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021004079",
+        "previous_image": "external/s6h-silver-lance/BS2021004079.jpg"
+      }
     },
     {
       "card_num": "BS2021004080",
@@ -1149,16 +1212,24 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/s6h-silver-lance/BS2021004080.jpg",
-      "_source": "https://www.pokemon-card.com/card-search/details.php/card/39534/regu/all",
-      "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039534_T_ASUNA.jpg",
-      "price_ref_krw": 10400,
-      "price_ref_jpy": 1680,
+      "image_url": "external/s6h-silver-lance/ko-20260926/080.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2021004080",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_080.png",
+      "price_ref_krw": 11600,
+      "price_ref_jpy": 1880,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013503/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013506/s06h/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2021004080",
+      "_image_language": "ko",
+      "_jp_number": 83,
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021004080",
+        "previous_image": "external/s6h-silver-lance/BS2021004080.jpg"
+      }
     },
     {
       "card_num": "BS2021004081",
@@ -1169,16 +1240,24 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/s6h-silver-lance/BS2021004081.jpg",
-      "_source": "https://www.pokemon-card.com/card-search/details.php/card/39535/regu/all",
-      "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039535_T_DOKUTA.jpg",
-      "price_ref_krw": 4200,
-      "price_ref_jpy": 680,
+      "image_url": "external/s6h-silver-lance/ko-20260926/081.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2021004081",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_081.png",
+      "price_ref_krw": 10400,
+      "price_ref_jpy": 1680,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013504/s06h/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013503/s06h/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2021004081",
+      "_image_language": "ko",
+      "_jp_number": 80,
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021004081",
+        "previous_image": "external/s6h-silver-lance/BS2021004081.jpg"
+      }
     },
     {
       "card_num": "BS2021004082",
@@ -1189,16 +1268,24 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/s6h-silver-lance/BS2021004082.jpg",
-      "_source": "https://www.pokemon-card.com/card-search/details.php/card/39536/regu/all",
-      "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039536_T_PIONI.jpg",
+      "image_url": "external/s6h-silver-lance/ko-20260926/082.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2021004082",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_082.png",
       "price_ref_krw": 4200,
       "price_ref_jpy": 680,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013505/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013504/s06h/page2/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2021004082",
+      "_image_language": "ko",
+      "_jp_number": 81,
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021004082",
+        "previous_image": "external/s6h-silver-lance/BS2021004082.jpg"
+      }
     },
     {
       "card_num": "BS2021004083",
@@ -1209,16 +1296,24 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/s6h-silver-lance/BS2021004083.jpg",
-      "_source": "https://www.pokemon-card.com/card-search/details.php/card/39537/regu/all",
-      "_fetched_at": "2026-06-05",
-      "_image_source_url": "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039537_T_MERON.jpg",
-      "price_ref_krw": 11600,
-      "price_ref_jpy": 1880,
+      "image_url": "external/s6h-silver-lance/ko-20260926/083.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2021004083",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_083.png",
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013506/s06h/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000013505/s06h/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-06",
-      "price_confidence": "source"
+      "price_confidence": "source",
+      "_official_card_num": "BS2021004083",
+      "_image_language": "ko",
+      "_jp_number": 82,
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2021004083",
+        "previous_image": "external/s6h-silver-lance/BS2021004083.jpg"
+      }
     },
     {
       "card_num": "BS2021004084",
@@ -1504,7 +1599,7 @@
       10400,
       23300,
       28800,
-      45400,
+      44800,
       492800,
       492800,
       985600
@@ -1547,6 +1642,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-09-10"
+    "_built_at": "2026-09-26"
   }
 }

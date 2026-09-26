@@ -18,6 +18,12 @@
     }
   },
   "cards": {
+    "JP2026M6102": { "fullahead_number": 102, "note": "KR 103 피아나의 신뢰; stable legacy ID preserved (2026-09-26)." },
+    "JP2026M6103": { "fullahead_number": 103, "note": "KR 102 풍&란의 수행; stable legacy ID preserved (2026-09-26)." },
+    "BS2021004080": { "fullahead_number": 83, "note": "KR 멜론 SR maps to JP Melony 083 (2026-09-26)." },
+    "BS2021004081": { "fullahead_number": 80, "note": "KR 민지 SR maps to JP Asuna 080 (2026-09-26)." },
+    "BS2021004082": { "fullahead_number": 81, "note": "KR 의사 SR maps to JP Doctor 081 (2026-09-26)." },
+    "BS2021004083": { "fullahead_number": 82, "note": "KR 피오니 SR maps to JP Peony 082 (2026-09-26)." },
     "BS2026004102": { "fullahead_number": 105, "note": "2026-09-09 identity review: KR/JP trainer order differs." },
     "BS2026004103": { "fullahead_number": 102 },
     "BS2026004104": { "fullahead_number": 103 },

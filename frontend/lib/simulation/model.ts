@@ -26,6 +26,19 @@ export const CELEBRATION_30_FUR_BOX_RATE = 1 / 6;
 // One RGB Mew was observed in one Japanese 120-box / 2,400-pack opening.
 // Provisional estimate; no measured split between the three colors.
 export const CELEBRATION_30_RGB_BOX_RATE = 1 / 120;
+// User-selected simulation rule (2026-09-26), not a measured pull rate:
+// RGB replaces the normal high slot, and a second non-RGB high slot is possible
+// in 0.5% of boxes regardless of the base high rarity.
+export const CELEBRATION_30_TWO_HIT_BOX_RATE = 0.005;
+export const CELEBRATION_30_BASE_HIGH_WEIGHTS = {
+  SAR: 1 - CELEBRATION_30_FUR_BOX_RATE - CELEBRATION_30_RGB_BOX_RATE,
+  FUR: CELEBRATION_30_FUR_BOX_RATE,
+  RGB: CELEBRATION_30_RGB_BOX_RATE,
+};
+export const CELEBRATION_30_NON_RGB_HIGH_WEIGHTS = {
+  SAR: 1 - CELEBRATION_30_FUR_BOX_RATE / (1 - CELEBRATION_30_RGB_BOX_RATE),
+  FUR: CELEBRATION_30_FUR_BOX_RATE / (1 - CELEBRATION_30_RGB_BOX_RATE),
+};
 export const CELEBRATION_30_BASE_HIT_PACKS = 9;
 
 // Korean reports place exactly one SAR-or-FUR high slot in a box. Loose-pack

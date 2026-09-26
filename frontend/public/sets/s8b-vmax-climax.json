@@ -780,11 +780,25 @@
       "subtype": null,
       "hp": 310,
       "type": "번개",
-      "image_url": "external/s8b-vmax-climax/vunion/S8b_056-v2.jpg",
+      "image_url": "external/s8b-vmax-climax/ko-20260926/056.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022001056",
-      "_fetched_at": "2026-07-12",
-      "_image_composite_source": "https://www.pokemon-card.com/assets/images/card_images/large/S8b/040208_P_MORUPEKOVUNION.jpg",
-      "_image_crop_position": "top-left"
+      "_fetched_at": "2026-09-26",
+      "_official_card_num": "BS2022001056",
+      "_image_language": "ko",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8b/S8b_056.png",
+      "_image_composite_source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8b/S8b_056.png",
+      "_image_crop_position": "top-left",
+      "_image_crop": {
+        "left": 0,
+        "top": 0,
+        "width": 600,
+        "height": 835
+      },
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022001056",
+        "previous_image": "external/s8b-vmax-climax/vunion/S8b_056-v2.jpg"
+      }
     },
     {
       "card_num": "BS2022001057",
@@ -795,17 +809,31 @@
       "subtype": null,
       "hp": 310,
       "type": "번개",
-      "image_url": "external/s8b-vmax-climax/vunion/S8b_057-v2.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000018139/s08b/page2/recommend/",
-      "_fetched_at": "2026-07-12",
+      "image_url": "external/s8b-vmax-climax/ko-20260926/057.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2022001056",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 900,
       "price_ref_jpy": 145,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000018139/s08b/page2/recommend/; split_vunion_4; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-13",
       "price_confidence": "source",
-      "_image_composite_source": "https://www.pokemon-card.com/assets/images/card_images/large/S8b/040208_P_MORUPEKOVUNION.jpg",
-      "_image_crop_position": "top-right"
+      "_official_card_num": "BS2022001057",
+      "_image_language": "ko",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8b/S8b_056.png",
+      "_image_composite_source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8b/S8b_056.png",
+      "_image_crop_position": "top-right",
+      "_image_crop": {
+        "left": 600,
+        "top": 0,
+        "width": 600,
+        "height": 835
+      },
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022001056",
+        "previous_image": "external/s8b-vmax-climax/vunion/S8b_057-v2.jpg"
+      }
     },
     {
       "card_num": "BS2022001058",
@@ -816,17 +844,31 @@
       "subtype": null,
       "hp": 310,
       "type": "번개",
-      "image_url": "external/s8b-vmax-climax/vunion/S8b_058-v2.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000018139/s08b/page2/recommend/",
-      "_fetched_at": "2026-07-12",
+      "image_url": "external/s8b-vmax-climax/ko-20260926/058.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2022001056",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 900,
       "price_ref_jpy": 145,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000018139/s08b/page2/recommend/; split_vunion_4; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-13",
       "price_confidence": "source",
-      "_image_composite_source": "https://www.pokemon-card.com/assets/images/card_images/large/S8b/040208_P_MORUPEKOVUNION.jpg",
-      "_image_crop_position": "bottom-left"
+      "_official_card_num": "BS2022001058",
+      "_image_language": "ko",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8b/S8b_056.png",
+      "_image_composite_source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8b/S8b_056.png",
+      "_image_crop_position": "bottom-left",
+      "_image_crop": {
+        "left": 0,
+        "top": 835,
+        "width": 600,
+        "height": 835
+      },
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022001056",
+        "previous_image": "external/s8b-vmax-climax/vunion/S8b_058-v2.jpg"
+      }
     },
     {
       "card_num": "BS2022001059",
@@ -837,17 +879,31 @@
       "subtype": null,
       "hp": 310,
       "type": "번개",
-      "image_url": "external/s8b-vmax-climax/vunion/S8b_059-v2.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000018139/s08b/page2/recommend/",
-      "_fetched_at": "2026-07-12",
+      "image_url": "external/s8b-vmax-climax/ko-20260926/059.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2022001056",
+      "_fetched_at": "2026-09-26",
       "price_ref_krw": 900,
       "price_ref_jpy": 145,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000018139/s08b/page2/recommend/; split_vunion_4; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-06-13",
       "price_confidence": "source",
-      "_image_composite_source": "https://www.pokemon-card.com/assets/images/card_images/large/S8b/040208_P_MORUPEKOVUNION.jpg",
-      "_image_crop_position": "bottom-right"
+      "_official_card_num": "BS2022001059",
+      "_image_language": "ko",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8b/S8b_056.png",
+      "_image_composite_source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8b/S8b_056.png",
+      "_image_crop_position": "bottom-right",
+      "_image_crop": {
+        "left": 600,
+        "top": 835,
+        "width": 600,
+        "height": 835
+      },
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2022001056",
+        "previous_image": "external/s8b-vmax-climax/vunion/S8b_059-v2.jpg"
+      }
     },
     {
       "card_num": "BS2022001060",
@@ -4488,6 +4544,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-09-10"
+    "_built_at": "2026-09-26"
   }
 }

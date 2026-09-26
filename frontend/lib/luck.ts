@@ -13,10 +13,13 @@ import {
   ANNIVERSARY_25_LUCK_SCORE_WEIGHTS,
   ANNIVERSARY_25_PROMO_INTERVAL,
   CELEBRATION_30_FUR_BOX_RATE,
+  CELEBRATION_30_BASE_HIGH_WEIGHTS,
   CELEBRATION_30_BOX_COUNTS,
+  CELEBRATION_30_NON_RGB_HIGH_WEIGHTS,
   CELEBRATION_30_PACK_PATTERNS,
   CELEBRATION_30_RGB_BOX_RATE,
   CELEBRATION_30_SET_CODE,
+  CELEBRATION_30_TWO_HIT_BOX_RATE,
   BEST_OF_XY_HIGH_WEIGHTS,
   EXPANSION_MONSTER_WEIGHTS,
   GX_BATTLE_BOOST_HIGH_WEIGHTS,
@@ -807,10 +810,19 @@ function getExpectedScoredRarityCounts(
 
   if (code === CELEBRATION_30_SET_CODE) {
     const loosePackBoxUnits = opening.packs / opening.boxSize;
+    const baseSar = CELEBRATION_30_BASE_HIGH_WEIGHTS.SAR;
+    const extraSar = CELEBRATION_30_NON_RGB_HIGH_WEIGHTS.SAR;
+    const extraFur = CELEBRATION_30_NON_RGB_HIGH_WEIGHTS.FUR;
     addExpectedCount(counts, 'AR', opening.boxes * (12 / 17) + loosePackBoxUnits * (63 / 17));
     addExpectedCount(counts, 'REPRINT', opening.boxes * (1 / 17) + loosePackBoxUnits * (35 / 17));
-    addExpectedCount(counts, 'SAR', loosePackBoxUnits);
-    addExpectedCount(counts, 'FUR', unitCount * CELEBRATION_30_FUR_BOX_RATE);
+    // A box's first SAR is its baseline. A SAR is scored only if it is the
+    // second hit of a SAR-base box; loose packs have no baseline subtraction.
+    addExpectedCount(counts, 'SAR',
+      opening.boxes * baseSar * CELEBRATION_30_TWO_HIT_BOX_RATE * extraSar
+      + loosePackBoxUnits * (baseSar + CELEBRATION_30_TWO_HIT_BOX_RATE * extraSar));
+    addExpectedCount(counts, 'FUR', unitCount * (
+      CELEBRATION_30_FUR_BOX_RATE + CELEBRATION_30_TWO_HIT_BOX_RATE * extraFur
+    ));
     addExpectedCount(counts, 'RGB', unitCount * CELEBRATION_30_RGB_BOX_RATE);
     return counts;
   }
@@ -1157,6 +1169,59 @@ function optionalDistributionFromWeights(
   ]);
 }
 
+function getCelebration30BoxHighScoreDistribution(mode: LuckScoreMode): LuckScoreOutcome[] {
+  const outcomes: LuckScoreOutcome[] = [];
+  const extraOutcomes: Array<[string | null, number]> = [
+    [null, 1 - CELEBRATION_30_TWO_HIT_BOX_RATE],
+    ['SAR', CELEBRATION_30_TWO_HIT_BOX_RATE * CELEBRATION_30_NON_RGB_HIGH_WEIGHTS.SAR],
+    ['FUR', CELEBRATION_30_TWO_HIT_BOX_RATE * CELEBRATION_30_NON_RGB_HIGH_WEIGHTS.FUR],
+  ];
+  for (const [baseRarity, baseProbability] of Object.entries(CELEBRATION_30_BASE_HIGH_WEIGHTS)) {
+    for (const [extraRarity, extraProbability] of extraOutcomes) {
+      const baseScore = baseRarity === 'SAR' ? 0 : getScoreWeight(baseRarity, mode);
+      // The box baseline removes exactly one SAR. An extra SAR scores only
+      // when the base hit was also SAR; FUR always remains a scored hit.
+      const extraScore = extraRarity === 'FUR'
+        ? getScoreWeight('FUR', mode)
+        : extraRarity === 'SAR' && baseRarity === 'SAR'
+          ? getScoreWeight('SAR', mode)
+          : 0;
+      outcomes.push({ score: baseScore + extraScore, probability: baseProbability * extraProbability });
+    }
+  }
+  return normalizeDistribution(outcomes);
+}
+
+function getCelebration30PackScoreDistribution(): LuckScoreOutcome[] {
+  const outcomes: LuckScoreOutcome[] = [];
+  for (const pattern of CELEBRATION_30_PACK_PATTERNS) {
+    const highIndex = pattern.rarities.findIndex((rarity) => rarity === 'SAR' || rarity === 'FUR');
+    const baseChoices: Array<{ rarities: readonly string[]; probability: number }> = highIndex < 0
+      ? [{ rarities: pattern.rarities, probability: 1 }]
+      : [
+        { rarities: pattern.rarities, probability: 1 - CELEBRATION_30_RGB_BOX_RATE },
+        { rarities: pattern.rarities.map((rarity, index) => index === highIndex ? 'RGB' : rarity), probability: CELEBRATION_30_RGB_BOX_RATE },
+      ];
+    for (const base of baseChoices) {
+      const extraChoices: Array<[string | null, number]> = highIndex < 0
+        ? [[null, 1]]
+        : [
+          [null, 1 - CELEBRATION_30_TWO_HIT_BOX_RATE],
+          ['SAR', CELEBRATION_30_TWO_HIT_BOX_RATE * CELEBRATION_30_NON_RGB_HIGH_WEIGHTS.SAR],
+          ['FUR', CELEBRATION_30_TWO_HIT_BOX_RATE * CELEBRATION_30_NON_RGB_HIGH_WEIGHTS.FUR],
+        ];
+      for (const [extraRarity, extraProbability] of extraChoices) {
+        const rarities = extraRarity ? [...base.rarities, extraRarity] : base.rarities;
+        outcomes.push({
+          score: rarities.reduce((sum, rarity) => sum + getScoreWeight(rarity, 'pack'), 0),
+          probability: (pattern.weight / 340) * base.probability * extraProbability,
+        });
+      }
+    }
+  }
+  return normalizeDistribution(outcomes);
+}
+
 function weightedSlotDistribution(
   weights: Record<string, number>,
   probability: number,
@@ -1217,14 +1282,11 @@ function getBoxScoreDistribution(
 
   if (code === CELEBRATION_30_SET_CODE) {
     return convolveDistributions(
-      convolveDistributions(
-        normalizeDistribution(CELEBRATION_30_BOX_COUNTS.map(([, ar, reprint]) => ({
-          score: (ar - 3) * getScoreWeight('AR', 'box') + (reprint - 2) * getScoreWeight('REPRINT', 'box'),
-          probability: 1 / CELEBRATION_30_BOX_COUNTS.length,
-        }))),
-        bernoulliDistribution(getScoreWeight('FUR', 'box'), CELEBRATION_30_FUR_BOX_RATE),
-      ),
-      bernoulliDistribution(getScoreWeight('RGB', 'box'), CELEBRATION_30_RGB_BOX_RATE),
+      normalizeDistribution(CELEBRATION_30_BOX_COUNTS.map(([, ar, reprint]) => ({
+        score: (ar - 3) * getScoreWeight('AR', 'box') + (reprint - 2) * getScoreWeight('REPRINT', 'box'),
+        probability: 1 / CELEBRATION_30_BOX_COUNTS.length,
+      }))),
+      getCelebration30BoxHighScoreDistribution('box'),
     );
   }
 
@@ -1429,13 +1491,7 @@ function getPackScoreDistribution(
   }
 
   if (code === CELEBRATION_30_SET_CODE) {
-    return convolveDistributions(
-      normalizeDistribution(CELEBRATION_30_PACK_PATTERNS.map((pattern) => ({
-        score: pattern.rarities.reduce((sum, rarity) => sum + getScoreWeight(rarity, 'pack'), 0),
-        probability: pattern.weight / 340,
-      }))),
-      bernoulliDistribution(getScoreWeight('RGB', 'pack'), CELEBRATION_30_RGB_BOX_RATE / boxSize),
-    );
+    return getCelebration30PackScoreDistribution();
   }
 
   // 스페셜 세트 자체는 낱팩으로 판매하지 않는다.
@@ -1888,7 +1944,14 @@ export function getLuckRatesForSet(
   }
 
   if (set.code === CELEBRATION_30_SET_CODE) {
-    return { boxSize, topPerBox: CELEBRATION_30_FUR_BOX_RATE + CELEBRATION_30_RGB_BOX_RATE, sarPerBox: 1 };
+    return {
+      boxSize,
+      topPerBox: CELEBRATION_30_FUR_BOX_RATE
+        + CELEBRATION_30_RGB_BOX_RATE
+        + CELEBRATION_30_TWO_HIT_BOX_RATE * CELEBRATION_30_NON_RGB_HIGH_WEIGHTS.FUR,
+      sarPerBox: CELEBRATION_30_BASE_HIGH_WEIGHTS.SAR
+        + CELEBRATION_30_TWO_HIT_BOX_RATE * CELEBRATION_30_NON_RGB_HIGH_WEIGHTS.SAR,
+    };
   }
 
   if (set.type === 'hi-class') {
