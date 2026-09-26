@@ -17,6 +17,9 @@ const HIT_DEX_VERSION = 2;
 // 판단해 고전팩의 저가 카드가 도감을 과도하게 채우지 않도록 한다. 30주년은
 // 피카츄 30종과 복각을 별도 예외로 유지한다.
 const ALWAYS_DEX_DISPLAY_RARITIES = new Set(['RGB', 'FUR', 'MUR', 'BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'H', 'HR', 'CSR', 'MA']);
+// 썬&문·소드&실드는 2026-09-08 이전 정책으로 되돌린다. HR/UR/H를
+// 등급만으로 넣지 않고, 그 이전부터 있던 특수 고레어만 예외로 둔다.
+const LEGACY_SM_SWSH_ALWAYS_DEX_DISPLAY_RARITIES = new Set(['SAR', 'MUR', 'BWR', 'CSR', 'MA', 'GRA', 'S8AP']);
 const FEATURED_HIT_DEX_CARD_NUMBERS: Readonly<Record<string, ReadonlySet<number>>> = {
   'm6a-30th-celebration': new Set([165]),
 };
@@ -252,8 +255,15 @@ export function isFeaturedHitDexCard(card: Card, setCode?: string): boolean {
   return Boolean(setCode && FEATURED_HIT_DEX_CARD_NUMBERS[setCode]?.has(card.number));
 }
 
+function isSunMoonOrSwordShieldSet(setCode?: string): boolean {
+  return Boolean(setCode && (setCode.startsWith('sm') || /^s(?!v)/.test(setCode)));
+}
+
 export function isHitDexCard(card: Card, setCode?: string): boolean {
   if (card.card_type?.trim() === '에너지') return false;
+  // 세부 Trainer subtype이 구세트 JSON에는 안정적으로 없으므로, 아이템을
+  // 포함하는 트레이너 UR 전체를 도감 대상에서 제외한다.
+  if (card.rarity === 'UR' && card.card_type?.trim() === '트레이너') return false;
   if (setCode === 'm6a-30th-celebration') {
     if (card.number >= 17 && card.number <= 46) return true;
     if (isFeaturedHitDexCard(card, setCode)) return true;
@@ -261,7 +271,10 @@ export function isHitDexCard(card: Card, setCode?: string): boolean {
   }
 
   const displayRarity = card.rarity ? rarityLabel(card.rarity, card) : null;
-  if (displayRarity && ALWAYS_DEX_DISPLAY_RARITIES.has(displayRarity)) return true;
+  const alwaysDexRarities = isSunMoonOrSwordShieldSet(setCode)
+    ? LEGACY_SM_SWSH_ALWAYS_DEX_DISPLAY_RARITIES
+    : ALWAYS_DEX_DISPLAY_RARITIES;
+  if (displayRarity && alwaysDexRarities.has(displayRarity)) return true;
 
   return getCardReferenceValueKrw(card, setCode) >= PREMIUM_HIT_PRICE_THRESHOLD_KRW;
 }
