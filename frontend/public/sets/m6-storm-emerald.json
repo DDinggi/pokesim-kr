@@ -1126,7 +1126,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005077",
         "previous_image": "external/m6-storm-emerald/JP2026M6077.jpg"
-      }
+      },
+      "price_ref_krw": 2600,
+      "price_ref_jpy": 420,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061381/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6078",
@@ -1141,7 +1147,13 @@
       "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
       "_fetched_at": "2026-08-16",
       "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/078-high-73duub.jpg"
+      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/078-high-73duub.jpg",
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061382/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6079",
@@ -1162,7 +1174,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005079",
         "previous_image": "external/m6-storm-emerald/JP2026M6079.jpg"
-      }
+      },
+      "price_ref_krw": 2600,
+      "price_ref_jpy": 420,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061383/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6080",
@@ -1183,7 +1201,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005080",
         "previous_image": "external/m6-storm-emerald/JP2026M6080.jpg"
-      }
+      },
+      "price_ref_krw": 8500,
+      "price_ref_jpy": 1380,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061384/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6081",
@@ -1204,7 +1228,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005081",
         "previous_image": "external/m6-storm-emerald/JP2026M6081.jpg"
-      }
+      },
+      "price_ref_krw": 2600,
+      "price_ref_jpy": 420,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061385/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6082",
@@ -1225,7 +1255,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005082",
         "previous_image": "external/m6-storm-emerald/JP2026M6082.jpg"
-      }
+      },
+      "price_ref_krw": 2600,
+      "price_ref_jpy": 420,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061386/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6083",
@@ -1246,7 +1282,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005083",
         "previous_image": "external/m6-storm-emerald/JP2026M6083.jpg"
-      }
+      },
+      "price_ref_krw": 2600,
+      "price_ref_jpy": 420,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061387/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6084",
@@ -1267,7 +1309,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005084",
         "previous_image": "external/m6-storm-emerald/JP2026M6084.jpg"
-      }
+      },
+      "price_ref_krw": 8500,
+      "price_ref_jpy": 1380,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061388/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6085",
@@ -1288,7 +1336,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005085",
         "previous_image": "external/m6-storm-emerald/JP2026M6085.jpg"
-      }
+      },
+      "price_ref_krw": 2600,
+      "price_ref_jpy": 420,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061389/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6086",
@@ -1309,7 +1363,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005086",
         "previous_image": "external/m6-storm-emerald/JP2026M6086.jpg"
-      }
+      },
+      "price_ref_krw": 2600,
+      "price_ref_jpy": 420,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061390/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6087",
@@ -1330,7 +1390,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005087",
         "previous_image": "external/m6-storm-emerald/JP2026M6087.jpg"
-      }
+      },
+      "price_ref_krw": 2600,
+      "price_ref_jpy": 420,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061391/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6088",
@@ -1351,7 +1417,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005088",
         "previous_image": "external/m6-storm-emerald/JP2026M6088.jpg"
-      }
+      },
+      "price_ref_krw": 6100,
+      "price_ref_jpy": 980,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061392/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6089",
@@ -1372,7 +1444,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005089",
         "previous_image": "external/m6-storm-emerald/JP2026M6089.jpg"
-      }
+      },
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061393/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6090",
@@ -1393,7 +1471,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005090",
         "previous_image": "external/m6-storm-emerald/JP2026M6090.jpg"
-      }
+      },
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061394/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6091",
@@ -1414,7 +1498,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005091",
         "previous_image": "external/m6-storm-emerald/JP2026M6091.jpg"
-      }
+      },
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061395/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6092",
@@ -1435,7 +1525,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005092",
         "previous_image": "external/m6-storm-emerald/JP2026M6092.jpg"
-      }
+      },
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061396/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6093",
@@ -1456,7 +1552,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005093",
         "previous_image": "external/m6-storm-emerald/JP2026M6093.jpg"
-      }
+      },
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061397/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6094",
@@ -1477,7 +1579,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005094",
         "previous_image": "external/m6-storm-emerald/JP2026M6094.jpg"
-      }
+      },
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061398/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6095",
@@ -1498,7 +1606,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005095",
         "previous_image": "external/m6-storm-emerald/JP2026M6095.jpg"
-      }
+      },
+      "price_ref_krw": 18400,
+      "price_ref_jpy": 2980,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061399/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6096",
@@ -1519,7 +1633,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005096",
         "previous_image": "external/m6-storm-emerald/JP2026M6096.jpg"
-      }
+      },
+      "price_ref_krw": 6700,
+      "price_ref_jpy": 1080,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061400/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6097",
@@ -1540,7 +1660,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005097",
         "previous_image": "external/m6-storm-emerald/JP2026M6097.jpg"
-      }
+      },
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061401/m06/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6098",
@@ -1561,7 +1687,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005098",
         "previous_image": "external/m6-storm-emerald/JP2026M6098.jpg"
-      }
+      },
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061402/m06/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6099",
@@ -1582,7 +1714,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005099",
         "previous_image": "external/m6-storm-emerald/JP2026M6099.jpg"
-      }
+      },
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061403/m06/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6100",
@@ -1603,7 +1741,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005100",
         "previous_image": "external/m6-storm-emerald/JP2026M6100.jpg"
-      }
+      },
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061404/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6101",
@@ -1624,7 +1768,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005101",
         "previous_image": "external/m6-storm-emerald/JP2026M6101.jpg"
-      }
+      },
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061405/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6103",
@@ -1646,7 +1796,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005102",
         "previous_image": "external/m6-storm-emerald/JP2026M6103.jpg"
-      }
+      },
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061407/m06/page1/recommend/; jp_to_kr_factor=0.65; mapped_from_number=102; fullahead_number=103",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6102",
@@ -1668,7 +1824,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005103",
         "previous_image": "external/m6-storm-emerald/JP2026M6102.jpg"
-      }
+      },
+      "price_ref_krw": 5400,
+      "price_ref_jpy": 880,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061406/m06/page1/recommend/; jp_to_kr_factor=0.65; mapped_from_number=103; fullahead_number=102",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6104",
@@ -1689,7 +1851,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005104",
         "previous_image": "external/m6-storm-emerald/JP2026M6104.jpg"
-      }
+      },
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061408/m06/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6105",
@@ -1710,7 +1878,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005105",
         "previous_image": "external/m6-storm-emerald/JP2026M6105.jpg"
-      }
+      },
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061409/m06/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6106",
@@ -1731,7 +1905,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005106",
         "previous_image": "external/m6-storm-emerald/JP2026M6106.jpg"
-      }
+      },
+      "price_ref_krw": 2000,
+      "price_ref_jpy": 280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061410/m06/page1/recommend/; jp_to_kr_factor=0.65; floor_SR_krw=2000",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6107",
@@ -1752,7 +1932,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005107",
         "previous_image": "external/m6-storm-emerald/JP2026M6107.jpg"
-      }
+      },
+      "price_ref_krw": 7300,
+      "price_ref_jpy": 1180,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061411/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6108",
@@ -1773,7 +1959,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005108",
         "previous_image": "external/m6-storm-emerald/JP2026M6108.jpg"
-      }
+      },
+      "price_ref_krw": 32600,
+      "price_ref_jpy": 5280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061412/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6109",
@@ -1794,7 +1986,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005109",
         "previous_image": "external/m6-storm-emerald/JP2026M6109.jpg"
-      }
+      },
+      "price_ref_krw": 7900,
+      "price_ref_jpy": 1280,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061413/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6110",
@@ -1815,7 +2013,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005110",
         "previous_image": "external/m6-storm-emerald/JP2026M6110.jpg"
-      }
+      },
+      "price_ref_krw": 233400,
+      "price_ref_jpy": 37800,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061414/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6111",
@@ -1836,7 +2040,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005111",
         "previous_image": "external/m6-storm-emerald/JP2026M6111.jpg"
-      }
+      },
+      "price_ref_krw": 5000,
+      "price_ref_jpy": 680,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061415/m06/page1/recommend/; jp_to_kr_factor=0.65; floor_SAR_krw=5000",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6112",
@@ -1857,7 +2067,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005112",
         "previous_image": "external/m6-storm-emerald/JP2026M6112.jpg"
-      }
+      },
+      "price_ref_krw": 14700,
+      "price_ref_jpy": 2380,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061416/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     },
     {
       "card_num": "JP2026M6113",
@@ -1878,7 +2094,13 @@
         "date": "2026-09-26",
         "source": "https://pokemoncard.co.kr/cards/detail/BS2026005113",
         "previous_image": "external/m6-storm-emerald/JP2026M6113.jpg"
-      }
+      },
+      "price_ref_krw": 585400,
+      "price_ref_jpy": 94800,
+      "price_ref_usd": null,
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000061417/m06/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
+      "price_confidence": "source"
     }
   ],
   "image_cdn_base": "https://img.pokesim.kr/",
