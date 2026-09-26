@@ -31,6 +31,7 @@ const verifyOnly = argv.includes("--verify-only");
 const externalOnly = argv.includes("--external-only");
 const targetSet = readArg("--set");
 const targetCard = readArg("--card");
+const targetCards = new Set((readArg("--cards") ?? "").split(",").filter(Boolean));
 const targetKey = readArg("--key");
 const sizes = parseSizes(readArg("--sizes") ?? "256,512");
 const concurrency = readPositiveInt("--concurrency", 4);
@@ -166,6 +167,7 @@ function collectTasks(): ImageTask[] {
     const setCode = setData.code ?? file.replace(/\.json$/, "");
 
     for (const card of setData.cards ?? []) {
+      if (targetCards.size && !targetCards.has(card.card_num ?? "")) continue;
       if (targetCard && card.card_num !== targetCard && String(card.number ?? "") !== targetCard) {
         continue;
       }
@@ -380,15 +382,17 @@ async function r2ObjectExists(key: string): Promise<boolean> {
 }
 
 async function downloadSource(url: string): Promise<Buffer> {
-  const response = await fetch(url, {
-    headers: downloadHeadersFor(url),
-  });
-
-  if (!response.ok) {
-    throw new Error(`download failed: HTTP ${response.status} ${url}`);
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const response = await fetch(url, { headers: downloadHeadersFor(url), signal: AbortSignal.timeout(30000) });
+      if (!response.ok) throw new Error(`download failed: HTTP ${response.status} ${url}`);
+      return Buffer.from(await response.arrayBuffer());
+    } catch (error) {
+      if (attempt === 2) throw error;
+      await new Promise(resolve => setTimeout(resolve, 500 * (attempt + 1)));
+    }
   }
-
-  return Buffer.from(await response.arrayBuffer());
+  throw new Error(`download failed: ${url}`);
 }
 
 function downloadHeadersFor(url: string): Record<string, string> {

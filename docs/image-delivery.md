@@ -71,6 +71,17 @@ Behavior:
 
 ## WebP Variants
 
+### Reviewed Korean replacements (2026-09-26)
+
+PNG/JPG originals currently return HTTP 403 at the public CDN, including old keys.
+No firewall configuration was changed. PNGs remain in R2 for provenance, but their public
+403 is not counted as successful delivery. The reviewed Korean cards publish 256/512 WebP
+variants under their versioned keys; the card modal retains its established 512px fallback
+when an original response is unavailable. `validate:korean-images -- --cdn` compares the
+decoded 256/512 WebP variants with the official source (after an explicit V-UNION crop),
+not compressed file bytes. Other original-image keys retain their existing behavior and are
+outside this repair's scope.
+
 The CDN migration removes hotlinking, but it does not shrink the original image
 bytes. Generate WebP variants after a set has valid `image_url` keys:
 

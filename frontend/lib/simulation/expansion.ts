@@ -9,10 +9,13 @@ import {
   CELEBRATION_30_BOX_COUNTS,
   CELEBRATION_30_PACK_PATTERNS,
   CELEBRATION_30_BASE_HIT_PACKS,
+  CELEBRATION_30_BASE_HIGH_WEIGHTS,
   CELEBRATION_30_FUR_BOX_RATE,
+  CELEBRATION_30_NON_RGB_HIGH_WEIGHTS,
   CELEBRATION_30_RGB_BOX_RATE,
   CELEBRATION_30_HIGH_SLOT_COUNT,
   CELEBRATION_30_SET_CODE,
+  CELEBRATION_30_TWO_HIT_BOX_RATE,
   EXPANSION_MONSTER_WEIGHTS,
   EXPANSION_MONSTER_WEIGHTS_DEFAULT,
   ALT_SR_NUMBER_RANGES,
@@ -131,8 +134,11 @@ export function simulate30thCelebrationBox(
   add('RR', rr);
   add('AR', ar);
   add('REPRINT', reprint);
-  const hasFur = rng() < CELEBRATION_30_FUR_BOX_RATE && !!ctx.byRarity.FUR?.length;
-  add(hasFur ? 'FUR' : 'SAR', CELEBRATION_30_HIGH_SLOT_COUNT);
+  const baseHighRarity = ctx.weightedPick(CELEBRATION_30_BASE_HIGH_WEIGHTS);
+  add(baseHighRarity, CELEBRATION_30_HIGH_SLOT_COUNT);
+  if (rng() < CELEBRATION_30_TWO_HIT_BOX_RATE) {
+    add(ctx.weightedPick(CELEBRATION_30_NON_RGB_HIGH_WEIGHTS), 1);
+  }
   const targetHitPacks = CELEBRATION_30_BASE_HIT_PACKS;
   const packHits: Card[][][] = [];
   // Pair placement is an approximation constrained by observed combinations;
@@ -148,12 +154,6 @@ export function simulate30thCelebrationBox(
   packHits.push(...hitPools.map((pool) => [pool]));
   while (packHits.length < boxSize) packHits.push([]);
 
-  if (rng() < CELEBRATION_30_RGB_BOX_RATE && ctx.byRarity.RGB?.length) {
-    const eligible = Array.from({ length: boxSize }, (_, index) => index)
-      .filter((index) => packHits[index].length < packSize - 2);
-    if (eligible.length) packHits[ctx.pick(eligible)].push(ctx.byRarity.RGB);
-  }
-
   const usedCardNums = new Set<string>();
   return shuffle(packHits, rng).map((pools) => build30thCelebrationPack(ctx, rng, pools, packSize, usedCardNums));
 }
@@ -165,8 +165,17 @@ export function buildSingle30thCelebrationPack(
 ): PackResult {
   const pattern = pickCelebrationPattern(CELEBRATION_30_PACK_PATTERNS, rng);
   const hitPools = pattern.rarities.map((rarity) => ctx.byRarity[rarity] ?? []);
-  // RGB pack partners are unknown. Independent addition is explicitly provisional.
-  if (rng() < CELEBRATION_30_RGB_BOX_RATE / 20 && ctx.byRarity.RGB?.length) hitPools.push(ctx.byRarity.RGB);
+  const highIndex = pattern.rarities.findIndex((rarity) => rarity === 'SAR' || rarity === 'FUR');
+  if (highIndex >= 0) {
+    // A loose pack has no box guarantee. Preserve the box model's high-slot
+    // marginal by replacing a high slot with RGB, not adding RGB independently.
+    if (rng() < CELEBRATION_30_RGB_BOX_RATE && ctx.byRarity.RGB?.length) {
+      hitPools[highIndex] = ctx.byRarity.RGB;
+    }
+    if (rng() < CELEBRATION_30_TWO_HIT_BOX_RATE) {
+      hitPools.push(ctx.byRarity[ctx.weightedPick(CELEBRATION_30_NON_RGB_HIGH_WEIGHTS)] ?? []);
+    }
+  }
   return build30thCelebrationPack(ctx, rng, hitPools, packSize);
 }
 

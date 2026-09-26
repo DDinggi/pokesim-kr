@@ -166,10 +166,17 @@
       "subtype": null,
       "hp": 340,
       "type": "풀",
-      "image_url": "external/m6-storm-emerald/JP2026M6009.jpg",
+      "image_url": "external/m6-storm-emerald/ko-20260926/009.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005009",
-      "_fetched_at": "2026-08-21",
-      "_image_source_url": "https://www.pokemon-card.com/ex/m6/assets/images/card/m6-009-sxbub.png"
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_009.png",
+      "_official_card_num": "BS2026005009",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005009",
+        "previous_image": "external/m6-storm-emerald/JP2026M6009.jpg"
+      }
     },
     {
       "card_num": "BS2026005010",
@@ -479,10 +486,17 @@
       "subtype": null,
       "hp": 350,
       "type": "초",
-      "image_url": "external/m6-storm-emerald/JP2026M6033.jpg",
+      "image_url": "external/m6-storm-emerald/ko-20260926/033.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005033",
-      "_fetched_at": "2026-08-21",
-      "_image_source_url": "https://www.pokemon-card.com/ex/m6/assets/images/card/m6-033-g8hda.png"
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_033.png",
+      "_official_card_num": "BS2026005033",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005033",
+        "previous_image": "external/m6-storm-emerald/JP2026M6033.jpg"
+      }
     },
     {
       "card_num": "BS2026005034",
@@ -675,10 +689,17 @@
       "subtype": null,
       "hp": 320,
       "type": "악",
-      "image_url": "external/m6-storm-emerald/JP2026M6048.jpg",
+      "image_url": "external/m6-storm-emerald/ko-20260926/048.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005048",
-      "_fetched_at": "2026-08-21",
-      "_image_source_url": "https://www.pokemon-card.com/ex/m6/assets/images/card/m6-048-u5t2n.png"
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_048.png",
+      "_official_card_num": "BS2026005048",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005048",
+        "previous_image": "external/m6-storm-emerald/JP2026M6048.jpg"
+      }
     },
     {
       "card_num": "BS2026005049",
@@ -1093,13 +1114,19 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6077.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/077-high-9t42p0.jpg"
+      "hp": 110,
+      "type": "풀",
+      "image_url": "external/m6-storm-emerald/ko-20260926/077.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005077",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_077.png",
+      "_official_card_num": "BS2026005077",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005077",
+        "previous_image": "external/m6-storm-emerald/JP2026M6077.jpg"
+      }
     },
     {
       "card_num": "JP2026M6078",
@@ -1123,13 +1150,19 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6079.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/079-high-poiio0.jpg"
+      "hp": 140,
+      "type": "불꽃",
+      "image_url": "external/m6-storm-emerald/ko-20260926/079.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005079",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_079.png",
+      "_official_card_num": "BS2026005079",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005079",
+        "previous_image": "external/m6-storm-emerald/JP2026M6079.jpg"
+      }
     },
     {
       "card_num": "JP2026M6080",
@@ -1138,13 +1171,19 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6080.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/080-high-vk16ii.jpg"
+      "hp": 150,
+      "type": "물",
+      "image_url": "external/m6-storm-emerald/ko-20260926/080.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005080",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_080.png",
+      "_official_card_num": "BS2026005080",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005080",
+        "previous_image": "external/m6-storm-emerald/JP2026M6080.jpg"
+      }
     },
     {
       "card_num": "JP2026M6081",
@@ -1153,13 +1192,19 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6081.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/081-high-ba6yxp.jpg"
+      "hp": 140,
+      "type": "번개",
+      "image_url": "external/m6-storm-emerald/ko-20260926/081.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005081",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_081.png",
+      "_official_card_num": "BS2026005081",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005081",
+        "previous_image": "external/m6-storm-emerald/JP2026M6081.jpg"
+      }
     },
     {
       "card_num": "JP2026M6082",
@@ -1168,13 +1213,19 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6082.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/082-high-08gmkl.jpg"
+      "hp": 80,
+      "type": "번개",
+      "image_url": "external/m6-storm-emerald/ko-20260926/082.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005082",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_082.png",
+      "_official_card_num": "BS2026005082",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005082",
+        "previous_image": "external/m6-storm-emerald/JP2026M6082.jpg"
+      }
     },
     {
       "card_num": "JP2026M6083",
@@ -1183,13 +1234,19 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6083.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/083-high-q9k5yl.jpg"
+      "hp": 120,
+      "type": "초",
+      "image_url": "external/m6-storm-emerald/ko-20260926/083.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005083",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_083.png",
+      "_official_card_num": "BS2026005083",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005083",
+        "previous_image": "external/m6-storm-emerald/JP2026M6083.jpg"
+      }
     },
     {
       "card_num": "JP2026M6084",
@@ -1198,13 +1255,19 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6084.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/084-high-qp6c3c.jpg"
+      "hp": 150,
+      "type": "격투",
+      "image_url": "external/m6-storm-emerald/ko-20260926/084.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005084",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_084.png",
+      "_official_card_num": "BS2026005084",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005084",
+        "previous_image": "external/m6-storm-emerald/JP2026M6084.jpg"
+      }
     },
     {
       "card_num": "JP2026M6085",
@@ -1213,13 +1276,19 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6085.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/085-high-nl9zxe.jpg"
+      "hp": 60,
+      "type": "악",
+      "image_url": "external/m6-storm-emerald/ko-20260926/085.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005085",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_085.png",
+      "_official_card_num": "BS2026005085",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005085",
+        "previous_image": "external/m6-storm-emerald/JP2026M6085.jpg"
+      }
     },
     {
       "card_num": "JP2026M6086",
@@ -1228,13 +1297,19 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6086.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/086-high-slo0fj.jpg"
+      "hp": 30,
+      "type": "무색",
+      "image_url": "external/m6-storm-emerald/ko-20260926/086.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005086",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_086.png",
+      "_official_card_num": "BS2026005086",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005086",
+        "previous_image": "external/m6-storm-emerald/JP2026M6086.jpg"
+      }
     },
     {
       "card_num": "JP2026M6087",
@@ -1243,13 +1318,19 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6087.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/087-high-xiw67m.jpg"
+      "hp": 110,
+      "type": "무색",
+      "image_url": "external/m6-storm-emerald/ko-20260926/087.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005087",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_087.png",
+      "_official_card_num": "BS2026005087",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005087",
+        "previous_image": "external/m6-storm-emerald/JP2026M6087.jpg"
+      }
     },
     {
       "card_num": "JP2026M6088",
@@ -1258,13 +1339,19 @@
       "rarity": "AR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6088.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/088-high-a7kkzo.jpg"
+      "hp": 90,
+      "type": "무색",
+      "image_url": "external/m6-storm-emerald/ko-20260926/088.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005088",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_088.png",
+      "_official_card_num": "BS2026005088",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005088",
+        "previous_image": "external/m6-storm-emerald/JP2026M6088.jpg"
+      }
     },
     {
       "card_num": "JP2026M6089",
@@ -1273,13 +1360,19 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6089.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/089-high-mrg3e9.jpg"
+      "hp": 340,
+      "type": "풀",
+      "image_url": "external/m6-storm-emerald/ko-20260926/089.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005089",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_089.png",
+      "_official_card_num": "BS2026005089",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005089",
+        "previous_image": "external/m6-storm-emerald/JP2026M6089.jpg"
+      }
     },
     {
       "card_num": "JP2026M6090",
@@ -1288,13 +1381,19 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6090.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/090-high-5dgjuq.jpg"
+      "hp": 190,
+      "type": "불꽃",
+      "image_url": "external/m6-storm-emerald/ko-20260926/090.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005090",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_090.png",
+      "_official_card_num": "BS2026005090",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005090",
+        "previous_image": "external/m6-storm-emerald/JP2026M6090.jpg"
+      }
     },
     {
       "card_num": "JP2026M6091",
@@ -1303,13 +1402,19 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6091.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/091-high-60kh2q.jpg"
+      "hp": 260,
+      "type": "물",
+      "image_url": "external/m6-storm-emerald/ko-20260926/091.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005091",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_091.png",
+      "_official_card_num": "BS2026005091",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005091",
+        "previous_image": "external/m6-storm-emerald/JP2026M6091.jpg"
+      }
     },
     {
       "card_num": "JP2026M6092",
@@ -1318,13 +1423,19 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6092.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/092-high-o0wq24.jpg"
+      "hp": 200,
+      "type": "번개",
+      "image_url": "external/m6-storm-emerald/ko-20260926/092.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005092",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_092.png",
+      "_official_card_num": "BS2026005092",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005092",
+        "previous_image": "external/m6-storm-emerald/JP2026M6092.jpg"
+      }
     },
     {
       "card_num": "JP2026M6093",
@@ -1333,13 +1444,19 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6093.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/093-high-530k07.jpg"
+      "hp": 350,
+      "type": "초",
+      "image_url": "external/m6-storm-emerald/ko-20260926/093.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005093",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_093.png",
+      "_official_card_num": "BS2026005093",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005093",
+        "previous_image": "external/m6-storm-emerald/JP2026M6093.jpg"
+      }
     },
     {
       "card_num": "JP2026M6094",
@@ -1348,13 +1465,19 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6094.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/094-high-38u3uy.jpg"
+      "hp": 320,
+      "type": "악",
+      "image_url": "external/m6-storm-emerald/ko-20260926/094.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005094",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_094.png",
+      "_official_card_num": "BS2026005094",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005094",
+        "previous_image": "external/m6-storm-emerald/JP2026M6094.jpg"
+      }
     },
     {
       "card_num": "JP2026M6095",
@@ -1363,13 +1486,19 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6095.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/095-high-knaf2r.jpg"
+      "hp": 280,
+      "type": "무색",
+      "image_url": "external/m6-storm-emerald/ko-20260926/095.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005095",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_095.png",
+      "_official_card_num": "BS2026005095",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005095",
+        "previous_image": "external/m6-storm-emerald/JP2026M6095.jpg"
+      }
     },
     {
       "card_num": "JP2026M6096",
@@ -1378,13 +1507,19 @@
       "rarity": "SR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6096.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/096-high-qlozd4.jpg"
+      "hp": 280,
+      "type": "무색",
+      "image_url": "external/m6-storm-emerald/ko-20260926/096.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005096",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_096.png",
+      "_official_card_num": "BS2026005096",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005096",
+        "previous_image": "external/m6-storm-emerald/JP2026M6096.jpg"
+      }
     },
     {
       "card_num": "JP2026M6097",
@@ -1395,41 +1530,59 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6097.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/097-high-ywokrm.jpg"
+      "image_url": "external/m6-storm-emerald/ko-20260926/097.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005097",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_097.png",
+      "_official_card_num": "BS2026005097",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005097",
+        "previous_image": "external/m6-storm-emerald/JP2026M6097.jpg"
+      }
     },
     {
       "card_num": "JP2026M6098",
       "number": 98,
-      "name_ko": "텔레코 포켓몬 캐처",
+      "name_ko": "포켓몬 캐처",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6098.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/098-high-a1jqg5.jpg"
+      "image_url": "external/m6-storm-emerald/ko-20260926/098.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005098",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_098.png",
+      "_official_card_num": "BS2026005098",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005098",
+        "previous_image": "external/m6-storm-emerald/JP2026M6098.jpg"
+      }
     },
     {
       "card_num": "JP2026M6099",
       "number": 99,
-      "name_ko": "텔레코 특별주문조끼",
+      "name_ko": "특별주문조끼",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6099.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/099-high-tc8kn8.jpg"
+      "image_url": "external/m6-storm-emerald/ko-20260926/099.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005099",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_099.png",
+      "_official_card_num": "BS2026005099",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005099",
+        "previous_image": "external/m6-storm-emerald/JP2026M6099.jpg"
+      }
     },
     {
       "card_num": "JP2026M6100",
@@ -1440,11 +1593,17 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6100.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/100-high-n3rmxi.jpg"
+      "image_url": "external/m6-storm-emerald/ko-20260926/100.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005100",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_100.png",
+      "_official_card_num": "BS2026005100",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005100",
+        "previous_image": "external/m6-storm-emerald/JP2026M6100.jpg"
+      }
     },
     {
       "card_num": "JP2026M6101",
@@ -1455,86 +1614,124 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6101.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/101-high-fsc7op.jpg"
-    },
-    {
-      "card_num": "JP2026M6102",
-      "number": 102,
-      "name_ko": "피아나의 신뢰",
-      "rarity": "SR",
-      "card_type": "트레이너",
-      "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6102.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/102-high-qq51z4.jpg"
+      "image_url": "external/m6-storm-emerald/ko-20260926/101.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005101",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_101.png",
+      "_official_card_num": "BS2026005101",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005101",
+        "previous_image": "external/m6-storm-emerald/JP2026M6101.jpg"
+      }
     },
     {
       "card_num": "JP2026M6103",
-      "number": 103,
+      "number": 102,
       "name_ko": "풍&란의 수행",
       "rarity": "SR",
       "card_type": "트레이너",
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6103.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/103-high-sx0n48.jpg"
+      "image_url": "external/m6-storm-emerald/ko-20260926/102.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005102",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_102.png",
+      "_official_card_num": "BS2026005102",
+      "_image_language": "ko",
+      "_jp_number": 103,
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005102",
+        "previous_image": "external/m6-storm-emerald/JP2026M6103.jpg"
+      }
+    },
+    {
+      "card_num": "JP2026M6102",
+      "number": 103,
+      "name_ko": "피아나의 신뢰",
+      "rarity": "SR",
+      "card_type": "트레이너",
+      "subtype": null,
+      "hp": null,
+      "type": null,
+      "image_url": "external/m6-storm-emerald/ko-20260926/103.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005103",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_103.png",
+      "_official_card_num": "BS2026005103",
+      "_image_language": "ko",
+      "_jp_number": 102,
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005103",
+        "previous_image": "external/m6-storm-emerald/JP2026M6102.jpg"
+      }
     },
     {
       "card_num": "JP2026M6104",
       "number": 104,
-      "name_ko": "그로우 풀   에너지",
+      "name_ko": "그로우 풀에너지",
       "rarity": "SR",
       "card_type": "에너지",
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6104.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/104-high-yhwyal.jpg"
+      "image_url": "external/m6-storm-emerald/ko-20260926/104.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005104",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_104.png",
+      "_official_card_num": "BS2026005104",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005104",
+        "previous_image": "external/m6-storm-emerald/JP2026M6104.jpg"
+      }
     },
     {
       "card_num": "JP2026M6105",
       "number": 105,
-      "name_ko": "니트로 불꽃   에너지",
+      "name_ko": "니트로 불꽃에너지",
       "rarity": "SR",
       "card_type": "에너지",
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6105.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/105-high-zjbu8z.jpg"
+      "image_url": "external/m6-storm-emerald/ko-20260926/105.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005105",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_105.png",
+      "_official_card_num": "BS2026005105",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005105",
+        "previous_image": "external/m6-storm-emerald/JP2026M6105.jpg"
+      }
     },
     {
       "card_num": "JP2026M6106",
       "number": 106,
-      "name_ko": "버블 물   에너지",
+      "name_ko": "버블 물에너지",
       "rarity": "SR",
       "card_type": "에너지",
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6106.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/106-high-yzvr2g.jpg"
+      "image_url": "external/m6-storm-emerald/ko-20260926/106.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005106",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_106.png",
+      "_official_card_num": "BS2026005106",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005106",
+        "previous_image": "external/m6-storm-emerald/JP2026M6106.jpg"
+      }
     },
     {
       "card_num": "JP2026M6107",
@@ -1543,13 +1740,19 @@
       "rarity": "SAR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6107.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/107-high-7viekv.jpg"
+      "hp": 340,
+      "type": "풀",
+      "image_url": "external/m6-storm-emerald/ko-20260926/107.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005107",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_107.png",
+      "_official_card_num": "BS2026005107",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005107",
+        "previous_image": "external/m6-storm-emerald/JP2026M6107.jpg"
+      }
     },
     {
       "card_num": "JP2026M6108",
@@ -1558,13 +1761,19 @@
       "rarity": "SAR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6108.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/108-high-20xkyh.jpg"
+      "hp": 200,
+      "type": "번개",
+      "image_url": "external/m6-storm-emerald/ko-20260926/108.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005108",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_108.png",
+      "_official_card_num": "BS2026005108",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005108",
+        "previous_image": "external/m6-storm-emerald/JP2026M6108.jpg"
+      }
     },
     {
       "card_num": "JP2026M6109",
@@ -1573,13 +1782,19 @@
       "rarity": "SAR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6109.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/109-high-aqf1ky.jpg"
+      "hp": 350,
+      "type": "초",
+      "image_url": "external/m6-storm-emerald/ko-20260926/109.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005109",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_109.png",
+      "_official_card_num": "BS2026005109",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005109",
+        "previous_image": "external/m6-storm-emerald/JP2026M6109.jpg"
+      }
     },
     {
       "card_num": "JP2026M6110",
@@ -1588,13 +1803,19 @@
       "rarity": "SAR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6110.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/110-high-ylshdu.jpg"
+      "hp": 280,
+      "type": "무색",
+      "image_url": "external/m6-storm-emerald/ko-20260926/110.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005110",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_110.png",
+      "_official_card_num": "BS2026005110",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005110",
+        "previous_image": "external/m6-storm-emerald/JP2026M6110.jpg"
+      }
     },
     {
       "card_num": "JP2026M6111",
@@ -1605,11 +1826,17 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6111.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/111-high-mwtcm3.jpg"
+      "image_url": "external/m6-storm-emerald/ko-20260926/111.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005111",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_111.png",
+      "_official_card_num": "BS2026005111",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005111",
+        "previous_image": "external/m6-storm-emerald/JP2026M6111.jpg"
+      }
     },
     {
       "card_num": "JP2026M6112",
@@ -1620,11 +1847,17 @@
       "subtype": null,
       "hp": null,
       "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6112.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/112-high-denz6h.jpg"
+      "image_url": "external/m6-storm-emerald/ko-20260926/112.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005112",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_112.png",
+      "_official_card_num": "BS2026005112",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005112",
+        "previous_image": "external/m6-storm-emerald/JP2026M6112.jpg"
+      }
     },
     {
       "card_num": "JP2026M6113",
@@ -1633,19 +1866,25 @@
       "rarity": "UR",
       "card_type": "포켓몬",
       "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/m6-storm-emerald/JP2026M6113.jpg",
-      "_source": "PokeGuardian (https://yuyu-tei.jp/sell/poc/s/m06)",
-      "_fetched_at": "2026-08-16",
-      "_manual": true,
-      "_image_source_url": "https://primary.jwwb.nl/public/h/t/i/temp-zjpebgcobmaxydcmrfwb/113-high-188yvn.jpg"
+      "hp": 280,
+      "type": "무색",
+      "image_url": "external/m6-storm-emerald/ko-20260926/113.png",
+      "_source": "https://pokemoncard.co.kr/cards/detail/BS2026005113",
+      "_fetched_at": "2026-09-26",
+      "_image_source_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_113.png",
+      "_official_card_num": "BS2026005113",
+      "_image_language": "ko",
+      "_korean_image_review": {
+        "date": "2026-09-26",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2026005113",
+        "previous_image": "external/m6-storm-emerald/JP2026M6113.jpg"
+      }
     }
   ],
   "image_cdn_base": "https://img.pokesim.kr/",
   "_source": "Korean official product/card metadata: https://pokemoncard.co.kr/card/938 and https://pokemoncard.co.kr/cards; Japanese secret-card fallback: https://www.pokemon-card.com/ex/m6/ and https://yuyu-tei.jp/sell/poc/s/m06",
   "_fetched_at": "2026-08-21",
-  "_notes": "2026-08-21 pokemoncard.co.kr 공식 M6 73개 레코드를 번호 기준으로 병합했다. 71/73/75번의 한국 공식 좌우 합본 이미지는 71~76번 실물 카드 6장으로 분할한다. 공식 CDN이 HTTP 415를 반환하는 9/33/48번과 아직 한국 DB에 없는 77~113번만 일본 고화질 이미지를 폴백으로 유지한다.",
+  "_notes": "2026-09-26 한국 공식 이미지 39장 전환. 공식 CDN 오류 078 가디 AR만 일본판 유지. 071~076 한국 합본 분할 유지. 안정적인 획득 기록을 위해 기존 card_num은 보존하고 한국 공식 ID는 _official_card_num, 일본 번호는 _jp_number에 기록한다.",
   "luck_value_ref": {
     "box_median_krw": 0,
     "pack_median_krw": 0,
@@ -1704,6 +1943,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-09-10"
+    "_built_at": "2026-09-26"
   }
 }

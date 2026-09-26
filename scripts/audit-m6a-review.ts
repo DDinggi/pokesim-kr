@@ -9,7 +9,15 @@ import rarityDefault from '../frontend/lib/rarity.ts';
 import type { SetMeta } from '../frontend/lib/types.ts';
 
 const { simulateBox, simulatePack } = simulatorDefault as unknown as typeof import('../frontend/lib/simulator.ts');
-const { CELEBRATION_30_BOX_COUNTS, CELEBRATION_30_PACK_PATTERNS } = modelDefault as unknown as typeof import('../frontend/lib/simulation/model.ts');
+const {
+  CELEBRATION_30_BASE_HIGH_WEIGHTS,
+  CELEBRATION_30_BOX_COUNTS,
+  CELEBRATION_30_FUR_BOX_RATE,
+  CELEBRATION_30_NON_RGB_HIGH_WEIGHTS,
+  CELEBRATION_30_PACK_PATTERNS,
+  CELEBRATION_30_RGB_BOX_RATE,
+  CELEBRATION_30_TWO_HIT_BOX_RATE,
+} = modelDefault as unknown as typeof import('../frontend/lib/simulation/model.ts');
 const { premiumSparkleVariant } = rarityDefault as unknown as typeof import('../frontend/lib/rarity.ts');
 const { resolveCardImageUrl } = imagesDefault as unknown as typeof import('../frontend/lib/images.ts');
 const root = resolve(import.meta.dirname, '..');
@@ -20,10 +28,22 @@ const set = JSON.parse(raw) as SetMeta;
 const trials = 20_000;
 let furBoxes = 0;
 let rgbBoxes = 0;
+let twoHitBoxes = 0;
 const seenPikachu = new Set<number>();
 const seenCards = new Set<string>();
 const boxTuples = new Set(CELEBRATION_30_BOX_COUNTS.map((row) => row.join(',')));
 const packPatterns = new Set(CELEBRATION_30_PACK_PATTERNS.map((pattern) => [...pattern.rarities].sort().join(',')));
+const isKnownBasePattern = (rarities: string[]) => {
+  const normalized = rarities.map((rarity) => rarity === 'RGB' ? 'SAR' : rarity);
+  if (packPatterns.has([...normalized].sort().join(','))) return true;
+
+  // A user-selected 0.5% second high hit can add one SAR/FUR to a normal
+  // documented composition. Removing either high must recover that base shape.
+  return normalized.some((rarity, index) => (
+    (rarity === 'SAR' || rarity === 'FUR')
+    && packPatterns.has(normalized.filter((_, candidate) => candidate !== index).sort().join(','))
+  ));
+};
 assert.ok(Math.abs(CELEBRATION_30_PACK_PATTERNS.reduce((sum, p) => sum + p.weight, 0) - 340) < 1e-9);
 for (const [rarity, perBox] of [['RR', 5], ['AR', 4], ['REPRINT', 2], ['SAR', 5 / 6], ['FUR', 1 / 6]] as const) {
   const perPack = CELEBRATION_30_PACK_PATTERNS.reduce((sum, p) => sum + (p.rarities.includes(rarity) ? p.weight : 0), 0) / 340;
@@ -39,17 +59,17 @@ for (let i = 0; i < trials; i++) {
   for (const rarity of ['AR', 'REPRINT']) {
     assert.equal(new Set(cards.filter((card) => card.rarity === rarity).map((card) => card.card_num)).size, counts(rarity));
   }
-  const hitPackCount = result.packs.filter((pack) => pack.cards.some((card) => card.rarity && card.rarity !== 'RGB')).length;
+  const hitPackCount = result.packs.filter((pack) => pack.cards.some((card) => card.rarity)).length;
   assert.equal(hitPackCount, 9);
-  assert.equal(counts('SAR') + counts('FUR'), 1, 'Every box must have one SAR-or-FUR high slot');
-  if (counts('FUR') === 1) {
-    assert.equal(counts('SAR'), 0, 'FUR must replace the SAR slot');
-    assert.equal(counts('REPRINT'), 2, 'FUR must preserve the observed reprint count');
-  }
+  const highCount = counts('SAR') + counts('FUR') + counts('RGB');
+  assert.ok(highCount === 1 || highCount === 2, 'Every box must have one high hit, with an optional second hit');
+  twoHitBoxes += Number(highCount === 2);
+  if (counts('RGB') === 1) assert.ok(highCount === 1 || highCount === 2, 'RGB is the base one-hit unless the 0.5% second-hit roll succeeds');
+  assert.equal(counts('REPRINT'), 2, 'High-slot changes must preserve the observed reprint count');
   for (const pack of result.packs) {
     assert.equal(pack.cards.length, 6);
-    const rarities = pack.cards.flatMap((card) => card.rarity && card.rarity !== 'RGB' ? [card.rarity] : []).sort();
-    assert.ok(packPatterns.has(rarities.join(',')), `Unsupported pack combination: ${rarities}`);
+    const rarities = pack.cards.flatMap((card) => card.rarity ? [card.rarity] : []);
+    assert.ok(isKnownBasePattern(rarities), `Unsupported pack combination: ${rarities}`);
     const pikachu = pack.cards.filter((card) => card.number >= 17 && card.number <= 46);
     assert.equal(pikachu.length, 1, 'Each pack must contain one anniversary Pikachu');
     assert.equal(pack.cards.filter((card) => card.card_type === '에너지').length, 1);
@@ -59,7 +79,11 @@ for (let i = 0; i < trials; i++) {
   rgbBoxes += Number(cards.some((card) => card.rarity === 'RGB'));
 }
 
-for (const [label, count, expected] of [['FUR', furBoxes, 1 / 6], ['RGB', rgbBoxes, 1 / 120]] as const) {
+for (const [label, count, expected] of [
+  ['FUR', furBoxes, CELEBRATION_30_FUR_BOX_RATE + CELEBRATION_30_TWO_HIT_BOX_RATE * CELEBRATION_30_NON_RGB_HIGH_WEIGHTS.FUR],
+  ['RGB', rgbBoxes, CELEBRATION_30_RGB_BOX_RATE],
+  ['2-hit', twoHitBoxes, CELEBRATION_30_TWO_HIT_BOX_RATE],
+] as const) {
   const observed = count / trials;
   const tolerance = 5 * Math.sqrt(expected * (1 - expected) / trials);
   assert.ok(Math.abs(observed - expected) < tolerance, `${label} rate differs from the reviewed model`);
@@ -73,10 +97,19 @@ for (let i = 0; i < 40_000; i++) {
   assert.equal(pack.cards.length, 6);
   assert.equal(pack.cards.filter((card) => card.number >= 17 && card.number <= 46).length, 1);
   assert.equal(pack.cards.filter((card) => card.card_type === '에너지').length, 1);
-  assert.ok(packPatterns.has(pack.cards.flatMap((card) => card.rarity && card.rarity !== 'RGB' ? [card.rarity] : []).sort().join(',')));
+  const high = pack.cards.filter((card) => card.rarity === 'SAR' || card.rarity === 'FUR' || card.rarity === 'RGB');
+  assert.ok(high.length <= 2, 'Loose pack may have one base high and optional second high only');
+  assert.ok(isKnownBasePattern(pack.cards.flatMap((card) => card.rarity ? [card.rarity] : [])));
   for (const card of pack.cards) if (card.rarity) looseCounts[card.rarity] = (looseCounts[card.rarity] ?? 0) + 1;
 }
-for (const [rarity, expected] of [['RR', 5 / 20], ['AR', 4 / 20], ['REPRINT', 2 / 20], ['SAR', (5 / 6) / 20], ['FUR', 1 / 120], ['RGB', 1 / 2400]] as const) {
+for (const [rarity, expected] of [
+  ['RR', 5 / 20],
+  ['AR', 4 / 20],
+  ['REPRINT', 2 / 20],
+  ['SAR', (CELEBRATION_30_BASE_HIGH_WEIGHTS.SAR + CELEBRATION_30_TWO_HIT_BOX_RATE * CELEBRATION_30_NON_RGB_HIGH_WEIGHTS.SAR) / 20],
+  ['FUR', (CELEBRATION_30_FUR_BOX_RATE + CELEBRATION_30_TWO_HIT_BOX_RATE * CELEBRATION_30_NON_RGB_HIGH_WEIGHTS.FUR) / 20],
+  ['RGB', CELEBRATION_30_RGB_BOX_RATE / 20],
+] as const) {
   assert.ok(Math.abs((looseCounts[rarity] ?? 0) / 40_000 - expected) < 5 * Math.sqrt(expected * (1 - expected) / 40_000), `${rarity}: loose-pack rate regression`);
 }
 for (const card of set.cards.filter((card) => card.number >= 104 && card.number <= 168)) {

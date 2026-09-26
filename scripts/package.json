@@ -17,6 +17,7 @@
     "audit:visitors": "tsx audit-visitor-count.ts",
     "audit:identity": "tsx audit-card-identity.ts",
     "validate:identity-review": "tsx validate-card-identity-review.ts",
+    "validate:korean-images": "tsx validate-korean-image-review.ts",
     "fetch:prices": "tsx fetch-reference-prices.ts",
     "fetch:fullahead-prices": "tsx fetch-fullahead-prices.ts",
     "import:fullahead-secrets": "tsx import-fullahead-secrets.ts",
