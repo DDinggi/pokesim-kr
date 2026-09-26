@@ -249,11 +249,11 @@
       "image_url": "wmimages/S/S11a/S11a_009.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016009",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 700,
-      "price_ref_jpy": 120,
+      "price_ref_krw": 3000,
+      "price_ref_jpy": 480,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022223/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-13",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -697,11 +697,11 @@
       "image_url": "wmimages/S/S11a/S11a_031.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016031",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 2000,
-      "price_ref_jpy": 320,
+      "price_ref_krw": 2300,
+      "price_ref_jpy": 380,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022245/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1002,11 +1002,11 @@
       "image_url": "wmimages/S/S11a/S11a_045.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016045",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 4200,
-      "price_ref_jpy": 680,
+      "price_ref_krw": 6700,
+      "price_ref_jpy": 1080,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022259/s11a/page3/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022259/s11a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1575,11 +1575,11 @@
       "image_url": "wmimages/S/S11a/S11a_069.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016069",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 6100,
-      "price_ref_jpy": 980,
+      "price_ref_krw": 5400,
+      "price_ref_jpy": 880,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022283/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1598,7 +1598,7 @@
       "price_ref_jpy": 680,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022284/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1613,11 +1613,11 @@
       "image_url": "wmimages/S/S11a/S11a_071.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016071",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 3000,
-      "price_ref_jpy": 480,
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022285/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1636,7 +1636,7 @@
       "price_ref_jpy": 780,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022286/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1655,7 +1655,7 @@
       "price_ref_jpy": 580,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022287/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1670,11 +1670,11 @@
       "image_url": "wmimages/S/S11a/S11a_074.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016074",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 9800,
-      "price_ref_jpy": 1580,
+      "price_ref_krw": 7300,
+      "price_ref_jpy": 1180,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022288/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1693,7 +1693,7 @@
       "price_ref_jpy": 580,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022289/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1708,11 +1708,11 @@
       "image_url": "wmimages/S/S11a/S11a_076.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016076",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 8500,
-      "price_ref_jpy": 1380,
+      "price_ref_krw": 9100,
+      "price_ref_jpy": 1480,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022290/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1727,11 +1727,11 @@
       "image_url": "wmimages/S/S11a/S11a_077.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016077",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 4200,
-      "price_ref_jpy": 680,
+      "price_ref_krw": 4800,
+      "price_ref_jpy": 780,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022291/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1750,7 +1750,7 @@
       "price_ref_jpy": 1280,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022292/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1765,11 +1765,11 @@
       "image_url": "wmimages/S/S11a/S11a_079.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016079",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 3000,
-      "price_ref_jpy": 480,
+      "price_ref_krw": 3600,
+      "price_ref_jpy": 580,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022293/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1784,11 +1784,11 @@
       "image_url": "wmimages/S/S11a/S11a_080.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016080",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 12200,
-      "price_ref_jpy": 1980,
+      "price_ref_krw": 14700,
+      "price_ref_jpy": 2380,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022294/s11a/page3/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022294/s11a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1803,11 +1803,11 @@
       "image_url": "wmimages/S/S11a/S11a_081.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016081",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 72900,
-      "price_ref_jpy": 11800,
+      "price_ref_krw": 55500,
+      "price_ref_jpy": 8980,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022295/s11a/page3/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1822,11 +1822,11 @@
       "image_url": "wmimages/S/S11a/S11a_082.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016082",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 14700,
-      "price_ref_jpy": 2380,
+      "price_ref_krw": 15300,
+      "price_ref_jpy": 2480,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022296/s11a/page3/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022296/s11a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1845,7 +1845,7 @@
       "price_ref_jpy": 480,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022297/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1863,8 +1863,8 @@
       "price_ref_krw": 30800,
       "price_ref_jpy": 4980,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022298/s11a/page3/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022298/s11a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1879,11 +1879,11 @@
       "image_url": "wmimages/S/S11a/S11a_085.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016085",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 8500,
-      "price_ref_jpy": 1380,
+      "price_ref_krw": 9800,
+      "price_ref_jpy": 1580,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022299/s11a/page3/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022299/s11a/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1898,11 +1898,11 @@
       "image_url": "wmimages/S/S11a/S11a_086.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016086",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 6700,
-      "price_ref_jpy": 1080,
+      "price_ref_krw": 7300,
+      "price_ref_jpy": 1180,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022300/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1917,11 +1917,11 @@
       "image_url": "wmimages/S/S11a/S11a_087.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016087",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 8500,
-      "price_ref_jpy": 1380,
+      "price_ref_krw": 9800,
+      "price_ref_jpy": 1580,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022301/s11a/page3/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1936,11 +1936,11 @@
       "image_url": "wmimages/S/S11a/S11a_088.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016088",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 4200,
-      "price_ref_jpy": 680,
+      "price_ref_krw": 6100,
+      "price_ref_jpy": 980,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022302/s11a/page3/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1955,11 +1955,11 @@
       "image_url": "wmimages/S/S11a/S11a_089.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016089",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 14700,
-      "price_ref_jpy": 2380,
+      "price_ref_krw": 15900,
+      "price_ref_jpy": 2580,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022303/s11a/page3/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1974,11 +1974,11 @@
       "image_url": "wmimages/S/S11a/S11a_090.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016090",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 6100,
-      "price_ref_jpy": 980,
+      "price_ref_krw": 7300,
+      "price_ref_jpy": 1180,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022304/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1997,7 +1997,7 @@
       "price_ref_jpy": 480,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022305/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -2012,11 +2012,11 @@
       "image_url": "wmimages/S/S11a/S11a_092.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016092",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 6700,
-      "price_ref_jpy": 1080,
+      "price_ref_krw": 7900,
+      "price_ref_jpy": 1280,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022306/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -2031,11 +2031,11 @@
       "image_url": "wmimages/S/S11a/S11a_093.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016093",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 20300,
-      "price_ref_jpy": 3280,
+      "price_ref_krw": 22100,
+      "price_ref_jpy": 3580,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022307/s11a/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -2050,11 +2050,11 @@
       "image_url": "wmimages/S/S11a/S11a_094.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2022016094",
       "_fetched_at": "2026-05-23",
-      "price_ref_krw": 3000,
-      "price_ref_jpy": 480,
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000022308/s11a/page3/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     }
   ],

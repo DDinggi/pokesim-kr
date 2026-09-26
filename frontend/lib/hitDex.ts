@@ -13,13 +13,10 @@ export const HIT_DEX_DEBUG_STORAGE_KEY = 'pokesim-kr-hit-dex-debug-v1';
 export const HIT_DEX_USER_STORAGE_PREFIX = `${HIT_DEX_STORAGE_KEY}:user:`;
 
 const HIT_DEX_VERSION = 2;
-// SAR 이상 고레어는 도감에 항상 수록한다. AR·SR과 그 아래 등급은 가격으로
-// 판단해 고전팩의 저가 카드가 도감을 과도하게 채우지 않도록 한다. 30주년은
-// 피카츄 30종과 복각을 별도 예외로 유지한다.
-const ALWAYS_DEX_DISPLAY_RARITIES = new Set(['RGB', 'FUR', 'MUR', 'BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'H', 'HR', 'CSR', 'MA']);
-// 썬&문·소드&실드는 2026-09-08 이전 정책으로 되돌린다. HR/UR/H를
-// 등급만으로 넣지 않고, 그 이전부터 있던 특수 고레어만 예외로 둔다.
-const LEGACY_SM_SWSH_ALWAYS_DEX_DISPLAY_RARITIES = new Set(['SAR', 'MUR', 'BWR', 'CSR', 'MA', 'GRA', 'S8AP']);
+// 최고 힛카드만 등급 자체로 도감에 수록한다. 그 외 모든 등급(UR/HR/CSR/MA,
+// AR/SR 포함)은 참고가 10만 원 이상일 때만 수록한다. 30주년은 피카츄 30종과
+// 복각을 별도 예외로 유지한다.
+const ALWAYS_DEX_DISPLAY_RARITIES = new Set(['RGB', 'FUR', 'MUR', 'BWR', 'SAR']);
 const FEATURED_HIT_DEX_CARD_NUMBERS: Readonly<Record<string, ReadonlySet<number>>> = {
   'm6a-30th-celebration': new Set([165]),
 };
@@ -116,9 +113,9 @@ export function normalizeHitDexState(value: unknown): HitDexState {
   const entries = rawEntries
     .map(normalizeHitDexEntry)
     .filter((entry): entry is HitDexEntry => entry !== null)
-    // Version 1 stored low-value SR/HR/UR entries under the former broad
-    // rarity rule. Drop those stale records as the state is read so totals,
-    // backups, and the visible catalog all return to the prior policy.
+    // Earlier versions stored entries under broader rarity rules. Drop cards
+    // that no longer qualify as the state is read so totals, backups, and the
+    // visible catalog follow the current policy.
     .filter((entry) => isHitDexCard(entry.card, entry.setCode));
 
   return {
@@ -255,10 +252,6 @@ export function isFeaturedHitDexCard(card: Card, setCode?: string): boolean {
   return Boolean(setCode && FEATURED_HIT_DEX_CARD_NUMBERS[setCode]?.has(card.number));
 }
 
-function isSunMoonOrSwordShieldSet(setCode?: string): boolean {
-  return Boolean(setCode && (setCode.startsWith('sm') || /^s(?!v)/.test(setCode)));
-}
-
 export function isHitDexCard(card: Card, setCode?: string): boolean {
   if (card.card_type?.trim() === '에너지') return false;
   // 세부 Trainer subtype이 구세트 JSON에는 안정적으로 없으므로, 아이템을
@@ -271,10 +264,7 @@ export function isHitDexCard(card: Card, setCode?: string): boolean {
   }
 
   const displayRarity = card.rarity ? rarityLabel(card.rarity, card) : null;
-  const alwaysDexRarities = isSunMoonOrSwordShieldSet(setCode)
-    ? LEGACY_SM_SWSH_ALWAYS_DEX_DISPLAY_RARITIES
-    : ALWAYS_DEX_DISPLAY_RARITIES;
-  if (displayRarity && alwaysDexRarities.has(displayRarity)) return true;
+  if (displayRarity && ALWAYS_DEX_DISPLAY_RARITIES.has(displayRarity)) return true;
 
   return getCardReferenceValueKrw(card, setCode) >= PREMIUM_HIT_PRICE_THRESHOLD_KRW;
 }

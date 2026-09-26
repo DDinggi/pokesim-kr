@@ -944,7 +944,7 @@
       "price_ref_jpy": 480,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014376/s07r/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -959,11 +959,11 @@
       "image_url": "wmimages/S/S7/S7R_069.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009069",
       "_fetched_at": "2026-06-03",
-      "price_ref_krw": 3600,
-      "price_ref_jpy": 580,
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014377/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -978,11 +978,11 @@
       "image_url": "wmimages/S/S7/S7R_070.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009070",
       "_fetched_at": "2026-06-03",
-      "price_ref_krw": 15900,
-      "price_ref_jpy": 2580,
+      "price_ref_krw": 18400,
+      "price_ref_jpy": 2980,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014378/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1001,7 +1001,7 @@
       "price_ref_jpy": 480,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014379/s07r/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1020,7 +1020,7 @@
       "price_ref_jpy": 3480,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014380/s07r/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1035,11 +1035,11 @@
       "image_url": "wmimages/S/S7/S7R_073.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009073",
       "_fetched_at": "2026-06-03",
-      "price_ref_krw": 17200,
-      "price_ref_jpy": 2780,
+      "price_ref_krw": 22100,
+      "price_ref_jpy": 3580,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014381/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1054,11 +1054,11 @@
       "image_url": "wmimages/S/S7/S7R_074.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009074",
       "_fetched_at": "2026-06-03",
-      "price_ref_krw": 523600,
-      "price_ref_jpy": 84800,
+      "price_ref_krw": 492800,
+      "price_ref_jpy": 79800,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014382/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1073,11 +1073,11 @@
       "image_url": "wmimages/S/S7/S7R_075.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009075",
       "_fetched_at": "2026-06-03",
-      "price_ref_krw": 91400,
-      "price_ref_jpy": 14800,
+      "price_ref_krw": 103700,
+      "price_ref_jpy": 16800,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014383/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014383/s07r/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1096,7 +1096,7 @@
       "price_ref_jpy": 168000,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014384/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1111,11 +1111,11 @@
       "image_url": "wmimages/S/S7/S7R_077.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009077",
       "_fetched_at": "2026-06-03",
-      "price_ref_krw": 66700,
-      "price_ref_jpy": 10800,
+      "price_ref_krw": 46200,
+      "price_ref_jpy": 7480,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014385/s07r/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1134,7 +1134,7 @@
       "price_ref_jpy": 480,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014386/s07r/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1149,11 +1149,11 @@
       "image_url": "wmimages/S/S7/S7R_079.png",
       "_source": "https://pokemoncard.co.kr/cards/detail/BS2021009079",
       "_fetched_at": "2026-06-03",
-      "price_ref_krw": 41900,
-      "price_ref_jpy": 6780,
+      "price_ref_krw": 36900,
+      "price_ref_jpy": 5980,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014387/s07r/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1169,11 +1169,11 @@
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
       "_manual": true,
-      "price_ref_krw": 5400,
-      "price_ref_jpy": 880,
+      "price_ref_krw": 6100,
+      "price_ref_jpy": 980,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014388/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1189,11 +1189,11 @@
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
       "_manual": true,
-      "price_ref_krw": 29500,
-      "price_ref_jpy": 4780,
+      "price_ref_krw": 35700,
+      "price_ref_jpy": 5780,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014389/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1209,11 +1209,11 @@
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
       "_manual": true,
-      "price_ref_krw": 245800,
-      "price_ref_jpy": 39800,
+      "price_ref_krw": 356900,
+      "price_ref_jpy": 57800,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014390/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014390/s07r/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1229,11 +1229,11 @@
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
       "_manual": true,
-      "price_ref_krw": 5236400,
-      "price_ref_jpy": 848000,
+      "price_ref_krw": 5730400,
+      "price_ref_jpy": 928000,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014391/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1253,7 +1253,7 @@
       "price_ref_jpy": 1880,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014392/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1273,7 +1273,7 @@
       "price_ref_jpy": 580,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014393/s07r/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1292,8 +1292,8 @@
       "price_ref_krw": 12200,
       "price_ref_jpy": 1980,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014394/s07r/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014394/s07r/page2/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1309,11 +1309,11 @@
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
       "_manual": true,
-      "price_ref_krw": 14700,
-      "price_ref_jpy": 2380,
+      "price_ref_krw": 15900,
+      "price_ref_jpy": 2580,
       "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014395/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014395/s07r/page1/recommend/; jp_to_kr_factor=0.65",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1329,11 +1329,11 @@
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
       "_manual": true,
-      "price_ref_krw": 3600,
-      "price_ref_jpy": 580,
+      "price_ref_krw": 4200,
+      "price_ref_jpy": 680,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014396/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1349,11 +1349,11 @@
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
       "_manual": true,
-      "price_ref_krw": 6100,
-      "price_ref_jpy": 980,
+      "price_ref_krw": 6700,
+      "price_ref_jpy": 1080,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014397/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     },
     {
@@ -1369,11 +1369,11 @@
       "_source": "https://www.pokeguardian.com/sets/set-lists/japanese-sets/704632_s7d-skyscraping-perfect-s7r-blue-sky-stream-all-sr-hr-ur-cards",
       "_fetched_at": "2026-06-03",
       "_manual": true,
-      "price_ref_krw": 27700,
-      "price_ref_jpy": 4480,
+      "price_ref_krw": 33800,
+      "price_ref_jpy": 5480,
       "price_ref_usd": null,
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000014398/s07r/page2/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-06-06",
+      "price_updated_at": "2026-09-26",
       "price_confidence": "source"
     }
   ],
