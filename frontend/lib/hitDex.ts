@@ -1,7 +1,6 @@
 import type { Card, SetMeta } from './types';
 import {
   PREMIUM_HIT_PRICE_THRESHOLD_KRW,
-  premiumSparkleVariant,
   rarityLabel,
   raritySortRank,
 } from './rarity';
@@ -13,13 +12,13 @@ export const HIT_DEX_STORAGE_KEY = 'pokesim-kr-hit-dex-v1';
 export const HIT_DEX_DEBUG_STORAGE_KEY = 'pokesim-kr-hit-dex-debug-v1';
 export const HIT_DEX_USER_STORAGE_PREFIX = `${HIT_DEX_STORAGE_KEY}:user:`;
 
-const HIT_DEX_VERSION = 1;
-// 힛카드 도감은 최신 고레어뿐 아니라 구세대 SR/HR/UR도 수집한다.
-// 단, 특수 상품은 세트 데이터의 독립 풀 여부로 이미 걸러진다.
-const ALWAYS_DEX_DISPLAY_RARITIES = new Set(['RGB', 'SAR', 'MUR', 'BWR', 'CSR', 'MA', 'GRA', 'S8AP', 'H', 'SR', 'HR', 'UR']);
+const HIT_DEX_VERSION = 2;
+// SAR 이상 고레어는 도감에 항상 수록한다. AR·SR과 그 아래 등급은 가격으로
+// 판단해 고전팩의 저가 카드가 도감을 과도하게 채우지 않도록 한다. 30주년은
+// 피카츄 30종과 복각을 별도 예외로 유지한다.
+const ALWAYS_DEX_DISPLAY_RARITIES = new Set(['RGB', 'FUR', 'MUR', 'BWR', 'GRA', 'S8AP', 'SAR', 'UR', 'H', 'HR', 'CSR', 'MA']);
 const FEATURED_HIT_DEX_CARD_NUMBERS: Readonly<Record<string, ReadonlySet<number>>> = {
   'm6a-30th-celebration': new Set([165]),
-  's12a-vstar-universe': new Set([259, 260, 261, 262]),
 };
 let activeHitDexOwnerId: string | null = null;
 
@@ -113,7 +112,11 @@ export function normalizeHitDexState(value: unknown): HitDexState {
   const rawEntries = Array.isArray(record.entries) ? record.entries : [];
   const entries = rawEntries
     .map(normalizeHitDexEntry)
-    .filter((entry): entry is HitDexEntry => entry !== null);
+    .filter((entry): entry is HitDexEntry => entry !== null)
+    // Version 1 stored low-value SR/HR/UR entries under the former broad
+    // rarity rule. Drop those stale records as the state is read so totals,
+    // backups, and the visible catalog all return to the prior policy.
+    .filter((entry) => isHitDexCard(entry.card, entry.setCode));
 
   return {
     version: HIT_DEX_VERSION,
@@ -251,12 +254,14 @@ export function isFeaturedHitDexCard(card: Card, setCode?: string): boolean {
 
 export function isHitDexCard(card: Card, setCode?: string): boolean {
   if (card.card_type?.trim() === '에너지') return false;
-  if (setCode === 'm6a-30th-celebration' && card.number >= 17 && card.number <= 46) return true;
-  if (isFeaturedHitDexCard(card, setCode)) return true;
+  if (setCode === 'm6a-30th-celebration') {
+    if (card.number >= 17 && card.number <= 46) return true;
+    if (isFeaturedHitDexCard(card, setCode)) return true;
+    if (card.rarity === 'REPRINT') return true;
+  }
 
   const displayRarity = card.rarity ? rarityLabel(card.rarity, card) : null;
   if (displayRarity && ALWAYS_DEX_DISPLAY_RARITIES.has(displayRarity)) return true;
-  if (premiumSparkleVariant(card.rarity, card) !== null) return true;
 
   return getCardReferenceValueKrw(card, setCode) >= PREMIUM_HIT_PRICE_THRESHOLD_KRW;
 }
