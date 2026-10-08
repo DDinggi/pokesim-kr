@@ -80,6 +80,12 @@ import sm4aUltradimensionalBeasts from '../public/sets/sm4a-ultradimensional-bea
 import smxyBestOfXy from '../public/sets/smxy-best-of-xy.json';
 import sm3hRainbowInDarkness from '../public/sets/sm3h-rainbow-in-darkness.json';
 import sm3nDarknessDevoursLight from '../public/sets/sm3n-darkness-devours-light.json';
+import sm2plusNewTrials from '../public/sets/sm2plus-new-trials.json';
+import sm2kAlolanSunlight from '../public/sets/sm2k-alolan-sunlight.json';
+import sm2lAlolanMoonlight from '../public/sets/sm2l-alolan-moonlight.json';
+import sm1plusSunMoon from '../public/sets/sm1plus-sun-moon.json';
+import sm1sSunCollection from '../public/sets/sm1s-sun-collection.json';
+import sm1mMoonCollection from '../public/sets/sm1m-moon-collection.json';
 import sm4plusGxBattleBoostRemaster from '../public/sets/sm4plus-gx-battle-boost-remaster.json';
 import sm9TagBolt from '../public/sets/sm9-tag-bolt.json';
 import sm8aDarkOrder from '../public/sets/sm8a-dark-order.json';
@@ -118,9 +124,9 @@ const mMagikarpSpecialSet = resolveBundleSet(
 const sets: SetMeta[] = [
   // MEGA 시리즈
   m6a30thCelebration,
-  mMagikarpSpecialSet,
   m4NinjaSpinner, m5AbyssEye, m6StormEmerald, mNihilZero, mDreamEx, mInfernoX, mMegaBrave, mMegaSymphonia,
   mStartDeck100,
+  mMagikarpSpecialSet,
   // SV 시리즈
   sv11bBlackBolt, sv11aWhiteFlare, sv10Glory, sv9aBlazingArena,
   sv9BattlePartners, sv8aTerastalFesta, sv8SuperElectric,
@@ -149,6 +155,8 @@ const sets: SetMeta[] = [
   sm5sUltraSun, sm5mUltraMoon, sm4plusGxBattleBoost,
   sm3plusShiningLegends, sm4sAwakenedHeroes, sm4aUltradimensionalBeasts,
   smxyBestOfXy, sm3hRainbowInDarkness, sm3nDarknessDevoursLight,
+  sm2plusNewTrials, sm2kAlolanSunlight, sm2lAlolanMoonlight,
+  sm1plusSunMoon, sm1sSunCollection, sm1mMoonCollection,
   sm4plusGxBattleBoostRemaster,
   sm9TagBolt, sm8aDarkOrder, sm9bFullMetalWall, sm9aNightUnison, sm10bSkyLegend, sm10aGgEnd,
   sm10DoubleBlaze, sm8bGxUltraShiny,

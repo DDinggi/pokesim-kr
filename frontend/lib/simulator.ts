@@ -7,6 +7,8 @@ import {
   buildDragonStormPack,
   buildNightUnisonPack,
   buildUltraForcePack,
+  buildEarlySmEnhancedPack,
+  isEarlySmEnhancedSet,
   buildShiningLegendsPack,
   buildSingle30thCelebrationPack,
   expansionPackHitPool,
@@ -66,6 +68,8 @@ export function simulatePack(
           )
         : setCode === 'smp2-detective-pikachu'
           ? buildDetectivePikachuPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
+          : isEarlySmEnhancedSet(setCode)
+            ? buildEarlySmEnhancedPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
           : setCode === 'sm5plus-ultra-force'
             ? buildUltraForcePack(ctx, expansionPackHitPool(ctx, setCode), packSize)
             : setCode === 'sm6a-dragon-storm'

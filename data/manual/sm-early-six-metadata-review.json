@@ -1,0 +1,99 @@
+{
+  "reviewed_at": "2026-10-08",
+  "corrections": [
+    {
+      "set": "sm2plus-new-trials",
+      "card_num": "BS2017007045",
+      "field": "number",
+      "before": 46,
+      "after": 45,
+      "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_045.png"
+    },
+    {
+      "set": "sm2plus-new-trials",
+      "card_num": "BS2017007046",
+      "field": "number",
+      "before": 45,
+      "after": 46,
+      "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_046.png"
+    },
+    {
+      "set": "sm2plus-new-trials",
+      "card_num": "BS2017007047",
+      "field": "number",
+      "before": 49,
+      "after": 47,
+      "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_047.png"
+    },
+    {
+      "set": "sm2plus-new-trials",
+      "card_num": "BS2017007049",
+      "field": "number",
+      "before": 47,
+      "after": 49,
+      "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_049.png"
+    },
+    {
+      "set": "sm2plus-new-trials",
+      "card_num": "BS2017007056",
+      "field": "number",
+      "before": 57,
+      "after": 56,
+      "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_056.png"
+    },
+    {
+      "set": "sm2plus-new-trials",
+      "card_num": "BS2017007057",
+      "field": "number",
+      "before": 56,
+      "after": 57,
+      "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_057.png"
+    },
+    {
+      "set": "sm1m-moon-collection",
+      "card_num": "BS2017002061",
+      "field": "rarity",
+      "before": "U",
+      "after": "SR",
+      "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1M/SM1M_061.png"
+    }
+  ],
+  "jp_number_maps": {
+    "sm1s-sun-collection": {
+      "53": 56,
+      "54": 55,
+      "55": 53,
+      "56": 54
+    },
+    "sm1m-moon-collection": {
+      "53": 55,
+      "54": 53,
+      "55": 54,
+      "58": 59,
+      "59": 58,
+      "65": 66,
+      "66": 65
+    },
+    "sm2l-alolan-moonlight": {
+      "47": 48,
+      "48": 47
+    },
+    "sm1plus-sun-moon": {
+      "43": 44,
+      "44": 47,
+      "45": 43,
+      "46": 46,
+      "47": 48,
+      "48": 45
+    },
+    "sm2plus-new-trials": {
+      "45": 46,
+      "46": 45,
+      "47": 49,
+      "49": 47,
+      "56": 57,
+      "57": 56
+    }
+  },
+  "method": "공식 원본 한국 이미지의 인쇄 번호/등급과 일본 FullAhead 개별 카드 대조. 번호만 같은 서로 다른 트레이너를 동일 카드로 취급하지 않음."
+}

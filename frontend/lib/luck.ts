@@ -957,7 +957,7 @@ function getExpectedScoredRarityCounts(
 
   const standardRate = getStandardSvSetRate(code);
   if (standardRate) {
-    addExpectedCountsFromWeights(counts, getLuckAdjustedHighWeights(standardRate.mandatoryHighWeights, set ?? { code }), unitCount, 1, opening);
+    addExpectedCountsFromWeights(counts, getLuckAdjustedHighWeights(standardRate.mandatoryHighWeights, set ?? { code }), unitCount, standardRate.mandatoryHighRate ?? 1, opening);
     addExpectedCountsFromWeights(counts, getLuckAdjustedHighWeights(standardRate.extraHighWeights, set ?? { code }), unitCount, standardRate.extraHighRate, opening);
     addStandardFixedSlotCounts(counts, standardRate, unitCount, code);
     return counts;
@@ -1410,7 +1410,7 @@ function getBoxScoreDistribution(
     const mandatoryHighWeights = getLuckAdjustedHighWeights(standardRate.mandatoryHighWeights, set ?? (code ? { code } : undefined));
     const extraHighWeights = getLuckAdjustedHighWeights(standardRate.extraHighWeights, set ?? (code ? { code } : undefined));
     let standardDistribution = convolveDistributions(
-      distributionFromWeights(mandatoryHighWeights, 'box'),
+      optionalDistributionFromWeights(mandatoryHighWeights, standardRate.mandatoryHighRate ?? 1, 'box'),
       optionalDistributionFromWeights(
         extraHighWeights,
         standardRate.extraHighRate,
@@ -1704,7 +1704,7 @@ function getPackScoreDistribution(
     const extraHighWeights = getLuckAdjustedHighWeights(standardRate.extraHighWeights, set ?? (code ? { code } : undefined));
     distribution = convolveDistributions(
       distribution,
-      weightedSlotDistribution(mandatoryHighWeights, 1 / boxSize, 'pack'),
+      weightedSlotDistribution(mandatoryHighWeights, (standardRate.mandatoryHighRate ?? 1) / boxSize, 'pack'),
     );
     if (standardRate.aCount) {
       distribution = convolveDistributions(
@@ -2066,7 +2066,7 @@ export function getLuckRatesForSet(
     return {
       boxSize,
       topPerBox: 0,
-      sarPerBox: weightChance(standardRate.mandatoryHighWeights, 'SAR'),
+      sarPerBox: (standardRate.mandatoryHighRate ?? 1) * weightChance(standardRate.mandatoryHighWeights, 'SAR'),
     };
   }
 

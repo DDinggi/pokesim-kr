@@ -202,7 +202,18 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
   }
 
   const nullCount = rarityCounts.__null__ ?? 0;
-  if (cards.length > 0 && nullCount / cards.length > 0.5 && set.type !== "hi-class" && !isStarter && setCode !== "s8a-25th-anniversary" && setCode !== "m6a-30th-celebration") {
+  // Korean early enhanced packs intentionally omit C/U/R labels on both
+  // ordinary and mirror cards. Accept only the reviewed complete structure,
+  // not an arbitrary majority of missing rarities. See early-six review.
+  const earlyUnmarkedCount = ({ 'sm1plus-sun-moon': 44, 'sm2plus-new-trials': 43 } as Record<string, number>)[setCode];
+  const reviewedEarlyUnmarked = earlyUnmarkedCount !== undefined
+    && set.type === 'enhanced'
+    && cards.filter(card => card.rarity == null && card.subtype === '미러').length === earlyUnmarkedCount
+    && cards.filter(card => card.rarity == null && card.number != null && card.subtype !== '미러').length === earlyUnmarkedCount
+    && cards.filter(card => card.rarity == null && card.number == null && card.card_type === '에너지').length === 9
+    && nullCount === earlyUnmarkedCount * 2 + 9;
+  if (reviewedEarlyUnmarked) add('info', setCode, `검토된 초기 강화팩 구성: 일반 ${earlyUnmarkedCount} + 미러 ${earlyUnmarkedCount} + 기본 에너지 9 (인쇄 rarity 없음).`);
+  if (cards.length > 0 && nullCount / cards.length > 0.5 && !reviewedEarlyUnmarked && set.type !== "hi-class" && !isStarter && setCode !== "s8a-25th-anniversary" && setCode !== "m6a-30th-celebration") {
     add("warn", setCode, `rarity null이 ${nullCount}/${cards.length}장입니다. 의도된 병렬/리버스 카드인지 확인이 필요합니다.`);
   }
 

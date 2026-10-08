@@ -42,6 +42,12 @@ HTTP/공식 상세 부재와 이미지 비교 불가는 통과가 아니라 미�
 
 ## 변경 이력
 
+- **2026-10-08 초기 썬&문 6종** — 새로운 시련·알로라의 햇빛/달빛·강화 썬&문·썬/문 컬렉션.
+  [검토표](sm-early-six-review-20261008.md)에 보강·번호 교정·시세·봉입률 한계를 기록한다.
+  `audit:comparison`으로 한국판 왼쪽/일본판 오른쪽 번호 대조 HTML을 만들고 `_jp_number`를
+  가격 수집에도 적용한다. 초기 SR+ 미봉입 가능성을 박스·낱팩·운 계산에서 공유하며
+  `validate:sm-early`로 팩 구성·기대값·전체 카드 도달성을 검사한다.
+
 - **2026-09-26 한국판 지연 등록분 전환** — [93개 이미지 검토](korean-image-review-20260926.md).
   이름/등급 일치뿐 아니라 원본 인쇄 번호와 일러스트를 확인한다. 공식 CDN의 잘못된 카드·415 응답은
   보류하며, 새 버전 경로에 원본·256/512를 업로드한다. 기존 기록 ID는 보존하고 한·일 번호 대응과
@@ -94,6 +100,8 @@ HTTP/공식 상세 부재와 이미지 비교 불가는 통과가 아니라 미�
 | `scripts/fetch-jp-images.ts` (`fetch-jp-images`) | 일본판 보강 이미지 수집용 보조 스크립트. |
 | `scripts/fetch-fullahead-prices.ts` (`fetch:fullahead-prices`) | fullahead 일본판 시세 → 한국판 추정가 기입. |
 | `scripts/import-fullahead-secrets.ts` (`import:fullahead-secrets`) | 한국 DB에 없는 일본판 시크릿을 manifest의 한국 정식명으로 보강하고 이미지·가격·출처를 함께 기입. |
+| `scripts/build-card-comparison.ts` (`audit:comparison`) | 한국판 인쇄 번호순으로 왼쪽 한국/오른쪽 일본 대응 카드 이미지와 등급을 비교하는 로컬 HTML 생성. |
+| `scripts/validate-sm-early-sets.ts` (`validate:sm-early`) | 초기 썬&문 6종 팩 구성·SR+ 미봉입·박스/낱팩 확률·운 기대값·509장 도달성 회귀검사. |
 | `scripts/build-luck-distributions.ts` (`build:luck-dist`) | 시세 운 분포 `luck_value_ref`(박스/팩 중앙값·분위수) 생성. |
 | `scripts/migrate-to-r2.ts` (`migrate-to-r2`) | 원본 카드 이미지를 R2에 업로드/검증. |
 | `scripts/optimize-card-images.ts` (`optimize:images`) | 256/512 WebP variant 생성 및 R2 업로드/검증. |
@@ -161,6 +169,16 @@ HTTP/공식 상세 부재와 이미지 비교 불가는 통과가 아니라 미�
 4. **데이터 검수**: 번호 연속성/누락/null/레어도 분포/이미지 prefix를 확인한다.
    한국 CDN에 없는 시크릿(`external/...`)은 일본판 보강이라 한글명이 `???`로 깨질 수 있다 →
    "일본판 보강 카드 한글명 복원" 섹션으로 처리한다.
+   - `pnpm --dir scripts audit:comparison -- --set 'code1,code2'`로
+     `.tmp/card-comparison/index.html`을 생성한다. 한국 이미지는 왼쪽·일본 이미지는 오른쪽에
+     같은 카드끼리 맞춰 배치하며 번호가 다르면 KR/JP 번호를 각각 표시한다. 고레어 필터와 검색으로
+     검수하고, 한국판 이미지 부재는 부재로 표시한다(일본 이미지를 한국판으로 표시하지 않음).
+   - 한국 원본의 실제 인쇄 번호가 SSOT다. 공식 DB `p_num`도 일본 번호를 그대로 쓰는 오류가
+     있으므로 트레이너 전체와 고레어를 이미지로 확인한다. 예: 릴리에 SR 한국 65 ↔ 일본 66,
+     아세로라 SR 한국 57 ↔ 일본 56. `_jp_number`를 보존하면 FullAhead 가격과 커버리지 대조가
+     이를 사용한다. 개별 가격 override `fullahead_number`가 있으면 override가 우선한다.
+   - 이번 초기 6종 보고서의 생성 구조/필터 로직은 `validate:sm-early -- --comparison`으로
+     검사한다. DOM 스텁 테스트이므로 실제 브라우저 검수를 대신했다고 보고하지 않는다.
 5. `data/sets-index.json`의 `active_sets`에 코드 추가.
 6. **봉입률 모델 연결**(`frontend/lib/simulation/model.ts`). 공식 봉입률은 비공개이므로
    `box_guarantees._source/_sample_size/_estimated_at`도 같이 남긴다.
@@ -192,6 +210,17 @@ HTTP/공식 상세 부재와 이미지 비교 불가는 통과가 아니라 미�
      ```powershell
      pnpm --dir scripts process:box-image -- --input frontend/public/boxes/original/<code>.png --set <code>
      ```
+   - 사용자 누끼 완료본은 별도 `original/<code>-cutout.png`로 보존하고 이를 입력한다.
+     원본이 이미 투명하면 흰색 인쇄 영역을 다시 제거하지 않는다. 기본 썸네일은768이며,
+     사용자가512 출력을 요청하면 `--thumbnail 512`를 명시하고 같은 크기로 검증한다.
+     단순 좌우 반전은 글자까지 뒤집으므로 글자를 유지하는 박스 방향 변경과 구분한다.
+
+     ```powershell
+     pnpm --dir scripts process:box-image -- --input frontend/public/boxes/original/<code>-cutout.png --set <code> --thumbnail 512
+     pnpm --dir scripts validate:box-images -- --set '<code>' --thumbnail 512
+     ```
+     자동 검증은 규격·투명 배경·가운데 정렬·전경 크기·PNG/WebP 알파 대응만 확인하므로
+     마지막에 글자 방향·그림·누끼 가장자리를 육안 확인한다.
 9. **시세 수집**(아래 "시세 + 시세 운" 섹션):
 
    ```powershell
@@ -344,6 +373,11 @@ pnpm --dir scripts validate:value-luck -- --set <code>
 
 ## 봉입률 기록 원칙
 
+- 초기 SM1/SM2는 SM3 이후의 SR+ 보장 모델을 복사하지 않는다. `mandatoryHighRate < 1`이면
+  표시 규칙의 최솟값 0, 박스·낱팩·운 기대값과 분포에 모두 같은 빈도를 적용한다.
+  `mandatoryHighWeights`는 등장 시 조건부 가중치(합계 100)이고 슬롯 발생률과 분리한다.
+  [초기 6종 검토표](sm-early-six-review-20261008.md)의 한국 8장 강화팩은 기본 에너지 1장·홀로
+  1장 슬롯이다. 일본 5장 전 카드 홀로 구성을 복사하지 않는다. 새로운 시련의 동일 구성은 차용 추정이다.
 - 고전팩은 일본 **재판 근거 우선**. 재판 수치를 확보하지 못하면 발매 당시 자료나 인접 세트의 공개 추정치를 사용할 수 있다(2026-09-08 사용자 결정). 완전 동일한 실측은 필수 아님. 초판 폴백·판본 불명·범위 근사·차용한 항목을 구분하고, 미확인 표본은 `null`로 남긴다.
 - 썬&문 검토 근거는 [세트별 검토표](sm-pull-rate-review.md)와 `scripts/review-sm-pull-rates.ts`에 관리한다. 모델 변경 뒤 `pnpm --dir scripts review:sm-rates -- --write`로 출처·규칙·모델 스냅샷을 반영하고 `--check`로 일치 여부를 확인한다. 숫자가 바뀐 세트는 가치 운 분포 재생성 및 공개 JSON 동기화까지 수행한다. 이 검사는 코드 정합성 검사이지 실물 봉입률 실측 검증이 아니다.
 

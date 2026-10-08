@@ -617,7 +617,7 @@ ID 부여된 결정 한 줄 요약. 깊은 이유는 `docs/adr/` 폴더.
 - 인프라: GitHub(branch protection) + Cloudflare Workers(OpenNext) + R2 + Node 22 + pnpm
 - 카드 데이터 수집 파이프라인 (`scripts/` — discover/collect/manual-add/sync/검증). 자세히는
   [docs/card-set-pipeline.md](docs/card-set-pipeline.md)
-- 다중 세트·상품 (현재 **active 95종**, MEGA + SV + 소드실드 + 썬&문 라인업)
+- 다중 세트·상품 (현재 **active 101종**, MEGA + SV + 소드실드 + 썬&문 + XY 라인업)
 - 박스/팩 시뮬 (`frontend/lib/simulator.ts`, 시드 기반) — 자동/수동/즉시/1팩 모드
 - 럭 점수 + 백분위 (`frontend/lib/luck.ts`) — 등장 운 + **시세 운(가치 운)** 2종
 - 로그인 없이 쓰는 `내 기록` + 선택형 Google 보관 (`frontend/lib/useRecordBackup.ts`, `frontend/lib/recordBackup.ts`) — 누적 운 기록과 힛카드 기록을 한 화면에서 사용하고, 사용자가 보관을 누른 경우에만 로그인한다. 기존 비로그인 기록 이동 선택·기기별 병합·RLS·탈퇴 연쇄 삭제를 적용한다. 상세는 [docs/record-backup.md](docs/record-backup.md)
@@ -875,7 +875,7 @@ main 직접 push 안 함 (실수 방지).
   - 운 점수: 등장 운 + 시세 운(가치 운) 2종
   - 홀로그래픽 효과 (CSS), 세션 누적(localStorage), 박스→박스 트랜지션
   - 카드 이미지 R2 CDN(img.pokesim.kr) + 256/512 WebP variant
-  - active 95종 (MEGA + SV + 소드실드 + 썬&문 라인업, data/sets-index.json)
+  - active 101종 (MEGA + SV + 소드실드 + 썬&문 + XY 라인업, data/sets-index.json)
   - 데이터 수집/검증 파이프라인 (docs/card-set-pipeline.md)
 
 데이터 보강 메모:
@@ -912,6 +912,8 @@ main 직접 push 안 함 (실수 방지).
 ---
 
 ## 16. 변경 이력
+
+- 2026-10-08 — **초기 썬&문 6종 추가.** 새로운 시련·알로라의 햇빛/달빛·강화 썬&문·썬/문 컬렉션 509개 항목을 등록하고 누락 시크릿 47장을 일본판으로 보강했다. 한국·일본 트레이너 번호 차이를 이미지·시세 대조에 적용하고 초기 SR+ 미봉입 및 강화팩 에너지/홀로 슬롯을 박스·낱팩·운 모델에 연결했다. 한국 왼쪽/일본 오른쪽 대조 HTML, 원본·256/512 이미지, 박스 6종과 검증 절차는 [초기 세트 검토표](docs/sm-early-six-review-20261008.md)에 기록한다. 지원 상품은 active 101종.
 
 - 2026-09-17 — **누적 방문 지표 분리(D-162).** 운영 DB의 익명 방문 ID 16,507개(최초 5월 29일)를 확인하고, 기존 메인의 30,686을 사람 수가 아닌 개봉 일일 세션으로 바로잡았다. 서버 전용 누적 집계 API, 메인 표시, 읽기 전용 재조회 스크립트와 한계 문서를 추가했다.
 - 2026-09-17 — M6a 352개 WebP 정상 확인. 접힌 카드 목록 지연 생성·단계 표시와 누적 운 분포의 소수점 중복 병합으로 렌더링/계산 부담을 줄였다. RR·AR·복각은 17박스의 장수 행을 함께 추첨하고 낱팩은 340팩 조합표에 FUR 갱신값을 반영한다. 미확인 RGB 동봉/색상 비율과 박스 내 배치의 근사 한계는 검토표에 명시한다. RGB 비숫자 실물 번호 가격 매칭을 복구해 고레어 65장 시세·가격별 효과와 운 분포를 갱신했다.

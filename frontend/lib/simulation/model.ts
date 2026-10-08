@@ -755,6 +755,31 @@ const SM3_RAINBOW_DARKNESS: StandardSvSetRate = {
   fillerWeights: { R: 90, RR: 10 },
 };
 
+// Pre-SM3 boxes do NOT guarantee SR+. SR 1/2–1/3 boxes is approximated
+// by 1/2.5; HR 1/5 and UR 1/10 are adjacent-set estimates, not measurements.
+// SM2 uses this early model provisionally; no invented two-hit/god-pack rate.
+function earlySmRate(pokemonSr: number, trainerSr: number, enhanced = false): StandardSvSetRate {
+  return {
+    mandatoryHighRate: 0.7,
+    // Conditional weights sum to 100; the separate 70% slot rate gives
+    // unconditional box probabilities SR 40%, HR 20%, UR 10%.
+    mandatoryHighWeights: { SR_POKEMON: 100 * 4 / 7 * pokemonSr / (pokemonSr + trainerSr), SR_TRAINER: 100 * 4 / 7 * trainerSr / (pokemonSr + trainerSr), HR_POKEMON: 100 * 2 / 7, UR: 100 / 7 },
+    extraHighRate: 0,
+    extraHighWeights: {},
+    arCount: 0,
+    ...(enhanced ? { boxSize: 20 } : {}),
+    rrBaseCount: 3,
+    rrExtraRate: enhanced ? 0 : 0.5,
+    fillerWeights: { R: 100 },
+  };
+}
+const SM1PLUS_EARLY: StandardSvSetRate = {
+  ...earlySmRate(7, 0, true),
+  mandatoryHighRate: 1 / 4.5 + 1 / 6 + 1 / 10,
+  mandatoryHighWeights: { SR_POKEMON: 100 * (1 / 4.5) / (1 / 4.5 + 1 / 6 + 1 / 10), HR_POKEMON: 100 * (1 / 6) / (1 / 4.5 + 1 / 6 + 1 / 10), UR: 100 * (1 / 10) / (1 / 4.5 + 1 / 6 + 1 / 10) },
+  rrExtraRate: 0.5,
+};
+
 // Japanese community estimate: one SR-or-higher per 10-pack box. All 17
 // secret cards are weighted by checklist count (15 SR, 2 UR).
 export const BEST_OF_XY_HIGH_WEIGHTS: Record<string, number> = { SR: 15, UR: 2 };
@@ -1053,6 +1078,12 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'sm3plus-shining-legends': SM3PLUS_SHINING_LEGENDS,
   'sm3h-rainbow-in-darkness': SM3_RAINBOW_DARKNESS,
   'sm3n-darkness-devours-light': SM3_RAINBOW_DARKNESS,
+  'sm2plus-new-trials': earlySmRate(6, 2, true),
+  'sm2k-alolan-sunlight': earlySmRate(4, 1),
+  'sm2l-alolan-moonlight': earlySmRate(4, 1),
+  'sm1plus-sun-moon': SM1PLUS_EARLY,
+  'sm1s-sun-collection': earlySmRate(4, 2),
+  'sm1m-moon-collection': earlySmRate(4, 2),
   'sm4s-awakened-heroes': SM4_AWAKENED_ULTRADIMENSIONAL,
   'sm4a-ultradimensional-beasts': SM4_AWAKENED_ULTRADIMENSIONAL,
   'sm5m-ultra-moon': SM5_ULTRA_SUN_MOON,
