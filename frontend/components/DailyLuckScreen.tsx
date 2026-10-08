@@ -359,7 +359,7 @@ export function DailyLuckScreen({
               {snapshot?.setName ?? (set ? shortSetName(set.name_ko) : '오늘의 세트')}
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-400">
-              오늘의 한 박스로 운세를 확인해보세요.
+              박스 결과로 보는 오늘의 운세
             </p>
             <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-xs font-bold text-gray-500">
               <span>{snapshot ? `${snapshot.participantCount.toLocaleString()}명 참여` : '참여 현황 확인 중'}</span>
@@ -491,7 +491,7 @@ function DailyDrawForm({
           </div>
         ) : (
           <p className="mx-auto mt-7 max-w-md border-l-2 border-cyan-300/70 pl-4 text-left text-sm leading-relaxed text-gray-400">
-            계정마다 하루 한 번만 결과를 남기기 위해 Google 로그인이 필요해요.
+            계정마다 하루 한 번만 결과를 남기기 위해 Google 로그인이 필요합니다.
             일반 박스 개봉은 로그인 없이 계속 이용할 수 있습니다.
           </p>
         )}
@@ -689,7 +689,7 @@ function DailyResult({
           </div>
         ) : (
           <p className="mt-4 border-l-2 border-gray-700 pl-4 text-sm text-gray-500">
-            이번 박스에서는 AR 이상 카드가 나오지 않았어요.
+            이번 박스에서는 AR 이상 카드가 나오지 않았습니다.
           </p>
         )}
       </section>
@@ -828,7 +828,7 @@ function DailyLeaderboard({
           ))}
         </ol>
       ) : (
-        <p className="mt-5 py-8 text-center text-sm text-gray-500">아직 오늘의 첫 도전자가 없어요.</p>
+        <p className="mt-5 py-8 text-center text-sm text-gray-500">아직 오늘의 첫 도전자가 없습니다.</p>
       )}
 
       {mineOutsideTopTen ? (
@@ -907,11 +907,11 @@ function DailyLeaderboard({
                     ))}
                   </ol>
                 ) : (
-                  <p className="mt-5 py-8 text-center text-sm text-gray-500">이 날짜에는 참여 기록이 없어요.</p>
+                  <p className="mt-5 py-8 text-center text-sm text-gray-500">이 날짜에는 참여 기록이 없습니다.</p>
                 )}
               </>
             ) : (
-              <p className="py-6 text-center text-sm text-gray-500">내일부터 지난 랭킹을 확인할 수 있어요.</p>
+              <p className="py-6 text-center text-sm text-gray-500">내일부터 지난 랭킹을 확인할 수 있습니다.</p>
             )}
           </div>
         ) : null}

@@ -26,7 +26,7 @@ export function RecordMergeDialog({ summary, pending, error, onMerge, onKeepSepa
       >
         <h2 id="record-merge-title" className="text-lg font-black">로그인 전 기록도 저장할까요?</h2>
         <p id="record-merge-description" className="mt-2 text-sm leading-6 text-gray-400">
-          이 브라우저에서 만든 기록을 지금 계정에 함께 저장할 수 있어요.
+          이 브라우저에서 만든 기록을 지금 계정에 함께 저장할 수 있습니다.
         </p>
         <div className="mt-4 flex items-center justify-between gap-4 border-y border-gray-800 py-3">
           <span className="shrink-0 text-xs font-bold text-gray-500">이 브라우저 기록</span>
@@ -52,7 +52,7 @@ export function RecordMergeDialog({ summary, pending, error, onMerge, onKeepSepa
           </button>
         </div>
         <p className="mt-3 text-center text-[11px] leading-5 text-gray-600">
-          함께 저장하면 다른 기기에서도 이어볼 수 있어요.
+          함께 저장하면 다른 기기에서도 이어볼 수 있습니다.
         </p>
       </section>
     </div>

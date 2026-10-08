@@ -228,7 +228,7 @@ export function HitDexScreen({
 
               {visibleSections.length === 0 ? (
                 <div className="rounded-2xl border border-dashed border-cyan-200/20 px-4 py-12 text-center">
-                  <p className="text-sm font-black text-cyan-50">표시할 힛카드 기록이 없어요.</p>
+                  <p className="text-sm font-black text-cyan-50">표시할 힛카드 기록이 없습니다.</p>
                 </div>
               ) : (
                 <div className="space-y-8">
@@ -441,7 +441,7 @@ const HitDexSetSectionView = memo(function HitDexSetSectionView({
           </div>
           {visiblePikachu.length === 0 && (
             <p className="py-5 text-center text-xs text-amber-100/60">
-              {pikachuFilter === 'owned' ? '아직 획득한 피카츄가 없어요.' : '피카츄 30종을 모두 모았어요!'}
+              {pikachuFilter === 'owned' ? '아직 획득한 피카츄가 없습니다.' : '피카츄 30종을 모두 모았습니다!'}
             </p>
           )}
         </div>

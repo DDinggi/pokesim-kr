@@ -2,6 +2,12 @@
 
 ## 기준과 현재 확인값
 
+2026-10-09 사용자 결정: 메인 `방문`은 **누적 방문 횟수**다. 한국 시간 기준 같은 브라우저는 하루 한 번만 세고, 다른 날 재방문하면 다시 센다. `analytics_user_daily_activity`의 `(day_kst, visitor_id)` 기본키가 이미 이 중복 제거를 수행하므로 DB 마이그레이션이나 새로운 방문 이벤트는 추가하지 않는다.
+
+2026-10-09 00:58 KST 읽기 전용 조회: **누적 일별 방문 37,876회**, 평생 고유 브라우저 19,347개. 가장 이른 보존 일자는 2026-05-29다. 37,876은 화면에 고정하는 숫자가 아니라 조회 시점의 스냅샷이며 이후 방문 기록에 따라 갱신한다. 일별 영구 보존이 도입되기 전 이미 삭제된 원본은 최초·최근 방문일만 복원될 수 있어, 운영 시작부터 모든 재방문이 빠짐없이 복원된 수치로 표현하지 않는다. 포트폴리오 표현은 `2026년 5월 29일부터 보존된 일별 방문 기록 기준 누적 3.79만 회`처럼 **회** 단위를 사용한다.
+
+### 과거 고유 브라우저 확인값
+
 2026-09-17 23:51 KST에 운영 Supabase를 읽기 전용으로 조회했다.
 
 | 지표 | 값 | 의미 |
@@ -18,8 +24,12 @@ KST 월별 **신규 방문 브라우저**: 2026-05 310개, 06 4,564개, 07 4,430
 
 ## 앞으로의 집계
 
-기존 `page_view` 등 `user_events`의 `metadata.visitor_id`를 `capture_analytics_visitor` 트리거가 `analytics_visitors`에 영구 보존한다. 원본 이벤트가 30일 뒤 정리돼도 ID별 최초·최근 방문은 남는다. 공개 `/api/visitor-stats`는 서버 전용 키로 이 테이블의 정확한 행 수와 최초 시각만 읽어 전달하며, 방문자 ID나 키는 브라우저에 전달하지 않는다. 메인 화면은 이 수치와 개봉 일일 세션 수를 별개로 표시한다. Supabase 설정/연결이 없으면 누적 방문 브라우저 표시를 숨긴다.
+기존 `page_view` 등 `user_events`의 `metadata.visitor_id`를 `capture_analytics_visitor` 트리거가 `analytics_visitors`와 `analytics_user_daily_activity`에 영구 보존한다. 원본 이벤트가 30일 뒤 정리돼도 ID별 최초·최근 방문 및 일별 중복 제거 방문은 남는다. 공개 `/api/visitor-stats?metric=daily-visits`는 서버 전용 키로 두 테이블의 정확한 행 수와 최초 시각·일자를 읽어 전달하며, 방문자 ID나 키는 브라우저에 전달하지 않는다. `cumulativeVisits`는 일별 방문 합계, `cumulativeUniqueVisitors`는 평생 고유 브라우저 수다. 기존 API 응답 캐시와 혼동하지 않도록 새 화면은 `metric=daily-visits` 쿼리를 사용한다.
+
+메인 하단은 `방문 / 박스 개봉 / 팩 개봉` 세 칸을 유지하고, 조회 전 또는 실패한 값은 `—`로 표시한다. 방문은 `37,876회`처럼 횟수로 표시하며 하루 단위 브라우저 기준은 항목 툴팁·접근성 텍스트로 남긴다. 방문 API는 실행 인스턴스별 5분 스냅샷을 재사용하고 동시에 들어온 요청은 한 번의 조회를 공유한다. 콜드 시작·스냅샷 만료 때만 다시 집계하며 별도 영구 합계 카운터를 추가한 것은 아니다. 개봉 통계는 `/api/global-stats`가 공개 `get_global_stats()` singleton RPC를 읽어 합계만 전달하며, 브라우저 로그인 세션에 의존하지 않는다. 두 API 모두 정상 응답에 5분 브라우저·15분 공유 캐시 헤더를 설정한다. 실제 CDN 캐싱 여부는 배포 설정에 따라 달라질 수 있다. 메인 렌더링 후 통계만 별도로 불러오며 실패를 실제 `0`으로 표시하지 않는다.
 
 운영 수치와 월별 신규·최근 30일 활성·기존 일일 세션을 재조회하려면 저장소 루트 `.env`의 `SUPABASE_SECRET_KEY`와 `frontend/.env.local`의 `NEXT_PUBLIC_SUPABASE_URL`이 있는 로컬에서 `pnpm --dir scripts audit:visitors`를 실행한다. 스크립트는 읽기 전용이며 ID·키를 출력하지 않는다. 별도 DB 마이그레이션은 필요 없다.
+
+`pnpm --dir scripts validate:visitors`는 네트워크·실제 DB 쓰기 없이 기존 일별 중복 제거 스키마, 누적 방문/고유 브라우저 분리, 표시 단위, 조회 실패, 5분 캐시 만료, 동시 요청 공유를 검증한다.
 
 Cloudflare Web Analytics의 방문/페이지뷰 정의는 이 ID 지표와 다르므로 합산하지 않는다. 대시보드에서 이전 기간을 볼 수 있어도 과거 누락분을 ID에 더하면 중복 제거가 불가능하다. 공식 설명: [Web Analytics FAQ](https://developers.cloudflare.com/web-analytics/faq/), [지표 정의](https://developers.cloudflare.com/web-analytics/data-metrics/high-level-metrics/). Cloudflare 계정 인증이 없는 환경에서는 과거 Cloudflare 원자료를 직접 대조할 수 없다.

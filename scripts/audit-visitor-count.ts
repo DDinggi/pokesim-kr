@@ -37,6 +37,21 @@ async function firstSeen(): Promise<string | null> {
   return rows[0]?.first_seen ?? null;
 }
 
+async function dailyBrowserVisits(): Promise<{ total: number; firstDayKst: string | null }> {
+  const requestUrl = new URL(`${url}/rest/v1/analytics_user_daily_activity`);
+  requestUrl.searchParams.set('select', 'day_kst');
+  const countResponse = await fetch(requestUrl, { method: 'HEAD', headers: { ...headers, Prefer: 'count=exact' } });
+  if (!countResponse.ok) throw new Error(`Daily visits request failed: HTTP ${countResponse.status}`);
+  const total = Number(countResponse.headers.get('content-range')?.split('/').at(-1));
+  if (!Number.isSafeInteger(total) || total < 0) throw new Error('Invalid daily visit count');
+  requestUrl.searchParams.set('order', 'day_kst.asc');
+  requestUrl.searchParams.set('limit', '1');
+  const firstResponse = await fetch(requestUrl, { headers });
+  if (!firstResponse.ok) throw new Error(`First daily visit request failed: HTTP ${firstResponse.status}`);
+  const rows = await firstResponse.json() as Array<{ day_kst: string }>;
+  return { total, firstDayKst: rows[0]?.day_kst ?? null };
+}
+
 async function countSimulationSessions(): Promise<number> {
   const response = await fetch(`${url}/rest/v1/rpc/get_global_stats`, {
     method: 'POST',
@@ -56,6 +71,7 @@ function kstDay(value: Date): string {
 const measuredAt = new Date();
 const total = await countVisitors();
 const earliest = await firstSeen();
+const visits = await dailyBrowserVisits();
 const today = kstDay(measuredAt);
 const recentStart = new Date(measuredAt.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString();
 const recentNew = await countVisitors(recentStart);
@@ -77,4 +93,4 @@ if (earliest) {
   }
 }
 
-console.log(JSON.stringify({ measuredAt: measuredAt.toISOString(), firstObservedAt: earliest, cumulativeVisitorIds: total, activeVisitorIdsLast30Days: recentActive, newVisitorIdsLast30Days: recentNew, simulationSessionDays, firstSeenByMonthKst: months }, null, 2));
+console.log(JSON.stringify({ measuredAt: measuredAt.toISOString(), firstObservedAt: earliest, cumulativeDailyBrowserVisits: visits.total, firstRecordedDayKst: visits.firstDayKst, cumulativeVisitorIds: total, activeVisitorIdsLast30Days: recentActive, newVisitorIdsLast30Days: recentNew, simulationSessionDays, firstSeenByMonthKst: months }, null, 2));

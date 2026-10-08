@@ -123,17 +123,22 @@ export interface GlobalStats {
 }
 
 export interface VisitorStats {
+  cumulativeVisits: number;
   cumulativeUniqueVisitors: number;
   firstObservedAt: string | null;
+  firstRecordedDayKst: string | null;
   measuredAt: string;
 }
 
 export async function fetchVisitorStats(): Promise<VisitorStats | null> {
   try {
-    const response = await fetch('/api/visitor-stats');
+    // 집계 기준 변경 전의 고유 브라우저 응답 캐시와 분리한다.
+    const response = await fetch('/api/visitor-stats?metric=daily-visits');
     if (!response.ok) return null;
     const stats = await response.json() as VisitorStats;
-    return Number.isSafeInteger(stats.cumulativeUniqueVisitors)
+    return Number.isSafeInteger(stats.cumulativeVisits)
+      && stats.cumulativeVisits >= 0
+      && Number.isSafeInteger(stats.cumulativeUniqueVisitors)
       && stats.cumulativeUniqueVisitors >= 0
       ? stats
       : null;
@@ -151,18 +156,18 @@ export interface SetPopularity {
 }
 
 export async function fetchGlobalStats(): Promise<GlobalStats | null> {
-  if (!supabase) return null;
-  // get_global_stats RPC: 쓰기 시 누적한 singleton 캐시 한 행만 조회한다.
-  // RLS로 sim_events 직접 SELECT는 차단됨.
-  const { data, error } = await supabase.rpc('get_global_stats');
-  if (error || !data) return null;
-  const r = data as { totalSessions: number; totalPacks: number; totalBoxes: number; totalKrw: number };
-  return {
-    totalSessions: Number(r.totalSessions) || 0,
-    totalPacks: Number(r.totalPacks) || 0,
-    totalBoxes: Number(r.totalBoxes) || 0,
-    totalKrw: Number(r.totalKrw) || 0,
-  };
+  try {
+    // 브라우저의 로그인 세션·외부 DB 연결과 무관한 동일 출처 집계 API.
+    const response = await fetch('/api/global-stats');
+    if (!response.ok) return null;
+    const stats = await response.json() as GlobalStats;
+    return ['totalSessions', 'totalPacks', 'totalBoxes', 'totalKrw'].every((field) => {
+      const value = stats[field as keyof GlobalStats];
+      return Number.isSafeInteger(value) && value >= 0;
+    }) ? stats : null;
+  } catch {
+    return null;
+  }
 }
 
 export async function fetchSetPopularity(): Promise<SetPopularity[]> {

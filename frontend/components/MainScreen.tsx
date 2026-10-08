@@ -32,6 +32,7 @@ import {
   sortByRarity,
 } from '../lib/rarity';
 import { CardModal } from './CardModal';
+import SiteStats from './site-stats';
 import { LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_SETS, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
 
 type Mode = 'box' | 'vending';
@@ -287,21 +288,8 @@ export function MainScreen({
         />
       )}
 
-      <footer className="flex flex-col items-center gap-2 border-t border-gray-900 px-6 py-5">
-        {visitorStats && (
-          <p className="text-center text-xs text-gray-400">
-            누적 방문 <span className="font-bold text-white">{visitorStats.cumulativeUniqueVisitors.toLocaleString()}명</span>
-            <span className="text-gray-500"> (브라우저 기준 · {visitorStats.firstObservedAt
-              ? new Date(visitorStats.firstObservedAt).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' })
-              : '확인 중'}부터)</span>
-          </p>
-        )}
-        {stats && (
-          <p className="text-center text-xs text-gray-400">
-            누적 개봉 <span className="font-bold text-white">{stats.totalBoxes.toLocaleString()}박스</span>
-            <span className="text-gray-500"> · {stats.totalPacks.toLocaleString()}팩</span>
-          </p>
-        )}
+      <footer className="flex flex-col items-center gap-2 border-t border-gray-900 px-4 py-5 sm:px-6">
+        <SiteStats stats={stats} visitorStats={visitorStats} />
         <p className="text-center text-[10px] text-gray-600">
           봉입률은 추정치이며 공식 봉입률은 공개되어 있지 않습니다.
         </p>
@@ -434,7 +422,7 @@ const CardHistoryPanel = memo(function CardHistoryPanel({
         <CardHistoryGrid cards={visibleCards} onCardClick={onCardClick} />
       ) : (
         <p className="mt-4 rounded-xl border border-dashed border-white/10 px-4 py-8 text-center text-sm text-gray-500">
-          아직 보여줄 힛카드가 없어요.
+          아직 보여줄 힛카드가 없습니다.
         </p>
       )}
     </section>
