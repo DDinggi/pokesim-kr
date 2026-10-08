@@ -33,6 +33,10 @@ const targetCard = readArg("--card");
 const targetCards = new Set((readArg("--cards") ?? "").split(",").filter(Boolean));
 const targetKey = readArg("--key");
 const verifyConcurrency = Number(readArg("--concurrency") ?? "16");
+const uploadConcurrency = Number(readArg("--upload-concurrency") ?? "1");
+if (!Number.isInteger(uploadConcurrency) || uploadConcurrency < 1 || uploadConcurrency > 12) {
+  throw new Error("--upload-concurrency must be an integer between 1 and 12");
+}
 
 const accountId = process.env.R2_ACCOUNT_ID;
 const accessKeyId = process.env.R2_ACCESS_KEY_ID;
@@ -301,21 +305,21 @@ async function main() {
     const cards = setData.cards ?? [];
     let changed = false;
 
-    for (const card of cards) {
-      if (targetCards.size && !targetCards.has(card.card_num ?? "")) continue;
+    async function processCard(card: CardEntry) {
+      if (targetCards.size && !targetCards.has(card.card_num ?? "")) return;
       if (targetCard && card.card_num !== targetCard && String(card.number ?? "") !== targetCard) {
-        continue;
+        return;
       }
 
       const key = targetKey ?? objectKeyFor(setCode, card);
       if (!key) {
         stats.skipped++;
-        continue;
+        return;
       }
 
       if (verifyOnly) {
         verifyTasks.push({ setCode, card, key });
-        continue;
+        return;
       }
 
       const exists = !force && (dryRun ? await publicObjectExists(key) : await r2ObjectExists(key));
@@ -326,7 +330,7 @@ async function main() {
         if (!sourceUrl) {
           stats.missing++;
           console.error(`[no-source] ${setCode} ${card.card_num ?? ""} ${key}`);
-          continue;
+          return;
         }
 
         if (dryRun) {
@@ -338,7 +342,7 @@ async function main() {
           } catch (error) {
             stats.failed++;
             console.error(`[failed] ${setCode} ${card.card_num ?? ""}: ${formatError(error)}`);
-            continue;
+            return;
           }
         }
         stats.uploaded++;
@@ -351,6 +355,11 @@ async function main() {
         stats.rewritten++;
       }
     }
+
+    let cursor = 0;
+    await Promise.all(Array.from({ length: Math.min(uploadConcurrency, cards.length) }, async () => {
+      while (cursor < cards.length) await processCard(cards[cursor++]);
+    }));
 
     if (changed && !dryRun && !verifyOnly) {
       writeFileSync(path, `${JSON.stringify(setData, null, 2)}\n`, "utf8");

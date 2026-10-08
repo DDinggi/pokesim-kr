@@ -9,6 +9,7 @@ import { parse } from "node-html-parser";
 type PriceConfidence = "source" | "manual";
 
 interface CardEntry {
+  _jp_number?: number;
   card_num?: string;
   collector_number?: string;
   number?: number;
@@ -136,7 +137,7 @@ async function main() {
       // RGB collector IDs are letters, not the internal 166–168 sorting numbers.
       const fullaheadNumber = card.rarity === 'RGB' && /^[RGB]\/RGB$/.test(card.collector_number ?? '')
         ? card.collector_number
-        : priceMatch?.fullahead_number ?? card.number;
+        : priceMatch?.fullahead_number ?? card._jp_number ?? card.number;
       const item = fullaheadNumber ? byNumber.get(fullaheadNumber) : undefined;
       if (!item || !isCompatibleRarity(card.rarity, item.rarity)) {
         unmatchedHigh++;
@@ -155,7 +156,7 @@ async function main() {
       const source = [
         `fullahead:sale:${item.url}`,
         `jp_to_kr_factor=${jpToKrFactor}`,
-        priceMatch?.fullahead_number ? `mapped_from_number=${card.number}; fullahead_number=${fullaheadNumber}` : null,
+        priceMatch?.fullahead_number || card._jp_number ? `mapped_from_number=${card.number}; fullahead_number=${fullaheadNumber}` : null,
         floorKrw > rawKrw ? `floor_${card.rarity}_krw=${floorKrw}` : null,
       ].filter(Boolean).join("; ");
 

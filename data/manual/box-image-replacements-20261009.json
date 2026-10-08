@@ -1,0 +1,133 @@
+{
+  "reviewed_at": "2026-10-09",
+  "previous_sources": "data/manual/sm-early-six-box-sources.json",
+  "previous_output_backup": ".tmp/box-image-backup-20261009-001",
+  "output": {
+    "png": "frontend/public/boxes/{code}.png",
+    "png_size": [
+      768,
+      768
+    ],
+    "webp": "frontend/public/boxes/thumbs/{code}.webp",
+    "webp_size": [
+      512,
+      512
+    ],
+    "product_height": 708
+  },
+  "scope": "사용자가 제공한 커스텀 박스 이미지 6종의 누끼 완료본을 사용. 이미지 내용을 재생성/반전하지 않고 투명 배경·비율을 유지해 정규화했다. THE BEST OF XY만 앞선 요청에 따라 imagegen 편집 시안으로 교체. 공식 실물 패키지 사진/인쇄 문구 전수검증을 의미하지 않는다.",
+  "source_preservation": "원본 업로드와 removebg-preview 업로드를 삭제/이동하지 않음. 1024 원본은 original/{code}.png, 500px 누끼 원본은 original/{code}-cutout.png에 복사. 초기 판매 이미지 원본은 original/{code}-retailer.png로 보존. THE BEST OF XY 기존 original/{code}.png는 유지.",
+  "resolution_note": "사용자 누끼 원본은 500×500. PNG768은 업스케일이며 새 고해상도 디테일 확보를 의미하지 않는다. WebP512에는 전체 박스 높이 약472px. XY imagegen 시안은1254×1254.",
+  "process": "pnpm --dir scripts process:box-image -- --input <input> --set <code> --thumbnail 512",
+  "validation": {
+    "command": "pnpm --dir scripts validate:box-images -- --set 'sm2plus-new-trials,sm2k-alolan-sunlight,sm2l-alolan-moonlight,sm1plus-sun-moon,sm1s-sun-collection,sm1m-moon-collection,smxy-best-of-xy' --thumbnail 512",
+    "result": "7 PNG/WebP 쌍 디코딩·규격·알파·외곽 투명·가운데 정렬·전경 크기·PNG/WebP 알파 대응 통과. WebP 7종 육안 확인: 모두 옆면 왼쪽, 제목 정방향. 웹 브라우저 렌더링 검사 아님."
+  },
+  "sets": [
+    {
+      "code": "sm2plus-new-trials",
+      "input": "frontend/public/boxes/original/sm2plus-new-trials-cutout.png",
+      "input_width": 500,
+      "input_height": 500,
+      "input_has_alpha": true,
+      "input_sha256": "04c0470165ccc29cf0cd1d210d026966c5a9e29b6071d1c5fe0b6cf5f0b13052",
+      "png_bytes": 551678,
+      "webp_bytes": 48346,
+      "user_raw_filename": "새로운 시련.png",
+      "user_cutout_filename": "새로운_시련-removebg-preview.png",
+      "source_type": "user-provided-custom-image-and-cutout",
+      "flip_horizontal": false
+    },
+    {
+      "code": "sm2k-alolan-sunlight",
+      "input": "frontend/public/boxes/original/sm2k-alolan-sunlight-cutout.png",
+      "input_width": 500,
+      "input_height": 500,
+      "input_has_alpha": true,
+      "input_sha256": "6134bce0eaf4f4a24d7f8386cbd14d2633a4b25ef68bf6ec146a8fab2012ace6",
+      "png_bytes": 664529,
+      "webp_bytes": 63964,
+      "user_raw_filename": "알로라의 햇빛.png",
+      "user_cutout_filename": "알로라의_햇빛-removebg-preview.png",
+      "source_type": "user-provided-custom-image-and-cutout",
+      "flip_horizontal": false
+    },
+    {
+      "code": "sm2l-alolan-moonlight",
+      "input": "frontend/public/boxes/original/sm2l-alolan-moonlight-cutout.png",
+      "input_width": 500,
+      "input_height": 500,
+      "input_has_alpha": true,
+      "input_sha256": "ec6aecda9bbdacc4e0fefcdd969ccf14ddb304f30f6da29dad8a83e92d92e861",
+      "png_bytes": 564981,
+      "webp_bytes": 48976,
+      "user_raw_filename": "알로라의 달빛.png",
+      "user_cutout_filename": "알로라의_달빛-removebg-preview.png",
+      "source_type": "user-provided-custom-image-and-cutout",
+      "flip_horizontal": false
+    },
+    {
+      "code": "sm1plus-sun-moon",
+      "input": "frontend/public/boxes/original/sm1plus-sun-moon-cutout.png",
+      "input_width": 500,
+      "input_height": 500,
+      "input_has_alpha": true,
+      "input_sha256": "56e7a190defb18130cabf50612d475b76c514c640227dcc0de8628a98aa46e71",
+      "png_bytes": 613409,
+      "webp_bytes": 57208,
+      "user_raw_filename": "강화확장팩 썬문.png",
+      "user_cutout_filename": "강화확장팩_썬문-removebg-preview.png",
+      "source_type": "user-provided-custom-image-and-cutout",
+      "flip_horizontal": false
+    },
+    {
+      "code": "sm1s-sun-collection",
+      "input": "frontend/public/boxes/original/sm1s-sun-collection-cutout.png",
+      "input_width": 500,
+      "input_height": 500,
+      "input_has_alpha": true,
+      "input_sha256": "3aef4ee4bb3011850f19d711397b2c4a2f2950d13b4393249ad11d576e1e70a4",
+      "png_bytes": 697395,
+      "webp_bytes": 65844,
+      "user_raw_filename": "썬.png",
+      "user_cutout_filename": "썬-removebg-preview.png",
+      "source_type": "user-provided-custom-image-and-cutout",
+      "flip_horizontal": false
+    },
+    {
+      "code": "sm1m-moon-collection",
+      "input": "frontend/public/boxes/original/sm1m-moon-collection-cutout.png",
+      "input_width": 500,
+      "input_height": 500,
+      "input_has_alpha": true,
+      "input_sha256": "af50320814be4e78807642e65ded3cb1bcfddcb709a8e4cb30a3287e1caa362c",
+      "png_bytes": 636369,
+      "webp_bytes": 56238,
+      "user_raw_filename": "문.png",
+      "user_cutout_filename": "문-removebg-preview.png",
+      "source_type": "user-provided-custom-image-and-cutout",
+      "flip_horizontal": false
+    },
+    {
+      "code": "smxy-best-of-xy",
+      "input": "frontend/public/boxes/original/smxy-best-of-xy-left-facing.png",
+      "input_width": 1254,
+      "input_height": 1254,
+      "input_has_alpha": true,
+      "input_sha256": "b72a64f56769dfd623a6b3c7e3e7d76507c1a9ad190ab1a44cd1003dd65e4f0c",
+      "png_bytes": 657315,
+      "webp_bytes": 66212,
+      "source_type": "built-in-imagegen-edit",
+      "flip_horizontal": false,
+      "perspective": "left side panel; readable front text",
+      "crop": {
+        "left": 274,
+        "top": 44,
+        "width": 701,
+        "height": 1149
+      },
+      "crop_reason": "alpha8 이상 전경 경계로 외곽 거의 투명한 노이즈/불필요 여백 제외; 표시 크기 통일",
+      "prompt": "Use case: precise-object-edit.\nInput image 1: edit target, an existing THE BEST OF XY Korean trading-card box image for a website.\nPrimary request: change the three-quarter viewpoint so that the narrow side panel is visible on the LEFT and the broad front panel is on the RIGHT. This is a perspective change, NOT a horizontal mirror of the lettering or artwork.\nPreserve the original front-panel illustration, color palette, printed logos and all text in their readable original orientation. Specifically preserve \"THE BEST OF\", \"XY\", \"하이클래스팩\", \"10장입\", and the rest of the printed Korean copy; do not invent or add text. Keep the same side-panel images in the same vertical order. Preserve the closed single-box proportions, black edges and packaging identity.\nBackground: genuinely transparent alpha cutout. Remove any backdrop and external ground shadow before export. Preserve transparent margins around the complete box; no cropping, no checkerboard, no halo, no new props. The output will be normalized into 768px PNG and 512px WebP website assets."
+    }
+  ]
+}

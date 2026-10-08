@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { parse } from "node-html-parser";
 
 interface CardEntry {
+  _jp_number?: number;
   card_num?: string | null;
   number?: number | null;
   name_ko?: string | null;
@@ -181,7 +182,8 @@ async function auditSet(setCode: string): Promise<AuditResult> {
       if (!previous || item.priceJpy > previous.priceJpy) byNumber.set(item.number, item);
     }
     const uniqueItems = Array.from(byNumber.values()).sort((a, b) => a.number - b.number);
-    const missingNumbers = uniqueItems.filter((item) => !localNumbers.has(item.number));
+    const japaneseNumbers = new Set(numericCards.map(card => card._jp_number ?? card.number));
+    const missingNumbers = uniqueItems.filter((item) => !japaneseNumbers.has(item.number));
     const missingHighNumbers = missingNumbers.filter((item) => isHighRarity(item.rarity));
     const fullaheadMax = uniqueItems.length ? Math.max(...uniqueItems.map((item) => item.number)) : 0;
     const hasProblems = localNumberGaps.length > 0 || missingHighNumbers.length > 0 || unpricedHighCards.length > 0;

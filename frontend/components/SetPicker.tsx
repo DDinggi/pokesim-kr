@@ -15,6 +15,12 @@ import { fetchSetPopularity, type SetPopularity } from '../lib/statsTracker';
 import { SetSeriesTabs } from './SetSeriesTabs';
 
 const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
+  'sm2plus-new-trials': { gradient: 'from-purple-800 via-slate-900 to-teal-950', accent: 'text-purple-200' },
+  'sm2k-alolan-sunlight': { gradient: 'from-yellow-600 via-amber-800 to-orange-950', accent: 'text-yellow-200' },
+  'sm2l-alolan-moonlight': { gradient: 'from-rose-800 via-purple-900 to-slate-950', accent: 'text-rose-200' },
+  'sm1plus-sun-moon': { gradient: 'from-indigo-800 via-slate-900 to-amber-950', accent: 'text-indigo-200' },
+  'sm1s-sun-collection': { gradient: 'from-orange-600 via-amber-800 to-red-950', accent: 'text-orange-200' },
+  'sm1m-moon-collection': { gradient: 'from-blue-800 via-indigo-900 to-violet-950', accent: 'text-blue-200' },
   'm-magikarp-special-set': {
     gradient: 'from-slate-800 via-indigo-950 to-violet-950',
     accent: 'text-slate-200',

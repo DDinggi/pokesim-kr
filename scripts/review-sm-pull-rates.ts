@@ -22,7 +22,7 @@ const commonSources = [
   'https://pokemon-infomation.com/pull-rates-nimaibako/',
 ];
 const commonNotes = '한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다.';
-type Entry = { sources: string[]; notes: string; print?: string; confidence?: string };
+type Entry = { sources: string[]; notes: string; print?: string; confidence?: string; reviewedAt?: string; assumptions?: string };
 const entries: Record<string, Entry> = {};
 function add(codes: string[], paths: string[], notes: string, print = '재판 구분 없는 자료 / 발매 당시 개봉 기록', confidence = '중간: 구성 근거, 빈도는 추정') {
   for (const code of codes) {
@@ -32,6 +32,15 @@ function add(codes: string[], paths: string[], notes: string, print = '재판 �
 }
 const earlyPrint = '초판 기준 폴백: 재판 SR+ 미봉입 빈도 미확인';
 const earlySources = ['https://pokemon-infomation.com/pokemoncard-diary-sr-definition/'];
+const earlyAssumptions = '한국판 공식 봉입률 및 초판/재판별 빈도는 비공개·미확인. 일본 공개 범위의 역수 중간값과 인접 초기 SM 모델을 차용한 저신뢰 적응 추정이며 실측 통계가 아니다. SR+ 없는 박스가 가능하다. 추가 고레어/갓팩 빈도 근거가 없어 도입하지 않는다. RR 3~4 범위의 추가 50%는 중간값 근사. 강화팩은 한국 20팩×8장에 일본 박스 히트 수를 준용하며 미러/일반 카드 구성과 개별 카드 균등 선택은 근사다.';
+function addEarly(codes: string[], sources: string[], notes: string) {
+  add(codes, sources, notes, '발매 당시 자료·공개 추정 / 재판별 빈도 미확인', '낮음: 범위 근사·인접 초기 SM 차용');
+  for (const code of codes) Object.assign(entries[code], { reviewedAt: '2026-10-08', assumptions: earlyAssumptions });
+}
+addEarly(['sm1s-sun-collection', 'sm1m-moon-collection'], ['https://pokemoncard.co.kr/card/99', 'https://ameblo.jp/pokemon-card-densetu/entry-12227296190.html', ...earlySources, 'https://altema.jp/pokemoncard/kakuseinoyusha'], '당시 썬·문 각 1박스 개봉 및 공개 정리: RR 3~4, SR 2~3박스당 1장. SR을 1/2.5=40%로 근사하고 HR 20%·UR 10%는 인접 SM4 추정 차용. 서로 배타적인 고레어 0~1장 슬롯의 등장 확률 70%, 없음 30%로 모델링. 이 30%는 실측 미봉입률이 아니라 차용한 기대값의 잔여값이다.');
+addEarly(['sm2k-alolan-sunlight', 'sm2l-alolan-moonlight'], ['https://pokemoncard.co.kr/card/106', 'https://pokeudon.hatenablog.com/entry/2017/03/17/191953', 'https://www.houhou-news.com/kimiwomatusimazima-kaihuu', ...earlySources, 'https://ameblo.jp/pokemon-card-densetu/entry-12227296190.html', 'https://altema.jp/pokemoncard/kakuseinoyusha'], 'SR+ 보장 도입 전 상품. 공개 최신 표의 SR+ 1장·RR 4~5장 일괄 보장을 채택하지 않고, 초기 SM1의 SR 40%·인접 HR 20%·UR 10%, RR 3~4 모델을 잠정 차용. SM2 자체의 미봉입 빈도를 실측했다고 주장하지 않는다.');
+addEarly(['sm2plus-new-trials'], ['https://pokemoncard.co.kr/card/110', 'https://www.pokemon-card.com/products/sm/sm2p.html', 'https://perappu-johokyoku.blog.jp/archives/2017-04.html', ...earlySources, 'https://ameblo.jp/pokemon-card-densetu/entry-12227296190.html', 'https://altema.jp/pokemoncard/kakuseinoyusha'], '당시 직접 개봉은 RR 3장·SR+ 0장. 이 단일 사례에서 0장 빈도를 산출하지 않고 초기 SM1의 SR 40%·인접 HR 20%·UR 10% 모델을 잠정 차용. RR 3장, 고레어 0~1장. 한국 8장 팩은 SM1+의 일반 6·기본 에너지 1·홀로 1 구조를 차용하되 정확한 저레어 배치 미확인.');
+addEarly(['sm1plus-sun-moon'], ['https://pokemoncard.co.kr/card/103', 'https://www.pokemon-card.com/products/sm/sm1p.html', 'https://tradecard.jp/articles/ninnfiagx-hr', ...earlySources], '한국 공식 상품은 팩당 홀로 1·기본 에너지 1, 20팩×8장. 공개 저신뢰 범위 SR 3~6박스당 1장→1/4.5, HR 6박스당 1장→1/6, UR 10박스당 1장→1/10을 배타적 고레어 0~1장 슬롯으로 근사한다. 합계 약 48.89%, 없음 약 51.11%. RR 3~4장 범위 중간값. 일본의 전 카드 홀로 5장 구성을 한국에 복사하지 않는다.');
 add(['sm3h-rainbow-in-darkness'], [news(3096), opening('tatakauniziwomitaka-kaihuu-list'), 'https://www.pokemon-card.com/info/2017/20170515_000730.html', ...earlySources], '초판 SR+ 1장, RR 3장 구성. SM4의 HR 20%·UR 10% 공개 추정치를 인접 세트에 차용. 재판에서 고레어 없는 박스가 있다는 설명만으로 발생률을 만들지 않는다.', earlyPrint, '낮음: 고레어 세부 빈도는 인접 세트 차용');
 add(['sm3n-darkness-devours-light'], [opening('hikariwokurauyami-kaihuu-list'), 'https://www.pokemon-card.com/info/2017/20170515_000730.html', ...earlySources], '직접 개봉 1박스에서 SR 1장·RR 3장. 초판 SR+ 구성은 공식 안내로 보강. 고레어 배분은 SM4 추정치 차용이며 1박스 표본에서 산출하지 않는다.', earlyPrint, '낮음: 고레어 세부 빈도는 인접 세트 차용');
 add(['sm4s-awakened-heroes', 'sm4a-ultradimensional-beasts'], [news(3758), 'https://www.pokemon-card.com/products/sm/sm4.html', ...earlySources], '각 세트 5박스씩 개봉 기록에서 SR+ 1장·RR 3장. 합계 10박스를 세트별 표본으로 중복 계산하지 않는다. 공개 표의 HR 1/5·UR 1/10만 근사 배분에 채택; RR 4~5라는 표는 실제 개봉과 충돌하므로 채택하지 않는다.', earlyPrint);
@@ -73,15 +82,17 @@ let changed = 0;
 for (const set of sets) {
   const entry = entries[set.code];
   const rate = getStandardSvSetRate(set.code);
-  const sources = [...new Set([...entry.sources, ...(rate && !['smp2-detective-pikachu', 'sm3plus-shining-legends'].includes(set.code) ? commonSources : [])])];
+  const sources = [...new Set([...entry.sources, ...(rate && !entry.reviewedAt && !['smp2-detective-pikachu', 'sm3plus-shining-legends'].includes(set.code) ? commonSources : [])])];
+  const reviewedAt = entry.reviewedAt ?? date;
+  const assumptions = entry.assumptions ?? commonNotes;
   const review = {
-    reviewed_at: date,
+    reviewed_at: reviewedAt,
     status: 'estimated',
     print_basis: entry.print,
     confidence: entry.confidence,
     sources,
     notes: entry.notes,
-    assumptions: commonNotes,
+    assumptions,
     model_snapshot: rate ?? null,
     report: 'docs/sm-pull-rate-review.md',
   };
@@ -90,7 +101,7 @@ for (const set of sets) {
   if (rate && !['smp2-detective-pikachu', 'sm3plus-shining-legends'].includes(set.code)) {
     rules = [
       { rarity: 'RR', min: rate.rrBaseCount, max: rate.rrBaseCount + (rate.rrExtraRate > 0 ? 1 : 0) },
-      { rarity: 'SR/HR/UR', min: 1, max: 1 + (rate.extraHighRate > 0 ? 1 : 0) },
+      { rarity: 'SR/HR/UR', min: (rate.mandatoryHighRate ?? 1) < 1 ? 0 : 1, max: 1 + (rate.extraHighRate > 0 ? 1 : 0) },
     ];
     if (rate.prCount) rules.push({ rarity: 'PR', min: rate.prCount, max: rate.prCount });
     if (rate.trCount) rules.push({ rarity: 'TR', min: rate.trCount, max: rate.trCount + ((rate.trExtraRate ?? 0) > 0 ? 1 : 0) });
@@ -99,13 +110,14 @@ for (const set of sets) {
     // H includes the unmarked secret #82 as well as the guaranteed Shining cards.
     rules = [{ rarity: 'RR', min: 2, max: 3 }, { rarity: 'H', min: 2, max: 3 }, { rarity: 'SR/HR', min: 0, max: 1 }];
   }
+  const reviewedSource = `${entry.print}. ${entry.notes} ${assumptions} 출처: ${sources.join(' ; ')}`;
   const next = {
     ...previous,
     _superseded_source: previous._superseded_source ?? previous._source ?? null,
     rules,
-    _source: `${entry.print}. ${entry.notes} ${commonNotes} 출처: ${sources.join(' ; ')}`,
+    _source: previous._source?.startsWith(reviewedSource) ? previous._source : reviewedSource,
     _sample_size: null,
-    _estimated_at: date,
+    _estimated_at: reviewedAt,
     pull_rate_review: review,
   };
   if (JSON.stringify(previous) !== JSON.stringify(next)) {

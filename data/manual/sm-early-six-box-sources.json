@@ -1,0 +1,19 @@
+{
+  "reviewed_at": "2026-10-08",
+  "status": "initial-retailer-assets-replaced",
+  "superseded_at": "2026-10-09",
+  "superseded_by": "data/manual/box-image-replacements-20261009.json",
+  "archived_original_rule": "frontend/public/boxes/original/{code}-retailer.png",
+  "source_base": "https://k-tcgpanda.com/pimg/",
+  "url_rule": "source_base + encodeURIComponent(filename)",
+  "review": "한국판 닫힌 단일 박스 6종 육안 확인. 전면 글자 정방향, 좌우 반전 없음. 약 300×400 판매 이미지로 768 출력은 업스케일이며 고해상도 원본 확보를 의미하지 않음.",
+  "output_rule": "frontend/public/boxes/original/{code}.png 원본 보존 → process:box-image → {code}.png 및 thumbs/{code}.webp (투명 768×768)",
+  "sets": [
+    { "code": "sm2plus-new-trials", "filename": "썬&문 강화 확장팩 박스 새로운 시련 [SM2+].png" },
+    { "code": "sm2k-alolan-sunlight", "filename": "썬&문 확장팩 박스 알로라의 햇빛 [SM2K].png", "crop": { "top": 24, "height": 376 }, "crop_reason": "박스 상단 밖에 남은 흰 점 제외" },
+    { "code": "sm2l-alolan-moonlight", "filename": "썬&문 확장팩 박스 알로라의 달빛 [SM2L].png" },
+    { "code": "sm1plus-sun-moon", "filename": "썬&문 강화 확장팩 박스 썬&문 [SM1+].png" },
+    { "code": "sm1s-sun-collection", "filename": "썬&문 확장팩 박스 썬 컬렉션 [SM1S].png" },
+    { "code": "sm1m-moon-collection", "filename": "썬&문 확장팩 박스 문 컬렉션 [SM1M].png", "crop": { "top": 16, "height": 384 }, "crop_reason": "박스 상단 밖에 남은 흰 점 제외" }
+  ]
+}

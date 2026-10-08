@@ -66,6 +66,8 @@ export function simulateExpansionBox(
   return shuffle(slots, rng).map((pool) => (
     setCode === 'smp2-detective-pikachu'
       ? buildDetectivePikachuPack(ctx, pool, packSize)
+      : isEarlySmEnhancedSet(setCode)
+        ? buildEarlySmEnhancedPack(ctx, pool, packSize)
       : setCode === 'sm5plus-ultra-force'
         ? buildUltraForcePack(ctx, pool, packSize)
         : setCode === 'sm6a-dragon-storm'
@@ -300,6 +302,25 @@ function isBasicEnergyCard(card: Card): boolean {
   return card.card_type === '\uC5D0\uB108\uC9C0' && card.number == null;
 }
 
+export function isEarlySmEnhancedSet(setCode?: string): boolean {
+  return setCode === 'sm1plus-sun-moon' || setCode === 'sm2plus-new-trials';
+}
+
+export function buildEarlySmEnhancedPack(ctx: BuildContext, hitPool: Card[], packSize = 8): PackResult {
+  const unmarked = ctx.byRarity.__null__ ?? [];
+  const regular = unmarked.filter(card => card.subtype !== '미러' && !isBasicEnergyCard(card));
+  const mirror = unmarked.filter(card => card.subtype === '미러' && !isBasicEnergyCard(card));
+  const energy = unmarked.filter(isBasicEnergyCard);
+  // Korean SM1+ states one holo + one basic energy per eight-card pack.
+  // GX/secret cards replace that holo, rather than creating a second holo.
+  // SM2+ borrows this packing structure; its exact low-rarity collation is unknown.
+  const holo = hitPool.some(card => card.rarity != null) ? hitPool : mirror;
+  if (!regular.length || !mirror.length || !energy.length || !holo.length) throw new Error('Early SM enhanced pack pools are incomplete');
+  const cards = Array.from({ length: packSize - 2 }, () => ctx.pick(regular));
+  cards.push(ctx.pick(energy), ctx.pick(holo));
+  return { cards };
+}
+
 export function buildShiningLegendsPack(ctx: BuildContext, hitPool: Card[], packSize = 8): PackResult {
   const { byRarity, pick } = ctx;
   const cards: Card[] = [];
@@ -393,7 +414,7 @@ function getStandardFillerPool(
   setCode?: string,
 ): Card[] {
   if (byRarity.R?.length) return byRarity.R;
-  if (setCode === 'sm5plus-ultra-force') {
+  if (setCode === 'sm5plus-ultra-force' || isEarlySmEnhancedSet(setCode)) {
     return (byRarity.__null__ ?? []).filter((card) => (
       card.subtype !== '\uBBF8\uB7EC' && !isBasicEnergyCard(card)
     ));
