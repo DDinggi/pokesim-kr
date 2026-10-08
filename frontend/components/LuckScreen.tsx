@@ -252,7 +252,7 @@ export function LuckScreen({
                   <div>
                     <h2 className="text-xl font-black tracking-tight">박스 종류별 운</h2>
                     <p className="mt-1 text-xs text-gray-500">
-                      카드 시세를 바탕으로, 각 박스에서 얼마나 좋은 결과가 나왔는지 비교해요.
+                      카드 시세를 바탕으로, 각 박스에서 얼마나 좋은 결과가 나왔는지 비교합니다.
                     </p>
                   </div>
                   {activeBreakdown && (
@@ -507,7 +507,7 @@ function HitCardsPanel({
           </div>
         ) : (
           <p className="mt-4 rounded-xl border border-dashed border-white/10 px-4 py-6 text-center text-sm text-gray-500">
-            기존 기록은 카드 이미지까지 저장되지 않았거나, 확률 계산에 반영된 힛카드가 없어요.
+            기존 기록은 카드 이미지까지 저장되지 않았거나, 확률 계산에 반영된 힛카드가 없습니다.
           </p>
         )
       )}
@@ -518,9 +518,9 @@ function HitCardsPanel({
 function LuckUnavailableMessage({ onReset }: { onReset: () => void }) {
   return (
     <div className="rounded-2xl border border-dashed border-white/15 px-4 py-10 text-center">
-      <p className="text-lg font-black text-white">운 계산용 기록이 없어요</p>
+      <p className="text-lg font-black text-white">운 계산용 기록이 없습니다</p>
       <p className="mt-2 text-sm text-gray-500">
-        예전 세션은 운 확인에 필요한 박스별 기록이 없을 수 있어요.
+        예전 세션은 운 확인에 필요한 박스별 기록이 없을 수 있습니다.
         전체 기록을 초기화하고 새로 까면 내 운 확인이 정상적으로 계산됩니다.
       </p>
       <button

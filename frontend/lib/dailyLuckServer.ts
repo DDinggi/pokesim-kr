@@ -103,7 +103,7 @@ async function readAuthenticatedUser(
   required: boolean,
 ): Promise<User | null> {
   if (!token) {
-    if (required) throw new DailyLuckError('하루 한 번 참여하려면 Google 로그인이 필요해요.', 401);
+    if (required) throw new DailyLuckError('하루 한 번 참여하려면 Google 로그인이 필요합니다.', 401);
     return null;
   }
 
@@ -130,7 +130,7 @@ function normalizePublicNickname(value: unknown): string {
     !/^[\p{L}\p{N} _.-]+$/u.test(nickname)
     || /(?:https?:|www\.|@)/i.test(nickname)
   ) {
-    throw new DailyLuckError('닉네임에 사용할 수 없는 문자가 포함되어 있어요.', 400);
+    throw new DailyLuckError('닉네임에 사용할 수 없는 문자가 포함되어 있습니다.', 400);
   }
   const compactNickname = nickname.replace(/[\s._-]+/g, '');
   if (BLOCKED_NICKNAME_PATTERNS.some((pattern) => pattern.test(compactNickname))) {
@@ -324,14 +324,14 @@ export async function getDailyLuckSnapshot(
     const archiveSetCode = getDailyLuckSetCode(requestedDay);
     const archiveSet = getServerDailyLuckSet(archiveSetCode);
     if (!archiveSet) {
-      throw new DailyLuckError('해당 날짜의 세트를 불러오지 못했어요.', 500);
+      throw new DailyLuckError('해당 날짜의 세트를 불러오지 못했습니다.', 500);
     }
 
     const { error: archiveError } = await supabase.rpc('archive_daily_luck_day', {
       p_day: requestedDay,
     });
     if (archiveError) {
-      throw new DailyLuckError('지난 랭킹을 확정하지 못했어요.', 500);
+      throw new DailyLuckError('지난 랭킹을 확정하지 못했습니다.', 500);
     }
 
     const { data, error } = await supabase.rpc('get_daily_luck_archive_snapshot', {
@@ -339,7 +339,7 @@ export async function getDailyLuckSnapshot(
       p_user_id: user?.id ?? null,
     });
     if (error) {
-      throw new DailyLuckError('지난 랭킹을 불러오지 못했어요.', 500);
+      throw new DailyLuckError('지난 랭킹을 불러오지 못했습니다.', 500);
     }
     return parseSnapshot(data, requestedDay, archiveSet, true);
   }
