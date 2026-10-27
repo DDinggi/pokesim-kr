@@ -26,6 +26,15 @@ const sourceBase = 'https://cards.image.pokemonkorea.co.kr/data/';
 const cdn = 'https://img.pokesim.kr/';
 const normalize = (s: unknown) => String(s ?? '').normalize('NFKC').replace(/_x000D_/gi, '').replace(/\s+/g, '').trim();
 const hash = (s: string | Buffer) => createHash('sha256').update(s).digest('hex');
+function officialImageKey(imageUrl: string): string | null {
+  const url = new URL(imageUrl, 'https://pokemoncard.co.kr/');
+  if (url.pathname === '/s3.php') {
+    const key = url.searchParams.get('key');
+    const prefix = 'home/data/cards.image_www/data/';
+    return key?.startsWith(prefix) ? key.slice(prefix.length) : null;
+  }
+  return url.href.startsWith(sourceBase) ? url.href.slice(sourceBase.length).split('?')[0] : null;
+}
 const pending = new Map<string, Promise<Buffer>>();
 async function cached(url: string): Promise<Buffer> {
   if (pending.has(url)) return pending.get(url)!;
@@ -66,7 +75,10 @@ async function audit(set: any, card: any) {
     try {
       const html = parse((await cached(officialUrl)).toString('utf8'));
       const name = html.querySelector('.detail_wrap .header .card-hp.title')?.text.trim();
-      const number = Number(html.querySelector('.p_num')?.text.replace(/\s+/g, '').match(/(\d+)\//)?.[1]);
+      const printedNumbers = html.querySelectorAll('.p_num').map(node =>
+        Number(node.text.replace(/\s+/g, '').match(/(\d+)\//)?.[1]),
+      ).filter(Number.isFinite);
+      const number = printedNumbers.includes(card.number) ? card.number : printedNumbers[0];
       const text = html.querySelector('#no_wrap_by_admin')?.text ?? '';
       const rarity = text.match(/\b(?:MUR|SSR|SAR|CSR|RRR|CHR|BWR|GRA|ACE|SR|HR|UR|RR|AR|TR|MA|PR|C|U|R|S|A|K)\b/)?.[0]
         ?? (html.querySelector('#no_wrap_by_admin img[title="빛"]') ? 'H' : null);
@@ -77,13 +89,13 @@ async function audit(set: any, card: any) {
       const type = html.querySelectorAll('.detail_wrap .header img.type_b').find(n => n.getAttribute('title'))?.getAttribute('title') ?? null;
       officialImage = html.querySelector('.feature_image')?.getAttribute('src');
       if (!name || !officialImage) throw new Error('Official detail missing name/image');
-      if (officialImage.startsWith('//')) officialImage = `https:${officialImage}`;
+      officialImage = new URL(officialImage, officialUrl).href;
       result.official = { name_ko: name, number: number || null, rarity, hp, type, card_type, image: officialImage, source: officialUrl };
       for (const [key, actual] of Object.entries({ name_ko: name, number: number || null, hp, type, card_type })) {
         if (actual != null && normalize(card[key]) !== normalize(actual)) result.findings.push({ field: key, local: card[key], official: actual });
       }
       if (rarity && rarity !== card.rarity && !(rarity === 'MUR' && card.rarity === 'UR')) result.findings.push({ field: 'rarity', local: card.rarity, official: rarity });
-      if (card.image_url?.startsWith('wmimages/') && officialImage.replace(sourceBase, '').split('?')[0] !== card.image_url) {
+      if (card.image_url?.startsWith('wmimages/') && officialImageKey(officialImage) !== card.image_url) {
         result.findings.push({ field: 'image_path', local: card.image_url, official: officialImage });
       }
     } catch (e) { result.findings.push({ field: 'official_unavailable', error: String(e) }); }
@@ -95,8 +107,14 @@ async function audit(set: any, card: any) {
     const key = card.image_url;
     if (/^https?:/.test(key)) result.findings.push({ field: 'external_image_url', url: key });
     let base: Buffer | undefined;
-    if (source && !card._image_crop && !card._image_quadrant) {
-      try { base = await pixels(await cached(source)); }
+    if (source && !card._image_quadrant) {
+      try {
+        const original = await cached(source);
+        const imageBytes = card._image_crop
+          ? await sharp(original).extract(card._image_crop).toBuffer()
+          : original;
+        base = await pixels(imageBytes);
+      }
       catch (e) { result.findings.push({ field: 'image_source_unavailable', error: String(e) }); }
     } else result.findings.push({ field: 'image_identity_needs_review' });
     if (!variantsOnly || /^https?:/.test(key)) try {

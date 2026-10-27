@@ -4,6 +4,7 @@ import { memo, useState, useCallback, useEffect, useRef, type ReactNode } from '
 import Image from 'next/image';
 import type { Card, SetMeta, BoxResult, PackResult } from '../lib/types';
 import { simulateBox, simulateBundle, simulatePack, PROBABILITY_META } from '../lib/simulator';
+import { ANNIVERSARY_25_PROMO_INTERVAL, isAnniversary25Set } from '../lib/simulation/model';
 import { getBundleSummary, isBundleSet } from '../lib/bundle';
 import { getBoxImageSrc } from '../lib/boxImages';
 import {
@@ -182,6 +183,43 @@ function CardBack() {
   );
 }
 
+function packCountLabel(packs: PackResult[], showBonus = false): string {
+  const bonusCount = packs.filter((pack) => pack.is_bonus).length;
+  return bonusCount > 0 || showBonus
+    ? `본팩 ${packs.length - bonusCount}팩 + 프로모 ${bonusCount}팩`
+    : `${packs.length}팩`;
+}
+
+function PackProgress({ result, packIdx, onClick }: {
+  result: BoxResult;
+  packIdx: number;
+  onClick?: () => void;
+}) {
+  const pack = result.packs[packIdx];
+  const bonusCount = result.packs.filter((item) => item.is_bonus).length;
+  const sameKind = (item: PackResult) => !!item.is_bonus === !!pack.is_bonus;
+  const current = result.packs.slice(0, packIdx + 1).filter(sameKind).length;
+  const total = result.packs.filter(sameKind).length;
+  const progress = ((packIdx + 1) / result.packs.length) * 100;
+
+  return (
+    <div className="text-center" onClick={onClick}>
+      <p className="text-2xl font-bold tabular-nums">
+        {bonusCount > 0 ? `${pack.is_bonus ? '프로모' : '본팩'} ` : ''}{current} / {total} 팩
+      </p>
+      {bonusCount > 0 && <p className="mt-1 text-xs text-gray-500">{packCountLabel(result.packs)}</p>}
+      {(pack.source_set_name_ko || pack.is_bonus) && (
+        <p className={`mt-1 text-xs font-bold ${pack.is_bonus ? 'text-amber-300' : 'text-cyan-300'}`}>
+          {pack.source_set_name_ko ?? '프로모팩'}
+        </p>
+      )}
+      <div className="mt-2 w-64 h-2 bg-gray-800 rounded-full overflow-hidden mx-auto">
+        <div className="h-full bg-red-500 rounded-full" style={{ width: `${progress}%` }} />
+      </div>
+    </div>
+  );
+}
+
 function RareHistory({
   result,
   upToPackIdx,
@@ -191,13 +229,14 @@ function RareHistory({
   upToPackIdx: number;
   onCardClick: (c: Card) => void;
 }) {
-  const seen = result.packs.slice(0, upToPackIdx).flatMap((p) => p.cards);
+  const openedPacks = result.packs.slice(0, upToPackIdx);
+  const seen = openedPacks.flatMap((p) => p.cards);
   const rares = seen.filter((c) => c.rarity && RARE_RARITIES.has(c.rarity));
   if (rares.length === 0 && upToPackIdx === 0) return null;
   return (
     <div className="w-full max-w-4xl mx-auto px-2 mt-4">
       <p className="text-xs text-gray-500 mb-2 tracking-wide">
-        지금까지 {upToPackIdx}팩 깠음 · 레어 {rares.length}장
+        지금까지 {packCountLabel(openedPacks, result.packs.some((pack) => pack.is_bonus))} 깠음 · 레어 {rares.length}장
       </p>
       {rares.length > 0 ? (
         <div className="grid grid-cols-8 sm:grid-cols-10 md:grid-cols-12 gap-2">
@@ -320,6 +359,8 @@ function IdleScreen({
 }) {
   const [imgErr, setImgErr] = useState(false);
   const bundleSummary = isBundleSet(meta) ? getBundleSummary(meta) : null;
+  const bonusPackCount = isAnniversary25Set(meta.code) ? Math.floor(meta.box_size / ANNIVERSARY_25_PROMO_INTERVAL) : 0;
+  const boxPackLabel = bonusPackCount > 0 ? `본팩 ${meta.box_size}팩 + 프로모 ${bonusPackCount}팩` : `${meta.box_size}팩`;
   return (
     <div className="flex flex-col items-center min-h-[calc(100vh-72px)] px-4 py-8 gap-6">
       <div className="text-center max-w-xl flex flex-col items-center">
@@ -340,8 +381,13 @@ function IdleScreen({
         <p className="text-gray-500 text-xs">
           {bundleSummary
             ? `${bundleSummary.componentCount}종${bundleSummary.uniformPackCount === null ? '' : ` 각 ${bundleSummary.uniformPackCount}팩`} · 총 ${bundleSummary.totalPacks}팩 · ${bundleSummary.totalCards}장 · 스페셜 세트`
-            : `${meta.cards.length}종 · ${meta.box_size}팩 · ${meta.pack_size}장/팩 · ${meta.type === 'hi-class' ? '하이클래스' : '확장팩'}`}
+            : `${meta.cards.length}종 · ${bonusPackCount > 0 ? `본팩 ${meta.box_size}팩×${meta.pack_size}장 + 프로모 ${bonusPackCount}팩×1장` : `${meta.box_size}팩 · ${meta.pack_size}장/팩`} · ${meta.type === 'hi-class' ? '하이클래스' : '확장팩'}`}
         </p>
+        {bonusPackCount > 0 && (
+          <p className="mt-2 text-xs leading-relaxed text-amber-200">
+            프로모팩은 별도 증정품이며, 이 시뮬에서는 {bonusPackCount}팩을 함께 개봉합니다.
+          </p>
+        )}
         {bundleSummary && (
           <BundlePackList
             set={meta}
@@ -362,7 +408,7 @@ function IdleScreen({
             className="py-8 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-700 hover:from-orange-400 hover:to-orange-600 active:scale-95 transition font-bold text-lg shadow-xl shadow-orange-900/40 flex flex-col gap-1"
           >
             즉시 개봉
-            <span className="text-[11px] font-normal text-orange-100/90">{meta.box_size}팩 전체 결과 한 번에 보기</span>
+            <span className="text-[11px] font-normal text-orange-100/90">{boxPackLabel} 전체 결과 한 번에 보기</span>
           </button>
         </div>
       </section>
@@ -391,7 +437,6 @@ function AutoBoxReveal({
 }) {
   const pack = result.packs[packIdx];
   const total = result.packs.length;
-  const progress = ((packIdx + 1) / total) * 100;
   const isLast = packIdx + 1 >= total;
   const hitCard = sortByRarity(pack.cards)[0];
   const hitIdx = pack.cards.indexOf(hitCard);
@@ -399,17 +444,7 @@ function AutoBoxReveal({
 
   return (
       <div className="flex flex-col items-center gap-5 px-4 py-6 min-h-[calc(100vh-72px)] select-none">
-        <div className="text-center" onClick={onAdvance}>
-          <p className="text-2xl font-bold tabular-nums">
-            {packIdx + 1} / {total} 팩
-          </p>
-          {pack.source_set_name_ko && (
-            <p className="mt-1 text-xs font-bold text-cyan-300">{pack.source_set_name_ko}</p>
-          )}
-          <div className="mt-2 w-64 h-2 bg-gray-800 rounded-full overflow-hidden mx-auto">
-            <div className="h-full bg-red-500 rounded-full" style={{ width: `${progress}%` }} />
-          </div>
-        </div>
+        <PackProgress result={result} packIdx={packIdx} onClick={onAdvance} />
 
         {isRareHit ? (
           <p
@@ -424,12 +459,12 @@ function AutoBoxReveal({
 
         <div
           key={`pack-${packIdx}`}
-          className="relative grid grid-cols-5 gap-3 sm:gap-4 w-full max-w-4xl mx-auto cursor-pointer"
+          className={`relative grid gap-3 sm:gap-4 w-full mx-auto cursor-pointer ${pack.is_bonus ? 'grid-cols-1 max-w-[180px]' : 'grid-cols-5 max-w-4xl'}`}
           onClick={onAdvance}
         >
           {pack.cards.map((card, i) => {
             const isHit = !!card.rarity && HIT_RARITIES.has(card.rarity);
-            const isPremiumHit = isHit && isPremiumSparkleRarity(card.rarity, card);
+            const isPremiumHit = isPremiumSparkleRarity(card.rarity, card);
             // 프리미엄(SAR/MUR/BWR/CSR)은 카드 본체를 정적으로 두고 sparkle 오버레이로만 표현
             const useHitBurst = isHit && !isPremiumHit;
             const delay = i * REVEAL_STAGGER_MS + (i === hitIdx ? 200 : 0);
@@ -502,7 +537,6 @@ function ManualBoxReveal({
 }) {
   const pack = result.packs[packIdx];
   const total = result.packs.length;
-  const progress = ((packIdx + 1) / total) * 100;
   const isLast = packIdx + 1 >= total;
   const allFlipped = flippedSet.size === pack.cards.length;
   const remaining = pack.cards.length - flippedSet.size;
@@ -510,19 +544,9 @@ function ManualBoxReveal({
 
   return (
     <div className="flex flex-col items-center gap-5 px-4 py-6 min-h-[calc(100vh-72px)] select-none">
-      <div className="text-center">
-        <p className="text-2xl font-bold tabular-nums">
-          {packIdx + 1} / {total} 팩
-        </p>
-        {pack.source_set_name_ko && (
-          <p className="mt-1 text-xs font-bold text-cyan-300">{pack.source_set_name_ko}</p>
-        )}
-        <div className="mt-2 w-64 h-2 bg-gray-800 rounded-full overflow-hidden mx-auto">
-          <div className="h-full bg-red-500 rounded-full" style={{ width: `${progress}%` }} />
-        </div>
-      </div>
+      <PackProgress result={result} packIdx={packIdx} />
 
-      <div className="grid grid-cols-5 gap-3 sm:gap-4 w-full max-w-4xl mx-auto">
+      <div className={`grid gap-3 sm:gap-4 w-full mx-auto ${pack.is_bonus ? 'grid-cols-1 max-w-[180px]' : 'grid-cols-5 max-w-4xl'}`}>
         {pack.cards.map((card, i) =>
           flippedSet.has(i) ? (
             <CardTile
@@ -663,9 +687,11 @@ function CelebrationPikachuResult({ cards, onCardClick }: { cards: Card[]; onCar
 function RarityFilteredGrid({
   cards,
   onCardClick,
+  bonusCards,
 }: {
   cards: Card[];
   onCardClick: (c: Card) => void;
+  bonusCards?: Set<Card>;
 }) {
   const counts = getRarityCounts(cards);
   const available = sortRarityKeys(
@@ -712,13 +738,19 @@ function RarityFilteredGrid({
       {sorted.length > 0 ? (
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
           {sorted.map((card, i) => (
-            <CardTile
-              key={i}
-              card={card}
-              size="lg"
-              onClick={() => onCardClick(card)}
-              premiumSparkle={isPremiumSparkleRarity(card.rarity, card)}
-            />
+            <div key={i}>
+              {!!bonusCards?.size && (
+                <p className={`mb-2 text-center text-[10px] font-bold text-amber-200 ${bonusCards.has(card) ? '' : 'invisible'}`} aria-hidden={!bonusCards.has(card)}>
+                  프로모팩
+                </p>
+              )}
+              <CardTile
+                card={card}
+                size="lg"
+                onClick={() => onCardClick(card)}
+                premiumSparkle={isPremiumSparkleRarity(card.rarity, card)}
+              />
+            </div>
           ))}
         </div>
       ) : (
@@ -809,13 +841,15 @@ function BoxDoneScreen({
 }) {
   const allCards = result.packs.flatMap((p) => p.cards);
   const rares = allCards.filter((c) => c.rarity && RARE_RARITIES.has(c.rarity));
+  const bonusPacks = result.packs.filter((pack) => pack.is_bonus);
+  const bonusCards = new Set(bonusPacks.flatMap((pack) => pack.cards));
 
   return (
     <div className="px-4 py-6 max-w-6xl mx-auto">
       <div className="mb-6">
         <h2 className="text-3xl font-black tracking-tight">{isBundleSet(meta) ? '스페셜 세트 결과' : '박스깡 결과'}</h2>
         <p className="text-gray-400 text-sm mt-1">
-          {meta.name_ko} · ₩{meta.box_price_krw.toLocaleString()} · {isBundleSet(meta) ? `${result.packs.length}팩 · ` : ''}{allCards.length}장
+          {meta.name_ko} · ₩{meta.box_price_krw.toLocaleString()} · {isBundleSet(meta) || bonusPacks.length > 0 ? `${packCountLabel(result.packs)} · ` : ''}{allCards.length}장
         </p>
       </div>
 
@@ -827,7 +861,7 @@ function BoxDoneScreen({
         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
           ✨ 이번 박스 레어 ({rares.length}장) — 등급 토글로 필터
         </h3>
-        <RarityFilteredGrid key={result.seed} cards={allCards} onCardClick={onCardClick} />
+        <RarityFilteredGrid key={result.seed} cards={allCards} bonusCards={bonusCards} onCardClick={onCardClick} />
         {meta.code === 'm6a-30th-celebration' && (
           <CelebrationPikachuResult key={result.seed} cards={allCards} onCardClick={onCardClick} />
         )}
@@ -944,7 +978,7 @@ function PackDoneScreen({
   return (
     <div className="px-4 py-6 max-w-4xl mx-auto flex flex-col items-center gap-6">
       <div className="text-center">
-        <h2 className="text-3xl font-black tracking-tight">자판기 1팩</h2>
+        <h2 className="text-3xl font-black tracking-tight">일반 낱팩 1팩</h2>
         <p className="text-gray-400 text-sm mt-1">
           {meta.name_ko} · ₩{meta.pack_price_krw.toLocaleString()} · {pack.cards.length}장
         </p>

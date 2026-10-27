@@ -41,6 +41,7 @@ import s10pSpaceJuggler from '../public/sets/s10p-space-juggler.json';
 import s9aBattleRegion from '../public/sets/s9a-battle-region.json';
 import s9StarBirth from '../public/sets/s9-star-birth.json';
 import s8bVmaxClimax from '../public/sets/s8b-vmax-climax.json';
+import s8a25thAnniversary from '../public/sets/s8a-25th-anniversary.json';
 import s8FusionArts from '../public/sets/s8-fusion-arts.json';
 import s7rSkyStream from '../public/sets/s7r-sky-stream.json';
 import s6aEeveeHeroes from '../public/sets/s6a-eevee-heroes.json';
@@ -94,7 +95,9 @@ import sm9aNightUnison from '../public/sets/sm9a-night-unison.json';
 import sm10bSkyLegend from '../public/sets/sm10b-sky-legend.json';
 import sm10aGgEnd from '../public/sets/sm10a-gg-end.json';
 import sm10DoubleBlaze from '../public/sets/sm10-double-blaze.json';
+import smp2DetectivePikachu from '../public/sets/smp2-detective-pikachu.json';
 import sm8bGxUltraShiny from '../public/sets/sm8b-gx-ultra-shiny.json';
+import xy6EmeraldBreak from '../public/sets/xy6-emerald-break.json';
 import mStartDeck100 from '../public/sets/m-start-deck-100.json';
 import m4NinjaSpinner from '../public/sets/m4-ninja-spinner.json';
 import m5AbyssEye from '../public/sets/m5-abyss-eye.json';
@@ -140,7 +143,7 @@ const sets: SetMeta[] = [
   s12aVstarUniverse, s12ParadigmTrigger,
   s11aIncandescentArcana, s11LostAbyss, s10bPokemonGo,
   s10aDarkPhantasma, s10dTimeGazer, s10pSpaceJuggler,
-  s9aBattleRegion, s9StarBirth, s8bVmaxClimax,
+  s9aBattleRegion, s9StarBirth, s8bVmaxClimax, s8a25thAnniversary,
   s8FusionArts, s7rSkyStream, s6aEeveeHeroes, s6hSilverLance,
   s6kJetBlackSpirit, s5aMatchlessFighters,
   s5iSingleStrikeMaster, s5rRapidStrikeMaster,
@@ -159,7 +162,9 @@ const sets: SetMeta[] = [
   sm1plusSunMoon, sm1sSunCollection, sm1mMoonCollection,
   sm4plusGxBattleBoostRemaster,
   sm9TagBolt, sm8aDarkOrder, sm9bFullMetalWall, sm9aNightUnison, sm10bSkyLegend, sm10aGgEnd,
-  sm10DoubleBlaze, sm8bGxUltraShiny,
+  sm10DoubleBlaze, smp2DetectivePikachu, sm8bGxUltraShiny,
+  // XY 시리즈
+  xy6EmeraldBreak,
 ] as SetMeta[];
 
 export default function Home() {

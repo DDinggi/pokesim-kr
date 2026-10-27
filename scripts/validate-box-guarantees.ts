@@ -29,7 +29,7 @@ if (!Number.isInteger(trials) || trials < 1) {
 
 type GuaranteeRule = {
   rarity: string;
-  kind?: 'mega-fixed-sr' | 'mega-main-high';
+  kind?: 'mega-fixed-sr' | 'mega-main-high' | 'mirror-or-rr';
   min: number;
   max?: number | null;
 };
@@ -85,6 +85,9 @@ function countRule(
   rarities: string[] | null,
   summary: Record<string, number>,
 ): number {
+  if (rule.kind === 'mirror-or-rr') {
+    return cards.filter((card) => card.subtype === '미러' || card.rarity === 'RR').length;
+  }
   if (rule.kind === 'mega-fixed-sr') {
     return cards.filter((card) => card.rarity === 'SR' && !isMainSr(card)).length;
   }
@@ -109,11 +112,17 @@ for (let index = 0; index < trials; index++) {
         set.code,
       );
 
-  if (result.packs.length !== set.box_size) {
-    errors.push('box ' + index + ': expected ' + set.box_size + ' packs, got ' + result.packs.length);
+  const regularPacks = result.packs.filter((pack) => !pack.is_bonus);
+  const bonusPacks = result.packs.filter((pack) => pack.is_bonus);
+  if (regularPacks.length !== set.box_size) {
+    errors.push('box ' + index + ': expected ' + set.box_size + ' main packs, got ' + regularPacks.length);
+  }
+  if (bonusPacks.length !== (set.bonus_pack_count ?? 0)) {
+    errors.push('box ' + index + ': expected ' + (set.bonus_pack_count ?? 0) + ' bonus packs, got ' + bonusPacks.length);
   }
 
   const malformedPack = result.packs.findIndex((pack) => {
+    if (pack.is_bonus) return pack.cards.length !== 1 || pack.cards.some((card) => card.rarity !== 'S8AP');
     if (set.type !== 'bundle') return pack.cards.length !== set.pack_size;
     const source = sourceSets.find((candidate) => candidate.code === pack.source_set_code);
     return !source || pack.cards.length !== source.pack_size;
@@ -163,7 +172,8 @@ console.log(set.code + ' | ' + set.name_ko);
 console.log(
   set.type === 'bundle'
     ? '  shape: ' + set.box_size + ' mixed packs / ' + getBundleCardCount(runtimeSet) + ' total cards'
-    : '  shape: ' + set.box_size + ' packs x ' + set.pack_size + ' cards',
+    : '  shape: ' + set.box_size + ' main packs x ' + set.pack_size + ' cards'
+      + (set.bonus_pack_count ? ' + ' + set.bonus_pack_count + ' separate bonus packs x 1 card' : ''),
 );
 for (const { rule } of rules) {
   const range = ranges.get(rule.rarity);

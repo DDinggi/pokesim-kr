@@ -10,6 +10,9 @@ import type { ReferenceValueSource, ValueLuckMode } from './valueLuck';
 import {
   ANNIVERSARY_25_BOX_SIZE,
   ANNIVERSARY_25_HIT_WEIGHTS,
+  ANNIVERSARY_25_HIGH_WEIGHTS,
+  ANNIVERSARY_25_PACK_EVENT_WEIGHTS,
+  ANNIVERSARY_25_UR_BOX_RATE,
   ANNIVERSARY_25_LUCK_SCORE_WEIGHTS,
   ANNIVERSARY_25_PROMO_INTERVAL,
   CELEBRATION_30_FUR_BOX_RATE,
@@ -632,7 +635,7 @@ function getLuckScoreWeightsForSet(
     return { AR: getScoreWeight('AR', mode), UR: getScoreWeight('UR', mode), SAR: 2, SR: getScoreWeight('SR', mode) };
   }
 
-  if (isAnniversary25Set(code)) {
+  if (isAnniversary25Set(code) || code === 's8a-25th-anniversary-special') {
     return ANNIVERSARY_25_LUCK_SCORE_WEIGHTS;
   }
 
@@ -778,6 +781,11 @@ function getExpectedScoredRarityCounts(
 
   if (unitCount <= 0) return counts;
 
+  if (set?.type === 'anniversary-promo') {
+    addExpectedCount(counts, 'S8AP', opening.boxes + opening.packs);
+    return counts;
+  }
+
   if (set?.type === 'bundle' && set.resolved_bundle_components?.length) {
     const bundleCount = opening.boxes + opening.packs;
     for (const component of set.resolved_bundle_components) {
@@ -802,9 +810,16 @@ function getExpectedScoredRarityCounts(
   }
 
   if (isAnniversary25Set(code)) {
-    addExpectedCount(counts, '25TH', unitCount * opening.boxSize);
-    addExpectedCount(counts, 'S8AP', (unitCount * opening.boxSize) / ANNIVERSARY_25_PROMO_INTERVAL);
-    addExpectedCountsFromWeights(counts, ANNIVERSARY_25_HIT_WEIGHTS, unitCount * opening.boxSize * 4, 1, opening);
+    const mainPacks = opening.boxes * opening.boxSize + opening.packs;
+    const rrCount = mainPacks * ANNIVERSARY_25_PACK_EVENT_WEIGHTS.RR;
+    const rrrCount = mainPacks * (ANNIVERSARY_25_PACK_EVENT_WEIGHTS.RRR + 4 * ANNIVERSARY_25_PACK_EVENT_WEIGHTS.V_UNION);
+    const highCount = mainPacks / ANNIVERSARY_25_BOX_SIZE;
+    addExpectedCount(counts, '25TH', mainPacks * 5 - rrCount - rrrCount - highCount);
+    addExpectedCount(counts, 'RR', rrCount);
+    addExpectedCount(counts, 'RRR', rrrCount);
+    addExpectedCount(counts, 'SR', highCount * (1 - ANNIVERSARY_25_UR_BOX_RATE));
+    addExpectedCount(counts, 'UR', highCount * ANNIVERSARY_25_UR_BOX_RATE);
+    addExpectedCount(counts, 'S8AP', opening.boxes * Math.floor(opening.boxSize / ANNIVERSARY_25_PROMO_INTERVAL));
     return counts;
   }
 
@@ -1144,14 +1159,23 @@ function distributionFromWeights(
 }
 
 function getAnniversary25BoxScoreDistribution(boxSize = ANNIVERSARY_25_BOX_SIZE): LuckScoreOutcome[] {
-  const hitDistribution = distributionFromWeights(ANNIVERSARY_25_HIT_WEIGHTS, 'box');
+  const mainPacks = Math.max(1, Math.floor(boxSize || ANNIVERSARY_25_BOX_SIZE));
   return convolveDistributions(
-    repeatDistribution(hitDistribution, Math.max(1, Math.floor(boxSize || ANNIVERSARY_25_BOX_SIZE) * 4)),
-    repeatDistribution(
-      [{ score: ANNIVERSARY_25_LUCK_SCORE_WEIGHTS.S8AP ?? 0, probability: 1 }],
-      Math.max(1, Math.floor((boxSize || ANNIVERSARY_25_BOX_SIZE) / ANNIVERSARY_25_PROMO_INTERVAL)),
+    convolveDistributions(
+      getAnniversary25EventScoreDistribution(ANNIVERSARY_25_HIGH_WEIGHTS),
+      repeatDistribution(getAnniversary25EventScoreDistribution(ANNIVERSARY_25_HIT_WEIGHTS), mainPacks - 1),
     ),
+    [{ score: (ANNIVERSARY_25_LUCK_SCORE_WEIGHTS.S8AP ?? 0) * Math.floor(mainPacks / ANNIVERSARY_25_PROMO_INTERVAL), probability: 1 }],
   );
+}
+
+function getAnniversary25EventScoreDistribution(weights: Record<string, number>): LuckScoreOutcome[] {
+  return normalizeDistribution(Object.entries(weights).map(([event, probability]) => ({
+    score: event === 'V_UNION'
+      ? 4 * (ANNIVERSARY_25_LUCK_SCORE_WEIGHTS.RRR ?? 0)
+      : ANNIVERSARY_25_LUCK_SCORE_WEIGHTS[event] ?? 0,
+    probability,
+  })));
 }
 
 function optionalDistributionFromWeights(
@@ -1271,6 +1295,10 @@ function getBoxScoreDistribution(
   set: LuckSetContext | undefined,
 ): LuckScoreOutcome[] {
   const code = set?.code;
+
+  if (set?.type === 'anniversary-promo') {
+    return [{ score: ANNIVERSARY_25_LUCK_SCORE_WEIGHTS.S8AP, probability: 1 }];
+  }
 
   if (code && isStarterSet(code)) {
     return getStarterScoreDistribution('box');
@@ -1475,19 +1503,17 @@ function getPackScoreDistribution(
   const code = set?.code;
   let distribution: LuckScoreOutcome[] = [{ score: 0, probability: 1 }];
 
+  if (set?.type === 'anniversary-promo') {
+    return [{ score: ANNIVERSARY_25_LUCK_SCORE_WEIGHTS.S8AP, probability: 1 }];
+  }
+
   if (code && isStarterSet(code)) {
     // 한 번 뽑기 = starter deck 1개.
     return getStarterScoreDistribution('pack');
   }
 
   if (code && isAnniversary25Set(code)) {
-    return convolveDistributions(
-      repeatDistribution(distributionFromWeights(ANNIVERSARY_25_HIT_WEIGHTS, 'pack'), 4),
-      bernoulliDistribution(
-        ANNIVERSARY_25_LUCK_SCORE_WEIGHTS.S8AP ?? 0,
-        1 / ANNIVERSARY_25_PROMO_INTERVAL,
-      ),
-    );
+    return getAnniversary25EventScoreDistribution(ANNIVERSARY_25_PACK_EVENT_WEIGHTS);
   }
 
   if (code === CELEBRATION_30_SET_CODE) {
@@ -1836,7 +1862,8 @@ export function summarizeLuckRarityCounts(
   cards?: Card[],
 ): LuckEventSummary {
   const packEquivalent = opening.boxes * opening.boxSize + opening.packs;
-  const treatsUrAsTop = isMegaExpansionSet(opening.setCode) || isStarterSet(opening.setCode) || opening.setCode === 's12a-vstar-universe';
+  const treatsUrAsTop = isMegaExpansionSet(opening.setCode) || isStarterSet(opening.setCode)
+    || isAnniversary25Set(opening.setCode) || opening.setCode === 's12a-vstar-universe';
   const scoreMode: LuckScoreMode = opening.boxes > 0 ? 'box' : 'pack';
   const weights = getLuckScoreWeightsForSet(set ?? opening, scoreMode);
   const adjustedCounts = subtractBaselineCounts(rarityCounts, opening, set);
@@ -1939,8 +1966,12 @@ export function getLuckRatesForSet(
     return { boxSize, topPerBox: STARTER_UR_RATE, sarPerBox: STARTER_STANDARD_SAR_RATE };
   }
 
-  if (isAnniversary25Set(set.code)) {
+  if (set.type === 'anniversary-promo') {
     return { boxSize, topPerBox: 0, sarPerBox: 0 };
+  }
+
+  if (isAnniversary25Set(set.code)) {
+    return { boxSize, topPerBox: ANNIVERSARY_25_UR_BOX_RATE, sarPerBox: 0 };
   }
 
   if (set.code === CELEBRATION_30_SET_CODE) {

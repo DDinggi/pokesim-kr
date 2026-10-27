@@ -32,6 +32,7 @@
     "validate:box-guarantees": "tsx validate-box-guarantees.ts",
     "review:sm-rates": "tsx review-sm-pull-rates.ts",
     "validate:sm-early": "tsx validate-sm-early-sets.ts",
+    "validate:legacy-three": "tsx validate-legacy-three-sets.ts",
     "validate:bundle": "tsx validate-bundle-product.ts",
     "validate:chase-luck": "tsx validate-chase-luck.ts",
     "validate:value-luck": "tsx validate-value-luck.ts",

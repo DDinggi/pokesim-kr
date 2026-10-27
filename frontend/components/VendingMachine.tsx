@@ -3,14 +3,15 @@
 import { useState, useMemo, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, PackResult } from '../lib/types';
-import { simulatePack } from '../lib/simulator';
+import { simulateBundle, simulatePack } from '../lib/simulator';
+import { getAnniversary25SpecialSet, isAnniversary25Special } from '../lib/anniversary25Products';
 import { simulateStartDeck } from '../lib/simulation/starter';
 import { getBoxThumbnailImageSrc } from '../lib/boxImages';
 import {
   createLuckOpening,
   summarizeLuckEvent,
 } from '../lib/luck';
-import { isNewSimSet, LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_SETS, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
+import { isNewSimSet, sortNewSimSetsFirst, LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_SETS, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
 import { trackSim, trackUserEvent } from '../lib/statsTracker';
 import { CardModal } from './CardModal';
 import {
@@ -39,11 +40,19 @@ import { addCardsToHitDex } from '../lib/hitDex';
 import {
   getAvailableSetSeries,
   getSetSeriesKey,
-  type SetSeriesKey,
+  type SetFilterKey,
 } from '../lib/setSeries';
 import { SetSeriesTabs } from './SetSeriesTabs';
 
 const MAX_PER_SET = 10;
+
+function salePrice(set: SetMeta): number {
+  return isAnniversary25Special(set) ? set.box_price_krw : set.pack_price_krw;
+}
+
+function saleUnit(set: SetMeta): string {
+  return isAnniversary25Special(set) ? '세트' : '팩';
+}
 
 function normalizeSearchText(value: string): string {
   return value.toLowerCase().replace(/[\s·._-]+/g, '');
@@ -83,6 +92,7 @@ interface PurchasedPack {
   setMeta: SetMeta;
   pack: PackResult;
   seed: string;
+  chargedKrw: number;
 }
 
 export function VendingMachine({
@@ -106,22 +116,23 @@ export function VendingMachine({
   const [packIdx, setPackIdx] = useState(0);
   const [openedCard, setOpenedCard] = useState<Card | null>(null);
   const [query, setQuery] = useState('');
-  const [activeSeries, setActiveSeries] = useState<SetSeriesKey>(
-    () => getAvailableSetSeries(sets)[0]?.key ?? 'mega',
-  );
-  // 혼합 스페셜 상품은 낱팩 SKU가 아니므로 자판기에서 판매하지 않는다.
-  const displaySets = useMemo(() => sets.filter((set) => set.type !== 'bundle'), [sets]);
+  const [activeSeries, setActiveSeries] = useState<SetFilterKey>('new');
+  // 일반 혼합 상품은 제외하되, 공식 자판기 SKU인 25주년 스페셜 세트는 따로 표시한다.
+  const displaySets = useMemo(() => {
+    const special = getAnniversary25SpecialSet(sets);
+    return [...sets.filter(set => set.type !== 'bundle'), ...(special ? [special] : [])];
+  }, [sets]);
   const availableSeries = useMemo(() => getAvailableSetSeries(displaySets), [displaySets]);
-  const selectedSeries = availableSeries.some((series) => series.key === activeSeries)
+  const selectedSeries = (activeSeries === 'new' && displaySets.some(set => isNewSimSet(set.code))) || availableSeries.some((series) => series.key === activeSeries)
     ? activeSeries
     : (availableSeries[0]?.key ?? 'mega');
   const seriesSets = useMemo(
-    () => displaySets.filter((set) => getSetSeriesKey(set) === selectedSeries),
+    () => displaySets.filter((set) => selectedSeries === 'new' ? isNewSimSet(set.code) : getSetSeriesKey(set) === selectedSeries),
     [displaySets, selectedSeries],
   );
   const isSearching = query.trim().length > 0;
   const visibleSets = useMemo(
-    () => (isSearching ? displaySets : seriesSets).filter((set) => matchSet(set, query)),
+    () => sortNewSimSetsFirst((isSearching ? displaySets : seriesSets).filter((set) => matchSet(set, query))),
     [displaySets, isSearching, query, seriesSets],
   );
 
@@ -133,7 +144,7 @@ export function VendingMachine({
     () =>
       Object.entries(cart).reduce((s, [code, n]) => {
         const set = displaySets.find((x) => x.code === code);
-        return s + (set?.pack_price_krw ?? 0) * n;
+        return s + (set ? salePrice(set) : 0) * n;
       }, 0),
     [cart, displaySets],
   );
@@ -187,7 +198,16 @@ export function VendingMachine({
       const set = displaySets.find((x) => x.code === code);
       if (!set || n <= 0) continue;
       const setCards: Card[] = [];
+      const special = isAnniversary25Special(set);
       for (let i = 0; i < n; i++) {
+        if (special) {
+          const result = simulateBundle(set);
+          result.packs.forEach((pack, index) => {
+            setCards.push(...pack.cards);
+            packs.push({ setCode: code, setMeta: set, pack, seed: result.seed, chargedKrw: index === 0 ? salePrice(set) : 0 });
+          });
+          continue;
+        }
         const { pack, seed } = set.type === 'starter' && set.start_deck
           ? (() => {
             const drawn = simulateStartDeck(set.cards, set.start_deck);
@@ -195,41 +215,42 @@ export function VendingMachine({
           })()
           : simulatePack(set.cards, set.type, set.pack_size, undefined, set.code);
         setCards.push(...pack.cards);
-        packs.push({ setCode: code, setMeta: set, pack, seed });
+        packs.push({ setCode: code, setMeta: set, pack, seed, chargedKrw: salePrice(set) });
       }
-      const opening = createLuckOpening(set, { packs: n });
+      const opening = createLuckOpening(set, special ? { boxes: n } : { packs: n });
       trackSim({
         setCode: code,
-        mode: 'pack',
-        boxCount: 0,
-        packCount: n,
-        krw: (set.pack_price_krw ?? 0) * n,
+        mode: special ? 'box' : 'pack',
+        boxCount: special ? n : 0,
+        packCount: special ? n * 4 : n,
+        krw: salePrice(set) * n,
         luck: summarizeLuckEvent(setCards, opening, set),
       });
       openingEvents.push(createOpeningEvent({
         setMeta: set,
-        unit: 'pack',
+        unit: special ? 'box' : 'pack',
         source: 'vending-machine',
         cards: setCards,
-        boxCount: 0,
-        packCount: n,
-        krw: (set.pack_price_krw ?? 0) * n,
+        boxCount: special ? n : 0,
+        packCount: special ? n * 4 : n,
+        krw: salePrice(set) * n,
       }));
-      addCardsToHitDex(setCards, set);
+      const dexSet = special ? sets.find(candidate => candidate.code === 's8a-25th-anniversary')! : set;
+      addCardsToHitDex(setCards, dexSet);
     }
     if (packs.length === 0) return;
 
     const allCards = packs.flatMap((p) => p.pack.cards);
     const checkoutCost = Object.entries(cartToBuy).reduce((s, [code, n]) => {
       const set = displaySets.find((x) => x.code === code);
-      return s + (set?.pack_price_krw ?? 0) * n;
+      return s + (set ? salePrice(set) : 0) * n;
     }, 0);
 
     const cur = loadSession();
 
     saveSession({
-      boxes: cur.boxes,
-      packs: cur.packs + packs.length,
+      boxes: cur.boxes + openingEvents.reduce((sum, event) => sum + event.boxCount, 0),
+      packs: cur.packs + openingEvents.filter(event => event.unit === 'pack').reduce((sum, event) => sum + event.packCount, 0),
       cost: cur.cost + checkoutCost,
       cards: [...cur.cards, ...allCards],
       openingEvents: [...cur.openingEvents, ...openingEvents],
@@ -305,10 +326,10 @@ export function VendingMachine({
         <main className="flex-1 px-4 py-8 max-w-5xl mx-auto w-full flex flex-col items-center gap-6">
           <div className="text-center">
             <p className="text-xs text-gray-500 uppercase tracking-widest">{current.setMeta.name_ko}</p>
-            <h2 className="text-2xl font-black mt-1">자판기 1팩</h2>
+            <h2 className="text-2xl font-black mt-1">{current.pack.is_bonus ? '별도 프로모팩 · 1장' : isAnniversary25Special(current.setMeta) ? '스페셜 세트 · 본팩' : '일반 낱팩'}</h2>
           </div>
 
-          <div className="grid grid-cols-5 gap-3 sm:gap-4 w-full">
+          <div className={current.pack.is_bonus ? 'grid grid-cols-1 w-44' : 'grid grid-cols-5 gap-3 sm:gap-4 w-full'}>
             {current.pack.cards.map((card, i) => (
               <CardTile
                 key={i}
@@ -337,7 +358,9 @@ export function VendingMachine({
     const allCards = purchased.flatMap((p) => p.pack.cards);
     const sorted = sortByRarity(allCards);
     const hits = getHitCounts(allCards);
-    const totalCostFinal = purchased.reduce((s, p) => s + (p.setMeta.pack_price_krw ?? 0), 0);
+    const totalCostFinal = purchased.reduce((s, p) => s + p.chargedKrw, 0);
+    const mainPackCount = purchased.filter(item => !item.pack.is_bonus).length;
+    const promoPackCount = purchased.length - mainPackCount;
     const purchasedSetCodes = Array.from(new Set(purchased.map((pack) => pack.setCode)));
     const luckTargetSetCode = purchasedSetCodes.length === 1 ? purchasedSetCodes[0] : undefined;
     return (
@@ -353,7 +376,7 @@ export function VendingMachine({
             </button>
             <div className="min-w-0">
               <h1 className="truncate text-2xl font-bold tracking-tight">자판기깡 결과</h1>
-              <p className="mt-1 truncate text-xs text-gray-500">총 {purchased.length}팩 개봉</p>
+              <p className="mt-1 truncate text-xs text-gray-500">본팩 {mainPackCount}팩{promoPackCount > 0 ? ` + 별도 프로모 ${promoPackCount}팩` : ''}</p>
             </div>
           </div>
             {accountBar ? <div className="w-full sm:ml-auto sm:w-auto">{accountBar}</div> : null}
@@ -363,7 +386,7 @@ export function VendingMachine({
         <main className="flex-1 px-4 sm:px-6 py-8 max-w-6xl mx-auto w-full">
           <section className="mb-6 text-sm text-gray-300 flex flex-wrap items-center gap-x-3 gap-y-1">
             <span className="text-gray-500">이번 개봉</span>
-            <span>총 {purchased.length}팩</span>
+            <span>본팩 {mainPackCount}팩{promoPackCount > 0 ? ` + 별도 프로모 ${promoPackCount}팩` : ''}</span>
             <span className="text-gray-700">·</span>
             <span>{totalCostFinal.toLocaleString()}원</span>
             {hits.map(({ rarity, count, sample }) => (
@@ -439,7 +462,7 @@ export function VendingMachine({
           </button>
           <div className="min-w-0">
             <h1 className="truncate text-2xl font-bold tracking-tight">자판기깡</h1>
-            <p className="mt-1 truncate text-xs text-gray-500">원하는 팩을 골라 깡하기 · 세트당 최대 {MAX_PER_SET}팩</p>
+            <p className="mt-1 truncate text-xs text-gray-500">원하는 상품을 골라 깡하기 · 상품당 최대 {MAX_PER_SET}개</p>
           </div>
         </div>
           {accountBar ? <div className="w-full sm:ml-auto sm:w-auto">{accountBar}</div> : null}
@@ -561,7 +584,7 @@ export function VendingMachine({
                         {set.name_ko}
                       </p>
                       <div className="rounded-full bg-gray-900 text-white text-center py-1 font-black text-xs tabular-nums">
-                        ₩{set.pack_price_krw.toLocaleString()}
+                        ₩{salePrice(set).toLocaleString()} / {saleUnit(set)}
                       </div>
                     </div>
                   </button>
@@ -615,9 +638,9 @@ export function VendingMachine({
                     />
                   </div>
                   <span className="flex-1 truncate font-medium">{set.name_ko}</span>
-                  <span className="text-gray-400 tabular-nums">× {qty}팩</span>
+                  <span className="text-gray-400 tabular-nums">× {qty}{saleUnit(set)}</span>
                   <span className="text-white font-bold tabular-nums w-24 text-right">
-                    {((set.pack_price_krw ?? 0) * qty).toLocaleString()}원
+                    {(salePrice(set) * qty).toLocaleString()}원
                   </span>
                   <button
                     onClick={() => handleRemoveFromCart(set.code)}
@@ -677,7 +700,7 @@ function QuantityModal({
   onBuyNow: () => void;
   onClose: () => void;
 }) {
-  const total = (set.pack_price_krw ?? 0) * qty;
+  const total = salePrice(set) * qty;
   const remaining = Math.max(0, maxAllowed - qty);
   return (
     <div
@@ -700,12 +723,13 @@ function QuantityModal({
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs text-blue-700/70 tracking-wider">
-              {set.type === 'hi-class' ? '하이클래스팩' : set.type === 'starter' ? '스타트덱' : '확장팩'}
+              {isAnniversary25Special(set) ? '자판기 한정 스페셜 세트 · 본팩 4 + 프로모 1' : set.type === 'hi-class' ? '하이클래스팩' : set.type === 'starter' ? '스타트덱' : '일반 낱팩'}
             </p>
             <h2 className="text-lg font-black truncate">{set.name_ko}</h2>
             <p className="text-sm font-bold text-gray-700 tabular-nums">
-              ₩{(set.pack_price_krw ?? 0).toLocaleString()} / 팩
+              ₩{salePrice(set).toLocaleString()} / {saleUnit(set)}
             </p>
+            {set.code === 's8a-25th-anniversary' && <p className="mt-1 text-xs text-gray-600">본팩 1팩 · 5장 · 프로모팩 미포함</p>}
           </div>
         </div>
 

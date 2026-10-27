@@ -1,0 +1,1553 @@
+{
+  "reviewed_at": "2026-10-22",
+  "report": "docs/xy6-emerald-break-review-20261022.md",
+  "korean_product": {
+    "source": "https://pokemoncard.co.kr/card/47",
+    "release_date": "2015-04-01",
+    "pack_size": 5,
+    "box_size": 30,
+    "pack_price_krw": 500,
+    "box_price_krw": 15000
+  },
+  "coverage": {
+    "korean_search": "https://pokemoncard.co.kr/cards",
+    "search_text": "에메랄드 브레이크",
+    "official_card_num_prefix": "BS2015004",
+    "korean_official_rows": 89,
+    "japanese_corresponding_numbers": 91,
+    "supplemented_numbers": [
+      90,
+      91
+    ],
+    "limitation": "일본판 대응 UR 2종은 한국판 실물·공식 상세가 미확인이다. 공식 한국 검색에 없다는 사유만으로 미수록 처리하지 않는 D-148/D-152에 따라 일본판 자료로 보강한다. 한일 구성이 동일하다는 검증은 아니며 한국판 근거 확보 시 재검토한다."
+  },
+  "pull_rate_evidence": {
+    "source": "http://blog.livedoor.jp/alice_umbreon/archives/pcg-xy-xy6.html",
+    "published_at": "2015-03-19",
+    "print_basis": "일본 발매 당시 자료; 재판 구분 없음",
+    "japanese_box_size": 20,
+    "personal_opening_boxes": 7,
+    "personal_opening_sr_count": 1,
+    "personal_opening_ur_count": 2,
+    "personal_opening_rr_count": 21,
+    "reported_sr_or_ur_per_box_approximation": 0.5,
+    "korean_adaptation": {
+      "high_rate": 0.75,
+      "high_rate_derivation": "저자의 약 0.5장/20팩 공개 근사 × 한국 30팩/일본 20팩 = 0.75장. 최대 1장인 베르누이 슬롯으로 근사하며 한국 실측 발생률이 아니다.",
+      "rr_expected_count": 4.5,
+      "rr_derivation": "직접 개봉 RR 21장/7박스 × 한국 30팩/일본 20팩 = 4.5장. 4~5장, 5번째 장 50%로 기대값을 보존한 근사이지 관측 분포가 아니다.",
+      "high_internal_allocation": "SR 11종·UR 2종을 각 1/13로 균등 선택하는 폴백. SR/UR 비율이나 개별 카드 확률의 실측이 아니다. 작은 7박스 표본의 UR 2/3 비율을 일반화하지 않는다.",
+      "extra_high_rate": 0,
+      "extra_high_limitation": "2SR 박스의 존재 보고는 있으나 발생 건수·분모가 함께 검증되지 않아 별도 추가 고레어 확률을 만들지 않는다."
+    }
+  },
+  "price_number_mapping": [
+    {
+      "card_num": "BS2015004088",
+      "name_ko": "민진",
+      "korean_number": 88,
+      "japanese_number": 89,
+      "name_jp": "ミツル",
+      "korean_source": "https://pokemoncard.co.kr/cards/detail/BS2015004088",
+      "japanese_source": "https://pokemon-card-fullahead.com/shopdetail/000000016496/xy06/page1/recommend/"
+    },
+    {
+      "card_num": "BS2015004089",
+      "name_ko": "은송",
+      "korean_number": 89,
+      "japanese_number": 88,
+      "name_jp": "ナギ",
+      "korean_source": "https://pokemoncard.co.kr/cards/detail/BS2015004089",
+      "japanese_source": "https://pokemon-card-fullahead.com/shopdetail/000000016495/xy06/page1/recommend/"
+    }
+  ],
+  "price_policy": {
+    "source": "https://pokemon-card-fullahead.com/shopbrand/xy06/",
+    "scope": "SR/UR 13종",
+    "kind": "일본 카드샵 공개 판매가를 기존 프로젝트 설정으로 환산한 참고가; 한국 실거래가 아님",
+    "jpy_krw": 9.5,
+    "jp_to_kr_factor": 0.65,
+    "rounding_krw": 100,
+    "exchange_rate_source": "data/prices/price-matches.json; 기존 수동 환율 설정을 사용하며 현재 환율이라고 주장하지 않는다.",
+    "unpriced_low_cards": "C/U/R/RR은 기존 운영 정책대로 참고가 미입력 상태를 유지한다. 신규 임의 가격이나 0원을 넣지 않는다."
+  },
+  "sets": [
+    {
+      "set_code": "xy6-emerald-break",
+      "shop_code": "xy06",
+      "cards": [
+        {
+          "number": 90,
+          "name_ko": "에너지 갈아 달기",
+          "name_jp": "エネルギーつけかえ",
+          "rarity": "UR",
+          "card_type": "트레이너",
+          "name_source_card_num": "BS2018006055",
+          "image_source_url": "https://makeshop-multi-images.akamaized.net/fullpokemon/itemimages/0000000164972_pyConer.jpg",
+          "image_key": "external/xy6-emerald-break/JPXY6090-reviewed-20261022.jpg",
+          "rarity_source": "https://pokemon-card-fullahead.com/shopdetail/000000016497/xy06/page1/recommend/"
+        },
+        {
+          "number": 91,
+          "name_ko": "배틀서처",
+          "name_jp": "バトルサーチャー",
+          "rarity": "UR",
+          "card_type": "트레이너",
+          "name_source_card_num": "BS201707114",
+          "image_source_url": "https://makeshop-multi-images.akamaized.net/fullpokemon/itemimages/0000000164982_9rWjy81.jpg",
+          "image_key": "external/xy6-emerald-break/JPXY6091-reviewed-20261022.jpg",
+          "rarity_source": "https://pokemon-card-fullahead.com/shopdetail/000000016498/xy06/page1/recommend/"
+        }
+      ]
+    }
+  ],
+  "official_cards_audit": {
+    "checked_at": "2026-10-22",
+    "count": 89,
+    "differences": 0,
+    "cards": [
+      {
+        "card_num": "BS2015004001",
+        "number": 1,
+        "name_ko": "아라리",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_001.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004001"
+      },
+      {
+        "card_num": "BS2015004002",
+        "number": 2,
+        "name_ko": "나시",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_002.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004002"
+      },
+      {
+        "card_num": "BS2015004003",
+        "number": 3,
+        "name_ko": "개무소",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_003.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004003"
+      },
+      {
+        "card_num": "BS2015004004",
+        "number": 4,
+        "name_ko": "실쿤",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_004.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004004"
+      },
+      {
+        "card_num": "BS2015004005",
+        "number": 5,
+        "name_ko": "뷰티플라이",
+        "rarity": "R",
+        "image_url": "wmimages/XY/XY6/XY6_005.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004005"
+      },
+      {
+        "card_num": "BS2015004006",
+        "number": 6,
+        "name_ko": "카스쿤",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_006.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004006"
+      },
+      {
+        "card_num": "BS2015004007",
+        "number": 7,
+        "name_ko": "독케일",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_007.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004007"
+      },
+      {
+        "card_num": "BS2015004008",
+        "number": 8,
+        "name_ko": "독케일",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_008.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004008"
+      },
+      {
+        "card_num": "BS2015004009",
+        "number": 9,
+        "name_ko": "토중몬",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_009.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004009"
+      },
+      {
+        "card_num": "BS2015004010",
+        "number": 10,
+        "name_ko": "아이스크",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_010.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004010"
+      },
+      {
+        "card_num": "BS2015004011",
+        "number": 11,
+        "name_ko": "껍질몬",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_011.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004011"
+      },
+      {
+        "card_num": "BS2015004012",
+        "number": 12,
+        "name_ko": "트로피우스",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_012.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004012"
+      },
+      {
+        "card_num": "BS2015004013",
+        "number": 13,
+        "name_ko": "불화살빈",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_013.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004013"
+      },
+      {
+        "card_num": "BS2015004014",
+        "number": 14,
+        "name_ko": "파이어로",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_014.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004014"
+      },
+      {
+        "card_num": "BS2015004015",
+        "number": 15,
+        "name_ko": "프리져",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_015.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004015"
+      },
+      {
+        "card_num": "BS2015004016",
+        "number": 16,
+        "name_ko": "프리져",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_016.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004016"
+      },
+      {
+        "card_num": "BS2015004017",
+        "number": 17,
+        "name_ko": "갈모매",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_017.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004017"
+      },
+      {
+        "card_num": "BS2015004018",
+        "number": 18,
+        "name_ko": "패리퍼",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_018.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004018"
+      },
+      {
+        "card_num": "BS2015004019",
+        "number": 19,
+        "name_ko": "찌리리공",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_019.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004019"
+      },
+      {
+        "card_num": "BS2015004020",
+        "number": 20,
+        "name_ko": "붐볼",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_020.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004020"
+      },
+      {
+        "card_num": "BS2015004021",
+        "number": 21,
+        "name_ko": "썬더",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_021.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004021"
+      },
+      {
+        "card_num": "BS2015004022",
+        "number": 22,
+        "name_ko": "볼트로스 EX",
+        "rarity": "RR",
+        "image_url": "wmimages/XY/XY6/XY6_022.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004022"
+      },
+      {
+        "card_num": "BS2015004023",
+        "number": 23,
+        "name_ko": "네이티",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_023.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004023"
+      },
+      {
+        "card_num": "BS2015004024",
+        "number": 24,
+        "name_ko": "네이티",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_024.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004024"
+      },
+      {
+        "card_num": "BS2015004025",
+        "number": 25,
+        "name_ko": "네이티오",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_025.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004025"
+      },
+      {
+        "card_num": "BS2015004026",
+        "number": 26,
+        "name_ko": "어둠대신",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_026.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004026"
+      },
+      {
+        "card_num": "BS2015004027",
+        "number": 27,
+        "name_ko": "다크펫",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_027.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004027"
+      },
+      {
+        "card_num": "BS2015004028",
+        "number": 28,
+        "name_ko": "다크펫",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_028.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004028"
+      },
+      {
+        "card_num": "BS2015004029",
+        "number": 29,
+        "name_ko": "테오키스",
+        "rarity": "R",
+        "image_url": "wmimages/XY/XY6/XY6_029.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004029"
+      },
+      {
+        "card_num": "BS2015004030",
+        "number": 30,
+        "name_ko": "엘레이드 EX",
+        "rarity": "RR",
+        "image_url": "wmimages/XY/XY6/XY6_030.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004030"
+      },
+      {
+        "card_num": "BS2015004031",
+        "number": 31,
+        "name_ko": "M엘레이드 EX",
+        "rarity": "RR",
+        "image_url": "wmimages/XY/XY6/XY6_031.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004031"
+      },
+      {
+        "card_num": "BS2015004032",
+        "number": 32,
+        "name_ko": "글라이거",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_032.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004032"
+      },
+      {
+        "card_num": "BS2015004033",
+        "number": 33,
+        "name_ko": "글라이온",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_033.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004033"
+      },
+      {
+        "card_num": "BS2015004034",
+        "number": 34,
+        "name_ko": "앱솔",
+        "rarity": "R",
+        "image_url": "wmimages/XY/XY6/XY6_034.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004034"
+      },
+      {
+        "card_num": "BS2015004035",
+        "number": 35,
+        "name_ko": "지라치",
+        "rarity": "R",
+        "image_url": "wmimages/XY/XY6/XY6_035.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004035"
+      },
+      {
+        "card_num": "BS2015004036",
+        "number": 36,
+        "name_ko": "토게피",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_036.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004036"
+      },
+      {
+        "card_num": "BS2015004037",
+        "number": 37,
+        "name_ko": "토게틱",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_037.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004037"
+      },
+      {
+        "card_num": "BS2015004038",
+        "number": 38,
+        "name_ko": "토게키스",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_038.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004038"
+      },
+      {
+        "card_num": "BS2015004039",
+        "number": 39,
+        "name_ko": "토게키스",
+        "rarity": "R",
+        "image_url": "wmimages/XY/XY6/XY6_039.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004039"
+      },
+      {
+        "card_num": "BS2015004040",
+        "number": 40,
+        "name_ko": "미뇽",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_040.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004040"
+      },
+      {
+        "card_num": "BS2015004041",
+        "number": 41,
+        "name_ko": "신뇽",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_041.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004041"
+      },
+      {
+        "card_num": "BS2015004042",
+        "number": 42,
+        "name_ko": "망나뇽",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_042.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004042"
+      },
+      {
+        "card_num": "BS2015004043",
+        "number": 43,
+        "name_ko": "망나뇽",
+        "rarity": "R",
+        "image_url": "wmimages/XY/XY6/XY6_043.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004043"
+      },
+      {
+        "card_num": "BS2015004044",
+        "number": 44,
+        "name_ko": "파비코리",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_044.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004044"
+      },
+      {
+        "card_num": "BS2015004045",
+        "number": 45,
+        "name_ko": "아공이",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_045.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004045"
+      },
+      {
+        "card_num": "BS2015004046",
+        "number": 46,
+        "name_ko": "쉘곤",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_046.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004046"
+      },
+      {
+        "card_num": "BS2015004047",
+        "number": 47,
+        "name_ko": "보만다",
+        "rarity": "R",
+        "image_url": "wmimages/XY/XY6/XY6_047.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004047"
+      },
+      {
+        "card_num": "BS2015004048",
+        "number": 48,
+        "name_ko": "라티오스 EX",
+        "rarity": "RR",
+        "image_url": "wmimages/XY/XY6/XY6_048.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004048"
+      },
+      {
+        "card_num": "BS2015004049",
+        "number": 49,
+        "name_ko": "M라티오스 EX",
+        "rarity": "RR",
+        "image_url": "wmimages/XY/XY6/XY6_049.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004049"
+      },
+      {
+        "card_num": "BS2015004050",
+        "number": 50,
+        "name_ko": "삼삼드래 EX",
+        "rarity": "RR",
+        "image_url": "wmimages/XY/XY6/XY6_050.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004050"
+      },
+      {
+        "card_num": "BS2015004051",
+        "number": 51,
+        "name_ko": "레시라무",
+        "rarity": "R",
+        "image_url": "wmimages/XY/XY6/XY6_051.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004051"
+      },
+      {
+        "card_num": "BS2015004052",
+        "number": 52,
+        "name_ko": "깨비참",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_052.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004052"
+      },
+      {
+        "card_num": "BS2015004053",
+        "number": 53,
+        "name_ko": "깨비드릴조",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_053.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004053"
+      },
+      {
+        "card_num": "BS2015004054",
+        "number": 54,
+        "name_ko": "노고치",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_054.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004054"
+      },
+      {
+        "card_num": "BS2015004055",
+        "number": 55,
+        "name_ko": "무장조",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_055.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004055"
+      },
+      {
+        "card_num": "BS2015004056",
+        "number": 56,
+        "name_ko": "테일로",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_056.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004056"
+      },
+      {
+        "card_num": "BS2015004057",
+        "number": 57,
+        "name_ko": "스왈로",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_057.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004057"
+      },
+      {
+        "card_num": "BS2015004058",
+        "number": 58,
+        "name_ko": "스왈로",
+        "rarity": "R",
+        "image_url": "wmimages/XY/XY6/XY6_058.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004058"
+      },
+      {
+        "card_num": "BS2015004059",
+        "number": 59,
+        "name_ko": "파비코",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_059.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004059"
+      },
+      {
+        "card_num": "BS2015004060",
+        "number": 60,
+        "name_ko": "파비코리",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_060.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004060"
+      },
+      {
+        "card_num": "BS2015004061",
+        "number": 61,
+        "name_ko": "레쿠쟈 EX",
+        "rarity": "RR",
+        "image_url": "wmimages/XY/XY6/XY6_061.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004061"
+      },
+      {
+        "card_num": "BS2015004062",
+        "number": 62,
+        "name_ko": "M레쿠쟈 EX",
+        "rarity": "RR",
+        "image_url": "wmimages/XY/XY6/XY6_062.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004062"
+      },
+      {
+        "card_num": "BS2015004063",
+        "number": 63,
+        "name_ko": "쉐이미 EX",
+        "rarity": "RR",
+        "image_url": "wmimages/XY/XY6/XY6_063.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004063"
+      },
+      {
+        "card_num": "BS2015004064",
+        "number": 64,
+        "name_ko": "콩둘기",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_064.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004064"
+      },
+      {
+        "card_num": "BS2015004065",
+        "number": 65,
+        "name_ko": "유토브",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_065.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004065"
+      },
+      {
+        "card_num": "BS2015004066",
+        "number": 66,
+        "name_ko": "켄호로우",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_066.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004066"
+      },
+      {
+        "card_num": "BS2015004067",
+        "number": 67,
+        "name_ko": "켄호로우",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_067.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004067"
+      },
+      {
+        "card_num": "BS2015004068",
+        "number": 68,
+        "name_ko": "화살꼬빈",
+        "rarity": "C",
+        "image_url": "wmimages/XY/XY6/XY6_068.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004068"
+      },
+      {
+        "card_num": "BS2015004069",
+        "number": 69,
+        "name_ko": "기력의조각",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_069.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004069"
+      },
+      {
+        "card_num": "BS2015004070",
+        "number": 70,
+        "name_ko": "메가터보",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_070.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004070"
+      },
+      {
+        "card_num": "BS2015004071",
+        "number": 71,
+        "name_ko": "트레이너스 우편함",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_071.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004071"
+      },
+      {
+        "card_num": "BS2015004072",
+        "number": 72,
+        "name_ko": "광각렌즈",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_072.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004072"
+      },
+      {
+        "card_num": "BS2015004073",
+        "number": 73,
+        "name_ko": "라티오스 소울링크",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_073.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004073"
+      },
+      {
+        "card_num": "BS2015004074",
+        "number": 74,
+        "name_ko": "엘레이드 소울링크",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_074.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004074"
+      },
+      {
+        "card_num": "BS2015004075",
+        "number": 75,
+        "name_ko": "민진",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_075.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004075"
+      },
+      {
+        "card_num": "BS2015004076",
+        "number": 76,
+        "name_ko": "은송",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_076.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004076"
+      },
+      {
+        "card_num": "BS2015004077",
+        "number": 77,
+        "name_ko": "스카이필드",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_077.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004077"
+      },
+      {
+        "card_num": "BS2015004078",
+        "number": 78,
+        "name_ko": "더블 드래곤 에너지",
+        "rarity": "U",
+        "image_url": "wmimages/XY/XY6/XY6_078.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004078"
+      },
+      {
+        "card_num": "BS2015004079",
+        "number": 79,
+        "name_ko": "볼트로스 EX",
+        "rarity": "SR",
+        "image_url": "wmimages/XY/XY6/XY6_079.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004079"
+      },
+      {
+        "card_num": "BS2015004080",
+        "number": 80,
+        "name_ko": "엘레이드 EX",
+        "rarity": "SR",
+        "image_url": "wmimages/XY/XY6/XY6_080.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004080"
+      },
+      {
+        "card_num": "BS2015004081",
+        "number": 81,
+        "name_ko": "M엘레이드 EX",
+        "rarity": "SR",
+        "image_url": "wmimages/XY/XY6/XY6_081.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004081"
+      },
+      {
+        "card_num": "BS2015004082",
+        "number": 82,
+        "name_ko": "라티오스 EX",
+        "rarity": "SR",
+        "image_url": "wmimages/XY/XY6/XY6_082.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004082"
+      },
+      {
+        "card_num": "BS2015004083",
+        "number": 83,
+        "name_ko": "M라티오스 EX",
+        "rarity": "SR",
+        "image_url": "wmimages/XY/XY6/XY6_083.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004083"
+      },
+      {
+        "card_num": "BS2015004084",
+        "number": 84,
+        "name_ko": "삼삼드래 EX",
+        "rarity": "SR",
+        "image_url": "wmimages/XY/XY6/XY6_084.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004084"
+      },
+      {
+        "card_num": "BS2015004085",
+        "number": 85,
+        "name_ko": "레쿠쟈 EX",
+        "rarity": "SR",
+        "image_url": "wmimages/XY/XY6/XY6_085.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004085"
+      },
+      {
+        "card_num": "BS2015004086",
+        "number": 86,
+        "name_ko": "M레쿠쟈 EX",
+        "rarity": "SR",
+        "image_url": "wmimages/XY/XY6/XY6_086.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004086"
+      },
+      {
+        "card_num": "BS2015004087",
+        "number": 87,
+        "name_ko": "쉐이미 EX",
+        "rarity": "SR",
+        "image_url": "wmimages/XY/XY6/XY6_087.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004087"
+      },
+      {
+        "card_num": "BS2015004088",
+        "number": 88,
+        "name_ko": "민진",
+        "rarity": "SR",
+        "image_url": "wmimages/XY/XY6/XY6_088.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004088"
+      },
+      {
+        "card_num": "BS2015004089",
+        "number": 89,
+        "name_ko": "은송",
+        "rarity": "SR",
+        "image_url": "wmimages/XY/XY6/XY6_089.jpg",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2015004089"
+      }
+    ]
+  },
+  "price_snapshot": {
+    "checked_at": "2026-10-22",
+    "count": 13,
+    "prices": [
+      {
+        "card_num": "BS2015004079",
+        "korean_number": 79,
+        "name_ko": "볼트로스 EX",
+        "number": 79,
+        "title": "PK-XY6-079 ボルトロスEX SR",
+        "price_jpy": 9980,
+        "source": "https://pokemon-card-fullahead.com/shopdetail/000000016486/xy06/page1/recommend/",
+        "price_ref_krw": 61600
+      },
+      {
+        "card_num": "BS2015004080",
+        "korean_number": 80,
+        "name_ko": "엘레이드 EX",
+        "number": 80,
+        "title": "PK-XY6-080 エルレイドEX SR",
+        "price_jpy": 17800,
+        "source": "https://pokemon-card-fullahead.com/shopdetail/000000016487/xy06/page1/recommend/",
+        "price_ref_krw": 109900
+      },
+      {
+        "card_num": "BS2015004081",
+        "korean_number": 81,
+        "name_ko": "M엘레이드 EX",
+        "number": 81,
+        "title": "PK-XY6-081 MエルレイドEX SR",
+        "price_jpy": 39800,
+        "source": "https://pokemon-card-fullahead.com/shopdetail/000000016488/xy06/page1/recommend/",
+        "price_ref_krw": 245800
+      },
+      {
+        "card_num": "BS2015004082",
+        "korean_number": 82,
+        "name_ko": "라티오스 EX",
+        "number": 82,
+        "title": "PK-XY6-082 ラティオスEX SR",
+        "price_jpy": 52800,
+        "source": "https://pokemon-card-fullahead.com/shopdetail/000000016489/xy06/page1/recommend/",
+        "price_ref_krw": 326000
+      },
+      {
+        "card_num": "BS2015004083",
+        "korean_number": 83,
+        "name_ko": "M라티오스 EX",
+        "number": 83,
+        "title": "PK-XY6-083 MラティオスEX SR",
+        "price_jpy": 79800,
+        "source": "https://pokemon-card-fullahead.com/shopdetail/000000016490/xy06/page1/recommend/",
+        "price_ref_krw": 492800
+      },
+      {
+        "card_num": "BS2015004084",
+        "korean_number": 84,
+        "name_ko": "삼삼드래 EX",
+        "number": 84,
+        "title": "PK-XY6-084 サザンドラEX SR",
+        "price_jpy": 32800,
+        "source": "https://pokemon-card-fullahead.com/shopdetail/000000016491/xy06/page1/recommend/",
+        "price_ref_krw": 202500
+      },
+      {
+        "card_num": "BS2015004085",
+        "korean_number": 85,
+        "name_ko": "레쿠쟈 EX",
+        "number": 85,
+        "title": "PK-XY6-085 レックウザEX SR",
+        "price_jpy": 128000,
+        "source": "https://pokemon-card-fullahead.com/shopdetail/000000016492/xy06/page1/recommend/",
+        "price_ref_krw": 790400
+      },
+      {
+        "card_num": "BS2015004086",
+        "korean_number": 86,
+        "name_ko": "M레쿠쟈 EX",
+        "number": 86,
+        "title": "PK-XY6-086 MレックウザEX SR",
+        "price_jpy": 428000,
+        "source": "https://pokemon-card-fullahead.com/shopdetail/000000016493/xy06/page1/recommend/",
+        "price_ref_krw": 2642900
+      },
+      {
+        "card_num": "BS2015004087",
+        "korean_number": 87,
+        "name_ko": "쉐이미 EX",
+        "number": 87,
+        "title": "PK-XY6-087 シェイミEX SR",
+        "price_jpy": 19800,
+        "source": "https://pokemon-card-fullahead.com/shopdetail/000000016494/xy06/page1/recommend/",
+        "price_ref_krw": 122300
+      },
+      {
+        "card_num": "BS2015004088",
+        "korean_number": 88,
+        "name_ko": "민진",
+        "number": 89,
+        "title": "PK-XY6-089 ミツル SR",
+        "price_jpy": 19800,
+        "source": "https://pokemon-card-fullahead.com/shopdetail/000000016496/xy06/page1/recommend/",
+        "price_ref_krw": 122300
+      },
+      {
+        "card_num": "BS2015004089",
+        "korean_number": 89,
+        "name_ko": "은송",
+        "number": 88,
+        "title": "PK-XY6-088 ナギ SR",
+        "price_jpy": 49800,
+        "source": "https://pokemon-card-fullahead.com/shopdetail/000000016495/xy06/page1/recommend/",
+        "price_ref_krw": 307500
+      },
+      {
+        "card_num": "JP2015XY690",
+        "korean_number": 90,
+        "name_ko": "에너지 갈아 달기",
+        "number": 90,
+        "title": "PK-XY6-090 エネルギーつけかえ UR",
+        "price_jpy": 23800,
+        "source": "https://pokemon-card-fullahead.com/shopdetail/000000016497/xy06/page1/recommend/",
+        "price_ref_krw": 147000
+      },
+      {
+        "card_num": "JP2015XY691",
+        "korean_number": 91,
+        "name_ko": "배틀서처",
+        "number": 91,
+        "title": "PK-XY6-091 バトルサーチャー UR",
+        "price_jpy": 34800,
+        "source": "https://pokemon-card-fullahead.com/shopdetail/000000016498/xy06/page1/recommend/",
+        "price_ref_krw": 214900
+      }
+    ]
+  },
+  "image_audit": {
+    "checked_at": "2026-10-22",
+    "existing_korean_cards": 89,
+    "variant_sizes": [
+      256,
+      512
+    ],
+    "korean_variant_responses_200": 178,
+    "uploaded_at": "2026-10-26",
+    "verified_at": "2026-10-26",
+    "supplemented_originals_uploaded": 2,
+    "supplemented_variants_uploaded": 4,
+    "r2_original_objects_verified": 91,
+    "public_variant_responses_200": 182,
+    "public_original_status": 403,
+    "public_original_limitation": "Public JPG original paths return 403; authenticated R2 HeadObject confirms all 91 originals. Service WebP variants respond 200."
+  },
+  "low_number_mapping": [
+    {
+      "korean_number": 70,
+      "japanese_number": 71
+    },
+    {
+      "korean_number": 71,
+      "japanese_number": 70
+    },
+    {
+      "korean_number": 73,
+      "japanese_number": 74
+    },
+    {
+      "korean_number": 74,
+      "japanese_number": 73
+    },
+    {
+      "korean_number": 75,
+      "japanese_number": 76
+    },
+    {
+      "korean_number": 76,
+      "japanese_number": 75
+    }
+  ],
+  "validation": {
+    "checked_at": "2026-10-26",
+    "card_data": "passed",
+    "coverage": "local=91/91; no missing high cards/prices",
+    "high_cards": 13,
+    "high_prices_missing": 0
+  },
+  "image_variant_review": {
+    "date": "2026-10-26",
+    "original_dimensions": [
+      225,
+      314
+    ],
+    "limitation": "한국 공식 원본 89장은 225×314다. 기존 256/512 경로에도 225px가 저장돼 있어 새 버전 키에서 규격대로 리사이즈한다. 업스케일이며 새 고해상도 실물 이미지를 확보했다는 뜻이 아니다.",
+    "changes": [
+      {
+        "card_num": "BS2015004001",
+        "previous_key": "wmimages/XY/XY6/XY6_001.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/001.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_001.jpg"
+      },
+      {
+        "card_num": "BS2015004002",
+        "previous_key": "wmimages/XY/XY6/XY6_002.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/002.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_002.jpg"
+      },
+      {
+        "card_num": "BS2015004003",
+        "previous_key": "wmimages/XY/XY6/XY6_003.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/003.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_003.jpg"
+      },
+      {
+        "card_num": "BS2015004004",
+        "previous_key": "wmimages/XY/XY6/XY6_004.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/004.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_004.jpg"
+      },
+      {
+        "card_num": "BS2015004005",
+        "previous_key": "wmimages/XY/XY6/XY6_005.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/005.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_005.jpg"
+      },
+      {
+        "card_num": "BS2015004006",
+        "previous_key": "wmimages/XY/XY6/XY6_006.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/006.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_006.jpg"
+      },
+      {
+        "card_num": "BS2015004007",
+        "previous_key": "wmimages/XY/XY6/XY6_007.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/007.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_007.jpg"
+      },
+      {
+        "card_num": "BS2015004008",
+        "previous_key": "wmimages/XY/XY6/XY6_008.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/008.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_008.jpg"
+      },
+      {
+        "card_num": "BS2015004009",
+        "previous_key": "wmimages/XY/XY6/XY6_009.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/009.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_009.jpg"
+      },
+      {
+        "card_num": "BS2015004010",
+        "previous_key": "wmimages/XY/XY6/XY6_010.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/010.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_010.jpg"
+      },
+      {
+        "card_num": "BS2015004011",
+        "previous_key": "wmimages/XY/XY6/XY6_011.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/011.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_011.jpg"
+      },
+      {
+        "card_num": "BS2015004012",
+        "previous_key": "wmimages/XY/XY6/XY6_012.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/012.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_012.jpg"
+      },
+      {
+        "card_num": "BS2015004013",
+        "previous_key": "wmimages/XY/XY6/XY6_013.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/013.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_013.jpg"
+      },
+      {
+        "card_num": "BS2015004014",
+        "previous_key": "wmimages/XY/XY6/XY6_014.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/014.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_014.jpg"
+      },
+      {
+        "card_num": "BS2015004015",
+        "previous_key": "wmimages/XY/XY6/XY6_015.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/015.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_015.jpg"
+      },
+      {
+        "card_num": "BS2015004016",
+        "previous_key": "wmimages/XY/XY6/XY6_016.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/016.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_016.jpg"
+      },
+      {
+        "card_num": "BS2015004017",
+        "previous_key": "wmimages/XY/XY6/XY6_017.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/017.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_017.jpg"
+      },
+      {
+        "card_num": "BS2015004018",
+        "previous_key": "wmimages/XY/XY6/XY6_018.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/018.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_018.jpg"
+      },
+      {
+        "card_num": "BS2015004019",
+        "previous_key": "wmimages/XY/XY6/XY6_019.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/019.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_019.jpg"
+      },
+      {
+        "card_num": "BS2015004020",
+        "previous_key": "wmimages/XY/XY6/XY6_020.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/020.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_020.jpg"
+      },
+      {
+        "card_num": "BS2015004021",
+        "previous_key": "wmimages/XY/XY6/XY6_021.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/021.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_021.jpg"
+      },
+      {
+        "card_num": "BS2015004022",
+        "previous_key": "wmimages/XY/XY6/XY6_022.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/022.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_022.jpg"
+      },
+      {
+        "card_num": "BS2015004023",
+        "previous_key": "wmimages/XY/XY6/XY6_023.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/023.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_023.jpg"
+      },
+      {
+        "card_num": "BS2015004024",
+        "previous_key": "wmimages/XY/XY6/XY6_024.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/024.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_024.jpg"
+      },
+      {
+        "card_num": "BS2015004025",
+        "previous_key": "wmimages/XY/XY6/XY6_025.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/025.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_025.jpg"
+      },
+      {
+        "card_num": "BS2015004026",
+        "previous_key": "wmimages/XY/XY6/XY6_026.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/026.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_026.jpg"
+      },
+      {
+        "card_num": "BS2015004027",
+        "previous_key": "wmimages/XY/XY6/XY6_027.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/027.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_027.jpg"
+      },
+      {
+        "card_num": "BS2015004028",
+        "previous_key": "wmimages/XY/XY6/XY6_028.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/028.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_028.jpg"
+      },
+      {
+        "card_num": "BS2015004029",
+        "previous_key": "wmimages/XY/XY6/XY6_029.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/029.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_029.jpg"
+      },
+      {
+        "card_num": "BS2015004030",
+        "previous_key": "wmimages/XY/XY6/XY6_030.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/030.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_030.jpg"
+      },
+      {
+        "card_num": "BS2015004031",
+        "previous_key": "wmimages/XY/XY6/XY6_031.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/031.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_031.jpg"
+      },
+      {
+        "card_num": "BS2015004032",
+        "previous_key": "wmimages/XY/XY6/XY6_032.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/032.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_032.jpg"
+      },
+      {
+        "card_num": "BS2015004033",
+        "previous_key": "wmimages/XY/XY6/XY6_033.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/033.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_033.jpg"
+      },
+      {
+        "card_num": "BS2015004034",
+        "previous_key": "wmimages/XY/XY6/XY6_034.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/034.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_034.jpg"
+      },
+      {
+        "card_num": "BS2015004035",
+        "previous_key": "wmimages/XY/XY6/XY6_035.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/035.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_035.jpg"
+      },
+      {
+        "card_num": "BS2015004036",
+        "previous_key": "wmimages/XY/XY6/XY6_036.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/036.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_036.jpg"
+      },
+      {
+        "card_num": "BS2015004037",
+        "previous_key": "wmimages/XY/XY6/XY6_037.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/037.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_037.jpg"
+      },
+      {
+        "card_num": "BS2015004038",
+        "previous_key": "wmimages/XY/XY6/XY6_038.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/038.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_038.jpg"
+      },
+      {
+        "card_num": "BS2015004039",
+        "previous_key": "wmimages/XY/XY6/XY6_039.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/039.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_039.jpg"
+      },
+      {
+        "card_num": "BS2015004040",
+        "previous_key": "wmimages/XY/XY6/XY6_040.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/040.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_040.jpg"
+      },
+      {
+        "card_num": "BS2015004041",
+        "previous_key": "wmimages/XY/XY6/XY6_041.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/041.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_041.jpg"
+      },
+      {
+        "card_num": "BS2015004042",
+        "previous_key": "wmimages/XY/XY6/XY6_042.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/042.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_042.jpg"
+      },
+      {
+        "card_num": "BS2015004043",
+        "previous_key": "wmimages/XY/XY6/XY6_043.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/043.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_043.jpg"
+      },
+      {
+        "card_num": "BS2015004044",
+        "previous_key": "wmimages/XY/XY6/XY6_044.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/044.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_044.jpg"
+      },
+      {
+        "card_num": "BS2015004045",
+        "previous_key": "wmimages/XY/XY6/XY6_045.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/045.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_045.jpg"
+      },
+      {
+        "card_num": "BS2015004046",
+        "previous_key": "wmimages/XY/XY6/XY6_046.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/046.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_046.jpg"
+      },
+      {
+        "card_num": "BS2015004047",
+        "previous_key": "wmimages/XY/XY6/XY6_047.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/047.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_047.jpg"
+      },
+      {
+        "card_num": "BS2015004048",
+        "previous_key": "wmimages/XY/XY6/XY6_048.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/048.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_048.jpg"
+      },
+      {
+        "card_num": "BS2015004049",
+        "previous_key": "wmimages/XY/XY6/XY6_049.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/049.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_049.jpg"
+      },
+      {
+        "card_num": "BS2015004050",
+        "previous_key": "wmimages/XY/XY6/XY6_050.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/050.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_050.jpg"
+      },
+      {
+        "card_num": "BS2015004051",
+        "previous_key": "wmimages/XY/XY6/XY6_051.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/051.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_051.jpg"
+      },
+      {
+        "card_num": "BS2015004052",
+        "previous_key": "wmimages/XY/XY6/XY6_052.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/052.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_052.jpg"
+      },
+      {
+        "card_num": "BS2015004053",
+        "previous_key": "wmimages/XY/XY6/XY6_053.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/053.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_053.jpg"
+      },
+      {
+        "card_num": "BS2015004054",
+        "previous_key": "wmimages/XY/XY6/XY6_054.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/054.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_054.jpg"
+      },
+      {
+        "card_num": "BS2015004055",
+        "previous_key": "wmimages/XY/XY6/XY6_055.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/055.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_055.jpg"
+      },
+      {
+        "card_num": "BS2015004056",
+        "previous_key": "wmimages/XY/XY6/XY6_056.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/056.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_056.jpg"
+      },
+      {
+        "card_num": "BS2015004057",
+        "previous_key": "wmimages/XY/XY6/XY6_057.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/057.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_057.jpg"
+      },
+      {
+        "card_num": "BS2015004058",
+        "previous_key": "wmimages/XY/XY6/XY6_058.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/058.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_058.jpg"
+      },
+      {
+        "card_num": "BS2015004059",
+        "previous_key": "wmimages/XY/XY6/XY6_059.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/059.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_059.jpg"
+      },
+      {
+        "card_num": "BS2015004060",
+        "previous_key": "wmimages/XY/XY6/XY6_060.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/060.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_060.jpg"
+      },
+      {
+        "card_num": "BS2015004061",
+        "previous_key": "wmimages/XY/XY6/XY6_061.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/061.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_061.jpg"
+      },
+      {
+        "card_num": "BS2015004062",
+        "previous_key": "wmimages/XY/XY6/XY6_062.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/062.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_062.jpg"
+      },
+      {
+        "card_num": "BS2015004063",
+        "previous_key": "wmimages/XY/XY6/XY6_063.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/063.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_063.jpg"
+      },
+      {
+        "card_num": "BS2015004064",
+        "previous_key": "wmimages/XY/XY6/XY6_064.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/064.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_064.jpg"
+      },
+      {
+        "card_num": "BS2015004065",
+        "previous_key": "wmimages/XY/XY6/XY6_065.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/065.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_065.jpg"
+      },
+      {
+        "card_num": "BS2015004066",
+        "previous_key": "wmimages/XY/XY6/XY6_066.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/066.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_066.jpg"
+      },
+      {
+        "card_num": "BS2015004067",
+        "previous_key": "wmimages/XY/XY6/XY6_067.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/067.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_067.jpg"
+      },
+      {
+        "card_num": "BS2015004068",
+        "previous_key": "wmimages/XY/XY6/XY6_068.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/068.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_068.jpg"
+      },
+      {
+        "card_num": "BS2015004069",
+        "previous_key": "wmimages/XY/XY6/XY6_069.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/069.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_069.jpg"
+      },
+      {
+        "card_num": "BS2015004070",
+        "previous_key": "wmimages/XY/XY6/XY6_070.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/070.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_070.jpg"
+      },
+      {
+        "card_num": "BS2015004071",
+        "previous_key": "wmimages/XY/XY6/XY6_071.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/071.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_071.jpg"
+      },
+      {
+        "card_num": "BS2015004072",
+        "previous_key": "wmimages/XY/XY6/XY6_072.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/072.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_072.jpg"
+      },
+      {
+        "card_num": "BS2015004073",
+        "previous_key": "wmimages/XY/XY6/XY6_073.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/073.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_073.jpg"
+      },
+      {
+        "card_num": "BS2015004074",
+        "previous_key": "wmimages/XY/XY6/XY6_074.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/074.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_074.jpg"
+      },
+      {
+        "card_num": "BS2015004075",
+        "previous_key": "wmimages/XY/XY6/XY6_075.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/075.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_075.jpg"
+      },
+      {
+        "card_num": "BS2015004076",
+        "previous_key": "wmimages/XY/XY6/XY6_076.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/076.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_076.jpg"
+      },
+      {
+        "card_num": "BS2015004077",
+        "previous_key": "wmimages/XY/XY6/XY6_077.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/077.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_077.jpg"
+      },
+      {
+        "card_num": "BS2015004078",
+        "previous_key": "wmimages/XY/XY6/XY6_078.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/078.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_078.jpg"
+      },
+      {
+        "card_num": "BS2015004079",
+        "previous_key": "wmimages/XY/XY6/XY6_079.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/079.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_079.jpg"
+      },
+      {
+        "card_num": "BS2015004080",
+        "previous_key": "wmimages/XY/XY6/XY6_080.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/080.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_080.jpg"
+      },
+      {
+        "card_num": "BS2015004081",
+        "previous_key": "wmimages/XY/XY6/XY6_081.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/081.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_081.jpg"
+      },
+      {
+        "card_num": "BS2015004082",
+        "previous_key": "wmimages/XY/XY6/XY6_082.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/082.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_082.jpg"
+      },
+      {
+        "card_num": "BS2015004083",
+        "previous_key": "wmimages/XY/XY6/XY6_083.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/083.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_083.jpg"
+      },
+      {
+        "card_num": "BS2015004084",
+        "previous_key": "wmimages/XY/XY6/XY6_084.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/084.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_084.jpg"
+      },
+      {
+        "card_num": "BS2015004085",
+        "previous_key": "wmimages/XY/XY6/XY6_085.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/085.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_085.jpg"
+      },
+      {
+        "card_num": "BS2015004086",
+        "previous_key": "wmimages/XY/XY6/XY6_086.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/086.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_086.jpg"
+      },
+      {
+        "card_num": "BS2015004087",
+        "previous_key": "wmimages/XY/XY6/XY6_087.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/087.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_087.jpg"
+      },
+      {
+        "card_num": "BS2015004088",
+        "previous_key": "wmimages/XY/XY6/XY6_088.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/088.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_088.jpg"
+      },
+      {
+        "card_num": "BS2015004089",
+        "previous_key": "wmimages/XY/XY6/XY6_089.jpg",
+        "key": "external/xy6-emerald-break/ko-20261026/089.jpg",
+        "source": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_089.jpg"
+      }
+    ]
+  }
+}

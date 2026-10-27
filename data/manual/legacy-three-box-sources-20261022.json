@@ -1,0 +1,30 @@
+{
+  "reviewed_at": "2026-10-22",
+  "boxes": [
+    {
+      "code": "xy6-emerald-break",
+      "source_page": "https://kream.co.kr/products/755824",
+      "original": "frontend/public/boxes/original/xy6-emerald-break.png",
+      "sha256": "e184071c0bb4a427b8582b2004320cf765fc305f52cfe1205b03973b1862bed4",
+      "source_dimensions": [
+        1120,
+        1120
+      ],
+      "output": "transparent PNG 768 + WebP 768; product height 708; no flip",
+      "notes": "한국어 상품명과 박스 팩 수 문구를 육안 대조. 원본 표시 크기가 세부 인쇄 해상도를 보증하지는 않는다."
+    },
+    {
+      "code": "s8a-25th-anniversary",
+      "source_page": "https://kream.co.kr/products/stock/17412932",
+      "original": "frontend/public/boxes/original/s8a-25th-anniversary.png",
+      "sha256": "224fd7dcca65d0c0a7848c84e149b65337df10c6b27178787bf3a906e418874d",
+      "source_dimensions": [
+        1120,
+        1120
+      ],
+      "output": "transparent PNG 768 + WebP 768; product height 708; no flip",
+      "notes": "한국어 상품명과 박스 팩 수 문구를 육안 대조. 원본 표시 크기가 세부 인쇄 해상도를 보증하지는 않는다."
+    }
+  ],
+  "detective_pikachu": "기존 한국판 투명 PNG/WebP 500x500을 재사용. 한국어 상품명과 5장/20팩 문구 확인."
+}
