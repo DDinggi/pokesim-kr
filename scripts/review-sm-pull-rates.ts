@@ -70,7 +70,11 @@ add(['sm4plus-gx-battle-boost'], ['https://www.pokemon-card.com/products/sm/sm4p
 add(['sm4plus-gx-battle-boost-remaster'], ['https://pokemoncard.co.kr/card/151', 'https://www.pokemon-card.com/products/sm/sm4p.html'], '한국 전용 REMASTER를 일본 GX 배틀부스트 재판과 동일시하지 않는다. 상품 구성 근거만 확보. RR 18장·고레어 1~2장 및 세부 확률은 기존 저신뢰 적응 모델 유지, 직접 봉입 빈도 미확인.', '한국 별도 상품 / 대응 일본 재판 자료 없음', '낮음: 봉입 빈도 직접 근거 부족');
 add(['sm8b-gx-ultra-shiny'], [opening('pokemon-card-gx-ultra-shiny-kaihuu'), 'https://pokecardlab.com/2018/11/03/4534/'], 'SSR 1장·RR 9장·S 1~2장·PR 1~2장 구성 유지. 당시 SR 2~3박스당 1장, UR 6~7박스당 1장 범위에 맞춰 기존 추가 SR 35%·UR 15%·없음 50% 유지. 둘이 없으면 S 추가라는 슬롯 상관관계는 근사.');
 add(['sm12a-tag-team-gx-tag-all-stars'], [news(12186)], '일반 박스 고레어 1장 이상·에너지 SR 1장 구성 확인. 기존 SR10 갓팩 1/250팩 모델과 특수팩 출처는 보존; 이번 개봉 기사만으로 갓팩 빈도를 새로 검증한 것은 아니다.');
-add(['smp2-detective-pikachu'], [opening('pokemon-card-movie-special-pack-meitantei-pikachu-kaihuu')], '직접 개봉은 일본 20팩×4장, SR 1장·RR 4장. 한국 20팩×5장 all-holo 모델의 SR 1장 유지. RR 기대값 2.375는 기존 균등 홀로 풀 가정으로 사례와 다르며 빈도 미검증; 단일 박스로 고정 4장을 만들지 않는다.', undefined, '낮음: RR 빈도 및 한일 팩 구성 차이');
+add(['smp2-detective-pikachu'], ['https://pokemoncard.co.kr/card/178', 'https://www.pokemon-card.com/ex/smp2/'], '한국 공식 상품은 20팩×5장·팩당 홀로 1장이다. 일본 공식이 일본 전용으로 안내한 요시다 경위 SR 25번은 한국 카드풀과 SR 보장에서 제외한다. 한국 공식 24종·미러 21종을 사용하고 일반 C 3장·U 1장·홀로 1장을 구성한다. 홀로 24종(미러 21·RR 3)의 균등 가정에서 박스 RR 기대값은 20×3/24=2.5장이다. 한국판 레어도별 빈도 실측은 아니며, 일본판 전종 완성·SR 1장 구성을 한국에 적용하지 않는다.', '한국 공식 상품·카드 목록 / 일본 전용 카드 구분', '낮음: 한국 레어도별 빈도 미확인');
+Object.assign(entries['smp2-detective-pikachu'], {
+  reviewedAt: '2026-10-22',
+  assumptions: '한국판 공식 봉입률은 비공개다. 팩당 홀로 1장은 한국 공식 구성이고, 일반 C 3장·U 1장 및 미러/RR 개별 카드 균등 선택은 기존 저신뢰 시뮬레이션 가정이다. 일반 슬롯은 중복을 허용한다. 일본 전용 SR·추가 고레어·갓팩은 넣지 않는다. 미확인 표본 수는 null로 둔다.',
+});
 
 const sets = readdirSync(resolve(root, 'data/sets')).filter((f) => f.endsWith('.json'))
   .map((f) => JSON.parse(readFileSync(resolve(root, 'data/sets', f), 'utf8')))

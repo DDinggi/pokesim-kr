@@ -168,6 +168,20 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
   const rarityCounts = countBy(cards, (card) => card.rarity ?? "__null__");
   const highCount = cards.filter((card) => card.rarity && HIGH_RARITIES.has(card.rarity)).length;
   const isBundle = set.type === "bundle";
+  const isReviewedDetectiveKorean = setCode === "smp2-detective-pikachu"
+    && cards.length === 45
+    && rarityCounts.C === 30 && rarityCounts.U === 12 && rarityCounts.RR === 3
+    && cards.filter((card) => card.subtype === '미러').length === 21
+    && cards.filter((card) => card.subtype !== '미러').length === 24
+    && Array.from({ length: 24 }, (_, index) => index + 1).every((number) => (
+      cards.some((card) => card.number === number && card.subtype !== '미러')
+    ))
+    && cards.every((card) => typeof card.number === 'number' && card.number >= 1 && card.number <= 24
+      && ['C', 'U', 'RR'].includes(card.rarity ?? ''));
+
+  if (setCode === 'smp2-detective-pikachu' && !isReviewedDetectiveKorean) {
+    add('error', setCode, '검토된 한국판 구성(기본 24종 + C/U 미러 21종, C30/U12/RR3, SR0)과 다릅니다. 일본 전용 요시다 경위 SR 및 구성 변경을 재검토하세요.');
+  }
 
   if (set.code !== setCode) {
     add("error", setCode, `code 필드(${set.code ?? "없음"})가 파일명과 다릅니다.`);
@@ -183,8 +197,12 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
   const isStarter = set.type === "starter";
 
   if (!isStarter && !isBundle && cards.length > 0 && highCount === 0) {
-    const level: Level = isActive ? "warn" : "info";
-    add(level, setCode, "AR/SR/SAR/UR/BWR 등 고레어 카드가 하나도 없습니다.");
+    if (isReviewedDetectiveKorean) {
+      add('info', setCode, '한국판 공식 24종 + C/U 미러 21종 구성을 확인했습니다. 일본 전용 SR은 한국판 풀에 포함하지 않습니다.');
+    } else {
+      const level: Level = isActive ? "warn" : "info";
+      add(level, setCode, "AR/SR/SAR/UR/BWR 등 고레어 카드가 하나도 없습니다.");
+    }
   }
 
   if (!isStarter && !isBundle && isMegaSet(set, setCode) && setCode !== "m6a-30th-celebration" && cards.length > 0 && !rarityCounts.UR) {
@@ -336,10 +354,6 @@ function validateNumberContinuity(setCode: string, cards: CardEntry[]) {
 function getAllowedMissingNumbers(setCode: string): Set<number> {
   if (setCode === "s8b-vmax-climax") {
     return new Set([57, 58, 59, 226, 227, 228, 229]);
-  }
-
-  if (setCode === "s8a-25th-anniversary") {
-    return new Set([25, 26, 27, 28, 29, 30]);
   }
 
   return new Set();

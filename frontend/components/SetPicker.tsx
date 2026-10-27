@@ -5,11 +5,12 @@ import Image from 'next/image';
 import type { SetMeta } from '../lib/types';
 import { getBundleSummary, isBundleSet } from '../lib/bundle';
 import { getBoxThumbnailImageSrc } from '../lib/boxImages';
-import { isNewSimSet, LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_SETS, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
+import { ANNIVERSARY_25_PROMO_INTERVAL, isAnniversary25Set } from '../lib/simulation/model';
+import { isNewSimSet, sortNewSimSetsFirst, LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_SETS, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
 import {
   getAvailableSetSeries,
   getSetSeriesKey,
-  type SetSeriesKey,
+  type SetFilterKey,
 } from '../lib/setSeries';
 import { fetchSetPopularity, type SetPopularity } from '../lib/statsTracker';
 import { SetSeriesTabs } from './SetSeriesTabs';
@@ -28,6 +29,10 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
   'smxy-best-of-xy': {
     gradient: 'from-amber-500 via-red-700 to-slate-900',
     accent: 'text-amber-100',
+  },
+  'xy6-emerald-break': {
+    gradient: 'from-emerald-600 via-teal-900 to-zinc-950',
+    accent: 'text-emerald-200',
   },
   'sm3plus-shining-legends': {
     gradient: 'from-slate-800 via-indigo-800 to-fuchsia-950',
@@ -225,6 +230,10 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
     gradient: 'from-red-700 via-yellow-700 to-emerald-900',
     accent: 'text-yellow-200',
   },
+  's8a-25th-anniversary': {
+    gradient: 'from-amber-400 via-amber-800 to-zinc-950',
+    accent: 'text-amber-100',
+  },
   's8-fusion-arts': {
     gradient: 'from-pink-700 via-sky-800 to-violet-950',
     accent: 'text-pink-200',
@@ -369,6 +378,10 @@ const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
     gradient: 'from-red-700 via-yellow-700 to-zinc-950',
     accent: 'text-yellow-200',
   },
+  'smp2-detective-pikachu': {
+    gradient: 'from-amber-500 via-fuchsia-950 to-zinc-950',
+    accent: 'text-yellow-200',
+  },
   'sm8b-gx-ultra-shiny': {
     gradient: 'from-slate-900 via-violet-900 to-cyan-950',
     accent: 'text-cyan-200',
@@ -490,6 +503,7 @@ function SetCard({
   const showImage = !imgError;
   const isNew = isNewSimSet(set.code);
   const bundleSummary = isBundleSet(set) ? getBundleSummary(set) : null;
+  const bonusPackCount = isAnniversary25Set(set.code) ? Math.floor(set.box_size / ANNIVERSARY_25_PROMO_INTERVAL) : 0;
 
   return (
     <button
@@ -530,7 +544,7 @@ function SetCard({
         )}
         <div className="absolute top-3 right-3">
           <span className={`text-[10px] font-bold px-2 py-1 rounded bg-black/40 backdrop-blur ${theme.accent}`}>
-            {bundleSummary ? `${bundleSummary.componentCount}종 · ${bundleSummary.totalPacks}팩` : set.type === 'starter' ? '100덱 중 1개' : `${set.box_size}팩 × ${set.pack_size}장`}
+            {bundleSummary ? `${bundleSummary.componentCount}종 · ${bundleSummary.totalPacks}팩` : set.type === 'starter' ? '100덱 중 1개' : `${bonusPackCount > 0 ? '본팩 ' : ''}${set.box_size}팩 × ${set.pack_size}장`}
           </span>
         </div>
       </div>
@@ -538,6 +552,11 @@ function SetCard({
       {/* 메타 정보 */}
       <div className="p-4 bg-gray-950/70 backdrop-blur">
         <h2 className="text-lg font-black leading-tight">{set.name_ko}</h2>
+        {bonusPackCount > 0 && (
+          <p className="mt-2 text-[11px] leading-relaxed text-amber-200">
+            본팩 {set.box_size}팩 + 별도 증정 프로모 {bonusPackCount}팩을 함께 개봉합니다.
+          </p>
+        )}
         <div className="flex items-end justify-between mt-3 pt-3 border-t border-white/5">
           <div>
             <p className="text-[9px] uppercase text-white/40 tracking-wider">{bundleSummary ? '세트 가격' : '박스 가격'}</p>
@@ -570,8 +589,8 @@ export function SetPicker({
   accountBar,
 }: {
   sets: SetMeta[];
-  activeSeries: SetSeriesKey;
-  onSeriesChange: (series: SetSeriesKey) => void;
+  activeSeries: SetFilterKey;
+  onSeriesChange: (series: SetFilterKey) => void;
   onSelect: (set: SetMeta) => void;
   onBackToMain: () => void;
   accountBar?: ReactNode;
@@ -613,16 +632,16 @@ export function SetPicker({
     [originalRankByCode, popularityByCode, sets],
   );
   const availableSeries = useMemo(() => getAvailableSetSeries(sets), [sets]);
-  const selectedSeries = availableSeries.some((series) => series.key === activeSeries)
+  const selectedSeries = (activeSeries === 'new' && sets.some(set => isNewSimSet(set.code))) || availableSeries.some((series) => series.key === activeSeries)
     ? activeSeries
     : (availableSeries[0]?.key ?? 'mega');
   const seriesSets = useMemo(
-    () => sets.filter((set) => getSetSeriesKey(set) === selectedSeries),
+    () => sets.filter((set) => selectedSeries === 'new' ? isNewSimSet(set.code) : getSetSeriesKey(set) === selectedSeries),
     [selectedSeries, sets],
   );
   const isSearching = query.trim().length > 0;
   const filteredSets = useMemo(
-    () => (isSearching ? sets : seriesSets).filter((set) => matchSet(set, query)),
+    () => sortNewSimSetsFirst((isSearching ? sets : seriesSets).filter((set) => matchSet(set, query))),
     [isSearching, query, seriesSets, sets],
   );
   const searchResultSets = useMemo(

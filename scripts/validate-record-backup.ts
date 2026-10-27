@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import recordBackupDefault from '../frontend/lib/recordBackup.ts';
 import openingHistoryDefault from '../frontend/lib/openingHistory.ts';
+import productsDefault from '../frontend/lib/anniversary25Products.ts';
 import type { CloudRecordBackup } from '../frontend/lib/recordBackup.ts';
 import type { OpeningEvent, OpeningSession } from '../frontend/lib/openingHistory.ts';
 import type { SetMeta } from '../frontend/lib/types.ts';
@@ -19,6 +20,7 @@ const {
   mergeOpeningSessions,
   saveOpeningSession,
 } = openingHistoryDefault as unknown as typeof import('../frontend/lib/openingHistory.ts');
+const { getAnniversary25RecordSets } = productsDefault as unknown as typeof import('../frontend/lib/anniversary25Products.ts');
 
 class MemoryStorage implements Storage {
   private readonly values = new Map<string, string>();
@@ -167,4 +169,21 @@ assert.doesNotMatch(
   'the client must not be allowed to choose which account is deleted',
 );
 
-console.log('record backup validation passed: isolation, merge idempotency, source dedupe, source limit, account deletion boundaries');
+const anniversary = JSON.parse(readFileSync(new URL('../data/sets/s8a-25th-anniversary.json', import.meta.url), 'utf8')) as SetMeta;
+const productSets = getAnniversary25RecordSets([anniversary]);
+const special = productSets.find(set => set.type === 'bundle')!;
+const promo = anniversary.cards.find(card => card.rarity === 'S8AP')!;
+const restoredSpecial = buildDisplayedRecords({ revision: 1, payload: { v: 1, s: {
+  'anniversary-remote': {
+    u: '2026-10-27T00:00:00.000Z',
+    o: { [special.code]: { b: { n: 1, k: 10000, c: 21, r: { S8AP: 1, '25TH': 20 }, h: { [promo.card_num]: 1 } } } },
+    d: { [`${anniversary.code}:${promo.card_num}`]: 1 },
+  },
+} } }, userA, productSets);
+assert.equal(restoredSpecial.session.openingEvents[0].setCode, special.code);
+assert.equal(restoredSpecial.session.openingEvents[0].cardCount, 21);
+assert.equal(restoredSpecial.session.cards[0].card_num, promo.card_num);
+assert.equal(restoredSpecial.session.cost, 10000);
+assert.equal(restoredSpecial.hitDex.entries.length, 1);
+assert.equal(restoredSpecial.hitDex.entries[0].setCode, anniversary.code, 'special product must restore into the original hit dex');
+console.log('record backup validation passed: isolation, merge idempotency, source dedupe, source limit, account deletion boundaries, 25th special restore/original dex');

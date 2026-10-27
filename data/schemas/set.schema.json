@@ -72,6 +72,24 @@
       "default": 5,
       "description": "팩 내 카드 수 (보통 5)."
     },
+    "bonus_pack_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "본팩과 구분해 개봉하는 1장 프로모팩 수. 박스 기본 팩 수에는 포함하지 않는다."
+    },
+    "_jp_coverage_exclusions": {
+      "type": "array",
+      "description": "일본판에만 수록된 근거가 확인된 카드의 번호 대조 예외. 한국 공식 검색 부재만으로 추가하지 않는다.",
+      "items": {
+        "type": "object",
+        "required": ["number", "reason", "source"],
+        "properties": {
+          "number": { "type": "integer", "minimum": 1 },
+          "reason": { "type": "string", "minLength": 1 },
+          "source": { "type": "string", "format": "uri" }
+        }
+      }
+    },
     "box_price_krw": {
       "type": "integer",
       "minimum": 0,

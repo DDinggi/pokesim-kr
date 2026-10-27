@@ -1,7 +1,8 @@
 import type { SetMeta } from '../lib/types';
+import { isNewSimSet } from '../lib/newSets';
 import {
   getAvailableSetSeries,
-  type SetSeriesKey,
+  type SetFilterKey,
 } from '../lib/setSeries';
 
 export function SetSeriesTabs({
@@ -11,11 +12,15 @@ export function SetSeriesTabs({
   tone = 'box',
 }: {
   sets: Array<Pick<SetMeta, 'code'>>;
-  active: SetSeriesKey;
-  onChange: (series: SetSeriesKey) => void;
+  active: SetFilterKey;
+  onChange: (series: SetFilterKey) => void;
   tone?: 'box' | 'vending';
 }) {
-  const seriesList = getAvailableSetSeries(sets);
+  const newCount = sets.filter(set => isNewSimSet(set.code)).length;
+  const seriesList = [
+    ...getAvailableSetSeries(sets),
+    ...(newCount ? [{ key: 'new' as const, label: 'NEW', shortLabel: 'NEW', count: newCount }] : []),
+  ];
   const activeClasses = tone === 'vending'
     ? 'bg-yellow-300 text-gray-950 ring-yellow-100'
     : 'bg-cyan-300 text-gray-950 ring-cyan-100';

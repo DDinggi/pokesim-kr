@@ -5,10 +5,12 @@ export const SET_SERIES = [
   { key: 'sv', label: '스칼렛&바이올렛', shortLabel: 'SV' },
   { key: 'swsh', label: '소드&실드', shortLabel: 'SWSH' },
   { key: 'sm', label: '썬&문', shortLabel: 'SM' },
+  { key: 'xy', label: 'XY', shortLabel: 'XY' },
   { key: 'other', label: '기타', shortLabel: 'ETC' },
 ] as const;
 
 export type SetSeriesKey = (typeof SET_SERIES)[number]['key'];
+export type SetFilterKey = SetSeriesKey | 'new';
 
 export interface AvailableSetSeries {
   key: SetSeriesKey;
@@ -23,6 +25,8 @@ export function getSetSeriesKey(setOrCode: Pick<SetMeta, 'code' | 'series'> | st
   if (series === 'MEGA') return 'mega';
   if (series === 'SV') return 'sv';
   if (series === 'SM') return 'sm';
+  if (series === 'XY') return 'xy';
+  if (code.startsWith('xy') || code.startsWith('smxy')) return 'xy';
   if (code.startsWith('m')) return 'mega';
   if (code.startsWith('sv')) return 'sv';
   if (code.startsWith('sm')) return 'sm';

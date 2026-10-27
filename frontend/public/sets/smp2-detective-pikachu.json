@@ -1,5 +1,5 @@
 {
-  "": "../schemas/set.schema.json",
+  "$schema": "../schemas/set.schema.json",
   "code": "smp2-detective-pikachu",
   "name_ko": "썬&문 영화 스페셜 팩 「명탐정 피카츄」",
   "name_en": "Detective Pikachu",
@@ -14,48 +14,41 @@
   "rarities": [
     "C",
     "U",
-    "RR",
-    "SR"
+    "RR"
   ],
   "box_guarantees": {
     "rules": [
       {
         "rarity": "Holo (mirror/RR)",
         "min": 20,
-        "max": 20
-      },
-      {
-        "rarity": "SR",
-        "min": 1,
-        "max": 1
+        "max": 20,
+        "kind": "mirror-or-rr"
       }
     ],
-    "_source": "재판 구분 없는 자료 / 발매 당시 개봉 기록. 직접 개봉은 일본 20팩×4장, SR 1장·RR 4장. 한국 20팩×5장 all-holo 모델의 SR 1장 유지. RR 기대값 2.375는 기존 균등 홀로 풀 가정으로 사례와 다르며 빈도 미검증; 단일 박스로 고정 4장을 만들지 않는다. 한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다. 출처: https://www.houhou-news.com/pokemon-card-movie-special-pack-meitantei-pikachu-kaihuu",
+    "_source": "한국 공식 상품·카드 목록 / 일본 전용 카드 구분. 한국 공식 상품은 20팩×5장·팩당 홀로 1장이다. 일본 공식이 일본 전용으로 안내한 요시다 경위 SR 25번은 한국 카드풀과 SR 보장에서 제외한다. 한국 공식 24종·미러 21종을 사용하고 일반 C 3장·U 1장·홀로 1장을 구성한다. 홀로 24종(미러 21·RR 3)의 균등 가정에서 박스 RR 기대값은 20×3/24=2.5장이다. 한국판 레어도별 빈도 실측은 아니며, 일본판 전종 완성·SR 1장 구성을 한국에 적용하지 않는다. 한국판 공식 봉입률은 비공개다. 팩당 홀로 1장은 한국 공식 구성이고, 일반 C 3장·U 1장 및 미러/RR 개별 카드 균등 선택은 기존 저신뢰 시뮬레이션 가정이다. 일반 슬롯은 중복을 허용한다. 일본 전용 SR·추가 고레어·갓팩은 넣지 않는다. 미확인 표본 수는 null로 둔다. 출처: https://pokemoncard.co.kr/card/178 ; https://www.pokemon-card.com/ex/smp2/",
     "_sample_size": null,
-    "_estimated_at": "2026-09-08",
+    "_estimated_at": "2026-10-22",
     "_superseded_source": "https://pokemoncard.co.kr/card/178 (Korean product: one holo per 5-card pack); https://www.inside-games.jp/article/2019/04/15/121750.html (Japanese product: one Yoshida SR per box). Korean SR rate is estimated from the corresponding Japanese product.",
     "pull_rate_review": {
-      "reviewed_at": "2026-09-08",
+      "reviewed_at": "2026-10-22",
       "status": "estimated",
-      "print_basis": "재판 구분 없는 자료 / 발매 당시 개봉 기록",
-      "confidence": "낮음: RR 빈도 및 한일 팩 구성 차이",
+      "print_basis": "한국 공식 상품·카드 목록 / 일본 전용 카드 구분",
+      "confidence": "낮음: 한국 레어도별 빈도 미확인",
       "sources": [
-        "https://www.houhou-news.com/pokemon-card-movie-special-pack-meitantei-pikachu-kaihuu"
+        "https://pokemoncard.co.kr/card/178",
+        "https://www.pokemon-card.com/ex/smp2/"
       ],
-      "notes": "직접 개봉은 일본 20팩×4장, SR 1장·RR 4장. 한국 20팩×5장 all-holo 모델의 SR 1장 유지. RR 기대값 2.375는 기존 균등 홀로 풀 가정으로 사례와 다르며 빈도 미검증; 단일 박스로 고정 4장을 만들지 않는다.",
-      "assumptions": "한국판 공식 봉입률은 비공개. 일본판 공개 추정치를 한국 박스 구성에 준용한다. 일반 SM의 SR/HR/UR 70/20/10은 고레어 슬롯 내 근사 배분이며, SR 내부 카드별/SA 확률은 별도 실측이 아니다. 추가 고레어 1/12와 RR·TR 변동치는 해당 세트별 대규모 실측이 아니라 동시대 박스·카톤 추정 모델을 차용한 값이다. C/U/R·미러·에너지 전체 분포까지 검증한 것은 아니다.",
+      "notes": "한국 공식 상품은 20팩×5장·팩당 홀로 1장이다. 일본 공식이 일본 전용으로 안내한 요시다 경위 SR 25번은 한국 카드풀과 SR 보장에서 제외한다. 한국 공식 24종·미러 21종을 사용하고 일반 C 3장·U 1장·홀로 1장을 구성한다. 홀로 24종(미러 21·RR 3)의 균등 가정에서 박스 RR 기대값은 20×3/24=2.5장이다. 한국판 레어도별 빈도 실측은 아니며, 일본판 전종 완성·SR 1장 구성을 한국에 적용하지 않는다.",
+      "assumptions": "한국판 공식 봉입률은 비공개다. 팩당 홀로 1장은 한국 공식 구성이고, 일반 C 3장·U 1장 및 미러/RR 개별 카드 균등 선택은 기존 저신뢰 시뮬레이션 가정이다. 일반 슬롯은 중복을 허용한다. 일본 전용 SR·추가 고레어·갓팩은 넣지 않는다. 미확인 표본 수는 null로 둔다.",
       "model_snapshot": {
-        "mandatoryHighWeights": {
-          "SR_TRAINER": 100
-        },
+        "mandatoryHighRate": 0,
+        "mandatoryHighWeights": {},
         "extraHighRate": 0,
-        "extraHighWeights": {
-          "SR_TRAINER": 100
-        },
+        "extraHighWeights": {},
         "arCount": 0,
         "boxSize": 20,
         "rrBaseCount": 2,
-        "rrExtraRate": 0.375,
+        "rrExtraRate": 0.5,
         "fillerWeights": {
           "C": 75,
           "U": 25
@@ -794,51 +787,30 @@
       "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000003066/smp2/page1/recommend/; jp_to_kr_factor=0.65",
       "price_updated_at": "2026-07-01",
       "price_confidence": "source"
-    },
-    {
-      "card_num": "BS2019008J025",
-      "number": 25,
-      "name_ko": "요시다 경위",
-      "rarity": "SR",
-      "card_type": "트레이너",
-      "subtype": null,
-      "hp": null,
-      "type": null,
-      "image_url": "external/smp2-detective-pikachu/BS2019008025.jpg",
-      "_source": "https://pokemon-card-fullahead.com/shopdetail/000000003042/smp2/page1/recommend/",
-      "_image_source_url": "https://makeshop-multi-images.akamaized.net/fullpokemon/itemimages/000000003042_k4xhXtl.jpg",
-      "_fetched_at": "2026-07-01",
-      "_manual": true,
-      "price_ref_krw": 48000,
-      "price_ref_jpy": 7780,
-      "price_ref_usd": null,
-      "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000003042/smp2/page1/recommend/; jp_to_kr_factor=0.65",
-      "price_updated_at": "2026-07-01",
-      "price_confidence": "source"
     }
   ],
   "image_cdn_base": "https://cards.image.pokemonkorea.co.kr/data/",
   "_source": "pokemoncard.co.kr",
   "_fetched_at": "2026-07-01",
   "luck_value_ref": {
-    "box_median_krw": 136300,
-    "pack_median_krw": 1100,
+    "box_median_krw": 93300,
+    "pack_median_krw": 500,
     "box_quantiles_krw": [
-      53900,
-      82500,
-      91500,
-      104800,
-      115700,
-      126200,
-      136300,
-      147200,
-      159600,
-      174300,
-      195900,
-      213500,
-      236300,
-      250700,
-      372700
+      6400,
+      38000,
+      47100,
+      60700,
+      72200,
+      82900,
+      93300,
+      104300,
+      117000,
+      131800,
+      154000,
+      172800,
+      195400,
+      211000,
+      325800
     ],
     "pack_quantiles_krw": [
       200,
@@ -847,15 +819,15 @@
       200,
       300,
       500,
+      500,
       1100,
-      1100,
-      3600,
-      12200,
+      1700,
+      11000,
+      15300,
       18400,
-      48000,
-      48000,
-      48000,
-      48000
+      41900,
+      41900,
+      41900
     ],
     "quantile_points": [
       0,
@@ -878,6 +850,14 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-07-01"
-  }
+    "_built_at": "2026-10-26"
+  },
+  "_jp_coverage_exclusions": [
+    {
+      "number": 25,
+      "reason": "일본 공식이 일본 전용으로 안내한 요시다 경위 SR. 한국 공식은 24종+미러21종이다.",
+      "source": "https://www.pokemon-card.com/ex/smp2/"
+    }
+  ],
+  "_notes": "한국판은 24종과 미러 21종이다. 일본 전용 요시다 경위 SR은 제외한다. 일반 C 3장·U 1장·홀로 1장 및 홀로 개별 카드 균등은 한국 실측 빈도가 아닌 기존 추정 모델이다. 참고가는 2026-07-01 일본 판매가 환산 스냅샷으로 한국 실거래가가 아니다."
 }

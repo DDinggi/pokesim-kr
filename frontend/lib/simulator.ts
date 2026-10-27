@@ -12,13 +12,11 @@ import {
   buildShiningLegendsPack,
   buildSingle30thCelebrationPack,
   expansionPackHitPool,
-  maybeAppendAnniversary25Promo,
   simulateExpansionBox,
 } from './simulation/expansion';
 import { buildExpansionPack } from './simulation/pack-builders';
 import { simulateHiClassBox, simulateSingleHiClassPack } from './simulation/hi-class';
 import {
-  ANNIVERSARY_25_PROMO_INTERVAL,
   CELEBRATION_30_SET_CODE,
   PROBABILITY_META,
   isAnniversary25Set,
@@ -55,17 +53,14 @@ export function simulatePack(
 ): { pack: PackResult; seed: string } {
   const { seed, ctx, rng } = createSimulationContext(allCards, seedInput);
   const pack =
-    type === 'hi-class'
+    type === 'anniversary-promo'
+      ? { cards: [ctx.pick(allCards.filter(card => card.rarity === 'S8AP'))], is_bonus: true }
+      : type === 'hi-class'
       ? simulateSingleHiClassPack(ctx, rng, setCode, packSize)
       : setCode === CELEBRATION_30_SET_CODE
         ? buildSingle30thCelebrationPack(ctx, rng, packSize)
       : isAnniversary25Set(setCode)
-        ? maybeAppendAnniversary25Promo(
-            buildAnniversary25Pack(ctx, rng, packSize),
-            ctx,
-            rng,
-            1 / ANNIVERSARY_25_PROMO_INTERVAL,
-          )
+        ? buildAnniversary25Pack(ctx, rng, packSize)
         : setCode === 'smp2-detective-pikachu'
           ? buildDetectivePikachuPack(ctx, expansionPackHitPool(ctx, setCode), packSize)
           : isEarlySmEnhancedSet(setCode)
@@ -102,7 +97,7 @@ export function simulateBundle(
         sourceSet.cards,
         sourceSet.type,
         sourceSet.pack_size,
-        `${seed}:${sourceSet.code}:${index}`,
+        `${seed}:${sourceSet.code}:${index}${sourceSet.type === 'anniversary-promo' ? ':promo' : ''}`,
         sourceSet.code,
       );
       const cards = pack.cards.map((card) => ({
@@ -116,6 +111,7 @@ export function simulateBundle(
       }
       packs.push({
         cards,
+        ...(pack.is_bonus ? { is_bonus: true } : {}),
         source_set_code: sourceSet.code,
         source_set_name_ko: sourceSet.name_ko,
       });

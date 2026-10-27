@@ -1,6 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { getAnniversary25RecordSets } from '../lib/anniversary25Products';
 import type { SetMeta } from '../lib/types';
 import { AUTH_RETURN_MODE_KEY, useGoogleAuth } from '../lib/auth';
 import { trackUserEvent } from '../lib/statsTracker';
@@ -15,7 +16,7 @@ import { RecordBackupBar } from './RecordBackupBar';
 import { RecordMergeDialog } from './RecordMergeDialog';
 import { AccountScreen } from './AccountScreen';
 import { clearRecordBackupMarkers, useRecordBackup } from '../lib/useRecordBackup';
-import { getSetSeriesKey, type SetSeriesKey } from '../lib/setSeries';
+import { getSetSeriesKey, type SetFilterKey } from '../lib/setSeries';
 import { getDailyLuckSet } from '../lib/dailyLuck';
 import { DailyLuckScreen } from './DailyLuckScreen';
 
@@ -123,9 +124,10 @@ function authNickname(session: ReturnType<typeof useGoogleAuth>['session']): str
 }
 
 export function App({ sets }: { sets: SetMeta[] }) {
+  const recordSets = useMemo(() => getAnniversary25RecordSets(sets), [sets]);
   const [mode, setMode] = useState<Mode>('main');
   const [selectedSet, setSelectedSet] = useState<SetMeta | null>(null);
-  const [boxPickerSeries, setBoxPickerSeries] = useState<SetSeriesKey>('mega');
+  const [boxPickerSeries, setBoxPickerSeries] = useState<SetFilterKey>('new');
   const [localAuthPreview, setLocalAuthPreview] = useState(false);
   const initialModeRef = useRef<Mode | null>(null);
   const auth = useGoogleAuth();
@@ -133,7 +135,7 @@ export function App({ sets }: { sets: SetMeta[] }) {
   const records = useRecordBackup({
     userId: authUserId,
     authReady: auth.ready,
-    sets,
+    sets: recordSets,
     disabled: localAuthPreview,
   });
 
@@ -148,7 +150,7 @@ export function App({ sets }: { sets: SetMeta[] }) {
 
       setMode(appState.mode);
       if ((appState.mode === 'box' || appState.mode === 'luck') && appState.selectedSetCode) {
-        const nextSet = sets.find((set) => set.code === appState.selectedSetCode) ?? null;
+        const nextSet = recordSets.find((set) => set.code === appState.selectedSetCode) ?? null;
         setSelectedSet(nextSet);
         if (appState.mode === 'box' && nextSet) {
           setBoxPickerSeries(getSetSeriesKey(nextSet));
@@ -157,7 +159,7 @@ export function App({ sets }: { sets: SetMeta[] }) {
         setSelectedSet(null);
       }
     },
-    [sets],
+    [recordSets],
   );
 
   useEffect(() => {
@@ -367,7 +369,7 @@ export function App({ sets }: { sets: SetMeta[] }) {
         onBackToMain={goMain}
         onOpenHitDex={() => pushHistoryState('hit-dex')}
         onOpenLuck={(setCode) => {
-          const targetSet = setCode ? (sets.find((set) => set.code === setCode) ?? null) : null;
+          const targetSet = setCode ? (recordSets.find((set) => set.code === setCode) ?? null) : null;
           trackUserEvent({
             eventName: 'open_luck',
             setCode,
@@ -384,7 +386,7 @@ export function App({ sets }: { sets: SetMeta[] }) {
   if (mode === 'luck') {
     return renderScreen(
       <LuckScreen
-        sets={sets}
+        sets={recordSets}
         session={records.session}
         initialSetCode={selectedSet?.code ?? null}
         onBackToMain={goMain}

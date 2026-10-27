@@ -638,14 +638,29 @@ const SM_ALTER_GENESIS: StandardSvSetRate = {
 };
 
 const DETECTIVE_PIKACHU: StandardSvSetRate = {
-  mandatoryHighWeights: { SR_TRAINER: 100 },
+  mandatoryHighRate: 0,
+  mandatoryHighWeights: {},
   extraHighRate: 0,
-  extraHighWeights: { SR_TRAINER: 100 },
+  extraHighWeights: {},
   arCount: 0,
   boxSize: 20,
   rrBaseCount: 2,
-  rrExtraRate: 3 / 8,
+  rrExtraRate: 0.5,
   fillerWeights: { C: 75, U: 25 },
+};
+
+// XY6 일본 발매 당시 7박스 개봉/공개 근사 → 한국 30팩으로 기대값 환산.
+// 0.5 high / 20 packs × 30 = 0.75. SR9포켓몬+SR2서포트+UR2는 카드 수 균등 폴백이다.
+const XY6_EMERALD_BREAK: StandardSvSetRate = {
+  mandatoryHighRate: 0.75,
+  mandatoryHighWeights: normalizeHighWeights({ SR_POKEMON: 9, SR_TRAINER: 2, UR: 2 }),
+  extraHighRate: 0,
+  extraHighWeights: {},
+  arCount: 0,
+  boxSize: 30,
+  rrBaseCount: 4,
+  rrExtraRate: 0.5,
+  fillerWeights: SM_FILLER_WEIGHTS,
 };
 
 const SM_TAG_BOLT: StandardSvSetRate = {
@@ -989,16 +1004,35 @@ export const ANNIVERSARY_25_BOX_SIZE = 16;
 export const ANNIVERSARY_25_BASE_RARITY = '25TH';
 export const ANNIVERSARY_25_PROMO_RARITY = 'S8AP';
 export const ANNIVERSARY_25_PROMO_INTERVAL = 4;
+// 日本52팩 개봉 원자료: RR13장, VMAX5장, V-UNION4세트.
+// 한국 공식 봉입률은 비공개. SR/UR은 공개 추정 1고레어/박스·UR약20박스당1을 차용한다.
+export const ANNIVERSARY_25_UR_BOX_RATE = 1 / 20;
+export const ANNIVERSARY_25_HIGH_WEIGHTS: Record<string, number> = {
+  SR: 1 - ANNIVERSARY_25_UR_BOX_RATE,
+  UR: ANNIVERSARY_25_UR_BOX_RATE,
+};
+export const ANNIVERSARY_25_PACK_EVENT_WEIGHTS: Record<string, number> = {
+  '25TH': 1 - 13 / 52 - 5 / 52 - 4 / 52 - 1 / ANNIVERSARY_25_BOX_SIZE,
+  RR: 13 / 52,
+  RRR: 5 / 52,
+  V_UNION: 4 / 52,
+  SR: (1 - ANNIVERSARY_25_UR_BOX_RATE) / ANNIVERSARY_25_BOX_SIZE,
+  UR: ANNIVERSARY_25_UR_BOX_RATE / ANNIVERSARY_25_BOX_SIZE,
+};
+// 박스의 SR/UR 한 슬롯을 예약한 뒤 남은 15팩에 사용하는 조건부 가중치.
 export const ANNIVERSARY_25_HIT_WEIGHTS: Record<string, number> = {
-  '25TH': 17,
-  RR: 5,
-  RRR: 2,
+  '25TH': ANNIVERSARY_25_PACK_EVENT_WEIGHTS['25TH'],
+  RR: ANNIVERSARY_25_PACK_EVENT_WEIGHTS.RR,
+  RRR: ANNIVERSARY_25_PACK_EVENT_WEIGHTS.RRR,
+  V_UNION: ANNIVERSARY_25_PACK_EVENT_WEIGHTS.V_UNION,
 };
 export const ANNIVERSARY_25_LUCK_SCORE_WEIGHTS: Record<string, number> = {
   S8AP: 1,
   '25TH': 0,
   RR: 0.2,
   RRR: 1,
+  SR: 0,
+  UR: 3,
 };
 
 const SV_TRIPLET_BEAT: StandardSvSetRate = {
@@ -1074,6 +1108,7 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'sm11a-remix-bout': SM11A_REMIX_BOUT,
   'sm11-miracle-twin': SM11_MIRACLE_TWIN,
   'smp2-detective-pikachu': DETECTIVE_PIKACHU,
+  'xy6-emerald-break': XY6_EMERALD_BREAK,
   'sm5s-ultra-sun': SM5_ULTRA_SUN_MOON,
   'sm3plus-shining-legends': SM3PLUS_SHINING_LEGENDS,
   'sm3h-rainbow-in-darkness': SM3_RAINBOW_DARKNESS,

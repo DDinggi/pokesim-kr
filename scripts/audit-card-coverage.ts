@@ -9,6 +9,7 @@ interface CardEntry {
   number?: number | null;
   name_ko?: string | null;
   rarity?: string | null;
+  card_type?: string | null;
   image_url?: string | null;
   price_ref_krw?: number | null;
 }
@@ -18,6 +19,7 @@ interface SetJson {
   name_ko?: string;
   type?: string;
   cards: CardEntry[];
+  _jp_coverage_exclusions?: Array<{ number: number; reason: string; source: string }>;
 }
 
 interface SetsIndex {
@@ -183,7 +185,13 @@ async function auditSet(setCode: string): Promise<AuditResult> {
     }
     const uniqueItems = Array.from(byNumber.values()).sort((a, b) => a.number - b.number);
     const japaneseNumbers = new Set(numericCards.map(card => card._jp_number ?? card.number));
-    const missingNumbers = uniqueItems.filter((item) => !japaneseNumbers.has(item.number));
+    const exclusions = set._jp_coverage_exclusions ?? [];
+    if (exclusions.some((item) => !Number.isInteger(item.number) || !item.reason || !/^https:\/\//.test(item.source))) {
+      throw new Error('Japanese coverage exclusions require a number, reason and HTTPS evidence source');
+    }
+    const excludedNumbers = new Set(exclusions.map((item) => item.number));
+    for (const item of exclusions) console.log(`  ${setCode}: JP ${item.number} 제외 — ${item.reason} (${item.source})`);
+    const missingNumbers = uniqueItems.filter((item) => !japaneseNumbers.has(item.number) && !excludedNumbers.has(item.number));
     const missingHighNumbers = missingNumbers.filter((item) => isHighRarity(item.rarity));
     const fullaheadMax = uniqueItems.length ? Math.max(...uniqueItems.map((item) => item.number)) : 0;
     const hasProblems = localNumberGaps.length > 0 || missingHighNumbers.length > 0 || unpricedHighCards.length > 0;
@@ -354,6 +362,7 @@ function isHighRarity(rarity: string | null): boolean {
 }
 
 function isLocalHigh(card: CardEntry): boolean {
+  if (card.rarity === '25TH' && card.card_type === '에너지') return false;
   return isHighRarity(card.rarity ?? null);
 }
 

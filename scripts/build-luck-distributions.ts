@@ -8,7 +8,8 @@
  * 사용: pnpm --dir scripts build:luck-dist            (전체)
  *       pnpm --dir scripts build:luck-dist -- --set sv4k-ancient-roar
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import productsDefault from '../frontend/lib/anniversary25Products.ts';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import simulatorDefault from '../frontend/lib/simulator.ts';
@@ -26,6 +27,7 @@ const { resolveBundleSet } = bundleDefault as unknown as typeof import('../front
 const { getOpeningHitCards } = openingHistoryDefault as unknown as typeof import('../frontend/lib/openingHistory.ts');
 const { simulateStartDeck } = starterDefault as unknown as typeof import('../frontend/lib/simulation/starter.ts');
 const { getObservedReferenceValueKrw } = valueLuckDefault as unknown as typeof import('../frontend/lib/valueLuck.ts');
+const { ANNIVERSARY_25_SPECIAL_CODE, getAnniversary25SpecialSet } = productsDefault as unknown as typeof import('../frontend/lib/anniversary25Products.ts');
 
 const argv = process.argv.slice(2);
 const onlySet = argv.includes('--set') ? argv[argv.indexOf('--set') + 1] : undefined;
@@ -52,6 +54,7 @@ function openingValue(
 }
 
 function build(setCode: string): boolean {
+  const special = setCode === ANNIVERSARY_25_SPECIAL_CODE;
   const path = join(DATA_DIR, `${setCode}.json`);
   let set: Record<string, unknown> & {
     type?: string;
@@ -62,12 +65,14 @@ function build(setCode: string): boolean {
     bundle_components?: Array<{ set_code: string; pack_count: number }>;
   };
   try {
-    set = JSON.parse(readFileSync(path, 'utf8'));
+    set = special
+      ? getAnniversary25SpecialSet([JSON.parse(readFileSync(join(DATA_DIR, 's8a-25th-anniversary.json'), 'utf8'))])! as unknown as typeof set
+      : JSON.parse(readFileSync(path, 'utf8'));
   } catch {
     return false;
   }
   let runtimeSet = set as unknown as SetMeta;
-  if (set.type === 'bundle') {
+  if (set.type === 'bundle' && !special) {
     const sourceSets = (set.bundle_components ?? []).map((component) =>
       JSON.parse(readFileSync(join(DATA_DIR, `${component.set_code}.json`), 'utf8')) as SetMeta,
     );
@@ -120,8 +125,16 @@ function build(setCode: string): boolean {
   };
 
   const out = JSON.stringify(set, null, 2) + '\n';
-  writeFileSync(path, out, 'utf8');
-  writeFileSync(join(PUBLIC_DIR, `${setCode}.json`), out, 'utf8');
+  if (special) {
+    const product = JSON.stringify({ _source: 'https://pokemoncard.co.kr/card/386', _reviewed_at: '2026-10-27', luck_value_ref: set.luck_value_ref }, null, 2) + '\n';
+    for (const directory of [join(ROOT, 'data', 'products'), join(ROOT, 'frontend', 'public', 'products')]) {
+      mkdirSync(directory, { recursive: true });
+      writeFileSync(join(directory, `${setCode}.json`), product, 'utf8');
+    }
+  } else {
+    writeFileSync(path, out, 'utf8');
+    writeFileSync(join(PUBLIC_DIR, `${setCode}.json`), out, 'utf8');
+  }
   console.log(
     `${setCode}: box median ${set.luck_value_ref.box_median_krw.toLocaleString()}원, pack median ${set.luck_value_ref.pack_median_krw.toLocaleString()}원`,
   );
@@ -133,6 +146,7 @@ function main(): void {
   const codes = onlySet ? [onlySet] : index.active_sets ?? [];
   let n = 0;
   for (const code of codes) if (build(code)) n++;
+  if (!onlySet && codes.includes('s8a-25th-anniversary') && build(ANNIVERSARY_25_SPECIAL_CODE)) n++;
   console.log(`\nbuilt luck distributions for ${n} set(s).`);
 }
 

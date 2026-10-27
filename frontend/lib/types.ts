@@ -65,6 +65,8 @@ export interface SetMeta {
   pack_size: number;
   box_price_krw: number;
   pack_price_krw: number;
+  /** 본팩 박스와 함께 여는 별도 특전팩 수. box_size에는 포함하지 않는다. */
+  bonus_pack_count?: number;
   cards: Card[];
   luck_value_ref?: LuckValueRef | null;
   /** type === 'starter' (스타트 덱 100) 전용 메타. 덱 뽑기 시뮬에서만 사용. */
@@ -77,6 +79,8 @@ export interface SetMeta {
 
 export interface PackResult {
   cards: Card[];
+  /** 본팩이 아닌 별도 특전팩. 팩 개봉/지출 통계에는 더하지 않는다. */
+  is_bonus?: boolean;
   source_set_code?: string;
   source_set_name_ko?: string;
 }

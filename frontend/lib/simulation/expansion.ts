@@ -4,6 +4,8 @@ import { shuffle } from './random';
 import {
   ANNIVERSARY_25_BASE_RARITY,
   ANNIVERSARY_25_HIT_WEIGHTS,
+  ANNIVERSARY_25_HIGH_WEIGHTS,
+  ANNIVERSARY_25_PACK_EVENT_WEIGHTS,
   ANNIVERSARY_25_PROMO_INTERVAL,
   ANNIVERSARY_25_PROMO_RARITY,
   CELEBRATION_30_BOX_COUNTS,
@@ -55,9 +57,16 @@ export function simulateExpansionBox(
   }
 
   if (isAnniversary25Set(setCode)) {
-    const packs = Array.from({ length: boxSize }, () => buildAnniversary25Pack(ctx, rng, packSize));
-    for (let index = ANNIVERSARY_25_PROMO_INTERVAL - 1; index < packs.length; index += ANNIVERSARY_25_PROMO_INTERVAL) {
-      packs[index] = maybeAppendAnniversary25Promo(packs[index], ctx, rng);
+    const events = [
+      ctx.weightedPick(ANNIVERSARY_25_HIGH_WEIGHTS),
+      ...Array.from({ length: Math.max(0, boxSize - 1) }, () => ctx.weightedPick(ANNIVERSARY_25_HIT_WEIGHTS)),
+    ];
+    const usedVmax = new Set<string>();
+    const packs = shuffle(events, rng).map((event) => buildAnniversary25Pack(ctx, rng, packSize, event, usedVmax));
+    const promoPool = ctx.byRarity[ANNIVERSARY_25_PROMO_RARITY] ?? [];
+    for (let index = 0; index < Math.floor(boxSize / ANNIVERSARY_25_PROMO_INTERVAL); index++) {
+      if (!promoPool.length) throw new Error('25주년 프로모 카드 풀이 비어 있습니다.');
+      packs.push({ cards: [ctx.pick(promoPool)], is_bonus: true, source_set_name_ko: '25주년 프로모팩' });
     }
     return packs;
   }
@@ -180,7 +189,13 @@ export function buildSingle30thCelebrationPack(
   return build30thCelebrationPack(ctx, rng, hitPools, packSize);
 }
 
-export function buildAnniversary25Pack(ctx: BuildContext, rng: RNG, packSize = 5): PackResult {
+export function buildAnniversary25Pack(
+  ctx: BuildContext,
+  rng: RNG,
+  packSize = 5,
+  forcedEvent?: string,
+  usedVmax = new Set<string>(),
+): PackResult {
   const { byRarity, pick } = ctx;
   const cards: Card[] = [];
   const anniversaryPool = byRarity[ANNIVERSARY_25_BASE_RARITY] ?? [];
@@ -188,43 +203,24 @@ export function buildAnniversary25Pack(ctx: BuildContext, rng: RNG, packSize = 5
   const baseCards = anniversaryPool.length ? anniversaryPool : unmarked;
   const isEnergy = (card: Card) => card.card_type === '에너지';
   const energyPool = baseCards.filter(isEnergy);
+  const regularPool = baseCards.filter((card) => !isEnergy(card));
+  const event = forcedEvent ?? ctx.weightedPick(ANNIVERSARY_25_PACK_EVENT_WEIGHTS);
   const nonEnergyCount = Math.max(0, packSize - (energyPool.length ? 1 : 0));
-
-  for (let i = 0; i < nonEnergyCount; i++) {
-    const slotPool = anniversary25HitPool(ctx);
-    if (slotPool.length) cards.push(pick(slotPool));
+  const unionPool = (byRarity.RRR ?? []).filter((card) => card.number >= 25 && card.number <= 28);
+  if (event === 'V_UNION') {
+    const parts = [25, 26, 27, 28].map((number) => unionPool.find((card) => card.number === number));
+    if (parts.some((card) => !card)) throw new Error('25주년 피카츄 V-UNION 네 조각이 모두 필요합니다.');
+    cards.push(...parts as Card[]);
+  } else if (event !== ANNIVERSARY_25_BASE_RARITY) {
+    const eventPool = (byRarity[event] ?? []).filter((card) => !unionPool.includes(card));
+    const hit = event === 'RRR' ? pickUniqueCard(ctx, eventPool, usedVmax) : eventPool.length ? pick(eventPool) : null;
+    if (!hit) throw new Error(`25주년 ${event} 카드 풀이 비어 있습니다.`);
+    cards.push(hit);
   }
-
+  while (cards.length < nonEnergyCount && regularPool.length) cards.push(pick(regularPool));
   if (energyPool.length) cards.push(pick(energyPool));
 
   return { cards: shuffle(cards, rng) };
-}
-
-export function maybeAppendAnniversary25Promo(
-  pack: PackResult,
-  ctx: BuildContext,
-  rng: RNG,
-  chance = 1,
-): PackResult {
-  if (rng() >= chance) return pack;
-
-  const promoPool = ctx.byRarity[ANNIVERSARY_25_PROMO_RARITY] ?? [];
-  if (!promoPool.length) return pack;
-
-  return { cards: [...pack.cards, ctx.pick(promoPool)] };
-}
-
-function anniversary25HitPool(ctx: BuildContext): Card[] {
-  const { byRarity } = ctx;
-  const anniversaryPool = byRarity[ANNIVERSARY_25_BASE_RARITY] ?? byRarity.__null__ ?? [];
-  const basePool = anniversaryPool.filter((card) => card.card_type !== '에너지');
-  const entries = [
-    { weight: ANNIVERSARY_25_HIT_WEIGHTS['25TH'], pool: basePool },
-    { weight: ANNIVERSARY_25_HIT_WEIGHTS.RR, pool: byRarity.RR ?? [] },
-    { weight: ANNIVERSARY_25_HIT_WEIGHTS.RRR, pool: byRarity.RRR ?? [] },
-  ];
-
-  return pickWeightedHitPool(ctx, entries, basePool.length ? basePool : (byRarity.RRR ?? byRarity.RR ?? byRarity.__null__ ?? []));
 }
 
 function buildExpansionBoxHitSlots(
@@ -393,8 +389,6 @@ function buildDetectivePikachuSlots(
 ): Card[][] {
   const { byRarity } = ctx;
   const slots: Card[][] = [];
-  const srPool = byRarity.SR ?? [];
-  if (srPool.length) slots.push(srPool);
 
   const holoPool = [
     ...(byRarity.C ?? []).filter((card) => card.subtype === '미러'),
@@ -570,21 +564,16 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   const standardSetRate = getStandardSvSetRate(setCode);
   const entries: { weight: number; pool: Card[] }[] = [];
 
-  if (isAnniversary25Set(setCode)) {
-    return anniversary25HitPool(ctx);
-  }
-
   if (setCode === 'smp2-detective-pikachu') {
-    entries.push({ weight: 100, pool: byRarity.SR ?? [] });
     entries.push({
-      weight: 1187.5,
+      weight: 1250,
       pool: (byRarity.C ?? []).filter((card) => card.subtype === '미러'),
     });
     entries.push({
-      weight: 475,
+      weight: 500,
       pool: (byRarity.U ?? []).filter((card) => card.subtype === '미러'),
     });
-    entries.push({ weight: 237.5, pool: byRarity.RR ?? [] });
+    entries.push({ weight: 250, pool: byRarity.RR ?? [] });
     return pickWeightedHitPool(ctx, entries, byRarity.U ?? byRarity.C ?? []);
   }
 

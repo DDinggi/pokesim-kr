@@ -366,10 +366,6 @@ const HitDexSetSectionView = memo(function HitDexSetSectionView({
   onCardClick: (card: Card) => void;
   onUnknownClick: (item: HitDexCatalogItem) => void;
 }) {
-  const [pikachuFilter, setPikachuFilter] = useState<'all' | 'owned' | 'missing'>('all');
-  const visiblePikachu = section.pikachuCards.filter((item) => (
-    pikachuFilter === 'all' || (pikachuFilter === 'owned' ? Boolean(item.entry) : !item.entry)
-  ));
   return (
     <section className="hit-dex-set-section">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
@@ -404,23 +400,8 @@ const HitDexSetSectionView = memo(function HitDexSetSectionView({
               {section.pikachuCards.filter((item) => item.entry).length}/30
             </span>
           </div>
-          <div className="mb-4 flex gap-2" role="group" aria-label="30주년 피카츄 획득 필터">
-            {([
-              ['all', '전체'], ['owned', '획득'], ['missing', '미획득'],
-            ] as const).map(([value, label]) => (
-              <button
-                key={value}
-                type="button"
-                aria-pressed={pikachuFilter === value}
-                onClick={() => setPikachuFilter(value)}
-                className={`rounded-lg px-3 py-1.5 text-xs font-bold transition ${pikachuFilter === value ? 'bg-amber-300 text-gray-950' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
           <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12">
-            {visiblePikachu.map((item) => (
+            {section.pikachuCards.map((item) => (
               item.entry ? (
                 <RegisteredHitTile
                   key={item.key}
@@ -439,11 +420,6 @@ const HitDexSetSectionView = memo(function HitDexSetSectionView({
               )
             ))}
           </div>
-          {visiblePikachu.length === 0 && (
-            <p className="py-5 text-center text-xs text-amber-100/60">
-              {pikachuFilter === 'owned' ? '아직 획득한 피카츄가 없습니다.' : '피카츄 30종을 모두 모았습니다!'}
-            </p>
-          )}
         </div>
       )}
     </section>
