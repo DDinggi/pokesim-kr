@@ -1,0 +1,167 @@
+{
+  "set_code": "s8a-25th-anniversary",
+  "reviewed_at": "2026-10-28",
+  "scope": "Japanese S8a main booster openings; English Celebrations and S8a-P promos are excluded from the denominators.",
+  "counting_unit": "One V-UNION event is one complete set of four pieces. VMAX is one card/event.",
+  "policy": "Public convenience samples, not randomized trials or Korean official pull rates. Unknown counts remain null. Carton aggregates do not establish per-box guarantees or multiplicity distributions.",
+  "new_main_booster_records": [
+    {
+      "id": "compoff-carton",
+      "creator": "モルさんと!#コンプオフ",
+      "url": "https://www.youtube.com/watch?v=dCi5PHP8G_o",
+      "published_at": "2021-10-21",
+      "boxes": 20,
+      "packs": 320,
+      "denominator_basis": "Creator identifies the opening as one carton. Twenty boxes per S8a carton is cross-checked against the retailer's own product listing, rather than inferred from the hit counts. The opening shot shows ten top-layer boxes; all twenty individual box summaries are not shown.",
+      "denominator_source": "https://www.tcgacademy.com/product/118721",
+      "v_union_sets": 15,
+      "vmax_cards": 25,
+      "japanese_flying_pikachu_vmax": 12,
+      "japanese_surfing_pikachu_vmax": 13,
+      "professors_research_sr": 18,
+      "mew_ur": 5,
+      "rr_cards": 77,
+      "rr_breakdown": {
+        "zacian_v": 15,
+        "zamazenta_v": 14,
+        "pikachu_v": 18,
+        "surfing_pikachu_v": 14,
+        "flying_pikachu_v": 16
+      },
+      "timestamps_seconds": {
+        "first_box_summary": 145,
+        "second_box_summary_sr_and_ur_together": 148,
+        "carton_high_rarity_totals": 158,
+        "carton_rr_totals": 164
+      },
+      "individual_boxes": [
+        { "box": 1, "v_union_sets": 1, "vmax_cards": 1, "rr_cards": 4, "professors_research_sr": 1, "mew_ur": 0 },
+        { "box": 2, "v_union_sets": 1, "vmax_cards": 1, "rr_cards": 3, "professors_research_sr": 1, "mew_ur": 1 }
+      ],
+      "limits": "Reported whole-carton counts were visually transcribed from the final on-screen tally. Only the first two individual box summaries are available. They are a subset of the carton and must not be added again. The title describes poor luck; this is not a random sample. Print run is unverified. Fifteen sets does not prove fifteen distinct boxes contained a set."
+    },
+    {
+      "id": "hajime-five-boxes",
+      "creator": "はじめしゃちょー2",
+      "url": "https://www.youtube.com/watch?v=aZT6s2w1rrE",
+      "published_at": "2021-10-22",
+      "boxes": 5,
+      "packs": 80,
+      "denominator_basis": "Five boxes in the title and numbered box transitions in the actual footage.",
+      "v_union_sets": 2,
+      "vmax_cards": null,
+      "professors_research_sr": 6,
+      "mew_ur": null,
+      "rr_cards": null,
+      "timestamps_seconds": { "third_box_v_union_pull": 550, "final_display": 765 },
+      "limits": "Visually counted two complete assembled V-UNION sets and six distinct SR cards in the final display. There is no numeric tally for every rarity. Uncounted or omitted rarities remain null, not zero. Do not infer a full five-row joint distribution from selected summary frames."
+    },
+    {
+      "id": "mariku-one-box",
+      "creator": "マリ句",
+      "url": "https://mariku-game.com/2021/10/22/pokeka-25th-anniversary-collection/",
+      "published_at": "2021-10-22",
+      "boxes": 1,
+      "packs": 16,
+      "v_union_sets": 0,
+      "vmax_cards": 2,
+      "professors_research_sr": 1,
+      "mew_ur": 0,
+      "rr_cards": null,
+      "limits": "Author explicitly totals two RRR, identifies both VMAX variants, and reports one SR. Rumors about UR probability elsewhere in the article are not observations."
+    },
+    {
+      "id": "snkrdunk-one-box",
+      "creator": "スニーカーダンク編集部 OG",
+      "url": "https://snkrdunk.com/articles/11763/",
+      "published_at": "2021-10-22",
+      "boxes": 1,
+      "packs": 16,
+      "v_union_sets": 1,
+      "vmax_cards": 1,
+      "professors_research_sr": 1,
+      "mew_ur": 0,
+      "rr_cards": 4,
+      "limits": "Editorial firsthand opening with the card inventory. Four gift promo packs are separate and excluded."
+    },
+    {
+      "id": "rokka-one-box",
+      "creator": "ろっか",
+      "url": "https://ameblo.jp/harunann529/entry-12705821829.html",
+      "published_at": null,
+      "boxes": 1,
+      "packs": 16,
+      "v_union_sets": 1,
+      "vmax_cards": 1,
+      "professors_research_sr": 1,
+      "mew_ur": 0,
+      "rr_cards": 4,
+      "limits": "Pokemon Center Online box is explicitly separated from four additional shop loose packs. The loose-pack result must not be assigned to this box."
+    }
+  ],
+  "new_records_descriptive_sum": {
+    "boxes": 28,
+    "packs": 448,
+    "v_union_sets": 19,
+    "v_union_sets_per_box": 0.6785714285714286,
+    "v_union_events_per_pack": 0.04241071428571429,
+    "interpretation": "Descriptive combined mean only; not a box hit probability, guaranteed count, fitted simulator parameter, or Korean measured rate. Publisher populations and sampling conditions differ."
+  },
+  "separate_loose_pack_records": [
+    {
+      "id": "rokka-shop-loose",
+      "url": "https://ameblo.jp/harunann529/entry-12705821829.html",
+      "packs": 4,
+      "v_union_sets": 2,
+      "professors_research_sr": 1,
+      "rr_cards": 1,
+      "boxes": null,
+      "limits": "Original box grouping unknown. Not evidence that two V-UNION sets occur in one sealed box."
+    },
+    {
+      "id": "cube-shop-loose",
+      "url": "https://cuberoomblog.com/poke-25th-anniversary-collection-atari/",
+      "packs": 4,
+      "v_union_sets": 1,
+      "professors_research_sr": 1,
+      "rr_cards": 1,
+      "boxes": null,
+      "limits": "Firsthand four-piece single-pack confirmation. Its reference to someone else's five-UR carton may describe the Compoff video; never count that reference as another carton."
+    }
+  ],
+  "legacy_small_sample": {
+    "url": "https://shark-tcg.com/s8a-kaihu/",
+    "packs": 52,
+    "boxes": null,
+    "v_union_sets": 4,
+    "vmax_cards": 5,
+    "rr_cards": 13,
+    "professors_research_sr": 3,
+    "mew_ur": 0,
+    "limits": "Original box grouping and sampling are unknown; kept separate from the new sealed-box records."
+  },
+  "screen_evidence_directory": "docs/evidence/s8a-20261028",
+  "reviewed_but_not_counted": [
+    { "url": "https://www.youtube.com/watch?v=ebZRprNB29w", "claimed_boxes": 12, "reason": "Much of the second half only checks for UR. A complete V-UNION total is not established." },
+    { "url": "https://www.youtube.com/watch?v=Za6j9DSjXbc", "claimed_boxes": 2, "reason": "Both boxes are opened before cards are alternated with promos; no verified full event tally or per-box grouping." },
+    { "url": "https://www.youtube.com/watch?v=VvtiJ774D_4", "claimed_boxes": 6, "reason": "Highlights and promo opening; no verified complete V-UNION count for all six boxes." },
+    { "url": "https://www.youtube.com/watch?v=YJF1aW-M2pM", "claimed_boxes": 20, "reason": "Title claims a carton, but inspected footage does not show a complete twenty-box opening or final aggregate. Title alone is not a denominator." },
+    { "url": "https://www.youtube.com/watch?v=sGh6BOA1BAA", "claimed_boxes": null, "reason": "Five special sets, each four main boosters; not five sixteen-pack boxes." },
+    { "url": "https://ameblo.jp/oyaji-no-syumi/entry-12705718332.html", "claimed_boxes": 2, "reason": "Three boxes purchased but only two opened. Text suggests one V-UNION set per opened box, but full image/video totals were not verified in this review." },
+    { "url": "https://www.youtube.com/watch?v=XrS4ku5Tpp8", "claimed_boxes": 500, "reason": "Public original unavailable; no verified tally." },
+    { "url": "https://www.youtube.com/watch?v=Rn8JTyfmyVQ", "claimed_boxes": 50, "reason": "Public original unavailable; no verified tally." }
+  ],
+  "runtime_model_changed": false,
+  "confirmed_model_issues": [
+    "Current independent per-pack model expects 16/13 = 1.230769 V-UNION sets per box; the new carton reports 0.75 and the descriptive 28-box sum is 0.678571.",
+    "Current VMAX plus V-UNION mean is 36/13 = 2.769231 events per box; the new carton reports 40/20 = 2.0 events per box.",
+    "A mutually exclusive single SR-or-UR slot cannot produce the carton's second box, which visibly contains both SR and UR.",
+    "Six SR cards displayed from five boxes contradict a universal exactly-one-high-card-per-box rule."
+  ],
+  "unresolved": [
+    "Korean edition empirical pull rates and Japanese print-run differences.",
+    "Whole-carton box-by-box 0/1/2 V-UNION histogram, and whether two sets can occur in one sealed box.",
+    "Global UR frequency: five UR in one selected carton must not become a claimed 25% population rate.",
+    "Joint distribution of RR, VMAX, V-UNION, SR, and UR for a corrected box model."
+  ]
+}
