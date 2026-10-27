@@ -9,8 +9,8 @@ import {
 import type { ReferenceValueSource, ValueLuckMode } from './valueLuck';
 import {
   ANNIVERSARY_25_BOX_SIZE,
-  ANNIVERSARY_25_HIT_WEIGHTS,
-  ANNIVERSARY_25_HIGH_WEIGHTS,
+  ANNIVERSARY_25_HIGH_PATTERNS,
+  ANNIVERSARY_25_UNION_BOX_RATE,
   ANNIVERSARY_25_PACK_EVENT_WEIGHTS,
   ANNIVERSARY_25_UR_BOX_RATE,
   ANNIVERSARY_25_LUCK_SCORE_WEIGHTS,
@@ -813,12 +813,13 @@ function getExpectedScoredRarityCounts(
     const mainPacks = opening.boxes * opening.boxSize + opening.packs;
     const rrCount = mainPacks * ANNIVERSARY_25_PACK_EVENT_WEIGHTS.RR;
     const rrrCount = mainPacks * (ANNIVERSARY_25_PACK_EVENT_WEIGHTS.RRR + 4 * ANNIVERSARY_25_PACK_EVENT_WEIGHTS.V_UNION);
-    const highCount = mainPacks / ANNIVERSARY_25_BOX_SIZE;
-    addExpectedCount(counts, '25TH', mainPacks * 5 - rrCount - rrrCount - highCount);
+    const srCount = mainPacks * ANNIVERSARY_25_PACK_EVENT_WEIGHTS.SR;
+    const urCount = mainPacks * ANNIVERSARY_25_PACK_EVENT_WEIGHTS.UR;
+    addExpectedCount(counts, '25TH', mainPacks * 5 - rrCount - rrrCount - srCount - urCount);
     addExpectedCount(counts, 'RR', rrCount);
     addExpectedCount(counts, 'RRR', rrrCount);
-    addExpectedCount(counts, 'SR', highCount * (1 - ANNIVERSARY_25_UR_BOX_RATE));
-    addExpectedCount(counts, 'UR', highCount * ANNIVERSARY_25_UR_BOX_RATE);
+    addExpectedCount(counts, 'SR', srCount);
+    addExpectedCount(counts, 'UR', urCount);
     addExpectedCount(counts, 'S8AP', opening.boxes * Math.floor(opening.boxSize / ANNIVERSARY_25_PROMO_INTERVAL));
     return counts;
   }
@@ -1160,11 +1161,18 @@ function distributionFromWeights(
 
 function getAnniversary25BoxScoreDistribution(boxSize = ANNIVERSARY_25_BOX_SIZE): LuckScoreOutcome[] {
   const mainPacks = Math.max(1, Math.floor(boxSize || ANNIVERSARY_25_BOX_SIZE));
+  const main = mainPacks === ANNIVERSARY_25_BOX_SIZE
+    ? normalizeDistribution(ANNIVERSARY_25_HIGH_PATTERNS.flatMap((pattern) => {
+      const highScore = pattern.events.reduce((sum, event) => sum + (ANNIVERSARY_25_LUCK_SCORE_WEIGHTS[event] ?? 0), 0);
+      const rrScore = (5 - pattern.events.length) * ANNIVERSARY_25_LUCK_SCORE_WEIGHTS.RR;
+      return [false, true].map((union) => ({
+        score: highScore + rrScore + (union ? 5 : 2) * ANNIVERSARY_25_LUCK_SCORE_WEIGHTS.RRR,
+        probability: pattern.weight * (union ? ANNIVERSARY_25_UNION_BOX_RATE : 1 - ANNIVERSARY_25_UNION_BOX_RATE),
+      }));
+    }))
+    : repeatDistribution(getAnniversary25EventScoreDistribution(ANNIVERSARY_25_PACK_EVENT_WEIGHTS), mainPacks);
   return convolveDistributions(
-    convolveDistributions(
-      getAnniversary25EventScoreDistribution(ANNIVERSARY_25_HIGH_WEIGHTS),
-      repeatDistribution(getAnniversary25EventScoreDistribution(ANNIVERSARY_25_HIT_WEIGHTS), mainPacks - 1),
-    ),
+    main,
     [{ score: (ANNIVERSARY_25_LUCK_SCORE_WEIGHTS.S8AP ?? 0) * Math.floor(mainPacks / ANNIVERSARY_25_PROMO_INTERVAL), probability: 1 }],
   );
 }

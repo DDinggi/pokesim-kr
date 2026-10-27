@@ -155,7 +155,7 @@ function validateSet(setCode: string): { warnings: string[]; errors: string[] } 
       errors.push('SV11 특수 세트인데 isSv11SpecialSet/model.ts에 세트 코드가 없습니다.');
     }
   } else if (set.code === 's8a-25th-anniversary') {
-    if (!modelSource.includes('ANNIVERSARY_25_HIT_WEIGHTS') || !expansionSource.includes('isAnniversary25Set') || !luckSource.includes('isAnniversary25Set')) {
+    if (!modelSource.includes('ANNIVERSARY_25_HIGH_PATTERNS') || !expansionSource.includes('isAnniversary25Set') || !luckSource.includes('ANNIVERSARY_25_HIGH_PATTERNS')) {
       warnings.push('25th ANNIVERSARY COLLECTION 특수 모델이 model/expansion/luck에 모두 연결되어야 합니다.');
     }
   } else if (!hasExplicitStandardRate(set.code)) {

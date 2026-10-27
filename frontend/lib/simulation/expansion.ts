@@ -3,8 +3,9 @@ import type { RNG } from './random';
 import { shuffle } from './random';
 import {
   ANNIVERSARY_25_BASE_RARITY,
-  ANNIVERSARY_25_HIT_WEIGHTS,
-  ANNIVERSARY_25_HIGH_WEIGHTS,
+  ANNIVERSARY_25_BOX_SIZE,
+  ANNIVERSARY_25_HIGH_PATTERNS,
+  ANNIVERSARY_25_UNION_BOX_RATE,
   ANNIVERSARY_25_PACK_EVENT_WEIGHTS,
   ANNIVERSARY_25_PROMO_INTERVAL,
   ANNIVERSARY_25_PROMO_RARITY,
@@ -57,10 +58,19 @@ export function simulateExpansionBox(
   }
 
   if (isAnniversary25Set(setCode)) {
-    const events = [
-      ctx.weightedPick(ANNIVERSARY_25_HIGH_WEIGHTS),
-      ...Array.from({ length: Math.max(0, boxSize - 1) }, () => ctx.weightedPick(ANNIVERSARY_25_HIT_WEIGHTS)),
-    ];
+    const events: string[] = [];
+    if (boxSize === ANNIVERSARY_25_BOX_SIZE) {
+      const high = pickCelebrationPattern(ANNIVERSARY_25_HIGH_PATTERNS, rng);
+      events.push(...high.events);
+      // 추가 고레어가 RR 한 자리를 사용하는 근사: 카톤 RR77/20의 평균도 보존한다.
+      events.push(...Array<string>(5 - high.events.length).fill('RR'));
+      const union = rng() < ANNIVERSARY_25_UNION_BOX_RATE;
+      events.push(union ? 'V_UNION' : 'RRR', 'RRR');
+      events.push(...Array<string>(boxSize - events.length).fill(ANNIVERSARY_25_BASE_RARITY));
+    } else {
+      // 비표준 팩 수에는 16팩 박스 구성을 잘라 적용하지 않는다.
+      events.push(...Array.from({ length: boxSize }, () => ctx.weightedPick(ANNIVERSARY_25_PACK_EVENT_WEIGHTS)));
+    }
     const usedVmax = new Set<string>();
     const packs = shuffle(events, rng).map((event) => buildAnniversary25Pack(ctx, rng, packSize, event, usedVmax));
     const promoPool = ctx.byRarity[ANNIVERSARY_25_PROMO_RARITY] ?? [];

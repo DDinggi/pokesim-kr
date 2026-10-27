@@ -35,8 +35,22 @@
         "carton_rr_totals": 164
       },
       "individual_boxes": [
-        { "box": 1, "v_union_sets": 1, "vmax_cards": 1, "rr_cards": 4, "professors_research_sr": 1, "mew_ur": 0 },
-        { "box": 2, "v_union_sets": 1, "vmax_cards": 1, "rr_cards": 3, "professors_research_sr": 1, "mew_ur": 1 }
+        {
+          "box": 1,
+          "v_union_sets": 1,
+          "vmax_cards": 1,
+          "rr_cards": 4,
+          "professors_research_sr": 1,
+          "mew_ur": 0
+        },
+        {
+          "box": 2,
+          "v_union_sets": 1,
+          "vmax_cards": 1,
+          "rr_cards": 3,
+          "professors_research_sr": 1,
+          "mew_ur": 1
+        }
       ],
       "limits": "Reported whole-carton counts were visually transcribed from the final on-screen tally. Only the first two individual box summaries are available. They are a subset of the carton and must not be added again. The title describes poor luck; this is not a random sample. Print run is unverified. Fifteen sets does not prove fifteen distinct boxes contained a set."
     },
@@ -53,7 +67,10 @@
       "professors_research_sr": 6,
       "mew_ur": null,
       "rr_cards": null,
-      "timestamps_seconds": { "third_box_v_union_pull": 550, "final_display": 765 },
+      "timestamps_seconds": {
+        "third_box_v_union_pull": 550,
+        "final_display": 765
+      },
       "limits": "Visually counted two complete assembled V-UNION sets and six distinct SR cards in the final display. There is no numeric tally for every rarity. Uncounted or omitted rarities remain null, not zero. Do not infer a full five-row joint distribution from selected summary frames."
     },
     {
@@ -142,16 +159,48 @@
   },
   "screen_evidence_directory": "docs/evidence/s8a-20261028",
   "reviewed_but_not_counted": [
-    { "url": "https://www.youtube.com/watch?v=ebZRprNB29w", "claimed_boxes": 12, "reason": "Much of the second half only checks for UR. A complete V-UNION total is not established." },
-    { "url": "https://www.youtube.com/watch?v=Za6j9DSjXbc", "claimed_boxes": 2, "reason": "Both boxes are opened before cards are alternated with promos; no verified full event tally or per-box grouping." },
-    { "url": "https://www.youtube.com/watch?v=VvtiJ774D_4", "claimed_boxes": 6, "reason": "Highlights and promo opening; no verified complete V-UNION count for all six boxes." },
-    { "url": "https://www.youtube.com/watch?v=YJF1aW-M2pM", "claimed_boxes": 20, "reason": "Title claims a carton, but inspected footage does not show a complete twenty-box opening or final aggregate. Title alone is not a denominator." },
-    { "url": "https://www.youtube.com/watch?v=sGh6BOA1BAA", "claimed_boxes": null, "reason": "Five special sets, each four main boosters; not five sixteen-pack boxes." },
-    { "url": "https://ameblo.jp/oyaji-no-syumi/entry-12705718332.html", "claimed_boxes": 2, "reason": "Three boxes purchased but only two opened. Text suggests one V-UNION set per opened box, but full image/video totals were not verified in this review." },
-    { "url": "https://www.youtube.com/watch?v=XrS4ku5Tpp8", "claimed_boxes": 500, "reason": "Public original unavailable; no verified tally." },
-    { "url": "https://www.youtube.com/watch?v=Rn8JTyfmyVQ", "claimed_boxes": 50, "reason": "Public original unavailable; no verified tally." }
+    {
+      "url": "https://www.youtube.com/watch?v=ebZRprNB29w",
+      "claimed_boxes": 12,
+      "reason": "Much of the second half only checks for UR. A complete V-UNION total is not established."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Za6j9DSjXbc",
+      "claimed_boxes": 2,
+      "reason": "Both boxes are opened before cards are alternated with promos; no verified full event tally or per-box grouping."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=VvtiJ774D_4",
+      "claimed_boxes": 6,
+      "reason": "Highlights and promo opening; no verified complete V-UNION count for all six boxes."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=YJF1aW-M2pM",
+      "claimed_boxes": 20,
+      "reason": "Title claims a carton, but inspected footage does not show a complete twenty-box opening or final aggregate. Title alone is not a denominator."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=sGh6BOA1BAA",
+      "claimed_boxes": null,
+      "reason": "Five special sets, each four main boosters; not five sixteen-pack boxes."
+    },
+    {
+      "url": "https://ameblo.jp/oyaji-no-syumi/entry-12705718332.html",
+      "claimed_boxes": 2,
+      "reason": "Three boxes purchased but only two opened. Text suggests one V-UNION set per opened box, but full image/video totals were not verified in this review."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=XrS4ku5Tpp8",
+      "claimed_boxes": 500,
+      "reason": "Public original unavailable; no verified tally."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Rn8JTyfmyVQ",
+      "claimed_boxes": 50,
+      "reason": "Public original unavailable; no verified tally."
+    }
   ],
-  "runtime_model_changed": false,
+  "runtime_model_changed": true,
   "confirmed_model_issues": [
     "Current independent per-pack model expects 16/13 = 1.230769 V-UNION sets per box; the new carton reports 0.75 and the descriptive 28-box sum is 0.678571.",
     "Current VMAX plus V-UNION mean is 36/13 = 2.769231 events per box; the new carton reports 40/20 = 2.0 events per box.",
@@ -163,5 +212,24 @@
     "Whole-carton box-by-box 0/1/2 V-UNION histogram, and whether two sets can occur in one sealed box.",
     "Global UR frequency: five UR in one selected carton must not become a claimed 25% population rate.",
     "Joint distribution of RR, VMAX, V-UNION, SR, and UR for a corrected box model."
-  ]
+  ],
+  "runtime_model": {
+    "applied_at": "2026-10-28",
+    "v_union_sets_per_box": 0.6785714285714286,
+    "rrr_events_per_box": 2,
+    "high_patterns": {
+      "SR": 0.6375,
+      "UR": 0.2125,
+      "SR+UR": 0.0375,
+      "SR+SR": 0.1125
+    },
+    "high_patterns_are": "Maximum-entropy approximation constrained by carton SR18/20 and UR5/20 means, conditional on 1-2 high cards and at most 1 UR; not observed box-pattern frequencies.",
+    "rr_count_rule": "5 minus high-card count; 77/20 mean",
+    "assumptions": [
+      "At most one V-UNION event per box.",
+      "Two RRR events; distinct VMAX cards.",
+      "V-UNION occurrence independent of high-card pattern.",
+      "UR5/20 is a provisional selected-carton proxy, not a population-rate claim."
+    ]
+  }
 }

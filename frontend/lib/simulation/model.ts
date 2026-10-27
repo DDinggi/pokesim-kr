@@ -1004,27 +1004,28 @@ export const ANNIVERSARY_25_BOX_SIZE = 16;
 export const ANNIVERSARY_25_BASE_RARITY = '25TH';
 export const ANNIVERSARY_25_PROMO_RARITY = 'S8AP';
 export const ANNIVERSARY_25_PROMO_INTERVAL = 4;
-// 日本52팩 개봉 원자료: RR13장, VMAX5장, V-UNION4세트.
-// 한국 공식 봉입률은 비공개. SR/UR은 공개 추정 1고레어/박스·UR약20박스당1을 차용한다.
-export const ANNIVERSARY_25_UR_BOX_RATE = 1 / 20;
-export const ANNIVERSARY_25_HIGH_WEIGHTS: Record<string, number> = {
-  SR: 1 - ANNIVERSARY_25_UR_BOX_RATE,
-  UR: ANNIVERSARY_25_UR_BOX_RATE,
-};
+// 일본판 28박스의 V-UNION 19세트. 박스별 전체 분포는 미확인이다.
+// RRR 2사건 및 V-UNION 최대 1세트는 기록에 맞춘 근사이며 공식 보장이 아니다.
+export const ANNIVERSARY_25_UNION_BOX_RATE = 19 / 28;
+// 한 카톤 SR18/UR5/RR77 집계의 주변 평균을 재현한다. 전체 모집단 확률은 미확인.
+export const ANNIVERSARY_25_UR_BOX_RATE = 5 / 20;
+export const ANNIVERSARY_25_SR_PER_BOX = 18 / 20;
+// SR, UR, SR+UR, SR+SR 네 구성에서 위 두 평균을 만족하는 최대 엔트로피 해.
+// 관측된 박스별 빈도가 아닌 공동 분포의 통계적 근사다. docs/s8a-25th-anniversary-review.md.
+export const ANNIVERSARY_25_HIGH_PATTERNS = [
+  { events: ['SR'], weight: 51 / 80 },
+  { events: ['UR'], weight: 17 / 80 },
+  { events: ['SR', 'UR'], weight: 3 / 80 },
+  { events: ['SR', 'SR'], weight: 9 / 80 },
+] as const;
+export const ANNIVERSARY_25_RR_PER_BOX = 77 / 20;
 export const ANNIVERSARY_25_PACK_EVENT_WEIGHTS: Record<string, number> = {
-  '25TH': 1 - 13 / 52 - 5 / 52 - 4 / 52 - 1 / ANNIVERSARY_25_BOX_SIZE,
-  RR: 13 / 52,
-  RRR: 5 / 52,
-  V_UNION: 4 / 52,
-  SR: (1 - ANNIVERSARY_25_UR_BOX_RATE) / ANNIVERSARY_25_BOX_SIZE,
+  '25TH': 1 - (ANNIVERSARY_25_RR_PER_BOX + 2 + ANNIVERSARY_25_SR_PER_BOX + ANNIVERSARY_25_UR_BOX_RATE) / ANNIVERSARY_25_BOX_SIZE,
+  RR: ANNIVERSARY_25_RR_PER_BOX / ANNIVERSARY_25_BOX_SIZE,
+  RRR: (2 - ANNIVERSARY_25_UNION_BOX_RATE) / ANNIVERSARY_25_BOX_SIZE,
+  V_UNION: ANNIVERSARY_25_UNION_BOX_RATE / ANNIVERSARY_25_BOX_SIZE,
+  SR: ANNIVERSARY_25_SR_PER_BOX / ANNIVERSARY_25_BOX_SIZE,
   UR: ANNIVERSARY_25_UR_BOX_RATE / ANNIVERSARY_25_BOX_SIZE,
-};
-// 박스의 SR/UR 한 슬롯을 예약한 뒤 남은 15팩에 사용하는 조건부 가중치.
-export const ANNIVERSARY_25_HIT_WEIGHTS: Record<string, number> = {
-  '25TH': ANNIVERSARY_25_PACK_EVENT_WEIGHTS['25TH'],
-  RR: ANNIVERSARY_25_PACK_EVENT_WEIGHTS.RR,
-  RRR: ANNIVERSARY_25_PACK_EVENT_WEIGHTS.RRR,
-  V_UNION: ANNIVERSARY_25_PACK_EVENT_WEIGHTS.V_UNION,
 };
 export const ANNIVERSARY_25_LUCK_SCORE_WEIGHTS: Record<string, number> = {
   S8AP: 1,
