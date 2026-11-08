@@ -15,6 +15,7 @@ import { isNewSimSet, sortNewSimSetsFirst, LATEST_SET_UPDATE_LABEL, LATEST_SET_U
 import { trackSim, trackUserEvent } from '../lib/statsTracker';
 import { CardModal } from './CardModal';
 import {
+  getPortraitCardImageClassName,
   CARD_IMAGES_ENABLED,
   CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
   resolveCardImageUrl,
@@ -880,7 +881,7 @@ function CardTile({
             alt={card.name_ko ?? card.card_num}
             fill
             sizes="(max-width: 640px) 30vw, (max-width: 1024px) 18vw, 150px"
-            className="object-cover"
+            className={getPortraitCardImageClassName(card)}
             unoptimized
             draggable={false}
             onContextMenu={(e) => e.preventDefault()}

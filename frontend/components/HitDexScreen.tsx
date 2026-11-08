@@ -4,6 +4,7 @@ import { memo, useEffect, useMemo, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta } from '../lib/types';
 import {
+  getPortraitCardImageClassName,
   CARD_IMAGES_ENABLED,
   CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
   resolveCardImageUrl,
@@ -470,7 +471,7 @@ function RegisteredHitTile({
               alt={displayName}
               fill
               sizes="9vw"
-              className="object-cover"
+              className={getPortraitCardImageClassName(card)}
               unoptimized
               draggable={false}
               onDragStart={(event) => event.preventDefault()}

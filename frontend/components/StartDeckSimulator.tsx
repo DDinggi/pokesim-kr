@@ -9,6 +9,7 @@ import { getBoxImageSrc } from '../lib/boxImages';
 import { CardModal } from './CardModal';
 import { trackSim, trackUserEvent } from '../lib/statsTracker';
 import {
+  getPortraitCardImageClassName,
   CARD_IMAGES_ENABLED,
   CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
   resolveCardImageUrl,
@@ -68,7 +69,7 @@ function DeckCard({
             alt={card.name_ko ?? card.card_num}
             fill
             sizes="(max-width: 640px) 60vw, 320px"
-            className="object-cover"
+            className={getPortraitCardImageClassName(card)}
             priority={priority}
             unoptimized
             draggable={false}

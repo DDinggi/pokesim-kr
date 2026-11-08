@@ -17,6 +17,7 @@ import {
   type HitDexState,
 } from '../lib/hitDex';
 import {
+  getPortraitCardImageClassName,
   CARD_IMAGES_ENABLED,
   CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
   resolveCardImageUrl,
@@ -517,7 +518,7 @@ function CardTile({ card, onClick }: { card: Card; onClick?: () => void }) {
             alt={card.name_ko ?? card.card_num}
             fill
             sizes="10vw"
-            className="object-cover"
+            className={getPortraitCardImageClassName(card)}
             unoptimized
             draggable={false}
             onContextMenu={(event) => event.preventDefault()}
