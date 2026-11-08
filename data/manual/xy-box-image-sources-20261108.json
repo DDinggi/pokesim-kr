@@ -1,90 +1,126 @@
 {
   "reviewed_at": "2026-11-08",
-  "reason": "사용자 검수: 이전 저해상도 판매점 워터마크 사진을 선명한 한국판 상품 원본으로 교체",
+  "reason": "사용자가 추가한 박스 일러스트 4장을 지정 세트에 적용. 기존 제품 사진은 대조 참고로 보존.",
   "images": [
     {
       "set_code": "cp3-pokekyun-collection",
-      "source_page": "https://kream.co.kr/products/755808",
-      "source_image_url": "https://kream-phinf.pstatic.net/MjAyNjAxMDlfMTAx/MDAxNzY3OTQ3NDk2Mjgw.G90fuF9bB3lkg3rCdX9ShBLLU21J5dVD8GR7VyEOjAIg.sV8nv9lle_qVr3T4q5tIhVm-P459ZSlA3qFsjJv2FuMg.PNG/a_0af98c9b54144e698bdd47d443d72c65.png",
-      "original_path": "frontend/public/boxes/original/cp3-pokekyun-collection.png",
-      "original_sha256": "7cb371f0f6df13e8373abf1c9d36ac3b450dec985c75fcf7f6cd46c88b386cc6",
-      "width": 1120,
-      "height": 1120,
+      "original_path": "frontend/public/boxes/original/cp3-pokekyun-collection-custom-20261108.png",
+      "original_sha256": "4be43944ef0b9ca999bbf57e85890dbdb3d87f86eb1ee721c97c7f28ad58f43b",
+      "width": 1024,
+      "height": 1024,
       "has_alpha": true,
       "output_path": "frontend/public/boxes/cp3-pokekyun-collection.png",
       "thumbnail_path": "frontend/public/boxes/thumbs/cp3-pokekyun-collection.webp",
       "processing": {
         "script": "scripts/process-box-image.ts",
+        "input": "frontend/public/boxes/original/cp3-pokekyun-collection-custom-20261108.png",
         "canvas": 768,
         "product_height": 708,
         "thumbnail": 768,
-        "preserve_source_alpha": true,
+        "background_removal": "border-connected light background only",
+        "background_threshold": 190,
+        "max_chroma": 40,
         "flip_horizontal": false
       },
-      "visual_review": "한국어 인쇄·동일 세트·닫힌 단일 박스·팩 수를 확인. 판매점 워터마크 없음. 제품 면/글자 손실 없음."
+      "visual_review": "사용자 지정 박스 일러스트를 그대로 보존. 흰 배경만 제거하고 정방향·가장자리·그림·글자 보존을 확인.",
+      "reference_product": {
+        "page": "https://kream.co.kr/products/755808",
+        "image_url": "https://kream-phinf.pstatic.net/MjAyNjAxMDlfMTAx/MDAxNzY3OTQ3NDk2Mjgw.G90fuF9bB3lkg3rCdX9ShBLLU21J5dVD8GR7VyEOjAIg.sV8nv9lle_qVr3T4q5tIhVm-P459ZSlA3qFsjJv2FuMg.PNG/a_0af98c9b54144e698bdd47d443d72c65.png",
+        "original_path": "frontend/public/boxes/original/cp3-pokekyun-collection.png",
+        "original_sha256": "7cb371f0f6df13e8373abf1c9d36ac3b450dec985c75fcf7f6cd46c88b386cc6"
+      },
+      "source_kind": "user-provided",
+      "source_filename": "Gemini_Generated_Image_jw6f3vjw6f3vjw6f.png"
     },
     {
       "set_code": "xy7-bandit-ring",
-      "source_page": "https://kream.co.kr/products/55689",
-      "source_image_url": "https://kream-phinf.pstatic.net/MjAyNTA3MzFfMjg3/MDAxNzUzOTEwMTE3MDEx.am3rM8mFLDm9-njciuLfHSWIl56wroObaPQP65KP06wg.uBW0aWHzpkPepJ1wZVzhNFeGsafZyGWo-KMgmGe1O1Yg.PNG/a_7d6a232bc057470986fd84874be5a652.png",
-      "original_path": "frontend/public/boxes/original/xy7-bandit-ring.png",
-      "original_sha256": "76899bf3788571106b6f9888715aa31a73e72cd14a9d86a1cfdf7e8872f44f3e",
-      "width": 1120,
-      "height": 1120,
+      "original_path": "frontend/public/boxes/original/xy7-bandit-ring-custom-20261108.png",
+      "original_sha256": "63a39aa30d6fe43e414d70ad2d1393d1b298688d0e723b9296de81cc33022b48",
+      "width": 1024,
+      "height": 1024,
       "has_alpha": true,
       "output_path": "frontend/public/boxes/xy7-bandit-ring.png",
       "thumbnail_path": "frontend/public/boxes/thumbs/xy7-bandit-ring.webp",
       "processing": {
         "script": "scripts/process-box-image.ts",
+        "input": "frontend/public/boxes/original/xy7-bandit-ring-custom-20261108.png",
         "canvas": 768,
         "product_height": 708,
         "thumbnail": 768,
-        "preserve_source_alpha": true,
+        "background_removal": "border-connected light background only",
+        "background_threshold": 190,
+        "max_chroma": 40,
         "flip_horizontal": false
       },
-      "visual_review": "한국어 인쇄·동일 세트·닫힌 단일 박스·팩 수를 확인. 판매점 워터마크 없음. 제품 면/글자 손실 없음."
+      "visual_review": "사용자 지정 박스 일러스트를 그대로 보존. 흰 배경만 제거하고 정방향·가장자리·그림·글자 보존을 확인.",
+      "reference_product": {
+        "page": "https://kream.co.kr/products/55689",
+        "image_url": "https://kream-phinf.pstatic.net/MjAyNTA3MzFfMjg3/MDAxNzUzOTEwMTE3MDEx.am3rM8mFLDm9-njciuLfHSWIl56wroObaPQP65KP06wg.uBW0aWHzpkPepJ1wZVzhNFeGsafZyGWo-KMgmGe1O1Yg.PNG/a_7d6a232bc057470986fd84874be5a652.png",
+        "original_path": "frontend/public/boxes/original/xy7-bandit-ring.png",
+        "original_sha256": "76899bf3788571106b6f9888715aa31a73e72cd14a9d86a1cfdf7e8872f44f3e"
+      },
+      "source_kind": "user-provided",
+      "source_filename": "Gemini_Generated_Image_k3ktc9k3ktc9k3kt.png"
     },
     {
       "set_code": "xy8-blue-shock",
-      "source_page": "https://kream.co.kr/products/54912",
-      "source_image_url": "https://kream-phinf.pstatic.net/MjAyNTA3MzFfNzgg/MDAxNzUzOTEwMTE1OTM1.rekw49VoZ_9Z3KdMgU1gbg7HdqaibIf4Dy44YLiN2fQg.2BmfzDTvaNiIEZeqE0RzHI_5hWuyZuN5joUAbNgWWnEg.PNG/a_357ddbfdd80f40c1924ed69636bfdab9.png",
-      "original_path": "frontend/public/boxes/original/xy8-blue-shock.png",
-      "original_sha256": "4b52ba302dfadfbe4202362d407fe37ab47160f11b02d5ef186e16871049526c",
-      "width": 1120,
-      "height": 1120,
+      "original_path": "frontend/public/boxes/original/xy8-blue-shock-custom-20261108.png",
+      "original_sha256": "739be9a745b067c6b8b9508e6f54c05a0e0d65bfdf8b539c8363a3200eea2c4a",
+      "width": 1024,
+      "height": 1024,
       "has_alpha": true,
       "output_path": "frontend/public/boxes/xy8-blue-shock.png",
       "thumbnail_path": "frontend/public/boxes/thumbs/xy8-blue-shock.webp",
       "processing": {
         "script": "scripts/process-box-image.ts",
+        "input": "frontend/public/boxes/original/xy8-blue-shock-custom-20261108.png",
         "canvas": 768,
         "product_height": 708,
         "thumbnail": 768,
-        "preserve_source_alpha": true,
+        "background_removal": "border-connected light background only",
+        "background_threshold": 190,
+        "max_chroma": 40,
         "flip_horizontal": false
       },
-      "visual_review": "한국어 인쇄·동일 세트·닫힌 단일 박스·팩 수를 확인. 판매점 워터마크 없음. 제품 면/글자 손실 없음."
+      "visual_review": "사용자 지정 박스 일러스트를 그대로 보존. 흰 배경만 제거하고 정방향·가장자리·그림·글자 보존을 확인.",
+      "reference_product": {
+        "page": "https://kream.co.kr/products/54912",
+        "image_url": "https://kream-phinf.pstatic.net/MjAyNTA3MzFfNzgg/MDAxNzUzOTEwMTE1OTM1.rekw49VoZ_9Z3KdMgU1gbg7HdqaibIf4Dy44YLiN2fQg.2BmfzDTvaNiIEZeqE0RzHI_5hWuyZuN5joUAbNgWWnEg.PNG/a_357ddbfdd80f40c1924ed69636bfdab9.png",
+        "original_path": "frontend/public/boxes/original/xy8-blue-shock.png",
+        "original_sha256": "4b52ba302dfadfbe4202362d407fe37ab47160f11b02d5ef186e16871049526c"
+      },
+      "source_kind": "user-provided",
+      "source_filename": "Gemini_Generated_Image_uz5ivluz5ivluz5i.png"
     },
     {
       "set_code": "xy8-red-flash",
-      "source_page": "https://kream.co.kr/products/53593",
-      "source_image_url": "https://kream-phinf.pstatic.net/MjAyNTA3MzFfMTg4/MDAxNzUzOTEwMTE1NDk1.-KQAxChO14TW2SYSf0D9whkZE0lDn8bObAmDAbl6qYUg.pAyPkV0cJnHpNaUH1Mdjw0t72YHOhyAQo8dHDZ2TSOQg.PNG/a_4b73e9cab1aa41f78f24b608f3146c09.png",
-      "original_path": "frontend/public/boxes/original/xy8-red-flash.png",
-      "original_sha256": "d4808c2284648cd0bd1857c983cec6848dd771cd25f7c49d3159513e18ad1087",
-      "width": 1120,
-      "height": 1120,
+      "original_path": "frontend/public/boxes/original/xy8-red-flash-custom-20261108.png",
+      "original_sha256": "d21f8f39cd3e3416e7b7506d0180988b726824e948ac2ea85f72e34db2720cf9",
+      "width": 1024,
+      "height": 1024,
       "has_alpha": true,
       "output_path": "frontend/public/boxes/xy8-red-flash.png",
       "thumbnail_path": "frontend/public/boxes/thumbs/xy8-red-flash.webp",
       "processing": {
         "script": "scripts/process-box-image.ts",
+        "input": "frontend/public/boxes/original/xy8-red-flash-custom-20261108.png",
         "canvas": 768,
         "product_height": 708,
         "thumbnail": 768,
-        "preserve_source_alpha": true,
+        "background_removal": "border-connected light background only",
+        "background_threshold": 190,
+        "max_chroma": 40,
         "flip_horizontal": false
       },
-      "visual_review": "한국어 인쇄·동일 세트·닫힌 단일 박스·팩 수를 확인. 판매점 워터마크 없음. 제품 면/글자 손실 없음."
+      "visual_review": "사용자 지정 박스 일러스트를 그대로 보존. 흰 배경만 제거하고 정방향·가장자리·그림·글자 보존을 확인.",
+      "reference_product": {
+        "page": "https://kream.co.kr/products/53593",
+        "image_url": "https://kream-phinf.pstatic.net/MjAyNTA3MzFfMTg4/MDAxNzUzOTEwMTE1NDk1.-KQAxChO14TW2SYSf0D9whkZE0lDn8bObAmDAbl6qYUg.pAyPkV0cJnHpNaUH1Mdjw0t72YHOhyAQo8dHDZ2TSOQg.PNG/a_4b73e9cab1aa41f78f24b608f3146c09.png",
+        "original_path": "frontend/public/boxes/original/xy8-red-flash.png",
+        "original_sha256": "d4808c2284648cd0bd1857c983cec6848dd771cd25f7c49d3159513e18ad1087"
+      },
+      "source_kind": "user-provided",
+      "source_filename": "Gemini_Generated_Image_bn5d0jbn5d0jbn5d.png"
     }
   ]
 }
