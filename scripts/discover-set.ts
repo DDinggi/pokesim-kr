@@ -87,7 +87,7 @@ interface Group {
 function parse(result: SearchResult) {
   const img = (result.feature_image ?? "").replace(/\?.*$/, "");
   const folder = img.replace(/\/[^/]+$/, "/");
-  const m = img.match(/\/([A-Za-z0-9]+)_(\d+)\.(?:png|jpg|jpeg|webp)$/i);
+  const m = img.match(/\/([A-Za-z0-9_]+)_(\d+)\.(?:png|jpg|jpeg|webp)$/i);
   const filePrefix = m?.[1] ?? "(unknown)";
   const number = m ? Number(m[2]) : NaN;
   const cardNum = String(result.CardNum).trim().replace(/\s+/g, "");

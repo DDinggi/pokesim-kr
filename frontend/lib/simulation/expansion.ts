@@ -426,6 +426,16 @@ function getStandardFillerPool(
   return byRarity.RR ?? [];
 }
 
+function getXy8RrPools(byRarity: Record<string, Card[]>, setCode?: string) {
+  if (setCode !== 'xy8-blue-shock' && setCode !== 'xy8-red-flash') return null;
+  const rr = byRarity.RR ?? [];
+  const normal = rr.filter(card => !card.name_ko?.includes('BREAK') && !card.name_ko?.startsWith('M'));
+  const mega = rr.filter(card => card.name_ko?.startsWith('M'));
+  const breakCards = rr.filter(card => card.name_ko?.includes('BREAK'));
+  if (!normal.length || !mega.length || !breakCards.length) throw new Error(`${setCode}: incomplete EX/mega/BREAK pools`);
+  return { normal, mega, breakCards };
+}
+
 function buildStandardSvSlots(
   boxSize: number,
   ctx: BuildContext,
@@ -476,7 +486,17 @@ function buildStandardSvSlots(
 
   const rrPool = byRarity.RR ?? byRarity.R ?? [];
   const rrCount = rate.rrBaseCount + (rng() < rate.rrExtraRate ? 1 : 0);
-  for (let i = 0; i < rrCount; i++) slots.push(rrPool);
+  const xy8 = getXy8RrPools(byRarity, setCode);
+  if (xy8) {
+    // JP 2 EX + 1 mega + 1 BREAK -> KR means 3 + 1.5 + 1.5.
+    // The shared final slot preserves those means; this coupling is an approximation.
+    const extraMega = rng() < 0.5;
+    slots.push(xy8.normal, xy8.normal, xy8.normal);
+    for (const card of shuffle(xy8.mega, rng).slice(0, extraMega ? 2 : 1)) slots.push([card]);
+    for (const card of shuffle(xy8.breakCards, rng).slice(0, extraMega ? 1 : 2)) slots.push([card]);
+  } else {
+    for (let i = 0; i < rrCount; i++) slots.push(rrPool);
+  }
 
   const rrrPool = byRarity.RRR ?? [];
   const rrrCount = (rate.rrrBaseCount ?? 0) + (rng() < (rate.rrrExtraRate ?? 0) ? 1 : 0);
@@ -493,6 +513,11 @@ function buildStandardSvSlots(
   }
 
   const rPool = getStandardFillerPool(byRarity, setCode);
+  if (rate.holoPackCount !== undefined) {
+    while (slots.length < rate.holoPackCount) slots.push(rPool);
+    while (slots.length < boxSize) slots.push(byRarity.U ?? byRarity.C ?? []);
+    return slots;
+  }
   while (slots.length < boxSize) slots.push(rPool);
 
   return slots;
@@ -639,8 +664,15 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   const rSlots = boxSize - mandatoryHighRate - hCount - aceCount - kCount - chrCount - trCount - prCount - aCount - arCount - extraSrRate - rrExpected - rrrExpected;
   const fillerPool = getStandardFillerPool(byRarity, setCode);
 
-  entries.push({ weight: rSlots * 100, pool: fillerPool });
-  entries.push({ weight: rrExpected * 100, pool: byRarity.RR ?? [] });
+  const nonHoloSlots = standardSetRate.holoPackCount === undefined ? 0 : boxSize - standardSetRate.holoPackCount;
+  entries.push({ weight: (rSlots - nonHoloSlots) * 100, pool: fillerPool });
+  if (nonHoloSlots > 0) entries.push({ weight: nonHoloSlots * 100, pool: byRarity.U ?? byRarity.C ?? [] });
+  const xy8 = getXy8RrPools(byRarity, setCode);
+  if (xy8) {
+    entries.push({ weight: 300, pool: xy8.normal }, { weight: 150, pool: xy8.mega }, { weight: 150, pool: xy8.breakCards });
+  } else {
+    entries.push({ weight: rrExpected * 100, pool: byRarity.RR ?? [] });
+  }
   if (rrrExpected > 0) entries.push({ weight: rrrExpected * 100, pool: byRarity.RRR ?? [] });
   if (prCount > 0) entries.push({ weight: prCount * 100, pool: byRarity.PR ?? [] });
   if (hCount > 0) entries.push({

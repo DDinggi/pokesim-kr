@@ -42,6 +42,8 @@ export interface StandardSvSetRate {
   prCount?: number;
   arCount?: number;
   boxSize?: number;
+  /** R-or-higher packs per box; remaining packs have an uncommon final slot. */
+  holoPackCount?: number;
   rrBaseCount: number;
   rrExtraRate: number;
   rrrBaseCount?: number;

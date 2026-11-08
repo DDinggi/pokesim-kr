@@ -663,6 +663,21 @@ const XY6_EMERALD_BREAK: StandardSvSetRate = {
   fillerWeights: SM_FILLER_WEIGHTS,
 };
 
+// XY7: conservative adjacent XY6 approximation; XY8: 2015 public opening estimate.
+// JP 20 packs -> KR 30 packs by expected counts, not measured Korean guarantees.
+const XY7_BANDIT_RING: StandardSvSetRate = {
+  ...XY6_EMERALD_BREAK,
+  mandatoryHighWeights: normalizeHighWeights({ SR_POKEMON: 11, UR: 5 }),
+  holoPackCount: 15,
+};
+const XY8_BREAK: StandardSvSetRate = {
+  ...XY6_EMERALD_BREAK,
+  mandatoryHighWeights: normalizeHighWeights({ SR_POKEMON: 4, SR_TRAINER: 1, UR: 1 }),
+  rrBaseCount: 6,
+  rrExtraRate: 0,
+  holoPackCount: 15,
+};
+
 const SM_TAG_BOLT: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
     SR_POKEMON: 30,
@@ -1110,6 +1125,9 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'sm11-miracle-twin': SM11_MIRACLE_TWIN,
   'smp2-detective-pikachu': DETECTIVE_PIKACHU,
   'xy6-emerald-break': XY6_EMERALD_BREAK,
+  'xy7-bandit-ring': XY7_BANDIT_RING,
+  'xy8-blue-shock': XY8_BREAK,
+  'xy8-red-flash': XY8_BREAK,
   'sm5s-ultra-sun': SM5_ULTRA_SUN_MOON,
   'sm3plus-shining-legends': SM3PLUS_SHINING_LEGENDS,
   'sm3h-rainbow-in-darkness': SM3_RAINBOW_DARKNESS,

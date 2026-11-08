@@ -98,6 +98,9 @@ import sm10DoubleBlaze from '../public/sets/sm10-double-blaze.json';
 import smp2DetectivePikachu from '../public/sets/smp2-detective-pikachu.json';
 import sm8bGxUltraShiny from '../public/sets/sm8b-gx-ultra-shiny.json';
 import xy6EmeraldBreak from '../public/sets/xy6-emerald-break.json';
+import xy7BanditRing from '../public/sets/xy7-bandit-ring.json';
+import xy8BlueShock from '../public/sets/xy8-blue-shock.json';
+import xy8RedFlash from '../public/sets/xy8-red-flash.json';
 import mStartDeck100 from '../public/sets/m-start-deck-100.json';
 import m4NinjaSpinner from '../public/sets/m4-ninja-spinner.json';
 import m5AbyssEye from '../public/sets/m5-abyss-eye.json';
@@ -164,6 +167,9 @@ const sets: SetMeta[] = [
   sm9TagBolt, sm8aDarkOrder, sm9bFullMetalWall, sm9aNightUnison, sm10bSkyLegend, sm10aGgEnd,
   sm10DoubleBlaze, smp2DetectivePikachu, sm8bGxUltraShiny,
   // XY 시리즈
+  xy8RedFlash,
+  xy8BlueShock,
+  xy7BanditRing,
   xy6EmeraldBreak,
 ] as SetMeta[];
 

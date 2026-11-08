@@ -16,6 +16,9 @@ import { fetchSetPopularity, type SetPopularity } from '../lib/statsTracker';
 import { SetSeriesTabs } from './SetSeriesTabs';
 
 const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
+  'xy7-bandit-ring': { gradient: 'from-violet-700 via-purple-950 to-slate-950', accent: 'text-purple-200' },
+  'xy8-blue-shock': { gradient: 'from-sky-700 via-blue-900 to-slate-950', accent: 'text-sky-200' },
+  'xy8-red-flash': { gradient: 'from-red-700 via-rose-900 to-slate-950', accent: 'text-red-200' },
   'sm2plus-new-trials': { gradient: 'from-purple-800 via-slate-900 to-teal-950', accent: 'text-purple-200' },
   'sm2k-alolan-sunlight': { gradient: 'from-yellow-600 via-amber-800 to-orange-950', accent: 'text-yellow-200' },
   'sm2l-alolan-moonlight': { gradient: 'from-rose-800 via-purple-900 to-slate-950', accent: 'text-rose-200' },

@@ -16,6 +16,8 @@ interface CardEntry {
 
 interface SetJson {
   code: string;
+  fullahead_shop_code?: string;
+  fullahead_category_code?: string;
   name_ko?: string;
   type?: string;
   cards: CardEntry[];
@@ -177,7 +179,7 @@ async function auditSet(setCode: string): Promise<AuditResult> {
   }
 
   try {
-    const items = await fetchFullaheadSetItems(shopCode);
+    const items = await fetchFullaheadSetItems(shopCode, set.fullahead_category_code);
     const byNumber = new Map<number, FullaheadItem>();
     for (const item of items) {
       const previous = byNumber.get(item.number);
@@ -213,8 +215,8 @@ async function auditSet(setCode: string): Promise<AuditResult> {
   }
 }
 
-async function fetchFullaheadSetItems(shopCode: string): Promise<FullaheadItem[]> {
-  const { categoryCode, firstHtml } = await fetchFirstCategoryPage(shopCode);
+async function fetchFullaheadSetItems(shopCode: string, categoryOverride?: string): Promise<FullaheadItem[]> {
+  const { categoryCode, firstHtml } = await fetchFirstCategoryPage(shopCode, categoryOverride);
   const items = new Map<string, FullaheadItem>();
 
   for (const item of parseFullaheadItems(firstHtml, shopCode)) {
@@ -243,8 +245,8 @@ async function fetchFullaheadSetItems(shopCode: string): Promise<FullaheadItem[]
   return Array.from(items.values());
 }
 
-async function fetchFirstCategoryPage(shopCode: string): Promise<{ categoryCode: string; firstHtml: string }> {
-  const candidates = getCategoryCandidates(shopCode);
+async function fetchFirstCategoryPage(shopCode: string, categoryOverride?: string): Promise<{ categoryCode: string; firstHtml: string }> {
+  const candidates = categoryOverride ? [categoryOverride] : getCategoryCandidates(shopCode);
   let lastError: unknown = null;
 
   for (const categoryCode of candidates) {
@@ -339,6 +341,7 @@ function getPageNumbers(html: string, categoryCode: string): number[] {
 }
 
 function getShopCodeForSet(set: SetJson): string | null {
+  if (set.fullahead_shop_code) return set.fullahead_shop_code.toLowerCase();
   for (const card of set.cards) {
     const code = extractSetCodeFromImage(card.image_url);
     if (code) return code.toLowerCase();

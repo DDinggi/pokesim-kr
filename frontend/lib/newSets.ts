@@ -1,18 +1,15 @@
 export const NEW_SIM_SET_CODES = [
+  'xy8-red-flash',
+  'xy8-blue-shock',
+  'xy7-bandit-ring',
   'smp2-detective-pikachu',
   's8a-25th-anniversary',
   'xy6-emerald-break',
-  'sm2plus-new-trials',
-  'sm2k-alolan-sunlight',
-  'sm2l-alolan-moonlight',
-  'sm1plus-sun-moon',
-  'sm1s-sun-collection',
-  'sm1m-moon-collection',
 ] as const;
 
-export const LATEST_SET_UPDATE_LABEL = 'NEW · 10/26';
+export const LATEST_SET_UPDATE_LABEL = 'NEW · 11/8';
 export const LATEST_SET_UPDATE_TITLE = '신규 세트 3종 추가';
-export const LATEST_SET_UPDATE_SETS = '명탐정 피카츄 · 25th ANNIVERSARY COLLECTION · 에메랄드 브레이크';
+export const LATEST_SET_UPDATE_SETS = '밴디트링 · 푸른 충격 · 붉은 섬광';
 
 const NEW_SIM_SET_CODE_SET = new Set<string>(NEW_SIM_SET_CODES);
 

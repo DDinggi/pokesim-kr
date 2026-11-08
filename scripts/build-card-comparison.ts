@@ -18,8 +18,8 @@ async function fetchHtml(url: string) {
   if (!response.ok) throw new Error(`${response.status}: ${url}`);
   return new TextDecoder('euc-jp').decode(await response.arrayBuffer());
 }
-async function catalog(shop: string): Promise<JpCard[]> {
-  const category = shop.replace(/^([a-z]+)(\d)([a-z]*)$/, '$10$2$3');
+async function catalog(shop: string, categoryOverride?: string): Promise<JpCard[]> {
+  const category = categoryOverride ?? shop.replace(/^([a-z]+)(\d)([a-z]*)$/, '$10$2$3');
   const pattern = shop.toUpperCase().replace(/PLUS$/, '(?:PLUS|\\+)');
   const numberPattern = new RegExp(`PK-${pattern}-(\\d{1,3})(?![\\d-])\\s+(.+)`, 'i');
   const byNumber = new Map<number, JpCard>();
@@ -52,7 +52,7 @@ const sections: string[] = [];
 for (const code of codes) {
   const set = JSON.parse(readFileSync(join(root, 'data/sets', `${code}.json`), 'utf8'));
   const cache = join(directory, `${code}.jp.json`);
-  const items: JpCard[] = existsSync(cache) && !args.includes('--refresh') ? JSON.parse(readFileSync(cache, 'utf8')) : await catalog(set.fullahead_shop_code);
+  const items: JpCard[] = existsSync(cache) && !args.includes('--refresh') ? JSON.parse(readFileSync(cache, 'utf8')) : await catalog(set.fullahead_shop_code, set.fullahead_category_code);
   writeFileSync(cache, `${JSON.stringify(items, null, 2)}\n`);
   const jp = new Map(items.map(card => [card.number, card]));
   const cards: Card[] = set.cards;

@@ -28,6 +28,8 @@ const normalize = (s: unknown) => String(s ?? '').normalize('NFKC').replace(/_x0
 const hash = (s: string | Buffer) => createHash('sha256').update(s).digest('hex');
 function officialImageKey(imageUrl: string): string | null {
   const url = new URL(imageUrl, 'https://pokemoncard.co.kr/');
+  const publicPrefix = '/public-assets/home/data/cards.image_www/data/';
+  if (url.pathname.startsWith(publicPrefix)) return url.pathname.slice(publicPrefix.length);
   if (url.pathname === '/s3.php') {
     const key = url.searchParams.get('key');
     const prefix = 'home/data/cards.image_www/data/';
