@@ -1,7 +1,7 @@
 {
   "$schema": "../schemas/set.schema.json",
   "code": "cp3-pokekyun-collection",
-  "name_ko": "XY BREAK 컨셉팩 「포켓심쿵 컬렉션」",
+  "name_ko": "XY BREAK 확장팩 「포켓심쿵 컬렉션」",
   "name_en": "PokéKyun Collection",
   "name_jp": "ポケキュンコレクション",
   "series": "XY",
