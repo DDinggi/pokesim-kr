@@ -1,5 +1,6 @@
 'use client';
 
+import { NewSetNames } from './NewSetNames';
 import { useState, useMemo, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { Card, SetMeta, PackResult } from '../lib/types';
@@ -11,7 +12,7 @@ import {
   createLuckOpening,
   summarizeLuckEvent,
 } from '../lib/luck';
-import { isNewSimSet, sortNewSimSetsFirst, LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_SETS, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
+import { isNewSimSet, sortNewSimSetsFirst, LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
 import { trackSim, trackUserEvent } from '../lib/statsTracker';
 import { CardModal } from './CardModal';
 import {
@@ -476,7 +477,7 @@ export function VendingMachine({
           <p className="text-sm font-bold text-white mt-0.5">
             {LATEST_SET_UPDATE_TITLE}
           </p>
-          {LATEST_SET_UPDATE_SETS && <p className="mt-1 text-[11px] leading-relaxed text-gray-400">{LATEST_SET_UPDATE_SETS}</p>}
+          <NewSetNames />
         </div>
 
         <div className="mb-4">

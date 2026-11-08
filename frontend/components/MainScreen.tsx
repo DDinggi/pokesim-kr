@@ -1,5 +1,6 @@
 'use client';
 
+import { NewSetNames } from './NewSetNames';
 import { memo, useCallback, useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -34,7 +35,7 @@ import {
 } from '../lib/rarity';
 import { CardModal } from './CardModal';
 import SiteStats from './site-stats';
-import { LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_SETS, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
+import { LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
 
 type Mode = 'box' | 'vending';
 
@@ -142,7 +143,7 @@ export function MainScreen({
             <span className="mr-2 align-middle text-[11px] font-black tracking-widest text-yellow-300">{LATEST_SET_UPDATE_LABEL}</span>
             {LATEST_SET_UPDATE_TITLE}
           </p>
-          {LATEST_SET_UPDATE_SETS && <p className="text-[11px] leading-relaxed text-gray-400">{LATEST_SET_UPDATE_SETS}</p>}
+          <NewSetNames />
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-relaxed text-gray-400">
             <span>피드백과 문의는 언제든 환영합니다.</span>
             <a

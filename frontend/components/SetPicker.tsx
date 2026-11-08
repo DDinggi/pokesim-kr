@@ -1,12 +1,13 @@
 'use client';
 
+import { NewSetNames } from './NewSetNames';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { SetMeta } from '../lib/types';
 import { getBundleSummary, isBundleSet } from '../lib/bundle';
 import { getBoxThumbnailImageSrc } from '../lib/boxImages';
 import { ANNIVERSARY_25_PROMO_INTERVAL, isAnniversary25Set } from '../lib/simulation/model';
-import { isNewSimSet, sortNewSimSetsFirst, LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_SETS, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
+import { isNewSimSet, sortNewSimSetsFirst, LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
 import {
   getAvailableSetSeries,
   getSetSeriesKey,
@@ -680,7 +681,7 @@ export function SetPicker({
           <p className="text-sm font-bold text-white mt-0.5">
             {LATEST_SET_UPDATE_TITLE}
           </p>
-          {LATEST_SET_UPDATE_SETS && <p className="mt-1 text-[11px] leading-relaxed text-gray-400">{LATEST_SET_UPDATE_SETS}</p>}
+          <NewSetNames />
         </div>
 
         <div className="relative mb-5">
