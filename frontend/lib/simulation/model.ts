@@ -678,6 +678,22 @@ const XY8_BREAK: StandardSvSetRate = {
   holoPackCount: 15,
 };
 
+export const POKEKYUN_SET_CODE = 'cp3-pokekyun-collection';
+export const POKEKYUN_BOX_SIZE = 20;
+// Individually reviewed KR/JP 20-pack openings; provenance lives in data/manual/cp3-*.json.
+// This small mixed-language sample is a provisional model, not an official rate.
+export const POKEKYUN_BOX_RR_COUNTS = [4, 5, 4, 5, 5, 4, 6, 5, 5, 4] as const;
+export const POKEKYUN_RR_PER_BOX = POKEKYUN_BOX_RR_COUNTS.reduce<number>((sum, count) => sum + count, 0) / POKEKYUN_BOX_RR_COUNTS.length;
+export const POKEKYUN_RR_PER_PACK = POKEKYUN_RR_PER_BOX / POKEKYUN_BOX_SIZE;
+export const POKEKYUN_RR_SCORE_WEIGHT = 1;
+const POKEKYUN_STANDARD: StandardSvSetRate = {
+  // Analytic mean only. Actual box counts (including six RR) use pokekyun.ts.
+  mandatoryHighRate: 0, mandatoryHighWeights: {}, extraHighRate: 0, extraHighWeights: {},
+  arCount: 0, boxSize: POKEKYUN_BOX_SIZE,
+  rrBaseCount: 4, rrExtraRate: POKEKYUN_RR_PER_BOX - 4,
+  fillerWeights: { C: 100 },
+};
+
 const SM_TAG_BOLT: StandardSvSetRate = {
   mandatoryHighWeights: normalizeHighWeights({
     SR_POKEMON: 30,
@@ -1128,6 +1144,7 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'xy7-bandit-ring': XY7_BANDIT_RING,
   'xy8-blue-shock': XY8_BREAK,
   'xy8-red-flash': XY8_BREAK,
+  'cp3-pokekyun-collection': POKEKYUN_STANDARD,
   'sm5s-ultra-sun': SM5_ULTRA_SUN_MOON,
   'sm3plus-shining-legends': SM3PLUS_SHINING_LEGENDS,
   'sm3h-rainbow-in-darkness': SM3_RAINBOW_DARKNESS,

@@ -63,6 +63,7 @@ import {
   ALT_SR_NUMBER_RANGES,
 } from './simulation/model';
 import type { StandardSvSetRate } from './simulation/types';
+import { POKEKYUN_SET_CODE, POKEKYUN_BOX_RR_COUNTS, POKEKYUN_RR_PER_BOX, POKEKYUN_RR_PER_PACK, POKEKYUN_RR_SCORE_WEIGHT } from './simulation/model';
 
 const DEFAULT_BOX_SIZE = 30;
 
@@ -630,6 +631,8 @@ function getLuckScoreWeightsForSet(
   const code = 'code' in setOrOpening ? setOrOpening.code : setOrOpening.setCode;
   const type = 'type' in setOrOpening ? setOrOpening.type : undefined;
 
+  if (code === POKEKYUN_SET_CODE) return { RR: POKEKYUN_RR_SCORE_WEIGHT };
+
   if (isStarterSet(code)) {
     // 스타트 덱 100: 대표 AR/SR/SAR/MUR을 힛으로 본다.
     return { AR: getScoreWeight('AR', mode), UR: getScoreWeight('UR', mode), SAR: 2, SR: getScoreWeight('SR', mode) };
@@ -780,6 +783,11 @@ function getExpectedScoredRarityCounts(
   };
 
   if (unitCount <= 0) return counts;
+
+  if (code === POKEKYUN_SET_CODE) {
+    addExpectedCount(counts, 'RR', (unitCount * POKEKYUN_RR_PER_BOX - opening.boxes * 4));
+    return counts;
+  }
 
   if (set?.type === 'anniversary-promo') {
     addExpectedCount(counts, 'S8AP', opening.boxes + opening.packs);
@@ -1027,6 +1035,7 @@ function subtractBaselineCounts(
   const code = set?.code ?? opening.setCode;
   // 혼합 상품은 모두 낱팩이므로 원본 부스터 박스의 확정 슬롯을 차감하지 않는다.
   if (set?.type === 'bundle') return counts;
+  if (code === POKEKYUN_SET_CODE) counts.RR = Math.max(0, (counts.RR ?? 0) - opening.boxes * 4);
   const isHiClassSet =
     set?.type === 'hi-class'
     || ['sv8a-terastal-festa', 'sv4a-shiny-treasure-ex', 's4a-shiny-star-v', 'sm8b-gx-ultra-shiny', 's12a-vstar-universe', 's8b-vmax-climax', 'sm12a-tag-team-gx-tag-all-stars', 'm-dream-ex'].includes(code);
@@ -1304,6 +1313,10 @@ function getBoxScoreDistribution(
 ): LuckScoreOutcome[] {
   const code = set?.code;
 
+  if (code === POKEKYUN_SET_CODE) return normalizeDistribution(POKEKYUN_BOX_RR_COUNTS.map(count => ({
+    score: (count - 4) * POKEKYUN_RR_SCORE_WEIGHT, probability: 1 / POKEKYUN_BOX_RR_COUNTS.length,
+  })));
+
   if (set?.type === 'anniversary-promo') {
     return [{ score: ANNIVERSARY_25_LUCK_SCORE_WEIGHTS.S8AP, probability: 1 }];
   }
@@ -1509,6 +1522,7 @@ function getPackScoreDistribution(
   boxSize: number,
 ): LuckScoreOutcome[] {
   const code = set?.code;
+  if (code === POKEKYUN_SET_CODE) return bernoulliDistribution(POKEKYUN_RR_SCORE_WEIGHT, POKEKYUN_RR_PER_PACK);
   let distribution: LuckScoreOutcome[] = [{ score: 0, probability: 1 }];
 
   if (set?.type === 'anniversary-promo') {

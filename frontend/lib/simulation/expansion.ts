@@ -44,6 +44,8 @@ import {
 import type { RarityPools } from './pools';
 import type { BuildContext, StandardHighKey, StandardSvSetRate } from './types';
 import { pickUniqueCard, UNIQUE_BOX_HIT_RARITIES } from './unique';
+import { simulatePokekyunBox } from './pokekyun';
+import { POKEKYUN_SET_CODE } from './model';
 
 export function simulateExpansionBox(
   _allCards: Card[],
@@ -53,6 +55,7 @@ export function simulateExpansionBox(
   setCode?: string,
   packSize = 5,
 ): PackResult[] {
+  if (setCode === POKEKYUN_SET_CODE) return simulatePokekyunBox(ctx, rng, boxSize, packSize);
   if (setCode === CELEBRATION_30_SET_CODE) {
     return simulate30thCelebrationBox(boxSize, ctx, rng, packSize);
   }

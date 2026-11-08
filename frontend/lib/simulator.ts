@@ -24,6 +24,8 @@ import {
 import { groupByRarity } from './simulation/pools';
 import { makePick, makeWeightedPick } from './simulation/random';
 import type { BuildContext } from './simulation/types';
+import { buildSinglePokekyunPack } from './simulation/pokekyun';
+import { POKEKYUN_SET_CODE } from './simulation/model';
 
 export { PROBABILITY_META, groupByRarity };
 
@@ -53,7 +55,9 @@ export function simulatePack(
 ): { pack: PackResult; seed: string } {
   const { seed, ctx, rng } = createSimulationContext(allCards, seedInput);
   const pack =
-    type === 'anniversary-promo'
+    setCode === POKEKYUN_SET_CODE
+      ? buildSinglePokekyunPack(ctx, rng, packSize)
+      : type === 'anniversary-promo'
       ? { cards: [ctx.pick(allCards.filter(card => card.rarity === 'S8AP'))], is_bonus: true }
       : type === 'hi-class'
       ? simulateSingleHiClassPack(ctx, rng, setCode, packSize)

@@ -9,6 +9,7 @@ import { parse } from "node-html-parser";
 type PriceConfidence = "source" | "manual";
 
 interface CardEntry {
+  _price_reference_exclusion?: string;
   _jp_number?: number;
   card_num?: string;
   collector_number?: string;
@@ -343,6 +344,7 @@ function isCompatibleRarity(cardRarity: string | null | undefined, itemRarity: s
 }
 
 function shouldPriceCard(setCode: string, card: CardEntry): boolean {
+  if (card._price_reference_exclusion) return false;
   if (!card.rarity) return false;
   // Japanese SMP2 only has holo cards. Korean regular C/U cards have no
   // equivalent FullAhead listing, so sharing the mirror price double-counts them.

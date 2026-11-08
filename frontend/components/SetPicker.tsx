@@ -16,6 +16,7 @@ import { fetchSetPopularity, type SetPopularity } from '../lib/statsTracker';
 import { SetSeriesTabs } from './SetSeriesTabs';
 
 const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
+  'cp3-pokekyun-collection': { gradient: 'from-rose-600 via-fuchsia-900 to-slate-950', accent: 'text-pink-100' },
   'xy7-bandit-ring': { gradient: 'from-violet-700 via-purple-950 to-slate-950', accent: 'text-purple-200' },
   'xy8-blue-shock': { gradient: 'from-sky-700 via-blue-900 to-slate-950', accent: 'text-sky-200' },
   'xy8-red-flash': { gradient: 'from-red-700 via-rose-900 to-slate-950', accent: 'text-red-200' },
