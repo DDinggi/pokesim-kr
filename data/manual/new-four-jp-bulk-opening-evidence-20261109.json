@@ -70,7 +70,7 @@
         "source_urls": [
           "https://pokebeach.com/forums/threads/the-foreign-booster-box-pull-rates-thread.113135/page-22"
         ],
-        "review_note": "2015-06-20 #422? RR31/???9? 06-25 #428?? RR30/???10, ?? UR4? ??. SR6? ?? ??. #429? ?? ? ???9/10 ??? ??? ??? ?? ??? ???. ?? ? ??? XenForo ?? post ID? ???? page-22? #428? ????."
+        "review_note": "2015-06-20 #422의 RR31/고레어9를06-25 #428에서 RR30/고레어10(UR4 포함)으로 정정했다. SR6은 차감 산출. #429의 추가 몇 카톤9/10 언급은 분모 미공개라 별도 집계에서 제외했다. page-22의 #428 최종 정정을 우선한다."
       },
       {
         "id": "efour-milhouse-12",
@@ -531,5 +531,10 @@
       "reason": "페이지 스스로 이 세트 실측 부재·동일 팩 레이아웃 차용이라고 명시. 실물100박스 관측이 아니므로 제외."
     }
   ],
-  "runtime_changes": false
+  "runtime_changes": true,
+  "runtime_application": {
+    "applied_at": "2026-11-09",
+    "report": "docs/new-four-jp-bulk-pull-rate-review-20261109.md",
+    "note": "관측 합계와 미확인 항목을 보존하며 반영 분포는 별도 통계 근사다. 한국 XY3종30팩·CP3 20팩. 고레어·RR 장수의 팩 수 비례1.5배 증폭은 적용하지 않는다."
+  }
 }

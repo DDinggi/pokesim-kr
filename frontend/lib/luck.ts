@@ -52,6 +52,7 @@ import {
   VSTAR_UNIVERSE_EXTRA_SLOT_WEIGHTS,
   VSTAR_UNIVERSE_SAR_GOD_PACK_RATE,
   getStandardSvSetRate,
+  getStandardHighMean,
   isAnniversary25Set,
   isMegaExpansionSet,
   isStarterSet,
@@ -981,7 +982,7 @@ function getExpectedScoredRarityCounts(
 
   const standardRate = getStandardSvSetRate(code);
   if (standardRate) {
-    addExpectedCountsFromWeights(counts, getLuckAdjustedHighWeights(standardRate.mandatoryHighWeights, set ?? { code }), unitCount, standardRate.mandatoryHighRate ?? 1, opening);
+    addExpectedCountsFromWeights(counts, getLuckAdjustedHighWeights(standardRate.mandatoryHighWeights, set ?? { code }), unitCount, getStandardHighMean(standardRate), opening);
     addExpectedCountsFromWeights(counts, getLuckAdjustedHighWeights(standardRate.extraHighWeights, set ?? { code }), unitCount, standardRate.extraHighRate, opening);
     addStandardFixedSlotCounts(counts, standardRate, unitCount, code);
     return counts;
@@ -1459,7 +1460,12 @@ function getBoxScoreDistribution(
     const mandatoryHighWeights = getLuckAdjustedHighWeights(standardRate.mandatoryHighWeights, set ?? (code ? { code } : undefined));
     const extraHighWeights = getLuckAdjustedHighWeights(standardRate.extraHighWeights, set ?? (code ? { code } : undefined));
     let standardDistribution = convolveDistributions(
-      optionalDistributionFromWeights(mandatoryHighWeights, standardRate.mandatoryHighRate ?? 1, 'box'),
+      standardRate.highCountDistribution
+        ? normalizeDistribution(standardRate.highCountDistribution.flatMap((probability, count) => (
+          repeatDistribution(distributionFromWeights(mandatoryHighWeights, 'box'), count)
+            .map(outcome => ({ ...outcome, probability: outcome.probability * probability }))
+        )))
+        : optionalDistributionFromWeights(mandatoryHighWeights, getStandardHighMean(standardRate), 'box'),
       optionalDistributionFromWeights(
         extraHighWeights,
         standardRate.extraHighRate,
@@ -1752,7 +1758,7 @@ function getPackScoreDistribution(
     const extraHighWeights = getLuckAdjustedHighWeights(standardRate.extraHighWeights, set ?? (code ? { code } : undefined));
     distribution = convolveDistributions(
       distribution,
-      weightedSlotDistribution(mandatoryHighWeights, (standardRate.mandatoryHighRate ?? 1) / boxSize, 'pack'),
+      weightedSlotDistribution(mandatoryHighWeights, getStandardHighMean(standardRate) / boxSize, 'pack'),
     );
     if (standardRate.aCount) {
       distribution = convolveDistributions(
@@ -2119,7 +2125,7 @@ export function getLuckRatesForSet(
     return {
       boxSize,
       topPerBox: 0,
-      sarPerBox: (standardRate.mandatoryHighRate ?? 1) * weightChance(standardRate.mandatoryHighWeights, 'SAR'),
+      sarPerBox: getStandardHighMean(standardRate) * weightChance(standardRate.mandatoryHighWeights, 'SAR'),
     };
   }
 

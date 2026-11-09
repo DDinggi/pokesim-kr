@@ -28,6 +28,10 @@ export type StandardHighKey =
   | 'BWR';
 
 export interface StandardSvSetRate {
+  /** Count -> probability; overrides mandatoryHighRate / rrBaseCount + rrExtraRate.
+   * Old-era moment fits, not manufacturing guarantees. */
+  highCountDistribution?: readonly number[];
+  rrCountDistribution?: readonly number[];
   /** Defaults to one guaranteed high slot; older enhanced sets can omit it. */
   mandatoryHighRate?: number;
   hCount?: number;

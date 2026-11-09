@@ -24,38 +24,86 @@
       {
         "rarity": "SR/UR",
         "min": 0,
-        "max": 1
+        "max": 2
       },
       {
         "rarity": "RR",
-        "min": 4,
+        "min": 3,
         "max": 5
       }
     ],
-    "_source": "한국 공식 상품은 30팩×5장, 팩 500원·박스 15,000원. 한국 공식 봉입률은 비공개. 일본 발매 당시 20팩 박스 공개 근사를 한국 30팩에 기대값 1.5배로 적응한 낮은 신뢰도 모델이며 한국 실측·공식 보장이 아니다. R 이상 약 10팩/20팩을 15팩/30팩으로 근사하고 나머지 팩은 C3/U2 구성으로 둔다(일반 카드 세부 장수는 미검증 폴백). 밴디트링 작성자는 RR 약 3장, 고레어 미봉입 가능성과 전작보다 미봉입이 드물다고 기술하지만 빈도·분모를 공개하지 않았다. 따라서 전작 XY6의 고레어 약 0.5장/20팩을 인접 상품 잠정 근사로 차용해 0.75장/30팩(0~1장), RR 약 3장/20팩을 4.5장/30팩(4~5장)으로 둔다. 전작보다 높은 빈도를 임의로 만들지 않으며 정밀한 밴디트링 추정치가 아니다. SR 11종·UR 5종 각 1/16 균등 선택은 미검증 폴백이며 UR이 더 희귀하다는 공식 설명을 수치로 재현하지 못한다. 상품: https://pokemoncard.co.kr/card/50; 개봉 근거: http://blog.livedoor.jp/alice_umbreon/archives/pcg-xy-xy7.html; 상세: docs/xy-next-three-review-20261108.md",
-    "_sample_size": null,
-    "_estimated_at": "2026-11-08",
+    "_source": "한국 공식 봉입률은 비공개. 일본 실물 다박스 직접 개봉을 한국판 추정에 차용하며, 한국30팩/일본20팩 비율로 고레어·RR 장수를 1.5배 늘리지 않는다. 제조 로트·재판 여부 불명, 개봉자 묶음 및 공개 선택 편향이 있다. 일반 C/U와 R 이상15팩/30팩은 기존 필러 근사이며 이번 다박스 자료로 검증한 제조 보장이 아니다. 일본87박스 SR39·UR46, 고레어 평균85/87장. 별도20박스에서 미봉입2박스·2FA박스 존재를 확인했다. 최대2장 근사로 p0=.1,p2=85/87-.9,p1=.9-p2를 적용하며 실측0/1/2장 히스토그램이 아니다. RR은 장수 기재가 완전한48박스146장, RR3/4/5 지원 범위에서 해당 평균을 보존하는 최대 엔트로피 근사다. RR과 고레어의 결합·등급 내 균등·동시2장 등급 배분은 미검증 독립 근사다. 상품: https://pokemoncard.co.kr/card/50; 원장: data/manual/new-four-jp-bulk-opening-evidence-20261109.json; 검토: docs/new-four-jp-bulk-pull-rate-review-20261109.md",
+    "_sample_size": 87,
+    "_estimated_at": "2026-11-09",
     "pull_rate_review": {
-      "reviewed_at": "2026-11-08",
-      "status": "estimated",
-      "print_basis": "일본 2015년 발매 당시 공개 개봉 정리; 재판 구분 없음, 한국 환산은 근사",
-      "confidence": "낮음: 한국 실측 없음, 일본 공개 근사 및 인접 세트 차용",
-      "sources": [
-        "https://pokemoncard.co.kr/card/50",
-        "http://blog.livedoor.jp/alice_umbreon/archives/pcg-xy-xy7.html",
-        "http://blog.livedoor.jp/alice_umbreon/archives/pcg-xy-xy6.html"
-      ],
       "sample": {
-        "measured_denominator": null
+        "unit": "JP box",
+        "high_boxes": 87,
+        "high_packs": 1740,
+        "sr_cards": 39,
+        "ur_cards": 46,
+        "rr_boxes": 48,
+        "rr_cards": 146,
+        "presence_only_boxes": 20,
+        "presence_only_nonempty_boxes": 18
       },
       "assumptions": {
-        "high_rate": 0.75,
-        "high_internal_allocation": "미검증 카드 수 균등 폴백",
-        "rr_expected_count": 4.5,
+        "high_expected_count": 0.9770114942528736,
+        "high_count_probabilities": [
+          0.1,
+          0.8229885057471265,
+          0.07701149425287357
+        ],
+        "sr_ur_weights": [
+          39,
+          46
+        ],
+        "high_card_allocation": "SR11종·UR5종 각각 등급 내 균등; 동시2장 등급 독립 근사",
+        "rr_expected_count": 3.0416666666666665,
+        "rr_estimator": "Maximum entropy on observed support3/4/5 constrained to mean146/48; histogram not observed",
+        "rr_high_correlation": "독립 근사; 제조 교체 슬롯 미확인",
         "holo_pack_count": 15,
-        "extra_high_rate": 0
+        "ordinary_filler": "기존 C3/U1/(U 또는 R+) 및 R 이상15팩 근사 유지; 이번 다박스 고레어 근거로 검증한 수치가 아님",
+        "rr_count_probabilities": [
+          0,
+          0,
+          0,
+          0.9598829466806129,
+          0.03856743997210777,
+          0.0015496133472793772
+        ]
       },
-      "report": "docs/xy-next-three-review-20261108.md"
+      "reviewed_at": "2026-11-09",
+      "status": "estimated",
+      "confidence": "낮음: 일본판 공개 다박스 차용, 한국판 제조 봉입률 미검증",
+      "print_basis": "일본 실물 개봉. 초판/재판·제조 로트는 대체로 미확인",
+      "sources": [
+        "https://imagizer.imageshack.com/v2/1600x1200q90/540/1zAr1y.jpg",
+        "https://nyanntadayo.livedoor.blog/archives/1620412.html",
+        "https://nyanntadayo.livedoor.blog/archives/1620414.html",
+        "https://nyanntadayo.livedoor.blog/archives/1620417.html",
+        "https://nyanntadayo.livedoor.blog/archives/1620420.html",
+        "https://nyanntadayo.livedoor.blog/archives/1620423.html",
+        "https://nyanntadayo.livedoor.blog/archives/1620427.html",
+        "https://perappu-johokyoku.blog.jp/archives/968302.html",
+        "https://pokebeach.com/forums/threads/the-foreign-booster-box-pull-rates-thread.113135/page-22",
+        "https://pokemoncard.co.kr/card/50",
+        "https://raimublog.seesaa.net/article/421065563.html",
+        "https://www.elitefourum.com/t/xy7-bandit-ring/12784?page=26",
+        "https://www.elitefourum.com/t/xy7-bandit-ring/12784?page=27",
+        "https://www.elitefourum.com/t/xy7-bandit-ring/12784?page=28",
+        "https://www.elitefourum.com/t/xy7-bandit-ring/12784?page=29"
+      ],
+      "report": "docs/new-four-jp-bulk-pull-rate-review-20261109.md",
+      "evidence": "data/manual/new-four-jp-bulk-opening-evidence-20261109.json",
+      "official_product_check": {
+        "checked_at": "2026-11-09",
+        "url": "https://pokemoncard.co.kr/card/50",
+        "region": "KR",
+        "box_packs": 30,
+        "cards_per_pack": 5,
+        "box_cards": 150
+      }
     }
   },
   "pack_slots": [],
@@ -1549,24 +1597,24 @@
   "fullahead_category_code": "xy07",
   "_box_image_source": "https://tcgbox.co.kr/web/product/big/160126box/xy7.jpg",
   "luck_value_ref": {
-    "box_median_krw": 147000,
+    "box_median_krw": 276600,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
       0,
       0,
       0,
-      0,
       109900,
-      134600,
       147000,
+      153100,
       276600,
-      276600,
-      492800,
+      369300,
+      554500,
       616300,
-      728700,
       2148900,
       2148900,
-      2148900
+      2148900,
+      2302000,
+      4297800
     ],
     "pack_quantiles_krw": [
       0,
@@ -1581,8 +1629,8 @@
       0,
       0,
       0,
-      134600,
-      276600,
+      153100,
+      554500,
       2148900
     ],
     "quantile_points": [
@@ -1606,6 +1654,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-11-08"
+    "_built_at": "2026-11-09"
   }
 }

@@ -28,34 +28,72 @@
       },
       {
         "rarity": "RR",
-        "min": 6,
-        "max": 6
+        "min": 3,
+        "max": 5
       }
     ],
-    "_source": "한국 공식 상품은 30팩×5장, 팩 500원·박스 15,000원. 한국 공식 봉입률은 비공개. 일본 발매 당시 20팩 박스 공개 근사를 한국 30팩에 기대값 1.5배로 적응한 낮은 신뢰도 모델이며 한국 실측·공식 보장이 아니다. R 이상 약 10팩/20팩을 15팩/30팩으로 근사하고 나머지 팩은 C3/U2 구성으로 둔다(일반 카드 세부 장수는 미검증 폴백). 작성자 공개 근사는 SR 이상 약 2박스당 1장, 일반 EX 2장·메가 EX 1장·BREAK 최소 1장/20팩이다. 한국 모델은 고레어 0.75장(0~1장), 일반 EX 3장·메가 EX 평균 1.5장·BREAK 평균 1.5장으로 둔다. RR 총 6장 중 마지막 한 장을 메가/BREAK 50:50으로 배분하는 결합은 기대값 보존용 근사이며 관측 분포가 아니다. 일본의 추가 BREAK 빈도가 미공개라 별도 추가 확률은 만들지 않았다. SR 5종·UR 1종 각 1/6 균등 선택은 미검증 폴백이다. 상품: https://pokemoncard.co.kr/card/53; 개봉 근거: https://raimublog.seesaa.net/article/426788458.html; 상세: docs/xy-next-three-review-20261108.md",
-    "_sample_size": null,
-    "_estimated_at": "2026-11-08",
+    "_source": "한국 공식 봉입률은 비공개. 일본 실물 다박스 직접 개봉을 한국판 추정에 차용하며, 한국30팩/일본20팩 비율로 고레어·RR 장수를 1.5배 늘리지 않는다. 제조 로트·재판 여부 불명, 개봉자 묶음 및 공개 선택 편향이 있다. 일반 C/U와 R 이상15팩/30팩은 기존 필러 근사이며 이번 다박스 자료로 검증한 제조 보장이 아니다. 일본 고레어32박스 SR12·UR4, 평균0.5장/박스. 고레어0~1장 근사이며 전 표본의 동시 봉입 분포가 검증된 것은 아니다. RR은 합계가 일치하는 일본21박스90장으로 평균4.28571장. 양 세트 합산8박스 RR3/4/5장 빈도1/4/3을 기본 형태로 삼고 지수 틸트로 세트별 RR평균에 맞췄다. 세트별 직접 실측 히스토그램이 아니다. EX/메가/BREAK은 개별16행의 조합을 차용하며 RR3의1/1/1은 미확인 최소 구성 근사다. 고레어와 RR조합은 독립 근사, SR5종 내부 균등은 폴백이다. 푸른 충격 milhouse RR합계 충돌과 woolsluk 세트별 미분리 합계는 세트별 RR평균에서 제외했다. 상품: https://pokemoncard.co.kr/card/53; 원장: data/manual/new-four-jp-bulk-opening-evidence-20261109.json; 검토: docs/new-four-jp-bulk-pull-rate-review-20261109.md",
+    "_sample_size": 32,
+    "_estimated_at": "2026-11-09",
     "pull_rate_review": {
-      "reviewed_at": "2026-11-08",
-      "status": "estimated",
-      "print_basis": "일본 2015년 발매 당시 공개 개봉 정리; 재판 구분 없음, 한국 환산은 근사",
-      "confidence": "낮음: 한국 실측 없음, 일본 공개 근사 및 인접 세트 차용",
-      "sources": [
-        "https://pokemoncard.co.kr/card/53",
-        "https://raimublog.seesaa.net/article/426788458.html",
-        "https://perappu-johokyoku.blog.jp/archives/968401.html"
-      ],
       "sample": {
-        "measured_denominator": null
+        "unit": "JP box",
+        "high_boxes": 32,
+        "high_packs": 640,
+        "sr_cards": 12,
+        "ur_cards": 4,
+        "rr_boxes": 21,
+        "rr_cards": 90,
+        "pooled_rr_histogram_boxes": 8,
+        "category_shape_boxes": 16
       },
       "assumptions": {
-        "high_rate": 0.75,
-        "high_internal_allocation": "미검증 카드 수 균등 폴백",
-        "rr_expected_count": 6,
+        "high_expected_count": 0.5,
+        "high_count_support": [
+          0,
+          1
+        ],
+        "sr_ur_weights": [
+          12,
+          4
+        ],
+        "rr_expected_count": 4.285714285714286,
+        "rr_estimator": "Exponential tilt of pooled JP RR3/4/5 histogram1/4/3 to per-set observed mean",
+        "category_shape": "RR4: normal2/mega1/BREAK1(10/12), normal1/mega2/BREAK1(1/12), normal1/mega1/BREAK2(1/12); RR5:2/1/2; RR3:1/1/1 assumed. Category marginals are not fitted to aggregate subtype counts.",
+        "rr_high_correlation": "독립 근사; 제조 교체 슬롯 미확인",
+        "high_internal_allocation": "등급 내부 균등 폴백. SR 포켓몬:서포트=4:1, UR별도 실측 비중",
         "holo_pack_count": 15,
-        "extra_high_rate": 0
+        "ordinary_filler": "기존 C3/U1/(U 또는 R+) 및 R 이상15팩 근사 유지; 이번 다박스 고레어 근거로 검증한 수치가 아님",
+        "rr_count_probabilities": [
+          0,
+          0,
+          0,
+          0.1126008182063583,
+          0.48908407787299796,
+          0.39831510392064384
+        ]
       },
-      "report": "docs/xy-next-three-review-20261108.md"
+      "reviewed_at": "2026-11-09",
+      "status": "estimated",
+      "confidence": "낮음: 일본판 공개 다박스 차용, 한국판 제조 봉입률 미검증",
+      "print_basis": "일본 실물 개봉. 초판/재판·제조 로트는 대체로 미확인",
+      "sources": [
+        "https://pokemoncard.co.kr/card/53",
+        "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=31",
+        "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=32",
+        "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=33",
+        "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=34"
+      ],
+      "report": "docs/new-four-jp-bulk-pull-rate-review-20261109.md",
+      "evidence": "data/manual/new-four-jp-bulk-opening-evidence-20261109.json",
+      "official_product_check": {
+        "checked_at": "2026-11-09",
+        "url": "https://pokemoncard.co.kr/card/53",
+        "region": "KR",
+        "box_packs": 30,
+        "cards_per_pack": 5,
+        "box_cards": 150
+      }
     }
   },
   "pack_slots": [],
@@ -1018,19 +1056,19 @@
   "fullahead_category_code": "xy08-02",
   "_box_image_source": "https://tcgbox.co.kr/web/product/big/160126box/xy8r.jpg",
   "luck_value_ref": {
-    "box_median_krw": 264300,
+    "box_median_krw": 0,
     "pack_median_krw": 0,
     "box_quantiles_krw": [
       0,
       0,
       0,
       0,
-      134600,
+      0,
+      0,
+      0,
       245800,
       264300,
-      264300,
       492800,
-      913900,
       913900,
       913900,
       913900,
@@ -1050,8 +1088,8 @@
       0,
       0,
       0,
-      134600,
-      492800,
+      0,
+      264300,
       913900
     ],
     "quantile_points": [
@@ -1075,6 +1113,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-11-08"
+    "_built_at": "2026-11-09"
   }
 }

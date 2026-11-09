@@ -21,7 +21,13 @@ const set = JSON.parse(source) as SetMeta;
 const evidence = JSON.parse(read('data/manual/cp3-pokekyun-opening-evidence-20261108.json'));
 const close = (a: number, b: number, tolerance = 1e-10) => assert.ok(Math.abs(a - b) < tolerance, `${a} != ${b}`);
 assert.equal(source, read(`frontend/public/sets/${code}.json`));
-assert.deepEqual(evidence.boxes.map((box: { rr_count: number }) => box.rr_count), [...POKEKYUN_BOX_RR_COUNTS]);
+const followup = JSON.parse(read('data/manual/cp3-pokekyun-opening-followup-20261109.json'));
+const bulk = JSON.parse(read('data/manual/new-four-jp-bulk-opening-evidence-20261109.json'));
+const jpBoxes = [...evidence.boxes, ...followup.additional_boxes, ...bulk.cp3.additional_boxes].filter(box => box.region === 'JP');
+assert.equal(jpBoxes.length, 16);
+assert.equal(jpBoxes.reduce((n, box) => n + box.rr_count, 0), 78);
+assert.deepEqual(jpBoxes.map(box => box.rr_count), [...POKEKYUN_BOX_RR_COUNTS]);
+assert.equal(set.box_size, 20); assert.equal(set.pack_size, 5);
 assert.equal(evidence.boxes.length, 10);
 assert.equal(evidence.boxes.reduce((n: number, box: { pack_count: number }) => n + box.pack_count, 0), 200);
 assert.equal(evidence.boxes.reduce((n: number, box: { rr_count: number }) => n + box.rr_count, 0), 47);
@@ -35,7 +41,7 @@ for (const box of evidence.boxes) {
     assert.equal(counts.reduce((n, count, index) => n + (set.cards[index].rarity === 'RR' ? count : 0), 0), box.rr_count);
   }
 }
-close(POKEKYUN_RR_PER_BOX, 4.7); close(POKEKYUN_RR_PER_PACK, .235);
+close(POKEKYUN_RR_PER_BOX, 4.875); close(POKEKYUN_RR_PER_PACK, .24375);
 assert.equal(set.cards.length, 32);
 assert.deepEqual(set.cards.filter(c => c.rarity === 'RR').map(c => c.number), [6, 7, 10, 19, 20, 25, 26]);
 assert.equal(set.cards.filter(c => c.rarity === 'C').length, 13);
@@ -71,27 +77,27 @@ for (let i = 0; i < 10000; i++) {
   if (i < 3) assert.deepEqual(box, simulateBox(set.cards, 20, set.type, 5, seed, code));
   if (i < 30) {
     const summary = summarizeLuckEvent(box.packs.flatMap(p => p.cards), { setCode: code, boxes: 1, packs: 0, boxSize: 20, topPerBox: 0, sarPerBox: 0 }, set);
-    close(summary.observedScore!, rr.length - 4); close(summary.expectedScore!, .7);
-    const expected = [{ score: 0, probability: .4 }, { score: 1, probability: .5 }, { score: 2, probability: .1 }];
+    close(summary.observedScore!, rr.length - 4); close(summary.expectedScore!, .875);
+    const expected = [{ score: 0, probability: .25 }, { score: 1, probability: .625 }, { score: 2, probability: .125 }];
     assert.equal(summary.scoreDistribution?.length, 3);
     summary.scoreDistribution!.forEach((entry, n) => { close(entry.score, expected[n].score); close(entry.probability, expected[n].probability); });
   }
 }
-close(counts[4] / 10000, .4, .02); close(counts[5] / 10000, .5, .02); close(counts[6] / 10000, .1, .02);
+close(counts[4] / 10000, .25, .02); close(counts[5] / 10000, .625, .02); close(counts[6] / 10000, .125, .02);
 assert.ok(hasPikachu > 0 && hasPikachu < 10000);
-for (const n of Object.values(perCard)) close(n / 10000, 4.7 / 7, .025);
+for (const n of Object.values(perCard)) close(n / 10000, 4.875 / 7, .025);
 for (let i = 0; i < 100000; i++) {
   const { pack } = simulatePack(set.cards, set.type, 5, `cp3-pack-${i}`, code);
   assert.equal(pack.cards.length, 5);
   const rr = pack.cards.filter(c => c.rarity === 'RR').length;
   assert.ok(rr <= 1); rrPackCount += rr; pack.cards.forEach(c => seenPack.add(c.card_num));
 }
-close(rrPackCount / 100000, .235, .007);
+close(rrPackCount / 100000, .24375, .007);
 const noRR = set.cards.filter(c => c.rarity === 'C').slice(0, 5);
 const packSummary = summarizeLuckEvent(noRR, { setCode: code, boxes: 0, packs: 1, boxSize: 20, topPerBox: 0, sarPerBox: 0 }, set);
-close(packSummary.expectedScore!, .235); close(packSummary.observedScore!, 0);
+close(packSummary.expectedScore!, .24375); close(packSummary.observedScore!, 0);
 for (const c of set.cards) {
   assert.ok(seen.has(c.card_num) && seenPack.has(c.card_num), `Unreachable ${c.card_num}`);
   assert.equal(premiumSparkleVariant(c.rarity, c), premiumPriceSparkleVariant(c));
 }
-console.log(JSON.stringify({ evidence_boxes: 10, evidence_packs: 200, regression_boxes: 10000, regression_packs: 100000, counts, rrPackRate: rrPackCount / 100000, pikachuBoxes: hasPikachu, status: 'passed' }));
+console.log(JSON.stringify({ evidence_jp_boxes: 16, evidence_jp_packs: 320, regression_boxes: 10000, regression_packs: 100000, counts, rrPackRate: rrPackCount / 100000, pikachuBoxes: hasPikachu, status: 'passed' }));

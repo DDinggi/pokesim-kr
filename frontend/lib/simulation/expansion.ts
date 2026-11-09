@@ -30,6 +30,9 @@ import {
   SV11_RR_COUNT,
   getMegaRrExtraRate,
   getStandardSvSetRate,
+  getStandardHighMean,
+  getStandardRrMean,
+  getXy8RrCategoryMeans,
   hasAceSpecSlot,
   isAnniversary25Set,
   isMegaExpansionSet,
@@ -451,10 +454,11 @@ function buildStandardSvSlots(
   const standardHighPools = getStandardHighPools(pools, setCode);
   const slots: Card[][] = [];
 
-  if (rate.mandatoryHighRate === undefined || rng() < rate.mandatoryHighRate) slots.push(pickWeightedPool(
-    ctx,
-    rate.mandatoryHighWeights,
-    standardHighPools,
+  const highCount = rate.highCountDistribution
+    ? Number(ctx.weightedPick(Object.fromEntries(rate.highCountDistribution.map((probability, count) => [count, probability]))))
+    : Number(rate.mandatoryHighRate === undefined || rng() < rate.mandatoryHighRate);
+  for (let index = 0; index < highCount; index++) slots.push(pickWeightedPool(
+    ctx, rate.mandatoryHighWeights, standardHighPools,
     pools.srAll.length ? pools.srAll : (byRarity.RR ?? []),
   ));
 
@@ -488,15 +492,24 @@ function buildStandardSvSlots(
   }
 
   const rrPool = byRarity.RR ?? byRarity.R ?? [];
-  const rrCount = rate.rrBaseCount + (rng() < rate.rrExtraRate ? 1 : 0);
+  const rrCount = rate.rrCountDistribution
+    ? Number(ctx.weightedPick(Object.fromEntries(rate.rrCountDistribution.map((probability, count) => [count, probability]))))
+    : rate.rrBaseCount + (rng() < rate.rrExtraRate ? 1 : 0);
   const xy8 = getXy8RrPools(byRarity, setCode);
   if (xy8) {
-    // JP 2 EX + 1 mega + 1 BREAK -> KR means 3 + 1.5 + 1.5.
-    // The shared final slot preserves those means; this coupling is an approximation.
-    const extraMega = rng() < 0.5;
-    slots.push(xy8.normal, xy8.normal, xy8.normal);
-    for (const card of shuffle(xy8.mega, rng).slice(0, extraMega ? 2 : 1)) slots.push([card]);
-    for (const card of shuffle(xy8.breakCards, rng).slice(0, extraMega ? 1 : 2)) slots.push([card]);
+    // JP conditional shapes; count means come from the multi-box evidence.
+    // RR/high correlation and KR print collation are not established.
+    let normalCount = rrCount === 3 ? 1 : 2;
+    let megaCount = 1;
+    let breakCount = rrCount === 5 ? 2 : 1;
+    if (rrCount === 4) {
+      const variant = rng() * 12;
+      if (variant < 1) { normalCount--; megaCount++; }
+      else if (variant < 2) { normalCount--; breakCount++; }
+    }
+    for (let index = 0; index < normalCount; index++) slots.push(xy8.normal);
+    for (const card of shuffle(xy8.mega, rng).slice(0, megaCount)) slots.push([card]);
+    for (const card of shuffle(xy8.breakCards, rng).slice(0, breakCount)) slots.push([card]);
   } else {
     for (let i = 0; i < rrCount; i++) slots.push(rrPool);
   }
@@ -660,9 +673,9 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   const trCount = (standardSetRate.trCount ?? 0) + (standardSetRate.trExtraRate ?? 0);
   const prCount = standardSetRate.prCount ?? 0;
   const hCount = standardSetRate.hCount ?? 0;
-  const mandatoryHighRate = standardSetRate.mandatoryHighRate ?? 1;
+  const mandatoryHighRate = getStandardHighMean(standardSetRate);
   const extraSrRate = standardSetRate.extraHighRate;
-  const rrExpected = standardSetRate.rrBaseCount + standardSetRate.rrExtraRate;
+  const rrExpected = getStandardRrMean(standardSetRate);
   const rrrExpected = (standardSetRate.rrrBaseCount ?? 0) + (standardSetRate.rrrExtraRate ?? 0);
   const rSlots = boxSize - mandatoryHighRate - hCount - aceCount - kCount - chrCount - trCount - prCount - aCount - arCount - extraSrRate - rrExpected - rrrExpected;
   const fillerPool = getStandardFillerPool(byRarity, setCode);
@@ -672,7 +685,8 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   if (nonHoloSlots > 0) entries.push({ weight: nonHoloSlots * 100, pool: byRarity.U ?? byRarity.C ?? [] });
   const xy8 = getXy8RrPools(byRarity, setCode);
   if (xy8) {
-    entries.push({ weight: 300, pool: xy8.normal }, { weight: 150, pool: xy8.mega }, { weight: 150, pool: xy8.breakCards });
+    const means = getXy8RrCategoryMeans(standardSetRate);
+    entries.push({ weight: means.normal * 100, pool: xy8.normal }, { weight: means.mega * 100, pool: xy8.mega }, { weight: means.breakCards * 100, pool: xy8.breakCards });
   } else {
     entries.push({ weight: rrExpected * 100, pool: byRarity.RR ?? [] });
   }

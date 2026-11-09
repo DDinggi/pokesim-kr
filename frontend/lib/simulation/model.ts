@@ -663,26 +663,83 @@ const XY6_EMERALD_BREAK: StandardSvSetRate = {
   fillerWeights: SM_FILLER_WEIGHTS,
 };
 
-// XY7: conservative adjacent XY6 approximation; XY8: 2015 public opening estimate.
-// JP 20 packs -> KR 30 packs by expected counts, not measured Korean guarantees.
+// JP multi-box evidence: data/manual/new-four-jp-bulk-opening-evidence-20261109.json.
+// Borrow box counts directly, without multiplying hits by KR30 / JP20.
+// Count distributions are moment-constrained approximations, not observed histograms.
+export function getStandardHighMean(rate: StandardSvSetRate): number {
+  return rate.highCountDistribution
+    ? rate.highCountDistribution.reduce((sum, probability, count) => sum + probability * count, 0)
+    : (rate.mandatoryHighRate ?? 1);
+}
+
+// On counts3/4/5, find weights proportional to prior[i] * ratio**i
+// with the requested mean. A uniform prior is the maximum-entropy solution.
+function fitLegacyRrCounts(mean: number, prior: readonly [number, number, number]): number[] {
+  const offset = mean - 3;
+  const quadratic = (2 - offset) * prior[2];
+  const linear = (1 - offset) * prior[1];
+  const constant = offset * prior[0];
+  const ratio = 2 * constant / (linear + Math.sqrt(linear ** 2 + 4 * quadratic * constant));
+  const weights = [prior[0], prior[1] * ratio, prior[2] * ratio ** 2];
+  const total = weights.reduce((sum, weight) => sum + weight, 0);
+  return [0, 0, 0, ...weights.map(weight => weight / total)];
+}
+
+// High mean85/87; independent presence-only20 boxes had18 nonempty boxes.
+// Assuming at most two high cards gives p2=mean-p(any). Labels within each slot
+// use SR39:UR46 independently; simultaneous labels are not measured.
+const xy7Double = 85 / 87 - 18 / 20;
 const XY7_BANDIT_RING: StandardSvSetRate = {
-  ...XY6_EMERALD_BREAK,
-  mandatoryHighWeights: normalizeHighWeights({ SR_POKEMON: 11, UR: 5 }),
-  holoPackCount: 15,
-};
-const XY8_BREAK: StandardSvSetRate = {
-  ...XY6_EMERALD_BREAK,
-  mandatoryHighWeights: normalizeHighWeights({ SR_POKEMON: 4, SR_TRAINER: 1, UR: 1 }),
-  rrBaseCount: 6,
-  rrExtraRate: 0,
+  extraHighRate: 0, extraHighWeights: {}, arCount: 0, boxSize: 30,
+  fillerWeights: SM_FILLER_WEIGHTS,
+  mandatoryHighWeights: normalizeHighWeights({ SR_POKEMON: 39, UR: 46 }),
+  highCountDistribution: [2 / 20, 18 / 20 - xy7Double, xy7Double],
+  rrBaseCount: 3, rrExtraRate: 146 / 48 - 3,
+  // RR5 exists, but its final frequency is unknown; this is a moment fit.
+  rrCountDistribution: fitLegacyRrCounts(146 / 48, [1, 1, 1]),
   holoPackCount: 15,
 };
 
+// RR3/4/5 histogram1/4/3 is a pooled JP eight-box record (both XY8 sets).
+// Exponential tilt preserves its support and matches each set's larger RR mean.
+// It does not invent a separate measured per-set histogram.
+const xy8Rate = (sr: number, ur: number, boxes: number, rrMean: number): StandardSvSetRate => ({
+  extraHighRate: 0, extraHighWeights: {}, arCount: 0, boxSize: 30,
+  fillerWeights: SM_FILLER_WEIGHTS,
+  mandatoryHighRate: (sr + ur) / boxes,
+  // Four Pokemon SR + one trainer SR: uniform within SR remains a fallback.
+  mandatoryHighWeights: normalizeHighWeights({ SR_POKEMON: sr * 4 / 5, SR_TRAINER: sr / 5, UR: ur }),
+  rrBaseCount: 4, rrExtraRate: rrMean - 4,
+  rrCountDistribution: fitLegacyRrCounts(rrMean, [1, 4, 3]),
+  holoPackCount: 15,
+});
+const XY8_BLUE_SHOCK = xy8Rate(8, 4, 30, 47 / 11);
+const XY8_RED_FLASH = xy8Rate(12, 4, 32, 90 / 21);
+
+// Conditional category shapes from the16 individually listed milhouse XY8 boxes:
+// RR4: (normal,mega,BREAK)=(2,1,1)x10,(1,2,1)x1,(1,1,2)x1;
+// RR5: (2,1,2)x4. RR3 category(1,1,1) is a minimal-shape approximation:
+// the pooled eight-box histogram does not identify those individual cards.
+export function getXy8RrCategoryMeans(rate: StandardSvSetRate) {
+  const p = rate.rrCountDistribution ?? [];
+  return {
+    normal: (p[3] ?? 0) + (p[4] ?? 0) * 11 / 6 + (p[5] ?? 0) * 2,
+    mega: (p[3] ?? 0) + (p[4] ?? 0) * 13 / 12 + (p[5] ?? 0),
+    breakCards: (p[3] ?? 0) + (p[4] ?? 0) * 13 / 12 + (p[5] ?? 0) * 2,
+  };
+}
+
+export function getStandardRrMean(rate: StandardSvSetRate): number {
+  return rate.rrCountDistribution
+    ? rate.rrCountDistribution.reduce((sum, probability, count) => sum + probability * count, 0)
+    : rate.rrBaseCount + rate.rrExtraRate;
+}
+
 export const POKEKYUN_SET_CODE = 'cp3-pokekyun-collection';
 export const POKEKYUN_BOX_SIZE = 20;
-// Individually reviewed KR/JP 20-pack openings; provenance lives in data/manual/cp3-*.json.
-// This small mixed-language sample is a provisional model, not an official rate.
-export const POKEKYUN_BOX_RR_COUNTS = [4, 5, 4, 5, 5, 4, 6, 5, 5, 4] as const;
+// JP-only16 reviewed20-pack boxes, RR78. KR4 boxes are a separate cross-check.
+// Small clustered public sample; not an official rate or universal RR4-6 guarantee.
+export const POKEKYUN_BOX_RR_COUNTS = [5, 4, 6, 5, 5, 4, 6, 5, 5, 4, 5, 5, 5, 5, 4, 5] as const;
 export const POKEKYUN_RR_PER_BOX = POKEKYUN_BOX_RR_COUNTS.reduce<number>((sum, count) => sum + count, 0) / POKEKYUN_BOX_RR_COUNTS.length;
 export const POKEKYUN_RR_PER_PACK = POKEKYUN_RR_PER_BOX / POKEKYUN_BOX_SIZE;
 export const POKEKYUN_RR_SCORE_WEIGHT = 1;
@@ -1142,8 +1199,8 @@ export const STANDARD_SV_SET_RATES: Record<string, StandardSvSetRate> = {
   'smp2-detective-pikachu': DETECTIVE_PIKACHU,
   'xy6-emerald-break': XY6_EMERALD_BREAK,
   'xy7-bandit-ring': XY7_BANDIT_RING,
-  'xy8-blue-shock': XY8_BREAK,
-  'xy8-red-flash': XY8_BREAK,
+  'xy8-blue-shock': XY8_BLUE_SHOCK,
+  'xy8-red-flash': XY8_RED_FLASH,
   'cp3-pokekyun-collection': POKEKYUN_STANDARD,
   'sm5s-ultra-sun': SM5_ULTRA_SUN_MOON,
   'sm3plus-shining-legends': SM3PLUS_SHINING_LEGENDS,

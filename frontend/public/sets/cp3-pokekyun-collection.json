@@ -25,40 +25,63 @@
         "max": 6
       }
     ],
-    "_source": "한국 공식 봉입률은 비공개. 2016년 한국 4박스·일본 6박스(각 20팩), 총 10박스/200팩을 개별 대조한 잠정 추정. RR 4장 4박스·5장 5박스·6장 1박스로 40%/50%/10%, 평균 4.7장. 낱팩 RR 23.5%는 같은 기대값 환산. 일본 공개 개봉 정리의 4–6장 범위와 대조했다. 7종 RR 균등·박스 내 중복 방지는 미검증 제조 보장이 아닌 관측 기반 근사이며 피카츄/풀아트/특정 EX를 보장하지 않는다. 한국 5장과 일본 4장의 차이를 RR 확률 배수로 쓰지 않는다. 일반 카드 박스 균형 배분은 미구현. 원장: data/manual/cp3-pokekyun-opening-evidence-20261108.json; 검토표: docs/cp3-pokekyun-review-20261108.md; https://perappu-johokyoku.blog.jp/archives/968527.html; https://www.youtube.com/watch?v=0XbRwtp2ykk",
-    "_sample_size": 10,
-    "_estimated_at": "2026-11-08",
+    "_source": "한국 공식은20팩×5장. 일본16박스320팩 RR78장을 주근거로 차용한다. RR4장4박스·5장10박스·6장2박스(25%/62.5%/12.5%), 평균4.875장/박스, 낱팩24.375%. 한국4박스80팩 RR18장은 별도 대조용이며 빈도에 혼합하지 않는다. 한국 공식 봉입률은 비공개이며 일본판 차용 추정이다. RR7종 균등·박스내 비복원과 일반카드 C3/U1/(U 또는 RR)는 잠정 근사다. 피카츄·풀아트·특정EX를 보장하지 않으며 일본4장/한국5장 차이로 RR을 증폭하지 않는다. 상품: https://pokemoncard.co.kr/card/67; 원장: data/manual/new-four-jp-bulk-opening-evidence-20261109.json; 검토: docs/new-four-jp-bulk-pull-rate-review-20261109.md",
+    "_sample_size": 16,
+    "_estimated_at": "2026-11-09",
     "pull_rate_review": {
-      "status": "estimated",
-      "confidence": "낮음: 10박스 공개 사례의 지역 혼합 잠정 근사",
       "sample": {
-        "unit": "box",
-        "boxes": 10,
-        "packs": 200,
-        "kr_boxes": 4,
-        "jp_boxes": 6
+        "unit": "JP box",
+        "boxes": 16,
+        "packs": 320,
+        "rr_cards": 78,
+        "kr_crosscheck_boxes": 4,
+        "kr_crosscheck_packs": 80,
+        "kr_crosscheck_rr_cards": 18
       },
       "box_rr_count_histogram": {
         "4": 4,
-        "5": 5,
-        "6": 1
+        "5": 10,
+        "6": 2
       },
-      "rr_expected_count": 4.7,
-      "rr_pack_probability": 0.235,
+      "rr_expected_count": 4.875,
+      "rr_pack_probability": 0.24375,
+      "assumptions": {
+        "rr_card_allocation": "RR7종 균등·비복원은 제조 보장이 아닌 근사",
+        "ordinary_slots": "한국5장 C3/U1/(U 또는 RR) 근사"
+      },
+      "reviewed_at": "2026-11-09",
+      "status": "estimated",
+      "confidence": "낮음: 일본판 공개 다박스 차용, 한국판 제조 봉입률 미검증",
+      "print_basis": "일본 실물 개봉. 초판/재판·제조 로트는 대체로 미확인",
       "sources": [
-        "https://www.youtube.com/watch?v=0XbRwtp2ykk",
-        "https://www.youtube.com/watch?v=aUeMON5qY7s",
-        "https://www.youtube.com/watch?v=m7iKjfcgKMY",
-        "https://www.youtube.com/watch?v=dFOwmnzBc5M",
-        "https://www.youtube.com/watch?v=NT5764mAUZI",
         "https://nyanntadayo.livedoor.blog/archives/1620819.html",
         "https://nyanntadayo.livedoor.blog/archives/1620820.html",
         "https://perappu-johokyoku.blog.jp/archives/968527.html",
         "https://pokekyuncollection.hatenablog.com/entry/2016/01/30/ポケキュンコレクションの開封結果【５種のRRの",
+        "https://pokemoncard.co.kr/card/67",
+        "https://www.pokemon-card.com/products/xy/cp3.html",
+        "https://www.youtube.com/watch?v=1jPP4l7GQ7o",
+        "https://www.youtube.com/watch?v=7lo65UMvFYg",
         "https://www.youtube.com/watch?v=KwneZlg8bRc",
-        "https://www.youtube.com/watch?v=RGMrheLywL4"
+        "https://www.youtube.com/watch?v=RGMrheLywL4",
+        "https://www.youtube.com/watch?v=VjgjSoE34GQ",
+        "https://www.youtube.com/watch?v=YVG0ghvnG9E",
+        "https://www.youtube.com/watch?v=_t12IDnMxsY",
+        "https://www.youtube.com/watch?v=azsc5AkQwNY",
+        "https://www.youtube.com/watch?v=ipmZdrjVrN0",
+        "https://www.youtube.com/watch?v=t2bzVwjTojo",
+        "https://www.youtube.com/watch?v=wQ0LqlFKCFI"
       ],
-      "report": "docs/cp3-pokekyun-review-20261108.md"
+      "report": "docs/new-four-jp-bulk-pull-rate-review-20261109.md",
+      "evidence": "data/manual/new-four-jp-bulk-opening-evidence-20261109.json",
+      "official_product_check": {
+        "checked_at": "2026-11-09",
+        "url": "https://pokemoncard.co.kr/card/67",
+        "region": "KR",
+        "box_packs": 20,
+        "cards_per_pack": 5,
+        "box_cards": 100
+      }
     }
   },
   "pack_slots": [
@@ -67,46 +90,46 @@
       "weights": {
         "C": 100
       },
-      "_source": "한국 개봉 영상의 5장 구성과 일본 전수 2박스의 C40/U35~36/RR4~5를 참고한 C3/U1/(U 또는 RR) 근사. RR 기대값은 20팩 완박스 10박스의 47장/200팩. 일반 카드의 정확한 제조 배열은 미확인.",
-      "_sample_size": 10,
-      "_estimated_at": "2026-11-08"
+      "_source": "한국 공식은20팩×5장. 일본16박스320팩 RR78장을 주근거로 차용한다. RR4장4박스·5장10박스·6장2박스(25%/62.5%/12.5%), 평균4.875장/박스, 낱팩24.375%. 한국4박스80팩 RR18장은 별도 대조용이며 빈도에 혼합하지 않는다. 한국 공식 봉입률은 비공개이며 일본판 차용 추정이다. RR7종 균등·박스내 비복원과 일반카드 C3/U1/(U 또는 RR)는 잠정 근사다. 피카츄·풀아트·특정EX를 보장하지 않으며 일본4장/한국5장 차이로 RR을 증폭하지 않는다. 원장: data/manual/new-four-jp-bulk-opening-evidence-20261109.json",
+      "_sample_size": 16,
+      "_estimated_at": "2026-11-09"
     },
     {
       "position": 2,
       "weights": {
         "C": 100
       },
-      "_source": "한국 개봉 영상의 5장 구성과 일본 전수 2박스의 C40/U35~36/RR4~5를 참고한 C3/U1/(U 또는 RR) 근사. RR 기대값은 20팩 완박스 10박스의 47장/200팩. 일반 카드의 정확한 제조 배열은 미확인.",
-      "_sample_size": 10,
-      "_estimated_at": "2026-11-08"
+      "_source": "한국 공식은20팩×5장. 일본16박스320팩 RR78장을 주근거로 차용한다. RR4장4박스·5장10박스·6장2박스(25%/62.5%/12.5%), 평균4.875장/박스, 낱팩24.375%. 한국4박스80팩 RR18장은 별도 대조용이며 빈도에 혼합하지 않는다. 한국 공식 봉입률은 비공개이며 일본판 차용 추정이다. RR7종 균등·박스내 비복원과 일반카드 C3/U1/(U 또는 RR)는 잠정 근사다. 피카츄·풀아트·특정EX를 보장하지 않으며 일본4장/한국5장 차이로 RR을 증폭하지 않는다. 원장: data/manual/new-four-jp-bulk-opening-evidence-20261109.json",
+      "_sample_size": 16,
+      "_estimated_at": "2026-11-09"
     },
     {
       "position": 3,
       "weights": {
         "C": 100
       },
-      "_source": "한국 개봉 영상의 5장 구성과 일본 전수 2박스의 C40/U35~36/RR4~5를 참고한 C3/U1/(U 또는 RR) 근사. RR 기대값은 20팩 완박스 10박스의 47장/200팩. 일반 카드의 정확한 제조 배열은 미확인.",
-      "_sample_size": 10,
-      "_estimated_at": "2026-11-08"
+      "_source": "한국 공식은20팩×5장. 일본16박스320팩 RR78장을 주근거로 차용한다. RR4장4박스·5장10박스·6장2박스(25%/62.5%/12.5%), 평균4.875장/박스, 낱팩24.375%. 한국4박스80팩 RR18장은 별도 대조용이며 빈도에 혼합하지 않는다. 한국 공식 봉입률은 비공개이며 일본판 차용 추정이다. RR7종 균등·박스내 비복원과 일반카드 C3/U1/(U 또는 RR)는 잠정 근사다. 피카츄·풀아트·특정EX를 보장하지 않으며 일본4장/한국5장 차이로 RR을 증폭하지 않는다. 원장: data/manual/new-four-jp-bulk-opening-evidence-20261109.json",
+      "_sample_size": 16,
+      "_estimated_at": "2026-11-09"
     },
     {
       "position": 4,
       "weights": {
         "U": 100
       },
-      "_source": "한국 개봉 영상의 5장 구성과 일본 전수 2박스의 C40/U35~36/RR4~5를 참고한 C3/U1/(U 또는 RR) 근사. RR 기대값은 20팩 완박스 10박스의 47장/200팩. 일반 카드의 정확한 제조 배열은 미확인.",
-      "_sample_size": 10,
-      "_estimated_at": "2026-11-08"
+      "_source": "한국 공식은20팩×5장. 일본16박스320팩 RR78장을 주근거로 차용한다. RR4장4박스·5장10박스·6장2박스(25%/62.5%/12.5%), 평균4.875장/박스, 낱팩24.375%. 한국4박스80팩 RR18장은 별도 대조용이며 빈도에 혼합하지 않는다. 한국 공식 봉입률은 비공개이며 일본판 차용 추정이다. RR7종 균등·박스내 비복원과 일반카드 C3/U1/(U 또는 RR)는 잠정 근사다. 피카츄·풀아트·특정EX를 보장하지 않으며 일본4장/한국5장 차이로 RR을 증폭하지 않는다. 원장: data/manual/new-four-jp-bulk-opening-evidence-20261109.json",
+      "_sample_size": 16,
+      "_estimated_at": "2026-11-09"
     },
     {
       "position": 5,
       "weights": {
-        "U": 76.5,
-        "RR": 23.5
+        "U": 75.625,
+        "RR": 24.375
       },
-      "_source": "한국 개봉 영상의 5장 구성과 일본 전수 2박스의 C40/U35~36/RR4~5를 참고한 C3/U1/(U 또는 RR) 근사. RR 기대값은 20팩 완박스 10박스의 47장/200팩. 일반 카드의 정확한 제조 배열은 미확인.",
-      "_sample_size": 10,
-      "_estimated_at": "2026-11-08"
+      "_source": "한국 공식은20팩×5장. 일본16박스320팩 RR78장을 주근거로 차용한다. RR4장4박스·5장10박스·6장2박스(25%/62.5%/12.5%), 평균4.875장/박스, 낱팩24.375%. 한국4박스80팩 RR18장은 별도 대조용이며 빈도에 혼합하지 않는다. 한국 공식 봉입률은 비공개이며 일본판 차용 추정이다. RR7종 균등·박스내 비복원과 일반카드 C3/U1/(U 또는 RR)는 잠정 근사다. 피카츄·풀아트·특정EX를 보장하지 않으며 일본4장/한국5장 차이로 RR을 증폭하지 않는다. 원장: data/manual/new-four-jp-bulk-opening-evidence-20261109.json",
+      "_sample_size": 16,
+      "_estimated_at": "2026-11-09"
     }
   ],
   "cards": [
@@ -640,24 +663,24 @@
     "note": "일본 소매 표시가×환율9.5×프로젝트 보정0.65. 한국 실거래가가 아니며 님피아 일본 에러판은 제외. 미확인 23장 가격을 0원/임의가격으로 채우지 않음."
   },
   "luck_value_ref": {
-    "box_median_krw": 4743300,
+    "box_median_krw": 4939900,
     "pack_median_krw": 13500,
     "box_quantiles_krw": [
-      1725700,
-      2676500,
-      3058100,
-      3598500,
-      3993500,
-      4409800,
-      4743300,
-      5114200,
-      5391200,
-      5668400,
-      5985500,
-      6199500,
-      6418500,
-      6560000,
-      7542200
+      1675100,
+      2863500,
+      3265900,
+      3734400,
+      4179300,
+      4563300,
+      4939900,
+      5255800,
+      5511900,
+      5780000,
+      6068800,
+      6268400,
+      6493100,
+      6625400,
+      7389200
     ],
     "pack_quantiles_krw": [
       0,
@@ -697,6 +720,6 @@
       "box": 20000,
       "pack": 40000
     },
-    "_built_at": "2026-11-08"
+    "_built_at": "2026-11-09"
   }
 }
