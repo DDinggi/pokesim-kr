@@ -42,6 +42,13 @@ HTTP/공식 상세 부재와 이미지 비교 불가는 통과가 아니라 미�
 
 ## 변경 이력
 
+- **2026-11-08 CP3 포켓심쿵** — 한국 공식 32장·20팩×5장, 실개봉 10박스/200팩의 RR 4~6장 잠정 모델. 박스/낱팩/운 분포를 함께 반영하며 일본 님피아 에러판 가격은 `_price_reference_exclusion`으로 후속 수집에서도 제외한다. [검토표](cp3-pokekyun-review-20261108.md).
+- **2026-11-08 XY 3종** — 밴디트링·푸른 충격·붉은 섬광 227장과 보강 UR 7장 추가.
+  [검토표](xy-next-three-review-20261108.md). 같은 FullAhead shop code를 공유하는 판본은
+  `fullahead_category_code`로 분리하고, 공식 `/public-assets/home/data/cards.image_www/data/`
+  이미지 주소를 `wmimages/` 키로 정규화한다. 인쇄 번호가 잘못된 공식 상세는 이미지·이름과
+  대조해 원장에 남긴다. `pnpm --dir scripts exec tsx validate-xy-next-three.ts`로 봉입·낱팩·도달성을 검증한다.
+
 - **2026-10-26 명탐정 피카츄·25주년·에메랄드 브레이크 활성화** —
   [세 상품 검토표](legacy-three-sets-20261022.md). 공식 지역 한정 카드는 일본판 보강 대상에서
   제외하고 근거를 `_jp_coverage_exclusions`에 보존한다. 본팩과 별도 프로모팩은 `is_bonus`로

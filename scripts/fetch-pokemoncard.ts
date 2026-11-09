@@ -139,7 +139,7 @@ async function searchPage(
 
 function getFilePrefix(imageUrl: string): string | null {
   const clean = imageUrl.replace(/\?.*$/, "");
-  const match = clean.match(/\/([A-Za-z0-9]+)_\d+\.(?:png|jpg|jpeg|webp)$/i);
+  const match = clean.match(/\/([A-Za-z0-9_]+)_\d+\.(?:png|jpg|jpeg|webp)$/i);
   return match?.[1]?.toUpperCase() ?? null;
 }
 
@@ -233,7 +233,7 @@ function parseCardDetail(
   const imgSrc =
     root.querySelector(".feature_image")?.getAttribute("src") ?? "";
   const image_url = imgSrc
-    ? imgSrc.replace(CDN_BASE, "").replace(/\?.*$/, "")
+    ? imgSrc.replace(CDN_BASE, "").replace(/^\/?public-assets\/home\/data\/cards\.image_www\/data\//, "").replace(/\?.*$/, "")
     : fallbackImageUrl;
 
   return { number, name_ko, rarity, card_type, subtype: null, hp, type, image_url };

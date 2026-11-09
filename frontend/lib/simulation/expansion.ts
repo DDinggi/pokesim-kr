@@ -30,6 +30,9 @@ import {
   SV11_RR_COUNT,
   getMegaRrExtraRate,
   getStandardSvSetRate,
+  getStandardHighMean,
+  getStandardRrMean,
+  getXy8RrCategoryMeans,
   hasAceSpecSlot,
   isAnniversary25Set,
   isMegaExpansionSet,
@@ -44,6 +47,8 @@ import {
 import type { RarityPools } from './pools';
 import type { BuildContext, StandardHighKey, StandardSvSetRate } from './types';
 import { pickUniqueCard, UNIQUE_BOX_HIT_RARITIES } from './unique';
+import { simulatePokekyunBox } from './pokekyun';
+import { POKEKYUN_SET_CODE } from './model';
 
 export function simulateExpansionBox(
   _allCards: Card[],
@@ -53,6 +58,7 @@ export function simulateExpansionBox(
   setCode?: string,
   packSize = 5,
 ): PackResult[] {
+  if (setCode === POKEKYUN_SET_CODE) return simulatePokekyunBox(ctx, rng, boxSize, packSize);
   if (setCode === CELEBRATION_30_SET_CODE) {
     return simulate30thCelebrationBox(boxSize, ctx, rng, packSize);
   }
@@ -426,6 +432,16 @@ function getStandardFillerPool(
   return byRarity.RR ?? [];
 }
 
+function getXy8RrPools(byRarity: Record<string, Card[]>, setCode?: string) {
+  if (setCode !== 'xy8-blue-shock' && setCode !== 'xy8-red-flash') return null;
+  const rr = byRarity.RR ?? [];
+  const normal = rr.filter(card => !card.name_ko?.includes('BREAK') && !card.name_ko?.startsWith('M'));
+  const mega = rr.filter(card => card.name_ko?.startsWith('M'));
+  const breakCards = rr.filter(card => card.name_ko?.includes('BREAK'));
+  if (!normal.length || !mega.length || !breakCards.length) throw new Error(`${setCode}: incomplete EX/mega/BREAK pools`);
+  return { normal, mega, breakCards };
+}
+
 function buildStandardSvSlots(
   boxSize: number,
   ctx: BuildContext,
@@ -438,10 +454,11 @@ function buildStandardSvSlots(
   const standardHighPools = getStandardHighPools(pools, setCode);
   const slots: Card[][] = [];
 
-  if (rate.mandatoryHighRate === undefined || rng() < rate.mandatoryHighRate) slots.push(pickWeightedPool(
-    ctx,
-    rate.mandatoryHighWeights,
-    standardHighPools,
+  const highCount = rate.highCountDistribution
+    ? Number(ctx.weightedPick(Object.fromEntries(rate.highCountDistribution.map((probability, count) => [count, probability]))))
+    : Number(rate.mandatoryHighRate === undefined || rng() < rate.mandatoryHighRate);
+  for (let index = 0; index < highCount; index++) slots.push(pickWeightedPool(
+    ctx, rate.mandatoryHighWeights, standardHighPools,
     pools.srAll.length ? pools.srAll : (byRarity.RR ?? []),
   ));
 
@@ -475,8 +492,27 @@ function buildStandardSvSlots(
   }
 
   const rrPool = byRarity.RR ?? byRarity.R ?? [];
-  const rrCount = rate.rrBaseCount + (rng() < rate.rrExtraRate ? 1 : 0);
-  for (let i = 0; i < rrCount; i++) slots.push(rrPool);
+  const rrCount = rate.rrCountDistribution
+    ? Number(ctx.weightedPick(Object.fromEntries(rate.rrCountDistribution.map((probability, count) => [count, probability]))))
+    : rate.rrBaseCount + (rng() < rate.rrExtraRate ? 1 : 0);
+  const xy8 = getXy8RrPools(byRarity, setCode);
+  if (xy8) {
+    // JP conditional shapes; count means come from the multi-box evidence.
+    // RR/high correlation and KR print collation are not established.
+    let normalCount = rrCount === 3 ? 1 : 2;
+    let megaCount = 1;
+    let breakCount = rrCount === 5 ? 2 : 1;
+    if (rrCount === 4) {
+      const variant = rng() * 12;
+      if (variant < 1) { normalCount--; megaCount++; }
+      else if (variant < 2) { normalCount--; breakCount++; }
+    }
+    for (let index = 0; index < normalCount; index++) slots.push(xy8.normal);
+    for (const card of shuffle(xy8.mega, rng).slice(0, megaCount)) slots.push([card]);
+    for (const card of shuffle(xy8.breakCards, rng).slice(0, breakCount)) slots.push([card]);
+  } else {
+    for (let i = 0; i < rrCount; i++) slots.push(rrPool);
+  }
 
   const rrrPool = byRarity.RRR ?? [];
   const rrrCount = (rate.rrrBaseCount ?? 0) + (rng() < (rate.rrrExtraRate ?? 0) ? 1 : 0);
@@ -493,6 +529,11 @@ function buildStandardSvSlots(
   }
 
   const rPool = getStandardFillerPool(byRarity, setCode);
+  if (rate.holoPackCount !== undefined) {
+    while (slots.length < rate.holoPackCount) slots.push(rPool);
+    while (slots.length < boxSize) slots.push(byRarity.U ?? byRarity.C ?? []);
+    return slots;
+  }
   while (slots.length < boxSize) slots.push(rPool);
 
   return slots;
@@ -632,15 +673,23 @@ export function expansionPackHitPool(ctx: BuildContext, setCode?: string): Card[
   const trCount = (standardSetRate.trCount ?? 0) + (standardSetRate.trExtraRate ?? 0);
   const prCount = standardSetRate.prCount ?? 0;
   const hCount = standardSetRate.hCount ?? 0;
-  const mandatoryHighRate = standardSetRate.mandatoryHighRate ?? 1;
+  const mandatoryHighRate = getStandardHighMean(standardSetRate);
   const extraSrRate = standardSetRate.extraHighRate;
-  const rrExpected = standardSetRate.rrBaseCount + standardSetRate.rrExtraRate;
+  const rrExpected = getStandardRrMean(standardSetRate);
   const rrrExpected = (standardSetRate.rrrBaseCount ?? 0) + (standardSetRate.rrrExtraRate ?? 0);
   const rSlots = boxSize - mandatoryHighRate - hCount - aceCount - kCount - chrCount - trCount - prCount - aCount - arCount - extraSrRate - rrExpected - rrrExpected;
   const fillerPool = getStandardFillerPool(byRarity, setCode);
 
-  entries.push({ weight: rSlots * 100, pool: fillerPool });
-  entries.push({ weight: rrExpected * 100, pool: byRarity.RR ?? [] });
+  const nonHoloSlots = standardSetRate.holoPackCount === undefined ? 0 : boxSize - standardSetRate.holoPackCount;
+  entries.push({ weight: (rSlots - nonHoloSlots) * 100, pool: fillerPool });
+  if (nonHoloSlots > 0) entries.push({ weight: nonHoloSlots * 100, pool: byRarity.U ?? byRarity.C ?? [] });
+  const xy8 = getXy8RrPools(byRarity, setCode);
+  if (xy8) {
+    const means = getXy8RrCategoryMeans(standardSetRate);
+    entries.push({ weight: means.normal * 100, pool: xy8.normal }, { weight: means.mega * 100, pool: xy8.mega }, { weight: means.breakCards * 100, pool: xy8.breakCards });
+  } else {
+    entries.push({ weight: rrExpected * 100, pool: byRarity.RR ?? [] });
+  }
   if (rrrExpected > 0) entries.push({ weight: rrrExpected * 100, pool: byRarity.RRR ?? [] });
   if (prCount > 0) entries.push({ weight: prCount * 100, pool: byRarity.PR ?? [] });
   if (hCount > 0) entries.push({

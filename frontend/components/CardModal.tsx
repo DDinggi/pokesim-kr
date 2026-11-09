@@ -5,6 +5,7 @@ import Image from 'next/image';
 import type { Card } from '../lib/types';
 import {
   CARD_IMAGES_ENABLED,
+  isLandscapeCard,
   resolveCardImageUrl,
 } from '../lib/images';
 import { HOLO_RARITIES, RARITY_TIER, rarityFullLabel, rarityLabel } from '../lib/rarity';
@@ -20,7 +21,7 @@ function HoloCardImage({ card }: { card: Card }) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [useVariantFallback, setUseVariantFallback] = useState(false);
-  const isLandscape = /BREAK/i.test(card.name_ko ?? '');
+  const isLandscape = isLandscapeCard(card);
 
   const isHolo = card.rarity ? HOLO_RARITIES.has(card.rarity) && imgLoaded && !imgError : false;
   const rarityClass = isHolo ? `holo-${card.rarity!.toLowerCase()}` : '';

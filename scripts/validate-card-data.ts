@@ -168,6 +168,13 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
   const rarityCounts = countBy(cards, (card) => card.rarity ?? "__null__");
   const highCount = cards.filter((card) => card.rarity && HIGH_RARITIES.has(card.rarity)).length;
   const isBundle = set.type === "bundle";
+  const isReviewedPokekyun = setCode === 'cp3-pokekyun-collection'
+    && cards.length === 32 && rarityCounts.C === 13 && rarityCounts.U === 12 && rarityCounts.RR === 7
+    && Array.from({ length: 32 }, (_, index) => index + 1).every(number => cards.some(card => card.number === number))
+    && cards.filter(card => card.rarity === 'RR').every(card => [6, 7, 10, 19, 20, 25, 26].includes(card.number ?? -1));
+  if (setCode === 'cp3-pokekyun-collection' && !isReviewedPokekyun) {
+    add('error', setCode, '한국 공식 CP3 구성(C13/U12/RR7, RR 006/007/010/019/020/025/026, SR0)과 다릅니다.');
+  }
   const isReviewedDetectiveKorean = setCode === "smp2-detective-pikachu"
     && cards.length === 45
     && rarityCounts.C === 30 && rarityCounts.U === 12 && rarityCounts.RR === 3
@@ -197,7 +204,9 @@ function validateSet(file: string, activeSets: Set<string>, plannedSets: Set<str
   const isStarter = set.type === "starter";
 
   if (!isStarter && !isBundle && cards.length > 0 && highCount === 0) {
-    if (isReviewedDetectiveKorean) {
+    if (isReviewedPokekyun) {
+      add('info', setCode, '한국 공식 CP3 32종(C13/U12/RR7)을 확인했습니다. 피카츄와 풀아트 EX도 RR이며 SR/UR은 없습니다.');
+    } else if (isReviewedDetectiveKorean) {
       add('info', setCode, '한국판 공식 24종 + C/U 미러 21종 구성을 확인했습니다. 일본 전용 SR은 한국판 풀에 포함하지 않습니다.');
     } else {
       const level: Level = isActive ? "warn" : "info";

@@ -22,6 +22,15 @@ export const CARD_IMAGE_CACHE_VERSION =
 
 export type CardImageVariantSize = 256 | 512;
 
+export function isLandscapeCard(card: { name_ko?: string | null }): boolean {
+  return /\bBREAK\b/i.test(card.name_ko ?? '');
+}
+
+/** Keep landscape BREAK artwork whole inside the shared portrait card slots. */
+export function getPortraitCardImageClassName(card: { name_ko?: string | null }): string {
+  return isLandscapeCard(card) ? 'card-image--portrait-break object-contain' : 'object-cover';
+}
+
 function joinUrl(base: string, path: string): string {
   return `${base.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`;
 }

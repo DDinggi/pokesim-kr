@@ -1,0 +1,355 @@
+{
+  "reviewed_at": "2026-11-09",
+  "purpose": "한국판 완박스 반례 및 일본판 대량 집계 추가 조사. 런타임 확률을 바꾸는 입력 원장이 아님.",
+  "korean_complete_boxes": [
+    {
+      "set_code": "xy7-bandit-ring",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=AY0KPGQarJk"
+      ],
+      "channel": "HunToy",
+      "published_at": "20170105",
+      "region": "KR",
+      "box_count": 1,
+      "pack_count": 30,
+      "cards_per_pack": 5,
+      "rr_count": 3,
+      "sr_count": 0,
+      "ur_count": 0,
+      "normal_ex_count": 2,
+      "mega_ex_count": 1,
+      "break_count": 0,
+      "observed_hits": [
+        "기라티나 EX RR",
+        "나무킹 EX RR",
+        "M마기라스 EX RR"
+      ],
+      "review_note": "25–35초 박스 개봉/팩 전체 꺼냄. 190–210초 기라티나, 290–305초 나무킹, 380–400초 M마기라스. 420–504초 마지막 팩까지 대조. 뒤 배경의 세워 둔 기존 카드는 획득에 포함하지 않음."
+    },
+    {
+      "set_code": "xy7-bandit-ring",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=7sqMNg1V8L4"
+      ],
+      "channel": "HunToy",
+      "published_at": "20160708",
+      "region": "KR",
+      "box_count": 1,
+      "pack_count": 30,
+      "cards_per_pack": 5,
+      "rr_count": 1,
+      "sr_count": 1,
+      "ur_count": 0,
+      "normal_ex_count": 0,
+      "mega_ex_count": 1,
+      "break_count": 0,
+      "observed_hits": [
+        "M나무킹 EX RR",
+        "기라티나 EX SR"
+      ],
+      "review_note": "45–65초 박스 전체 꺼냄. 200–230초 M나무킹 RR, 660–720초 기라티나 SR. 759–775초 최종 테이블. RR+SR은 총 2장이며 RR 2장으로 세지 않음."
+    },
+    {
+      "set_code": "xy7-bandit-ring",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=fiJRkF2K_1I"
+      ],
+      "channel": "HunToy",
+      "published_at": "20160519",
+      "region": "KR",
+      "box_count": 1,
+      "pack_count": 30,
+      "cards_per_pack": 5,
+      "rr_count": 2,
+      "sr_count": 0,
+      "ur_count": 0,
+      "normal_ex_count": 1,
+      "mega_ex_count": 1,
+      "break_count": 0,
+      "observed_hits": [
+        "M나무킹 EX RR",
+        "마기라스 EX RR"
+      ],
+      "review_note": "27–63초 박스 개봉/전체 팩. 559–583초 최종 EX 2장 정리."
+    },
+    {
+      "set_code": "xy7-bandit-ring",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=JhcH8ztvtZQ"
+      ],
+      "channel": "CHOSIM",
+      "published_at": "20160612",
+      "region": "KR",
+      "box_count": 1,
+      "pack_count": 30,
+      "cards_per_pack": 5,
+      "rr_count": 3,
+      "sr_count": 0,
+      "ur_count": 0,
+      "normal_ex_count": 2,
+      "mega_ex_count": 1,
+      "break_count": 0,
+      "observed_hits": [
+        "후파 EX RR",
+        "전룡 EX RR",
+        "M마기라스 EX RR"
+      ],
+      "review_note": "33–51초 박스 개봉/전체 팩. 603–635초 최종 EX 3장 정리."
+    },
+    {
+      "set_code": "xy8-blue-shock",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=dtIriv4fV94"
+      ],
+      "channel": "HunToy",
+      "published_at": "20160520",
+      "region": "KR",
+      "box_count": 1,
+      "pack_count": 30,
+      "cards_per_pack": 5,
+      "rr_count": 2,
+      "sr_count": 1,
+      "ur_count": 0,
+      "normal_ex_count": 1,
+      "mega_ex_count": 0,
+      "break_count": 1,
+      "observed_hits": [
+        "조로아크 BREAK RR",
+        "뮤츠 EX RR",
+        "제인 SR"
+      ],
+      "review_note": "27–69초 박스 전체 꺼냄. 185–195초 BREAK, 305–335초 뮤츠 RR, 590–602초 제인 SR. 마지막 640초 테이블에 메가 EX 없음. SR을 RR과 분리."
+    },
+    {
+      "set_code": "xy8-blue-shock",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=bwaLRJSQlYQ"
+      ],
+      "channel": "CHOSIM",
+      "published_at": "20160707",
+      "region": "KR",
+      "box_count": 1,
+      "pack_count": 30,
+      "cards_per_pack": 5,
+      "rr_count": 3,
+      "sr_count": 0,
+      "ur_count": 0,
+      "normal_ex_count": 1,
+      "mega_ex_count": 1,
+      "break_count": 1,
+      "observed_hits": [
+        "뮤츠 EX RR",
+        "M얼음귀신 EX RR",
+        "조로아크 BREAK RR"
+      ],
+      "review_note": "33–51초 박스 개봉/전체 팩. 704–740초 RR 3장 최종 정리."
+    },
+    {
+      "set_code": "xy8-red-flash",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=_VdBo-MdtZE"
+      ],
+      "channel": "HunToy",
+      "published_at": "20160524",
+      "region": "KR",
+      "box_count": 1,
+      "pack_count": 30,
+      "cards_per_pack": 5,
+      "rr_count": 4,
+      "sr_count": 0,
+      "ur_count": 0,
+      "normal_ex_count": 2,
+      "mega_ex_count": 1,
+      "break_count": 1,
+      "observed_hits": [
+        "뮤츠 EX RR ×2",
+        "M뮤츠 EX RR",
+        "라이츄 BREAK RR"
+      ],
+      "review_note": "15초 30팩 표기, 39–69초 전체 팩. 536–568초 EX 3장(뮤츠 RR 2장 중복)과 600–604초 BREAK 포함 총 RR 4장."
+    },
+    {
+      "set_code": "xy8-red-flash",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=LOXNlpWWx98"
+      ],
+      "channel": "HunToy",
+      "published_at": "20160806",
+      "region": "KR",
+      "box_count": 1,
+      "pack_count": 30,
+      "cards_per_pack": 5,
+      "rr_count": 3,
+      "sr_count": 0,
+      "ur_count": 0,
+      "normal_ex_count": 1,
+      "mega_ex_count": 1,
+      "break_count": 1,
+      "observed_hits": [
+        "헬가 EX RR",
+        "M뮤츠 EX RR",
+        "텅구리 BREAK RR"
+      ],
+      "review_note": "제목 Part2는 두 번째 박스 영상. 3–39초 새 박스 개봉과 전체 팩 확인. 105–115초 헬가, 215–225초 텅구리 BREAK, 365–375초 M뮤츠. 522–534초 최종 3장. 뒤 전시 카드 제외."
+    },
+    {
+      "set_code": "xy8-red-flash",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=O1OfFj1DKRM"
+      ],
+      "channel": "CHOSIM",
+      "published_at": "20160722",
+      "region": "KR",
+      "box_count": 1,
+      "pack_count": 30,
+      "cards_per_pack": 5,
+      "rr_count": 3,
+      "sr_count": 0,
+      "ur_count": 0,
+      "normal_ex_count": 1,
+      "mega_ex_count": 1,
+      "break_count": 1,
+      "observed_hits": [
+        "헬가 EX RR",
+        "M뮤츠 EX RR",
+        "브리가론 BREAK RR"
+      ],
+      "review_note": "15–45초 새 박스/전체 팩. 412–444초 최종 RR 3장. 제목의 2개는 EX 2장으로 BREAK 1장과 분리해야 함."
+    },
+    {
+      "set_code": "xy8-blue-shock",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=LbD7NVaC7es",
+        "https://www.youtube.com/watch?v=3bYOxfdUROQ"
+      ],
+      "channel": "포켓몬카드 마스터! Korean Pokemon Cards!",
+      "published_at": [
+        "20151112",
+        "20151113"
+      ],
+      "region": "KR",
+      "box_count": 1,
+      "pack_count": 30,
+      "cards_per_pack": 5,
+      "rr_count": 2,
+      "sr_count": 1,
+      "ur_count": 0,
+      "normal_ex_count": 1,
+      "mega_ex_count": 0,
+      "break_count": 1,
+      "observed_hits": [
+        "얼음귀신 EX RR",
+        "조로아크 BREAK RR",
+        "뮤츠 EX SR"
+      ],
+      "review_note": "2015-11-12/13 업로드 연속 1·2부를 한 박스로 계산. 1부 51–63초 박스 꺼냄, 275–306초 RR 2장+남은 팩. 2부 3–45초 남은 팩/같은 배경, 130–190초 뮤츠 SR, 335초 테이블과 이후 마지막 팩. 메가 EX 없음."
+    }
+  ],
+  "japanese_aggregate_records": [
+    {
+      "set_code": "xy7-bandit-ring",
+      "region": "JP",
+      "source_urls": [
+        "https://raimublog.seesaa.net/article/421014384.html",
+        "https://raimublog.seesaa.net/article/421065563.html"
+      ],
+      "box_count": 18,
+      "pack_count": 360,
+      "cards_per_pack": 5,
+      "rr_count": 54,
+      "sr_count": 8,
+      "ur_count": 10,
+      "individual_box_rows_available": false,
+      "review_note": "2015-06-20 8박스 → 06-21 누적 18박스. 후속 글에 이전 8박스 포함이라고 명시하므로 26박스로 합산하지 않음. RR 번호별 합 54, 레리 목록 SR 8+UR 10=18. 박스별 조합은 복원 불가."
+    },
+    {
+      "set_code": "xy7-bandit-ring",
+      "region": "JP",
+      "source_urls": [
+        "https://perappu-johokyoku.blog.jp/archives/968302.html"
+      ],
+      "box_count": 2,
+      "pack_count": 40,
+      "cards_per_pack": 5,
+      "rr_count": 6,
+      "sr_count": 0,
+      "ur_count": 2,
+      "individual_box_rows_available": true,
+      "review_note": "2015-06-20. 1번 RR 루기아/후파/전룡+UR 원시그란돈. 2번 RR 괴력몬/마기라스/큐레무+UR M레쿠쟈. 글의 SR/UR 필수라는 문장은 취소선과 미봉입 사례 정정이 있어 보장으로 쓰지 않음."
+    }
+  ],
+  "summary": {
+    "KR": {
+      "boxes": 10,
+      "packs": 300,
+      "by_set": {
+        "xy7-bandit-ring": {
+          "boxes": 4,
+          "rr": 9,
+          "sr": 1,
+          "ur": 0
+        },
+        "xy8-blue-shock": {
+          "boxes": 3,
+          "rr": 7,
+          "sr": 2,
+          "ur": 0
+        },
+        "xy8-red-flash": {
+          "boxes": 3,
+          "rr": 10,
+          "sr": 0,
+          "ur": 0
+        }
+      }
+    },
+    "JP_xy7": {
+      "boxes": 20,
+      "packs": 400,
+      "rr": 60,
+      "sr": 8,
+      "ur": 12
+    }
+  },
+  "excluded_or_unresolved": [
+    {
+      "source_urls": [
+        "https://www.youtube.com/watch?v=DyJRYCBSBog",
+        "https://www.youtube.com/watch?v=bmomGeUbkKQ",
+        "https://www.youtube.com/watch?v=hHVJ_JQLpjA"
+      ],
+      "reason": "박스/팩은 실물이지만 사전에 꺼내 둔 팩과 두 박스 배경, 유사 제목 때문에 정확한 팩 수와 영상 간 독립성이 미대조. 제목만으로 3박스 합산하지 않음."
+    },
+    {
+      "source_urls": [
+        "https://www.youtube.com/watch?v=Tjda2Wvdwas"
+      ],
+      "reason": "다운로드 시 unavailable. 검색 제목만으로 표본 등록하지 않음."
+    },
+    {
+      "source_urls": [
+        "https://www.youtube.com/watch?v=jdu9EhEr_7k"
+      ],
+      "reason": "RR 3장처럼 보이는 최종 컷은 있으나 팩별 과정·정확한 종류 대조 부족. 이번 정량 원장에서 제외."
+    },
+    {
+      "source_urls": [
+        "https://ameblo.jp/vulakey/entry-12041811155.html"
+      ],
+      "reason": "5박스 글에 RR 목록 합14·SR2·UR2, 총18장. EX 4장 확정이라는 작성자 문장과 20장 합계가 맞지 않음. 사진별 재대조 전까지 숫자 표본 제외."
+    },
+    {
+      "source_urls": [
+        "https://ptcgo.exblog.jp/22652359/"
+      ],
+      "reason": "100팩/10박스라고 썼지만 영문판 디지털 PTCGO 개봉. 일본/한국 실물 박스 표본에서 제외."
+    }
+  ],
+  "limitations": [
+    "공개 영상의 편의 표본이며 채널 선택·업로드 편향이 있다. 관측 비율을 실제 제조 확률로 확정하지 않는다.",
+    "한국 XY7은 2채널 4박스, XY8은 3채널 6박스다. 세트 간 또는 국가 간 표본을 합쳐 같은 확률로 취급하지 않는다.",
+    "초판/재판/로트는 미확인. 영상 공개일을 생산 로트로 간주하지 않는다.",
+    "박스 전체 시작/종료와 히트 노출·정리 장면을 샘플링 대조했으며 모든 1,500장의 번호를 전수 기록한 것은 아니다.",
+    "UR 미관측은 UR 미수록/확률 0을 의미하지 않는다. SR/UR 상대 비율을 이 표본으로 새로 만들지 않는다."
+  ]
+}

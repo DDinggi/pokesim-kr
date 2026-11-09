@@ -71,6 +71,22 @@ Behavior:
 
 ## WebP Variants
 
+### Landscape BREAK cards
+
+BREAK artwork remains landscape in R2 originals and WebP variants. The active
+sets currently contain 11 reviewed BREAK images, including THE BEST OF XY and
+the 30th CELEBRATION reprint. Their 512px variants are 512×367; they must not be
+cropped or stretched into portrait assets during ingestion.
+
+Portrait tiles use `getPortraitCardImageClassName()` from `frontend/lib/images.ts`.
+The `card-image--portrait-break` rule swaps the image box dimensions and rotates
+the whole image 90 degrees inside the existing 5:7 frame. CSS individual
+`rotate`/`translate` properties preserve orientation when premium effects apply
+their own `transform`. Results, vending, opening history, luck, and the hit dex
+use the same rule. The detail modal displays BREAK cards in their original
+landscape orientation with `object-contain` for reading. CDN objects and cache
+versions are unchanged by this display-only correction.
+
 ### Reviewed Korean replacements (2026-09-26)
 
 PNG/JPG originals currently return HTTP 403 at the public CDN, including old keys.

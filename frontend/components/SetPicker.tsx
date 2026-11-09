@@ -1,12 +1,13 @@
 'use client';
 
+import { NewSetNames } from './NewSetNames';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import type { SetMeta } from '../lib/types';
 import { getBundleSummary, isBundleSet } from '../lib/bundle';
 import { getBoxThumbnailImageSrc } from '../lib/boxImages';
 import { ANNIVERSARY_25_PROMO_INTERVAL, isAnniversary25Set } from '../lib/simulation/model';
-import { isNewSimSet, sortNewSimSetsFirst, LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_SETS, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
+import { isNewSimSet, sortNewSimSetsFirst, LATEST_SET_UPDATE_LABEL, LATEST_SET_UPDATE_TITLE } from '../lib/newSets';
 import {
   getAvailableSetSeries,
   getSetSeriesKey,
@@ -16,6 +17,10 @@ import { fetchSetPopularity, type SetPopularity } from '../lib/statsTracker';
 import { SetSeriesTabs } from './SetSeriesTabs';
 
 const SET_THEMES: Record<string, { gradient: string; accent: string }> = {
+  'cp3-pokekyun-collection': { gradient: 'from-rose-600 via-fuchsia-900 to-slate-950', accent: 'text-pink-100' },
+  'xy7-bandit-ring': { gradient: 'from-violet-700 via-purple-950 to-slate-950', accent: 'text-purple-200' },
+  'xy8-blue-shock': { gradient: 'from-sky-700 via-blue-900 to-slate-950', accent: 'text-sky-200' },
+  'xy8-red-flash': { gradient: 'from-red-700 via-rose-900 to-slate-950', accent: 'text-red-200' },
   'sm2plus-new-trials': { gradient: 'from-purple-800 via-slate-900 to-teal-950', accent: 'text-purple-200' },
   'sm2k-alolan-sunlight': { gradient: 'from-yellow-600 via-amber-800 to-orange-950', accent: 'text-yellow-200' },
   'sm2l-alolan-moonlight': { gradient: 'from-rose-800 via-purple-900 to-slate-950', accent: 'text-rose-200' },
@@ -676,7 +681,7 @@ export function SetPicker({
           <p className="text-sm font-bold text-white mt-0.5">
             {LATEST_SET_UPDATE_TITLE}
           </p>
-          {LATEST_SET_UPDATE_SETS && <p className="mt-1 text-[11px] leading-relaxed text-gray-400">{LATEST_SET_UPDATE_SETS}</p>}
+          <NewSetNames />
         </div>
 
         <div className="relative mb-5">

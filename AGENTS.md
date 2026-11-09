@@ -617,7 +617,7 @@ ID 부여된 결정 한 줄 요약. 깊은 이유는 `docs/adr/` 폴더.
 - 인프라: GitHub(branch protection) + Cloudflare Workers(OpenNext) + R2 + Node 22 + pnpm
 - 카드 데이터 수집 파이프라인 (`scripts/` — discover/collect/manual-add/sync/검증). 자세히는
   [docs/card-set-pipeline.md](docs/card-set-pipeline.md)
-- 다중 세트·상품 (현재 **active 104종**, MEGA + SV + 소드실드 + 썬&문 + XY 라인업)
+- 다중 세트·상품 (현재 **active 108종**, MEGA + SV + 소드실드 + 썬&문 + XY 라인업)
 - 박스/팩 시뮬 (`frontend/lib/simulator.ts`, 시드 기반) — 자동/수동/즉시/1팩 모드
 - 럭 점수 + 백분위 (`frontend/lib/luck.ts`) — 등장 운 + **시세 운(가치 운)** 2종
 - 로그인 없이 쓰는 `내 기록` + 선택형 Google 보관 (`frontend/lib/useRecordBackup.ts`, `frontend/lib/recordBackup.ts`) — 누적 운 기록과 힛카드 기록을 한 화면에서 사용하고, 사용자가 보관을 누른 경우에만 로그인한다. 기존 비로그인 기록 이동 선택·기기별 병합·RLS·탈퇴 연쇄 삭제를 적용한다. 상세는 [docs/record-backup.md](docs/record-backup.md)
@@ -875,7 +875,7 @@ main 직접 push 안 함 (실수 방지).
   - 운 점수: 등장 운 + 시세 운(가치 운) 2종
   - 홀로그래픽 효과 (CSS), 세션 누적(localStorage), 박스→박스 트랜지션
   - 카드 이미지 R2 CDN(img.pokesim.kr) + 256/512 WebP variant
-  - active 104종 (MEGA + SV + 소드실드 + 썬&문 + XY 라인업, data/sets-index.json)
+  - active 108종 (MEGA + SV + 소드실드 + 썬&문 + XY 라인업, data/sets-index.json)
   - 데이터 수집/검증 파이프라인 (docs/card-set-pipeline.md)
 
 데이터 보강 메모:
@@ -912,6 +912,12 @@ main 직접 push 안 함 (실수 방지).
 ---
 
 ## 16. 변경 이력
+
+- 2026-11-09 — **신규 XY4종 일본 다박스 봉입 근거 전환.** 한국 공식 XY7/XY8 각30팩×5장·포켓심쿵20팩×5장을 재확인했다. 일본 밴디트링87박스·푸른 충격30박스·붉은 섬광32박스·포켓심쿵16박스의 세트별 장수를 차용하며 팩 수 비율1.5배 증폭과 XY8 RR6장 고정을 폐기했다. 미봉입·투힛 및 RR분포의 실측/통계 근사를 구분하고 박스·낱팩·등장 운·가치 운을 함께 갱신했다. 세부 상관·일반카드 필러는 미검증 근사로 남기며 [재검토표](docs/new-four-jp-bulk-pull-rate-review-20261109.md)에 한계를 기록한다.
+
+- 2026-11-08 — **포켓심쿵 컬렉션 추가.** 한국 공식 32장·20팩×5장과 박스/R2 이미지를 등록했다. 한국 4박스·일본 6박스의 200팩 RR 47장을 대조해 RR 4/5/6장 잠정 분포·낱팩·운 모델을 동기화했다. 피카츄 고정 보장은 없으며 소표본·지역 혼합·RR 균등 및 비복원 근사의 한계를 [검토표](docs/cp3-pokekyun-review-20261108.md)에 명시한다. 일본 님피아 에러판 가격은 제외했다. active 108종.
+
+- 2026-11-08 — **XY 밴디트링·푸른 충격·붉은 섬광 추가.** 한국 공식 220장과 일본 UR 보강 7장, 총 227장을 등록하고 판본별 시세·박스 이미지·R2 256/512·박스/낱팩 운 분포·NEW 최근 두 업데이트를 연결했다. XY8 EX/메가 EX/BREAK 풀을 분리하고, 공식 상세의 트레이너 번호 오류 4건은 인쇄 이미지로 교정했다. 한국 봉입률은 비공개이며 일본 공개 근사·인접 XY6 차용의 한계와 검증은 [검토표](docs/xy-next-three-review-20261108.md)에 남긴다. active 107종.
 
 - 2026-10-28 — **25주년 봉입·운 모델 재검토.** 일본판 28박스·448팩의 V-UNION19세트와 카톤SR18/UR5/RR77 집계를 근거로 RRR2사건·V-UNION0~1세트 및 SR+UR/SR+SR을 허용하는 잠정 모델을 적용했다. 고레어 공동 빈도는 주변 평균을 만족하는 최대 엔트로피 근사이며 UR5/20은 한 카톤 차용값이다. 박스별 분포와 한국판 확정률로 주장하지 않는다. 낱팩·자판기4+1·등장 운 해석 분포·가치 운 표를 함께 갱신하고 근거와 가정은 [25주년 검토표](docs/s8a-25th-anniversary-review.md)에 보존한다.
 

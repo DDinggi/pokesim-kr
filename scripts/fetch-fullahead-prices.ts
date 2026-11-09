@@ -9,6 +9,7 @@ import { parse } from "node-html-parser";
 type PriceConfidence = "source" | "manual";
 
 interface CardEntry {
+  _price_reference_exclusion?: string;
   _jp_number?: number;
   card_num?: string;
   collector_number?: string;
@@ -27,6 +28,7 @@ interface CardEntry {
 interface SetJson {
   code: string;
   fullahead_shop_code?: string;
+  fullahead_category_code?: string;
   cards: CardEntry[];
 }
 
@@ -116,7 +118,7 @@ async function main() {
       continue;
     }
 
-    const shopItems = await fetchFullaheadSetItems(shopCode);
+    const shopItems = await fetchFullaheadSetItems(shopCode, set.fullahead_category_code);
     const byNumber = new Map<number | string, FullaheadItem>();
     for (const item of shopItems) {
       const previous = byNumber.get(item.number);
@@ -198,8 +200,8 @@ async function main() {
   );
 }
 
-async function fetchFullaheadSetItems(shopCode: string): Promise<FullaheadItem[]> {
-  const { categoryCode, firstHtml } = await fetchFirstCategoryPage(shopCode);
+async function fetchFullaheadSetItems(shopCode: string, categoryOverride?: string): Promise<FullaheadItem[]> {
+  const { categoryCode, firstHtml } = await fetchFirstCategoryPage(shopCode, categoryOverride);
   const items = new Map<string, FullaheadItem>();
 
   const firstItems = parseFullaheadItems(firstHtml, shopCode);
@@ -230,8 +232,8 @@ async function fetchFullaheadSetItems(shopCode: string): Promise<FullaheadItem[]
   return Array.from(items.values());
 }
 
-async function fetchFirstCategoryPage(shopCode: string): Promise<{ categoryCode: string; firstHtml: string }> {
-  const candidates = getCategoryCandidates(shopCode);
+async function fetchFirstCategoryPage(shopCode: string, categoryOverride?: string): Promise<{ categoryCode: string; firstHtml: string }> {
+  const candidates = categoryOverride ? [categoryOverride] : getCategoryCandidates(shopCode);
   let lastError: unknown = null;
 
   for (const categoryCode of candidates) {
@@ -342,6 +344,7 @@ function isCompatibleRarity(cardRarity: string | null | undefined, itemRarity: s
 }
 
 function shouldPriceCard(setCode: string, card: CardEntry): boolean {
+  if (card._price_reference_exclusion) return false;
   if (!card.rarity) return false;
   // Japanese SMP2 only has holo cards. Korean regular C/U cards have no
   // equivalent FullAhead listing, so sharing the mirror price double-counts them.

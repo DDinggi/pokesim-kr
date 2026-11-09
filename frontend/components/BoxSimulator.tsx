@@ -14,6 +14,7 @@ import {
 import { CardModal } from './CardModal';
 import { trackSim, trackUserEvent } from '../lib/statsTracker';
 import {
+  getPortraitCardImageClassName,
   CARD_IMAGES_ENABLED,
   CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
   preloadCardImages,
@@ -122,7 +123,7 @@ const CardTile = memo(function CardTile({
             alt={card.name_ko ?? card.card_num}
             fill
             sizes={sizesAttr}
-            className="object-cover"
+            className={getPortraitCardImageClassName(card)}
             priority={priority}
             loading={priority ? 'eager' : 'lazy'}
             unoptimized

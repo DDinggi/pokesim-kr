@@ -92,6 +92,22 @@ body {
   user-select: none;
 }
 
+/* BREAK cards are printed landscape. Swap the image box dimensions before
+   rotating it into a 5:7 tile so neither text nor artwork is cropped.
+   Override next/image's inline fill geometry; individual rotate/translate
+   properties also survive the premium effect's translateZ transform. */
+.card-image--portrait-break {
+  width: 140% !important;
+  height: 71.428571% !important;
+  inset: auto !important;
+  left: 50% !important;
+  top: 50% !important;
+  max-width: none;
+  object-fit: contain;
+  translate: -50% -50%;
+  rotate: 90deg;
+}
+
 .hit-dex-set-section {
   content-visibility: auto;
   contain-intrinsic-size: auto 560px;

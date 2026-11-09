@@ -1,0 +1,465 @@
+{
+  "report": "docs/xy-next-three-review-20261108.md",
+  "sets": [
+    {
+      "set_code": "xy7-bandit-ring",
+      "card_count": 97,
+      "source_counts": {
+        "korean": 92,
+        "japanese_supplement": 5
+      },
+      "reviewed_at": "2026-11-08",
+      "cards": [
+        {
+          "card_num": "BS2015005069",
+          "number": 69,
+          "name_ko": "레벨볼",
+          "rarity": "U",
+          "image_url": "wmimages/XY/XY7/XY7_069.webp",
+          "_jp_number": 71
+        },
+        {
+          "card_num": "BS2015005070",
+          "number": 70,
+          "name_ko": "에코암",
+          "rarity": "U",
+          "image_url": "wmimages/XY/XY7/XY7_070.webp",
+          "_jp_number": 69
+        },
+        {
+          "card_num": "BS2015005071",
+          "number": 71,
+          "name_ko": "페인트롤러",
+          "rarity": "U",
+          "image_url": "wmimages/XY/XY7/XY7_071.webp",
+          "_jp_number": 70
+        },
+        {
+          "card_num": "BS2015005074",
+          "number": 74,
+          "name_ko": "마기라스 소울링크",
+          "rarity": "U",
+          "image_url": "wmimages/XY/XY7/XY7_074.webp",
+          "_jp_number": 75
+        },
+        {
+          "card_num": "BS2015005075",
+          "number": 75,
+          "name_ko": "전룡 소울링크",
+          "rarity": "U",
+          "image_url": "wmimages/XY/XY7/XY7_075.webp",
+          "_jp_number": 74
+        },
+        {
+          "card_num": "BS2015005078",
+          "number": 78,
+          "name_ko": "거대식물의 숲",
+          "rarity": "U",
+          "image_url": "wmimages/XY/XY7/XY7_078.webp",
+          "_jp_number": 79
+        },
+        {
+          "card_num": "BS2015005079",
+          "number": 79,
+          "name_ko": "색이 사라진 마을",
+          "rarity": "U",
+          "image_url": "wmimages/XY/XY7/XY7_079.webp",
+          "_jp_number": 78
+        },
+        {
+          "card_num": "BS2015005080",
+          "number": 80,
+          "name_ko": "배드 에너지",
+          "rarity": "U",
+          "image_url": "wmimages/XY/XY7/XY7_080.webp",
+          "_jp_number": 81
+        },
+        {
+          "card_num": "BS2015005081",
+          "number": 81,
+          "name_ko": "플래시 에너지",
+          "rarity": "U",
+          "image_url": "wmimages/XY/XY7/XY7_081.webp",
+          "_jp_number": 80
+        },
+        {
+          "card_num": "BS2015005082",
+          "number": 82,
+          "name_ko": "나무킹 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY7/XY7_082.webp",
+          "price_ref_jpy": 23800,
+          "price_ref_krw": 147000,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016580/xy07/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015005083",
+          "number": 83,
+          "name_ko": "M나무킹 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY7/XY7_083.webp",
+          "price_ref_jpy": 44800,
+          "price_ref_krw": 276600,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016581/xy07/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015005084",
+          "number": 84,
+          "name_ko": "큐레무 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY7/XY7_084.webp",
+          "price_ref_jpy": 17800,
+          "price_ref_krw": 109900,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016582/xy07/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015005085",
+          "number": 85,
+          "name_ko": "전룡 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY7/XY7_085.webp",
+          "price_ref_jpy": 23800,
+          "price_ref_krw": 147000,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016583/xy07/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015005086",
+          "number": 86,
+          "name_ko": "M전룡 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY7/XY7_086.webp",
+          "price_ref_jpy": 44800,
+          "price_ref_krw": 276600,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016584/xy07/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015005087",
+          "number": 87,
+          "name_ko": "후파 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY7/XY7_087.webp",
+          "price_ref_jpy": 21800,
+          "price_ref_krw": 134600,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016585/xy07/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015005088",
+          "number": 88,
+          "name_ko": "괴력몬 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY7/XY7_088.webp",
+          "price_ref_jpy": 21800,
+          "price_ref_krw": 134600,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016586/xy07/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015005089",
+          "number": 89,
+          "name_ko": "마기라스 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY7/XY7_089.webp",
+          "price_ref_jpy": 44800,
+          "price_ref_krw": 276600,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016587/xy07/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015005090",
+          "number": 90,
+          "name_ko": "M마기라스 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY7/XY7_090.webp",
+          "price_ref_jpy": 59800,
+          "price_ref_krw": 369300,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016588/xy07/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015005091",
+          "number": 91,
+          "name_ko": "기라티나 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY7/XY7_091.webp",
+          "price_ref_jpy": 79800,
+          "price_ref_krw": 492800,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016589/xy07/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015005092",
+          "number": 92,
+          "name_ko": "루기아 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY7/XY7_092.webp",
+          "price_ref_jpy": 118000,
+          "price_ref_krw": 728700,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016590/xy07/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "JP2015XY7093",
+          "number": 93,
+          "name_ko": "원시가이오가 EX",
+          "rarity": "UR",
+          "image_url": "external/xy7-bandit-ring/jp-20261108/093.jpg",
+          "_jp_number": 93,
+          "price_ref_jpy": 89800,
+          "price_ref_krw": 554500,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016591/xy07/page1/recommend/; jp_to_kr_factor=0.65; mapped_from_number=93; fullahead_number=93"
+        },
+        {
+          "card_num": "JP2015XY7094",
+          "number": 94,
+          "name_ko": "원시그란돈 EX",
+          "rarity": "UR",
+          "image_url": "external/xy7-bandit-ring/jp-20261108/094.jpg",
+          "_jp_number": 94,
+          "price_ref_jpy": 99800,
+          "price_ref_krw": 616300,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016592/xy07/page1/recommend/; jp_to_kr_factor=0.65; mapped_from_number=94; fullahead_number=94"
+        },
+        {
+          "card_num": "JP2015XY7095",
+          "number": 95,
+          "name_ko": "M레쿠쟈 EX",
+          "rarity": "UR",
+          "image_url": "external/xy7-bandit-ring/jp-20261108/095.jpg",
+          "_jp_number": 95,
+          "price_ref_jpy": 348000,
+          "price_ref_krw": 2148900,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016593/xy07/page1/recommend/; jp_to_kr_factor=0.65; mapped_from_number=95; fullahead_number=95"
+        },
+        {
+          "card_num": "JP2015XY7096",
+          "number": 96,
+          "name_ko": "에너지 회수",
+          "rarity": "UR",
+          "image_url": "external/xy7-bandit-ring/jp-20261108/096.jpg",
+          "_jp_number": 96,
+          "price_ref_jpy": 24800,
+          "price_ref_krw": 153100,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016594/xy07/page1/recommend/; jp_to_kr_factor=0.65; mapped_from_number=96; fullahead_number=96"
+        },
+        {
+          "card_num": "JP2015XY7097",
+          "number": 97,
+          "name_ko": "트레이너스 우편함",
+          "rarity": "UR",
+          "image_url": "external/xy7-bandit-ring/jp-20261108/097.jpg",
+          "_jp_number": 97,
+          "price_ref_jpy": 16800,
+          "price_ref_krw": 103700,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016595/xy07/page1/recommend/; jp_to_kr_factor=0.65; mapped_from_number=97; fullahead_number=97"
+        }
+      ]
+    },
+    {
+      "set_code": "xy8-blue-shock",
+      "card_count": 65,
+      "source_counts": {
+        "korean": 64,
+        "japanese_supplement": 1
+      },
+      "reviewed_at": "2026-11-08",
+      "cards": [
+        {
+          "card_num": "BS2015006056",
+          "number": 55,
+          "name_ko": "뮤츠 소울링크",
+          "rarity": "U",
+          "image_url": "wmimages/XY/XY8/XY8_BLUE_055.webp",
+          "_number_source": "실물 이미지 우하단 인쇄 번호 확인(2026-11-08). 공식 상세 텍스트는 056로 상호 뒤바뀌어 있음; 이미지의 055 사용."
+        },
+        {
+          "card_num": "BS2015006055",
+          "number": 56,
+          "name_ko": "얼음귀신 소울링크",
+          "rarity": "U",
+          "image_url": "wmimages/XY/XY8/XY8_BLUE_056.webp",
+          "_number_source": "실물 이미지 우하단 인쇄 번호 확인(2026-11-08). 공식 상세 텍스트는 055로 상호 뒤바뀌어 있음; 이미지의 056 사용."
+        },
+        {
+          "card_num": "BS2015006060",
+          "number": 60,
+          "name_ko": "얼음귀신 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY8/XY8_BLUE_060.webp",
+          "price_ref_jpy": 12800,
+          "price_ref_krw": 79000,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016655/xy08-01/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015006061",
+          "number": 61,
+          "name_ko": "M얼음귀신 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY8/XY8_BLUE_061.webp",
+          "price_ref_jpy": 16800,
+          "price_ref_krw": 103700,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016656/xy08-01/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015006062",
+          "number": 62,
+          "name_ko": "뮤츠 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY8/XY8_BLUE_062.webp",
+          "price_ref_jpy": 218000,
+          "price_ref_krw": 1346200,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016657/xy08-01/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015006063",
+          "number": 63,
+          "name_ko": "M뮤츠 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY8/XY8_BLUE_063.webp",
+          "price_ref_jpy": 138000,
+          "price_ref_krw": 852200,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016658/xy08-01/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015006064",
+          "number": 64,
+          "name_ko": "재인",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY8/XY8_BLUE_064.webp",
+          "price_ref_jpy": 94800,
+          "price_ref_krw": 585400,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016659/xy08-01/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "JP2015XY8B065",
+          "number": 65,
+          "name_ko": "뮤츠 EX",
+          "rarity": "UR",
+          "image_url": "external/xy8-blue-shock/jp-20261108/065.jpg",
+          "_jp_number": 65,
+          "price_ref_jpy": 79800,
+          "price_ref_krw": 492800,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016660/xy08-01/page1/recommend/; jp_to_kr_factor=0.65; mapped_from_number=65; fullahead_number=65"
+        }
+      ]
+    },
+    {
+      "set_code": "xy8-red-flash",
+      "card_count": 65,
+      "source_counts": {
+        "korean": 64,
+        "japanese_supplement": 1
+      },
+      "reviewed_at": "2026-11-08",
+      "cards": [
+        {
+          "card_num": "BS2015007057",
+          "number": 56,
+          "name_ko": "뮤츠 소울링크",
+          "rarity": "U",
+          "image_url": "wmimages/XY/XY8/XY8_RED_056.webp",
+          "_number_source": "실물 이미지 우하단 인쇄 번호 확인(2026-11-08). 공식 상세 텍스트는 057로 상호 뒤바뀌어 있음; 이미지의 056 사용."
+        },
+        {
+          "card_num": "BS2015007056",
+          "number": 57,
+          "name_ko": "헬가 소울링크",
+          "rarity": "U",
+          "image_url": "wmimages/XY/XY8/XY8_RED_057.webp",
+          "_number_source": "실물 이미지 우하단 인쇄 번호 확인(2026-11-08). 공식 상세 텍스트는 056로 상호 뒤바뀌어 있음; 이미지의 057 사용."
+        },
+        {
+          "card_num": "BS2015007060",
+          "number": 60,
+          "name_ko": "헬가 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY8/XY8_RED_060.webp",
+          "price_ref_jpy": 21800,
+          "price_ref_krw": 134600,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016720/xy08-02/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015007061",
+          "number": 61,
+          "name_ko": "M헬가 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY8/XY8_RED_061.webp",
+          "price_ref_jpy": 39800,
+          "price_ref_krw": 245800,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016721/xy08-02/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015007062",
+          "number": 62,
+          "name_ko": "뮤츠 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY8/XY8_RED_062.webp",
+          "price_ref_jpy": 148000,
+          "price_ref_krw": 913900,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016722/xy08-02/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015007063",
+          "number": 63,
+          "name_ko": "M뮤츠 EX",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY8/XY8_RED_063.webp",
+          "price_ref_jpy": 148000,
+          "price_ref_krw": 913900,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016723/xy08-02/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "BS2015007064",
+          "number": 64,
+          "name_ko": "비주기의 계획",
+          "rarity": "SR",
+          "image_url": "wmimages/XY/XY8/XY8_RED_064.webp",
+          "price_ref_jpy": 42800,
+          "price_ref_krw": 264300,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016724/xy08-02/page1/recommend/; jp_to_kr_factor=0.65"
+        },
+        {
+          "card_num": "JP2015XY8R065",
+          "number": 65,
+          "name_ko": "뮤츠 EX",
+          "rarity": "UR",
+          "image_url": "external/xy8-red-flash/jp-20261108/065.jpg",
+          "_jp_number": 65,
+          "price_ref_jpy": 79800,
+          "price_ref_krw": 492800,
+          "price_source": "fullahead:sale:https://pokemon-card-fullahead.com/shopdetail/000000016725/xy08-02/page1/recommend/; jp_to_kr_factor=0.65; mapped_from_number=65; fullahead_number=65"
+        }
+      ]
+    }
+  ],
+  "recheck_20261108": {
+    "report": "docs/new-four-release-review-20261108.md",
+    "verdict": "card-data-checked; pull-rate-model-needs-review",
+    "card_audit": {
+      "total_cards": 259,
+      "korean_official": 252,
+      "japanese_supplement": 7,
+      "known_official_number_text_errors": 4,
+      "known_downscale_pixel_warnings": 2
+    },
+    "source_correction": {
+      "url": "https://perappu-johokyoku.blog.jp/archives/968401.html",
+      "box_1": {
+        "normal_ex": 2,
+        "mega_ex": 1,
+        "break": 1,
+        "sr": 1,
+        "r": 5
+      },
+      "box_2": {
+        "normal_ex": 1,
+        "mega_ex": 2,
+        "break": 1,
+        "sr": 1,
+        "r": 5
+      },
+      "note": "?? ??? ? ?? EX ?? ????? ?? ??? ??. ?? ??? ???? ??? ???? ????? ??."
+    },
+    "additional_source": "https://perappu-johokyoku.blog.jp/archives/968404.html",
+    "runtime_model_changed": false,
+    "open_issues": [
+      "XY8 ?? EX 3??RR 6? ??? ?? ?? ??? ??? ?? ?? ??? ??? ??? ???? ??.",
+      "???? ??? ??? ?? XY6 ???? SR/UR ?? ??? ???.",
+      "???? 10?? ?? ?? ?? ??? ??? ??? ??? ? ??."
+    ]
+  }
+}

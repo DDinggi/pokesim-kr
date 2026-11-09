@@ -1,0 +1,540 @@
+{
+  "reviewed_at": "2026-11-09",
+  "purpose": "한국 3~4박스 소표본을 새 확률의 주근거로 삼지 않고 일본판 다박스 원문을 우선 조사한다. 연구 원장이며 런타임 입력이 아니다.",
+  "inclusion_policy": [
+    "일본판 실물만 집계. 작성자의 일본 국적/거주지나 글 언어와 구분한다.",
+    "직접 개봉한 작성자의 수량을 우선한다. 다른 사람의 사진 재게시·출시 전 소문·디지털/시뮬 결과 제외.",
+    "누적/중간/인용/교차 게시를 합산하지 않는다. 한 작성자의 같은 날짜·같은 결과는 하나의 개봉 묶음.",
+    "재판/초판 생산 로트는 대부분 미확인. 공개 후기에는 선택·업로드 편향 및 공급처/로트 상관이 있다.",
+    "한국 영상 3~4박스는 반례/판본 차이 점검용. 관측 평균으로 새 한국 확률을 결정하지 않는다.",
+    "일본 XY20팩과 한국30팩의 팩 수 비례 보정 1.5배를 제조 보장으로 사용하지 않는다."
+  ],
+  "xy7": {
+    "records": [
+      {
+        "id": "raimu-cumulative-18",
+        "author": "raimublog",
+        "region": "JP",
+        "box_count": 18,
+        "pack_count": 360,
+        "sr_count": 8,
+        "ur_count": 10,
+        "rr_count": 54,
+        "source_urls": [
+          "https://raimublog.seesaa.net/article/421065563.html"
+        ],
+        "review_note": "2015-06-21 최종 누적. 전날 8박스가 포함되어 18+8로 세지 않는다. 기존 원장 재참조."
+      },
+      {
+        "id": "perappu-2",
+        "author": "perappu",
+        "region": "JP",
+        "box_count": 2,
+        "pack_count": 40,
+        "sr_count": 0,
+        "ur_count": 2,
+        "rr_count": 6,
+        "source_urls": [
+          "https://perappu-johokyoku.blog.jp/archives/968302.html"
+        ],
+        "review_note": "기존 원장 재참조. 각 RR3+UR1. 고레어 보장 문장은 작성자가 취소선으로 정정."
+      },
+      {
+        "id": "nyan-series-6",
+        "author": "nyanntadayo",
+        "region": "JP",
+        "box_count": 6,
+        "pack_count": 120,
+        "sr_count": 4,
+        "ur_count": 2,
+        "rr_count": 18,
+        "source_urls": [
+          "https://nyanntadayo.livedoor.blog/archives/1620412.html",
+          "https://nyanntadayo.livedoor.blog/archives/1620414.html",
+          "https://nyanntadayo.livedoor.blog/archives/1620417.html",
+          "https://nyanntadayo.livedoor.blog/archives/1620420.html",
+          "https://nyanntadayo.livedoor.blog/archives/1620423.html",
+          "https://nyanntadayo.livedoor.blog/archives/1620427.html"
+        ],
+        "review_note": "연속 1~6박스의 개별 RR/SR/UR 구분을 사용. 각 RR3. SR은 M나무킹·후파·나무킹·괴력몬, UR은 원시그란돈·M레쿠쟈. 마지막 누적 EX 이름 목록은 SR도 섞여 있어 RR 합계로 읽지 않는다."
+      },
+      {
+        "id": "pokebeach-wileycoyote-corrected-10",
+        "author": "thewileycoyote",
+        "region": "JP",
+        "box_count": 10,
+        "pack_count": 200,
+        "sr_count": 6,
+        "ur_count": 4,
+        "rr_count": 30,
+        "source_urls": [
+          "https://pokebeach.com/forums/threads/the-foreign-booster-box-pull-rates-thread.113135/page-22"
+        ],
+        "review_note": "2015-06-20 #422의 RR31/고레어9를06-25 #428에서 RR30/고레어10(UR4 포함)으로 정정했다. SR6은 차감 산출. #429의 추가 몇 카톤9/10 언급은 분모 미공개라 별도 집계에서 제외했다. page-22의 #428 최종 정정을 우선한다."
+      },
+      {
+        "id": "efour-milhouse-12",
+        "author": "milhouse",
+        "region": "JP",
+        "box_count": 12,
+        "pack_count": 240,
+        "sr_count": 2,
+        "ur_count": 8,
+        "rr_count": 38,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy7-bandit-ring/12784?page=29"
+        ],
+        "review_note": "2015-06-25 #565. 박스별 12행. 1·4번은 RR4/고레어0, 나머지는 RR3/고레어1. SR2·UR8·RR38. UR8 중 원시가이오가2/M레쿠쟈3/에너지회수2/트레이너스포스트1."
+      },
+      {
+        "id": "efour-salmoncannon-15",
+        "author": "salmoncannon",
+        "region": "JP",
+        "box_count": 15,
+        "pack_count": 300,
+        "sr_count": 9,
+        "ur_count": 6,
+        "rr_count": null,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy7-bandit-ring/12784?page=28"
+        ],
+        "review_note": "2015-06-25 #555. 고레어 목록 합계 15: SR9, UR6. UR은 트레이너스포스트1·원시그란돈3·M레쿠쟈2. RR 미기재이므로 null. 카드 수 15를 고레어 등장 박스 확률 100%로 바꾸지 않는다."
+      },
+      {
+        "id": "efour-gemmint10-10",
+        "author": "GemMint10",
+        "region": "JP",
+        "box_count": 10,
+        "pack_count": 200,
+        "sr_count": 4,
+        "ur_count": 6,
+        "rr_count": null,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy7-bandit-ring/12784?page=29",
+          "https://imagizer.imageshack.com/v2/1600x1200q90/540/1zAr1y.jpg"
+        ],
+        "review_note": "2015-06-25 #573 사진과 #580 후속 글 대조. 사진 SR4(나무킹·기라티나·루기아·마기라스), UR6(M레쿠쟈1·원시가이오가2·원시그란돈1·트레이너스포스트1·에너지회수1). 9/10이 서로 다른 종류라는 문장을 미봉입 1박스로 읽지 않는다. RR 미기재."
+      },
+      {
+        "id": "efour-m786ali-7",
+        "author": "m786ali",
+        "region": "JP",
+        "box_count": 7,
+        "pack_count": 140,
+        "sr_count": 4,
+        "ur_count": 3,
+        "rr_count": null,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy7-bandit-ring/12784?page=26"
+        ],
+        "review_note": "2015-06-22 #508 직접 개봉 목록: SR 후파·M마기라스·전룡·M전룡, UR 원시그란돈·원시가이오가·트레이너스포스트. #513은 같은 개봉 후속이라 중복 제외. RR 미기재."
+      },
+      {
+        "id": "efour-fourthstartcg-final-7",
+        "author": "fourthstartcg",
+        "region": "JP",
+        "box_count": 7,
+        "pack_count": 140,
+        "sr_count": 2,
+        "ur_count": 5,
+        "rr_count": null,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy7-bandit-ring/12784?page=27"
+        ],
+        "review_note": "2015-06-23 #529 최종 7박스 합계. #527의 1~5박스 중간 기록은 포함 관계라 더하지 않는다. UR 원시가이오가3·M레쿠쟈1·에너지회수1. RR 전체 합계 미기재."
+      }
+    ],
+    "summary": {
+      "box_count": 87,
+      "pack_count": 1740,
+      "sr_count": 39,
+      "ur_count": 46,
+      "high_card_count": 85,
+      "warning": "고레어 카드 총수의 평균이다. 0/1/2장 박스 분포가 없어 고레어 등장 박스 비율로 사용할 수 없다."
+    },
+    "presence_only_record": {
+      "author": "whirlpoolm51",
+      "box_count": 20,
+      "source_url": "https://pokebeach.com/forums/threads/the-foreign-booster-box-pull-rates-thread.113135/page-22",
+      "post_number": 439,
+      "high_absent_box_count": 2,
+      "high_present_box_count": 18,
+      "high_card_count": null,
+      "review_note": "2015-06-28 #439에서20박스 중2박스 미봉입. #424의4박스 및 #427의15박스는 이 카톤 중간 기록. #424의 2FA 박스 존재도 보존하되 전체 고레어 장수 미확인이라 위87박스 카드 합계에 넣지 않는다. 18/20을 전체 모집단 발생률90%로 확정하지 않는다."
+    }
+  },
+  "xy8": {
+    "records": [
+      {
+        "id": "milhouse-final-16-xy8-blue-shock",
+        "author": "milhouse",
+        "region": "JP",
+        "box_count": 8,
+        "pack_count": 160,
+        "sr_count": 4,
+        "ur_count": 1,
+        "rr_count": null,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=31"
+        ],
+        "review_note": "2015-10-01 #619: 각 8박스 개별 행과 최종 목록. 푸른 충격 RR은 개별 행 33/최종 합계34(일반 뮤츠 7/8)로 불일치하여 정량 RR 합계는 null. SR4/UR1은 두 목록 일치. 붉은 섬광은 RR35/SR3/UR1로 일치. 글 인용 #638은 같은 16박스라 제외.",
+        "set_code": "xy8-blue-shock"
+      },
+      {
+        "id": "milhouse-final-16-xy8-red-flash",
+        "author": "milhouse",
+        "region": "JP",
+        "box_count": 8,
+        "pack_count": 160,
+        "sr_count": 3,
+        "ur_count": 1,
+        "rr_count": 35,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=31"
+        ],
+        "review_note": "2015-10-01 #619: 각 8박스 개별 행과 최종 목록. 푸른 충격 RR은 개별 행 33/최종 합계34(일반 뮤츠 7/8)로 불일치하여 정량 RR 합계는 null. SR4/UR1은 두 목록 일치. 붉은 섬광은 RR35/SR3/UR1로 일치. 글 인용 #638은 같은 16박스라 제외.",
+        "set_code": "xy8-red-flash"
+      },
+      {
+        "id": "blastoiserules1-final-18-xy8-blue-shock",
+        "author": "blastoiserules1",
+        "region": "JP",
+        "box_count": 8,
+        "pack_count": 160,
+        "sr_count": 1,
+        "ur_count": 1,
+        "rr_count": 35,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=32"
+        ],
+        "review_note": "2015-10-04 #641 최종 목록. #633/#637 진행 중 개봉은 포함되어 더하지 않는다. 푸른 충격 RR35(일반16/메가8/BREAK11), 붉은 섬광 RR43(일반19/메가11/BREAK13). 별도 친구에게 준 박스 #644는 제외.",
+        "set_code": "xy8-blue-shock"
+      },
+      {
+        "id": "blastoiserules1-final-18-xy8-red-flash",
+        "author": "blastoiserules1",
+        "region": "JP",
+        "box_count": 10,
+        "pack_count": 200,
+        "sr_count": 4,
+        "ur_count": 1,
+        "rr_count": 43,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=32"
+        ],
+        "review_note": "2015-10-04 #641 최종 목록. #633/#637 진행 중 개봉은 포함되어 더하지 않는다. 푸른 충격 RR35(일반16/메가8/BREAK11), 붉은 섬광 RR43(일반19/메가11/BREAK13). 별도 친구에게 준 박스 #644는 제외.",
+        "set_code": "xy8-red-flash"
+      },
+      {
+        "id": "salmoncannon-final-14-xy8-blue-shock",
+        "author": "salmoncannon",
+        "region": "JP",
+        "box_count": 7,
+        "pack_count": 140,
+        "sr_count": 1,
+        "ur_count": 0,
+        "rr_count": null,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=33"
+        ],
+        "review_note": "2015-10-05 #649 직접 개봉 고레어 합계. 각 7박스. 푸른 충격 M뮤츠 SR1, 붉은 섬광 뮤츠 UR1·뮤츠 SR1·M뮤츠 SR1. RR 미기재.",
+        "set_code": "xy8-blue-shock"
+      },
+      {
+        "id": "salmoncannon-final-14-xy8-red-flash",
+        "author": "salmoncannon",
+        "region": "JP",
+        "box_count": 7,
+        "pack_count": 140,
+        "sr_count": 2,
+        "ur_count": 1,
+        "rr_count": null,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=33"
+        ],
+        "review_note": "2015-10-05 #649 직접 개봉 고레어 합계. 각 7박스. 푸른 충격 M뮤츠 SR1, 붉은 섬광 뮤츠 UR1·뮤츠 SR1·M뮤츠 SR1. RR 미기재.",
+        "set_code": "xy8-red-flash"
+      },
+      {
+        "id": "fourthstartcg-final-6-xy8-blue-shock",
+        "author": "fourthstartcg",
+        "region": "JP",
+        "box_count": 3,
+        "pack_count": 60,
+        "sr_count": 2,
+        "ur_count": 1,
+        "rr_count": 12,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=33"
+        ],
+        "review_note": "2015-10-06 #652 최종 각3박스. #645의 먼저 연5박스 및 별도 수집글의 같은5박스는 포함되어 제외. 양쪽 RR12. SR은 푸른 충격 제인/얼음귀신, 붉은 섬광 뮤츠/M헬가; UR은 각 뮤츠.",
+        "set_code": "xy8-blue-shock"
+      },
+      {
+        "id": "fourthstartcg-final-6-xy8-red-flash",
+        "author": "fourthstartcg",
+        "region": "JP",
+        "box_count": 3,
+        "pack_count": 60,
+        "sr_count": 2,
+        "ur_count": 1,
+        "rr_count": 12,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=33"
+        ],
+        "review_note": "2015-10-06 #652 최종 각3박스. #645의 먼저 연5박스 및 별도 수집글의 같은5박스는 포함되어 제외. 양쪽 RR12. SR은 푸른 충격 제인/얼음귀신, 붉은 섬광 뮤츠/M헬가; UR은 각 뮤츠.",
+        "set_code": "xy8-red-flash"
+      },
+      {
+        "id": "woolsluk-final-8-xy8-blue-shock",
+        "author": "woolsluk",
+        "region": "JP",
+        "box_count": 4,
+        "pack_count": 80,
+        "sr_count": 0,
+        "ur_count": 1,
+        "rr_count": null,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=34"
+        ],
+        "review_note": "2015-10-13 #672 각4박스 최종. 푸른 충격 뮤츠 UR1, 붉은 섬광 헬가 SR1. RR 장수 분포는 두 세트 합산 5장3박스/4장4박스/3장1박스(34장)라 세트별 RR로 배분하지 않는다. #665의 먼저 연 붉은 섬광1박스는 이8박스에 포함.",
+        "set_code": "xy8-blue-shock"
+      },
+      {
+        "id": "woolsluk-final-8-xy8-red-flash",
+        "author": "woolsluk",
+        "region": "JP",
+        "box_count": 4,
+        "pack_count": 80,
+        "sr_count": 1,
+        "ur_count": 0,
+        "rr_count": null,
+        "source_urls": [
+          "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=34"
+        ],
+        "review_note": "2015-10-13 #672 각4박스 최종. 푸른 충격 뮤츠 UR1, 붉은 섬광 헬가 SR1. RR 장수 분포는 두 세트 합산 5장3박스/4장4박스/3장1박스(34장)라 세트별 RR로 배분하지 않는다. #665의 먼저 연 붉은 섬광1박스는 이8박스에 포함.",
+        "set_code": "xy8-red-flash"
+      }
+    ],
+    "summary": {
+      "xy8-blue-shock": {
+        "box_count": 30,
+        "pack_count": 600,
+        "sr_count": 8,
+        "ur_count": 4,
+        "high_card_count": 12,
+        "warning": "고레어 카드 총수의 평균이다. 0/1/2장 박스 분포가 없어 고레어 등장 박스 비율로 사용할 수 없다."
+      },
+      "xy8-red-flash": {
+        "box_count": 32,
+        "pack_count": 640,
+        "sr_count": 12,
+        "ur_count": 4,
+        "high_card_count": 16,
+        "warning": "고레어 카드 총수의 평균이다. 0/1/2장 박스 분포가 없어 고레어 등장 박스 비율로 사용할 수 없다."
+      }
+    },
+    "warning": "두 세트의 수록 풀이 달라 SR/UR 카드별 빈도와 세트별 추정치를 별도로 유지한다. 62박스의 고레어 카드 합계만으로 박스별 동시 봉입/교체 슬롯 상관은 복원할 수 없다."
+  },
+  "cp3": {
+    "baseline_files": [
+      "data/manual/cp3-pokekyun-opening-evidence-20261108.json",
+      "data/manual/cp3-pokekyun-opening-followup-20261109.json"
+    ],
+    "additional_boxes": [
+      {
+        "id": "wrc-series-box-1",
+        "source_urls": [
+          "https://www.youtube.com/watch?v=YVG0ghvnG9E"
+        ],
+        "published_at": "2016-02-01",
+        "rr_numbers": [
+          6,
+          10,
+          19,
+          25,
+          26
+        ],
+        "review_note": "20팩 완박스. 742–756초 최종 정리를 1초 간격으로 대조. 짧게 보이는 25/26/19를 모두 포함.",
+        "region": "JP",
+        "box_count": 1,
+        "pack_count": 20,
+        "cards_per_pack": 4,
+        "rr_count": 5
+      },
+      {
+        "id": "wrc-series-box-2",
+        "source_urls": [
+          "https://www.youtube.com/watch?v=ipmZdrjVrN0"
+        ],
+        "published_at": "2016-02-02",
+        "rr_numbers": [
+          6,
+          7,
+          10,
+          19,
+          25
+        ],
+        "review_note": "20팩 완박스. 514–527초 최종 정리를 1초 간격으로 대조. 마지막 정리의 님피아25·가디안19 누락 방지.",
+        "region": "JP",
+        "box_count": 1,
+        "pack_count": 20,
+        "cards_per_pack": 4,
+        "rr_count": 5
+      },
+      {
+        "id": "wrc-series-box-3",
+        "source_urls": [
+          "https://www.youtube.com/watch?v=azsc5AkQwNY"
+        ],
+        "published_at": "2016-02-03",
+        "rr_numbers": [
+          6,
+          19,
+          20,
+          25,
+          26
+        ],
+        "review_note": "같은 영상 첫 박스. 65–510초. 님피아26 약123–132초, M가디안20 약213–267초, 부스터6 약282–291초, 님피아25 약378–385초, 가디안19 약438–448초. 510초부터 다음 박스.",
+        "region": "JP",
+        "box_count": 1,
+        "pack_count": 20,
+        "cards_per_pack": 4,
+        "rr_count": 5
+      },
+      {
+        "id": "wrc-series-box-4",
+        "source_urls": [
+          "https://www.youtube.com/watch?v=azsc5AkQwNY"
+        ],
+        "published_at": "2016-02-03",
+        "rr_numbers": [
+          6,
+          10,
+          19,
+          26
+        ],
+        "review_note": "같은 영상 두 번째 박스. 510–960초. 가디안19 약608–615초, 님피아26 약698–705초, 부스터6 약788–794초, 피카츄10 약848–854초. 960초부터 다음 박스.",
+        "region": "JP",
+        "box_count": 1,
+        "pack_count": 20,
+        "cards_per_pack": 4,
+        "rr_count": 4
+      },
+      {
+        "id": "wrc-series-box-5",
+        "source_urls": [
+          "https://www.youtube.com/watch?v=azsc5AkQwNY"
+        ],
+        "published_at": "2016-02-03",
+        "rr_numbers": [
+          6,
+          10,
+          19,
+          20,
+          25
+        ],
+        "review_note": "같은 영상 세 번째 박스. 960–1425초 개봉. 1460–1480초 최종 정리: 님피아25/M가디안20/가디안19/피카츄10/부스터6. 1영상3박스이며 먼저 연1·2박스와 중복 없음.",
+        "region": "JP",
+        "box_count": 1,
+        "pack_count": 20,
+        "cards_per_pack": 4,
+        "rr_count": 5
+      }
+    ],
+    "additional_summary": {
+      "box_count": 5,
+      "pack_count": 100,
+      "rr_count": 24,
+      "box_rr_count_histogram": {
+        "4": 1,
+        "5": 4
+      }
+    },
+    "combined_summary": {
+      "box_count": 20,
+      "pack_count": 400,
+      "rr_count": 96,
+      "box_rr_count_histogram": {
+        "4": 6,
+        "5": 12,
+        "6": 2
+      }
+    },
+    "regional_summary": {
+      "JP": {
+        "box_count": 16,
+        "pack_count": 320,
+        "rr_count": 78,
+        "box_rr_count_histogram": {
+          "4": 4,
+          "5": 10,
+          "6": 2
+        }
+      },
+      "KR": {
+        "box_count": 4,
+        "pack_count": 80,
+        "rr_count": 18,
+        "box_rr_count_histogram": {
+          "4": 2,
+          "5": 2
+        }
+      }
+    },
+    "warning": "최초10박스 모델 원장은 수정하지 않는다. 신규5박스는 같은 작성자 연속 개봉으로 서로 완전히 독립인 무작위 표본이 아니다. 모든 일본판/한국판 박스가 RR4~6장이라는 보장도 아니다."
+  },
+  "excluded_or_pending": [
+    {
+      "url": "https://www.elitefourum.com/t/xy7-bandit-ring/12784?page=26",
+      "item": "kubek #515의33박스/SR15/UR16",
+      "reason": "Virbank에서 본 다른 사람의 결과를 옮긴2차 인용. 원저자와 다른 개봉 묶음의 중복 여부가 미확인이라 합계 제외."
+    },
+    {
+      "url": "https://www.elitefourum.com/t/xy7-bandit-ring/12784?page=29",
+      "item": "GemMint10 #580",
+      "reason": "새10박스가 아니라 #573 후속. 9/10 서로 다른 고레어는 고레어9장이라는 뜻이 아님."
+    },
+    {
+      "url": "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=31",
+      "item": "dragontype #610의22박스(각11)",
+      "reason": "분모는 직접 서술했으나 결과는 외부 사진뿐이며 사진 URL404. 정확한 등급별 장수를 복구하지 못해 제외."
+    },
+    {
+      "url": "https://www.elitefourum.com/t/xy8-blue-impact-red-flash/13015?page=32",
+      "item": "cunzhep #625의10박스/SR5",
+      "reason": "양 세트 박스 수 분할과 UR 전체 수 불명. 각 세트 고레어 확률의 분모로 사용하지 않는다."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Hc8lgwySsH0",
+      "item": "WakeRunCollapse 별도100팩(5박스)",
+      "reason": "5박스 포장 개봉은 확인. 박스별 모든 RR의 연속 전사는 아직 완료하지 못했다. 3초 간격 프레임에서 확인된 최소 장수를 전체 장수로 취급하지 않고 정량 합계 제외."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=eByhsPJDziM",
+      "item": "WakeRunCollapse 푸른 충격1~20박스",
+      "reason": "16개 영상(6~10은1영상) 목록 확보. 마지막 박스 번호20을20박스 전수 검수로 취급하지 않는다. 전수 결과 전사 전 합계 제외."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=imYS7F573Hg",
+      "item": "WakeRunCollapse 붉은 섬광1~20박스",
+      "reason": "연속 영상 후보. 마지막 번호20만 확인한 상태로20박스 표본을 추가하지 않는다."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=OV6ho2HhDY8",
+      "item": "onlycollectables SR6/UR3 결산",
+      "reason": "히트 목록 결산은 확인했으나 양 세트별 완박스 수와 다른 게시물 중복 대조 미완료. 제목의9히트로 분모를 만들지 않는다."
+    },
+    {
+      "url": "https://worthripping.com/pokemon-japan/blue-shock/",
+      "item": "현대 시뮬레이터100박스 표시",
+      "reason": "페이지 스스로 이 세트 실측 부재·동일 팩 레이아웃 차용이라고 명시. 실물100박스 관측이 아니므로 제외."
+    }
+  ],
+  "runtime_changes": true,
+  "runtime_application": {
+    "applied_at": "2026-11-09",
+    "report": "docs/new-four-jp-bulk-pull-rate-review-20261109.md",
+    "note": "관측 합계와 미확인 항목을 보존하며 반영 분포는 별도 통계 근사다. 한국 XY3종30팩·CP3 20팩. 고레어·RR 장수의 팩 수 비례1.5배 증폭은 적용하지 않는다."
+  }
+}

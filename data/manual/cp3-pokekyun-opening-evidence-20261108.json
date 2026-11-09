@@ -1,0 +1,294 @@
+{
+  "set_code": "cp3-pokekyun-collection",
+  "reviewed_at": "2026-11-08",
+  "official_product_kr": "https://pokemoncard.co.kr/card/67",
+  "official_product_jp": "https://www.pokemon-card.com/products/xy/cp3.html",
+  "sample_unit": "complete 20-pack box",
+  "sample_boxes": 10,
+  "sample_packs": 200,
+  "regional_boxes": {
+    "KR": 4,
+    "JP": 6
+  },
+  "print_basis": "2016년 발매 당시 개봉. 초판/후속 생산 로트 자체는 미확인. 한국 5장/팩·일본 4장/팩을 구분하고 팩 수는 둘 다 20팩으로 계산.",
+  "box_rr_count_histogram": {
+    "4": 4,
+    "5": 5,
+    "6": 1
+  },
+  "observed_rr_total": 47,
+  "boxes": [
+    {
+      "id": "kr-huntoy",
+      "region": "KR",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=0XbRwtp2ykk"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 5,
+      "rr_count": 4,
+      "rr_numbers": [
+        6,
+        19,
+        20,
+        25
+      ],
+      "review_note": "635–644초 최종 RR 4장 펼침"
+    },
+    {
+      "id": "kr-chosim",
+      "region": "KR",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=aUeMON5qY7s"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 5,
+      "rr_count": 5,
+      "rr_numbers": [
+        6,
+        7,
+        19,
+        20,
+        26
+      ],
+      "review_note": "580–590초 최종 RR 5장 펼침"
+    },
+    {
+      "id": "kr-joychu",
+      "region": "KR",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=m7iKjfcgKMY"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 5,
+      "rr_count": 4,
+      "rr_numbers": [
+        6,
+        7,
+        10,
+        20
+      ],
+      "review_note": "300–320초 피카츄, 410–430초 EX 3장. EX 3장+피카츄 RR 1장=4장"
+    },
+    {
+      "id": "kr-master",
+      "region": "KR",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=dFOwmnzBc5M",
+        "https://www.youtube.com/watch?v=NT5764mAUZI"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 5,
+      "rr_count": 5,
+      "rr_numbers": [
+        6,
+        7,
+        10,
+        20,
+        26
+      ],
+      "review_note": "동일 박스 1·2편은 1표본. 1편 548–620초 7/10/20, 2편 328–352초 6/26"
+    },
+    {
+      "id": "jp-nyan-1",
+      "region": "JP",
+      "source_urls": [
+        "https://nyanntadayo.livedoor.blog/archives/1620819.html"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 4,
+      "rr_count": 5,
+      "rr_numbers": [
+        7,
+        10,
+        19,
+        20,
+        26
+      ],
+      "review_note": "2016-01-31, 번호별 80장 전수 목록",
+      "counts_by_number_1_to_32": [
+        3,
+        4,
+        4,
+        4,
+        3,
+        0,
+        1,
+        3,
+        3,
+        1,
+        2,
+        4,
+        3,
+        2,
+        2,
+        4,
+        4,
+        3,
+        1,
+        1,
+        3,
+        3,
+        3,
+        3,
+        0,
+        1,
+        2,
+        3,
+        3,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "jp-nyan-2",
+      "region": "JP",
+      "source_urls": [
+        "https://nyanntadayo.livedoor.blog/archives/1620820.html"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 4,
+      "rr_count": 4,
+      "rr_numbers": [
+        10,
+        19,
+        20,
+        26
+      ],
+      "review_note": "2016-02-01, 별도 두 번째 박스 번호별 80장 전수 목록",
+      "counts_by_number_1_to_32": [
+        3,
+        3,
+        4,
+        3,
+        4,
+        0,
+        0,
+        3,
+        3,
+        1,
+        3,
+        3,
+        2,
+        3,
+        4,
+        4,
+        2,
+        2,
+        1,
+        1,
+        3,
+        3,
+        4,
+        2,
+        0,
+        1,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "jp-perappu",
+      "region": "JP",
+      "source_urls": [
+        "https://perappu-johokyoku.blog.jp/archives/968527.html"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 4,
+      "rr_count": 6,
+      "rr_numbers": [
+        6,
+        10,
+        19,
+        20,
+        25,
+        26
+      ],
+      "review_note": "2016-01-30, RR 6장; 7번 제외 전종 수록"
+    },
+    {
+      "id": "jp-hatena",
+      "region": "JP",
+      "source_urls": [
+        "https://pokekyuncollection.hatenablog.com/entry/2016/01/30/ポケキュンコレクションの開封結果【５種のRRの"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 4,
+      "rr_count": 5,
+      "rr_numbers": [
+        6,
+        7,
+        10,
+        25,
+        26
+      ],
+      "review_note": "2016-01-30, RR 5종 각 1장. 동일 작성자 같은 박스의 후속 글은 중복 제외"
+    },
+    {
+      "id": "jp-haki",
+      "region": "JP",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=KwneZlg8bRc"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 4,
+      "rr_count": 5,
+      "rr_numbers": [
+        7,
+        10,
+        19,
+        20,
+        25
+      ],
+      "review_note": "2016-01-31, 478–534초 최종 RR 5장. 별도 5팩 개봉은 합산하지 않음"
+    },
+    {
+      "id": "jp-cardkingdom",
+      "region": "JP",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=RGMrheLywL4"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 4,
+      "rr_count": 4,
+      "rr_numbers": [
+        6,
+        7,
+        10,
+        25
+      ],
+      "review_note": "2016-01-29, 48초 20팩 확인; 136–152초 RR 4장 차례로 제시"
+    }
+  ],
+  "limitations": [
+    "무작위 대표 표본이 아닌 공개 개봉 사례이며 10박스는 작다. 공식 확률이나 대규모 통계로 표현하지 않는다.",
+    "한국 4박스 RR 평균 4.5, 일본 6박스 평균 29/6. 지역별 동일 분포는 검증되지 않았다. 4–6장 공개 정리와 대조한 잠정 혼합 근사다.",
+    "각 RR의 동일 확률 및 박스 내 RR 비복원 추출은 모델링 근사. 전부 실측으로 확정된 제조 보장이 아니다.",
+    "박스의 일반 C/U 카드별 균형 배분·전종 보장은 재현하지 않는다."
+  ],
+  "excluded_or_auxiliary": [
+    {
+      "url": "https://www.youtube.com/watch?v=s4HDcgamOHg",
+      "reason": "설명은 4장이라고 하지만 화면에서 RR 10/19/25 외 4번째 카드가 대조되지 않아 정량 표본에서 제외."
+    },
+    {
+      "url": "https://whiteheki.hatenablog.com/entry/2016/01/31/120000",
+      "reason": "8낱팩 RR 3장. 완박스가 아니므로 박스 장수 분포에 합산하지 않음."
+    }
+  ]
+}

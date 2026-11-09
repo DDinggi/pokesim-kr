@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { parse } from 'node-html-parser';
 
 interface ManifestCard {
+  card_num?: string;
   number: number;
   name_ko: string;
   rarity: string;
@@ -20,6 +21,7 @@ interface ManifestCard {
 interface ManifestSet {
   set_code: string;
   shop_code: string;
+  category_code?: string;
   cards: ManifestCard[];
 }
 
@@ -112,7 +114,7 @@ async function importSet(
   const prefix = set.cards.find((card) => card.card_num)?.card_num.slice(0, -3);
   if (!prefix) throw new Error(`${manifestSet.set_code}: cannot infer card_num prefix`);
 
-  const items = await fetchFullaheadSetItems(manifestSet.shop_code);
+  const items = await fetchFullaheadSetItems(manifestSet.shop_code, manifestSet.category_code);
   const byNumber = new Map<number, FullaheadItem>();
   for (const item of items) {
     const previous = byNumber.get(item.number);
@@ -146,9 +148,9 @@ async function importSet(
     const hasCardNumCollision = set.cards.some(
       (card) => card.card_num === baseCardNum && card.number !== manifestCard.number,
     );
-    const cardNum = hasCardNumCollision
+    const cardNum = manifestCard.card_num ?? (hasCardNumCollision
       ? `${prefix}J${String(manifestCard.number).padStart(3, '0')}`
-      : baseCardNum;
+      : baseCardNum);
     const rawKrw = roundKrw(item.priceJpy * jpyKrw * jpToKrFactor);
     const priceKrw = Math.max(rawKrw, rarityFloorKrw[manifestCard.rarity] ?? 0);
 
@@ -191,8 +193,8 @@ async function importSet(
   console.log(`${manifestSet.set_code}: imported ${imported.length} FullAhead secret card(s)`);
 }
 
-async function fetchFullaheadSetItems(shopCode: string): Promise<FullaheadItem[]> {
-  const { categoryCode, firstHtml } = await fetchFirstCategoryPage(shopCode);
+async function fetchFullaheadSetItems(shopCode: string, categoryOverride?: string): Promise<FullaheadItem[]> {
+  const { categoryCode, firstHtml } = await fetchFirstCategoryPage(shopCode, categoryOverride);
   const items = new Map<string, FullaheadItem>();
   addItems(items, parseFullaheadItems(firstHtml, shopCode));
 
@@ -211,9 +213,9 @@ async function fetchFullaheadSetItems(shopCode: string): Promise<FullaheadItem[]
   return [...items.values()];
 }
 
-async function fetchFirstCategoryPage(shopCode: string): Promise<{ categoryCode: string; firstHtml: string }> {
+async function fetchFirstCategoryPage(shopCode: string, categoryOverride?: string): Promise<{ categoryCode: string; firstHtml: string }> {
   let lastError: unknown;
-  for (const categoryCode of categoryCandidates(shopCode)) {
+  for (const categoryCode of categoryOverride ? [categoryOverride] : categoryCandidates(shopCode)) {
     try {
       return {
         categoryCode,

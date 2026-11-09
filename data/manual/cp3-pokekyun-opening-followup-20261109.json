@@ -1,0 +1,147 @@
+{
+  "set_code": "cp3-pokekyun-collection",
+  "reviewed_at": "2026-11-09",
+  "baseline_evidence": "data/manual/cp3-pokekyun-opening-evidence-20261108.json",
+  "additional_boxes": [
+    {
+      "id": "jp-tsunagu",
+      "region": "JP",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=wQ0LqlFKCFI"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 4,
+      "rr_count": 6,
+      "rr_numbers": [
+        6,
+        7,
+        10,
+        19,
+        20,
+        25
+      ],
+      "review_note": "2021-11-13. 제목 CP4는 부정확하지만 실물은 CP3 20팩×4장. 51초부터 개봉, 550–559초 RR 6장 최종 펼침. 600초 이후 별도 BGS 님피아 26번은 본 박스 획득이 아니므로 제외."
+    },
+    {
+      "id": "jp-kuro-luna",
+      "region": "JP",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=t2bzVwjTojo",
+        "https://www.youtube.com/watch?v=7lo65UMvFYg"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 4,
+      "rr_count": 5,
+      "rr_numbers": [
+        6,
+        7,
+        20,
+        25,
+        26
+      ],
+      "review_note": "2016-02-01/02 같은 박스 전·후편. 전편 27–39초 20팩 표기, 1354초 RR 3장(6/7/20). 후편에서 25/26 추가, 445–521초 총5장. 두 영상은 1박스."
+    },
+    {
+      "id": "jp-mako",
+      "region": "JP",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=1jPP4l7GQ7o"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 4,
+      "rr_count": 5,
+      "rr_numbers": [
+        6,
+        7,
+        10,
+        19,
+        26
+      ],
+      "review_note": "2016-01-30. 9–69초 새 20팩 박스 개봉. 1528–1616초 RR 5장. 뒤 테이블의 6/10/19와 앞에서 설명하는 7/26을 합산."
+    },
+    {
+      "id": "jp-riza-low",
+      "region": "JP",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=VjgjSoE34GQ"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 4,
+      "rr_count": 4,
+      "rr_numbers": [
+        10,
+        19,
+        20,
+        26
+      ],
+      "review_note": "2016-01-31. 3–55초 새 박스/전체 팩. 95초 M가디안20, 165초 가디안19, 255초 님피아26, 315–355초 피카츄10. 마지막 RR을 테이블에서 치운 뒤의 일반 카드 사진만으로 0장이라고 세지 않음."
+    },
+    {
+      "id": "jp-riza-high",
+      "region": "JP",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=_t12IDnMxsY"
+      ],
+      "box_count": 1,
+      "pack_count": 20,
+      "cards_per_pack": 4,
+      "rr_count": 5,
+      "rr_numbers": [
+        6,
+        7,
+        19,
+        20,
+        26
+      ],
+      "review_note": "2016-01-29. 35–85초 전체 팩. 115초 M가디안20,145초 부스터7,225초 가디안19,295초 부스터6,465초 님피아26. 525–555초 후반 재정리와 대조."
+    }
+  ],
+  "combined_descriptive_summary": {
+    "boxes": 15,
+    "packs": 300,
+    "regions": {
+      "KR": 4,
+      "JP": 11
+    },
+    "rr_total": 72,
+    "histogram": {
+      "4": 5,
+      "5": 8,
+      "6": 2
+    },
+    "rr_card_occurrences": {
+      "6": 11,
+      "7": 11,
+      "10": 11,
+      "19": 10,
+      "20": 12,
+      "25": 7,
+      "26": 10
+    }
+  },
+  "runtime_model_changed": false,
+  "model_note": "현행 10박스 기반 40/50/10%와 낱팩23.5%는 그대로다. 추가 조사 15박스 관측 5/8/2와 72/300=24%는 별도 기술통계이며 한국 제조 확률로 확정하지 않는다.",
+  "excluded_or_unresolved": [
+    {
+      "source_urls": [
+        "https://www.youtube.com/watch?v=sDwNysjh9D8"
+      ],
+      "reason": "TV악어가 한국 포켓몬카드 마스터의 기존 영상을 화면 녹화한 재업로드. 이미 등록한 CP3 한국 1박스와 중복이라 제외."
+    },
+    {
+      "source_urls": [
+        "https://www.youtube.com/watch?v=5CmFMClGe5s"
+      ],
+      "reason": "두 명이 박스와 다른 포켓심쿵 상품을 함께 개봉. 박스별 분모와 최종 카드 귀속을 완전히 분리하지 못했으므로 이번 정량 합계에서 제외."
+    }
+  ],
+  "limitations": [
+    "편의 표본 15박스이며 한국은 여전히 4박스다. 일본 표본 추가를 한국 실측 증가라고 표시하지 않는다.",
+    "RR 4~6장의 존재 근거는 강화됐지만 세 장수의 실제 확률·카드별 균등·중복 배제는 확정되지 않았다.",
+    "2021년 개봉 영상의 생산 로트는 미확인. 2016년 발매 당시 영상들과 같은 제조 로트로 취급하지 않는다."
+  ]
+}

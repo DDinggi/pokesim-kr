@@ -27,6 +27,7 @@ import {
   sortByRarity,
 } from '../lib/rarity';
 import {
+  getPortraitCardImageClassName,
   CARD_IMAGES_ENABLED,
   CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED,
   resolveCardImageUrl,
@@ -973,7 +974,7 @@ function LeaderboardRow({
                   fill
                   sizes="32px"
                   unoptimized
-                  className="object-cover"
+                  className={getPortraitCardImageClassName(card)}
                 />
               ) : null}
             </button>
@@ -1007,7 +1008,7 @@ function DailyCard({ card, onClick }: { card: Card; onClick: () => void }) {
           sizes="(max-width: 640px) 20vw, 10vw"
           unoptimized
           draggable={false}
-          className="object-cover"
+          className={getPortraitCardImageClassName(card)}
           onError={() => {
             if (!useOriginal && CARD_IMAGE_ORIGINAL_FALLBACK_ENABLED) {
               setUseOriginal(true);
